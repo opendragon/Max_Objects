@@ -1,0 +1,58 @@
+\ProvidesFile{Vnegate.tex}[v1.0.2]
+\startObject{\objNameS{Vnegate}}{Vnegate}
+\index{Themes!Miscellaneous!Vnegate}
+\index{Themes!Vector~manipulation!Vnegate}
+\index{Vectors!Monadic~operations!Vnegate}
+\objPicture{Vnegatesymbol.ps}
+\objItemDescription{\objNameD{Vnegate} calculates the negative value of the input
+(either a list or a single number).}
+
+\objItemCreated{April 2001}
+
+\objItemVersion{1.0.2}
+
+\objItemHelp{yes}
+
+\objItemTheme{Miscellaneous}
+
+\objItemClass{Arith/Logic/Bitwise, Lists}
+
+\objItemArgs{none}
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{anything}{the input to be processed}
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{anything}{the input after calculating the negative value, or the previous result
+      (if a `bang' is received)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{\emph{bang}}{}
+  Return the previous result, if any.
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{Vnegate}}

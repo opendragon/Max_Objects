@@ -1,0 +1,66 @@
+\ProvidesFile{Vencode.tex}[v1.0.0]
+\startObject{\objNameS{Vencode}}{Vencode}
+\index{Themes!Vector~manipulation!Vencode}
+\index{Vectors!Dyadic~operations!Vencode}
+\objPicture{Vencodesymbol.ps}
+\objItemDescription{\objNameD{Vencode} is an implementation of the \compLang{APL} `encode' operator 
+($\top$)\index{APL!encode},
+which is used to convert a number into an encoded representation according to a coding scheme or base.}
+
+\objItemCreated{June 2003}
+
+\objItemVersion{1.0.0}
+
+\objItemHelp{yes}
+
+\objItemTheme{Vector manipulation}
+
+\objItemClass{Arith/Logic/Bitwise, Lists}
+
+\objItemArgs{\ }
+
+  \objListArgBegin
+  \objListArgItem{base1}{integer}{the leftmost base to be applied.
+     If this is the only base it will be repeated as often as needed to do the conversion.
+     If there are more bases and this base is negative, it will be repeated (as it's absolute value) as often as needed to do the conversion,
+     after the other bases have been applied.
+     Bases must be greater than 1.}
+  \objListArgItem{base2}{(optional) integer}{the next-to-last base to apply.}
+  \objListArgItem{base3}{(optional) integer}{the next-to-next-to-last base to apply.}
+  \objListArgItem{base4}{(optional) integer}{the next-to-$\ldots$-last base to apply.}
+  \objListArgItem{base5}{(optional) integer}{the last base to apply.
+     The input number is divided by each base, in sequence, and the remainders are collected into the output list.} 
+  \objListArgEnd
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{list\textnormal{/}number}{the number to be encoded.
+  	A list results in a sequence of lists being generated.}
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{list}{the encoded result}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{PPC-only}
+
+\objItemCommands
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{Vencode}}

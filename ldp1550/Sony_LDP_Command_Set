@@ -1,0 +1,101 @@
+
+ 
+
+					
+
+Site Map 
+
+
+
+SONY LDP SERIES COMMAND SET - NOVEMBER 10, 2000
+Andrew Hepburn - andrew@dragons-lair-project.com
+
+KNOWN COMPATIBLE PLAYERS:
+
+Sony LDP-1400
+Sony LDP-1450
+Sony LDP-1500
+Sony LDP-1550
+Sony LDP-2000
+
+COMMANDS: (and other notes)
+
+01 - Completion
+02 - Error
+03 - Lip Open
+05 - No Target
+06 - No Frame
+07 - Mark Return
+0A - ACK
+0B - NAK
+
+24 - Audio On
+25 - Audio Off
+26 - Video Off
+27 - Video On
+28 - PSC Enable
+29 - PSC Disable
+2A - Eject
+2B - Fwd Stepstill
+2C - Rev Stepstill
+3A - Fwd Play
+3B - Fwd Fast
+3C - Fwd Slow
+3D - Fwd Step
+3E - Fwd Scan
+3F - Stop
+40 - Enter
+41 - C.E.
+42 - Menu
+43 - Search
+44 - Repeat
+46 - CH-1 On
+47 - CH-1 Off
+48 - CH-2 On
+49 - CH-2 Off
+4A - Rev Play
+4B - Rev Fast
+4C - Rev Slow
+4D - Rev Step
+4E - Rev Scan
+4F - Still
+50 - Index On
+51 - Index Off
+55 - Frame Mode
+56 - CL
+5A - Memory
+5B - Memory Search
+60 - Addr Inq
+61 - Continue
+62 - Motor On
+63 - Motor Off
+67 - Status Inq
+69 - Chapter Mode
+6E - CX On
+6F - CX Off
+72 - Romversion
+74 - Eject Enable
+75 - Eject Disable
+76 - Chapter Inq 
+
+
+Sony LDP-1400 - (9600 baud - dip switches: 1-down, 2-down, 3-down, 4-up)
+* Sony LDP-1450 - (9600 baud - dip switches: 1-down, 2-down, 3-down, 4-up)
+Sony LDP-1500 - (9600 baud - dip switches: 1-down, 2-down, 3-down, 4-up)
+Sony LDP-1550 - (9600 baud - dip switches: 1-down, 2-down, 3-down, 4-up)
+Sony LDP-2000 - (9600 baud - dip switches: 1-up, 2-up, 3-up, 4-down)
+
+* The Sony LDP-1450 has an additional bank of eight switches, these switches must all be set in the down position.
+
+THE SONY LDP-1000 and LDP-1000A DO NOT SUPPORT THIS COMMAND SET.
+
+Ê
+------------------------------------------------------------------------
+
+QUESTIONS? COMMENTS? PROBLEMS?
+Contact Us
+
+HOME | LASER GAMES | LASER COMMUNITY | TECH CENTER | MESSAGE BOARD | CHAT ROOM
+
+This website was created by Jeff Kinder & Staff, 1997 - 2001.
+All trademarks and copyrighted materials are property of their respective owners.

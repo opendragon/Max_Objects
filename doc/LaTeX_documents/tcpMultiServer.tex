@@ -1,0 +1,132 @@
+\ProvidesFile{tcpMultiServer.tex}[v1.0.8]
+\startObject{\objNameS{tcpMultiServer}}{tcpMultiServer}
+\index{Themes!TCP/IP!tcpMultiServer}
+\objPicture{tcpMultiServersymbol.ps}
+\objItemDescription{\objNameD{tcpMultiServer} is an interface to the TCP/IP stack on a Macintosh,
+providing an endpoint server to communicate with one or more \objReference{tcpClient} objects.}
+
+\objItemCreated{October 2000}
+
+\objItemVersion{1.0.8}
+
+\objItemHelp{yes}
+
+\objItemTheme{TCP/IP}
+
+\objItemClass{Devices}
+
+\objItemArgs{\ }
+
+  \objListArgBegin
+  \objListArgItem{port}{(optional) integer}{the number of the port to communicate on.
+      The default port is 65535, which is also the maximum acceptable port number}
+
+  \objListArgItem{clients}{(optional) integer}{the maximum number of clients that will be supported.
+      The maximum that can be specified is 100 and the default is 5.}
+
+  \objListArgItem{buffers}{(optional) integer}{the total number of receive buffers to use.
+      The default number of buffers is 25 times the maximum number of clients}
+      
+  \objListArgEnd
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{list}{the command input}
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{list}{the status or response.
+       Status messages (triggered by a \objCmdQ{bang} or \objCmdQ{status} command) appear as a
+       five-element list, starting with the symbol `status'; response messages appear as a list,
+       starting with the symbol `reply' and `self' messages appear as a two-element list, starting
+       with the symbol `self'.
+       The second element of the status or response message is the identifier of the client
+       connection involved.}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{no, works with multiple \objName{tcpClient} objects on the same computer or other
+computers that are reachable via a TCP/IP network}
+
+\objItemRetainsState{yes}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{PPC-only}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+
+  \objListCmdItem{\emph{bang}}{}
+  Report the general state of the communication as a five-element list, with the symbol `status' as
+  its first element.
+  The second element of the list is the value `0', the third element is the general state of the
+  communication (`unbound', `bound', `listening' or `unknown'), the fourth element is the number of
+  active client connections and the fifth element is the port number that is being listened to.
+
+  \objListCmdItem{disconnect}{client}
+  Close any existing connection to the \objName{tcpClient} object with the given identifier,
+  if \objCmdArg{client} is non-zero, or close all existing connections if \objCmdArg{client} is zero.
+
+  \objListCmdItem{listen}{on\textnormal{/}off}
+  Start listening on the communication port (`on') or stop listening (`off').
+  The command is only accepted if the \objNameX{tcpMultiServer} object is in an appropriate state---
+  `listening' if `off' and `bound' if `on'.
+
+  \objListCmdItem{port}{integer}
+  Set the number of the port to communicate on.
+
+  \objListCmdItem{self}{}
+  Returns the IP address of this object as a two-element list, with the symbol `self' as its first
+  element.
+  
+  \objListCmdItem{send}{client anything}
+  Send the arguments to the connected \objName{tcpClient} objects with the given identifier,
+  if \objCmdArg{client} is non-zero, or send the arguments to all existing connections if
+  \objCmdArg{client} is zero (a broadcast).
+  This message permits the transmission of an arbitrary list.
+
+  \objListCmdItem{status}{\textnormal{[}client\textnormal{]}}
+  Report either the state of a specific client communication, if \objCmdArg{client} is non-zero
+  (a valid identifier), or the general state of the communication, if \objCmdArg{client} is zero,
+  as a five-element list, with the symbol `status' as its first element.
+  The second element of the list is \objCmdArg{client}, the third element is the general state of
+  the communication (`unbound', `bound', `listening' or `unknown') or the specific client
+  communication (`connecting', `connected', `disconnecting' or `unknown').
+  If \objCmdArg{client} is zero, the fourth element is the number of active client connections and
+  the fifth element is the port number that is being listened to.
+  If \objCmdArg{client} is non-zero and the state is `connected', the fourth element is the IP
+  address of the client, expressed as a symbol in `dotted' notation and the fifth element is the
+  port of the client.
+  The default for \objCmdArg{client} is 0, which requests the general state of the communication.
+
+  \objListCmdItem{verbose}{\textnormal{[}on\textnormal{/}off\textnormal{]}}
+  Communication tracing to the \MaxName{} window will be enabled (`on'), disabled (`off') or
+  reversed, if no argument is given.
+  
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage[see \objName{tcpClient}]
+
+\objItemComments[Once a communication path is established between a \objName{tcpClient} object and
+a \objNameX{tcpMultiServer} object, either object can send messages---the path is full-duplex.
+The client identifier used with the commands \objCmdQ{disconnect}, \objCmdQ{send} and \objCmdQ{status}
+and returned as part of the `reply' and `status' messages is a positive integer between 1 and the
+maximum number of clients specified when the \objNameX{tcpMultiServer} object was created.
+Note that the identifier exists until the connection is closed with a \objCmdQ{disconnect} command
+(sent to the \objNameX{tcpMultiServer} object or the connected \objName{tcpClient} object) and the
+identifier may be reassigned to a subsequent connection.
+Note as well that only there can only be one \objNameX{tcpMultiServer} or \objName{tcpServer} object
+for any given port.
+Figure~\objImageReference{diagram:tcpmultiserverstate} is a state diagram for
+\objNameX{tcpMultiServer} objects.]
+\objDiagram{tcpMultiServerstate.ps}{tcpmultiserverstate}{State diagram for \objNameX{tcpMultiServer} objects}
+
+\objEnd{\objNameE{tcpMultiServer}}

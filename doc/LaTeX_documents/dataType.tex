@@ -1,0 +1,52 @@
+\ProvidesFile{dataType.tex}[v1.0.3]
+\startObject{\objNameS{dataType}}{dataType}
+\index{Themes!Miscellaneous!dataType}
+\index{Themes!Programming~aids!dataType}
+\objPicture{dataTypesymbol.ps}
+\objItemDescription{\objNameD{dataType} returns a numeric code corresponding to the value
+it receives.}
+
+\objItemCreated{October 1998}
+
+\objItemVersion{1.0.3}
+
+\objItemHelp{yes}
+
+\objItemTheme{Miscellaneous}
+
+\objItemClass{Lists}
+
+\objItemArgs{none}
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{anything}{any value}
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{integer}{the code for the input (unknown~=~0, bang~=~1, float~=~2,
+       integer~=~3, list~=~4, symbol~=~5)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{dataType}}

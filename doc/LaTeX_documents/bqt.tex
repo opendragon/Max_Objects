@@ -1,0 +1,143 @@
+\ProvidesFile{bqt.tex}[v1.0.4]
+\startObject{\objNameS{bqt}}{bqt}
+\index{Themes!QuickTime\texttrademark!bqt}
+\objPicture{bqtsymbol.ps}
+\objItemDescription{\objNameD{bqt} provides an interface to QuickTime\texttrademark\ movies,
+permitting control of playback rate and the section of the movie to be played.
+It provides more functionality than the standard \objNameS{movie} player interface object}
+
+\objItemCreated{October 1998}
+
+\objItemVersion{1.0.4}
+
+\objItemHelp{yes}
+
+\objItemTheme{QuickTime\texttrademark}
+
+\objItemClass{n/a}
+
+\objItemArgs{none}
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{list}{the command input}
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{integer}{the result of a command}
+
+  \objListIOItem{integer}{the duration of the current movie}
+
+  \objListIOItem{bang}{playing has stopped}
+
+  \objListIOItem{bang}{an error was detected}
+
+  \objListIOEnd
+
+\objItemCompanion{yes, (optional) the standard \objNameS{movie} play controller interface object can be
+attached to a \objNameX{bqt}\ object.}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{yes}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  
+  \objListCmdItem{active}{[\objCmdArg{0}/\objCmdArg{1}]}
+  Set the current movie active (\objCmdArg{1}) or inactive (\objCmdArg{0}).
+
+  \objListCmdItem{\emph{bang}}{}
+  Start the current movie playing.
+
+  \objListCmdItem{begin}{}
+  Move to the beginning of the current movie and make it active.
+
+  \objListCmdItem{count}{}
+  Return the number of movies loaded.
+
+  \objListCmdItem{duration}{}
+  Return the length of the current movie.
+
+  \objListCmdItem{end}{}
+  Move to the end of the current movie and make it active.
+
+  \objListCmdItem{getrate}{}
+  Return the rate at which the current movie will be played.
+
+  \objListCmdItem{getvolume}{}
+  Return the audio level for the current movie.
+
+  \objListCmdItem{\emph{integer}}{}
+  Move to the given frame number in the current movie.
+
+  \objListCmdItem{load}{[\objCmdArg{movie-name}]}
+  Add the specified movie to the list of movies and make it the current movie.
+  \objCmdArg{movie-name} must be a symbol, not a number.
+
+  \objListCmdItem{mute}{[\objCmdArg{0}/\objCmdArg{1}]}
+  Change the audio level of the current movie, silencing it (\objCmdArg{0}) or restoring the previous
+  level (\objCmdArg{1}).
+
+  \objListCmdItem{pause}{}
+  Stop the current movie.
+
+  \objListCmdItem{rate}{\objCmdArg{integer} [\objCmdArg{integer}]}
+  Set the rate at which the current movie will be played, using the ratio of the first number to the
+  second, and start the movie playing.
+  If only one number is given, or the second number is zero, assume that the second number has the
+  value one.
+
+  \objListCmdItem{resume}{}
+  Continue playing the current movie after a \objCmdQ{pause} or a \objCmdQ{stop}.
+
+  \objListCmdItem{segment}{\objCmdArg{integer} [\objCmdArg{integer}]}
+  Set the portion of the current movie that will be played to the section from the first frame number
+  to the second.
+  If the first number is zero and the second number is zero or less, set the portion to be the whole
+  movie.
+  If the second number is negative, set the portion to be from the first frame number to the end of
+  the movie.
+  That is, `0 0' is the whole movie, as is `0 $-1$', while `15 $-1$' is the portion from frame 15 to
+  the end.
+
+  \objListCmdItem{start}{}
+  Move to the beginning of the current movie, make it active and start it playing.
+
+  \objListCmdItem{stop}{}
+  Stop the current movie.
+
+  \objListCmdItem{time}{}
+  Return the current frame number of the current movie.
+
+  \objListCmdItem{unload}{[\objCmdArg{movie-name}]}
+  If no movie is specified, remove the current movie from the list of movies.
+  Otherwise, remove the specified movie from the list of movies.
+  \objCmdArg{movie-name} must be a symbol, not a number.
+
+  \objListCmdItem{volume}{[\objCmdArg{integer}]}
+  Set the audio level of the current movie.
+  The maximum level is 255; setting the level negative acts to mute the current movie,
+  but the \objCmdQ{mute} command can restore the audio level to the corresponding positive value.
+  
+  \objListCmdEnd
+
+\objItemFile[QuickTime\texttrademark\ movie]
+
+\objItemMessage
+
+\objItemComments[The \objNameX{bqt} object was designed to address a critical weakness of the
+standard \objNameS{movie} player interface object: there was no way to request only a section
+of the movie be played, even though QuickTime\texttrademark\ supports this ability.
+One feature of the standard \objNameS{movie} player interface object was not retained---mouse motion over
+the \objNameX{bqt}\ object is not detected.]
+
+\objEnd{\objNameE{bqt}}

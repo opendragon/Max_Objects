@@ -1,0 +1,67 @@
+\ProvidesFile{Vdrop.tex}[v1.0.4]
+\startObject{\objNameS{Vdrop}}{Vdrop}
+\index{Themes!Vector~manipulation!Vdrop}
+\index{Vectors!Dyadic~operations!Vdrop}
+\objPicture{Vdropsymbol.ps}
+\objItemDescription{\objNameD{Vdrop} is an implementation of the \compLang{APL} `drop' operator
+($\downarrow$)\index{APL!drop}, which is used to return the remainder of a vector (in \MaxName, a list) with
+leading or trailing elements removed.}
+
+\objItemCreated{July 2000}
+
+\objItemVersion{1.0.4}
+
+\objItemHelp{yes}
+
+\objItemTheme{Vector manipulation}
+
+\objItemClass{Lists}
+
+\objItemArgs{\ }
+
+  \objListArgBegin
+  \objListArgItem{how-many}{integer}{the number of elements to drop.
+     A positive number indicates that the elements are removed from the beginning of the input list,
+     while a negative number indicates that the elements are to be removed from the end of the list.}
+  \objListArgEnd
+  
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{bang\textnormal{/}list}{the list to be reduced}
+
+  \objListIOItem{integer}{the number of elements to drop.
+  This replaces the initial argument.}
+  
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{list}{the reduced list, or the previous result (if a `bang' is received)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{yes, the number of elements to drop}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{\emph{bang}}{}
+  Return the previous result, if any.
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{Vdrop}}

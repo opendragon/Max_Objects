@@ -1,0 +1,62 @@
+\ProvidesFile{Vround.tex}[v1.0.5]
+\startObject{\objNameS{Vround}}{Vround}
+\index{Themes!Miscellaneous!Vround}
+\index{Themes!Vector~manipulation!Vround}
+\index{Vectors!Monadic~operations!Vround}
+\objPicture{Vroundsymbol.ps}
+\objItemDescription{\objNameD{Vround} calculates the integer nearest to the value given (either a
+list or a single number).}
+
+\objItemCreated{November 2000}
+
+\objItemVersion{1.0.5}
+
+\objItemHelp{yes}
+
+\objItemTheme{Miscellaneous}
+
+\objItemClass{Arith/Logic/Bitwise, Lists}
+
+\objItemArgs{\ }
+
+  \objListArgBegin
+  \objListArgItem{mode}{(optional) symbol}{either `f', `i' or `m' to indicate whether the output
+        is to be floating-point values only, integer values only, or mixed values.
+        Mixed values are floating-point if the input is floating-point and integer if the input is
+        integer.
+        The default is `m'.}
+  
+  \objListArgEnd
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{anything}{the input to be processed}
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{anything}{the input after calculating the nearest integer, or the previous result
+      (if a `bang' is received)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{Vround}}

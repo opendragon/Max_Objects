@@ -1,0 +1,68 @@
+\ProvidesFile{Vrotate.tex}[v1.0.2]
+\startObject{\objNameS{Vrotate}}{Vrotate}
+\index{Themes!Vector~manipulation!Vrotate}
+\index{Vectors!Dyadic~operations!Vrotate}
+\objPicture{Vrotatesymbol.ps}
+\objItemDescription{\objNameD{Vrotate} is an implementation of the \compLang{APL} `rotate' operator
+(dyadic $\Phi$)\index{APL!rotate}, which is used to rotate the elements of a vector (in \MaxName, a list).}
+
+\objItemCreated{April 2001}
+
+\objItemVersion{1.0.2}
+
+\objItemHelp{yes}
+
+\objItemTheme{Vector manipulation}
+
+\objItemClass{Lists}
+
+\objItemArgs{\ }
+
+  \objListArgBegin
+  \objListArgItem{how-many}{integer}{the number of elements to rotate.
+     A positive number indicates that the beginning of the input list is moved towards the end of th
+     input list by the number of elements given,
+     while a negative number indicates that the end of the input list is moved towards the beginning of the
+     input list by (the absolute value of) the number of elements given.}
+  \objListArgEnd
+  
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{bang\textnormal{/}list}{the list to be rotated}
+
+  \objListIOItem{integer}{the number of elements to rotate.
+  This replaces the initial argument.}
+  
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{list}{the rotated list, or the previous result (if a `bang' is received)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{yes, the number of elements to rotate}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{\emph{bang}}{}
+  Return the previous result, if any.
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{Vrotate}}

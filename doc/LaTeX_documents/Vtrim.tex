@@ -1,0 +1,67 @@
+\ProvidesFile{Vtrim.tex}[v1.0.0]
+\startObject{\objNameS{Vtrim}}{Vtrim}
+\index{Themes!Vector~manipulation!Vtrim}
+\objPicture{Vtrimsymbol.ps}
+\objItemDescription{\objNameD{Vtrim} is used to remove `noise' numbers from the beginning and end of a list.}
+
+\objItemCreated{June 2003}
+
+\objItemVersion{1.0.0}
+
+\objItemHelp{yes}
+
+\objItemTheme{Vector manipulation}
+
+\objItemClass{Arith/Logic/Bitwise, Lists}
+
+\objItemArgs{\ }
+
+  \objListArgBegin
+  \objListArgItem{separator1}{integer}{a `noise' number to remove.
+    Only non-zero numbers will be recognized.}
+  \objListArgItem{separator2}{(optional) integer}{another `noise' number to remove.}
+  \objListArgItem{separator3}{(optional) integer}{another `noise' number to remove.}
+  \objListArgItem{separator4}{(optional) integer}{another `noise' number to remove.}
+  \objListArgItem{separator5}{(optional) integer}{another `noise' number to remove.} 
+  \objListArgEnd
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{integer\textnormal{/}list\textnormal{/}bang}{the list to be processed.
+     A single number is treated as a single element list.}
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{list}{the reduced list}
+
+  \objListIOItem{bang}{an empty list was generated}
+  
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{yes, the separator numbers}
+
+\objItemCompatibility{\MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{PPC-only}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{\emph{bang}}{}
+  Return the previous result, if any.
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{Vtrim}}

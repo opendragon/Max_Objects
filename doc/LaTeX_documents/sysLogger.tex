@@ -1,0 +1,53 @@
+\ProvidesFile{sysLogger.tex}[v1.0.3]
+\startObject{\objNameS{sysLogger}}{sysLogger}
+\index{Themes!Miscellaneous!sysLogger}
+\objPicture{sysLoggersymbol.ps}
+\objItemDescription{\objNameD{sysLogger} writes it's input to the syslogd facility for Mac OS 9, available from
+\companyReference{http://www.classicalguitar.net/brian/apps/syslogd}{Brian Bergstrand} or to the native Mac OS X facility.}
+
+\objItemCreated{March 2002}
+
+\objItemVersion{1.0.3}
+
+\objItemHelp{yes}
+
+\objItemTheme{Miscellaneous}
+
+\objItemClass{Miscellaneous}
+
+\objItemArgs{\ }
+
+  \objListArgBegin
+  \objListArgItem{level}{(optional) symbol}{the logging level to be used.
+  		The acceptable values are:  `emergency', `alert', `critical', `error', `warning', `notice', `info' and `debug'.
+        The default level is `info'.}
+  \objListArgEnd
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{anything}{the input to be processed}
+  \objListIOEnd
+
+\objItemOutlet{none}
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x}
+
+\objItemFat{Fat}
+
+\objItemCommands
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments[Use of the \objNameX{sysLogger} object in Mac OS X environment may require additions to the file /etc/syslog.conf;
+the output can be viewed using the standard Console application.]
+
+\objEnd{\objNameE{sysLogger}}

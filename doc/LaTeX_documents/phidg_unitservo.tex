@@ -1,0 +1,26 @@
+\ProvidesFile{phidg_unitservo.tex}[v1.0.1]
+\startPlugin{\pluginNameS{Phidgets}{UnitServo}}{Phidgets}{UnitServo}
+
+\pluginItemDescription{\pluginNameD{Phidgets}{UnitServo} corresponds to the 1-Motor PhidgetServo device,
+which controls a single servo motor.}
+
+\pluginItemCreated{December 2003}
+
+\pluginItemVersion{1.0.1}
+
+\pluginItemCommands[]
+
+  \pluginListCmdBegin
+
+  \pluginListCmdItem{standard-get}{}
+  Sends the current position of the servo (as a percentage) out the report output of the \objReference{fidget} object,
+  as the list `\pluginCmd{\textit{standard-response}} \pluginCmdArg{position}'.  
+
+  \pluginListCmdItem{standard-put}{position}
+  Sets the position of the servo to the given value, expressed as a percentage of a circle.
+
+  \pluginListCmdEnd
+
+\pluginItemComments
+
+\pluginEnd{\pluginNameE{Phidgets}{UnitServo}}

@@ -1,0 +1,57 @@
+\ProvidesFile{Vreverse.tex}[v1.0.2]
+\startObject{\objNameS{Vreverse}}{Vreverse}
+\index{Themes!Vector~manipulation!Vreverse}
+\index{Vectors!Monadic~operations!Vreverse}
+\objPicture{Vreversesymbol.ps}
+\objItemDescription{\objNameD{Vreverse} is an implementation of the \compLang{APL} `reverse' operator
+(monadic $\Phi$)\index{APL!reverse}, which is used to reverse the order of the elements of a vector
+(in \MaxName, a list).}
+
+\objItemCreated{April 2001}
+
+\objItemVersion{1.0.2}
+
+\objItemHelp{yes}
+
+\objItemTheme{Vector manipulation}
+
+\objItemClass{Lists}
+
+\objItemArgs{none}
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{bang\textnormal{/}list}{the list to be reversed}
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{list}{the reversed list, or the previous result (if a `bang' is received)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{\emph{bang}}{}
+  Return the previous result, if any.
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{Vreverse}}

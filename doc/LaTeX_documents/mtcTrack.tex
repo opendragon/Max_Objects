@@ -1,0 +1,100 @@
+\ProvidesFile{mtcTrack.tex}[v1.0.2]
+\startObject{\objNameS{mtcTrack}}{mtcTrack}
+\index{Themes!Miscellaneous!mtcTrack}
+\objPicture{mtcTracksymbol.ps}
+\objItemDescription{\objNameD{mtcTrack} is an auxiliary object to be used with \objReference{mtc} objects.
+Its purpose is to convert the raw list of coordinate and pressure data into a series of lines.}
+
+\objItemCreated{April 2001}
+
+\objItemVersion{1.0.2}
+
+\objItemHelp{no}
+
+\objItemTheme{Miscellaneous}
+
+\objItemClass{Lists}
+
+\objItemArgs{\ }
+
+  \objListArgBegin
+  \objListArgItem{num-lines}{integer}{the maximum number of lines to return}
+
+  \objListArgItem{batch-flag}{(optional) symbol}{whether to output the batch number.
+       If the word `batch' appears, the batch number is prepended to each output line.
+       By default, the batch number is not output.
+       Batch numbers start at zero and are incremented with each set of lines returned, regardless of whether the batch
+       number is output.}
+
+  \objListArgItem{index-flag}{(optional) symbol}{whether to output the index of the line, relative to the other lines in the
+       batch.
+       If the word `index' appears, the index is prepended to each output line, after the batch number, if it's present.
+       By default, the index is not output.
+       Indices start at zero.}
+
+  \objListArgEnd
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{list}{the values to be converted, from the companion \objName{mtc} object}
+  \objListIOEnd
+  
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{list}{the recognized lines, in the form of a six-, seven- or eight-element list of numbers,
+  consisting of the (optional) batch number, the (optional) line index (which starts at zero), the starting x coordinate,
+  the starting y coordinate, the ending x coordinate, the ending y coordinate, the ``velocity'' and the ``force''.
+  The last two elements are estimates of the line's characteristics.}
+
+  \objListIOItem{bang}{the last recognized line has been sent}
+  
+  \objListIOItem{integer}{the number of lines recognized.
+  This value is output before the lines are output, so that the lines can be collected and processed in a batch.}  
+  
+  \objListIOItem{bang}{an error was detected}
+  
+  \objListIOEnd
+
+\objItemCompanion{works with \objName{mtc} objects}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{yes, the previously identified points}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  
+  \objListCmdItem{batch}{\textnormal{[}on\textnormal{/}off\textnormal{]}}
+  Output of the batch number with each line will be enabled (`on'), disabled (`off') or reversed, if no argument is given.
+  
+  \objListCmdItem{clear}{}
+  Reset the number of previously identified points, so that the next set of points received will be considered
+  the start of a set of new lines.
+
+  \objListCmdItem{index}{\textnormal{[}on\textnormal{/}off\textnormal{]}}
+  Output of the line number index with each line will be enabled (`on'), disabled (`off') or reversed, if no argument is given.
+
+  \objListCmdItem{threshold}{distance}
+  Set the maximum distance that can separate the starting and ending points of a recognized line.
+  If \objCmdArg{distance} is negative, there is no maximum.
+  Use of this command reduces the thrashing that occurs when the matching points of lines are not sufficiently separated to
+  permit unambiguous determination of the recognized lines.
+  
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments[The \objNameX{mtcTrack} object was designed to assist in working with the \objName{mtc} object.
+The maximum number of lines to return should be close in value to the the maximum number of
+hot spots specified for the companion \objName{mtc} object.]
+
+\objEnd{\objNameE{mtcTrack}}

@@ -1,0 +1,59 @@
+\ProvidesFile{Vsqrt.tex}[v1.0.2]
+\startObject{\objNameS{Vsqrt}}{Vsqrt}
+\index{Themes!Miscellaneous!Vsqrt}
+\index{Themes!Vector~manipulation!Vsqrt}
+\index{Vectors!Monadic~operations!Vsqrt}
+\objPicture{Vsqrtsymbol.ps}
+\objItemDescription{\objNameD{Vsqrt} calculates the square root of the input
+(either a list or a single number).}
+
+\objItemCreated{April 2001}
+
+\objItemVersion{1.0.2}
+
+\objItemHelp{yes}
+
+\objItemTheme{Miscellaneous}
+
+\objItemClass{Arith/Logic/Bitwise, Lists}
+
+\objItemArgs{none}
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{anything}{the input to be processed}
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{anything}{the input after calculating the square root, or the previous result
+      (if a `bang' is received)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{\emph{bang}}{}
+  Return the previous result, if any.
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments[In mathematical terms: $y_i \gets \sqrt{x_i}$, where $x = x_1,x_2,\dots,x_n$ is the inlet value and
+$y = y_1,y_2,\dots,y_n$ is the outlet result.]
+
+\objEnd{\objNameE{Vsqrt}}

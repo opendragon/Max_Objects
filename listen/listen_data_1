@@ -1,0 +1,15 @@
+#File: listen_data_1;
+
+<CallSomeone>
+
+<CallSomeone> { call } = Call <Person> at <Place> ;
+<Person> = Matt { MJ } | Jason { JH } | Chris { CD } ;
+<Place> = Work { 0 } | Home { 1 } | the office { 2 } ;
+
+# The following spoken phrases result in the indicated output:
+
+#call matt at home -> call MJ 1
+
+#call jason at the office -> call JH 2
+
+#call chris at work -> call CD 0

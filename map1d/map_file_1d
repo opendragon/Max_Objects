@@ -1,0 +1,20 @@
+#File: map_file_1d;
+# Each line is terminated with a semicolon;
+# A comment starts with a '#' character;
+# Note that white space is critical around symbols and operators;
+
+# Mappings;
+# The format is: <open> <lower> <upper> <close> <output> ;
+# where <open> is either '[' or '(' and <close> is either ']' or ')';
+# <lower> is a number or the symbol '-°' (option-5) or '-inf';
+# <upper> is a number or the symbol '°' (option-5) or '+°' or 'inf' or '+inf';
+# <output> is what to return on a match;
+# <output> can contain the symbol '$' which is replaced by the input;
+# value or the symbol '$$' which is replaced by the offset of the input;
+# value from <lower> - the input value is returned instead of the;
+# offset if <lower> is unbounded;
+
+[ -20 20 ] alpha $ ;
+( 20 30 ] beta ;
+( -° -20 ) gamma ;
+( 30 inf ) delta $$ ;

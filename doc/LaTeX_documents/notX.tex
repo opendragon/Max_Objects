@@ -1,0 +1,60 @@
+\ProvidesFile{notX.tex}[v1.0.4]
+\startObject{\objNameS{notX}}{notX}
+\index{Themes!Miscellaneous!notX}
+\index{Vectors!Monadic~operations!notX}
+\objPicture{notXsymbol.ps}
+\objItemDescription{\objNameD{notX} provides the logical complement of a number or a list of numbers,
+returning `0' for each non-zero number and `1' for each zero number.
+Non-numeric values are returned without modification.}
+
+\objItemCreated{September 1998}
+
+\objItemVersion{1.0.4}
+
+\objItemHelp{yes}
+
+\objItemTheme{Miscellaneous}
+
+\objItemClass{Arith/Logic/Bitwise, Lists}
+
+\objItemArgs{none}
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{anything}{the input to be processed}
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{anything}{the input after complementation, or the previous result (if a `bang' is
+       received)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{\emph{bang}}{}
+  Return the previous result, if any.
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments[The \objNameX{notX} object was created because there was a \objNameS{not}
+object that wasn't Fat, when a Fat object was needed.
+It was extended to handle lists and floating point values.]
+
+\objEnd{\objNameE{notX}}

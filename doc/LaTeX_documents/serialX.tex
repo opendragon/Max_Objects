@@ -1,0 +1,156 @@
+\ProvidesFile{serialX.tex}[v1.1.4]
+\startObject{\objNameS{serialX}}{serialX}
+\index{Themes!Device~interface!serialX}
+\objPicture{serialXsymbol.ps}
+\objItemDescription{\objNameD{serialX} is an interface to the serial ports on a Macintosh.
+It provides functionality over and above that of the standard \objNameS{serial} object.}
+
+\objItemCreated{June 1998}
+
+\objItemVersion{1.1.4}
+
+\objItemHelp{yes}
+
+\objItemTheme{Device interface}
+
+\objItemClass{Devices}
+
+\objItemArgs{\ }
+
+  \objListArgBegin
+  \objListArgItem{port}{symbol}{either `modem', `printer', or a single letter from `a' to `z' which
+        represents the port to be connected to}
+
+  \objListArgItem{baud-rate}{(optional) integer\textnormal{/}symbol}{the baud rate to set the port to.
+        The acceptable values are: 150, 300, 600, 1200, 1800, 2400, 3600, 4800, 7200, 9600, 14400,
+        19200, 28800, 38400, 57600, 115200 and 230400.
+        Some of the baud rates can also be expressed in terms of `kilobaud': 0.3k (or .3k), 0.6k
+        (or .6k), 1.2k, 1.8k, 2.4k, 3.6k, 4.8k, 7.2k, 9.6k, 14.4k, 19.2k, 28.8k, 38.4k, 57.6k,
+        115.2k or 230.4k.
+        The following special externally clocked rates may be available, if the serial port supports them:
+        MIDI\_1, MIDI\_16, MIDI\_32 and MIDI\_64.
+        These correspond to rate multipliers of 1, 16, 32 and 64, respectively.
+        Use of these special rates forces the data bits to 8 and the stop bits to 1.
+        Note that the character `k' is lower case.
+        The default baud rate is 4800.}
+
+  \objListArgItem{data-bits}{(optional) integer}{the number of data bits to set the port to.
+        The value is between 5 and 9, inclusive.
+        The default number of data bits is 8.}
+
+  \objListArgItem{stop-bits}{(optional) float}{the number of stop bits to set the port to.
+        The acceptable values are: 1, 1.5 or 2.
+        The default number of stop bits is 1.}
+
+  \objListArgItem{parity}{(optional) symbol}{the parity mode to set the port to.
+        The acceptable values are: `off'/'no'/'none', `even' or `odd'.
+        The default parity mode is `off'.}
+
+  \objListArgItem{chunks}{(optional) integer}{the number of characters in each chunk that will be
+        sent when `chunk' mode is active.
+        The default chunk size is 10 and the maximum is 80.}
+
+  \objListArgEnd
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{integer\textnormal{/}list\textnormal{/}bang}{the command input}
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{integer\textnormal{/}list}{returned characters (as single characters,
+        if `chunk' mode is inactive, or as lists of characters, if `chunk' mode is active) from
+        the port of the serial device}
+
+  \objListIOItem{bang}{a break signal was seen on the port of the serial device}
+
+  \objListIOItem{bang}{the break operation has completed}
+
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{yes, the serial port settings}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 only\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+
+  \objListCmdItem{\emph{bang}}{}
+  Return any characters received from the port of the serial device (since the last time a
+  \objCmdQ{bang} command was received), in the form of one or more lists of characters, if
+  `chunk' mode is active, or as single characters, if `chunk' mode is inactive.
+  Any detected `break' signals from the port of the serial device will also be reported.
+
+  \objListCmdItem{baud}{integer\textnormal{/}symbol}
+  Change the baud rate of the port to the given value.
+  The acceptable values are: 150, 300, 600, 1200, 1800, 2400, 3600, 4800, 7200, 9600, 14400,
+  19200, 28800, 38400, 57600, 115200 and 230400.
+  Some of the baud rates can also be expressed in terms of `kilobaud': 0.3k (or .3k), 0.6k
+  (or .6k), 1.2k, 1.8k, 2.4k, 3.6k, 4.8k, 7.2k, 9.6k, 14.4k, 19.2k, 28.8k, 38.4k, 57.6k,
+  115.2k or 230.4k.
+  The following special externally clocked rates may be available, if the serial port supports them:
+  MIDI\_1, MIDI\_16, MIDI\_32 and MIDI\_64.
+  These correspond to rate multipliers of 1, 16, 32 and 64, respectively.
+  Use of these special rates forces the data bits to 8 and the stop bits to 1.
+  Note that the character `k' is lower case.
+
+  \objListCmdItem{break}{}
+  Send a `break' signal out the port of the serial device.
+
+  \objListCmdItem{chunk}{\textnormal{[}on\textnormal{/}off\textnormal{]}}
+  Chunking of received data will be enabled (`on'), disabled (`off') or reversed, if no argument
+  is given.
+  The chunk size is established when the \objNameX{serialX} object is created.
+
+  \objListCmdItem{dtr}{\textnormal{[}assert\textnormal{/}negate\textnormal{/}on\textnormal{/}off\textnormal{]}}
+  The DTR signal will asserted (`assert'), negated (`negate') or used for handshaking
+  (`off' or `on' or no argument).
+  When no argument is given, the use of the DTR signal for handshaking will be toggled.
+  The DTR handshake is set active when the \objNameX{serialX} object is created.
+
+  \objListCmdItem{\emph{float}}{}
+  Send the single character that is the ASCII equivalent to the given value, out the port of
+  the serial device.
+
+  \objListCmdItem{\emph{integer}}{}
+  Send the single character that is the ASCII equivalent to the given value, out the port of
+  the serial device.
+
+  \objListCmdItem{list}{anything}
+  Send the contents of the list out the port of the serial device.
+  Integer and float values are sent as the equivalent ASCII character and symbols are sent as
+  a string of ASCII characters.
+  Note that no white space is introduced between values, so the command \objCmdQ{1 2 3 alpha 4}
+  results in the characters `123alpha4' being sent out the port of the serial device.
+
+  \objListCmdItem{text}{anything}
+  Send the characters corresponding to the arguments to the command out the port of the serial
+  device.
+  Note that no white space is introduced between values, so the command \objCmdQ{text 1 2 3 4}
+  results in the characters `1234' being sent out the port of the serial device.
+  
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments[The \objNameX{serialX} object was designed to address some weaknesses of the standard
+\objNameS{serial} object--the `break' signal was neither reported nor generated,
+the maximum baud rate was well below what most serial ports can handle, and output was always
+in the form of single characters.
+\objNameX{serialX} was originally developed as a companion for the \objName{gvp100} object
+(which needed to be able to send a `break' signal), and was extended to support higher baud rates
+and `chunking' for the \objName{mtc} object.]
+
+\objEnd{\objNameE{serialX}}

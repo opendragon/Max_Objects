@@ -1,0 +1,68 @@
+\ProvidesFile{Vjet.tex}[v1.0.2]
+\startObject{\objNameS{Vjet}}{Vjet}
+\index{Themes!Vector~manipulation!Vjet}
+\index{Vectors!Dyadic~operations!Vjet}
+\objPicture{Vjetsymbol.ps}
+\objItemDescription{\objNameD{Vjet} takes as input a list and divides it into a series of
+fixed-size, shorter, lists.
+It is similar to the \compLang{APL} `reshape' operator ($\rho$)\index{APL!reshape}.}
+
+\objItemCreated{July 2000}
+
+\objItemVersion{1.0.2}
+
+\objItemHelp{yes}
+
+\objItemTheme{Vector manipulation}
+
+\objItemClass{Lists}
+
+\objItemArgs{\ }
+
+  \objListArgBegin
+  \objListArgItem{how-many}{integer}{the size of the output fragments}
+  \objListArgEnd
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{bang\textnormal{/}list}{the input to be processed}
+
+  \objListIOItem{integer}{the size of the output fragments.
+      This replaces the initial argument.}
+
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{list}{the input after segmentation, or the previous result (if a `bang' is received)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{yes, the size of the output fragments}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{\emph{bang}}{}
+  Return the previous result, if any.
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments[The \objNameX{Vjet} object was designed to assist in working with the \objReference{mtc} object,
+which returns triples of values in the form of a long list.
+If the input list is not exactly divisible by the size of the output fragments, the last fragment
+will be shorter than all the earlier fragments.]
+
+\objEnd{\objNameE{Vjet}}

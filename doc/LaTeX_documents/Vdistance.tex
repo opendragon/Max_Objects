@@ -1,0 +1,60 @@
+\ProvidesFile{Vdistance.tex}[v1.0.2]
+\startObject{\objNameS{Vdistance}}{Vdistance}
+\index{Themes!Miscellaneous!Vdistance}
+\index{Themes!Vector~manipulation!Vdistance}
+\index{Vectors!Monadic~operations!Vdistance}
+\objPicture{Vdistancesymbol.ps}
+\objItemDescription{\objNameD{Vdistance} calculates the length of its input list, considered as an
+n-dimensional vector.}
+
+\objItemCreated{April 2001}
+
+\objItemVersion{1.0.2}
+
+\objItemHelp{yes}
+
+\objItemTheme{Vector manipulation}
+
+\objItemClass{Lists}
+
+\objItemArgs{none}
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{anything}{the input to be processed}
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{anything}{the input after calculating the length, or the previous result
+      (if a `bang' is received)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{\emph{bang}}{}
+  Return the previous result, if any.
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments[In mathematical terms: $y \gets | x |$ or
+$y \gets \sqrt{(\sum_{i=1}^n x_i^2)}$, where $x = x_1,x_2,\dots,x_n$ is the inlet value and
+$y = y_1,y_2,\dots,y_n$ is the outlet result.]
+
+\objEnd{\objNameE{Vdistance}}

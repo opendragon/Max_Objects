@@ -1,0 +1,52 @@
+\ProvidesFile{compares.tex}[v1.0.3]
+\startObject{\objNameS{compares}}{compares}
+\index{Themes!Programming~aids!compares}
+\objPicture{comparessymbol.ps}
+\objItemDescription{\objNameD{compares} does a case-sensitive string comparison of two symbols.}
+
+\objItemCreated{April 1999}
+
+\objItemVersion{1.0.3}
+
+\objItemHelp{yes}
+
+\objItemTheme{Programming aids}
+
+\objItemClass{Arith/Logic/Bitwise}
+
+\objItemArgs{none}
+
+\objItemInlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{symbol}{the first string}
+
+  \objListIOItem{symbol}{the second string}
+  \objListIOEnd
+
+\objItemOutlet{\ }
+
+  \objListIOBegin
+  \objListIOItem{integer}{the comparison result ($-1$~=~second string greater, 0~=~strings match,
+      1~=~first string greater)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{compares}}

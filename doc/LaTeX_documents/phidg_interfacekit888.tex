@@ -1,0 +1,41 @@
+\ProvidesFile{phidg_interfacekit888.tex}[v1.0.1]
+\startPlugin{\pluginNameS{Phidgets}{InterfaceKit888}}{Phidgets}{InterfaceKit888}
+
+\pluginItemDescription{\pluginNameD{Phidgets}{InterfaceKit888} corresponds to the PhidgetInterfaceKit 8/8/8 device,
+which has eight analog inputs, eight digital inputs and eight digitial outputs.}
+
+\pluginItemCreated{December 2003}
+
+\pluginItemVersion{1.0.1}
+
+\pluginItemCommands[]
+  \pluginListCmdBegin
+
+  \pluginListCmdItem{standard-do}{flip\textnormal{/}on\textnormal{/}off port}
+  Set the state of the specified digital output port to `1' (`on'), `0' (`off') or the reverse of its current state (`flip').
+  The port is limited to between 1 and 8.
+  
+  \pluginListCmdItem{standard-do}{trigger on\textnormal{/}off}
+  Enables or disables the digital input triggering mechanism.
+  If the mechanism is enabled, a change to one of the digital inputs results in the transmission of the current digital
+  input through the report output of the \objName{fidget} object.
+  The digital input is sent as the list `\pluginCmd{\textit{standard-response}} di value bit$_1$ $\ldots$ bit$_8$'.
+  The digital values are limited to between 0 and 255.
+  
+  \pluginListCmdItem{standard-get}{ai\textnormal{/}di\textnormal{/}do}
+  Sends the current analog input (`ai'), digital input (`di') or digital output (`do') out the report output of the \objName{fidget} object.
+  The analog input is sent as the list `\pluginCmd{\textit{standard-response}} ai analog$_1$ $\ldots$ analog$_8$',
+  the digital input is sent as the list `\pluginCmd{\textit{standard-response}} di value bit$_1$ $\ldots$ bit$_8$' and
+  the digital output is sent as the list `\pluginCmd{\textit{standard-response}} do value bit$_1$ $\ldots$ bit$_8$'.
+  The digital values are limited to between 0 and 255; the analog values are between zero and one.
+
+  \pluginListCmdItem{standard-put}{bits}  
+  Sets the digital output to the given value.
+  The argument \objCmdArg{bits} is limited to between 0 and 255.
+  Each of the digital output ports is set to the corresponding bit of the value.  
+
+  \pluginListCmdEnd
+
+\pluginItemComments
+
+\pluginEnd{\pluginNameE{Phidgets}{InterfaceKit888}}
