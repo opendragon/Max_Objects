@@ -76,7 +76,7 @@ Note that it does not use the \objName{serialX} or \objNameS{serial} objects for
   (the individual outputs are encoded as 1, 2 and 4, which are then added together to get the set of outputs to change).
   
   \objListCmdItem{getallsensors}{}
-  Read the values, types and modes of all three sensors of the RCX and return them as a ten-element list, starting with the
+  Read the values, types and modes of all three sensors of the RCX and return them as a ten element list, starting with the
   symbol `allsensors', followed by triples (value as an integer, type as one of `nosensor', `switch', `temperature', `reflection',
   `angle' or `unknown' and mode as one of `raw', `boolean', `transition', `periodcount', `percent', `celsius', `fahrenheit',
   `anglestep' or `unknown') for each of the sensors, in order of the sensor number.
@@ -86,33 +86,33 @@ Note that it does not use the \objName{serialX} or \objNameS{serial} objects for
   symbol `allvariables' and followed by the value of each of the variables.
   
   \objListCmdItem{getbattery}{}
-  Read the battery level from the RCX and return it as a two-element list, starting with the symbol `battery', followed
+  Read the battery level from the RCX and return it as a two element list, starting with the symbol `battery', followed
   by a floating-point value representing the voltage.
   
   \objListCmdItem{getsensormode}{index}
-  Read the mode of the given sensor, where \objCmdArg{index} is between 1 and 3, and return it as a two-element list,
+  Read the mode of the given sensor, where \objCmdArg{index} is between 1 and 3, and return it as a two element list,
   starting with the symbol `sensormode', followed by the current value of the sensor as one of `raw', `boolean', `transition', `periodcount', `percent', `celsius', `fahrenheit',
   `anglestep' or `unknown'.
   
   \objListCmdItem{getsensortype}{index}
-  Read the type of the given sensor, where \objCmdArg{index} is between 1 and 3, and return it as a two-element list,
+  Read the type of the given sensor, where \objCmdArg{index} is between 1 and 3, and return it as a two element list,
   starting with the symbol `sensortype', followed by the current type of the sensor as one of `nosensor', `switch', `temperature',
   `reflection', `angle' or `unknown'.
   
   \objListCmdItem{getsensorvalue}{index}
-  Read the value of the given sensor, where \objCmdArg{index} is between 1 and 3, and return it as a two-element list,
+  Read the value of the given sensor, where \objCmdArg{index} is between 1 and 3, and return it as a two element list,
   starting with the symbol `sensor', followed by the current value of the sensor as an integer.
   
   \objListCmdItem{getslot}{}
-  Read the index of the active program and return it as a two-element list, starting with the symbol `slot', followed
+  Read the index of the active program and return it as a two element list, starting with the symbol `slot', followed
   by the index as an integer between 1 and 5.
   
   \objListCmdItem{getvariable}{index}
-  Read the value of the given variable, where \objCmdArg{index} is between 1 and 32, and return it as a two-element list,
+  Read the value of the given variable, where \objCmdArg{index} is between 1 and 32, and return it as a two element list,
   starting with the symbol `variable', followed by the current value of the variable as an integer.
   
   \objListCmdItem{getversion}{}
-  Read the version number of the ROM and the firmware from the RCX and return it as a three-element list, starting
+  Read the version number of the ROM and the firmware from the RCX and return it as a three element list, starting
   with the symbol `version', followed by the ROM version number and the firmware version number, represented as integers.
   
   \objListCmdItem{mute}{}

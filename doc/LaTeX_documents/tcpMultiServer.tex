@@ -1,4 +1,4 @@
-\ProvidesFile{tcpMultiServer.tex}[v1.0.8]
+\ProvidesFile{tcpMultiServer.tex}[v1.0.9]
 \startObject{\objNameS{tcpMultiServer}}{tcpMultiServer}
 \index{Themes!TCP/IP!tcpMultiServer}
 \objPicture{tcpMultiServersymbol.ps}
@@ -7,7 +7,7 @@ providing an endpoint server to communicate with one or more \objReference{tcpCl
 
 \objItemCreated{October 2000}
 
-\objItemVersion{1.0.8}
+\objItemVersion{1.0.9}
 
 \objItemHelp{yes}
 
@@ -40,8 +40,8 @@ providing an endpoint server to communicate with one or more \objReference{tcpCl
   \objListIOBegin
   \objListIOItem{list}{the status or response.
        Status messages (triggered by a \objCmdQ{bang} or \objCmdQ{status} command) appear as a
-       five-element list, starting with the symbol `status'; response messages appear as a list,
-       starting with the symbol `reply' and `self' messages appear as a two-element list, starting
+       five element list, starting with the symbol `status'; response messages appear as a list,
+       starting with the symbol `reply' and `self' messages appear as a two element list, starting
        with the symbol `self'.
        The second element of the status or response message is the identifier of the client
        connection involved.}
@@ -63,7 +63,7 @@ computers that are reachable via a TCP/IP network}
   \objListCmdBegin
 
   \objListCmdItem{\emph{bang}}{}
-  Report the general state of the communication as a five-element list, with the symbol `status' as
+  Report the general state of the communication as a five element list, with the symbol `status' as
   its first element.
   The second element of the list is the value `0', the third element is the general state of the
   communication (`unbound', `bound', `listening' or `unknown'), the fourth element is the number of
@@ -78,11 +78,15 @@ computers that are reachable via a TCP/IP network}
   The command is only accepted if the \objNameX{tcpMultiServer} object is in an appropriate state---
   `listening' if `off' and `bound' if `on'.
 
+  \objListCmdItem{mode}{client symbol}{}
+  Set the operating mode of the communication to either `raw' or `max'.
+  In `raw' mode, data is transferred without any structure; in `max' mode it is as described below.
+  Both ends of the communication must agree on the mode.
   \objListCmdItem{port}{integer}
   Set the number of the port to communicate on.
 
   \objListCmdItem{self}{}
-  Returns the IP address of this object as a two-element list, with the symbol `self' as its first
+  Returns the IP address of this object as a two element list, with the symbol `self' as its first
   element.
   
   \objListCmdItem{send}{client anything}
@@ -94,15 +98,15 @@ computers that are reachable via a TCP/IP network}
   \objListCmdItem{status}{\textnormal{[}client\textnormal{]}}
   Report either the state of a specific client communication, if \objCmdArg{client} is non-zero
   (a valid identifier), or the general state of the communication, if \objCmdArg{client} is zero,
-  as a five-element list, with the symbol `status' as its first element.
+  as a five or six element list, with the symbol `status' as its first element.
   The second element of the list is \objCmdArg{client}, the third element is the general state of
   the communication (`unbound', `bound', `listening' or `unknown') or the specific client
   communication (`connecting', `connected', `disconnecting' or `unknown').
   If \objCmdArg{client} is zero, the fourth element is the number of active client connections and
   the fifth element is the port number that is being listened to.
   If \objCmdArg{client} is non-zero and the state is `connected', the fourth element is the IP
-  address of the client, expressed as a symbol in `dotted' notation and the fifth element is the
-  port of the client.
+  address of the client, expressed as a symbol in `dotted' notation, the fifth element is the
+  port of the client and the fifth element is either `raw' or `max'.
   The default for \objCmdArg{client} is 0, which requests the general state of the communication.
 
   \objListCmdItem{verbose}{\textnormal{[}on\textnormal{/}off\textnormal{]}}

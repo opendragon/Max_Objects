@@ -1,4 +1,4 @@
-\ProvidesFile{tcpServer.tex}[v1.1.5]
+\ProvidesFile{tcpServer.tex}[v1.1.6]
 \startObject{\objNameS{tcpServer}}{tcpServer}
 \index{Themes!TCP/IP!tcpServer}
 \objPicture{tcpServersymbol.ps}
@@ -7,7 +7,7 @@ providing an endpoint server to communicate with a single \objReference{tcpClien
 
 \objItemCreated{August 1998}
 
-\objItemVersion{1.1.5}
+\objItemVersion{1.1.6}
 
 \objItemHelp{yes}
 
@@ -37,8 +37,8 @@ providing an endpoint server to communicate with a single \objReference{tcpClien
   \objListIOBegin
   \objListIOItem{list}{the status or response.
       Status messages (triggered by a \objCmdQ{bang} or \objCmdQ{status} command) appear as a
-      three- or four-element list, starting with the symbol `status'; response messages appear
-      as a list, starting with the symbol `reply' and `self' messages appear as a two-element
+      three or four element list, starting with the symbol `status'; response messages appear
+      as a list, starting with the symbol `reply' and `self' messages appear as a two element
       list, starting with the symbol `self'.}
 
   \objListIOItem{bang}{an error was detected}
@@ -62,12 +62,13 @@ computer that is reachable via a TCP/IP network}
 
   \objListCmdItem{\emph{bang}}{}
   Report the state of the communication (`unbound', `bound', `listening', `connecting', `connected',
-  `disconnecting' or `unknown') as a three- or four-element list, with the symbol `status' as its
+  `disconnecting' or `unknown') as a three or five element list, with the symbol `status' as its
   first element.
   If the state is not `connected', the third element of the list is the port number that is being
   listened on.
   If the state is `connected', the third element is the IP address of the client, expressed as a
-  symbol in `dotted' notation and the fourth element is the port number of the client.
+  symbol in `dotted' notation, the fourth element is the port of the server and the fifth element is either
+  `raw' or `max'.
 
   \objListCmdItem{disconnect}{}
   Close any existing connection to a \objName{tcpClient} object.
@@ -86,11 +87,16 @@ computer that is reachable via a TCP/IP network}
   The command is only accepted if the \objNameX{tcpServer} object is in an appropriate state---
   `listening' if `off' and `bound' if `on'.
 
+  \objListCmdItem{mode}{symbol}{}
+  Set the operating mode of the communication to either `raw' or `max'.
+  In `raw' mode, data is transferred without any structure; in `max' mode it is as described below.
+  Both ends of the communication must agree on the mode.
+
   \objListCmdItem{port}{integer}
   Set the number of the port to communicate on.
 
   \objListCmdItem{self}{}
-  Returns the IP address of this object as a two-element list, with the symbol `self' as its first
+  Returns the IP address of this object as a two element list, with the symbol `self' as its first
   element.
   
   \objListCmdItem{send}{anything}
@@ -100,11 +106,12 @@ computer that is reachable via a TCP/IP network}
 
   \objListCmdItem{status}{}
   Report the state of the communication (`unbound', `bound', `listening', `connecting', `connected',
-  `disconnecting' or `unknown') as a two- or four-element list, with the symbol `status' as its
+  `disconnecting' or `unknown') as a two or five element list, with the symbol `status' as its
   first element.
   If the state is not `connected', the list will contain two elements.
   If the state is `connected', the third element is the IP address of the client, expressed as a
-  symbol in `dotted' notation and the fourth element is the port of the client.
+  symbol in `dotted' notation, the fourth element is the port of the client and the fifth element is either
+  `raw' or `max'.
 
   \objListCmdItem{verbose}{\textnormal{[}on\textnormal{/}off\textnormal{]}}
   Communication tracing to the \MaxName{} window will be enabled (`on'), disabled (`off') or
