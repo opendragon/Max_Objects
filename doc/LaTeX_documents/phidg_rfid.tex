@@ -2,7 +2,7 @@
 \startPlugin{\pluginNameS{Phidgets}{RFID}}{Phidgets}{RFID}
 
 \pluginItemDescription{\pluginNameD{Phidgets}{RFID} corresponds to the PhidgetRFID device,
-which reads RFID (\emph{R}adio \emph{F}requency \emph{ID}entification) tags.
+which reads RFID (\emphcorr{R}adio \emphcorr{F}requency \emphcorr{ID}entification) tags.
 Note that the RFID plugin will generate messages asynchronously,
 when an RFID tag is brought in to close proximity of the device.}
 
@@ -18,7 +18,7 @@ when an RFID tag is brought in to close proximity of the device.}
   Asynchronous notification of RFID tags will be enabled (`on') or disabled (`off').
   If asynchronous notification is enabled,
   when a tag is placed close to the RFID device,
-  the list `\pluginCmd{\textit{standard-response}} RFIDtag' will be sent out the report output of the \objName{fidget} object.
+  the list `\pluginCmd{\textitcorr{standard-response}} RFIDtag' will be sent out the report output of the \objName{fidget} object.
   The value `RFIDtag' is a symbol composed from the hexadecimal representation of the RFID tag,
   prefixed with an underscore character (``\_'').
   Note that the list is only sent when the tag approaches the device,
@@ -26,7 +26,7 @@ when an RFID tag is brought in to close proximity of the device.}
   
   \pluginListCmdItem{standard-get}{}
   Sends the current RFID tag out the report output of the \objName{fidget} object,
-  as the list `\pluginCmd{\textit{standard-response}} RFIDtag'.
+  as the list `\pluginCmd{\textitcorr{standard-response}} RFIDtag'.
   The value `RFIDtag' is a symbol composed from the hexadecimal representation of the RFID tag,
   prefixed with an underscore character (``\_'').
 

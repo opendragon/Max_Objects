@@ -17,13 +17,13 @@ providing control over pitch, rate, volume and voice.}
 
 \objItemArgs{none}
 
-\objItemInlet{\ }
+\objItemInlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{integer\textnormal{/}float\textnormal{/}list\textnormal}{the command input}
   \objListIOEnd
 
-\objItemOutlet{\ }
+\objItemOutlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{bang}{speaking has stopped}
@@ -57,10 +57,10 @@ providing control over pitch, rate, volume and voice.}
   \objListCmdItem{continue}{}
   Cause the Speech Manager to resume speaking if it's paused.
   
-  \objListCmdItem{\emph{float}}{}
+  \objListCmdItem{\emphcorr{float}}{}
   Send the given number to the Speech Manager to be spoken immediately.
   
-  \objListCmdItem{\emph{integer}}{}
+  \objListCmdItem{\emphcorr{integer}}{}
   Send the given number to the Speech Manager to be spoken immediately.
   
   \objListCmdItem{list}{anything}

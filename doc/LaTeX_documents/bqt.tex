@@ -2,7 +2,7 @@
 \startObject{\objNameS{bqt}}{bqt}
 \index{Themes!QuickTime\texttrademark!bqt}
 \objPicture{bqtsymbol.ps}
-\objItemDescription{\objNameD{bqt} provides an interface to QuickTime\texttrademark\ movies,
+\objItemDescription{\objNameD{bqt} provides an interface to QuickTime\texttrademark{} movies,
 permitting control of playback rate and the section of the movie to be played.
 It provides more functionality than the standard \objNameS{movie} player interface object}
 
@@ -12,19 +12,19 @@ It provides more functionality than the standard \objNameS{movie} player interfa
 
 \objItemHelp{yes}
 
-\objItemTheme{QuickTime\texttrademark}
+\objItemTheme{QuickTime\texttrademark{}}
 
 \objItemClass{n/a}
 
 \objItemArgs{none}
 
-\objItemInlet{\ }
+\objItemInlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{list}{the command input}
   \objListIOEnd
 
-\objItemOutlet{\ }
+\objItemOutlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{integer}{the result of a command}
@@ -38,7 +38,7 @@ It provides more functionality than the standard \objNameS{movie} player interfa
   \objListIOEnd
 
 \objItemCompanion{yes, (optional) the standard \objNameS{movie} play controller interface object can be
-attached to a \objNameX{bqt}\ object.}
+attached to a \objNameX{bqt} object.}
 
 \objItemStandalone{yes}
 
@@ -55,7 +55,7 @@ attached to a \objNameX{bqt}\ object.}
   \objListCmdItem{active}{[\objCmdArg{0}/\objCmdArg{1}]}
   Set the current movie active (\objCmdArg{1}) or inactive (\objCmdArg{0}).
 
-  \objListCmdItem{\emph{bang}}{}
+  \objListCmdItem{\emphcorr{bang}}{}
   Start the current movie playing.
 
   \objListCmdItem{begin}{}
@@ -76,7 +76,7 @@ attached to a \objNameX{bqt}\ object.}
   \objListCmdItem{getvolume}{}
   Return the audio level for the current movie.
 
-  \objListCmdItem{\emph{integer}}{}
+  \objListCmdItem{\emphcorr{integer}}{}
   Move to the given frame number in the current movie.
 
   \objListCmdItem{load}{[\objCmdArg{movie-name}]}
@@ -130,14 +130,14 @@ attached to a \objNameX{bqt}\ object.}
   
   \objListCmdEnd
 
-\objItemFile[QuickTime\texttrademark\ movie]
+\objItemFile[QuickTime\texttrademark{} movie]
 
 \objItemMessage
 
 \objItemComments[The \objNameX{bqt} object was designed to address a critical weakness of the
 standard \objNameS{movie} player interface object: there was no way to request only a section
-of the movie be played, even though QuickTime\texttrademark\ supports this ability.
+of the movie be played, even though QuickTime\texttrademark{} supports this ability.
 One feature of the standard \objNameS{movie} player interface object was not retained---mouse motion over
-the \objNameX{bqt}\ object is not detected.]
+the \objNameX{bqt} object is not detected.]
 
 \objEnd{\objNameE{bqt}}

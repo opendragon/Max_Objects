@@ -16,7 +16,7 @@ Note that it does not use the \objName{serialX} or \objNameS{serial} objects for
 
 \objItemClass{Devices}
 
-\objItemArgs{\ }
+\objItemArgs{\nothing}
 
   \objListArgBegin
   \objListArgItem{port-class}{(optional) symbol}{the kind of Ghost port (`usb' or `serial') that is to be used.
@@ -27,13 +27,13 @@ Note that it does not use the \objName{serialX} or \objNameS{serial} objects for
 
   \objListArgEnd
 
-\objItemInlet{\ }
+\objItemInlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{list}{the command channel}
   \objListIOEnd
 
-\objItemOutlet{\ }
+\objItemOutlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{list}{the data requested from the RCX device.
@@ -120,7 +120,7 @@ Note that it does not use the \objName{serialX} or \objNameS{serial} objects for
   See also the \objCmdQ{clearsound} command.
   
   \objListCmdItem{playsound}{sound}
-  Play the given system sound, which is either `keyclick', `beep', `sweepdown', `sweepup', `error' or `fastsweep'.
+  Play the given system sound, which is either `keyclick', `beep', `sweepdown', `sweepup', `error' or `fast\-sweep'.
   
   \objListCmdItem{playtone}{frequency duration}
   Play the given tone, where \objCmdArg{frequency} is in Hertz and \objCmdArg{duration} is in 100ths of a second.

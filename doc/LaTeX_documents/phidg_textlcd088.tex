@@ -56,7 +56,7 @@ as well as providing eight digital inputs and eight digital outputs.}
   Enables or disables the digital input triggering mechanism.
   If the mechanism is enabled, a change to one of the digital inputs results in the transmission of the current digital
   input through the report output of the \objName{fidget} object.
-  The digital input is sent as the list `\pluginCmd{\textit{standard-response}} di value bit$_1$ $\ldots$ bit$_8$'.
+  The digital input is sent as the list `\pluginCmd{\textitcorr{standard-response}} di value bit$_1$ $\ldots$ bit$_8$'.
   The digital values are limited to between 0 and 255.
   
   \pluginListCmdItem{standard-do}{to write anything}
@@ -64,8 +64,8 @@ as well as providing eight digital inputs and eight digital outputs.}
 
   \pluginListCmdItem{standard-get}{di\textnormal{/}do}  
   Sends the current digital input (`di') or digital output (`do') out the report output of the \objName{fidget} object.
-  The digital input is sent as the list `\pluginCmd{\textit{standard-response}} di value bit$_1$ $\ldots$ bit$_8$' and
-  the digital output is sent as the list `\pluginCmd{\textit{standard-response}} do value bit$_1$ $\ldots$ bit$_8$'.
+  The digital input is sent as the list `\pluginCmd{\textitcorr{standard-response}} di value bit$_1$ $\ldots$ bit$_8$' and
+  the digital output is sent as the list `\pluginCmd{\textitcorr{standard-response}} do value bit$_1$ $\ldots$ bit$_8$'.
   The digital values are limited to between 0 and 255.
 
   \pluginListCmdItem{standard-put}{bits}  

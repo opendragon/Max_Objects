@@ -17,19 +17,19 @@ triggered by the input.}
 
 \objItemClass{Arith/Logic/Bitwise, Lists}
 
-\objItemArgs{\ }
+\objItemArgs{\nothing}
 
   \objListArgBegin
   \objListArgItem{init-file}{(optional) symbol}{the name of the state file to load initially}
   \objListArgEnd
 
-\objItemInlet{\ }
+\objItemInlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{integer\textnormal{/}list}{the command input}
   \objListIOEnd
 
-\objItemOutlet{\ }
+\objItemOutlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{list}{the retrieved data}
@@ -77,7 +77,7 @@ triggered by the input.}
   The current state will be set to \objCmdArg{new-state}, if it is in the currently loaded set
   of transitions.
 
-  \objListCmdItem{\emph{integer}}{}
+  \objListCmdItem{\emphcorr{integer}}{}
   The given value is matched against the transitions available for the current state.
   If a match is found, the current state is set to the destination of the transition and the
   output portion of the transition is processed using an empty list as the remainder of the input.

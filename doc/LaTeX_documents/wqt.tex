@@ -2,7 +2,7 @@
 \startObject{\objNameS{wqt}}{wqt}
 \index{Themes!QuickTime\texttrademark!wqt}
 \objPicture{wqtsymbol.ps}
-\objItemDescription{\objNameD{wqt} provides a windowed interface to QuickTime\texttrademark\ movies,
+\objItemDescription{\objNameD{wqt} provides a windowed interface to QuickTime\texttrademark{} movies,
 permitting control of playback rate and the section of the movie to be played.
 It provides more functionality than the standard \objNameS{movie} object.}
 
@@ -16,19 +16,19 @@ It provides more functionality than the standard \objNameS{movie} object.}
 
 \objItemClass{Graphics}
 
-\objItemArgs{\ }
+\objItemArgs{\nothing}
 
   \objListArgBegin
   \objListArgItem{init-movie}{(optional) symbol}{the initial movie to be loaded}
   \objListArgEnd
 
-\objItemInlet{\ }
+\objItemInlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{list}{the command input}
   \objListIOEnd
 
-\objItemOutlet{\ }
+\objItemOutlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{integer}{the result of a command}
@@ -59,7 +59,7 @@ It provides more functionality than the standard \objNameS{movie} object.}
   \objListCmdItem{active}{\textnormal{[}0\textnormal{/}1\textnormal{]}}
   Set the current movie active (`1') or inactive (`0').
 
-  \objListCmdItem{\emph{bang}}{}
+  \objListCmdItem{\emphcorr{bang}}{}
   Start the current movie playing.
 
   \objListCmdItem{begin}{}
@@ -80,7 +80,7 @@ It provides more functionality than the standard \objNameS{movie} object.}
   \objListCmdItem{getvolume}{}
   Return the audio level for the current movie.
 
-  \objListCmdItem{\emph{integer}}{}
+  \objListCmdItem{\emphcorr{integer}}{}
   Move to the given frame number in the current movie.
 
   \objListCmdItem{load}{\textnormal{[}movie-name\textnormal{]}}
@@ -134,13 +134,13 @@ It provides more functionality than the standard \objNameS{movie} object.}
   
   \objListCmdEnd
 
-\objItemFile[QuickTime\texttrademark\ movie]
+\objItemFile[QuickTime\texttrademark{} movie]
 
 \objItemMessage
 
 \objItemComments[The \objNameX{wqt} object was designed to address a critical weakness of the standard
 \objNameS{movie} object: there was no way to request only a section of the movie be played, even
-though QuickTime\texttrademark\ supports this ability.
+though QuickTime\texttrademark{} supports this ability.
 One feature of the standard \objNameS{movie} object was not retained---mouse motion over the
 \objNameX{wqt} object is not detected.]
 

@@ -1,10 +1,10 @@
 \ProvidesFile{Max_Objects_from_Norm_Jaffe.tex}
 
 \documentclass[letterpaper,titlepage,twoside]{report}
-%\usepackage[T1]{fontenc}
 
 % Begin Preamble:
 
+%\usepackage[T1]{fontenc}
 %\usepackage{palatino}
 \usepackage{times}
 %\usepackage{bookman}
@@ -24,30 +24,32 @@
 \usepackage{fancyhdr}
 \usepackage[section]{tocbibind}
 
+% Control the code, depending on whether a hyper-linked PDF is being generated:
+\newboolean{generatingHyperPDF}
+\setboolean{generatingHyperPDF}{true}
+
 % If the package 'hyperref' is disabled by commenting out the following lines,
-% be sure to set the boolean 'generatingPDF' to false.
-\usepackage[dvips,
-colorlinks=true,
-linkcolor=webgreen,
-filecolor=webbrown,
-citecolor=webgreen,
-urlcolor=webblue,
-pdftitle={Max Objects from Norman Jaffe},
-pdfauthor={Norman Jaffe},
-pdfkeywords={Max,objects,interface,APL},
-pdfsubject={Max Objects},
-bookmarks,
-raiselinks=true,
-plainpages=false,
-bookmarksopen=true,
-pdfstartview=Fit,
-pdfpagemode=UseOutlines]{hyperref}
+% be sure to set the boolean 'generatingHyperPDF' to false.
+\ifthenelse{\boolean{generatingHyperPDF}}%
+ {\usepackage[dvips,
+    colorlinks=true,
+    linkcolor=webgreen,
+    filecolor=webbrown,
+    citecolor=webgreen,
+    urlcolor=webblue,
+    pdftitle={Max Objects from Norman Jaffe},
+    pdfauthor={Norman Jaffe},
+    pdfkeywords={Max,objects,interface,APL},
+    pdfsubject={Max Objects},
+    bookmarks,
+    raiselinks=true,
+    plainpages=false,
+    bookmarksopen=true,
+    pdfstartview=Fit,
+    pdfpagemode=UseOutlines]{hyperref}}
+ {\newcommand{\hyperpage}[1]{#1}}
 
 \usepackage{mysects}
-
-% Control the code, depending on whether PDF is being generated:
-\newboolean{generatingPDF}
-\setboolean{generatingPDF}{true}
 
 % Adjust the paper edges:
 \setlength{\parindent}{0em}
@@ -82,6 +84,11 @@ pdfpagemode=UseOutlines]{hyperref}
 \setcounter{secnumdepth}{-2}
 \setcounter{tocdepth}{1}
 
+% A couple of useful commands to handle italic-to-normal transitions:
+\newcommand{\textitcorr}[1]{\textit{#1}\/}
+\newcommand{\emphcorr}[1]{\emph{#1}\/}
+\newcommand{\nothing}{\ }
+
 % The optional argument is used to control indexing:
 %   D = Define the object (emphasize the index, create a label);
 %   E = End of the object definition (close the index, no text);
@@ -89,24 +96,24 @@ pdfpagemode=UseOutlines]{hyperref}
 %   S = Reference to a standard object and
 %   X = Don't add a reference for the object to the index (any letter except D or
 %         R could be used, X is preferred for mnemonic value)
-\ifthenelse{\boolean{generatingPDF}}%
-  {\newcommand{\entityNameTagINT}[3]{%  command if generatingPDF
+\ifthenelse{\boolean{generatingHyperPDF}}%
+  {\newcommand{\entityNameTagINT}[3]{%  command if generatingHyperPDF
   \ifthenelse{\equal{#1}{D}}%
-    {\textit{\color{webgreen}#3}}%   if first argument is 'D'
+    {\textitcorr{\color{webgreen}#3}}%   if first argument is 'D'
     {\ifthenelse{\equal{#1}{E}}%
       {}%  if first argument is 'E'
       {\ifthenelse{\equal{#1}{S}}%
-        {\textit{#3}}%  if first argument is 'S'
-        {\hyperlink{hyper.#2.#3}{\textit{#3}}}}}}}%  if first argument isn't 'D', 'E', or 'S'
-  {\newcommand{\entityNameTagINT}[3]{%  command if not generatingPDF
+        {\textitcorr{#3}}%  if first argument is 'S'
+        {\hyperlink{hyper.#2.#3}{\textitcorr{#3}}}}}}}%  if first argument isn't 'D', 'E', or 'S'
+  {\newcommand{\entityNameTagINT}[3]{%  command if not generatingHyperPDF
   \ifthenelse{\equal{#1}{D}}%
-    {\textit{\color{webgreen}#3}}%  if first argument is 'D'
+    {\textitcorr{\color{webgreen}#3}}%  if first argument is 'D'
     {\ifthenelse{\equal{#1}{E}}%
       {}%  if first argument is 'E'
-      {\textit{#3}}}}}%  if first argument isn't 'D' or 'E'
+      {\textitcorr{#3}}}}}%  if first argument isn't 'D' or 'E'
 
-\ifthenelse{\boolean{generatingPDF}}%
-  {\newcommand{\entityNameIndexINT}[3]{%  command if generatingPDF
+\ifthenelse{\boolean{generatingHyperPDF}}%
+  {\newcommand{\entityNameIndexINT}[3]{%  command if generatingHyperPDF
    \ifthenelse{\equal{#1}{D}}%
     {\label{#2:#3}}%  if first argument is 'D'
     {\ifthenelse{\equal{#1}{R}\or\equal{#1}{S}}%
@@ -119,7 +126,7 @@ pdfpagemode=UseOutlines]{hyperref}
    \ifthenelse{\equal{#1}{R}}%
      {\ref{#2:#3}}%  if first argument is 'R'
      {}}}%  if first argument isn't 'R'
-  {\newcommand{\entityNameIndexINT}[3]{%  command if not generatingPDF
+  {\newcommand{\entityNameIndexINT}[3]{%  command if not generatingHyperPDF
    \ifthenelse{\equal{#1}{D}}%
     {\index{#2!#3|(textbf}\label{#2:#3}}%  if first argument is 'D'
     {\ifthenelse{\equal{#1}{R}\or\equal{#1}{S}}%
@@ -137,21 +144,21 @@ pdfpagemode=UseOutlines]{hyperref}
 
 \newcommand{\entityName}[3][R]{\entityNameTagINT{#1}{#2}{#3}\entityNameIndexINT{#1}{#2}{#3}}
 % The net effect is as follows:
-%  generatingPDF
-%   'D' \textit{\color{webgreen}#3}  \label{#2:#3}  {}
+%  generatingHyperPDF
+%   'D' \textitcorr{\color{webgreen}#3}  \label{#2:#3}  {}
 %   'E' {}  {}  {}
-%   'R' \hyperlink{hyper.#2.#3}{\textit{#3}}  \index{#2!#3}  \ref{#2:#3}
-%   'S' \textit{#3}  \index{#2!#3}  {}
-%   'X' \hyperlink{hyper.#2.#3}{\textit{#3}}  {}  {}
-%  not generatingPDF
-%   'D' \textit{\color{webgreen}#3}  \index{#2!#3|(textbf}\label{#2:#3}  {}
+%   'R' \hyperlink{hyper.#2.#3}{\textitcorr{#3}}  \index{#2!#3}  \ref{#2:#3}
+%   'S' \textitcorr{#3}  \index{#2!#3}  {}
+%   'X' \hyperlink{hyper.#2.#3}{\textitcorr{#3}}  {}  {}
+%  not generatingHyperPDF
+%   'D' \textitcorr{\color{webgreen}#3}  \index{#2!#3|(textbf}\label{#2:#3}  {}
 %   'E' {}  \index{#2!#3|)textbf}  {}
-%   'R' \textit{#3}  \index{#2!#3}  \ref{#2:#3}
-%   'S' \textit{#3}  \index{#2!#3}  {}
-%   'X' \textit{#3}  {}  {}
-\ifthenelse{\boolean{generatingPDF}}%
-  {\newcommand{\companyReference}[2]{\href{#1}{#2}}}%  command if generatingPDF
-  {\newcommand{\companyReference}[2]{#2}}% command if not generatingPDF
+%   'R' \textitcorr{#3}  \index{#2!#3}  \ref{#2:#3}
+%   'S' \textitcorr{#3}  \index{#2!#3}  {}
+%   'X' \textitcorr{#3}  {}  {}
+\ifthenelse{\boolean{generatingHyperPDF}}%
+  {\newcommand{\companyReference}[2]{\href{#1}{#2}}}%  command if generatingHyperPDF
+  {\newcommand{\companyReference}[2]{#2}}% command if not generatingHyperPDF
 
 % Shortcuts to allow the use of \entityName within optional arguments:
 \newcommand{\objName}[1]{\entityName{Objects}{#1}}% shortcut
@@ -167,16 +174,16 @@ pdfpagemode=UseOutlines]{hyperref}
 
 % Use \objReference, rather than \entityName, for the first mention of an object within
 % another object, so that page ranges will be present.
-\ifthenelse{\boolean{generatingPDF}}%
-  {\newcommand{\entityReference}[2]{\entityName[R]{#1}{#2}}}%  command if generatingPDF
-  {\newcommand{\entityReference}[2]{\entityName[R]{#1}{#2} \vpageref[(][(]{#1:#2})}}%  command if not generatingPDF
+\ifthenelse{\boolean{generatingHyperPDF}}%
+  {\newcommand{\entityReference}[2]{\entityName[R]{#1}{#2}}}%  command if generatingHyperPDF
+  {\newcommand{\entityReference}[2]{\entityName[R]{#1}{#2} \vpageref[(][(]{#1:#2})}}%  command if not generatingHyperPDF
 
 \newcommand{\objReference}[1]{\entityReference{Objects}{#1}}
 \newcommand{\pluginReference}[2]{\entityReference{#1}{#2}}
 
-\ifthenelse{\boolean{generatingPDF}}%
-  {\newcommand{\objImageReference}[1]{\ref{#1}}}%  command if generatingPDF
-  {\newcommand{\objImageReference}[1]{\vref{#1}}}%  command if not generatingPDF
+\ifthenelse{\boolean{generatingHyperPDF}}%
+  {\newcommand{\objImageReference}[1]{\ref{#1}}}%  command if generatingHyperPDF
+  {\newcommand{\objImageReference}[1]{\vref{#1}}}%  command if not generatingHyperPDF
 
 %  Note that we need to fool vpageref into inserting an open round bracket
 %  before the text that it generates, as it inserts a space ahead of its
@@ -186,21 +193,21 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand*{\objCmd}[1]{\textbf{#1}}
 \newcommand*{\objCmdQ}[1]{`\objCmd{#1}'\xspace}
 \newcommand*{\objCmdArg}[1]{\textbf{\textsf{#1}}}
-\newcommand*{\objArgType}[1]{\textit{#1}}
+\newcommand*{\objArgType}[1]{\textitcorr{#1}}
 \newcommand*{\objIOType}[1]{\textbf{#1}}
 
-\newcommand*{\compLang}[1]{\emph{#1}}
+\newcommand*{\compLang}[1]{\emphcorr{#1}}
 
 \newcommand*{\MaxName}{\compLang{Max}}
 \newcommand*{\MaxMSPName}{\compLang{Max/MSP}}
 
-\ifthenelse{\boolean{generatingPDF}}%
+\ifthenelse{\boolean{generatingHyperPDF}}%
   {\newcommand*{\startEntity}[5][!-!-!]{\clearpage\section{#5\texorpdfstring{#2}{#4}}%
    \renewcommand{\mymark}{#4}%
    \ifthenelse{\equal{#1}{!-!-!}}%
     {\hypertarget{hyper.#3.#4}{}}%
     {\hypertarget{hyper.#3.#1}{}}}}%
-  {\newcommand*{\startEntity}[5][!-!-!]{\clearpage\section{#5#2}}\renewcommand{\mymark}{#4}}
+  {\newcommand*{\startEntity}[5][!-!-!]{\clearpage\section{#5#2}\renewcommand{\mymark}{#4}}}
 
 \newcommand*{\startObject}[3][!-!-!]{%
 \ifthenelse{\equal{#1}{!-!-!}}%
@@ -359,19 +366,19 @@ pdfpagemode=UseOutlines]{hyperref}
 
 \newcommand*{\appendixEnd}[1]{#1} % just a notational convenience
 
-\ifthenelse{\boolean{generatingPDF}}%
+\ifthenelse{\boolean{generatingHyperPDF}}%
   {\newcommand*{\startPlugin}[4][!-!-!]{\subsection{\texorpdfstring{\color{magenta}#2}{#4}}%
    \renewcommand{\mymark}{#4}%
    \ifthenelse{\equal{#1}{!-!-!}}%
     {\hypertarget{hyper.#3.#4}{}}%
     {\hypertarget{hyper.#3.#1}{}}}}%
-  {\newcommand*{\startPlugin}[4][!-!-!]{\subsection{\color{magenta}#2}}\renewcommand{\mymark}{#4}}
+  {\newcommand*{\startPlugin}[4][!-!-!]{\subsection{\color{magenta}#2}\renewcommand{\mymark}{#4}}}
 	
 \newcommand*{\pluginEnd}[1]{#1} % just a notational convenience
 
 % Define hyphenation points:
 
-\title{\cal\Huge\textit{Max~Objects~from~Norm~Jaffe}\\
+\title{\cal\Huge\textitcorr{Max~Objects~from~Norm~Jaffe}\\
 \vspace{1ex}
 \objPicture{contk.eps}}
 \author{Norman Jaffe\\

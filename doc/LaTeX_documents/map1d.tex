@@ -15,19 +15,19 @@ returns the set of values associated with the range.}
 
 \objItemClass{Arith/Logic/Bitwise, Lists}
 
-\objItemArgs{\ }
+\objItemArgs{\nothing}
 
   \objListArgBegin
   \objListArgItem{init-file}{(optional) symbol}{the name of the map file to load initially}
   \objListArgEnd
 
-\objItemInlet{\ }
+\objItemInlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{integer\textnormal{/}float}{the command or data input}
   \objListIOEnd
 
-\objItemOutlet{\ }
+\objItemOutlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{list}{the retrieved data, the previous result (if a \objCmdQ{bang} is received),
@@ -55,48 +55,48 @@ returns the set of values associated with the range.}
 
   \objListCmdItem{add}{list}
   Add a range to the end of the loaded set of ranges.
-  The range is in the form: \emph{`*'} or \emph{left-bracket lower-value upper-value right-bracket output}, where
-  \emph{left-bracket} is either `[' or `(' and \emph{right-bracket} is either `]' or `)';
-  \emph{lower-value} is a floating-point number, an integer or one of the symbols `$-$inf' or
+  The range is in the form: \emphcorr{`*'} or \emphcorr{left-bracket lower-value upper-value right-bracket output}, where
+  \emphcorr{left-bracket} is either `[' or `(' and \emphcorr{right-bracket} is either `]' or `)';
+  \emphcorr{lower-value} is a floating-point number, an integer or one of the symbols `$-$inf' or
   `$-\infty$', which indicate an unbounded value;
-  \emph{upper-value} is a floating-point number, an integer or one of the symbols
+  \emphcorr{upper-value} is a floating-point number, an integer or one of the symbols
   `inf', `$+$inf', `$\infty$' or `$+\infty$', which indicate an unbounded value.
   The symbol `*' indicates a ``don't care'' value, which will match anything.
-  \emph{output} is a list of values to return on a successful match.
+  \emphcorr{output} is a list of values to return on a successful match.
   The output list can contain the symbol `\$' to indicate the input or the symbol `\$\$' to
-  indicate the offset of the input from the \emph{lower-value} of the matching range.
-  If the \emph{lower-value} is unbounded, the input is returned rather than the offset.
+  indicate the offset of the input from the \emphcorr{lower-value} of the matching range.
+  If the \emphcorr{lower-value} is unbounded, the input is returned rather than the offset.
   
   \objListCmdItem{after}{index list}
   Add a range after the range with the given index.
-  The range is in the form: \emph{`*'} or \emph{left-bracket lower-value upper-value right-bracket output}, where
-  \emph{left-bracket} is either `[' or `(' and \emph{right-bracket} is either `]' or `)';
-  \emph{lower-value} is a floating-point number, an integer or one of the symbols `$-$inf' or
+  The range is in the form: \emphcorr{`*'} or \emphcorr{left-bracket lower-value upper-value right-bracket output}, where
+  \emphcorr{left-bracket} is either `[' or `(' and \emphcorr{right-bracket} is either `]' or `)';
+  \emphcorr{lower-value} is a floating-point number, an integer or one of the symbols `$-$inf' or
   `$-\infty$', which indicate an unbounded value;
-  \emph{upper-value} is a floating-point number, an integer or one of the symbols
+  \emphcorr{upper-value} is a floating-point number, an integer or one of the symbols
   `inf', `$+$inf', `$\infty$' or `$+\infty$', which indicate an unbounded value.
   The symbol `*' indicates a ``don't care'' value, which will match anything.
-  \emph{output} is a list of values to return on a successful match.
+  \emphcorr{output} is a list of values to return on a successful match.
   The output list can contain the symbol `\$' to indicate the input or the symbol `\$\$' to
-  indicate the offset of the input from the \emph{lower-value} of the matching range.
-  If the \emph{lower-value} is unbounded, the input is returned rather than the offset.
+  indicate the offset of the input from the \emphcorr{lower-value} of the matching range.
+  If the \emphcorr{lower-value} is unbounded, the input is returned rather than the offset.
 
-  \objListCmdItem{\emph{bang}}{}
+  \objListCmdItem{\emphcorr{bang}}{}
   Return the previous result, if any, as a list starting with the symbol `result'.
 
   \objListCmdItem{before}{index list}
   Add a range before the range with the given index.
-  The range is in the form: \emph{`*'} or \emph{left-bracket lower-value upper-value right-bracket output}, where
-  \emph{left-bracket} is either `[' or `(' and \emph{right-bracket} is either `]' or `)';
-  \emph{lower-value} is a floating-point number, an integer or one of the symbols `$-$inf' or
+  The range is in the form: \emphcorr{`*'} or \emphcorr{left-bracket lower-value upper-value right-bracket output}, where
+  \emphcorr{left-bracket} is either `[' or `(' and \emphcorr{right-bracket} is either `]' or `)';
+  \emphcorr{lower-value} is a floating-point number, an integer or one of the symbols `$-$inf' or
   `$-\infty$', which indicate an unbounded value;
-  \emph{upper-value} is a floating-point number, an integer or one of the symbols
+  \emphcorr{upper-value} is a floating-point number, an integer or one of the symbols
   `inf', `$+$inf', `$\infty$' or `$+\infty$', which indicate an unbounded value.
   The symbol `*' indicates a ``don't care'' value, which will match anything.
-  \emph{output} is a list of values to return on a successful match.
+  \emphcorr{output} is a list of values to return on a successful match.
   The output list can contain the symbol `\$' to indicate the input or the symbol `\$\$' to
-  indicate the offset of the input from the \emph{lower-value} of the matching range.
-  If the \emph{lower-value} is unbounded, the input is returned rather than the offset.
+  indicate the offset of the input from the \emphcorr{lower-value} of the matching range.
+  If the \emphcorr{lower-value} is unbounded, the input is returned rather than the offset.
 
   \objListCmdItem{clear}{}
   The currently loaded set of ranges is removed.
@@ -111,15 +111,15 @@ returns the set of values associated with the range.}
   \objListCmdItem{dump}{}
   Retrieves all the ranges as a sequence of lists starting with the symbol `range'.
   The second element of each list is the index, and the remainder of the list is in the form
-  \emph{`*'} or \emph{left-bracket lower-value upper-value right-bracket output}, where \emph{left-bracket}
-  is either `[' or `(' and \emph{right-bracket} is either `]' or `)';
-  \emph{lower-value} is a floating-point number or the symbol `$-$inf',
-  which indicates an unbounded value; \emph{upper-value}, is a floating-point number or
+  \emphcorr{`*'} or \emphcorr{left-bracket lower-value upper-value right-bracket output}, where \emphcorr{left-bracket}
+  is either `[' or `(' and \emphcorr{right-bracket} is either `]' or `)';
+  \emphcorr{lower-value} is a floating-point number or the symbol `$-$inf',
+  which indicates an unbounded value; \emphcorr{upper-value}, is a floating-point number or
   the symbol `inf', which indicates an unbounded value.
   The symbol `*' indicates a ``don't care'' value, which will match anything.
-  \emph{output} is the list of values which will be returned on a successful match.
+  \emphcorr{output} is the list of values which will be returned on a successful match.
 
-  \objListCmdItem{\emph{float}}{}
+  \objListCmdItem{\emphcorr{float}}{}
   The given value is compared to the loaded ranges.
   When a match is found, the output portion of the matching range is returned, prefixed with the symbol
   `result'.
@@ -129,7 +129,7 @@ returns the set of values associated with the range.}
   starting with the symbol `value'.
   A ``don't care'' value is returned as the symbol `*'.
 
-  \objListCmdItem{\emph{integer}}{}
+  \objListCmdItem{\emphcorr{integer}}{}
   The given value is compared to the loaded ranges.
   When a match is found, the output portion of the matching range is returned, prefixed with the symbol
   `result'.
@@ -139,36 +139,36 @@ returns the set of values associated with the range.}
  
   \objListCmdItem{replace}{index list}
   Replace the range with the given index.
-  The range is in the form: \emph{`*'} or \emph{left-bracket lower-value upper-value right-bracket output}, where
-  \emph{left-bracket} is either `[' or `(' and \emph{right-bracket} is either `]' or `)';
-  \emph{lower-value} is a floating-point number, an integer or one of the symbols `$-$inf' or
+  The range is in the form: \emphcorr{`*'} or \emphcorr{left-bracket lower-value upper-value right-bracket output}, where
+  \emphcorr{left-bracket} is either `[' or `(' and \emphcorr{right-bracket} is either `]' or `)';
+  \emphcorr{lower-value} is a floating-point number, an integer or one of the symbols `$-$inf' or
   `$-\infty$', which indicate an unbounded value;
-  \emph{upper-value} is a floating-point number, an integer or one of the symbols
+  \emphcorr{upper-value} is a floating-point number, an integer or one of the symbols
   `inf', `$+$inf', `$\infty$' or `$+\infty$', which indicate an unbounded value.
   The symbol `*' indicates a ``don't care'' value, which will match anything.
-  \emph{output} is a list of values to return on a successful match.
+  \emphcorr{output} is a list of values to return on a successful match.
   The output list can contain the symbol `\$' to indicate the input or the symbol `\$\$' to
-  indicate the offset of the input from the \emph{lower-value} of the matching range.
-  If the \emph{lower-value} is unbounded, the input is returned rather than the offset.
+  indicate the offset of the input from the \emphcorr{lower-value} of the matching range.
+  If the \emphcorr{lower-value} is unbounded, the input is returned rather than the offset.
 
   \objListCmdItem{set}{index edge value}
   Replace the given edge (`lower' or `upper') of the range with the given index.
-  \emph{value} is a floating-point number, an integer, or one of the symbols `inf', `$+$inf',
+  \emphcorr{value} is a floating-point number, an integer, or one of the symbols `inf', `$+$inf',
   `$\infty$' or `$+\infty$', `$-$inf' or `$-\infty$', which indicate an unbounded value.
-  If \emph{edge} is `lower', the symbol `$-$inf' or `$-\infty$' can appear;
-  if \emph{edge} is `upper', the symbol `inf', `$+$inf', `$\infty$' or `$+\infty$' can appear.
+  If \emphcorr{edge} is `lower', the symbol `$-$inf' or `$-\infty$' can appear;
+  if \emphcorr{edge} is `upper', the symbol `inf', `$+$inf', `$\infty$' or `$+\infty$' can appear.
   Note that a ``don't care'' value cannot be replaced using this command.
 
   \objListCmdItem{show}{index}
   Retrieves the range with the given index, as a list starting with the symbol `range'.
   The second element of the list is the index, and the remainder of the list is in the form
-  \emph{`*'} or \emph{left-bracket lower-value upper-value right-bracket output}, where \emph{left-bracket}
-  is either `[' or `(' and \emph{right-bracket} is either `]' or `)';
-  \emph{lower-value} is a floating-point number or the symbol `$-$inf',
-  which indicates an unbounded value; \emph{upper-value}, is a floating-point number or
+  \emphcorr{`*'} or \emphcorr{left-bracket lower-value upper-value right-bracket output}, where \emphcorr{left-bracket}
+  is either `[' or `(' and \emphcorr{right-bracket} is either `]' or `)';
+  \emphcorr{lower-value} is a floating-point number or the symbol `$-$inf',
+  which indicates an unbounded value; \emphcorr{upper-value}, is a floating-point number or
   the symbol `inf', which indicates an unbounded value.
   The symbol `*' indicates a ``don't care'' value, which will match anything.
-  \emph{output} is the list of values which will be returned on a successful match.
+  \emphcorr{output} is the list of values which will be returned on a successful match.
 
   \objListCmdItem{verbose}{\textnormal{[}on\textnormal{/}off\textnormal{]}}
   Range check tracing to the \MaxName{} window will be enabled (`on'), disabled (`off') or reversed,
@@ -186,18 +186,18 @@ and have boundary values that are integers, floating-point numbers, or infinitie
 An open range is indicated by a parenthesis, or round bracket, and a closed range by a square bracket.
 A range declaration is in the following form:
 
-\centerline{\emph{`*'} or \emph{left-bracket lower-value upper-value right-bracket output}}
+\centerline{\emphcorr{`*'} or \emphcorr{left-bracket lower-value upper-value right-bracket output}}
 
-\emph{left-bracket} is either `[' or `(' and \emph{right-bracket} is either `]' or `)';
-\emph{lower-value} is a floating-point number, an integer or one of the symbols `$-$inf' or
+\emphcorr{left-bracket} is either `[' or `(' and \emphcorr{right-bracket} is either `]' or `)';
+\emphcorr{lower-value} is a floating-point number, an integer or one of the symbols `$-$inf' or
 `$-\infty$', which indicate an unbounded value;
-\emph{upper-value} is a floating-point number, an integer or one of the symbols
+\emphcorr{upper-value} is a floating-point number, an integer or one of the symbols
 `inf', `$+$inf', `$\infty$' or `$+\infty$', which indicate an unbounded value.
 The symbol `*' indicates a ``don't care'' value, which will match anything.
-\emph{output} is a list of values to return on a successful match.
+\emphcorr{output} is a list of values to return on a successful match.
 The output list can contain the symbols `\$' or `\$x' to indicate the input or the symbol `\$\$'
-or `\$\$x' to indicate the offset of the input from the \emph{lower-value} of the matching range.
-If the \emph{lower-value} is unbounded, the input is returned rather than the offset.
+or `\$\$x' to indicate the offset of the input from the \emphcorr{lower-value} of the matching range.
+If the \emphcorr{lower-value} is unbounded, the input is returned rather than the offset.
 Note that the order of the range declarations is critical---the first range that matches the input
 is used, and overlaps between range declarations are ignored.
 \end{quote}

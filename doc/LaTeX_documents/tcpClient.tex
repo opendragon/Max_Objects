@@ -16,7 +16,7 @@ object.}
 
 \objItemClass{Devices}
 
-\objItemArgs{\ }
+\objItemArgs{\nothing}
 
   \objListArgBegin
   \objListArgItem{ip-address}{(optional) symbol}{the address of the machine running the
@@ -32,13 +32,13 @@ object.}
       
   \objListArgEnd
 
-\objItemInlet{\ }
+\objItemInlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{list}{the command input}
   \objListIOEnd
 
-\objItemOutlet{\ }
+\objItemOutlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{list}{the status or response.
@@ -66,7 +66,7 @@ object.}
 
   \objListCmdBegin
 
-  \objListCmdItem{\emph{bang}}{}
+  \objListCmdItem{\emphcorr{bang}}{}
   Report the state of the communication (`unbound', `bound', `listening', `connecting',
   `connected', `disconnecting' or `unknown') as a two or five element list, with the symbol
   `status' as its first element.
@@ -82,10 +82,10 @@ object.}
   \objListCmdItem{disconnect}{}
   Close any existing connection to a \objName{tcpServer} or a \objName{tcpMultiServer} object.
 
-  \objListCmdItem{\emph{float}}{}
+  \objListCmdItem{\emphcorr{float}}{}
   Send the given floating point value to the \objName{tcpServer} or \objName{tcpMultiServer} object.
 
-  \objListCmdItem{\emph{integer}}{}
+  \objListCmdItem{\emphcorr{integer}}{}
   Send the given integer value to the \objName{tcpServer} or \objName{tcpMultiServer} object.
 
   \objListCmdItem{list}{anything}

@@ -9,7 +9,7 @@ verbatimtex
 \newcommand{\gotohel}{\fontfamily{phv}\fontseries{m}\fontshape{n}\fontsize{12}{14}\selectfont}
 \newcommand{\gotocour}{\fontfamily{pcr}\fontseries{b}\fontshape{n}\fontsize{7}{8}\selectfont}
 \newcommand{\objectText}[2]{{\hspace*{2pt}\rule[-2pt]{0pt}{12pt}\gotohel #1 %
-     \fontshape{sl}\selectfont #2\hspace*{12pt}}}
+\fontshape{sl}\selectfont #2\hspace*{12pt}}}
 \begin{document}
 etex;
 

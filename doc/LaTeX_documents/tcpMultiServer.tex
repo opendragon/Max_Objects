@@ -15,7 +15,7 @@ providing an endpoint server to communicate with one or more \objReference{tcpCl
 
 \objItemClass{Devices}
 
-\objItemArgs{\ }
+\objItemArgs{\nothing}
 
   \objListArgBegin
   \objListArgItem{port}{(optional) integer}{the number of the port to communicate on.
@@ -29,13 +29,13 @@ providing an endpoint server to communicate with one or more \objReference{tcpCl
       
   \objListArgEnd
 
-\objItemInlet{\ }
+\objItemInlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{list}{the command input}
   \objListIOEnd
 
-\objItemOutlet{\ }
+\objItemOutlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{list}{the status or response.
@@ -62,7 +62,7 @@ computers that are reachable via a TCP/IP network}
 
   \objListCmdBegin
 
-  \objListCmdItem{\emph{bang}}{}
+  \objListCmdItem{\emphcorr{bang}}{}
   Report the general state of the communication as a five element list, with the symbol `status' as
   its first element.
   The second element of the list is the value `0', the third element is the general state of the

@@ -15,7 +15,7 @@ It provides functionality over and above that of the standard \objNameS{serial} 
 
 \objItemClass{Devices}
 
-\objItemArgs{\ }
+\objItemArgs{\nothing}
 
   \objListArgBegin
   \objListArgItem{port}{symbol}{either `modem', `printer', or a single letter from `a' to `z' which
@@ -52,13 +52,13 @@ It provides functionality over and above that of the standard \objNameS{serial} 
 
   \objListArgEnd
 
-\objItemInlet{\ }
+\objItemInlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{integer\textnormal{/}list\textnormal{/}bang}{the command input}
   \objListIOEnd
 
-\objItemOutlet{\ }
+\objItemOutlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{integer\textnormal{/}list}{returned characters (as single characters,
@@ -85,7 +85,7 @@ It provides functionality over and above that of the standard \objNameS{serial} 
 
   \objListCmdBegin
 
-  \objListCmdItem{\emph{bang}}{}
+  \objListCmdItem{\emphcorr{bang}}{}
   Return any characters received from the port of the serial device (since the last time a
   \objCmdQ{bang} command was received), in the form of one or more lists of characters, if
   `chunk' mode is active, or as single characters, if `chunk' mode is inactive.
@@ -118,11 +118,11 @@ It provides functionality over and above that of the standard \objNameS{serial} 
   When no argument is given, the use of the DTR signal for handshaking will be toggled.
   The DTR handshake is set active when the \objNameX{serialX} object is created.
 
-  \objListCmdItem{\emph{float}}{}
+  \objListCmdItem{\emphcorr{float}}{}
   Send the single character that is the ASCII equivalent to the given value, out the port of
   the serial device.
 
-  \objListCmdItem{\emph{integer}}{}
+  \objListCmdItem{\emphcorr{integer}}{}
   Send the single character that is the ASCII equivalent to the given value, out the port of
   the serial device.
 

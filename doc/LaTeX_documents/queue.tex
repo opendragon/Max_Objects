@@ -16,7 +16,7 @@ values on each level.}
 
 \objItemClass{Data}
 
-\objItemArgs{\ }
+\objItemArgs{\nothing}
 
   \objListArgBegin
   \objListArgItem{tag-name}{integer}{the maximum number of elements that can be held in the queue.
@@ -24,13 +24,13 @@ values on each level.}
   A depth of zero is interpreted as a queue that can hold an unlimited number of elements.}
   \objListArgEnd
 
-\objItemInlet{\ }
+\objItemInlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{list}{the command input}
   \objListIOEnd
 
-\objItemOutlet{\ }
+\objItemOutlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{anything}{the retrieved data}
@@ -61,7 +61,7 @@ values on each level.}
   If the queue was already full, output the first element in the queue (the oldest) before adding
   the new data.
 
-  \objListCmdItem{\emph{bang}}{}
+  \objListCmdItem{\emphcorr{bang}}{}
   Output all data held in the queue in the order in which it was received.
 
   \objListCmdItem{clear}{}

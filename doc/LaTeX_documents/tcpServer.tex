@@ -15,7 +15,7 @@ providing an endpoint server to communicate with a single \objReference{tcpClien
 
 \objItemClass{Devices}
 
-\objItemArgs{\ }
+\objItemArgs{\nothing}
 
   \objListArgBegin
   \objListArgItem{port}{(optional) integer}{the number of the port to communicate on.
@@ -26,13 +26,13 @@ providing an endpoint server to communicate with a single \objReference{tcpClien
       
   \objListArgEnd
 
-\objItemInlet{\ }
+\objItemInlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{list}{the command input}
   \objListIOEnd
 
-\objItemOutlet{\ }
+\objItemOutlet{\nothing}
 
   \objListIOBegin
   \objListIOItem{list}{the status or response.
@@ -60,7 +60,7 @@ computer that is reachable via a TCP/IP network}
 
   \objListCmdBegin
 
-  \objListCmdItem{\emph{bang}}{}
+  \objListCmdItem{\emphcorr{bang}}{}
   Report the state of the communication (`unbound', `bound', `listening', `connecting', `connected',
   `disconnecting' or `unknown') as a three or five element list, with the symbol `status' as its
   first element.
@@ -73,10 +73,10 @@ computer that is reachable via a TCP/IP network}
   \objListCmdItem{disconnect}{}
   Close any existing connection to a \objName{tcpClient} object.
 
-  \objListCmdItem{\emph{float}}{}
+  \objListCmdItem{\emphcorr{float}}{}
   Send the given floating point value to the \objName{tcpClient} object.
 
-  \objListCmdItem{\emph{integer}}{}
+  \objListCmdItem{\emphcorr{integer}}{}
   Send the given integer value to the \objName{tcpClient} object.
 
   \objListCmdItem{list}{anything}
