@@ -1,4 +1,4 @@
-\ProvidesFile{rcx.tex}[v1.0.3]
+\ProvidesFile{rcx.tex}[v1.0.4]
 \startObject{\objNameS{rcx}}{rcx}
 \index{Themes!Device~interface!rcx}
 \objPicture{rcxsymbol.ps}
@@ -8,7 +8,7 @@ Note that it does not use the \objName{serialX} or \objNameS{serial} objects for
 
 \objItemCreated{April 2002}
 
-\objItemVersion{1.0.3}
+\objItemVersion{1.0.4}
 
 \objItemHelp{no}
 
@@ -68,6 +68,9 @@ Note that it does not use the \objName{serialX} or \objNameS{serial} objects for
   Clear the sound buffer.
   See also the \objCmdQ{mute} command.
   
+  \objListCmdItem{continuetask}{index}
+  Resume the execution of the given task, where \objCmdArg{index} is between 1 and 10.
+  
   \objListCmdItem{floatoutput}{set}
   Set the given set of outputs to ``coast'', where \objCmdArg{set} is between 1 and 7
   (the individual outputs are encoded as 1, 2 and 4, which are then added together to get the set of outputs to change).
@@ -126,6 +129,9 @@ Note that it does not use the \objName{serialX} or \objNameS{serial} objects for
   Set the direction of the given set of outputs, where \objCmdArg{set} is between 1 and 7
   (the individual outputs are encoded as 1, 2 and 4, which are then added together to get the set of outputs to change) and
   \objCmdArg{direction} is either `backward', `reverse' or `forward'.
+  
+  \objListCmdItem{setmessage}{message}
+  Set the message buffer to the given value, where \objCmdArg{message} is between 1 and 255.
   
   \objListCmdItem{setoutputpower}{set level}
   Set the power level for the given set of outputs, where \objCmdArg{set} is between 1 and 7
