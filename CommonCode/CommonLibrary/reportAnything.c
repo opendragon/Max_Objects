@@ -50,7 +50,7 @@ void reportAnything
  #pragma unused(routineName,message,argc,argv)
 #else /* not COMPILE_FOR_STUB */
   error("%s unknown message '%s' seen", routineName, message->s_name);
-  for (short ii = 0; ii < argc; ii++)
+  for (short ii = 0; ii < argc; ++ii)
   {
     switch (argv[ii].a_type)
     {
