@@ -211,9 +211,9 @@
 
 \newcommand*{\startObject}[3][!-!-!]{%
 \ifthenelse{\equal{#1}{!-!-!}}%
-	{\startEntity{#2}{Objects}{#3}{}}%
-	{\startEntity[#1]{#2}{Objects}{#3}{}}}
-	
+  {\startEntity{#2}{Objects}{#3}{}}%
+  {\startEntity[#1]{#2}{Objects}{#3}{}}}
+
 \newcommand*{\objEnd}[1]{#1} % just a notational convenience
 
 \newcommand*{\insertpart}[2]{\clearpage\renewcommand{\mymark}{#1}#2}
@@ -361,8 +361,8 @@
 
 \newcommand*{\startAppendix}[4][!-!-!]{%
 \ifthenelse{\equal{#1}{!-!-!}}%
-	{\startEntity{#2}{#3}{#4}{\appendixname{}~}}%
-	{\startEntity[#1]{#2}{#3}{#4}{\appendixname{}~}}}
+  {\startEntity{#2}{#3}{#4}{\appendixname{}~}}%
+  {\startEntity[#1]{#2}{#3}{#4}{\appendixname{}~}}}
 
 \newcommand*{\appendixEnd}[1]{#1} % just a notational convenience
 
@@ -373,7 +373,7 @@
     {\hypertarget{hyper.#3.#4}{}}%
     {\hypertarget{hyper.#3.#1}{}}}}%
   {\newcommand*{\startPlugin}[4][!-!-!]{\subsection{\color{magenta}#2}\renewcommand{\mymark}{#4}}}
-	
+
 \newcommand*{\pluginEnd}[1]{#1} % just a notational convenience
 
 % Define hyphenation points:
