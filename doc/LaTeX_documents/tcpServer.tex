@@ -1,4 +1,4 @@
-\ProvidesFile{tcpServer.tex}[v1.1.6]
+\ProvidesFile{tcpServer.tex}[v1.1.7]
 \startObject{\objNameS{tcpServer}}{tcpServer}
 \index{Themes!TCP/IP!tcpServer}
 \objPicture{tcpServersymbol.ps}
@@ -7,7 +7,7 @@ providing an endpoint server to communicate with a single \objReference{tcpClien
 
 \objItemCreated{August 1998}
 
-\objItemVersion{1.1.6}
+\objItemVersion{1.1.7}
 
 \objItemHelp{yes}
 
@@ -125,8 +125,7 @@ computer that is reachable via a TCP/IP network}
 
 \objItemComments[Once a communication path is established between a \objName{tcpClient} object and
 a \objNameX{tcpServer} object, either object can send messages---the path is full-duplex.
-Note as well that only there can only be one \objName{tcpMultiServer} or \objNameX{tcpServer} object
-for any given port.
+Note as well that only there can only be one \objName{tcpMultiServer}, \objNameX{tcpServer} or \objName{udpPort} object for any given port.
 Figure~\objImageReference{diagram:tcpserverstate} is a state diagram for \objNameX{tcpServer} objects.]
 \objDiagram{tcpServerstate.ps}{tcpserverstate}{State diagram for \objNameX{tcpServer} objects}
 

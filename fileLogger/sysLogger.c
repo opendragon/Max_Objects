@@ -38,9 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #define IS_MAIN /* */
-
-#define USE_SYSLOG  /* must be set in order to pull in the definitions that we need! */
-
 #include "sysLogger.h"
 #include "displayAboutBox.h"
 #include "loadAboutBoxData.h"

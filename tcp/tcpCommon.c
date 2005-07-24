@@ -67,7 +67,7 @@ bool initObject
   if (xx)
   {
 #if (OPEN_TRANSPORT_SUPPORTED && SYSLOG_AVAILABLE)
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "entering initObject");
+    Syslog(SYSLOG_LEVEL, "%s: entering initObject", name);
 #endif /* OPEN_TRANSPORT_SUPPORTED and SYSLOG_AVAILABLE */
     xx->fServerPort = static_cast<ushort>(port ? port : DEFAULT_PORT);
     xx->fClientAddress = 0L;
@@ -119,9 +119,6 @@ bool initObject
       xx->fPoolTail = prev_link;           
     }
     xx->fClosing = xx->fRawMode = false;
-#if defined(BE_VERBOSE)
-    xx->fVerbose = false;
-#endif /* BE_VERBOSE */
     if (! (xx->fResultOut && xx->fErrorBangOut && xx->fErrorQueue && xx->fBufferBase &&
             xx->fRebindQueue && xx->fReceiveQueue && xx->fLinkBase))
     {
@@ -130,7 +127,7 @@ bool initObject
     }
   }
 #if (OPEN_TRANSPORT_SUPPORTED && SYSLOG_AVAILABLE)
-  Syslog(LOG_DEBUG, OUTPUT_PREFIX "exiting initObject");
+  Syslog(SYSLOG_LEVEL, "%s: exiting initObject", name);
 #endif /* OPEN_TRANSPORT_SUPPORTED and SYSLOG_AVAILABLE */
   return okSoFar;
 } /* initObject */
@@ -155,12 +152,16 @@ void presetObjectPointers
 
 /*------------------------------------ releaseObjectMemory ---*/
 void releaseObjectMemory
-  (TcpObjectPtr xx)
+  (Qchar				name,
+   TcpObjectPtr xx)
 {
+#if ((! OPEN_TRANSPORT_SUPPORTED) || (! SYSLOG_AVAILABLE))
+ #pragma unused(name)
+#endif /* not OPEN_TRANSPORT_SUPPORTED */
   if (xx)
   {
 #if (OPEN_TRANSPORT_SUPPORTED && SYSLOG_AVAILABLE)
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "entering releaseObjectMemory");
+    Syslog(SYSLOG_LEVEL, "%s: entering releaseObjectMemory", name);
 #endif /* OPEN_TRANSPORT_SUPPORTED and SYSLOG_AVAILABLE */
     if (xx->fErrorQueue)
     {
@@ -195,7 +196,16 @@ void releaseObjectMemory
       xx->fLinkBase = NULL_HDL;
     }
 #if (OPEN_TRANSPORT_SUPPORTED && SYSLOG_AVAILABLE)
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "exiting releaseObjectMemory");
+    Syslog(SYSLOG_LEVEL, "%s: exiting releaseObjectMemory", name);
 #endif /* OPEN_TRANSPORT_SUPPORTED and SYSLOG_AVAILABLE */
   }
 } /* releaseObjectMemory */
+
+/*------------------------------------ reportEndpointState ---*/
+void reportEndpointState
+  (Qchar				name,
+   TcpObjectPtr xx)
+{
+  if (xx)
+  	LOG_ERROR_3("%s: Endpoint state: %s", name, describeEndpointState(xx->fEndpoint));
+} /* reportEndpointState */

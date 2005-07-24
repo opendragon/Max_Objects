@@ -125,6 +125,9 @@ Pvoid tcpServerCreate
     OTConfigurationRef  this_config;
 #endif /* OPEN_TRANSPORT_SUPPORTED */
 
+#if defined(BE_VERBOSE)
+    xx->fVerbose = false;
+#endif /* BE_VERBOSE */
     presetObjectPointers(xx);
     if ((port < 0) || (port > MAX_PORT) || (numBuffers < 0))
     {
@@ -201,6 +204,7 @@ Pvoid tcpServerCreate
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTSetAsynchronous failed (%ld = %s)", result)
+        reportEndpointState(OUR_NAME, xx);
         okSoFar = false;
       }
     }
@@ -210,6 +214,7 @@ Pvoid tcpServerCreate
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTSetBlocking failed (%ld = %s)", result)
+        reportEndpointState(OUR_NAME, xx);
         okSoFar = false;
       }
     }
@@ -227,6 +232,7 @@ Pvoid tcpServerCreate
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTInstallNotifier failed (%ld = %s)", result)
+        reportEndpointState(OUR_NAME, xx);
         okSoFar = false;
       }
     }
@@ -268,13 +274,19 @@ Pvoid tcpServerFree
         case TCP_OBJECT_BOUND:
           WRAP_OT_CALL(xx, result, "OTUnbind", OTUnbind(xx->fEndpoint))
           if (result != kOTNoError)
+          {
             REPORT_ERROR(OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
+		        reportEndpointState(OUR_NAME, xx);
+          }
           /* Fall through */
 
         case TCP_OBJECT_UNBOUND:
           WRAP_OT_CALL(xx, result, "OTCloseProvider", OTCloseProvider(xx->fEndpoint))
           if (result != kOTNoError)
+          {
             REPORT_ERROR(OUTPUT_PREFIX "OTCloseProvider failed (%ld = %s)", result)
+		        reportEndpointState(OUR_NAME, xx);
+          }
           break;
 
       }
@@ -283,7 +295,7 @@ Pvoid tcpServerFree
     DisposeOTNotifyUPP(xx->fDataNotifier);
  #endif /* COMPILE_FOR_CATS */
 #endif /* OPEN_TRANSPORT_SUPPORTED */
-    releaseObjectMemory(xx);
+    releaseObjectMemory(OUR_NAME, xx);
 #if OPEN_TRANSPORT_SUPPORTED
     relinquishOpenTransport(OUR_NAME, &xx->fAccessControl);
 #endif /* OPEN_TRANSPORT_SUPPORTED */
@@ -305,7 +317,7 @@ bool tcpServerSetPort
     OSStatus result;
 
  #if SYSLOG_AVAILABLE
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "entering tcpServerSetPort");
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "entering tcpServerSetPort");
  #endif /* SYSLOG_AVAILABLE */
     switch (xx->fState)
     {
@@ -326,6 +338,7 @@ bool tcpServerSetPort
         if (result != kOTNoError)
         {
           REPORT_ERROR(OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
+	        reportEndpointState(OUR_NAME, xx);
           okSoFar = false;
         }
         setObjectState(xx, TCP_OBJECT_UNBOUND);
@@ -354,6 +367,7 @@ bool tcpServerSetPort
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
+        reportEndpointState(OUR_NAME, xx);
         okSoFar = false;
       }
     }
@@ -361,7 +375,7 @@ bool tcpServerSetPort
     if ((! okSoFar) && bangOnError)
       signalError(xx);
 #if (OPEN_TRANSPORT_SUPPORTED && SYSLOG_AVAILABLE)
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "exiting tcpServerSetPort");
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "exiting tcpServerSetPort");
 #endif /* OPEN_TRANSPORT_SUPPORTED and SYSLOG_AVAILABLE */
   }
   return okSoFar;
@@ -381,7 +395,7 @@ bool tcpServerDisconnect
   {
 #if OPEN_TRANSPORT_SUPPORTED
  #if SYSLOG_AVAILABLE
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "entering tcpServerDisconnect");
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "entering tcpServerDisconnect");
  #endif /* SYSLOG_AVAILABLE */
     switch (xx->fState)
     {
@@ -418,6 +432,7 @@ bool tcpServerDisconnect
         else
         {
           REPORT_ERROR(OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)", result)
+	        reportEndpointState(OUR_NAME, xx);
           okSoFar = false;
         }
       }
@@ -437,6 +452,7 @@ bool tcpServerDisconnect
         else
         {
           REPORT_ERROR(OUTPUT_PREFIX "OTSndDisconnect failed (%ld = %s)", result)
+	        reportEndpointState(OUR_NAME, xx);
           okSoFar = false;
         }
       }
@@ -444,7 +460,7 @@ bool tcpServerDisconnect
     if (! okSoFar)
       signalError(xx);
  #if SYSLOG_AVAILABLE
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "exiting tcpServerDisconnect");
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "exiting tcpServerDisconnect");
  #endif /* SYSLOG_AVAILABLE */
 #endif /* OPEN_TRANSPORT_SUPPORTED */
   }

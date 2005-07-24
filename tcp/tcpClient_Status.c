@@ -82,7 +82,10 @@ Pvoid cmd_Status
             xx->fClientPort = self_inet_ptr->fPort;
           }
           else
+          {
             REPORT_ERROR(OUTPUT_PREFIX "OTGetProtAddress failed (%ld = %s)", result)
+		        reportEndpointState(OUR_NAME, xx);
+          }
         }
         FREEBYTES(other_data, xx->fAddressSize)
         FREEBYTES(self_data, xx->fAddressSize)

@@ -125,7 +125,12 @@ Pvoid processReceiveQueue
   (TcpObjectPtr xx);
 
 void releaseObjectMemory
-  (TcpObjectPtr xx);
+  (Qchar				name,
+   TcpObjectPtr xx);
+
+void reportEndpointState
+	(Qchar				name,
+	 TcpObjectPtr	xx);
 
 void setObjectState
   (TcpObjectPtr   			xx,

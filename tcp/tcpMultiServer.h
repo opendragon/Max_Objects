@@ -147,13 +147,17 @@ bool initObject
    long              numBuffers);
 
 bool makeReceiveBufferAvailable
-  (TcpConnectionPtr connection);
+  (TcpConnectionPtr	connection);
 
 void presetObjectPointers
-  (TcpMultiServerPtr xx);
+  (TcpMultiServerPtr	xx);
 
 void releaseObjectMemory
-  (TcpMultiServerPtr xx);
+  (TcpMultiServerPtr	xx);
+
+void reportEndpointState
+	(TcpMultiServerPtr	xx,
+   EndpointRef				endpoint);
 
 void setConnectionState
   (TcpConnectionPtr			connection,

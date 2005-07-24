@@ -115,7 +115,7 @@ struct DoPluginData
   short               fNumOutlets;
   long                fInletNumber;
   Ptr                 fPrivate;
-  HOutlet 			  fOutlets;
+  HOutlet 			  		fOutlets;
   Hvoid               fProxies;
   OwnerData           fOwnerInfo;   
 }; /* DoPluginData */

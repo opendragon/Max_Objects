@@ -84,7 +84,7 @@ void acquireSyslog
     GetCurrentProcess(&thisProcess);
     Openlog(&thisProcess, LOG_LOCAL0);
  #endif /* not COMPILE_FOR_CATS */
-    Syslog(LOG_DEBUG, "------------------------------------------");
+    Syslog(SYSLOG_LEVEL, "------------------------------------------");
     checkGlobal->s_thing = reinterpret_cast<PObject>(checkGlobal);
   }
   gSyslogCount++;

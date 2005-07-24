@@ -1,4 +1,4 @@
-\ProvidesFile{tcpMultiServer.tex}[v1.0.9]
+\ProvidesFile{tcpMultiServer.tex}[v1.1.0]
 \startObject{\objNameS{tcpMultiServer}}{tcpMultiServer}
 \index{Themes!TCP/IP!tcpMultiServer}
 \objPicture{tcpMultiServersymbol.ps}
@@ -7,7 +7,7 @@ providing an endpoint server to communicate with one or more \objReference{tcpCl
 
 \objItemCreated{October 2000}
 
-\objItemVersion{1.0.9}
+\objItemVersion{1.1.0}
 
 \objItemHelp{yes}
 
@@ -127,8 +127,7 @@ maximum number of clients specified when the \objNameX{tcpMultiServer} object wa
 Note that the identifier exists until the connection is closed with a \objCmdQ{disconnect} command
 (sent to the \objNameX{tcpMultiServer} object or the connected \objName{tcpClient} object) and the
 identifier may be reassigned to a subsequent connection.
-Note as well that only there can only be one \objNameX{tcpMultiServer} or \objName{tcpServer} object
-for any given port.
+Note as well that only there can only be one \objName{tcpMultiServer}, \objNameX{tcpServer} or \objName{udpPort} object for any given port.
 Figure~\objImageReference{diagram:tcpmultiserverstate} is a state diagram for
 \objNameX{tcpMultiServer} objects.]
 \objDiagram{tcpMultiServerstate.ps}{tcpmultiserverstate}{State diagram for \objNameX{tcpMultiServer} objects}

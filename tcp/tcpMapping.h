@@ -40,7 +40,7 @@
 #if (! defined(TCPMAPPING_H_))
  #define TCPMAPPING_H_ /* */
  
- /* #define USE_SYSLOG /* */
+// #define USE_SYSLOG /* */
  
  #include "MissingAndExtra.h"
  #include "acquireOpenTransport.h"
@@ -57,8 +57,8 @@
  #define BE_VERBOSE /* */
  
  #define USE_FORCED_DISCONNECTS true /* false for orderly disconnects */
- #define TRACE_OT_CALLS /* */
- #define TRACE_MAX_MESSAGES /* */
+// #define TRACE_OT_CALLS /* */
+// #define TRACE_MAX_MESSAGES /* */
  
  #define ADD_TO_ADDRESS(yy, amount) (reinterpret_cast<Ptr>(yy) + amount) 
 
@@ -95,7 +95,7 @@ typedef TcpBufferLinkPtr *  TcpBufferLinkHdl;
    #define WRAP_OT_CALL(xx, res, name, aCall) \
 {\
   res = aCall;\
-  Syslog(LOG_DEBUG, OUTPUT_PREFIX name " --> (%ld = %s)", long(res),\
+  Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX name " --> (%ld = %s)", long(res),\
           mapErrorCodeToString(res));\
   if (xx->fVerbose)\
     post(OUTPUT_PREFIX name " --> (%ld = %s)", long(res), mapErrorCodeToString(res));\

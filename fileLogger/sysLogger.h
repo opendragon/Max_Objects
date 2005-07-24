@@ -39,6 +39,8 @@
 
 #if (! defined(SYSLOGGER_H_))
  #define SYSLOGGER_H_ /* */
+
+ #define USE_SYSLOG  /* must be set in order to pull in the definitions that we need! */
  
  #include "MissingAndExtra.h"
  

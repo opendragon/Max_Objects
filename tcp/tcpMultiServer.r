@@ -18,7 +18,7 @@ resource 'STR#' (17144, "tcpMultiServer") {
 
 resource 'vers' (1, "tcpMultiServer") {
 	0x1,
-	0x09,
+	0x10,
 	release,
 	0x0,
 	0,
@@ -28,7 +28,7 @@ resource 'vers' (1, "tcpMultiServer") {
 
 resource 'vers' (2, "tcpMultiServer") {
 	0x1,
-	0x09,
+	0x10,
 	release,
 	0x0,
 	0,

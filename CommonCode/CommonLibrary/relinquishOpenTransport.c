@@ -60,7 +60,7 @@ void relinquishOpenTransport
     AccessOTControlPtr walker;
 
   #if SYSLOG_AVAILABLE
-    Syslog(LOG_DEBUG, "%s: relinquishing 0x%lx", name, long(candidate));
+    Syslog(SYSLOG_LEVEL, "%s: relinquishing 0x%lx", name, long(candidate));
   #endif /* SYSLOG_AVAILABLE */
     if (checkGlobal->s_thing)
     {
@@ -106,7 +106,7 @@ void relinquishOpenTransport
     else
       LOG_ERROR_2("%s: Open Transport not initialized", name)
     *reference = NULL_PTR;
-    }
+  }
  #else /* not OPEN_TRANSPORT_SUPPORTED */
   #pragma unused(name, reference)
  #endif /* not OPEN_TRANSPORT_SUPPORTED */

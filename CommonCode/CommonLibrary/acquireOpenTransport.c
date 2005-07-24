@@ -57,8 +57,7 @@ AccessOTControlPtr acquireOpenTransport
  #if OPEN_TRANSPORT_SUPPORTED
   bool               found = false;
   PSymbol            checkGlobal = gensym(OT_CONTROL_SYMBOL);
-  AccessOTControlPtr result = NULL_PTR;
-  AccessOTControlPtr base = NULL_PTR;
+  AccessOTControlPtr result = NULL_PTR, base = NULL_PTR;
 
   /* Determine if InitOpenTransport() has been called successfully in some other */
   /* object related to this one. */
@@ -69,7 +68,7 @@ AccessOTControlPtr acquireOpenTransport
     /* already set up: look for a match */
     base = reinterpret_cast<AccessOTControlPtr>(checkGlobal->s_thing);
   #if SYSLOG_AVAILABLE
-    Syslog(LOG_DEBUG, "%s: OT already inited, base = 0x%lx", name, long(base));
+    Syslog(SYSLOG_LEVEL, "%s: OT already inited, base = 0x%lx", name, long(base));
   #endif /* SYSLOG_AVAILABLE */
     if (isServer)
     {
@@ -91,7 +90,7 @@ AccessOTControlPtr acquireOpenTransport
     /* no match: add the new control block */
     result = GETBYTES(1, AccessOTControlBlock);
   #if SYSLOG_AVAILABLE
-    Syslog(LOG_DEBUG, "%s: port available for use, new block = 0x%lx", name, asLong(result));
+    Syslog(SYSLOG_LEVEL, "%s: port available for use, new block = 0x%lx", name, long(result));
   #endif /* SYSLOG_AVAILABLE */
     if (result)
     {
@@ -102,12 +101,26 @@ AccessOTControlPtr acquireOpenTransport
       if (base)
       {
   #if SYSLOG_AVAILABLE
-        Syslog(LOG_DEBUG, "%s: putting new block on head of chain", name);
+        Syslog(SYSLOG_LEVEL, "%s: putting new block on head of chain", name);
   #endif /* SYSLOG_AVAILABLE */
         base->fPrevious = result;
         checkGlobal->s_thing = reinterpret_cast<PObject>(result);
       }
-      if (! gObjectCount++)
+      if (gObjectCount++)
+      {
+  			if (base)
+  			{
+ #if defined(COMPILE_FOR_CATS)
+  				result->fContext = base->fContext;
+ #endif /* COMPILE_FOR_CATS */
+  			}
+  			else
+  			{
+          LOG_ERROR_2("%s: internal error with Open Transport acquire/relinquish mismatch", name)
+          FREEBYTES(result, 1)
+  			}
+      }
+      else
       {
         /* first call: set it up */
   #if defined(COMPILE_FOR_CATS)
@@ -120,7 +133,7 @@ AccessOTControlPtr acquireOpenTransport
         if (err == kOTNoError)
         {
   #if SYSLOG_AVAILABLE
-          Syslog(LOG_DEBUG, "%s: OT successfully initialized", name);
+          Syslog(SYSLOG_LEVEL, "%s: OT successfully initialized", name);
   #endif /* SYSLOG_AVAILABLE */
           checkGlobal->s_thing = reinterpret_cast<PObject>(result);        
         }
@@ -136,7 +149,7 @@ AccessOTControlPtr acquireOpenTransport
       LOG_ERROR_2("%s: unable to allocate memory for Open Transport Control Block", name)
   }
   #if SYSLOG_AVAILABLE
-  Syslog(LOG_DEBUG, "%s: returning with result = 0x%lx", name, result);
+  Syslog(SYSLOG_LEVEL, "%s: returning with result = 0x%lx", name, result);
   #endif /* SYSLOG_AVAILABLE */
   return result;
  #else /* not OPEN_TRANSPORT_SUPPORTED */

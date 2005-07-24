@@ -17,7 +17,7 @@ resource 'STR#' (17128, "tcpServer") {
 
 resource 'vers' (1, "tcpServer") {
 	0x1,
-	0x16,
+	0x17,
 	release,
 	0x0,
 	0,
@@ -27,7 +27,7 @@ resource 'vers' (1, "tcpServer") {
 
 resource 'vers' (2, "tcpServer") {
 	0x1,
-	0x16,
+	0x17,
 	release,
 	0x0,
 	0,

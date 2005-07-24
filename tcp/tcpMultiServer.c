@@ -122,7 +122,7 @@ static bool tcpMultiServerConstructConnections
 
 #if OPEN_TRANSPORT_SUPPORTED
  #if SYSLOG_AVAILABLE
-  Syslog(LOG_DEBUG, OUTPUT_PREFIX "entering tcpMultiServerConstructConnections");
+  Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "entering tcpMultiServerConstructConnections");
  #endif /* SYSLOG_AVAILABLE */
   data_config = OTCreateConfiguration(kTCPName);
   if ((data_config == kOTInvalidConfigurationPtr) ||
@@ -175,6 +175,7 @@ static bool tcpMultiServerConstructConnections
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTSetAsynchronous failed (%ld = %s)", result)
+        reportEndpointState(xx, a_connection->fDataEndpoint);
         okSoFar = false;
       }
     }
@@ -185,6 +186,7 @@ static bool tcpMultiServerConstructConnections
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTSetBlocking failed (%ld = %s)", result)
+        reportEndpointState(xx, a_connection->fDataEndpoint);
         okSoFar = false;
       }
     }
@@ -202,6 +204,7 @@ static bool tcpMultiServerConstructConnections
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTInstallNotifier failed (%ld = %s)", result)
+        reportEndpointState(xx, a_connection->fDataEndpoint);
         okSoFar = false;
       }
     }
@@ -219,7 +222,7 @@ static bool tcpMultiServerConstructConnections
       (data_config != kOTNoMemoryConfigurationPtr))
     OTDestroyConfiguration(data_config);
  #if SYSLOG_AVAILABLE
-  Syslog(LOG_DEBUG, OUTPUT_PREFIX "exiting tcpMultiServerConstructConnections");
+  Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "exiting tcpMultiServerConstructConnections");
  #endif /* SYSLOG_AVAILABLE */
 #endif /* OPEN_TRANSPORT_SUPPORTED */
   return okSoFar;
@@ -244,6 +247,9 @@ Pvoid tcpMultiServerCreate
     OTConfigurationRef this_config;
 #endif /* OPEN_TRANSPORT_SUPPORTED */
 
+#if defined(BE_VERBOSE)
+    xx->fVerbose = false;
+#endif /* BE_VERBOSE */
     presetObjectPointers(xx);
     if ((port < 0) || (port > MAX_PORT) || (clients < 0) || (clients > MAX_CLIENTS) ||
         (numBuffers < 0))
@@ -334,6 +340,7 @@ Pvoid tcpMultiServerCreate
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTSetAsynchronous failed (%ld = %s)", result)
+        reportEndpointState(xx, xx->fListenEndpoint);
         okSoFar = false;
       }
     }
@@ -343,6 +350,7 @@ Pvoid tcpMultiServerCreate
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTSetBlocking failed (%ld = %s)", result)
+        reportEndpointState(xx, xx->fListenEndpoint);
         okSoFar = false;
       }
     }
@@ -360,6 +368,7 @@ Pvoid tcpMultiServerCreate
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTInstallNotifier failed (%ld = %s)", result)
+        reportEndpointState(xx, xx->fListenEndpoint);
         okSoFar = false;
       }
     }
@@ -412,16 +421,22 @@ Pvoid tcpMultiServerFree
         case TCP_OBJECT_BOUND:
           WRAP_OT_CALL(xx, result, "OTUnbind", OTUnbind(xx->fListenEndpoint))
           if (result != kOTNoError)
+          {
             REPORT_ERROR(OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
+		        reportEndpointState(xx, xx->fListenEndpoint);
+          }
           /* Fall through */
 
         case TCP_OBJECT_UNBOUND:
           WRAP_OT_CALL(xx, result, "OTCloseProvider",
                         OTCloseProvider(xx->fListenEndpoint))
-          if (result != kOTNoError)
-            REPORT_ERROR(OUTPUT_PREFIX "OTCloseProvider failed (%ld = %s)", result)
-          else
+          if (result == kOTNoError)
             xx->fListenEndpoint = kOTInvalidEndpointRef;
+          else
+          {
+            REPORT_ERROR(OUTPUT_PREFIX "OTCloseProvider failed (%ld = %s)", result)
+		        reportEndpointState(xx, xx->fListenEndpoint);
+          }
           break;
 
       }
@@ -453,7 +468,7 @@ bool tcpMultiServerSetPort
     OSStatus result;
 
  #if SYSLOG_AVAILABLE
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "entering tcpMultiServerSetPort");
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "entering tcpMultiServerSetPort");
  #endif /* SYSLOG_AVAILABLE */
     switch (xx->fState)
     {
@@ -468,6 +483,7 @@ bool tcpMultiServerSetPort
         if (result != kOTNoError)
         {
           REPORT_ERROR(OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
+	        reportEndpointState(xx, xx->fListenEndpoint);
           okSoFar = false;
         }
         setObjectState(xx, TCP_OBJECT_UNBOUND);
@@ -497,6 +513,7 @@ bool tcpMultiServerSetPort
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
+        reportEndpointState(xx, xx->fListenEndpoint);
         okSoFar = false;
       }
     }
@@ -504,7 +521,7 @@ bool tcpMultiServerSetPort
     if ((! okSoFar) && bangOnError)
       signalError(xx);
 #if (OPEN_TRANSPORT_SUPPORTED && SYSLOG_AVAILABLE)
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "exiting tcpMultiServerSetPort");
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "exiting tcpMultiServerSetPort");
 #endif /* OPEN_TRANSPORT_SUPPORTED and SYSLOG_AVAILABLE */
   }
   return okSoFar;
@@ -525,7 +542,7 @@ bool tcpMultiServerDisconnect
   {
 #if OPEN_TRANSPORT_SUPPORTED
  #if SYSLOG_AVAILABLE
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "entering tcpMultiServerDisconnect (%d)",
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "entering tcpMultiServerDisconnect (%d)",
             connection->fIdentifier);
  #endif /* SYSLOG_AVAILABLE */
     switch (connection->fState)
@@ -564,6 +581,7 @@ bool tcpMultiServerDisconnect
         else
         {
           REPORT_ERROR(OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)", result)
+	        reportEndpointState(xx, connection->fDataEndpoint);
           okSoFar = false;
         }
       }
@@ -583,6 +601,7 @@ bool tcpMultiServerDisconnect
         else
         {
           REPORT_ERROR(OUTPUT_PREFIX "OTSndDisconnect failed (%ld = %s)", result)
+	        reportEndpointState(xx, connection->fDataEndpoint);
           okSoFar = false;
         }
       }
@@ -590,7 +609,7 @@ bool tcpMultiServerDisconnect
     if (! okSoFar)
       signalError(xx);
  #if SYSLOG_AVAILABLE
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "exiting tcpMultiServerDisconnect");
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "exiting tcpMultiServerDisconnect");
  #endif /* SYSLOG_AVAILABLE */
 #endif /* OPEN_TRANSPORT_SUPPORTED */
   }

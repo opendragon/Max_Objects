@@ -278,7 +278,10 @@
   {\end{list}}
 \newcommand*{\objListIOBegin}{\begin{objIOList}}
 \newcommand*{\objListIOEnd}{\end{objIOList}}
-\newcommand{\objListIOItem}[2]{\item \objIOType{#1}, #2}
+\newcommand{\objListIOItem}[3][!-!-!]{%
+\ifthenelse{\equal{#1}{!-!-!}}%
+ {\item \objIOType{#2}, #3}%
+ {\item[#1] \objIOType{#2}, #3}}
 
 \newenvironment{objCmdList}
   {\begin{list}
@@ -441,6 +444,7 @@ Canada}
 \input{rcx.tex}
 
 \input{serialX.tex}
+\input{shotgun.tex}
 \input{spaceball.tex}
 \input{speak.tex}
 \input{stack.tex}
@@ -450,6 +454,8 @@ Canada}
 \input{tcpLocate.tex}
 \input{tcpMultiServer.tex}
 \input{tcpServer.tex}
+
+\input{udpPort.tex}
 
 \input{Vabs.tex}
 \input{Vassemble.tex}
@@ -477,6 +483,7 @@ Canada}
 \input{Vscan.tex}
 \input{Vsegment.tex}
 \input{Vsin.tex}
+\input{Vsplit.tex}
 \input{Vsqrt.tex}
 \input{Vtake.tex}
 \input{Vtokenize.tex}

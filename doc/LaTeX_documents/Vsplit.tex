@@ -1,0 +1,69 @@
+\ProvidesFile{Vsplit.tex}[v1.0.0]
+\startObject{\objNameS{Vsplit}}{Vsplit}
+\index{Themes!Vector~manipulation!Vsplit}
+\index{Vectors!Dyadic~operations!Vsplit}
+\objPicture{Vsplitsymbol.ps}
+\objItemDescription{\objNameD{Vdrop} is a combination of a \objName{Vtake} and \objName{Vdrop}.}
+
+\objItemCreated{July 2005}
+
+\objItemVersion{1.0.0}
+
+\objItemHelp{yes}
+
+\objItemTheme{Vector manipulation}
+
+\objItemClass{Lists}
+
+\objItemArgs{\nothing}
+
+  \objListArgBegin
+  \objListArgItem{how-many}{integer}{the number of elements to split by.
+     A positive number indicates that the split point is counted from the beginning of the input list,
+     while a negative number indicates that the split point is counted from the end of the list.}
+  \objListArgEnd
+  
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{bang\textnormal{/}list}{the list to be split}
+
+  \objListIOItem{integer}{the number of elements to split.
+  This replaces the initial argument.}
+  
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the left part of the list, or the previous result (if a `bang' is received)}
+  \objListIOEnd
+
+  \objListIOBegin
+  \objListIOItem{list}{the right part of the list, or the previous result (if a `bang' is received)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{yes, the number of elements to split}
+
+\objItemCompatibility{\MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{PPC-only}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{\emphcorr{bang}}{}
+  Return the previous result, if any.
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{Vsplit}}

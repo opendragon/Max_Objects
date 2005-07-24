@@ -6,9 +6,9 @@ psfiles = Vabssymbol.ps Vassemblesymbol.ps Vceilingsymbol.ps \
 	Vltrimsymbol.ps Vmeansymbol.ps Vnegatesymbol.ps \
 	Vreducesymbol.ps Vreversesymbol.ps Vrotatesymbol.ps \
 	Vroundsymbol.ps Vrtrimsymbol.ps Vscansymbol.ps \
-	Vsegmentsymbol.ps Vsinsymbol.ps Vsqrtsymbol.ps \
-	Vtakesymbol.ps Vtokenizesymbol.ps Vtrimsymbol.ps \
-	Vtruncatesymbol.ps Vunspellsymbol.ps \
+	Vsegmentsymbol.ps Vsinsymbol.ps Vsplitsymbol.ps \
+	Vsqrtsymbol.ps Vtakesymbol.ps Vtokenizesymbol.ps \
+	Vtrimsymbol.ps Vtruncatesymbol.ps Vunspellsymbol.ps \
 	bqtsymbol.ps \
 	caseShiftsymbol.ps changessymbol.ps comparessymbol.ps \
 	dataTypesymbol.ps \
@@ -23,11 +23,12 @@ psfiles = Vabssymbol.ps Vassemblesymbol.ps Vceilingsymbol.ps \
 	pfsmstate.ps pfsmsymbol.ps placeholder.ps \
 	queuesymbol.ps \
 	rcxsymbol.ps \
-	serialXsymbol.ps spaceballconnections.ps spaceballsymbol.ps \
-	speaksymbol.ps stacksymbol.ps sysLoggersymbol.ps \
+	serialXsymbol.ps shotgunsymbol.ps spaceballconnections.ps \
+	spaceballsymbol.ps speaksymbol.ps stacksymbol.ps sysLoggersymbol.ps \
 	tcpClientstate.ps tcpClientsymbol.ps tcpLocatesymbol.ps \
 	tcpMultiServerstate.ps tcpMultiServersymbol.ps tcpServerstate.ps \
 	tcpServersymbol.ps \
+	udpPortsymbol.ps \
 	wqtsymbol.ps \
 	x10connections.ps x10symbol.ps x10unitssymbol.ps
 
@@ -53,9 +54,9 @@ texfiles = Vabs.tex Vassemble.tex Vceiling.tex \
 	Vltrim.tex Vmean.tex Vnegate.tex \
 	Vreduce.tex Vreverse.tex Vrotate.tex \
 	Vround.tex Vrtrim.tex Vscan.tex \
-	Vsegment.tex Vsin.tex Vsqrt.tex \
-	Vtake.tex Vtokenize.tex Vtrim.tex \
-	Vtruncate.tex Vunspell.tex \
+	Vsegment.tex Vsin.tex Vsplit.tex \
+	Vsqrt.tex Vtake.tex Vtokenize.tex \
+	Vtrim.tex Vtruncate.tex Vunspell.tex \
 	bqt.tex \
 	caseShift.tex changes.tex compares.tex \
 	dataType.tex \
@@ -71,10 +72,11 @@ texfiles = Vabs.tex Vassemble.tex Vceiling.tex \
 	phidg_unitservo.tex \
 	queue.tex \
 	rcx.tex \
-	serialX.tex spaceball.tex speak.tex \
+	serialX.tex shotgun.tex spaceball.tex speak.tex \
 	stack.tex sysLogger.tex \
 	tcpClient.tex tcpLocate.tex tcpMultiServer.tex \
 	tcpServer.tex \
+	udpPort.tex \
 	wqt.tex \
 	x10.tex x10units.tex
 

@@ -72,6 +72,7 @@ static Pvoid processRebindQueue
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
+        reportEndpointState(xx, xx->fListenEndpoint);
         signalError(xx);            
       }
     }
@@ -89,6 +90,7 @@ static Pvoid processRebindQueue
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
+        reportEndpointState(xx, xx->fListenEndpoint);
         signalError(xx);            
       }
     }
@@ -170,7 +172,7 @@ bool initObject
   if (xx)
   {
 #if (OPEN_TRANSPORT_SUPPORTED && SYSLOG_AVAILABLE)
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "entering initObject");
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "entering initObject");
 #endif /* OPEN_TRANSPORT_SUPPORTED and SYSLOG_AVAILABLE */
     xx->fServerPort = static_cast<ushort>(port ? port : DEFAULT_PORT);
     xx->fErrorBangOut = static_cast<POutlet>(bangout(xx));
@@ -228,7 +230,7 @@ bool initObject
     }
   }
 #if (OPEN_TRANSPORT_SUPPORTED && SYSLOG_AVAILABLE)
-  Syslog(LOG_DEBUG, OUTPUT_PREFIX "exiting initObject");
+  Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "exiting initObject");
 #endif /* OPEN_TRANSPORT_SUPPORTED and SYSLOG_AVAILABLE */
   return okSoFar;
 } /* initObject */
@@ -247,7 +249,7 @@ bool makeReceiveBufferAvailable
     OTFlags           flags;
 
  #if SYSLOG_AVAILABLE
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "entering makeReceiveBufferAvailable (%d)",
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "entering makeReceiveBufferAvailable (%d)",
             connection->fIdentifier);
  #endif /* SYSLOG_AVAILABLE */
     WRAP_OT_CALL(connection->fOwner, err, "OTRcv", OTRcv(connection->fDataEndpoint,
@@ -256,6 +258,7 @@ bool makeReceiveBufferAvailable
     if (err < 0)
     {
       REPORT_ERROR(OUTPUT_PREFIX "OTRcv failed (%ld = %s)", err)
+      reportEndpointState(xx, connection->fDataEndpoint);
       okSoFar = false;
     }
     else
@@ -295,7 +298,7 @@ bool makeReceiveBufferAvailable
       signalReceive(xx);
     }
  #if SYSLOG_AVAILABLE
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "exiting makeReceiveBufferAvailable");
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "exiting makeReceiveBufferAvailable");
  #endif /* SYSLOG_AVAILABLE */
 #endif /* OPEN_TRANSPORT_SUPPORTED */
   }
@@ -328,7 +331,7 @@ void releaseObjectMemory
   if (xx)
   {
 #if (OPEN_TRANSPORT_SUPPORTED && SYSLOG_AVAILABLE)
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "entering releaseObjectMemory");
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "entering releaseObjectMemory");
 #endif /* OPEN_TRANSPORT_SUPPORTED and SYSLOG_AVAILABLE */
     if (xx->fErrorQueue)
     {
@@ -361,10 +364,13 @@ void releaseObjectMemory
         {
           WRAP_OT_CALL(xx, result, "OTCloseProvider",
                         OTCloseProvider(conn_walker->fDataEndpoint))
-          if (result != kOTNoError)
-            REPORT_ERROR(OUTPUT_PREFIX "OTCloseProvider failed (%ld = %s)", result)
-          else
+          if (result == kOTNoError)
             conn_walker->fDataEndpoint = kOTInvalidEndpointRef;
+          else
+          {
+            REPORT_ERROR(OUTPUT_PREFIX "OTCloseProvider failed (%ld = %s)", result)
+		        reportEndpointState(xx, conn_walker->fDataEndpoint);
+          }
         }
         conn_walker++;
       }
@@ -388,10 +394,19 @@ void releaseObjectMemory
     }
     FREEBYTES(xx->fConnections, xx->fMaximumConnections)
 #if (OPEN_TRANSPORT_SUPPORTED && SYSLOG_AVAILABLE)
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "exiting releaseObjectMemory");
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "exiting releaseObjectMemory");
 #endif /* OPEN_TRANSPORT_SUPPORTED and SYSLOG_AVAILABLE */
   }
 } /* releaseObjectMemory */
+
+/*------------------------------------ reportEndpointState ---*/
+void reportEndpointState
+  (TcpMultiServerPtr	xx,
+   EndpointRef				endpoint)
+{
+  if (xx)
+  	LOG_ERROR_2(OUTPUT_PREFIX "Endpoint state: %s", describeEndpointState(endpoint));
+} /* reportEndpointState */
 
 /*------------------------------------ setConnectionState ---*/
 void setConnectionState
@@ -406,7 +421,7 @@ void setConnectionState
 
     connection->fState = newState;
 #if (OPEN_TRANSPORT_SUPPORTED && SYSLOG_AVAILABLE)
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "set connection state %d to %s",
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "set connection state %d to %s",
             connection->fIdentifier, mapStateToSymbol(newState)->s_name);
 #endif /* OPEN_TRANSPORT_SUPPORTED and SYSLOG_AVAILABLE */
 #if defined(BE_VERBOSE)
@@ -426,7 +441,7 @@ void setObjectState
   {
     xx->fState = newState;
 #if (OPEN_TRANSPORT_SUPPORTED && SYSLOG_AVAILABLE)
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "set object state to %s",
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "set object state to %s",
             mapStateToSymbol(newState)->s_name);
 #endif /* OPEN_TRANSPORT_SUPPORTED and SYSLOG_AVAILABLE */
 #if defined(BE_VERBOSE)
@@ -452,7 +467,7 @@ void transmitBuffer
     OSStatus result;
 
  #if SYSLOG_AVAILABLE
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "entering transmitBuffer");
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "entering transmitBuffer");
  #endif /* SYSLOG_AVAILABLE */
     if (rawMode)
 	    WRAP_OT_CALL(xx, result, "OTSnd", OTSnd(out, &aBuffer->fElements, aBuffer->fNumBytesInUse, 0L))
@@ -465,9 +480,12 @@ void transmitBuffer
 	    WRAP_OT_CALL(xx, result, "OTSnd", OTSnd(out, &aBuffer->fNumElements, num_bytes, 0L))
     }
     if (result < 0)
+    {
       REPORT_ERROR(OUTPUT_PREFIX "OTSnd failed (%ld = %s)", result)
+      reportEndpointState(xx, out);
+    }
  #if SYSLOG_AVAILABLE
-    Syslog(LOG_DEBUG, OUTPUT_PREFIX "exiting transmitBuffer");
+    Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "exiting transmitBuffer");
  #endif /* SYSLOG_AVAILABLE */
 #endif /* OPEN_TRANSPORT_SUPPORTED */
   }

@@ -108,6 +108,10 @@ typedef struct qelem  	Qelem;
   #define SYSLOG_OK 0
  #endif /* not __powerc */
 
+ #if (! defined(SYSLOG_LEVEL))
+  #define SYSLOG_LEVEL LOG_DEBUG
+ #endif /* not SYSLOG_LEVEL */
+
 /* Standardize routine entry and exit */
 
  #define ExitMaxMessageHandler() \
@@ -383,63 +387,63 @@ Pvoid cmd_Anything\
  #if SYSLOG_AVAILABLE
   #define LOG_ERROR_1(xx) \
     {\
+      Syslog(LOG_ERR, xx);\
       error(xx);\
-      Syslog(LOG_DEBUG, xx);\
     }
   #define LOG_ERROR_2(xx, aa) \
     {\
+      Syslog(LOG_ERR, xx, aa);\
       error(xx, aa);\
-      Syslog(LOG_DEBUG, xx, aa);\
     }
   #define LOG_ERROR_3(xx, aa, bb) \
     {\
+      Syslog(LOG_ERR, xx, aa, bb);\
       error(xx, aa, bb);\
-      Syslog(LOG_DEBUG, xx, aa, bb);\
     }
   #define LOG_ERROR_4(xx, aa, bb, cc) \
     {\
+      Syslog(LOG_ERR, xx, aa, bb, cc);\
       error(xx, aa, bb, cc);\
-      Syslog(LOG_DEBUG, xx, aa, bb, cc);\
     }
   #define LOG_ERROR_5(xx, aa, bb, cc, dd) \
     {\
+      Syslog(LOG_ERR, xx, aa, bb, cc, dd);\
       error(xx, aa, bb, cc, dd);\
-      Syslog(LOG_DEBUG, xx, aa, bb, cc, dd);\
     }
   #define LOG_ERROR_6(xx, aa, bb, cc, dd, ee) \
     {\
+      Syslog(LOG_ERR, xx, aa, bb, cc, dd, ee);\
       error(xx, aa, bb, cc, dd, ee);\
-      Syslog(LOG_DEBUG, xx, aa, bb, cc, dd, ee);\
     }
   #define LOG_POST_1(xx) \
     {\
       post(xx);\
-      Syslog(LOG_DEBUG, xx);\
+      Syslog(SYSLOG_LEVEL, xx);\
     }
   #define LOG_POST_2(xx, aa) \
     {\
       post(xx, aa);\
-      Syslog(LOG_DEBUG, xx, aa);\
+      Syslog(SYSLOG_LEVEL, xx, aa);\
     }
   #define LOG_POST_3(xx, aa, bb) \
     {\
       post(xx, aa, bb);\
-      Syslog(LOG_DEBUG, xx, aa, bb);\
+      Syslog(SYSLOG_LEVEL, xx, aa, bb);\
     }
   #define LOG_POST_4(xx, aa, bb, cc) \
     {\
       post(xx, aa, bb, cc);\
-      Syslog(LOG_DEBUG, xx, aa, bb, cc);\
+      Syslog(SYSLOG_LEVEL, xx, aa, bb, cc);\
     }
   #define LOG_POST_5(xx, aa, bb, cc, dd) \
     {\
       post(xx, aa, bb, cc, dd);\
-      Syslog(LOG_DEBUG, xx, aa, bb, cc, dd);\
+      Syslog(SYSLOG_LEVEL, xx, aa, bb, cc, dd);\
     }
   #define LOG_POST_6(xx, aa, bb, cc, dd, ee) \
     {\
       post(xx, aa, bb, cc, dd, ee);\
-      Syslog(LOG_DEBUG, xx, aa, bb, cc, dd, ee);\
+      Syslog(SYSLOG_LEVEL, xx, aa, bb, cc, dd, ee);\
     }
  #else /* not SYSLOG_AVAILABLE */
   #define LOG_ERROR_1(xx) \
@@ -472,7 +476,7 @@ Pvoid cmd_Anything\
   #if SYSLOG_AVAILABLE
    #define REPORT_MAX_MESSAGE(msg) \
 {\
-  Syslog(LOG_DEBUG, OUTPUT_PREFIX "Max/" msg);\
+  Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX "Max/" msg);\
   if (xx->fVerbose)\
     post(OUTPUT_PREFIX "Max/" msg);\
 }
@@ -523,9 +527,9 @@ void acquireSyslog
 void relinquishSyslog
   (void);
 
-mextern(Pfptr) FNS;            /* Max function macros table */
-mextern(Pvoid) gClass;         /* Pointer to class object */
-mextern(ulong) gVersionNumber; /* The version number obtained from the 'vers' resource */
+mextern(Pfptr)	FNS;            /* Max function macros table */
+mextern(Pvoid)	gClass;         /* Pointer to class object */
+mextern(ulong)	gVersionNumber; /* The version number obtained from the 'vers' resource */
 
  #if defined(COMPILE_FOR_CATS)
 typedef void (* closelog_FP)
