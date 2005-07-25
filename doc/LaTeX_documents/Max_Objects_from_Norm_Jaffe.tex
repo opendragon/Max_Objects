@@ -278,10 +278,21 @@
   {\end{list}}
 \newcommand*{\objListIOBegin}{\begin{objIOList}}
 \newcommand*{\objListIOEnd}{\end{objIOList}}
+\newlength{\objListIOArgLen}
 \newcommand{\objListIOItem}[3][!-!-!]{%
+\settowidth{\objListIOArgLen}{#3}%
 \ifthenelse{\equal{#1}{!-!-!}}%
- {\item \objIOType{#2}, #3}%
- {\item[#1] \objIOType{#2}, #3}}
+	{%
+	\ifthenelse{\lengthtest{\objListIOArgLen > 0cm}}%
+	  {\item \objIOType{#2}, #3}%
+	  {\item \objIOType{#2}}
+	 }%
+	 {%
+	\ifthenelse{\lengthtest{\objListIOArgLen > 0cm}}%
+	  {\item[#1] \objIOType{#2}, #3}%
+	  {\item[#1] \objIOType{#2}}
+	 }%
+ }
 
 \newenvironment{objCmdList}
   {\begin{list}
