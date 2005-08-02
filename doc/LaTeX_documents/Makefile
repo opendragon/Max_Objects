@@ -15,12 +15,14 @@ psfiles = Vabssymbol.ps Vassemblesymbol.ps Vceilingsymbol.ps \
 	fidgetsymbol.ps fileLoggersymbol.ps \
 	gcdsymbol.ps gvp100connections.ps gvp100symbol.ps \
 	ldp1550connections.ps ldp1550symbol.ps listTypesymbol.ps \
-	listensymbol.ps \
-	map1dsymbol.ps map2dsymbol.ps map3dsymbol.ps \
+	listenrails.ps listensymbol.ps \
+	map1drails.ps map1dsymbol.ps map2drails.ps \
+	map2dsymbol.ps map3drails.ps map3dsymbol.ps \
 	memorysymbol.ps mtcTracksymbol.ps \
 	mtcconnections.ps mtcstate.ps mtcsymbol.ps \
 	notXsymbol.ps \
-	pfsmstate.ps pfsmsymbol.ps placeholder.ps \
+	pfsmrails.ps pfsmstate.ps pfsmsymbol.ps \
+	placeholder.ps \
 	queuesymbol.ps \
 	rcxsymbol.ps \
 	serialXsymbol.ps shotgunsymbol.ps spaceballconnections.ps \
@@ -80,7 +82,7 @@ texfiles = Vabs.tex Vassemble.tex Vceiling.tex \
 	wqt.tex \
 	x10.tex x10units.tex
 
-$(psfiles) : maxboxmacros.mp
+$(psfiles) : maxboxmacros.mp fixedBox.mp
 
 %.ps: %.mp
 	mpost --interaction batchmode $<
@@ -108,3 +110,4 @@ clean :
 	rm $(psfiles) *.log *.pdf *.mpx *.dvi
 
 manual : $(target)
+

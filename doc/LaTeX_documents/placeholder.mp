@@ -15,3 +15,8 @@ verbatimtex
 \end{document}
 etex
 end
+
+% $Log: placeholder.mp,v $
+% Revision 1.2  2005/08/02 15:07:09  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%
