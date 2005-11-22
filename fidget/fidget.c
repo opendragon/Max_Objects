@@ -703,7 +703,7 @@ static void addUSBDevice
 					}
 					if (okSoFar)
 					{
-						operResult = configureUSBDevice(device);
+						operResult = configureUSBDevice(device, 0);
 						if (operResult != KERN_SUCCESS)
 						{
 							okSoFar = false;

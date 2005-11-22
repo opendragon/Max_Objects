@@ -94,6 +94,79 @@ enum
 	kUSBHIDClass	= 3
 };
 
+struct IOUSBDevRequest
+{
+	UInt8		bmRequestType;
+	UInt8		bRequest;
+	UInt16	wValue;
+	UInt16	wIndex;
+	UInt16	wLength;
+	Pvoid		pData;
+	UInt32	wLenDone;
+}; /* IOUSBDevRequest */
+
+struct IOUSBDevRequestTO
+{
+	UInt8		bmRequestType;
+	UInt8		bRequest;
+	UInt16	wValue;
+	UInt16	wIndex;
+	UInt16	wLength;
+	Pvoid		pData;
+	UInt32	wLenDone;
+	UInt32	noDataTimeout;
+	UInt32	completionTimeout;
+}; /* IOUSBDevRequestTO */
+
+enum
+{
+	kUSBControl     = 0,
+	kUSBIsoc        = 1,
+	kUSBBulk        = 2,
+	kUSBInterrupt   = 3,
+	kUSBAnyType     = 0xFF
+};
+
+enum
+{
+	kUSBOut         = 0,
+	kUSBIn          = 1,
+	kUSBNone        = 2,
+	kUSBAnyDirn     = 3
+};
+
+enum
+{
+	kUSBStandard    = 0,
+	kUSBClass       = 1,
+	kUSBVendor      = 2
+};
+
+enum
+{
+	kUSBDevice      = 0,
+	kUSBInterface   = 1,
+	kUSBEndpoint    = 2,
+	kUSBOther       = 3
+};
+
+enum
+{
+	kUSBRqGetStatus     = 0,
+	kUSBRqClearFeature  = 1,
+	kUSBRqGetState      = 2,
+	kUSBRqSetFeature    = 3,
+	kUSBRqReserved2     = 4,
+	kUSBRqSetAddress    = 5,
+	kUSBRqGetDescriptor = 6,
+	kUSBRqSetDescriptor = 7,
+	kUSBRqGetConfig     = 8,
+	kUSBRqSetConfig     = 9,
+	kUSBRqGetInterface  = 10,
+	kUSBRqSetInterface  = 11,
+	kUSBRqSyncFrame     = 12
+};
+
 struct IOUSBDeviceInterface;
 
 struct IOUSBInterfaceInterface;
@@ -115,6 +188,10 @@ struct USBContext
  #endif /* not COMPILE_FOR_CATS */
  
  #if defined(COMPILE_FOR_CATS)
+IOReturn abortUSBPipe
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef);
+
 IOReturn closeUSBDevice
 	(IOUSBDeviceInterface * *	theInterface);
 
@@ -122,8 +199,13 @@ IOReturn closeUSBInterface
 	(IOUSBInterfaceInterface * *	theInterface);
 
 IOReturn configureUSBDevice
-	(IOUSBDeviceInterface * *	theInterface);
+	(IOUSBDeviceInterface * *	theInterface,
+	 const UInt8							configIndex);
 
+IOReturn createUSBInterfaceAsyncEventSource
+	(IOUSBInterfaceInterface * *	theInterface,
+	 CFRunLoopSourceRef &					source);
+	 
 IOReturn createUSBInterfaceIterator
 	(IOUSBDeviceInterface * *			theInterface,
 	 IOUSBFindInterfaceRequest &	request,
@@ -141,6 +223,9 @@ IOReturn getUSBDeviceVendor
 	(IOUSBDeviceInterface * *	theInterface,
    UInt16 &									devVendor);
    
+CFRunLoopSourceRef getUSBInterfaceAsyncEventSource
+	(IOUSBInterfaceInterface * *	theInterface);
+
 IOReturn getUSBInterfaceClass
 	(IOUSBInterfaceInterface * *	theInterface,
    UInt8 &											intfClass);
@@ -149,18 +234,114 @@ IOReturn getUSBInterfaceSubClass
 	(IOUSBInterfaceInterface * *	theInterface,
    UInt8 &											intfSubClass);
 
+IOReturn getUSBNumberOfConfigurations
+	(IOUSBDeviceInterface * *	theInterface,
+	 UInt8 &									numConfigs);
+									
 IOReturn openUSBDevice
 	(IOUSBDeviceInterface * *	theInterface);
 
 IOReturn openUSBInterface
 	(IOUSBInterfaceInterface * *	theInterface);
 
+IOReturn readUSBPipe
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef,
+   Pvoid												buffer,
+   UInt32 &											buffSize);
+
+IOReturn readUSBPipeAsync
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef,
+	 Pvoid												buf,
+	 const UInt32									size,
+	 IOAsyncCallback1							callback,
+	 Pvoid												refCon);
+	 
+IOReturn readUSBPipeAsyncTO
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef,
+	 Pvoid												buf,
+	 const UInt32									size,
+	 const UInt32									noDataTimeout,
+	 const UInt32									completionTimeout,
+	 IOAsyncCallback1							callback,
+	 Pvoid												refCon);
+
+IOReturn readUSBPipeTO
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef,
+   Pvoid												buffer,
+   UInt32 &											buffSize,
+   const UInt32									noDataTimeout,
+   const UInt32									completionTimeout);
+
 ULONG releaseUSBDevice
 	(IOUSBDeviceInterface * *	theInterface);
 
 ULONG releaseUSBInterface
 	(IOUSBInterfaceInterface * *	theInterface);
+
+IOReturn resetUSBPipe
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef);
+
+IOReturn sendUSBControlRequest
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef,
+   IOUSBDevRequest &						request);
  
+IOReturn sendUSBControlRequestAsync
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef,
+	 IOUSBDevRequest &						req,
+	 IOAsyncCallback1							callback,
+	 Pvoid												refCon);
+	 
+IOReturn sendUSBControlRequestAsyncTO
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef,
+	 IOUSBDevRequestTO &					req,
+	 IOAsyncCallback1							callback,
+	 Pvoid												refCon);
+
+IOReturn sendUSBControlRequestTO
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef,
+   IOUSBDevRequestTO &					request);
+
+IOReturn writeUSBPipe
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef,
+   Pvoid												buffer,
+   const UInt32									buffSize);
+
+IOReturn writeUSBPipeAsync
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef,
+	 Pvoid												buf,
+	 const UInt32									size,
+	 IOAsyncCallback1							callback,
+	 Pvoid												refCon);
+
+IOReturn writeUSBPipeAsyncTO
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef,
+	 Pvoid												buf,
+	 const UInt32									size,
+	 const UInt32									noDataTimeout,
+	 const UInt32									completionTimeout,
+	 IOAsyncCallback1							callback,
+	 Pvoid												refCon);
+	 
+IOReturn writeUSBPipeTO
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef,
+   Pvoid												buffer,
+   const UInt32									buffSize,
+   const UInt32									noDataTimeout,
+   const UInt32									completionTimeout);
+
  #else /* not COMPILE_FOR_CATS */
 bool setUpUSB
 	(Pvoid																obj,

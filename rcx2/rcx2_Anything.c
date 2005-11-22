@@ -1,12 +1,12 @@
 /*--------------------------------------------------------------------------------------*/
 /*                                                                                      */
-/*  File:       configureUSBDevice.c                                                    */
+/*  File:       rcx2_Anything.c                                                         */
 /*                                                                                      */
-/*  Contains:   The routine configureUSBDevice().                                       */
+/*  Contains:   The routine cmd_Anything().                                             */
 /*                                                                                      */
 /*  Written by: Norman Jaffe                                                            */
 /*                                                                                      */
-/*  Copyright:  (c) 2004 by T. H. Schiphorst, N. Jaffe, K. Gregory and G. I. Gregson.   */
+/*  Copyright:  (c) 2005 by T. H. Schiphorst, N. Jaffe, K. Gregory and G. I. Gregson.   */
 /*                                                                                      */
 /*              All rights reserved. Redistribution and use in source and binary forms, */
 /*              with or without modification, are permitted provided that the following */
@@ -33,56 +33,55 @@
 /*              (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE   */
 /*              OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.    */
 /*                                                                                      */
-/*  Created:    2004/02/09                                                              */
+/*  Created:    2005/11/19                                                              */
 /*                                                                                      */
 /*--------------------------------------------------------------------------------------*/
 
-#include "Common_USBX.h"
-#include "Common_USBXData.h"
-#include "loadOtherSegments.h"
+#include "rcx2.h"
 
-#if defined(COMPILE_FOR_CATS)
-/*------------------------------------ configureUSBDevice ---*/
-IOReturn configureUSBDevice
-	(IOUSBDeviceInterface * *	theInterface,
-	 const UInt8							configIndex)
+/*------------------------------------ cmd_Anything ---*/
+Pvoid cmd_Anything
+  (Rcx2ControlPtr xx,
+   PSymbol       message,
+   short         argc,
+   PAtom         argv)
 {
- #if defined(COMPILE_FOR_STUB)
-  #pragma unused(theInterface)
- 	return KERN_SUCCESS;
- #else /* not COMPILE_FOR_STUB */
-	IOReturn														result;
-	TransferVector_rec									funkChunk1, funkChunk2, funkChunk3;
-	usbGetNumberOfConfigurations_FP			pFusbGetNumberOfConfigurations = fillCallback(usbGetNumberOfConfigurations_FP,
-																																										funkChunk1,
-																																					(*theInterface)->GetNumberOfConfigurations);
-	usbGetConfigurationDescriptorPtr_FP	pFusbGetConfigDescriptorPtr = fillCallback(usbGetConfigurationDescriptorPtr_FP,
-																																								funkChunk2,
-																																				(*theInterface)->GetConfigurationDescriptorPtr);
-	usbSetConfiguration_FP							pFusbSetConfiguration = fillCallback(usbSetConfiguration_FP, funkChunk3,
-																																							(*theInterface)->SetConfiguration);
-	UInt8																numConfig;
+  EnterCallback();
+  LOG_ERROR_2(OUTPUT_PREFIX "Unknown message '%s' seen", message->s_name)
+  outlet_bang(xx->fErrorBangOut);
+  for (short ii = 0; ii < argc; ii++)
+  {
+    switch (argv[ii].a_type)
+    {
+      case A_LONG:
+        LOG_POST_3("  argument %hd is a long (%ld)", ii, argv[ii].a_w.w_long)
+        break;
 
-	// Get the number of available configurations.
-	result = pFusbGetNumberOfConfigurations(theInterface, &numConfig);
-	if (numConfig && (configIndex < numConfig))
-	{
-		IOUSBConfigurationDescriptorPtr	theDescriptor;
-	
-		// Get the requested configuration descriptor.
-		result = pFusbGetConfigDescriptorPtr(theInterface, configIndex, &theDescriptor);
-		if (result == KERN_SUCCESS)
-		{
-			// Set the device configuration from the 'bConfigurationValue' field
-			// of the descriptor.
-			result = pFusbSetConfiguration(theInterface, theDescriptor->bConfigurationValue);
-		}
-	}
-	return result;
- #endif /* not COMPILE_FOR_STUB */
-} /* configureUSBDevice */
-#endif /* COMPILE_FOR_CATS */
+      case A_SYM:
+        LOG_POST_3("  argument %hd is a symbol (%s)", ii, argv[ii].a_w.w_sym->s_name)
+        break;
 
-#if defined(COMPILE_FOR_CATS) and defined(COMPILE_FOR_STUB)
- #pragma export list configureUSBDevice
-#endif /* COMPILE_FOR_CATS and COMPILE_FOR_STUB */
+      case A_FLOAT:
+        LOG_POST_3("  argument %hd is a float (%g)", ii, double(argv[ii].a_w.w_float))
+        break;
+
+      case A_SEMI:
+        LOG_POST_2("  argument %hd is a semicolon", ii)
+        break;
+
+      case A_COMMA:
+        LOG_POST_2("  argument %hd is a comma", ii)
+        break;
+
+      case A_DOLLAR:
+        LOG_POST_2("  argument %hd is a dollar sign", ii)
+        break;
+
+      default:
+        LOG_POST_3("  argument %hd is an unknown type (%hd)", ii, argv[ii].a_type)
+        break;
+
+    }
+  }
+  ExitMaxMessageHandler()
+} /* cmd_Anything */

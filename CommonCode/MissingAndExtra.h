@@ -163,6 +163,7 @@ typedef GWorldPtr      	PGWorld;
 typedef PixMapHandle   	HPixmap;
 
 typedef const char *		Qchar;
+typedef const uchar *		Quchar;
 
  /* Set up A0/A4 code. Note that this will ONLY work if the called routine is in */
  /* the same segment as the caller, and it CANNOT be mixed with the standard */

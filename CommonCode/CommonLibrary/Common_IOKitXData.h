@@ -135,6 +135,11 @@ typedef Boolean (* runLoopContainsSource_FP)
 	 CFRunLoopSourceRef	source,
 	 CFStringRef				mode);
 
+typedef SInt32 (* runLoopRunInMode_FP)
+	(CFStringRef		mode,
+	 CFTimeInterval	seconds,
+	 Boolean				returnAfterSourceHandled);
+
 typedef CFMutableDictionaryRef (* serviceMatching_FP)
 	(Qchar	name); 
 

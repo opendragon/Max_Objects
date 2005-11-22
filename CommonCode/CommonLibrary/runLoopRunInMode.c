@@ -1,12 +1,12 @@
 /*--------------------------------------------------------------------------------------*/
 /*                                                                                      */
-/*  File:       configureUSBDevice.c                                                    */
+/*  File:       runLoopRunInMode.c                                                      */
 /*                                                                                      */
-/*  Contains:   The routine configureUSBDevice().                                       */
+/*  Contains:   The routine runLoopRunInMode().                                         */
 /*                                                                                      */
 /*  Written by: Norman Jaffe                                                            */
 /*                                                                                      */
-/*  Copyright:  (c) 2004 by T. H. Schiphorst, N. Jaffe, K. Gregory and G. I. Gregson.   */
+/*  Copyright:  (c) 2005 by T. H. Schiphorst, N. Jaffe, K. Gregory and G. I. Gregson.   */
 /*                                                                                      */
 /*              All rights reserved. Redistribution and use in source and binary forms, */
 /*              with or without modification, are permitted provided that the following */
@@ -33,56 +33,39 @@
 /*              (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE   */
 /*              OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.    */
 /*                                                                                      */
-/*  Created:    2004/02/09                                                              */
+/*  Created:    2005/11/20                                                              */
 /*                                                                                      */
 /*--------------------------------------------------------------------------------------*/
 
-#include "Common_USBX.h"
-#include "Common_USBXData.h"
+#include "Common_IOKitX.h"
+#include "Common_IOKitXData.h"
 #include "loadOtherSegments.h"
 
 #if defined(COMPILE_FOR_CATS)
-/*------------------------------------ configureUSBDevice ---*/
-IOReturn configureUSBDevice
-	(IOUSBDeviceInterface * *	theInterface,
-	 const UInt8							configIndex)
+/*------------------------------------ runLoopRunInMode ---*/
+SInt32 runLoopRunInMode
+	(IOKitContext &	rec,
+	 CFStringRef		runLoopMode,
+	 CFTimeInterval	seconds,
+	 const bool			returnAfterSourceHandled)
 {
  #if defined(COMPILE_FOR_STUB)
-  #pragma unused(theInterface)
- 	return KERN_SUCCESS;
+  #pragma unused(rec,runLoopMode,seconds,returnAfterSourceHandled)
+ 	return false;
  #else /* not COMPILE_FOR_STUB */
-	IOReturn														result;
-	TransferVector_rec									funkChunk1, funkChunk2, funkChunk3;
-	usbGetNumberOfConfigurations_FP			pFusbGetNumberOfConfigurations = fillCallback(usbGetNumberOfConfigurations_FP,
-																																										funkChunk1,
-																																					(*theInterface)->GetNumberOfConfigurations);
-	usbGetConfigurationDescriptorPtr_FP	pFusbGetConfigDescriptorPtr = fillCallback(usbGetConfigurationDescriptorPtr_FP,
-																																								funkChunk2,
-																																				(*theInterface)->GetConfigurationDescriptorPtr);
-	usbSetConfiguration_FP							pFusbSetConfiguration = fillCallback(usbSetConfiguration_FP, funkChunk3,
-																																							(*theInterface)->SetConfiguration);
-	UInt8																numConfig;
-
-	// Get the number of available configurations.
-	result = pFusbGetNumberOfConfigurations(theInterface, &numConfig);
-	if (numConfig && (configIndex < numConfig))
-	{
-		IOUSBConfigurationDescriptorPtr	theDescriptor;
+	static runLoopRunInMode_FP	pFrunLoopRunInMode = NULL_PTR;
 	
-		// Get the requested configuration descriptor.
-		result = pFusbGetConfigDescriptorPtr(theInterface, configIndex, &theDescriptor);
-		if (result == KERN_SUCCESS)
-		{
-			// Set the device configuration from the 'bConfigurationValue' field
-			// of the descriptor.
-			result = pFusbSetConfiguration(theInterface, theDescriptor->bConfigurationValue);
-		}
-	}
-	return result;
+	if (! pFrunLoopRunInMode)
+		pFrunLoopRunInMode = getFrameworkFunction(runLoopRunInMode_FP, rec.fCoreBundle,
+																							CFSTR("CFRunLoopRunInMode"));
+	if (pFrunLoopRunInMode)
+		return pFrunLoopRunInMode(runLoopMode, seconds, returnAfterSourceHandled);
+		
+	return 0;
  #endif /* not COMPILE_FOR_STUB */
-} /* configureUSBDevice */
+} /* runLoopRunInMode */
 #endif /* COMPILE_FOR_CATS */
-
-#if defined(COMPILE_FOR_CATS) and defined(COMPILE_FOR_STUB)
- #pragma export list configureUSBDevice
+	 
+#if defined(COMPILE_FOR_CATS) && defined(COMPILE_FOR_STUB)
+ #pragma export list runLoopRunInMode
 #endif /* COMPILE_FOR_CATS and COMPILE_FOR_STUB */

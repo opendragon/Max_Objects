@@ -24,7 +24,7 @@ psfiles = Vabssymbol.ps Vassemblesymbol.ps Vceilingsymbol.ps \
 	pfsmrails.ps pfsmstate.ps pfsmsymbol.ps \
 	placeholder.ps \
 	queuesymbol.ps \
-	rcxsymbol.ps \
+	rcxsymbol.ps rcx2symbol.ps \
 	serialXsymbol.ps shotgunsymbol.ps spaceballconnections.ps \
 	spaceballsymbol.ps speaksymbol.ps stacksymbol.ps sysLoggersymbol.ps \
 	tcpClientstate.ps tcpClientsymbol.ps tcpLocatesymbol.ps \
@@ -73,7 +73,7 @@ texfiles = Vabs.tex Vassemble.tex Vceiling.tex \
 	phidg_rfid.tex phidg_textlcd.tex phidg_textlcd088.tex \
 	phidg_unitservo.tex \
 	queue.tex \
-	rcx.tex \
+	rcx.tex rcx2.tex \
 	serialX.tex shotgun.tex spaceball.tex speak.tex \
 	stack.tex sysLogger.tex \
 	tcpClient.tex tcpLocate.tex tcpMultiServer.tex \

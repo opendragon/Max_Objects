@@ -1,12 +1,12 @@
 /*--------------------------------------------------------------------------------------*/
 /*                                                                                      */
-/*  File:       configureUSBDevice.c                                                    */
+/*  File:       rcx2_StopTask.c                                                         */
 /*                                                                                      */
-/*  Contains:   The routine configureUSBDevice().                                       */
+/*  Contains:   The routine cmd_StopTask().                                             */
 /*                                                                                      */
 /*  Written by: Norman Jaffe                                                            */
 /*                                                                                      */
-/*  Copyright:  (c) 2004 by T. H. Schiphorst, N. Jaffe, K. Gregory and G. I. Gregson.   */
+/*  Copyright:  (c) 2005 by T. H. Schiphorst, N. Jaffe, K. Gregory and G. I. Gregson.   */
 /*                                                                                      */
 /*              All rights reserved. Redistribution and use in source and binary forms, */
 /*              with or without modification, are permitted provided that the following */
@@ -33,56 +33,40 @@
 /*              (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE   */
 /*              OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.    */
 /*                                                                                      */
-/*  Created:    2004/02/09                                                              */
+/*  Created:    2005/11/19                                                              */
 /*                                                                                      */
 /*--------------------------------------------------------------------------------------*/
 
-#include "Common_USBX.h"
-#include "Common_USBXData.h"
-#include "loadOtherSegments.h"
+#include "rcx2.h"
 
-#if defined(COMPILE_FOR_CATS)
-/*------------------------------------ configureUSBDevice ---*/
-IOReturn configureUSBDevice
-	(IOUSBDeviceInterface * *	theInterface,
-	 const UInt8							configIndex)
+/*------------------------------------ cmd_StopTask ---*/
+Pvoid cmd_StopTask
+  (Rcx2ControlPtr xx,
+   long          slot)
 {
- #if defined(COMPILE_FOR_STUB)
-  #pragma unused(theInterface)
- 	return KERN_SUCCESS;
- #else /* not COMPILE_FOR_STUB */
-	IOReturn														result;
-	TransferVector_rec									funkChunk1, funkChunk2, funkChunk3;
-	usbGetNumberOfConfigurations_FP			pFusbGetNumberOfConfigurations = fillCallback(usbGetNumberOfConfigurations_FP,
-																																										funkChunk1,
-																																					(*theInterface)->GetNumberOfConfigurations);
-	usbGetConfigurationDescriptorPtr_FP	pFusbGetConfigDescriptorPtr = fillCallback(usbGetConfigurationDescriptorPtr_FP,
-																																								funkChunk2,
-																																				(*theInterface)->GetConfigurationDescriptorPtr);
-	usbSetConfiguration_FP							pFusbSetConfiguration = fillCallback(usbSetConfiguration_FP, funkChunk3,
-																																							(*theInterface)->SetConfiguration);
-	UInt8																numConfig;
+  EnterCallback();
+  if (xx)
+  {
+  if (rcx2Synchronize(xx))
+  {
+    if ((slot > 0) && (slot <= RCX_NUM_TASKS))
+    {
+      uchar stopCommand[] = { RCX_STOP_TASK_CMD, 0 };
 
-	// Get the number of available configurations.
-	result = pFusbGetNumberOfConfigurations(theInterface, &numConfig);
-	if (numConfig && (configIndex < numConfig))
-	{
-		IOUSBConfigurationDescriptorPtr	theDescriptor;
-	
-		// Get the requested configuration descriptor.
-		result = pFusbGetConfigDescriptorPtr(theInterface, configIndex, &theDescriptor);
-		if (result == KERN_SUCCESS)
-		{
-			// Set the device configuration from the 'bConfigurationValue' field
-			// of the descriptor.
-			result = pFusbSetConfiguration(theInterface, theDescriptor->bConfigurationValue);
-		}
-	}
-	return result;
- #endif /* not COMPILE_FOR_STUB */
-} /* configureUSBDevice */
-#endif /* COMPILE_FOR_CATS */
-
-#if defined(COMPILE_FOR_CATS) and defined(COMPILE_FOR_STUB)
- #pragma export list configureUSBDevice
-#endif /* COMPILE_FOR_CATS and COMPILE_FOR_STUB */
+      stopCommand[1] = static_cast<uchar>(slot - 1);
+      if (rcx2SendCommand(xx, stopCommand, sizeof(stopCommand), RCX_STOP_TASK_REPLY, true))
+        outlet_bang(xx->fCommandComplete);
+      else
+        outlet_bang(xx->fErrorBangOut);
+    }
+    else
+    {
+      LOG_ERROR_2(OUTPUT_PREFIX "bad task index (%ld)", slot)
+      outlet_bang(xx->fErrorBangOut);
+    }
+  }
+  else
+    outlet_bang(xx->fErrorBangOut);
+  }
+  ExitMaxMessageHandler()
+} /* cmd_StopTask */

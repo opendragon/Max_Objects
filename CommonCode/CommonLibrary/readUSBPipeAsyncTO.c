@@ -1,12 +1,12 @@
 /*--------------------------------------------------------------------------------------*/
 /*                                                                                      */
-/*  File:       configureUSBDevice.c                                                    */
+/*  File:       readUSBPipeAsyncTO.c                                                    */
 /*                                                                                      */
-/*  Contains:   The routine configureUSBDevice().                                       */
+/*  Contains:   The routine readUSBPipeAsyncTO().                                       */
 /*                                                                                      */
 /*  Written by: Norman Jaffe                                                            */
 /*                                                                                      */
-/*  Copyright:  (c) 2004 by T. H. Schiphorst, N. Jaffe, K. Gregory and G. I. Gregson.   */
+/*  Copyright:  (c) 2005 by T. H. Schiphorst, N. Jaffe, K. Gregory and G. I. Gregson.   */
 /*                                                                                      */
 /*              All rights reserved. Redistribution and use in source and binary forms, */
 /*              with or without modification, are permitted provided that the following */
@@ -33,7 +33,7 @@
 /*              (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE   */
 /*              OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.    */
 /*                                                                                      */
-/*  Created:    2004/02/09                                                              */
+/*  Created:    2005/11/20                                                              */
 /*                                                                                      */
 /*--------------------------------------------------------------------------------------*/
 
@@ -42,47 +42,31 @@
 #include "loadOtherSegments.h"
 
 #if defined(COMPILE_FOR_CATS)
-/*------------------------------------ configureUSBDevice ---*/
-IOReturn configureUSBDevice
-	(IOUSBDeviceInterface * *	theInterface,
-	 const UInt8							configIndex)
+/*------------------------------------ readUSBPipeAsyncTO ---*/
+IOReturn readUSBPipeAsyncTO
+	(IOUSBInterfaceInterface * *	theInterface,
+	 const UInt8									pipeRef,
+   Pvoid												buffer,
+   const UInt32									buffSize,
+	 const UInt32									noDataTimeout,
+	 const UInt32									completionTimeout,
+	 IOAsyncCallback1							callback,
+	 Pvoid												refCon)
 {
  #if defined(COMPILE_FOR_STUB)
-  #pragma unused(theInterface)
+  #pragma unused(theInterface,pipeRef,buffer,buffSize,noDataTimeout,completionTimeout,callback,refCon)
  	return KERN_SUCCESS;
  #else /* not COMPILE_FOR_STUB */
-	IOReturn														result;
-	TransferVector_rec									funkChunk1, funkChunk2, funkChunk3;
-	usbGetNumberOfConfigurations_FP			pFusbGetNumberOfConfigurations = fillCallback(usbGetNumberOfConfigurations_FP,
-																																										funkChunk1,
-																																					(*theInterface)->GetNumberOfConfigurations);
-	usbGetConfigurationDescriptorPtr_FP	pFusbGetConfigDescriptorPtr = fillCallback(usbGetConfigurationDescriptorPtr_FP,
-																																								funkChunk2,
-																																				(*theInterface)->GetConfigurationDescriptorPtr);
-	usbSetConfiguration_FP							pFusbSetConfiguration = fillCallback(usbSetConfiguration_FP, funkChunk3,
-																																							(*theInterface)->SetConfiguration);
-	UInt8																numConfig;
-
-	// Get the number of available configurations.
-	result = pFusbGetNumberOfConfigurations(theInterface, &numConfig);
-	if (numConfig && (configIndex < numConfig))
-	{
-		IOUSBConfigurationDescriptorPtr	theDescriptor;
-	
-		// Get the requested configuration descriptor.
-		result = pFusbGetConfigDescriptorPtr(theInterface, configIndex, &theDescriptor);
-		if (result == KERN_SUCCESS)
-		{
-			// Set the device configuration from the 'bConfigurationValue' field
-			// of the descriptor.
-			result = pFusbSetConfiguration(theInterface, theDescriptor->bConfigurationValue);
-		}
-	}
-	return result;
+	TransferVector_rec	funkChunk;
+	usbReadPipeAsyncTO_FP		pFusbReadPipeAsyncTO = fillCallback(usbReadPipeAsyncTO_FP, funkChunk,
+																															(*theInterface)->ReadPipeAsyncTO);
+																																					
+	return pFusbReadPipeAsyncTO(theInterface, pipeRef, buffer, buffSize, noDataTimeout,
+															completionTimeout, callback, refCon);
  #endif /* not COMPILE_FOR_STUB */
-} /* configureUSBDevice */
+} /* readUSBPipeAsyncTO */
 #endif /* COMPILE_FOR_CATS */
 
 #if defined(COMPILE_FOR_CATS) and defined(COMPILE_FOR_STUB)
- #pragma export list configureUSBDevice
+ #pragma export list readUSBPipeAsyncTO
 #endif /* COMPILE_FOR_CATS and COMPILE_FOR_STUB */

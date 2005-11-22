@@ -40,13 +40,28 @@
 #if (! defined(COMMON_USBXDATA_H_))
  #define COMMON_USBXDATA_H_ /* */
 
+ #include "Common_USBX.h"
+ 
  #if defined(COMPILE_FOR_CATS)
 // The following datatypes and defines are copied from the relevant Framework headers,
 // which aren't directly useable in CFM source:
 
-struct IOUSBDevRequest;
+enum
+{
+	kUSBRqDirnShift = 7,
+	kUSBRqDirnMask = 1,
 
-struct IOUSBDevRequestTO;
+	kUSBRqTypeShift = 5,
+	kUSBRqTypeMask = 3,
+
+	kUSBRqRecipientMask = 0x1F
+};
+
+enum
+{
+	kUSBDefaultControlNoDataTimeoutMS = 5000,
+	kUSBDefaultControlCompletionTimeoutMS = 0
+};
 
 typedef UInt16 USBDeviceAddress;
 
@@ -98,7 +113,22 @@ typedef IOUSBConfigurationDescriptor *		IOUSBConfigurationDescriptorPtr;
 //-----------------------------------------------------------------------------------------
 // END OF DeviceInterface Functions available in version 1.8 (10.0) and 1.8.1 (10.0.1) of Mac OS X
 //-----------------------------------------------------------------------------------------
+//
+// DeviceInterface Functions available in version 1.8.2 Mac OS X
+//
+#define IOUSBDEVICE_FUNCS_182 \
+    IOReturn (*USBDeviceOpenSeize)(void *self); \
+    IOReturn (*DeviceRequestTO)(void *self, IOUSBDevRequestTO *req); \
+    IOReturn (*DeviceRequestAsyncTO)(void *self, IOUSBDevRequestTO *req, IOAsyncCallback1 callback, void *refCon); \
+    IOReturn (*USBDeviceSuspend)(void *self, Boolean suspend); \
+    IOReturn (*USBDeviceAbortPipeZero)(void *self); \
+    IOReturn (*USBGetManufacturerStringIndex)(void *self, UInt8 *msi); \
+    IOReturn (*USBGetProductStringIndex)(void *self, UInt8 *psi); \
+    IOReturn (*USBGetSerialNumberStringIndex)(void *self, UInt8 *snsi)
 
+//-----------------------------------------------------------------------------------------
+// END OF DeviceInterface Functions available in version 1.8.2 (10.1) of Mac OS X
+//-----------------------------------------------------------------------------------------
 //
 // InterfaceInterface Functions available in version 1.8 (10.0) and 1.8.1 (10.0.1) of Mac OS X
 //
@@ -142,17 +172,33 @@ typedef IOUSBConfigurationDescriptor *		IOUSBConfigurationDescriptorPtr;
 //-----------------------------------------------------------------------------------------
 // END OF InterfaceInterface Functions available in version 1.8 (10.0) and 1.8.1 (10.0.1) of Mac OS X
 //-----------------------------------------------------------------------------------------
+//
+// InterfaceInterface Functions available in version 1.8.2 Mac OS X
+//
+#define IOUSBINTERFACE_FUNCS_182 \
+    IOReturn (*ControlRequestTO)(void *self, UInt8 pipeRef, IOUSBDevRequestTO *req); \
+    IOReturn (*ControlRequestAsyncTO)(void *self, UInt8 pipeRef, IOUSBDevRequestTO *req, IOAsyncCallback1 callback, void *refCon); \
+    IOReturn (*ReadPipeTO)(void *self, UInt8 pipeRef, void *buf, UInt32 *size, UInt32 noDataTimeout, UInt32 completionTimeout); \
+    IOReturn (*WritePipeTO)(void *self, UInt8 pipeRef, void *buf, UInt32 size, UInt32 noDataTimeout, UInt32 completionTimeout); \
+    IOReturn (*ReadPipeAsyncTO)(void *self, UInt8 pipeRef, void *buf, UInt32 size, UInt32 noDataTimeout, UInt32 completionTimeout, IOAsyncCallback1 callback, void *refcon); \
+    IOReturn (*WritePipeAsyncTO)(void *self, UInt8 pipeRef, void *buf, UInt32 size, UInt32 noDataTimeout, UInt32 completionTimeout, IOAsyncCallback1 callback, void *refcon); \
+    IOReturn (*USBInterfaceGetStringIndex)(void *self, UInt8 *si)
+//-----------------------------------------------------------------------------------------
+// END OF InterfaceInterface Functions available in version 1.8.2 Mac OS X
+//-----------------------------------------------------------------------------------------
 
 struct IOUSBDeviceInterface
 {
 	IUNKNOWN_C_GUTS;
 	IOUSBDEVICE_FUNCS_180;
+	IOUSBDEVICE_FUNCS_182;
 }; /* IOUSBDeviceInterface */
 
 struct IOUSBInterfaceInterface
 {
 	IUNKNOWN_C_GUTS;
 	IOUSBINTERFACE_FUNCS_180;
+	IOUSBINTERFACE_FUNCS_182;
 }; /* IOUSBInterfaceInterface */
 
 // End of copies ...
@@ -160,6 +206,38 @@ struct IOUSBInterfaceInterface
 typedef ULONG (* release_FP)
     (Pvoid	thisPointer);
 
+typedef IOReturn (* usbAbortPipe_FP)
+	(Pvoid	self,
+	 UInt8	pipeRef);
+	 
+typedef IOReturn (* usbControlRequest_FP)
+	(Pvoid							self,
+	 UInt8							pipeRef,
+	 IOUSBDevRequest *	req);
+
+typedef IOReturn (* usbControlRequestAsync_FP)
+	(Pvoid							self,
+	 UInt8							pipeRef,
+	 IOUSBDevRequest *	req,
+	 IOAsyncCallback1		callback,
+	 Pvoid							refCon);
+	 
+typedef IOReturn (* usbControlRequestAsyncTO_FP)
+	(Pvoid								self,
+	 UInt8								pipeRef,
+	 IOUSBDevRequestTO *	req,
+	 IOAsyncCallback1			callback,
+	 Pvoid								refCon);
+
+typedef IOReturn (* usbControlRequestTO_FP)
+	(Pvoid								self,
+	 UInt8								pipeRef,
+	 IOUSBDevRequestTO *	req);
+
+typedef IOReturn (* usbCreateInterfaceAsyncEventSource_FP)
+	(Pvoid								self,
+	 CFRunLoopSourceRef *	source);
+	 
 typedef IOReturn (* usbCreateInterfaceIterator_FP)
 	(Pvoid												self,
 	 IOUSBFindInterfaceRequest *	req,
@@ -188,6 +266,9 @@ typedef IOReturn (* usbGetDeviceReleaseNumber_FP)
 	(Pvoid		self,
 	 UInt16 *	devRelNum);
 
+typedef CFRunLoopSourceRef (* usbGetInterfaceAsyncEventSource_FP)
+	(Pvoid	self);
+
 typedef IOReturn (* usbGetInterfaceClass_FP)
 	(Pvoid		self,
 	 UInt8 *	intfClass);
@@ -206,9 +287,78 @@ typedef IOReturn (* usbInterfaceClose_FP)
 typedef IOReturn (* usbInterfaceOpen_FP)
 	(Pvoid	self);
 
+typedef IOReturn (* usbReadPipe_FP)
+	(Pvoid		self,
+	 UInt8		pipeRef,
+	 Pvoid		buf,
+	 UInt32 *	size);
+	 
+typedef IOReturn (* usbReadPipeAsync_FP)
+	(Pvoid						self,
+	 UInt8						pipeRef,
+	 Pvoid						buf,
+	 UInt32						size,
+	 IOAsyncCallback1	callback,
+	 Pvoid						refCon);
+	 
+typedef IOReturn (* usbReadPipeAsyncTO_FP)
+	(Pvoid						self,
+	 UInt8						pipeRef,
+	 Pvoid						buf,
+	 UInt32						size,
+	 UInt32						noDataTimeout,
+	 UInt32						completionTimeout,
+	 IOAsyncCallback1	callback,
+	 Pvoid						refCon);
+
+typedef IOReturn (* usbReadPipeTO_FP)
+	(Pvoid		self,
+	 UInt8		pipeRef,
+	 Pvoid		buf,
+	 UInt32 *	size,
+	 UInt32		noDataTimeout,
+	 UInt32		completionTimeout);
+	 
+typedef IOReturn (* usbResetPipe_FP)
+	(Pvoid	self,
+	 UInt8	pipeRef);
+	 
 typedef IOReturn (* usbSetConfiguration_FP)
 	(Pvoid	self,
 	 UInt8	configNum);
+
+typedef IOReturn (* usbWritePipe_FP)
+	(Pvoid	self,
+	 UInt8	pipeRef,
+	 Pvoid	buf,
+	 UInt32	size);
+	  
+typedef IOReturn (* usbWritePipeAsync_FP)
+	(Pvoid						self,
+	 UInt8						pipeRef,
+	 Pvoid						buf,
+	 UInt32						size,
+	 IOAsyncCallback1	callback,
+	 Pvoid						refCon);
+
+typedef IOReturn (* usbWritePipeAsyncTO_FP)
+	(Pvoid						self,
+	 UInt8						pipeRef,
+	 Pvoid						buf,
+	 UInt32						size,
+	 UInt32						noDataTimeout,
+	 UInt32						completionTimeout,
+	 IOAsyncCallback1	callback,
+	 Pvoid						refCon);
+	 
+typedef IOReturn (* usbWritePipeTO_FP)
+	(Pvoid	self,
+	 UInt8	pipeRef,
+	 Pvoid	buf,
+	 UInt32	size,
+	 UInt32	noDataTimeout,
+	 UInt32	completionTimeout);
+	 
  #endif /* COMPILE_FOR_CATS */
 
 #endif /* not COMMON_USBXDATA_H_ */

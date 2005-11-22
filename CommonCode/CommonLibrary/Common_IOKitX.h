@@ -68,11 +68,13 @@ typedef UInt32				IOMessage;
    #define sys_iokit                    err_system(0x38)
   #endif /* sys_iokit */
 
-  #define sub_iokit_common             err_sub(0)
+  #define sub_iokit_common							err_sub(0)
 
   #define iokit_common_msg(message)     (UInt32)(sys_iokit|sub_iokit_common|message)
+	#define	iokit_common_err(return)			(sys_iokit|sub_iokit_common|return)
 
-  #define kIOMessageServiceIsTerminated      iokit_common_msg(0x010)
+  #define kIOMessageServiceIsTerminated	iokit_common_msg(0x010)
+	#define kIOReturnAborted							iokit_common_err(0x2eb) // operation aborted
 
 typedef struct IONotificationPort * IONotificationPortRef; // from IOKitLib.h
 
@@ -93,12 +95,12 @@ typedef void (* IOServiceMatchingCallback) // from IOKitLib.h
 	 io_iterator_t	iterator);
 	 
 // IOService notification types from IOKitKeys.h
-  #define kIOPublishNotification				"IOServicePublish"
+  #define kIOPublishNotification			"IOServicePublish"
   #define kIOFirstPublishNotification	"IOServiceFirstPublish"
-  #define kIOMatchedNotification				"IOServiceMatched"
+  #define kIOMatchedNotification			"IOServiceMatched"
   #define kIOFirstMatchNotification		"IOServiceFirstMatch"
   #define kIOTerminatedNotification		"IOServiceTerminate"
-  #define kIOGeneralInterest						"IOGeneralInterest"
+  #define kIOGeneralInterest					"IOGeneralInterest"
 
 typedef UInt32				IOOptionBits;
 typedef	kern_return_t	IOReturn;
@@ -113,6 +115,15 @@ struct IOCFPlugInInterface;
 // copied from CFRunLoop.h:
 typedef struct __CFRunLoop * 				CFRunLoopRef;
 typedef struct __CFRunLoopSource *	CFRunLoopSourceRef;
+
+enum
+{
+	kCFRunLoopRunFinished = 1,
+	kCFRunLoopRunStopped = 2,
+	kCFRunLoopRunTimedOut = 3,
+	kCFRunLoopRunHandledSource = 4
+};
+
 // End of copies ...
 
  #endif /* COMPILE_FOR_CATS */
@@ -225,6 +236,12 @@ bool runLoopRemoveSource
 	 CFRunLoopSourceRef	runLoopSource,
 	 CFStringRef				runLoopMode);
 	 	 
+SInt32 runLoopRunInMode
+	(IOKitContext &	rec,
+	 CFStringRef		runLoopMode,
+	 CFTimeInterval	seconds,
+	 const bool			returnAfterSourceHandled);
+
 bool setUpIOKit
 	(Pvoid											obj,
 	 Pchar											name,
