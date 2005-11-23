@@ -19,7 +19,7 @@ resource 'STR#' (17191, "rcx") {
 
 resource 'vers' (1, "rcx") {
 	0x1,
-	0x4,
+	0x5,
 	release,
 	0x0,
 	0,
@@ -29,7 +29,7 @@ resource 'vers' (1, "rcx") {
 
 resource 'vers' (2, "rcx") {
 	0x1,
-	0x4,
+	0x5,
 	release,
 	0x0,
 	0,

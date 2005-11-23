@@ -1,14 +1,15 @@
-\ProvidesFile{rcx.tex}[v1.0.4]
+\ProvidesFile{rcx.tex}[v1.0.5]
 \startObject{\objNameS{rcx}}{rcx}
 \index{Themes!Device~interface!rcx}
 \objPicture{rcxsymbol.ps}
 \objItemDescription{\objNameD{rcx} is an interface to the \companyReference{http://www.lego.com}{LEGO} MINDSTORMS RCX device.
-It uses the Ghost API from LEGO to connect to the device, using either a USB or serial port.
+For Mac OS X, it uses direct operations with a LEGO USB Tower to connect to the device;
+for Mac OS 9, it uses the Ghost API from LEGO to connect to the device, using either a USB or serial port.
 Note that it does not use the \objName{serialX} or \objNameS{serial} objects for this communication.}
 
 \objItemCreated{April 2002}
 
-\objItemVersion{1.0.4}
+\objItemVersion{1.0.5}
 
 \objItemHelp{no}
 
@@ -20,10 +21,11 @@ Note that it does not use the \objName{serialX} or \objNameS{serial} objects for
 
   \objListArgBegin
   \objListArgItem{port-class}{(optional) symbol}{the kind of Ghost port (`usb' or `serial') that is to be used.
-       By default, the port-class is USB.}
+       By default, the port-class is USB.
+       For Mac OS X, only USB is supported.}
 
-  \objListArgItem{which-port}{(optional) symbol}{the name of the port within the port-class that is to be used.
-       By default, the first available port is used.}
+  \objListArgItem{which-port}{(optional) symbol}{the name of the port within the port-class that is to be used, or the power-level for USB (for Mac OS X).
+       By default, the first available port is used (for Mac OS 9) and low power is used (for Mac OS X).}
 
   \objListArgEnd
 
@@ -51,7 +53,7 @@ Note that it does not use the \objName{serialX} or \objNameS{serial} objects for
 
 \objItemRetainsState{yes}
 
-\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{currently OS 9 only\}}
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x}
 
 \objItemFat{PPC-only}
 
@@ -196,6 +198,9 @@ developing code to be downloaded into the RCX device.]
 \objEnd{\objNameE{rcx}}
 
 % $Log: rcx.tex,v $
+% Revision 1.6  2005/11/23 19:04:15  churchoflambda
+% Merged rcx2 object into rcx.
+%
 % Revision 1.5  2005/08/02 15:07:09  churchoflambda
 % Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
 %

@@ -42,16 +42,28 @@
  
 //#define USE_SYSLOG /* */
 
- #include "GhostAPI.h"
- #define UCHAR_DEFINED /* */
+ #if (! defined(COMPILE_FOR_CATS))
+  #include "GhostAPI.h"
+  #define UCHAR_DEFINED /* */
+ #endif /* not COMPILE_FOR_CATS */
  #include "MissingAndExtra.h"
+ #if defined(COMPILE_FOR_CATS)
+  #include "Common_USBX.h"
+  #include "Common_USBXData.h"
+  #include "LTW_Data.h"
+ #else /* not COMPILE_FOR_CATS */
+typedef int32	Int32;
+ #endif /* not COMPILE_FOR_CATS */
 
  #define OUR_NAME      "rcx"
  #define OUR_RES_NUMB  17191
  #define OUTPUT_PREFIX "rcx: "
 
+ #define RCX_CONTROL_SYMBOL "##rcx##"
+
  #define BE_VERBOSE       /* */
- #define MAX_REPLY_BUFFER 50
+ #define MAX_REPLY_BUFFER		100
+ #define MAX_RECEIVE_BUFFER	((MAX_REPLY_BUFFER * 2) + 17) /* 17 is for luck... */
 // #define USE_NOWAIT       /* */
 
  #define RCX_NUM_SENSORS   3
@@ -291,20 +303,44 @@ enum RcxValueType
 
 struct RcxControl
 {
-  Object  fObject;
-  GHSTACK fGhostStack;
-  POutlet fCommandComplete;
-  POutlet fDataOut;
-  POutlet fErrorBangOut;
-  Puchar  fReplyBuffer;
-  uint32  fReplyLength;
-  int32   fDownloadRetries;
-  int32   fExecuteRetries;
-  bool    fDeviceOpen;
-  bool    fSynchronized;
-  bool    fUseUSB;
+  Object  										fObject;
+  POutlet 										fCommandComplete;
+  POutlet 										fDataOut;
+  POutlet 										fErrorBangOut;
+  Puchar  										fReplyBuffer;
+  UInt32  										fReplyLength;
+  bool    										fDeviceOpen;
+  bool    										fSynchronized;
+  bool    										fUseUSB;
+ #if defined(COMPILE_FOR_CATS)
+	IOKitContext								fUSBControl;
+	IOUSBDeviceInterface * *		fDevice;	
+	IOUSBInterfaceInterface * *	fInterface;
+	IOAsyncCallback1						fReadCompletion;
+	uchar												fLastCommand;
+	Puchar											fRawReceiveBuffer;
+	Puchar											fRawReceiveEnd;
+	Puchar											fRawReceiveStart;
+	Puchar											fReadWalker;
+	Puchar											fReceiveBuffer;
+  Quchar											fSync;
+  UInt32											fReadPacketSize;
+  UInt32											fReadRemaining;
+  UInt32											fReceiveLength;
+  UInt32											fSyncLen;
+  bool												fComplementData;
+  bool												fFastMode;
+  bool												fHighPower;
+  bool												fReadComplete;
+  bool												fReportEvents;
+  bool												fStopping;
+ #else /* not COMPILE_FOR_CATS */
+  GHSTACK 										fGhostStack;
+  Int32   										fDownloadRetries;
+  Int32   										fExecuteRetries;
+ #endif /* not COMPILE_FOR_CATS */
  #if defined(BE_VERBOSE)
-  bool    fVerbose;
+  bool    										fVerbose;
  #endif /* BE_VERBOSE */
 }; /* RcxControl */
 
@@ -441,10 +477,10 @@ Pvoid cmd_Verbose
   (RcxControlPtr xx,
    PSymbol       onOff);
 
-uint32 rcxCopyReply
+UInt32 rcxCopyFromReply
   (RcxControlPtr	xx,
    Puchar       	replyBuffer,
-   const uint32		replySize);
+   const UInt32		replySize);
 
 uchar rcxGetReplyByte
   (RcxControlPtr	xx,
@@ -457,19 +493,44 @@ bool rcxGetValue
 
 bool rcxSendCommand
   (RcxControlPtr	xx,
-   const uchar *	sendData,
-   const uint32		sendLength,
-   const uint32		expected,
+   Quchar					sendData,
+   const UInt32		sendLength,
+   const UInt32		expected,
    const bool			doRetry);
+
+ #if defined(COMPILE_FOR_CATS)
+bool rcxSendControlRequest
+	(RcxControlPtr	xx,
+	 const uchar		controlOperation,
+	 const ushort		controlData,
+	 Pvoid					reply,
+	 const UInt16		replySize);
+
+bool rcxSendControlRequest
+	(RcxControlPtr	xx,
+	 const uchar		controlOperation,
+	 const uchar		controlDataLow,
+	 const uchar		controlDataHigh,
+	 Pvoid					reply,
+	 const UInt16		replySize);
+
+bool rcxSetRange
+	(RcxControlPtr	xx,
+	 const LTWRange	range);
+	 
+bool rcxSetSpeed
+	(RcxControlPtr	xx,
+	 const bool			normalSpeed);
+ #endif /* COMPILE_FOR_CATS */
 
 bool rcxSynchronize
   (RcxControlPtr xx);
 
 StandardRoutineDeclarations(RcxControlPtr)
 
- #define MAKE_RCX_VALUE(tt, dd) static_cast<ulong>((int(tt) << 16) | ((dd) & 0x0ffff))
- #define GET_RCX_VALUE_TYPE(vv) (static_cast<RcxValueType>(((vv) >> 16) & 0x0ff))
- #define GET_RCX_VALUE_DATA(vv) short((vv) & 0x0ffff)
+ #define MAKE_RCX_VALUE(tt, dd) static_cast<ulong>((int(tt) << 16) | ((dd) & 0x0FFFF))
+ #define GET_RCX_VALUE_TYPE(vv) (static_cast<RcxValueType>(((vv) >> 16) & 0x0FF))
+ #define GET_RCX_VALUE_DATA(vv) short((vv) & 0x0FFFF)
 
 mextern(PSymbol) gAllSensorsSymbol;   /* Pointer to unique symbol for 'allsensors' */
 mextern(PSymbol) gAllVariablesSymbol; /* Pointer to unique symbol for 'allvariables' */
@@ -485,7 +546,9 @@ mextern(PSymbol) gErrorSymbol;        /* Pointer to unique symbol for 'error' */
 mextern(PSymbol) gFahrenheitSymbol;   /* Pointer to unique symbol for 'fahrenheit' */
 mextern(PSymbol) gFastSweepSymbol;    /* Pointer to unique symbol for 'fastsweep' */
 mextern(PSymbol) gForwardSymbol;      /* Pointer to unique symbol for 'forward' */
+mextern(PSymbol) gHighSymbol;					/* Pointer to unique symbol for 'high' */
 mextern(PSymbol) gKeyClickSymbol;     /* Pointer to unique symbol for 'keyclick' */
+mextern(PSymbol) gLowSymbol;					/* Pointer to unique symbol for 'low' */
 mextern(PSymbol) gNoSensorSymbol;     /* Pointer to unique symbol for 'nosensor' */
 mextern(PSymbol) gOffSymbol;          /* Pointer to unique symbol for 'off' */
 mextern(PSymbol) gOnSymbol;           /* Pointer to unique symbol for 'on' */

@@ -33,7 +33,7 @@ input maxboxmacros;
 % Create the text box:
 
 picture p;
-p := thelabel.rt(btex \objectText{rcx}{[\,port-class which-port\,]} etex, (0,0));
+p := thelabel.rt(btex \objectText{rcx}{[\,port-class which-port-or-power\,]} etex, (0,0));
 create_inside_box(p, 1, 3);
 
 endfig;
@@ -43,6 +43,9 @@ etex
 end
 
 % $Log: rcxsymbol.mp,v $
+% Revision 1.3  2005/11/23 19:04:15  churchoflambda
+% Merged rcx2 object into rcx.
+%
 % Revision 1.2  2005/08/02 15:07:09  churchoflambda
 % Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
 %

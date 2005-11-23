@@ -58,7 +58,7 @@ Pvoid cmd_GetVersion
         Atom  response[2];
         long  romVersion, firmwareVersion;
 
-        rcxCopyReply(xx, versionBuffer, sizeof(versionBuffer));
+        rcxCopyFromReply(xx, versionBuffer, sizeof(versionBuffer));
         outlet_bang(xx->fCommandComplete);
         romVersion = long((versionBuffer[0] << 12) | (versionBuffer[1] << 8) |
                           (versionBuffer[2] << 4) | versionBuffer[3]);
