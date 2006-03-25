@@ -13,26 +13,30 @@ psfiles = Vabssymbol.ps Vassemblesymbol.ps Vceilingsymbol.ps \
 	caseShiftsymbol.ps changessymbol.ps comparessymbol.ps \
 	dataTypesymbol.ps \
 	fidgetsymbol.ps fileLoggersymbol.ps \
-	gcdsymbol.ps gvp100connections.ps gvp100symbol.ps \
-	ldp1550connections.ps ldp1550symbol.ps listTypesymbol.ps \
-	listenrails.ps listensymbol.ps \
+	gcdsymbol.ps gvp100connections1.ps gvp100connections2.ps \
+	gvp100symbol.ps \
+	ldp1550connections1.ps ldp1550connections2.ps ldp1550symbol.ps \
+	listTypesymbol.ps listenrails.ps listensymbol.ps \
 	map1drails.ps map1dsymbol.ps map2drails.ps \
 	map2dsymbol.ps map3drails.ps map3dsymbol.ps \
 	memorysymbol.ps mtcTracksymbol.ps \
-	mtcconnections.ps mtcstate.ps mtcsymbol.ps \
+	mtcconnections1.ps mtcconnections2.ps mtcstate.ps \
+	mtcsymbol.ps \
 	notXsymbol.ps \
 	pfsmrails.ps pfsmstate.ps pfsmsymbol.ps \
 	placeholder.ps \
 	queuesymbol.ps \
 	rcxsymbol.ps \
-	serialXsymbol.ps shotgunsymbol.ps spaceballconnections.ps \
-	spaceballsymbol.ps speaksymbol.ps stacksymbol.ps sysLoggersymbol.ps \
+	senseXsymbol.ps serialXsymbol.ps shotgunsymbol.ps \
+	spaceballconnections1.ps spaceballconnections2.ps spaceballsymbol.ps \
+	speaksymbol.ps stacksymbol.ps sysLoggersymbol.ps \
 	tcpClientstate.ps tcpClientsymbol.ps tcpLocatesymbol.ps \
 	tcpMultiServerstate.ps tcpMultiServersymbol.ps tcpServerstate.ps \
 	tcpServersymbol.ps \
 	udpPortsymbol.ps \
 	wqtsymbol.ps \
-	x10connections.ps x10symbol.ps x10unitssymbol.ps
+	x10connections1.ps x10connections2.ps x10symbol.ps \
+	x10unitssymbol.ps
 
 mainsource = Max_Objects_from_Norm_Jaffe.tex
 
@@ -74,7 +78,7 @@ texfiles = Vabs.tex Vassemble.tex Vceiling.tex \
 	phidg_unitservo.tex \
 	queue.tex \
 	rcx.tex \
-	serialX.tex shotgun.tex spaceball.tex speak.tex \
+	senseX.tex serialX.tex shotgun.tex spaceball.tex speak.tex \
 	stack.tex sysLogger.tex \
 	tcpClient.tex tcpLocate.tex tcpMultiServer.tex \
 	tcpServer.tex \

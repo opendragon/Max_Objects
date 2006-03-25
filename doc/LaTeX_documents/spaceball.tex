@@ -4,8 +4,8 @@
 \objPicture{spaceballsymbol.ps}
 \objItemDescription{\objNameD{spaceball} is an interface to the \companyReference{http://www.labtec.com}{Labtec}
 six-degrees-of-freedom trackball, the Spaceball.
-It sends commands to a \objReference{serialX} object, which controls the serial port that the Spaceball is attached to, and responds to data returned
-from the Spaceball via the \objName{serialX} object.}
+It sends commands to a \objNameS{serial} or a \objReference{serialX} object, which controls the serial port that the Spaceball is attached to,
+and responds to data returned from the Spaceball via the \objNameS{serial} or \objName{serialX} object.}
 
 \objItemCreated{July 2001}
 
@@ -25,7 +25,7 @@ from the Spaceball via the \objName{serialX} object.}
        used.
        The default mode is additive.}
   
-  \objListArgItem{poll-rate}{(optional) integer}{the rate (in milliseconds) at which the companion \objName{serialX} object is polled
+  \objListArgItem{poll-rate}{(optional) integer}{the rate (in milliseconds) at which the companion \objNameS{serial} or \objName{serialX} object is polled
        via a sample request.
        The default rate is 100 milliseconds between sample requests.}
 
@@ -36,7 +36,7 @@ from the Spaceball via the \objName{serialX} object.}
   \objListIOBegin
   \objListIOItem{list}{the command channel}
   
-  \objListIOItem{anything}{the output of the companion \objName{serialX} object}
+  \objListIOItem{anything}{the output of the companion \objNameS{serial} or \objName{serialX} object}
   
   \objListIOEnd
 
@@ -53,17 +53,17 @@ from the Spaceball via the \objName{serialX} object.}
   Moving the sensor ball results in both a rotation list and a translation list;
   pressing a button results in two button lists, the first when the button is pressed and the second when it is released}
   
-  \objListIOItem{bang}{the sample request to send to the companion \objName{serialX} object}
+  \objListIOItem{bang}{the sample request to send to the companion \objNameS{serial} or \objName{serialX} object}
 
-  \objListIOItem{anything}{the data to send to the companion \objName{serialX} object}
+  \objListIOItem{anything}{the data to send to the companion \objNameS{serial} or \objName{serialX} object}
 
-  \objListIOItem{bang}{the \objCmdQ{chunk} request to send to the companion \objName{serialX} object, via a message object}
+  \objListIOItem{bang}{the \objCmdQ{chunk} request to send to the companion \objNameS{serial} or \objName{serialX} object, via a message object}
   
   \objListIOItem{bang}{an error was detected}
   
   \objListIOEnd
 
-\objItemCompanion{works with \objName{serialX} objects (not \objNameS{serial})}
+\objItemCompanion{works with \objName{serialX} objects with OS 9, or \objNameS{serial} objects with OS X}
 
 \objItemStandalone{yes}
 
@@ -95,13 +95,19 @@ from the Spaceball via the \objName{serialX} object.}
 
 \objItemMessage
 
-\objItemComments[Figure~\objImageReference{diagram:spaceballconnect} shows how to connect an \objNameX{spaceball} object to a
+\objItemComments[Figure~\objImageReference{diagram:spaceballconnect1} shows how to connect a \objNameX{spaceball} object to a
+\objNameS{serial} object.
+Figure~\objImageReference{diagram:spaceballconnect2} shows how to connect a \objNameX{spaceball} object to a
 \objName{serialX} object.]
-\objDiagram{spaceballconnections.ps}{spaceballconnect}{Connecting a \objNameX{spaceball} object to a \objName{serialX} object}
+\objDiagram{spaceballconnections1.ps}{spaceballconnect1}{OS X: Connecting a \objNameX{spaceball} object to a \objNameS{serial} object}
+\objDiagram{spaceballconnections2.ps}{spaceballconnect2}{OS 9: Connecting a \objNameX{spaceball} object to a \objName{serialX} object}
 
 \objEnd{\objNameE{spaceball}}
 
 % $Log: spaceball.tex,v $
+% Revision 1.5  2006/03/25 21:51:18  churchoflambda
+% Added the 'senseX' object and modified the connection diagrams to show 'serial' as well as 'serialX'.
+%
 % Revision 1.4  2005/08/02 15:07:09  churchoflambda
 % Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
 %

@@ -1,0 +1,79 @@
+\ProvidesFile{senseX.tex}[v1.0.0]
+\startObject{\objNameS{senseX}}{senseX}
+\index{Themes!Programming~aids!senseX}
+\objPicture{senseXsymbol.ps}
+\objItemDescription{\objNameD{senseX} outputs a pulse when two messages appear within a specified interval.}
+
+\objItemCreated{January 2006}
+
+\objItemVersion{1.0.0}
+
+\objItemHelp{yes}
+
+\objItemTheme{Programming aids}
+
+\objItemClass{Arith/Logic/Bitwise}
+
+\objItemArgs{\nothing}
+
+  \objListArgBegin
+  \objListArgItem{on-lag}{integer}{the maximum time (in milliseconds) between two messages
+  arriving at the right inlet that will result in an ouput}
+
+  \objListArgItem{off-lag}{symbol}{the duration of the output pulse, in milliseconds,
+  as well as the minimum time after recognizing a message pair before another pair can be detected}
+
+  \objListArgEnd
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the command channel}
+  
+  \objListIOItem{anything}{the messages being watched}
+  
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{integer}{a pulse with the value `1' that is ``off-lag'' milliseconds in duration,
+  when a message pair is detected; otherwise a value of `0'}
+  
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{PPC-only}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  
+  \objListCmdItem{off}{integer}
+  Set the ``off-lag'' for the object to the given number of milliseconds.
+
+  \objListCmdItem{on}{integer}
+  Set the ``on-lag'' for the object to the given number of milliseconds.
+
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments[The \objNameX{senseX} object was created because there was an unsupported \objNameS{sense}
+object that wasn't available for the current versions of \MaxName{}, but was needed for a particular project.]
+
+\objEnd{\objNameE{senseX}}
+
+% $Log: senseX.tex,v $
+% Revision 1.1  2006/03/25 21:51:18  churchoflambda
+% Added the 'senseX' object and modified the connection diagrams to show 'serial' as well as 'serialX'.
+%

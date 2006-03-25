@@ -1,0 +1,50 @@
+% File: senseXsymbol.mp
+
+input boxes;
+beginfig(-1);
+verbatimtex
+%&latex
+\documentclass{article}
+\usepackage{color}
+\newcommand{\gotohel}{\fontfamily{phv}\fontseries{m}\fontshape{n}\fontsize{12}{14}\selectfont}
+\newcommand{\gotocour}{\fontfamily{pcr}\fontseries{b}\fontshape{n}\fontsize{7}{8}\selectfont}
+\newcommand{\objectText}[2]{{\hspace*{2pt}\rule[-2pt]{0pt}{12pt}\gotohel #1 %
+     \fontshape{sl}\selectfont #2\hspace*{12pt}}}
+\begin{document}
+etex;
+
+% Define pin pictures:
+picture qn[];
+qn[1] := thelabel(btex \gotocour 1 etex, (0,0));
+qn[2] := thelabel(btex \gotocour 2 etex, (0,0));
+qn[3] := thelabel(btex \gotocour 3 etex, (0,0));
+qn[4] := thelabel(btex \gotocour 4 etex, (0,0));
+qn[5] := thelabel(btex \gotocour 5 etex, (0,0));
+qn[6] := thelabel(btex \gotocour 6 etex, (0,0));
+qn[7] := thelabel(btex \gotocour 7 etex, (0,0));
+qn[8] := thelabel(btex \gotocour 8 etex, (0,0));
+qn[9] := thelabel(btex \gotocour 9 etex, (0,0));
+qn[10] := thelabel(btex \gotocour 10 etex, (0,0));
+qn[11] := thelabel(btex \gotocour 11 etex, (0,0));
+qn[12] := thelabel(btex \gotocour 12 etex, (0,0));
+
+input maxboxmacros;
+
+% Create the text box:
+
+picture p;
+p := thelabel.rt(btex \objectText{senseX}{on-lag off-lag} etex, (0,0));
+create_inside_box(p, 2, 1);
+
+endfig;
+verbatimtex
+\end{document}
+etex
+end
+
+% $Log: senseXsymbol.mp,v $
+% Revision 1.1  2006/03/25 21:51:18  churchoflambda
+% Added the 'senseX' object and modified the connection diagrams to show 'serial' as well as 'serialX'.
+%
+
+

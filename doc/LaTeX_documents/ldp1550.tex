@@ -4,7 +4,7 @@
 \objPicture{ldp1550symbol.ps}
 \objItemDescription{\objNameD{ldp1550} is an interface to the Sony Corporation LDP-1550 Laser Disk
 Player (LDP).
-It sends commands to a \objNameS{serial} or \objReference{serialX} object, which controls the serial port
+It sends commands to a \objNameS{serial} or a \objReference{serialX} object, which controls the serial port
 that the LDP is attached to, and responds to data returned from the LDP via the \objNameS{serial} or
 \objName{serialX} object.}
 
@@ -72,7 +72,7 @@ that the LDP is attached to, and responds to data returned from the LDP via the 
   
   \objListIOEnd
 
-\objItemCompanion{works with \objNameS{serial} or \objName{serialX}}
+\objItemCompanion{works with \objName{serialX} objects with OS 9, or \objNameS{serial} objects with OS X}
 
 \objItemStandalone{yes}
 
@@ -187,15 +187,22 @@ that the LDP is attached to, and responds to data returned from the LDP via the 
 
 \objItemMessage
 
-\objItemComments[Figure~\objImageReference{diagram:ldp1550connect} shows how to connect an
+\objItemComments[Figure~\objImageReference{diagram:ldp1550connect1} shows how to connect an
+\objNameX{ldp1550} object to a \objName{serial} object.
+Figure~\objImageReference{diagram:ldp1550connect2} shows how to connect an
 \objNameX{ldp1550} object to a \objName{serialX} object.]
-\objDiagram{ldp1550connections.ps}{ldp1550connect}{Connecting an \objNameX{ldp1550} object to a
+\objDiagram{ldp1550connections1.ps}{ldp1550connect1}{OS X: Connecting an \objNameX{ldp1550} object to a
+\objNameS{serial} object}
+\objDiagram{ldp1550connections2.ps}{ldp1550connect2}{OS 9: Connecting an \objNameX{ldp1550} object to a
 \objName{serialX} object}
 
 \objEnd{\objNameE{ldp1550}}
 
 
 % $Log: ldp1550.tex,v $
+% Revision 1.4  2006/03/25 21:51:18  churchoflambda
+% Added the 'senseX' object and modified the connection diagrams to show 'serial' as well as 'serialX'.
+%
 % Revision 1.3  2005/08/02 15:07:09  churchoflambda
 % Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
 %

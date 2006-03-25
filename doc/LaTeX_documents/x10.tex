@@ -4,9 +4,9 @@
 \objPicture{x10symbol.ps}
 \objItemDescription{\objNameD{x10} is an interface to the X-10 controller originally
 from X-10 Incorporated.
-It sends commands to a \objReference{serialX} object, which controls the serial
+It sends commands to a \objNameS{serial} or a \objReference{serialX} object, which controls the serial
 port that the X-10 is attached to, and responds to data returned from the X-10 via the
-\objName{serialX} object.}
+\objNameS{serial} or \objName{serialX} object.}
 
 \objItemCreated{September 1996}
 
@@ -26,7 +26,7 @@ port that the X-10 is attached to, and responds to data returned from the X-10 v
       The default kind is `cm11'.}
       
   \objListArgItem{poll-rate}{(optional) integer}{the rate (in milliseconds) at which the companion
-      \objName{serialX} object is polled via a sample request.
+      \objNameS{serial} or \objName{serialX} object is polled via a sample request.
       The default rate is 100 milliseconds between sample requests.}
   \objListArgEnd
 
@@ -35,16 +35,16 @@ port that the X-10 is attached to, and responds to data returned from the X-10 v
   \objListIOBegin
   \objListIOItem{list}{the command channel}
 
-  \objListIOItem{integer}{the feedback from the \objName{serialX} object}
+  \objListIOItem{integer}{the feedback from the \objNameS{serial} or \objName{serialX} object}
   
   \objListIOEnd
 
 \objItemOutlet{\nothing}
 
   \objListIOBegin
-  \objListIOItem{integer}{the commands to the \objName{serialX} object}
+  \objListIOItem{integer}{the commands to the \objNameS{serial} or \objName{serialX} object}
 
-  \objListIOItem{bang}{the sample request to the \objName{serialX} object}
+  \objListIOItem{bang}{the sample request to the \objNameS{serial} or \objName{serialX} object}
 
   \objListIOItem{integer}{the base house-code}
 
@@ -62,7 +62,8 @@ port that the X-10 is attached to, and responds to data returned from the X-10 v
   
   \objListIOEnd
 
-\objItemCompanion{works with \objName{serialX} objects, can be attached to \objReference{x10units} objects}
+\objItemCompanion{works with \objName{serialX} objects with OS 9, or \objNameS{serial} objects with OS X,
+can be attached to \objReference{x10units} objects}
 
 \objItemStandalone{yes}
 
@@ -222,13 +223,19 @@ port that the X-10 is attached to, and responds to data returned from the X-10 v
 
 \objItemMessage
 
-\objItemComments[Figure~\objImageReference{diagram:x10connect} shows how to connect an
+\objItemComments[Figure~\objImageReference{diagram:x10connect1} shows how to connect an
+\objNameX{x10} object to a \objNameS{serial} object.
+Figure~\objImageReference{diagram:x10connect2} shows how to connect an
 \objNameX{x10} object to a \objName{serialX} object.]
-\objDiagram{x10connections.ps}{x10connect}{Connecting an \objNameX{x10} object to a \objName{serialX} object}
+\objDiagram{x10connections1.ps}{x10connect1}{OS X: Connecting an \objNameX{x10} object to a \objNameS{serial} object}
+\objDiagram{x10connections2.ps}{x10connect2}{OS 9: Connecting an \objNameX{x10} object to a \objName{serialX} object}
 
 \objEnd{\objNameE{x10}}
 
 % $Log: x10.tex,v $
+% Revision 1.4  2006/03/25 21:51:18  churchoflambda
+% Added the 'senseX' object and modified the connection diagrams to show 'serial' as well as 'serialX'.
+%
 % Revision 1.3  2005/08/02 15:07:10  churchoflambda
 % Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
 %
