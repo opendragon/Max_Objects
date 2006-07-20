@@ -250,7 +250,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -777,21 +777,21 @@
                     <TARGETNAME>tcpServer-4</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>tcpClient-4-cats</TARGETNAME>
+                    <TARGETNAME>tcpClient-4X</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>tcpLocate-4-cats</TARGETNAME>
+                    <TARGETNAME>tcpLocate-4X</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>tcpMultiServer-4-cats</TARGETNAME>
+                    <TARGETNAME>tcpMultiServer-4X</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>tcpServer-4-cats</TARGETNAME>
+                    <TARGETNAME>tcpServer-4X</TARGETNAME>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>tcpClient.ppc-4</NAME>
+            <NAME>tcpClient.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -910,7 +910,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>tcpClient.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>tcpClient.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -1356,7 +1356,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -1686,7 +1686,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpClient.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpClient.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -2143,15 +2143,6 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                    <FILEKIND>Library</FILEKIND>
-                    <FILEFLAGS></FILEFLAGS>
-                </FILE>
-                <FILE>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
@@ -2166,6 +2157,15 @@
                     <PATH>tcpClient_Mode.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Text</FILEKIND>
+                    <FILEFLAGS></FILEFLAGS>
+                </FILE>
+                <FILE>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                    <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
             </FILELIST>
@@ -2389,13 +2389,6 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
@@ -2408,10 +2401,17 @@
                     <PATH>tcpClient_Mode.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
+                <FILEREF>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>tcpLocate.ppc-4</NAME>
+            <NAME>tcpLocate.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -2530,7 +2530,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>tcpLocate.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>tcpLocate.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -2976,7 +2976,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -3310,7 +3310,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpLocate.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpLocate.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -3650,18 +3650,18 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -3796,22 +3796,22 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
+                <FILEREF>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>tcpMultiServer.ppc-4</NAME>
+            <NAME>tcpMultiServer.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -3930,7 +3930,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>tcpMultiServer.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>tcpMultiServer.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -4376,7 +4376,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -4710,7 +4710,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpMultiServer.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpMultiServer.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -5131,15 +5131,6 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                    <FILEKIND>Library</FILEKIND>
-                    <FILEFLAGS></FILEFLAGS>
-                </FILE>
-                <FILE>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
@@ -5154,6 +5145,15 @@
                     <PATH>tcpMultiServer_Mode.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Text</FILEKIND>
+                    <FILEFLAGS></FILEFLAGS>
+                </FILE>
+                <FILE>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                    <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
             </FILELIST>
@@ -5349,13 +5349,6 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
@@ -5368,10 +5361,17 @@
                     <PATH>tcpMultiServer_Mode.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
+                <FILEREF>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>tcpServer.ppc-4</NAME>
+            <NAME>tcpServer.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -5490,7 +5490,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>tcpServer.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>tcpServer.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -5936,7 +5936,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -6266,7 +6266,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpServer.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpServer.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -6714,15 +6714,6 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                    <FILEKIND>Library</FILEKIND>
-                    <FILEFLAGS></FILEFLAGS>
-                </FILE>
-                <FILE>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
@@ -6737,6 +6728,15 @@
                     <PATH>tcpServer_Mode.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Text</FILEKIND>
+                    <FILEFLAGS></FILEFLAGS>
+                </FILE>
+                <FILE>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                    <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
             </FILELIST>
@@ -6953,13 +6953,6 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
@@ -6970,6 +6963,13 @@
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>:</ACCESSPATH>
                     <PATH>tcpServer_Mode.c</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                </FILEREF>
+                <FILEREF>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
@@ -7251,7 +7251,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -7761,8 +7761,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:tcpClient.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>tcpClient.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -7798,8 +7798,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:tcpClient.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>tcpClient.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -7825,13 +7825,13 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                    <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:tcpClient.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>tcpClient.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
@@ -8113,7 +8113,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -8627,8 +8627,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:tcpLocate.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>tcpLocate.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>Debug, TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -8664,8 +8664,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:tcpLocate.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>tcpLocate.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -8691,13 +8691,13 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>tcpLocate.ppc-4</TARGETNAME>
+                    <TARGETNAME>tcpLocate.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:tcpLocate.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>tcpLocate.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
@@ -8999,7 +8999,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -9513,8 +9513,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:tcpMultiServer.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>tcpMultiServer.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>Debug, TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -9550,8 +9550,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:tcpMultiServer.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>tcpMultiServer.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -9577,13 +9577,13 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                    <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:tcpMultiServer.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>tcpMultiServer.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
@@ -9865,7 +9865,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -10375,8 +10375,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:tcpServer.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>tcpServer.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -10412,8 +10412,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:tcpServer.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>tcpServer.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -10439,19 +10439,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                    <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:tcpServer.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>tcpServer.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>tcpClient.cats-4</NAME>
+            <NAME>tcpClient.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -10570,7 +10570,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>tcpClient.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>tcpClient.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -11016,7 +11016,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -11346,7 +11346,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpClient.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpClient.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -11759,19 +11759,19 @@
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <ACCESSPATH>:</ACCESSPATH>
+                    <PATH>tcpClient_Mode.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
-                    <FILEKIND>Library</FILEKIND>
+                    <FILEKIND>Text</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>:</ACCESSPATH>
-                    <PATH>tcpClient_Mode.c</PATH>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
-                    <FILEKIND>Text</FILEKIND>
+                    <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
             </FILELIST>
@@ -11961,21 +11961,21 @@
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <ACCESSPATH>:</ACCESSPATH>
+                    <PATH>tcpClient_Mode.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>:</ACCESSPATH>
-                    <PATH>tcpClient_Mode.c</PATH>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>tcpClient-4-cats</NAME>
+            <NAME>tcpClient-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -12034,7 +12034,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>tcpClient-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>tcpClient-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -12251,7 +12251,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -12761,7 +12761,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>tcpClient.cats-4</PATH>
+                    <PATH>tcpClient.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -12798,7 +12798,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>tcpClient.cats-4</PATH>
+                    <PATH>tcpClient.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -12825,19 +12825,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>tcpClient.cats-4</TARGETNAME>
+                    <TARGETNAME>tcpClient.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>tcpClient.cats-4</PATH>
+                        <PATH>tcpClient.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>tcpLocate.cats-4</NAME>
+            <NAME>tcpLocate.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -12956,7 +12956,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>tcpLocate.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>tcpLocate.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -13402,7 +13402,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -13736,7 +13736,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpLocate.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpLocate.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -14033,7 +14033,7 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -14135,13 +14135,13 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>tcpLocate-4-cats</NAME>
+            <NAME>tcpLocate-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -14200,7 +14200,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>tcpLocate-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>tcpLocate-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -14417,7 +14417,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -14931,7 +14931,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>tcpLocate.cats-4</PATH>
+                    <PATH>tcpLocate.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>Debug, TargetOutputFile</FILEFLAGS>
@@ -14968,7 +14968,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>tcpLocate.cats-4</PATH>
+                    <PATH>tcpLocate.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -14995,19 +14995,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>tcpLocate.cats-4</TARGETNAME>
+                    <TARGETNAME>tcpLocate.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>tcpLocate.cats-4</PATH>
+                        <PATH>tcpLocate.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>tcpMultiServer.cats-4</NAME>
+            <NAME>tcpMultiServer.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -15126,7 +15126,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>tcpMultiServer.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>tcpMultiServer.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -15572,7 +15572,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -15906,7 +15906,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpMultiServer.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpMultiServer.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -16283,19 +16283,19 @@
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <ACCESSPATH>:</ACCESSPATH>
+                    <PATH>tcpMultiServer_Mode.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
-                    <FILEKIND>Library</FILEKIND>
+                    <FILEKIND>Text</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>:</ACCESSPATH>
-                    <PATH>tcpMultiServer_Mode.c</PATH>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
-                    <FILEKIND>Text</FILEKIND>
+                    <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
             </FILELIST>
@@ -16457,21 +16457,21 @@
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <ACCESSPATH>:</ACCESSPATH>
+                    <PATH>tcpMultiServer_Mode.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>:</ACCESSPATH>
-                    <PATH>tcpMultiServer_Mode.c</PATH>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>tcpMultiServer-4-cats</NAME>
+            <NAME>tcpMultiServer-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -16530,7 +16530,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>tcpMultiServer-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>tcpMultiServer-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -16767,7 +16767,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -17281,7 +17281,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>tcpMultiServer.cats-4</PATH>
+                    <PATH>tcpMultiServer.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>Debug, TargetOutputFile</FILEFLAGS>
@@ -17318,7 +17318,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>tcpMultiServer.cats-4</PATH>
+                    <PATH>tcpMultiServer.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -17345,19 +17345,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>tcpMultiServer.cats-4</TARGETNAME>
+                    <TARGETNAME>tcpMultiServer.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>tcpMultiServer.cats-4</PATH>
+                        <PATH>tcpMultiServer.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>tcpServer.cats-4</NAME>
+            <NAME>tcpServer.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -17476,7 +17476,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>tcpServer.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>tcpServer.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -17922,7 +17922,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -18252,7 +18252,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpServer.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>tcpServer.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -18656,19 +18656,19 @@
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <ACCESSPATH>:</ACCESSPATH>
+                    <PATH>tcpServer_Mode.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
-                    <FILEKIND>Library</FILEKIND>
+                    <FILEKIND>Text</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>:</ACCESSPATH>
-                    <PATH>tcpServer_Mode.c</PATH>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
-                    <FILEKIND>Text</FILEKIND>
+                    <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
             </FILELIST>
@@ -18851,21 +18851,21 @@
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <ACCESSPATH>:</ACCESSPATH>
+                    <PATH>tcpServer_Mode.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>:</ACCESSPATH>
-                    <PATH>tcpServer_Mode.c</PATH>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>tcpServer-4-cats</NAME>
+            <NAME>tcpServer-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -18924,7 +18924,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>tcpServer-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>tcpServer-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -19141,7 +19141,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;V&#228;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;m&#232;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -19651,7 +19651,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>tcpServer.cats-4</PATH>
+                    <PATH>tcpServer.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -19688,7 +19688,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>tcpServer.cats-4</PATH>
+                    <PATH>tcpServer.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -19715,12 +19715,12 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>tcpServer.cats-4</TARGETNAME>
+                    <TARGETNAME>tcpServer.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>tcpServer.cats-4</PATH>
+                        <PATH>tcpServer.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
@@ -19729,29 +19729,29 @@
     </TARGETLIST>
 
     <TARGETORDER>
-        <ORDEREDTARGET><NAME>tcpClient.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>tcpClient.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>tcpClient-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>tcpLocate.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>tcpLocate.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>tcpLocate-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>tcpMultiServer.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>tcpMultiServer.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>tcpMultiServer-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>tcpServer.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>tcpServer.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>tcpServer-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>tcpClient.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>tcpClient-4-cats</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>tcpLocate.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>tcpLocate-4-cats</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>tcpMultiServer.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>tcpMultiServer-4-cats</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>tcpServer.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>tcpServer-4-cats</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>tcpClient.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>tcpClient-4X</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>tcpLocate.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>tcpLocate-4X</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>tcpMultiServer.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>tcpMultiServer-4X</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>tcpServer.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>tcpServer-4X</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>All</NAME></ORDEREDTARGET>
     </TARGETORDER>
 
     <GROUPLIST>
         <GROUP><NAME>Includes</NAME>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19759,7 +19759,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19767,7 +19767,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19775,7 +19775,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpLocate.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpLocate.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19783,7 +19783,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19791,7 +19791,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19799,7 +19799,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19809,7 +19809,7 @@
         </GROUP>
         <GROUP><NAME>Sources</NAME>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19817,7 +19817,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19825,7 +19825,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19833,7 +19833,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19843,7 +19843,7 @@
         </GROUP>
         <GROUP><NAME>Client Sources</NAME>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19851,7 +19851,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19859,7 +19859,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19867,7 +19867,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19875,7 +19875,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19883,7 +19883,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19891,7 +19891,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19899,7 +19899,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19907,7 +19907,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19915,7 +19915,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19923,7 +19923,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19931,7 +19931,7 @@
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19939,7 +19939,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19947,7 +19947,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19955,7 +19955,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19963,7 +19963,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19973,7 +19973,7 @@
         </GROUP>
         <GROUP><NAME>Locate Sources</NAME>
             <FILEREF>
-                <TARGETNAME>tcpLocate.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpLocate.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19981,7 +19981,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpLocate.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpLocate.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19989,7 +19989,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpLocate.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpLocate.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -19997,7 +19997,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpLocate.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpLocate.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20005,7 +20005,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpLocate.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpLocate.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20015,7 +20015,7 @@
         </GROUP>
         <GROUP><NAME>MultiServer Sources</NAME>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20023,7 +20023,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20031,7 +20031,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20039,7 +20039,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20047,7 +20047,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20055,7 +20055,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20063,7 +20063,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20071,7 +20071,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20079,7 +20079,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20087,7 +20087,7 @@
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20095,7 +20095,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20103,7 +20103,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20111,7 +20111,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20119,7 +20119,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpMultiServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20129,7 +20129,7 @@
         </GROUP>
         <GROUP><NAME>Server Sources</NAME>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20137,7 +20137,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20145,7 +20145,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20153,7 +20153,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20161,7 +20161,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20169,7 +20169,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20177,7 +20177,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20185,7 +20185,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20193,7 +20193,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20201,7 +20201,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20209,7 +20209,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20217,7 +20217,7 @@
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20225,7 +20225,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20233,7 +20233,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20241,7 +20241,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpServer.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -20301,7 +20301,7 @@
         </GROUP>
         <GROUP><NAME>Libraries</NAME>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -20309,7 +20309,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -20317,7 +20317,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -20325,7 +20325,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -20333,7 +20333,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -20341,7 +20341,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -20349,7 +20349,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:Libraries:</ACCESSPATH>
@@ -20357,23 +20357,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.cats-4</TARGETNAME>
-                <PATHTYPE>PathRelative</PATHTYPE>
-                <PATHROOT>Project</PATHROOT>
-                <ACCESSPATH>../CommonCode</ACCESSPATH>
-                <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
-                <PATHFORMAT>Unix</PATHFORMAT>
-            </FILEREF>
-            <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
-                <PATHTYPE>PathRelative</PATHTYPE>
-                <PATHROOT>Project</PATHROOT>
-                <ACCESSPATH>../CommonCode</ACCESSPATH>
-                <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                <PATHFORMAT>Unix</PATHFORMAT>
-            </FILEREF>
-            <FILEREF>
-                <TARGETNAME>tcpClient.cats-4</TARGETNAME>
+                <TARGETNAME>tcpClient.X-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -20381,7 +20365,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:::Max &#196;:Max SDK:MAX includes:</ACCESSPATH>
@@ -20389,7 +20373,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.cats-4</TARGETNAME>
+                <TARGETNAME>tcpClient.X-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>../../Max &#196;/MaxMSP-SDK/c74support/max-includes</ACCESSPATH>
@@ -20397,11 +20381,27 @@
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpClient.ppc-4</TARGETNAME>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>../../Syslog</ACCESSPATH>
                 <PATH>Syslog Library</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
+            </FILEREF>
+            <FILEREF>
+                <TARGETNAME>tcpClient.nonX-4</TARGETNAME>
+                <PATHTYPE>PathRelative</PATHTYPE>
+                <PATHROOT>Project</PATHROOT>
+                <ACCESSPATH>../CommonCode</ACCESSPATH>
+                <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
+            </FILEREF>
+            <FILEREF>
+                <TARGETNAME>tcpClient.X-4</TARGETNAME>
+                <PATHTYPE>PathRelative</PATHTYPE>
+                <PATHROOT>Project</PATHROOT>
+                <ACCESSPATH>../CommonCode</ACCESSPATH>
+                <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
         </GROUP>
@@ -20410,56 +20410,56 @@
                 <TARGETNAME>tcpClient-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:tcpClient.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
+                <PATH>tcpClient.nonX-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
                 <TARGETNAME>tcpLocate-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:tcpLocate.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
+                <PATH>tcpLocate.nonX-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
                 <TARGETNAME>tcpMultiServer-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:tcpMultiServer.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
+                <PATH>tcpMultiServer.nonX-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
                 <TARGETNAME>tcpServer-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:tcpServer.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
-            </FILEREF>
-            <FILEREF>
-                <TARGETNAME>tcpClient-4-cats</TARGETNAME>
-                <PATHTYPE>RootRelative</PATHTYPE>
-                <PATHROOT>Project</PATHROOT>
-                <PATH>tcpClient.cats-4</PATH>
+                <PATH>tcpServer.nonX-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpLocate-4-cats</TARGETNAME>
+                <TARGETNAME>tcpClient-4X</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>tcpLocate.cats-4</PATH>
+                <PATH>tcpClient.X-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpMultiServer-4-cats</TARGETNAME>
+                <TARGETNAME>tcpLocate-4X</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>tcpMultiServer.cats-4</PATH>
+                <PATH>tcpLocate.X-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>tcpServer-4-cats</TARGETNAME>
+                <TARGETNAME>tcpMultiServer-4X</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>tcpServer.cats-4</PATH>
+                <PATH>tcpMultiServer.X-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
+            </FILEREF>
+            <FILEREF>
+                <TARGETNAME>tcpServer-4X</TARGETNAME>
+                <PATHTYPE>RootRelative</PATHTYPE>
+                <PATHROOT>Project</PATHROOT>
+                <PATH>tcpServer.X-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
         </GROUP>

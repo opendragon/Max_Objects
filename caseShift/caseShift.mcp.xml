@@ -270,7 +270,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;0&#208;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;h8&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -784,12 +784,12 @@
                     <TARGETNAME>caseShift-4</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>caseShift-4-cats</TARGETNAME>
+                    <TARGETNAME>caseShift-4X</TARGETNAME>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>caseShift.ppc-4</NAME>
+            <NAME>caseShift.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -918,7 +918,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>caseShift.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>caseShift.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -1364,7 +1364,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;0&#208;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;h8&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -1698,7 +1698,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>caseShift.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>caseShift.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -1984,18 +1984,18 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode/CommonLibrary</ACCESSPATH>
-                    <PATH>CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode/CommonLibrary</ACCESSPATH>
+                    <PATH>CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -2088,16 +2088,16 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode/CommonLibrary</ACCESSPATH>
-                    <PATH>CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode/CommonLibrary</ACCESSPATH>
+                    <PATH>CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
@@ -2379,7 +2379,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;0&#208;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;h8&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -2893,8 +2893,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:caseShift.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>caseShift.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -2930,8 +2930,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:caseShift.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>caseShift.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -2957,19 +2957,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                    <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:caseShift.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>caseShift.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>caseShift.cats-4</NAME>
+            <NAME>caseShift.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -3098,7 +3098,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>caseShift.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>caseShift.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -3544,7 +3544,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;0&#208;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;h8&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -3878,7 +3878,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>caseShift.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>caseShift.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -4157,7 +4157,7 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode/CommonLibrary</ACCESSPATH>
-                    <PATH>CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -4245,13 +4245,13 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode/CommonLibrary</ACCESSPATH>
-                    <PATH>CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>caseShift-4-cats</NAME>
+            <NAME>caseShift-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -4310,7 +4310,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>caseShift-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>caseShift-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -4527,7 +4527,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;0&#208;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; &#169;h8&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -5041,7 +5041,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>caseShift.cats-4</PATH>
+                    <PATH>caseShift.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -5078,7 +5078,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>caseShift.cats-4</PATH>
+                    <PATH>caseShift.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -5105,12 +5105,12 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>caseShift.cats-4</TARGETNAME>
+                    <TARGETNAME>caseShift.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>caseShift.cats-4</PATH>
+                        <PATH>caseShift.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
@@ -5119,17 +5119,17 @@
     </TARGETLIST>
 
     <TARGETORDER>
-        <ORDEREDTARGET><NAME>caseShift.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>caseShift.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>caseShift-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>caseShift.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>caseShift-4-cats</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>caseShift.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>caseShift-4X</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>All</NAME></ORDEREDTARGET>
     </TARGETORDER>
 
     <GROUPLIST>
         <GROUP><NAME>Includes</NAME>
             <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5139,7 +5139,7 @@
         </GROUP>
         <GROUP><NAME>Sources</NAME>
             <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5147,7 +5147,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5155,7 +5155,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5163,7 +5163,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5171,7 +5171,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5179,7 +5179,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5187,7 +5187,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5223,7 +5223,7 @@
         </GROUP>
         <GROUP><NAME>Libraries</NAME>
             <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -5231,7 +5231,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -5239,7 +5239,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:Libraries:</ACCESSPATH>
@@ -5247,23 +5247,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>caseShift.cats-4</TARGETNAME>
-                <PATHTYPE>PathRelative</PATHTYPE>
-                <PATHROOT>Project</PATHROOT>
-                <ACCESSPATH>../CommonCode/CommonLibrary</ACCESSPATH>
-                <PATH>CommonLibrary.cats.lib</PATH>
-                <PATHFORMAT>Unix</PATHFORMAT>
-            </FILEREF>
-            <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
-                <PATHTYPE>PathRelative</PATHTYPE>
-                <PATHROOT>Project</PATHROOT>
-                <ACCESSPATH>../CommonCode/CommonLibrary</ACCESSPATH>
-                <PATH>CommonLibrary.ppc.lib</PATH>
-                <PATHFORMAT>Unix</PATHFORMAT>
-            </FILEREF>
-            <FILEREF>
-                <TARGETNAME>caseShift.cats-4</TARGETNAME>
+                <TARGETNAME>caseShift.X-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -5271,7 +5255,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:::Max &#196;:Max SDK:MAX includes:</ACCESSPATH>
@@ -5279,7 +5263,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>caseShift.cats-4</TARGETNAME>
+                <TARGETNAME>caseShift.X-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>../../Max &#196;/MaxMSP-SDK/c74support/max-includes</ACCESSPATH>
@@ -5287,11 +5271,27 @@
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>caseShift.ppc-4</TARGETNAME>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>../../Syslog</ACCESSPATH>
                 <PATH>Syslog Library</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
+            </FILEREF>
+            <FILEREF>
+                <TARGETNAME>caseShift.nonX-4</TARGETNAME>
+                <PATHTYPE>PathRelative</PATHTYPE>
+                <PATHROOT>Project</PATHROOT>
+                <ACCESSPATH>../CommonCode/CommonLibrary</ACCESSPATH>
+                <PATH>CommonLibrary.nonX.lib</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
+            </FILEREF>
+            <FILEREF>
+                <TARGETNAME>caseShift.X-4</TARGETNAME>
+                <PATHTYPE>PathRelative</PATHTYPE>
+                <PATHROOT>Project</PATHROOT>
+                <ACCESSPATH>../CommonCode/CommonLibrary</ACCESSPATH>
+                <PATH>CommonLibrary.X.lib</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
         </GROUP>
@@ -5300,14 +5300,14 @@
                 <TARGETNAME>caseShift-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:caseShift.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
+                <PATH>caseShift.nonX-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>caseShift-4-cats</TARGETNAME>
+                <TARGETNAME>caseShift-4X</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>caseShift.cats-4</PATH>
+                <PATH>caseShift.X-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
         </GROUP>

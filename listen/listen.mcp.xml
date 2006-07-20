@@ -270,7 +270,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;4l&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; i6&#140;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -788,12 +788,12 @@
                     <TARGETNAME>listen-4</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>listen-4-cats</TARGETNAME>
+                    <TARGETNAME>listen-4X</TARGETNAME>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>listen.ppc-4</NAME>
+            <NAME>listen.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -912,7 +912,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>listen.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>listen.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -1358,7 +1358,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;4l&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; i6&#140;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -1688,7 +1688,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>listen.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>listen.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -2001,18 +2001,18 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -2126,16 +2126,16 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
@@ -2417,7 +2417,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;4l&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; i6&#140;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -2927,8 +2927,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:listen.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>listen.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -2964,8 +2964,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:listen.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>listen.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -2991,19 +2991,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>listen.ppc-4</TARGETNAME>
+                    <TARGETNAME>listen.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:listen.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>listen.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>listen.cats-4</NAME>
+            <NAME>listen.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -3122,7 +3122,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>listen.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>listen.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -3568,7 +3568,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;4l&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; i6&#140;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -3898,7 +3898,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>listen.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>listen.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -4195,7 +4195,7 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -4297,13 +4297,13 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>listen-4-cats</NAME>
+            <NAME>listen-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -4362,7 +4362,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>listen-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>listen-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -4579,7 +4579,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;4l&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; i6&#140;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -5089,7 +5089,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>listen.cats-4</PATH>
+                    <PATH>listen.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -5126,7 +5126,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>listen.cats-4</PATH>
+                    <PATH>listen.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -5153,12 +5153,12 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>listen.cats-4</TARGETNAME>
+                    <TARGETNAME>listen.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>listen.cats-4</PATH>
+                        <PATH>listen.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
@@ -5167,17 +5167,17 @@
     </TARGETLIST>
 
     <TARGETORDER>
-        <ORDEREDTARGET><NAME>listen.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>listen.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>listen-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>listen.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>listen-4-cats</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>listen.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>listen-4X</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>All</NAME></ORDEREDTARGET>
     </TARGETORDER>
 
     <GROUPLIST>
         <GROUP><NAME>Includes</NAME>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5187,7 +5187,7 @@
         </GROUP>
         <GROUP><NAME>Sources</NAME>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5195,7 +5195,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5203,7 +5203,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5211,7 +5211,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5219,7 +5219,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5227,7 +5227,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5235,7 +5235,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5243,7 +5243,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5251,7 +5251,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -5287,7 +5287,7 @@
         </GROUP>
         <GROUP><NAME>Libraries</NAME>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -5295,7 +5295,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -5303,7 +5303,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -5311,7 +5311,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:::Max &#196;:Max SDK:MAX includes:</ACCESSPATH>
@@ -5319,7 +5319,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.cats-4</TARGETNAME>
+                <TARGETNAME>listen.X-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>../../Max &#196;/MaxMSP-SDK/c74support/max-includes</ACCESSPATH>
@@ -5327,7 +5327,7 @@
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:Libraries:</ACCESSPATH>
@@ -5335,23 +5335,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.cats-4</TARGETNAME>
-                <PATHTYPE>PathRelative</PATHTYPE>
-                <PATHROOT>Project</PATHROOT>
-                <ACCESSPATH>../CommonCode</ACCESSPATH>
-                <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
-                <PATHFORMAT>Unix</PATHFORMAT>
-            </FILEREF>
-            <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
-                <PATHTYPE>PathRelative</PATHTYPE>
-                <PATHROOT>Project</PATHROOT>
-                <ACCESSPATH>../CommonCode</ACCESSPATH>
-                <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                <PATHFORMAT>Unix</PATHFORMAT>
-            </FILEREF>
-            <FILEREF>
-                <TARGETNAME>listen.cats-4</TARGETNAME>
+                <TARGETNAME>listen.X-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:Universal:</ACCESSPATH>
@@ -5359,11 +5343,27 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen.ppc-4</TARGETNAME>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>../../Syslog</ACCESSPATH>
                 <PATH>Syslog Library</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
+            </FILEREF>
+            <FILEREF>
+                <TARGETNAME>listen.nonX-4</TARGETNAME>
+                <PATHTYPE>PathRelative</PATHTYPE>
+                <PATHROOT>Project</PATHROOT>
+                <ACCESSPATH>../CommonCode</ACCESSPATH>
+                <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
+            </FILEREF>
+            <FILEREF>
+                <TARGETNAME>listen.X-4</TARGETNAME>
+                <PATHTYPE>PathRelative</PATHTYPE>
+                <PATHROOT>Project</PATHROOT>
+                <ACCESSPATH>../CommonCode</ACCESSPATH>
+                <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
         </GROUP>
@@ -5372,14 +5372,14 @@
                 <TARGETNAME>listen-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:listen.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
+                <PATH>listen.nonX-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>listen-4-cats</TARGETNAME>
+                <TARGETNAME>listen-4X</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>listen.cats-4</PATH>
+                <PATH>listen.X-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
         </GROUP>

@@ -270,7 +270,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;%&#212;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; h&#250;L&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -790,18 +790,18 @@
                     <TARGETNAME>map3d-4</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>map1d-4-cats</TARGETNAME>
+                    <TARGETNAME>map1d-4X</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>map2d-4-cats</TARGETNAME>
+                    <TARGETNAME>map2d-4X</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>map3d-4-cats</TARGETNAME>
+                    <TARGETNAME>map3d-4X</TARGETNAME>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>map1d.ppc-4</NAME>
+            <NAME>map1d.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -920,7 +920,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>map1d.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>map1d.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -1366,7 +1366,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;%&#212;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; h&#250;L&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -1696,7 +1696,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>map1d.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>map1d.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -2108,18 +2108,18 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -2310,22 +2310,22 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
+                <FILEREF>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>map2d.ppc-4</NAME>
+            <NAME>map2d.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -2444,7 +2444,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>map2d.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>map2d.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -2890,7 +2890,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;%&#212;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; h&#250;L&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -3220,7 +3220,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>map2d.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>map2d.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -3623,18 +3623,18 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -3818,22 +3818,22 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
+                <FILEREF>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>map3d.ppc-4</NAME>
+            <NAME>map3d.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -3952,7 +3952,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>map3d.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>map3d.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -4398,7 +4398,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;%&#212;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; h&#250;L&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -4732,7 +4732,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>map3d.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>map3d.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -5135,18 +5135,18 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -5330,16 +5330,16 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
@@ -5621,7 +5621,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;%&#212;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; h&#250;L&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -6131,8 +6131,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:map1d.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>map1d.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -6168,8 +6168,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:map1d.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>map1d.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -6195,13 +6195,13 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                    <TARGETNAME>map1d.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:map1d.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>map1d.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
@@ -6483,7 +6483,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;%&#212;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; h&#250;L&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -6993,8 +6993,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:map2d.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>map2d.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -7030,8 +7030,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:map2d.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>map2d.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -7057,13 +7057,13 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                    <TARGETNAME>map2d.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:map2d.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>map2d.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
@@ -7345,7 +7345,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;%&#212;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; h&#250;L&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -7859,8 +7859,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:map3d.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>map3d.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -7896,8 +7896,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:map3d.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>map3d.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -7923,19 +7923,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                    <TARGETNAME>map3d.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:map3d.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>map3d.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>map1d.cats-4</NAME>
+            <NAME>map1d.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -8054,7 +8054,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>map1d.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>map1d.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -8500,7 +8500,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;%&#212;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; h&#250;L&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -8830,7 +8830,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>map1d.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>map1d.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -9235,7 +9235,7 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -9421,13 +9421,13 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>map1d-4-cats</NAME>
+            <NAME>map1d-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -9486,7 +9486,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>map1d-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>map1d-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -9703,7 +9703,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;%&#212;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; h&#250;L&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -10213,7 +10213,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>map1d.cats-4</PATH>
+                    <PATH>map1d.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -10250,7 +10250,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>map1d.cats-4</PATH>
+                    <PATH>map1d.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -10277,19 +10277,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>map1d.cats-4</TARGETNAME>
+                    <TARGETNAME>map1d.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>map1d.cats-4</PATH>
+                        <PATH>map1d.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>map2d.cats-4</NAME>
+            <NAME>map2d.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -10408,7 +10408,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>map2d.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>map2d.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -10854,7 +10854,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;%&#212;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; h&#250;L&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -11184,7 +11184,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>map2d.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>map2d.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -11580,7 +11580,7 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -11759,13 +11759,13 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>map2d-4-cats</NAME>
+            <NAME>map2d-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -11824,7 +11824,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>map2d-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>map2d-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -12041,7 +12041,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;%&#212;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; h&#250;L&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -12551,7 +12551,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>map2d.cats-4</PATH>
+                    <PATH>map2d.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -12588,7 +12588,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>map2d.cats-4</PATH>
+                    <PATH>map2d.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -12615,19 +12615,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>map2d.cats-4</TARGETNAME>
+                    <TARGETNAME>map2d.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>map2d.cats-4</PATH>
+                        <PATH>map2d.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>map3d.cats-4</NAME>
+            <NAME>map3d.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -12746,7 +12746,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>map3d.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>map3d.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -13192,7 +13192,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;%&#212;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; h&#250;L&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -13526,7 +13526,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>map3d.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>map3d.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -13922,7 +13922,7 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -14101,13 +14101,13 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>map3d-4-cats</NAME>
+            <NAME>map3d-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -14166,7 +14166,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>map3d-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>map3d-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -14383,7 +14383,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#166;%&#212;&#144;)&#159;&#196;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; h&#250;L&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -14897,7 +14897,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>map3d.cats-4</PATH>
+                    <PATH>map3d.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -14934,7 +14934,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>map3d.cats-4</PATH>
+                    <PATH>map3d.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -14961,12 +14961,12 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>map3d.cats-4</TARGETNAME>
+                    <TARGETNAME>map3d.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>map3d.cats-4</PATH>
+                        <PATH>map3d.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
@@ -14975,25 +14975,25 @@
     </TARGETLIST>
 
     <TARGETORDER>
-        <ORDEREDTARGET><NAME>map1d.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>map1d.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>map1d-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>map2d.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>map2d.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>map2d-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>map3d.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>map3d.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>map3d-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>map1d.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>map1d-4-cats</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>map2d.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>map2d-4-cats</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>map3d.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>map3d-4-cats</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>map1d.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>map1d-4X</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>map2d.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>map2d-4X</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>map3d.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>map3d-4X</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>All</NAME></ORDEREDTARGET>
     </TARGETORDER>
 
     <GROUPLIST>
         <GROUP><NAME>Includes</NAME>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15001,7 +15001,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15009,7 +15009,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15017,7 +15017,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15027,7 +15027,7 @@
         </GROUP>
         <GROUP><NAME>map1d sources</NAME>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15035,7 +15035,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15043,7 +15043,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15051,7 +15051,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15059,7 +15059,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15067,7 +15067,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15075,7 +15075,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15083,7 +15083,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15091,7 +15091,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15099,7 +15099,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15107,7 +15107,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15115,7 +15115,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15123,7 +15123,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15131,7 +15131,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15139,7 +15139,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15147,7 +15147,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15155,7 +15155,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15163,7 +15163,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15171,7 +15171,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15179,7 +15179,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15189,7 +15189,7 @@
         </GROUP>
         <GROUP><NAME>map2d sources</NAME>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15197,7 +15197,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15205,7 +15205,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15213,7 +15213,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15221,7 +15221,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15229,7 +15229,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15237,7 +15237,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15245,7 +15245,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15253,7 +15253,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15261,7 +15261,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15269,7 +15269,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15277,7 +15277,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15285,7 +15285,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15293,7 +15293,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15301,7 +15301,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15309,7 +15309,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15317,7 +15317,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15325,7 +15325,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15333,7 +15333,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d.ppc-4</TARGETNAME>
+                <TARGETNAME>map2d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15343,7 +15343,7 @@
         </GROUP>
         <GROUP><NAME>map3d sources</NAME>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15351,7 +15351,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15359,7 +15359,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15367,7 +15367,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15375,7 +15375,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15383,7 +15383,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15391,7 +15391,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15399,7 +15399,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15407,7 +15407,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15415,7 +15415,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15423,7 +15423,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15431,7 +15431,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15439,7 +15439,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15447,7 +15447,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15455,7 +15455,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15463,7 +15463,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15471,7 +15471,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15479,7 +15479,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15487,7 +15487,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d.ppc-4</TARGETNAME>
+                <TARGETNAME>map3d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -15539,7 +15539,7 @@
         </GROUP>
         <GROUP><NAME>Libraries</NAME>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -15547,7 +15547,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -15555,7 +15555,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:Libraries:</ACCESSPATH>
@@ -15563,23 +15563,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.cats-4</TARGETNAME>
-                <PATHTYPE>PathRelative</PATHTYPE>
-                <PATHROOT>Project</PATHROOT>
-                <ACCESSPATH>../CommonCode</ACCESSPATH>
-                <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
-                <PATHFORMAT>Unix</PATHFORMAT>
-            </FILEREF>
-            <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
-                <PATHTYPE>PathRelative</PATHTYPE>
-                <PATHROOT>Project</PATHROOT>
-                <ACCESSPATH>../CommonCode</ACCESSPATH>
-                <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                <PATHFORMAT>Unix</PATHFORMAT>
-            </FILEREF>
-            <FILEREF>
-                <TARGETNAME>map1d.cats-4</TARGETNAME>
+                <TARGETNAME>map1d.X-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -15587,7 +15571,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:::Max &#196;:Max SDK:MAX includes:</ACCESSPATH>
@@ -15595,7 +15579,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.cats-4</TARGETNAME>
+                <TARGETNAME>map1d.X-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>../../Max &#196;/MaxMSP-SDK/c74support/max-includes</ACCESSPATH>
@@ -15603,11 +15587,27 @@
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map1d.ppc-4</TARGETNAME>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>../../Syslog</ACCESSPATH>
                 <PATH>Syslog Library</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
+            </FILEREF>
+            <FILEREF>
+                <TARGETNAME>map1d.nonX-4</TARGETNAME>
+                <PATHTYPE>PathRelative</PATHTYPE>
+                <PATHROOT>Project</PATHROOT>
+                <ACCESSPATH>../CommonCode</ACCESSPATH>
+                <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
+            </FILEREF>
+            <FILEREF>
+                <TARGETNAME>map1d.X-4</TARGETNAME>
+                <PATHTYPE>PathRelative</PATHTYPE>
+                <PATHROOT>Project</PATHROOT>
+                <ACCESSPATH>../CommonCode</ACCESSPATH>
+                <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
         </GROUP>
@@ -15616,42 +15616,42 @@
                 <TARGETNAME>map1d-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:map1d.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
+                <PATH>map1d.nonX-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
                 <TARGETNAME>map2d-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:map2d.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
+                <PATH>map2d.nonX-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
                 <TARGETNAME>map3d-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:map3d.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
-            </FILEREF>
-            <FILEREF>
-                <TARGETNAME>map1d-4-cats</TARGETNAME>
-                <PATHTYPE>RootRelative</PATHTYPE>
-                <PATHROOT>Project</PATHROOT>
-                <PATH>map1d.cats-4</PATH>
+                <PATH>map3d.nonX-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map2d-4-cats</TARGETNAME>
+                <TARGETNAME>map1d-4X</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>map2d.cats-4</PATH>
+                <PATH>map1d.X-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>map3d-4-cats</TARGETNAME>
+                <TARGETNAME>map2d-4X</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>map3d.cats-4</PATH>
+                <PATH>map2d.X-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
+            </FILEREF>
+            <FILEREF>
+                <TARGETNAME>map3d-4X</TARGETNAME>
+                <PATHTYPE>RootRelative</PATHTYPE>
+                <PATHROOT>Project</PATHROOT>
+                <PATH>map3d.X-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
         </GROUP>

@@ -270,7 +270,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -803,27 +803,27 @@
                     <TARGETNAME>Vtake-4</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>Vdrop-4-cats</TARGETNAME>
+                    <TARGETNAME>Vdrop-4X</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>Vjet-4-cats</TARGETNAME>
+                    <TARGETNAME>Vjet-4X</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>Vreverse-4-cats</TARGETNAME>
+                    <TARGETNAME>Vreverse-4X</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>Vrotate-4-cats</TARGETNAME>
+                    <TARGETNAME>Vrotate-4X</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>Vsplit-4-cats</TARGETNAME>
+                    <TARGETNAME>Vsplit-4X</TARGETNAME>
                 </SUBTARGET>
                 <SUBTARGET>
-                    <TARGETNAME>Vtake-4-cats</TARGETNAME>
+                    <TARGETNAME>Vtake-4X</TARGETNAME>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>Vdrop.ppc-4</NAME>
+            <NAME>Vdrop.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -942,7 +942,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vdrop.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vdrop.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -1388,7 +1388,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -1722,7 +1722,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vdrop.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vdrop.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -1999,18 +1999,18 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -2096,22 +2096,22 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
+                <FILEREF>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>Vjet.ppc-4</NAME>
+            <NAME>Vjet.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -2230,7 +2230,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vjet.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vjet.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -2676,7 +2676,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -3010,7 +3010,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vjet.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vjet.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -3287,18 +3287,18 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -3384,22 +3384,22 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
+                <FILEREF>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>Vreverse.ppc-4</NAME>
+            <NAME>Vreverse.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -3518,7 +3518,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vreverse.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vreverse.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -3964,7 +3964,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -4298,7 +4298,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vreverse.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vreverse.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -4575,18 +4575,18 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -4672,22 +4672,22 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
+                <FILEREF>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>Vrotate.ppc-4</NAME>
+            <NAME>Vrotate.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -4806,7 +4806,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vrotate.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vrotate.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -5252,7 +5252,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -5586,7 +5586,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vrotate.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vrotate.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -5863,18 +5863,18 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -5960,22 +5960,22 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
+                <FILEREF>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>Vtake.ppc-4</NAME>
+            <NAME>Vtake.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -6094,7 +6094,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vtake.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vtake.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -6540,7 +6540,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -6874,7 +6874,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vtake.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vtake.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -7151,18 +7151,18 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -7248,16 +7248,16 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
+                    <PATHROOT>CodeWarrior</PATHROOT>
+                    <ACCESSPATH>../../Syslog</ACCESSPATH>
+                    <PATH>Syslog Library</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>CodeWarrior</PATHROOT>
-                    <ACCESSPATH>../../Syslog</ACCESSPATH>
-                    <PATH>Syslog Library</PATH>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
@@ -7539,7 +7539,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -8053,8 +8053,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:Vdrop.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>Vdrop.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -8090,8 +8090,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:Vdrop.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>Vdrop.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -8117,13 +8117,13 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
+                    <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:Vdrop.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>Vdrop.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
@@ -8405,7 +8405,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -8919,8 +8919,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:Vjet.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>Vjet.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -8956,8 +8956,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:Vjet.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>Vjet.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -8983,13 +8983,13 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>Vjet.ppc-4</TARGETNAME>
+                    <TARGETNAME>Vjet.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:Vjet.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>Vjet.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
@@ -9271,7 +9271,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -9785,8 +9785,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:Vreverse.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>Vreverse.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -9822,8 +9822,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:Vreverse.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>Vreverse.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -9849,13 +9849,13 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>Vreverse.ppc-4</TARGETNAME>
+                    <TARGETNAME>Vreverse.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:Vreverse.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>Vreverse.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
@@ -10137,7 +10137,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -10651,8 +10651,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:Vrotate.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>Vrotate.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -10688,8 +10688,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:Vrotate.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>Vrotate.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -10715,13 +10715,13 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>Vrotate.ppc-4</TARGETNAME>
+                    <TARGETNAME>Vrotate.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:Vrotate.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>Vrotate.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
@@ -11003,7 +11003,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -11517,8 +11517,8 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:Vtake.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>Vtake.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
                 </FILE>
@@ -11554,8 +11554,8 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>:Vtake.ppc-4</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
+                    <PATH>Vtake.nonX-4</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
@@ -11581,19 +11581,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>Vtake.ppc-4</TARGETNAME>
+                    <TARGETNAME>Vtake.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>:Vtake.ppc-4</PATH>
-                        <PATHFORMAT>MacOS</PATHFORMAT>
+                        <PATH>Vtake.nonX-4</PATH>
+                        <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>Vdrop.cats-4</NAME>
+            <NAME>Vdrop.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -11712,7 +11712,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vdrop.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vdrop.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -12158,7 +12158,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -12492,7 +12492,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vdrop.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vdrop.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -12762,7 +12762,7 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -12843,13 +12843,13 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>Vdrop-4-cats</NAME>
+            <NAME>Vdrop-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -12908,7 +12908,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vdrop-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vdrop-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -13125,7 +13125,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -13639,7 +13639,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vdrop.cats-4</PATH>
+                    <PATH>Vdrop.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -13676,7 +13676,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vdrop.cats-4</PATH>
+                    <PATH>Vdrop.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -13703,19 +13703,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>Vdrop.cats-4</TARGETNAME>
+                    <TARGETNAME>Vdrop.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>Vdrop.cats-4</PATH>
+                        <PATH>Vdrop.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>Vjet.cats-4</NAME>
+            <NAME>Vjet.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -13834,7 +13834,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vjet.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vjet.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -14280,7 +14280,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -14614,7 +14614,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vjet.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vjet.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -14884,7 +14884,7 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -14965,13 +14965,13 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>Vjet-4-cats</NAME>
+            <NAME>Vjet-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -15030,7 +15030,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vjet-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vjet-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -15247,7 +15247,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -15761,7 +15761,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vjet.cats-4</PATH>
+                    <PATH>Vjet.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -15798,7 +15798,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vjet.cats-4</PATH>
+                    <PATH>Vjet.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -15825,19 +15825,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>Vjet.cats-4</TARGETNAME>
+                    <TARGETNAME>Vjet.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>Vjet.cats-4</PATH>
+                        <PATH>Vjet.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>Vreverse.cats-4</NAME>
+            <NAME>Vreverse.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -15956,7 +15956,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vreverse.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vreverse.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -16402,7 +16402,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -16736,7 +16736,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vreverse.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vreverse.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -17006,7 +17006,7 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -17087,13 +17087,13 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>Vreverse-4-cats</NAME>
+            <NAME>Vreverse-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -17152,7 +17152,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vreverse-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vreverse-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -17369,7 +17369,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -17883,7 +17883,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vreverse.cats-4</PATH>
+                    <PATH>Vreverse.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -17920,7 +17920,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vreverse.cats-4</PATH>
+                    <PATH>Vreverse.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -17947,19 +17947,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>Vreverse.cats-4</TARGETNAME>
+                    <TARGETNAME>Vreverse.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>Vreverse.cats-4</PATH>
+                        <PATH>Vreverse.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>Vtake.cats-4</NAME>
+            <NAME>Vtake.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -18078,7 +18078,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vtake.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vtake.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -18524,7 +18524,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -18858,7 +18858,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vtake.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vtake.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -19128,7 +19128,7 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -19209,13 +19209,13 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>Vrotate.cats-4</NAME>
+            <NAME>Vrotate.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -19334,7 +19334,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vrotate.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vrotate.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -19780,7 +19780,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -20114,7 +20114,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vrotate.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vrotate.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -20384,7 +20384,7 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
@@ -20465,13 +20465,13 @@
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>Vrotate-4-cats</NAME>
+            <NAME>Vrotate-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -20530,7 +20530,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vrotate-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vrotate-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -20747,7 +20747,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -21261,7 +21261,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vrotate.cats-4</PATH>
+                    <PATH>Vrotate.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -21298,7 +21298,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vrotate.cats-4</PATH>
+                    <PATH>Vrotate.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -21325,19 +21325,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>Vrotate.cats-4</TARGETNAME>
+                    <TARGETNAME>Vrotate.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>Vrotate.cats-4</PATH>
+                        <PATH>Vrotate.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>Vtake-4-cats</NAME>
+            <NAME>Vtake-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -21396,7 +21396,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vtake-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vtake-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -21613,7 +21613,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -22127,7 +22127,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vtake.cats-4</PATH>
+                    <PATH>Vtake.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -22164,7 +22164,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vtake.cats-4</PATH>
+                    <PATH>Vtake.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -22191,19 +22191,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>Vtake.cats-4</TARGETNAME>
+                    <TARGETNAME>Vtake.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>Vtake.cats-4</PATH>
+                        <PATH>Vtake.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>Vsplit.ppc-4</NAME>
+            <NAME>Vsplit.nonX-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -22322,7 +22322,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vsplit.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vsplit.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -22768,7 +22768,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -23102,7 +23102,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vsplit.ppc-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vsplit.nonX-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -23334,15 +23334,6 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                    <FILEKIND>Library</FILEKIND>
-                    <FILEFLAGS></FILEFLAGS>
-                </FILE>
-                <FILE>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
@@ -23402,6 +23393,15 @@
                     <PATH>Vsplit.h</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Text</FILEKIND>
+                    <FILEFLAGS></FILEFLAGS>
+                </FILE>
+                <FILE>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                    <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
             </FILELIST>
@@ -23450,13 +23450,6 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>CodeWarrior</PATHROOT>
                     <ACCESSPATH>../../Syslog</ACCESSPATH>
                     <PATH>Syslog Library</PATH>
@@ -23502,6 +23495,13 @@
                     <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>:</ACCESSPATH>
                     <PATH>Vsplit.h</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                </FILEREF>
+                <FILEREF>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
@@ -23783,7 +23783,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -24324,7 +24324,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vsplit.ppc-4</PATH>
+                    <PATH>Vsplit.nonX-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -24334,7 +24334,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vsplit.ppc-4</PATH>
+                    <PATH>Vsplit.nonX-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -24361,19 +24361,19 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>Vsplit.ppc-4</TARGETNAME>
+                    <TARGETNAME>Vsplit.nonX-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>Vsplit.ppc-4</PATH>
+                        <PATH>Vsplit.nonX-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
             </SUBTARGETLIST>
         </TARGET>
         <TARGET>
-            <NAME>Vsplit.cats-4</NAME>
+            <NAME>Vsplit.X-4</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -24492,7 +24492,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS PPC Linker</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vsplit.cats-4</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vsplit.X-4</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>:</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>MacOS</VALUE></SETTING>
@@ -24938,7 +24938,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -25272,7 +25272,7 @@
 
                 <!-- Settings for "PPC Project" panel -->
                 <SETTING><NAME>MWProject_PPC_type</NAME><VALUE>SharedLibrary</VALUE></SETTING>
-                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vsplit.cats-4</VALUE></SETTING>
+                <SETTING><NAME>MWProject_PPC_outfile</NAME><VALUE>Vsplit.X-4</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filecreator</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_filetype</NAME><VALUE>????</VALUE></SETTING>
                 <SETTING><NAME>MWProject_PPC_size</NAME><VALUE>0</VALUE></SETTING>
@@ -25496,15 +25496,6 @@
                 <FILE>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                    <FILEKIND>Library</FILEKIND>
-                    <FILEFLAGS></FILEFLAGS>
-                </FILE>
-                <FILE>
-                    <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>:</ACCESSPATH>
                     <PATH>Vsplit_Bang.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
@@ -25554,6 +25545,15 @@
                     <PATH>Vsplit.h</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Text</FILEKIND>
+                    <FILEFLAGS></FILEFLAGS>
+                </FILE>
+                <FILE>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                    <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS></FILEFLAGS>
                 </FILE>
             </FILELIST>
@@ -25596,13 +25596,6 @@
                 <FILEREF>
                     <PATHTYPE>PathRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <ACCESSPATH>../CommonCode</ACCESSPATH>
-                    <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <PATHTYPE>PathRelative</PATHTYPE>
-                    <PATHROOT>Project</PATHROOT>
                     <ACCESSPATH>:</ACCESSPATH>
                     <PATH>Vsplit_Bang.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
@@ -25642,10 +25635,17 @@
                     <PATH>Vsplit.h</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
+                <FILEREF>
+                    <PATHTYPE>PathRelative</PATHTYPE>
+                    <PATHROOT>Project</PATHROOT>
+                    <ACCESSPATH>../CommonCode</ACCESSPATH>
+                    <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                </FILEREF>
             </LINKORDER>
         </TARGET>
         <TARGET>
-            <NAME>Vsplit-4-cats</NAME>
+            <NAME>Vsplit-4X</NAME>
             <SETTINGLIST>
 
                 <!-- Settings for "Source Trees" panel -->
@@ -25704,7 +25704,7 @@
                 <SETTING><NAME>Linker</NAME><VALUE>MacOS Merge</VALUE></SETTING>
                 <SETTING><NAME>PreLinker</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>PostLinker</NAME><VALUE>Output Flags Post Linker</VALUE></SETTING>
-                <SETTING><NAME>Targetname</NAME><VALUE>Vsplit-4-cats</VALUE></SETTING>
+                <SETTING><NAME>Targetname</NAME><VALUE>Vsplit-4X</VALUE></SETTING>
                 <SETTING><NAME>OutputDirectory</NAME>
                     <SETTING><NAME>Path</NAME><VALUE>../Max4objectsX</VALUE></SETTING>
                     <SETTING><NAME>PathFormat</NAME><VALUE>Unix</VALUE></SETTING>
@@ -25921,7 +25921,7 @@
                 <!-- Settings for "FTP Panel" panel -->
                 <SETTING><NAME>MWFTP_Post_hostName</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_username</NAME><VALUE></VALUE></SETTING>
-                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#195;&#128;&#139;z&#192;&#144;,&#154;&#236;</VALUE></SETTING>
+                <SETTING><NAME>MWFTP_Post_password</NAME><VALUE>0&#255;&#193; hm&#236;&#144;&#188;&#200;d</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_remoteDir</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathVersion</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFTP_Post_ftp_PathType</NAME><VALUE>0</VALUE></SETTING>
@@ -26462,7 +26462,7 @@
                 <FILE>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vsplit.cats-4</PATH>
+                    <PATH>Vsplit.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>TargetOutputFile</FILEFLAGS>
@@ -26472,7 +26472,7 @@
                 <FILEREF>
                     <PATHTYPE>RootRelative</PATHTYPE>
                     <PATHROOT>Project</PATHROOT>
-                    <PATH>Vsplit.cats-4</PATH>
+                    <PATH>Vsplit.X-4</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -26499,12 +26499,12 @@
             </LINKORDER>
             <SUBTARGETLIST>
                 <SUBTARGET>
-                    <TARGETNAME>Vsplit.cats-4</TARGETNAME>
+                    <TARGETNAME>Vsplit.X-4</TARGETNAME>
                     <ATTRIBUTES>LinkAgainst</ATTRIBUTES>
                     <FILEREF>
                         <PATHTYPE>RootRelative</PATHTYPE>
                         <PATHROOT>Project</PATHROOT>
-                        <PATH>Vsplit.cats-4</PATH>
+                        <PATH>Vsplit.X-4</PATH>
                         <PATHFORMAT>Unix</PATHFORMAT>
                     </FILEREF>
                 </SUBTARGET>
@@ -26513,37 +26513,37 @@
     </TARGETLIST>
 
     <TARGETORDER>
-        <ORDEREDTARGET><NAME>Vdrop.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vdrop.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>Vdrop-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vjet.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vjet.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>Vjet-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vreverse.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vreverse.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>Vreverse-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vrotate.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vrotate.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>Vrotate-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vsplit.ppc-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vsplit.nonX-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>Vsplit-4</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>Vtake-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vtake.ppc-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vdrop.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vdrop-4-cats</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vjet.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vjet-4-cats</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vreverse.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vreverse-4-cats</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vrotate.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vrotate-4-cats</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vsplit.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vsplit-4-cats</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vtake.cats-4</NAME></ORDEREDTARGET>
-        <ORDEREDTARGET><NAME>Vtake-4-cats</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vtake.nonX-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vdrop.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vdrop-4X</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vjet.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vjet-4X</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vreverse.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vreverse-4X</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vrotate.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vrotate-4X</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vsplit.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vsplit-4X</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vtake.X-4</NAME></ORDEREDTARGET>
+        <ORDEREDTARGET><NAME>Vtake-4X</NAME></ORDEREDTARGET>
         <ORDEREDTARGET><NAME>All</NAME></ORDEREDTARGET>
     </TARGETORDER>
 
     <GROUPLIST>
         <GROUP><NAME>Includes</NAME>
             <FILEREF>
-                <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
+                <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26551,7 +26551,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vjet.ppc-4</TARGETNAME>
+                <TARGETNAME>Vjet.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26559,7 +26559,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
+                <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26567,7 +26567,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vreverse.ppc-4</TARGETNAME>
+                <TARGETNAME>Vreverse.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26575,7 +26575,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vrotate.ppc-4</TARGETNAME>
+                <TARGETNAME>Vrotate.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26583,7 +26583,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vsplit.ppc-4</TARGETNAME>
+                <TARGETNAME>Vsplit.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26591,7 +26591,7 @@
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vtake.ppc-4</TARGETNAME>
+                <TARGETNAME>Vtake.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26601,7 +26601,7 @@
         </GROUP>
         <GROUP><NAME>Vdrop sources</NAME>
             <FILEREF>
-                <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
+                <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26609,7 +26609,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
+                <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26617,7 +26617,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
+                <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26625,7 +26625,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
+                <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26633,7 +26633,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
+                <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26643,7 +26643,7 @@
         </GROUP>
         <GROUP><NAME>Vjet sources</NAME>
             <FILEREF>
-                <TARGETNAME>Vjet.ppc-4</TARGETNAME>
+                <TARGETNAME>Vjet.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26651,7 +26651,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vjet.ppc-4</TARGETNAME>
+                <TARGETNAME>Vjet.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26659,7 +26659,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vjet.ppc-4</TARGETNAME>
+                <TARGETNAME>Vjet.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26667,7 +26667,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vjet.ppc-4</TARGETNAME>
+                <TARGETNAME>Vjet.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26675,7 +26675,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vjet.ppc-4</TARGETNAME>
+                <TARGETNAME>Vjet.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26685,7 +26685,7 @@
         </GROUP>
         <GROUP><NAME>Vreverse sources</NAME>
             <FILEREF>
-                <TARGETNAME>Vreverse.ppc-4</TARGETNAME>
+                <TARGETNAME>Vreverse.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26693,7 +26693,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vreverse.ppc-4</TARGETNAME>
+                <TARGETNAME>Vreverse.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26701,7 +26701,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vreverse.ppc-4</TARGETNAME>
+                <TARGETNAME>Vreverse.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26709,7 +26709,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vreverse.ppc-4</TARGETNAME>
+                <TARGETNAME>Vreverse.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26717,7 +26717,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vreverse.ppc-4</TARGETNAME>
+                <TARGETNAME>Vreverse.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26727,7 +26727,7 @@
         </GROUP>
         <GROUP><NAME>Vrotate sources</NAME>
             <FILEREF>
-                <TARGETNAME>Vrotate.ppc-4</TARGETNAME>
+                <TARGETNAME>Vrotate.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26735,7 +26735,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vrotate.ppc-4</TARGETNAME>
+                <TARGETNAME>Vrotate.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26743,7 +26743,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vrotate.ppc-4</TARGETNAME>
+                <TARGETNAME>Vrotate.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26751,7 +26751,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vrotate.ppc-4</TARGETNAME>
+                <TARGETNAME>Vrotate.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26759,7 +26759,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vrotate.ppc-4</TARGETNAME>
+                <TARGETNAME>Vrotate.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26769,7 +26769,7 @@
         </GROUP>
         <GROUP><NAME>Vsplit sources</NAME>
             <FILEREF>
-                <TARGETNAME>Vsplit.ppc-4</TARGETNAME>
+                <TARGETNAME>Vsplit.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26777,7 +26777,7 @@
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vsplit.ppc-4</TARGETNAME>
+                <TARGETNAME>Vsplit.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26785,7 +26785,7 @@
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vsplit.ppc-4</TARGETNAME>
+                <TARGETNAME>Vsplit.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26793,7 +26793,7 @@
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vsplit.ppc-4</TARGETNAME>
+                <TARGETNAME>Vsplit.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26801,7 +26801,7 @@
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vsplit.ppc-4</TARGETNAME>
+                <TARGETNAME>Vsplit.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26811,7 +26811,7 @@
         </GROUP>
         <GROUP><NAME>Vtake sources</NAME>
             <FILEREF>
-                <TARGETNAME>Vtake.ppc-4</TARGETNAME>
+                <TARGETNAME>Vtake.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26819,7 +26819,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vtake.ppc-4</TARGETNAME>
+                <TARGETNAME>Vtake.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26827,7 +26827,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vtake.ppc-4</TARGETNAME>
+                <TARGETNAME>Vtake.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26835,7 +26835,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vtake.ppc-4</TARGETNAME>
+                <TARGETNAME>Vtake.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26843,7 +26843,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vtake.ppc-4</TARGETNAME>
+                <TARGETNAME>Vtake.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
                 <ACCESSPATH>:</ACCESSPATH>
@@ -26919,7 +26919,7 @@
         </GROUP>
         <GROUP><NAME>Libraries</NAME>
             <FILEREF>
-                <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
+                <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -26927,7 +26927,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
+                <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -26935,7 +26935,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
+                <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:Libraries:</ACCESSPATH>
@@ -26943,23 +26943,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vdrop.cats-4</TARGETNAME>
-                <PATHTYPE>PathRelative</PATHTYPE>
-                <PATHROOT>Project</PATHROOT>
-                <ACCESSPATH>../CommonCode</ACCESSPATH>
-                <PATH>CommonLibrary/CommonLibrary.cats.lib</PATH>
-                <PATHFORMAT>Unix</PATHFORMAT>
-            </FILEREF>
-            <FILEREF>
-                <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
-                <PATHTYPE>PathRelative</PATHTYPE>
-                <PATHROOT>Project</PATHROOT>
-                <ACCESSPATH>../CommonCode</ACCESSPATH>
-                <PATH>CommonLibrary/CommonLibrary.ppc.lib</PATH>
-                <PATHFORMAT>Unix</PATHFORMAT>
-            </FILEREF>
-            <FILEREF>
-                <TARGETNAME>Vdrop.cats-4</TARGETNAME>
+                <TARGETNAME>Vdrop.X-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:MacOS Support:</ACCESSPATH>
@@ -26967,7 +26951,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
+                <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>:::Max &#196;:Max SDK:MAX includes:</ACCESSPATH>
@@ -26975,7 +26959,7 @@
                 <PATHFORMAT>MacOS</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vdrop.cats-4</TARGETNAME>
+                <TARGETNAME>Vdrop.X-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>../../Max &#196;/MaxMSP-SDK/c74support/max-includes</ACCESSPATH>
@@ -26983,11 +26967,27 @@
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vdrop.ppc-4</TARGETNAME>
+                <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
                 <PATHTYPE>PathRelative</PATHTYPE>
                 <PATHROOT>CodeWarrior</PATHROOT>
                 <ACCESSPATH>../../Syslog</ACCESSPATH>
                 <PATH>Syslog Library</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
+            </FILEREF>
+            <FILEREF>
+                <TARGETNAME>Vdrop.nonX-4</TARGETNAME>
+                <PATHTYPE>PathRelative</PATHTYPE>
+                <PATHROOT>Project</PATHROOT>
+                <ACCESSPATH>../CommonCode</ACCESSPATH>
+                <PATH>CommonLibrary/CommonLibrary.nonX.lib</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
+            </FILEREF>
+            <FILEREF>
+                <TARGETNAME>Vdrop.X-4</TARGETNAME>
+                <PATHTYPE>PathRelative</PATHTYPE>
+                <PATHROOT>Project</PATHROOT>
+                <ACCESSPATH>../CommonCode</ACCESSPATH>
+                <PATH>CommonLibrary/CommonLibrary.X.lib</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
         </GROUP>
@@ -26996,84 +26996,84 @@
                 <TARGETNAME>Vdrop-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:Vdrop.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
+                <PATH>Vdrop.nonX-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
                 <TARGETNAME>Vjet-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:Vjet.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
+                <PATH>Vjet.nonX-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
                 <TARGETNAME>Vreverse-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:Vreverse.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
+                <PATH>Vreverse.nonX-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
                 <TARGETNAME>Vrotate-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:Vrotate.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
+                <PATH>Vrotate.nonX-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
                 <TARGETNAME>Vtake-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>:Vtake.ppc-4</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
-            </FILEREF>
-            <FILEREF>
-                <TARGETNAME>Vdrop-4-cats</TARGETNAME>
-                <PATHTYPE>RootRelative</PATHTYPE>
-                <PATHROOT>Project</PATHROOT>
-                <PATH>Vdrop.cats-4</PATH>
+                <PATH>Vtake.nonX-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vjet-4-cats</TARGETNAME>
+                <TARGETNAME>Vdrop-4X</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>Vjet.cats-4</PATH>
+                <PATH>Vdrop.X-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vreverse-4-cats</TARGETNAME>
+                <TARGETNAME>Vjet-4X</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>Vreverse.cats-4</PATH>
+                <PATH>Vjet.X-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vrotate-4-cats</TARGETNAME>
+                <TARGETNAME>Vreverse-4X</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>Vrotate.cats-4</PATH>
+                <PATH>Vreverse.X-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vtake-4-cats</TARGETNAME>
+                <TARGETNAME>Vrotate-4X</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>Vtake.cats-4</PATH>
+                <PATH>Vrotate.X-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
-                <TARGETNAME>Vsplit-4-cats</TARGETNAME>
+                <TARGETNAME>Vtake-4X</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>Vsplit.cats-4</PATH>
+                <PATH>Vtake.X-4</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
+            </FILEREF>
+            <FILEREF>
+                <TARGETNAME>Vsplit-4X</TARGETNAME>
+                <PATHTYPE>RootRelative</PATHTYPE>
+                <PATHROOT>Project</PATHROOT>
+                <PATH>Vsplit.X-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <FILEREF>
                 <TARGETNAME>Vsplit-4</TARGETNAME>
                 <PATHTYPE>RootRelative</PATHTYPE>
                 <PATHROOT>Project</PATHROOT>
-                <PATH>Vsplit.ppc-4</PATH>
+                <PATH>Vsplit.nonX-4</PATH>
                 <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
         </GROUP>
