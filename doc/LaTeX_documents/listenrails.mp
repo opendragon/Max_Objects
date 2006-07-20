@@ -203,8 +203,8 @@ endfig;
 end
 
 % $Log: listenrails.mp,v $
-% Revision 1.3  2006/07/20 04:47:52  churchoflambda
-% Re-added the files to record their changes.
+% Revision 1.4  2006/07/20 13:53:37  churchoflambda
+% Folder no longer needed as contents merged into rcx.
 %
 % Revision 1.1  2005/08/02 15:08:22  churchoflambda
 % Added rail diagrams for listen, map1d, map2d, map3d and pfsm.
