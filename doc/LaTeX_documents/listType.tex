@@ -1,0 +1,67 @@
+\ProvidesFile{listType.tex}[v1.0.3]
+\startObject{\objNameS{listType}}{listType}
+\index{Themes!Miscellaneous!listType}
+\objPicture{listTypesymbol.ps}
+\objItemDescription{\objNameD{listType} returns a numeric code corresponding to the value it receives.}
+
+\objItemCreated{October 2000}
+
+\objItemVersion{1.0.3}
+
+\objItemHelp{yes}
+
+\objItemTheme{Miscellaneous}
+
+\objItemClass{Lists}
+
+\objItemArgs{none}
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{anything}{any value}
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{integer}{the code for the input (unknown~=~0, non-list~=~1, empty~list~=~2,
+      integer~list~=~3, float~list~=~4, numeric~list\emphFootnoteMark~=~5, symbol~list~=~6,
+      mixed~list\emphFootnoteMark~=~7, list~with~unknowns\emphFootnoteMark~=~8)}
+  \objListIOEnd
+     % adjust for the number of footnote marks:
+     \addtocounter{footnote}{-2}
+     \footnotetext{A numeric list contains both integer and float values.}
+     \stepcounter{footnote}
+     \footnotetext{A mixed list contains both numeric values and symbols.}
+     \stepcounter{footnote}
+     \footnotetext{A list with unknowns contains one or more unrecognizable values.}
+  
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{listType}}
+
+
+% $Log: listType.tex,v $
+% Revision 1.5  2006/07/20 04:47:52  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.3  2005/08/02 15:07:09  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%

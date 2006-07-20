@@ -1,0 +1,67 @@
+\ProvidesFile{x10units.tex}[v1.0.6]
+\startObject{\objNameS{x10units}}{x10units}
+\index{Themes!Miscellaneous!x10units}
+\objPicture{x10unitssymbol.ps}
+\objItemDescription{\objNameD{x10units} is an auxiliary object to be used with \objReference{x10} objects.
+Its purpose is to permit the use of simple numbers to represent the unit codes used with the
+\objName{x10} object, by mapping small integers into the bit patterns needed.}
+
+\objItemCreated{September 1996}
+
+\objItemVersion{1.0.6}
+
+\objItemHelp{no}
+
+\objItemTheme{Miscellaneous}
+
+\objItemClass{Lists}
+
+\objItemArgs{none}
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{integer\textnormal{/}list\textnormal{/}bang}{the value to be mapped}
+  \objListIOEnd
+  
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{integer}{the mapped output of the inlet value, or the previous result
+     (if a `bang' is received).
+     If the inlet value is a list, the outlet value will be the bit-wise `OR' of the result of
+     mapping each list element.}
+  \objListIOEnd
+
+\objItemCompanion{works with \objName{x10} objects}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{\emphcorr{bang}}{}
+  Return the previous result, if any.
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{x10units}}
+
+% $Log: x10units.tex,v $
+% Revision 1.5  2006/07/20 04:47:55  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.3  2005/08/02 15:07:10  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%

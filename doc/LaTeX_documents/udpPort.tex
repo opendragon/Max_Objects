@@ -1,0 +1,124 @@
+\ProvidesFile{udpPort.tex}[v1.0.0]
+\startObject{\objNameS{udpPort}}{udpPort}
+\index{Themes!TCP/IP!udpPort}
+\objPicture{udpPortsymbol.ps}
+\objItemDescription{\objNameD{udpPort} is an interface to the UDP/IP stack on a Macintosh,
+providing an endpoint to communicate with another \objReference{udpPort} object.}
+
+\objItemCreated{July 2005}
+
+\objItemVersion{1.0.0}
+
+\objItemHelp{yes}
+
+\objItemTheme{TCP/IP}
+
+\objItemClass{Devices}
+
+\objItemArgs{\nothing}
+
+  \objListArgBegin
+  \objListArgItem{port}{(optional) integer}{the number of the port to communicate on.
+      The default port is 65535, which is also the maximum acceptable port number}
+      
+  \objListArgItem{buffers}{(optional) integer}{the number of receive buffers to use.
+      The default number of buffers is 25}
+      
+  \objListArgEnd
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the command input}
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the status or response.
+      Status messages (triggered by a \objCmdQ{bang} or \objCmdQ{status} command) appear as a
+      three or four element list, starting with the symbol `status'; response messages appear
+      as a list, starting with the symbol `reply' and `self' messages appear as a two element
+      list, starting with the symbol `self'.}
+
+  \objListIOItem{bang}{an error was detected}
+  
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{no, works with another \objName{udpPort} object on the same computer or another
+computer that is reachable via a TCP/IP network}
+
+\objItemRetainsState{yes}
+
+\objItemCompatibility{\MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{PPC-only}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+
+  \objListCmdItem{\emphcorr{bang}}{}
+   Report the state of the communication (`unbound', `bound' or `unknown') as a three element list, with the symbol `status' as its first element.
+   The third element is either `raw' or `max'.
+
+  \objListCmdItem{\emphcorr{float}}{}
+  Send the given floating point value to the other \objNameX{udpPort} object.
+
+  \objListCmdItem{\emphcorr{integer}}{}
+  Send the given integer value to the other \objNameX{udpPort} object.
+
+  \objListCmdItem{list}{anything}
+  Send the given list to the other \objNameX{udpPort} object.
+
+  \objListCmdItem{mode}{symbol}{}
+  Set the operating mode of the communication to either `raw' or `max'.
+  In `raw' mode, data is transferred without any structure; in `max' mode it is as described below.
+  Both ends of the communication must agree on the mode.
+
+  \objListCmdItem{port}{integer}
+  Set the number of the port to communicate on.
+
+  \objListCmdItem{self}{}
+  Returns the IP address of this object as a two element list, with the symbol `self' as its first
+  element.
+  
+  \objListCmdItem{send}{anything}
+  Send the arguments to the other \objNameX{udpPortX} object.
+  This message permits the transmission of an arbitrary list; in particular any list that could be
+  confused with a command to the \objNameX{udpPort} object.
+
+
+  \objListCmdItem{sendTo}{symbol integer}
+  Specify the address of the machine running the other \objNameX{udpPort}
+  object to communicate with, in `dotted' notation, along with the port to communicate on.
+  
+  \objListCmdItem{status}{}
+   Report the state of the communication (`unbound', `bound' or `unknown') as a three element list, with the symbol `status' as its first element.
+   The third element is either `raw' or `max'.
+
+  \objListCmdItem{verbose}{\textnormal{[}on\textnormal{/}off\textnormal{]}}
+  Communication tracing to the \MaxName{} window will be enabled (`on'), disabled (`off') or
+  reversed, if no argument is given.
+  
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage[see \objName{tcpClient}]
+
+\objItemComments[Once a communication path is established between a \objName{udpPort} object and
+another \objNameX{udpPort} object, either object can send messages---the path is full-duplex.
+Note as well that only there can only be one \objName{tcpMultiServer}, \objName{tcpServer} or \objNameX{udpPort} object for any given port.]{}
+
+\objEnd{\objNameE{udpPort}}
+
+% $Log: udpPort.tex,v $
+% Revision 1.4  2006/07/20 04:47:54  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.2  2005/08/02 15:07:10  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%

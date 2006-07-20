@@ -1,0 +1,205 @@
+\ProvidesFile{tcpClient.tex}[v1.1.7]
+\startObject{\objNameS{tcpClient}}{tcpClient}
+\index{Themes!TCP/IP!tcpClient}
+\objPicture{tcpClientsymbol.ps}
+\objItemDescription{\objNameD{tcpClient} is an interface to the TCP/IP stack on a Macintosh,
+providing an endpoint client to communicate with a \objReference{tcpServer} or a \objReference{tcpMultiServer}
+object.}
+
+\objItemCreated{August 1998}
+
+\objItemVersion{1.1.7}
+
+\objItemHelp{yes}
+
+\objItemTheme{TCP/IP}
+
+\objItemClass{Devices}
+
+\objItemArgs{\nothing}
+
+  \objListArgBegin
+  \objListArgItem{ip-address}{(optional) symbol}{the address of the machine running the
+       \objName{tcpServer} or \objName{tcpMultiServer} object to communicate with,
+       in `dotted' notation.
+       The default address is `10.11.12.13'.}
+
+  \objListArgItem{port}{(optional) integer}{the number of the port to communicate on.
+       The default port is 65535, which is also the maximum acceptable port number.}
+
+  \objListArgItem{buffers}{(optional) integer}{the number of receive buffers to use.
+      The default number of buffers is 25}
+      
+  \objListArgEnd
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the command input}
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the status or response.
+     Status messages (triggered by a \objCmdQ{bang} or \objCmdQ{status} command) appear as a
+        two or four element list, starting with the symbol `status'; response messages appear
+        as a list, starting with the symbol `reply' and `self' messages appear as a two element
+        list, starting with the symbol `self'}
+
+  \objListIOItem{bang}{an error was detected}
+
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{no, works with a \objName{tcpServer} or a \objName{tcpMultiServer} object on
+    the same computer or another computer that is reachable via a TCP/IP network}
+
+\objItemRetainsState{yes}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{PPC-only}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+
+  \objListCmdItem{\emphcorr{bang}}{}
+  Report the state of the communication (`unbound', `bound', `listening', `connecting',
+  `connected', `disconnecting' or `unknown') as a two or five element list, with the symbol
+  `status' as its first element.
+  If the state is not `connected', the list will contain two elements.
+  If the state is `connected', the third element is the IP address of the server, expressed as a
+  symbol in `dotted' notation, the fourth element is the port of the server and the fifth element is either
+  `raw' or `max'.
+
+  \objListCmdItem{connect}{}
+  Connect to the \objName{tcpServer} or \objName{tcpMultiServer} object on the machine at the
+  specified address and port.
+
+  \objListCmdItem{disconnect}{}
+  Close any existing connection to a \objName{tcpServer} or a \objName{tcpMultiServer} object.
+
+  \objListCmdItem{\emphcorr{float}}{}
+  Send the given floating point value to the \objName{tcpServer} or \objName{tcpMultiServer} object.
+
+  \objListCmdItem{\emphcorr{integer}}{}
+  Send the given integer value to the \objName{tcpServer} or \objName{tcpMultiServer} object.
+
+  \objListCmdItem{list}{anything}
+  Send the given list to the \objName{tcpServer} or \objName{tcpMultiServer} object.
+  \objListCmdItem{mode}{symbol}{}
+  Set the operating mode of the communication to either `raw' or `max'.
+  In `raw' mode, data is transferred without any structure; in `max' mode it is as described below.
+  Both ends of the communication must agree on the mode.
+  
+  \objListCmdItem{port}{integer}
+  Set the number of the port to communicate on.
+
+  \objListCmdItem{self}{}
+  Returns the IP address of this object as a two element list, with the symbol `self' as its first
+  element.
+  
+  \objListCmdItem{send}{anything}
+  Send the arguments to the \objName{tcpServer} or \objName{tcpMultiServer} object.
+  This message permits the transmission of an arbitrary list; in particular any list that could be
+  confused with a command to the \objNameX{tcpClient} object.
+
+  \objListCmdItem{server}{symbol}
+  Specify the address of the machine running the \objName{tcpServer} or \objName{tcpMultiServer}
+  object to communicate with, in `dotted' notation.
+
+  \objListCmdItem{status}{}
+  Report the state of the communication (`unbound', `bound', `listening', `connecting', `connected',
+  `disconnecting' or `unknown') as a two- or five element list, with the symbol `status' as its
+  first element.
+  If the state is not `connected', the list will contain two elements.
+  If the state is `connected', the third element is the IP address of the server, expressed as a
+  symbol in `dotted' notation, the fourth element is the port of the server and the fifth element is either
+  `raw' or `max'.
+
+  \objListCmdItem{verbose}{\textnormal{[}on\textnormal{/}off\textnormal{]}}
+  Communication tracing to the \MaxName{} window will be enabled (`on'), disabled (`off') or reversed,
+  if no argument is given.
+  
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage[]
+
+\begin{quote}
+The data sent through the TCP/IP objects is structured as follows:
+\begin{enumerate}[ 1)]
+\item A fixed header containing the following fields:
+\begin{enumerate}[ a)]
+\item The number of Atoms which follow, as a two byte number,
+\item A sanity check field as a two byte number and
+\item The type of Atoms to follow, as a single byte
+\end{enumerate}
+\item Zero or more Atoms, represented via the following fields:
+\begin{enumerate}[ a)]
+\item (optional) The type of the Atom, as a single byte,
+\item The Atom, represented as described next.
+\end{enumerate}
+\end{enumerate}
+All multi-byte values are sent most-significant-byte first (network byte order, which is big-endian).
+The sanity check field is the negative of the sum of the total number of bytes in the data and
+the number of Atoms sent.
+Floating-point values are represented using IEEE 32-bit floating point.
+Integers are represented as signed four byte quantities.
+Symbols are represented as strings, with a leading length (a two byte number) and a trailing null
+character. Note that the length includes the trailing null character, so it is always non-zero.
+
+If all the Atoms are the same type, the type is placed in the header and the individual Atom type
+fields are not transmitted.
+If there is more than one type of Atom present, the Atom type field is transmitted for each Atom,
+and the type in the fixed header is set to eight (8).
+If the number of Atoms is zero, the type in the fixed header is also set to zero.
+
+The type of the Atom is one of the following values:
+\begin{enumerate}[ 1:]
+\item Integer,
+\item Floating point,
+\item String,
+\item[10:] Semicolon,
+\item[11:] Comma or
+\item[12:] Dollar
+\end{enumerate}
+
+The following sequence of values represent the list `123 14.7, Chuck':
+\begin{verbatim}
+04    The number of Atoms which follow
+-27   The sanity check field (3 Atoms, 24 bytes)
+8     The type of Atoms (eight indicates a mixture of Atoms)
+1     An integer value follows
+0123  The value `123' as a 32-bit integer
+2     A floating-point value follows
+14.70 The value '14.7' as a 32-bit floating-point number
+11    A comma follows (no associated data)
+3     A string value follows
+06    The length of the string
+Chuck The characters of the string
+0     The trailing null character of the string
+\end{verbatim}
+The largest message that can be processed is 24,000 bytes, which could contain 6,000 integers or
+floating-point values or a single string of 23,997 characters.
+\end{quote}
+
+\objItemComments[Once a communication path is established between a \objNameX{tcpClient} object and
+a \objName{tcpServer} or \objName{tcpMultiServer} object, either object can send messages---the
+path is full-duplex.
+Figure~\objImageReference{diagram:tcpclientstate} is a state diagram for \objNameX{tcpClient} objects.]
+\objDiagram{tcpClientstate.ps}{tcpclientstate}{State diagram for \objNameX{tcpClient} objects}
+
+\objEnd{\objNameE{tcpClient}}
+
+% $Log: tcpClient.tex,v $
+% Revision 1.7  2006/07/20 04:47:54  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.5  2005/08/02 15:07:09  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%

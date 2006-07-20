@@ -1,0 +1,73 @@
+\ProvidesFile{Vdecode.tex}[v1.0.0]
+\startObject{\objNameS{Vdecode}}{Vdecode}
+\index{Themes!Vector~manipulation!Vdecode}
+\index{Vectors!Dyadic~operations!Vdecode}
+\objPicture{Vdecodesymbol.ps}
+\objItemDescription{\objNameD{Vdecode} is an implementation of the \compLang{APL} `decode' operator
+($\bot$)\index{APL!decode}, which is used to convert a coded representation of a number into the number itself.}
+
+\objItemCreated{June 2003}
+
+\objItemVersion{1.0.0}
+
+\objItemHelp{yes}
+
+\objItemTheme{Vector manipulation}
+
+\objItemClass{Arith/Logic/Bitwise, Lists}
+
+\objItemArgs{\nothing}
+
+  \objListArgBegin
+  \objListArgItem{base1}{integer}{the leftmost base to be applied.
+     If this is the only base it will be repeated as often as needed to do the conversion.
+     If there are more bases and this base is negative, it will be repeated (as it's absolute value) as often as needed to do the conversion,
+     after the other bases have been applied.
+     Bases must be greater than 1.}
+  \objListArgItem{base2}{(optional) integer}{the next-to-last base to apply.}
+  \objListArgItem{base3}{(optional) integer}{the next-to-next-to-last base to apply.}
+  \objListArgItem{base4}{(optional) integer}{the next-to-$\ldots$-last base to apply.}
+  \objListArgItem{base5}{(optional) integer}{the last base to apply.
+     The elements of the input list are multiplied by each base, in sequence, and the results are summed into the output number.} 
+  \objListArgEnd
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list\textnormal{/}number}{the list to be decoded.
+     A single number is treated as a single element list.}
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{number}{the decoded result}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{PPC-only}
+
+\objItemCommands
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{Vdecode}}
+
+% $Log: Vdecode.tex,v $
+% Revision 1.5  2006/07/20 04:47:49  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.3  2005/08/02 15:07:03  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%

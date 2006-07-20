@@ -1,0 +1,140 @@
+\ProvidesFile{tcpServer.tex}[v1.1.7]
+\startObject{\objNameS{tcpServer}}{tcpServer}
+\index{Themes!TCP/IP!tcpServer}
+\objPicture{tcpServersymbol.ps}
+\objItemDescription{\objNameD{tcpServer} is an interface to the TCP/IP stack on a Macintosh,
+providing an endpoint server to communicate with a single \objReference{tcpClient} object.}
+
+\objItemCreated{August 1998}
+
+\objItemVersion{1.1.7}
+
+\objItemHelp{yes}
+
+\objItemTheme{TCP/IP}
+
+\objItemClass{Devices}
+
+\objItemArgs{\nothing}
+
+  \objListArgBegin
+  \objListArgItem{port}{(optional) integer}{the number of the port to communicate on.
+      The default port is 65535, which is also the maximum acceptable port number}
+      
+  \objListArgItem{buffers}{(optional) integer}{the number of receive buffers to use.
+      The default number of buffers is 25}
+      
+  \objListArgEnd
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the command input}
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the status or response.
+      Status messages (triggered by a \objCmdQ{bang} or \objCmdQ{status} command) appear as a
+      three or four element list, starting with the symbol `status'; response messages appear
+      as a list, starting with the symbol `reply' and `self' messages appear as a two element
+      list, starting with the symbol `self'.}
+
+  \objListIOItem{bang}{an error was detected}
+  
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{no, works with a \objName{tcpClient} object on the same computer or another
+computer that is reachable via a TCP/IP network}
+
+\objItemRetainsState{yes}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{PPC-only}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+
+  \objListCmdItem{\emphcorr{bang}}{}
+  Report the state of the communication (`unbound', `bound', `listening', `connecting', `connected',
+  `disconnecting' or `unknown') as a three or five element list, with the symbol `status' as its
+  first element.
+  If the state is not `connected', the third element of the list is the port number that is being
+  listened on.
+  If the state is `connected', the third element is the IP address of the client, expressed as a
+  symbol in `dotted' notation, the fourth element is the port of the server and the fifth element is either
+  `raw' or `max'.
+
+  \objListCmdItem{disconnect}{}
+  Close any existing connection to a \objName{tcpClient} object.
+
+  \objListCmdItem{\emphcorr{float}}{}
+  Send the given floating point value to the \objName{tcpClient} object.
+
+  \objListCmdItem{\emphcorr{integer}}{}
+  Send the given integer value to the \objName{tcpClient} object.
+
+  \objListCmdItem{list}{anything}
+  Send the given list to the \objName{tcpClient} object.
+
+  \objListCmdItem{listen}{on\textnormal{/}off}
+  Start listening on the communication port (`on') or stop listening (`off').
+  The command is only accepted if the \objNameX{tcpServer} object is in an appropriate state---
+  `listening' if `off' and `bound' if `on'.
+
+  \objListCmdItem{mode}{symbol}{}
+  Set the operating mode of the communication to either `raw' or `max'.
+  In `raw' mode, data is transferred without any structure; in `max' mode it is as described below.
+  Both ends of the communication must agree on the mode.
+
+  \objListCmdItem{port}{integer}
+  Set the number of the port to communicate on.
+
+  \objListCmdItem{self}{}
+  Returns the IP address of this object as a two element list, with the symbol `self' as its first
+  element.
+  
+  \objListCmdItem{send}{anything}
+  Send the arguments to the \objName{tcpClient} object.
+  This message permits the transmission of an arbitrary list; in particular any list that could be
+  confused with a command to the \objNameX{tcpServer} object.
+
+  \objListCmdItem{status}{}
+  Report the state of the communication (`unbound', `bound', `listening', `connecting', `connected',
+  `disconnecting' or `unknown') as a two or five element list, with the symbol `status' as its
+  first element.
+  If the state is not `connected', the list will contain two elements.
+  If the state is `connected', the third element is the IP address of the client, expressed as a
+  symbol in `dotted' notation, the fourth element is the port of the client and the fifth element is either
+  `raw' or `max'.
+
+  \objListCmdItem{verbose}{\textnormal{[}on\textnormal{/}off\textnormal{]}}
+  Communication tracing to the \MaxName{} window will be enabled (`on'), disabled (`off') or
+  reversed, if no argument is given.
+  
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage[see \objName{tcpClient}]
+
+\objItemComments[Once a communication path is established between a \objName{tcpClient} object and
+a \objNameX{tcpServer} object, either object can send messages---the path is full-duplex.
+Note as well that only there can only be one \objName{tcpMultiServer}, \objNameX{tcpServer} or \objName{udpPort} object for any given port.
+Figure~\objImageReference{diagram:tcpserverstate} is a state diagram for \objNameX{tcpServer} objects.]
+\objDiagram{tcpServerstate.ps}{tcpserverstate}{State diagram for \objNameX{tcpServer} objects}
+
+\objEnd{\objNameE{tcpServer}}
+
+% $Log: tcpServer.tex,v $
+% Revision 1.7  2006/07/20 04:47:54  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.5  2005/08/02 15:07:10  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%

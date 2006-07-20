@@ -1,0 +1,34 @@
+\ProvidesFile{Phidgets.tex}[v1.0.0]
+\startAppendix{\pluginNameS{Phidgets}{Phidgets}}{Phidgets}{Phidgets}%
+\pluginNameD{Phidgets}{Phidgets} are `plugins' for use with the \objReference{fidget} object.
+They must be placed in a folder named `Phidgets', located in the same folder as the \MaxName{} program.
+Each plugin corresponds to a device and is named to match the device.
+In the descriptions of the commands for each plugin, the following abbreviations are used:
+`\pluginCmd{\textitcorr{standard-do}}' is the list `\pluginCmd{do} \pluginCmdArg{deviceType serialNumber\textnormal{/}*}', 
+`\pluginCmd{\textitcorr{standard-get}}' is the list `\pluginCmd{get} \pluginCmdArg{deviceType serialNumber\textnormal{/}*}',
+`\pluginCmd{\textitcorr{standard-put}}' is the list `\pluginCmd{put} \pluginCmdArg{deviceType serialNumber\textnormal{/}*}' and
+`\pluginCmd{\textitcorr{standard-response}}' is the list `\pluginCmdArg{deviceType serialNumber}'.
+Device serial numbers are prefixed with an underscore character (``\_'') to guarantee their interpretation as
+symbols rather than numbers.
+
+The following plugins are available: \pluginReference{Phidgets}{InterfaceKit004}, \pluginReference{Phidgets}{InterfaceKit888},
+\pluginReference{Phidgets}{QuadServo}, \pluginReference{Phidgets}{RFID}, \pluginReference{Phidgets}{TextLCD},
+\pluginReference{Phidgets}{TextLCD088} and \pluginReference{Phidgets}{UnitServo}.
+
+\input{phidg_interfacekit004.tex}
+\input{phidg_interfacekit888.tex}
+\input{phidg_quadservo.tex}
+\input{phidg_rfid.tex}
+\input{phidg_textlcd.tex}
+\input{phidg_textlcd088.tex}
+\input{phidg_unitservo.tex}
+
+\appendixEnd{\pluginNameE{Phidgets}{Phidgets}}
+
+% $Log: Phidgets.tex,v $
+% Revision 1.5  2006/07/20 04:47:49  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.3  2005/08/02 15:07:03  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%

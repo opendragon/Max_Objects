@@ -1,0 +1,211 @@
+\ProvidesFile{ldp1550.tex}[v1.0.6]
+\startObject{\objNameS{ldp1550}}{ldp1550}
+\index{Themes!Device~interface!ldp1550}
+\objPicture{ldp1550symbol.ps}
+\objItemDescription{\objNameD{ldp1550} is an interface to the Sony Corporation LDP-1550 Laser Disk
+Player (LDP).
+It sends commands to a \objNameS{serial} or a \objReference{serialX} object, which controls the serial port
+that the LDP is attached to, and responds to data returned from the LDP via the \objNameS{serial} or
+\objName{serialX} object.}
+
+\objItemCreated{September 1996}
+
+\objItemVersion{1.0.6}
+
+\objItemHelp{no}
+
+\objItemTheme{Device interface}
+
+\objItemClass{Devices}
+
+\objItemArgs{\nothing}
+
+  \objListArgBegin
+  \objListArgItem{poll-rate}{(optional) integer}{the rate (in milliseconds) at which
+       the companion \objNameS{serial} or \objName{serialX} object is polled via a sample request.
+       The default rate is 100 milliseconds between sample requests.}
+  
+  \objListArgItem{info-rate}{(optional) integer}{the multiples of the poll-rate at
+       which the laser disk player is sent a status request.
+       The default rate is 10 times the poll-rate.}
+  
+  \objListArgItem{size}{(optional) integer}{the size of the deferred command pool,
+       where commands that can't be acted on immediately are held.
+       The default size is 30 elements.
+       Most commands consume several elements.}
+  
+  \objListArgEnd
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the command channel}
+  
+  \objListIOItem{integer}{the output of the companion \objNameS{serial} or \objName{serialX} object}
+  
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{integer}{the data to send to the companion \objNameS{serial} or \objName{serialX}
+        object}
+  
+  \objListIOItem{bang}{the sample request to send to the companion \objNameS{serial} or
+       \objName{serialX} object}
+  
+  \objListIOItem{integer}{the key mode status}
+  
+  \objListIOItem{integer}{the command status}
+  
+  \objListIOItem{bang}{a program stop code was detected}
+  
+  \objListIOItem{bang}{the command has completed}
+  
+  \objListIOItem{bang}{the command was accepted}
+  
+  \objListIOItem{integer}{the chapter number}
+  
+  \objListIOItem{integer}{the frame number}
+  
+  \objListIOItem{bang}{an error was detected}
+  
+  \objListIOEnd
+
+\objItemCompanion{works with \objName{serialX} objects with OS 9, or \objNameS{serial} objects with OS X}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{yes}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  
+  \objListCmdItem{allinfo}{}
+  Send commands to the laser disk player requesting the current chapter, the current frame number,
+  the key mode status and the command status.
+  
+  \objListCmdItem{chapter}{}
+  Send a command to the laser disk player requesting the current chapter.
+  
+  \objListCmdItem{continue}{}
+  Send a `continue' command to the laser disk player.
+  
+  \objListCmdItem{frame}{}
+  Send a command to the laser disk player requesting the current frame number.
+  
+  \objListCmdItem{memory}{}
+  Send a `memory' command to the laser disk player.
+  
+  \objListCmdItem{mode}{new-mode}
+  Send a command to the laser disk player requesting the mode, as given by \objCmdArg{new-mode}, be
+  set to `chapter' or `frame'.
+  
+  \objListCmdItem{msearch}{}
+  Send an `msearch' command to the laser disk player.
+  
+  \objListCmdItem{picture}{on\textnormal{/}off}
+  Send a command to the laser disk player, turning the video signal `on' or `off'.
+  
+  \objListCmdItem{play}{\textnormal{[}speedAndMode \textnormal{[}stepRate\textnormal{]]}}
+  Send a command to the laser disk player to begin playing the laser disk, at the given speed and
+  mode (`fwd', `fast', `slow', `scan', `step', `rev', `rev-fast', `rev-slow', `rev-scan' or
+  `rev-step', where `rev' indicates the reverse direction and `fwd' indicates the forward direction
+  and normal speed) and stepping rate, \objCmdArg{stepRate}, which is an integer between 0 and 255.
+  The default speed is forward, the default mode is normal and the default stepping rate is 0.
+  
+  \objListCmdItem{playtill}{position \textnormal{[}speed \textnormal{[}stepRate\textnormal{]]}}
+  Send a command to the laser disk player to begin playing the laser disk, at the given
+  \objCmdArg{speed} (`fwd', `fast', `slow', `step', where `fwd' indicates normal speed) and stepping
+  rate, \objCmdArg{stepRate}, which is an integer between 0 and 255.
+  The laser disk player will stop when the given chapter or frame (depending on the mode of the laser
+  disk player), \objCmdArg{position}, is reached.
+  The ending position is an integer between 0 and 79 (if the mode is `chapter') or between 0 and
+  54000 (if the mode is `frame').
+  The default speed is normal and the default stepping rate is 0.
+  
+  \objListCmdItem{pscenable}{on\textnormal{/}off}
+  Send a command to the laser disk player to enable (`on') or disable (`off') PSC mode.
+  
+  \objListCmdItem{repeat}{position \textnormal{[}speed \textnormal{[}repeatCount
+  \textnormal{[}stepRate\textnormal{]]]}}
+  Send a command to the laser disk player to begin playing the laser disk, at the given
+  \objCmdArg{speed} (`fwd', `fast', `slow', `step', where `fwd' indicates normal speed) and stepping
+  rate, \objCmdArg{stepRate}, which is an integer between 0 and 255.
+  The laser disk player will stop when the given chapter or frame (depending on the mode of the laser
+  disk player), \objCmdArg{position}, is reached, and it will then repeat the sequence played for the
+  number of times given by \objCmdArg{repeatCount}.
+  The ending position is an integer between 0 and 79 (if the mode is `chapter') or between 0 and
+  54000 (if the mode is `frame').
+  The number of times is between 0 and 15.
+  The default speed is normal, the default stepping rate is 0 and the default number of times is 1.
+  
+  \objListCmdItem{reset}{}
+  Send a `reset' command to the laser disk player.
+  
+  \objListCmdItem{search}{new-position}
+  Send a command to the laser disk player to move the current position to the given chapter or frame
+  (depending on the mode of the laser disk player), \objCmdArg{new-position}.
+  The new position is an integer between 0 and 79 (if the mode is `chapter') or between 0 and
+  54000 (if the mode is `frame').
+  
+  \objListCmdItem{show}{on\textnormal{/}off}
+  Send a command to the laser disk player to enable (`on') or disable (`off') the addition of the
+  display of the current position to the outgoing video signal.
+  
+  \objListCmdItem{sound}{theChannel on\textnormal{/}off}
+  Send a command to the laser disk player to enable (`on') or disable (`off') the sound signal in
+  the given channel, \objCmdArg{theChannel}.
+  The channel is either `1' or `2'.
+  
+  \objListCmdItem{status}{}
+  Send a command to the laser disk player requesting the key mode status and the command status.
+  
+  \objListCmdItem{step\&still}{\textnormal{[}fwdOrRev\textnormal{]}}
+  Send a command to the laser disk player to move the current position one frame forward (`fwd') or
+  reverse (`rev').
+  The default direction is forward.
+  
+  \objListCmdItem{still}{}
+  Send a command to the laser disk player to freeze play.
+  
+  \objListCmdItem{stop}{}
+  Send a command to the laser disk player to stop playing.
+  
+  \objListCmdItem{xreset}{}
+  Unconditionally send a `reset' command to the laser disk player.
+  This has the side effect of changing the mode to `frame'.
+  
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments[Figure~\objImageReference{diagram:ldp1550connect1} shows how to connect an
+\objNameX{ldp1550} object to a \objName{serial} object.
+Figure~\objImageReference{diagram:ldp1550connect2} shows how to connect an
+\objNameX{ldp1550} object to a \objName{serialX} object.]
+\objDiagram{ldp1550connections1.ps}{ldp1550connect1}{OS X: Connecting an \objNameX{ldp1550} object to a
+\objNameS{serial} object}
+\objDiagram{ldp1550connections2.ps}{ldp1550connect2}{OS 9: Connecting an \objNameX{ldp1550} object to a
+\objName{serialX} object}
+
+\objEnd{\objNameE{ldp1550}}
+
+
+% $Log: ldp1550.tex,v $
+% Revision 1.6  2006/07/20 04:47:52  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.4  2006/03/25 21:51:18  churchoflambda
+% Added the 'senseX' object and modified the connection diagrams to show 'serial' as well as 'serialX'.
+%
+% Revision 1.3  2005/08/02 15:07:09  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%

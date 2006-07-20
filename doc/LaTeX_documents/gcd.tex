@@ -1,0 +1,67 @@
+\ProvidesFile{gcd.tex}[v1.0.3]
+\startObject{\objNameS{gcd}}{gcd}
+\index{Themes!Miscellaneous!gcd}
+\objPicture{gcdsymbol.ps}
+\objItemDescription{\objNameD{gcd} calculates the greatest common divisor of two numbers.}
+
+\objItemCreated{October 1998}
+
+\objItemVersion{1.0.3}
+
+\objItemHelp{yes}
+
+\objItemTheme{Miscellaneous}
+
+\objItemClass{Arith/Logic/Bitwise}
+
+\objItemArgs{none}
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{bang\textnormal{/}integer}{the first number to use}
+
+  \objListIOItem{integer}{the second number to use}
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{integer}{the greatest common divisor of the two numbers,
+      or the previous result (if a \objCmdQ{bang} is received)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{yes, the previous number input}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{\emphcorr{bang}}{}
+  Return the previous result, if any.
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments[In mathematical terms: $y \gets \gcd(x_1,x_2)$, where $x_1$ and $x_2$ are the
+inlet values and $y$ is the outlet result.]
+
+\objEnd{\objNameE{gcd}}
+
+% $Log: gcd.tex,v $
+% Revision 1.5  2006/07/20 04:47:51  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.3  2005/08/02 15:07:09  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%
+

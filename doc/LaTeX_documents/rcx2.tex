@@ -1,0 +1,194 @@
+\ProvidesFile{rcx2.tex}[v1.0.0]
+\startObject{\objNameS{rcx2}}{rcx2}
+\index{Themes!Device~interface!rcx2}
+\objPicture{rcx2symbol.ps}
+\objItemDescription{\objNameD{rcx2} is an interface to the \companyReference{http://www.lego.com}{LEGO} MINDSTORMS RCX device.
+It uses direct operations to a LEGO USB Tower.}
+
+\objItemCreated{November 2005}
+
+\objItemVersion{1.0.0}
+
+\objItemHelp{no}
+
+\objItemTheme{Device interface}
+
+\objItemClass{Devices}
+
+\objItemArgs{none}
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the command channel}
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the data requested from the RCX device.
+  The individual commands indicate the format of their results.}
+  
+  \objListIOItem{bang}{the command has completed}
+
+  \objListIOItem{bang}{an error was detected}
+  
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{yes}
+
+\objItemCompatibility{\MaxName{} 4.x \{OS X only\}}
+
+\objItemFat{PPC-only}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{clearmemory}{}
+  Clears all programs out of the RCX.
+  
+  \objListCmdItem{clearsensor}{index}
+  Clear the value of the given sensor, where \objCmdArg{index} is between 1 and 3.
+  
+  \objListCmdItem{clearsound}{}
+  Clear the sound buffer.
+  See also the \objCmdQ{mute} command.
+  
+  \objListCmdItem{continuetask}{index}
+  Resume the execution of the given task, where \objCmdArg{index} is between 1 and 10.
+  
+  \objListCmdItem{floatoutput}{set}
+  Set the given set of outputs to ``coast'', where \objCmdArg{set} is between 1 and 7
+  (the individual outputs are encoded as 1, 2 and 4, which are then added together to get the set of outputs to change).
+  
+  \objListCmdItem{getallsensors}{}
+  Read the values, types and modes of all three sensors of the RCX and return them as a ten element list, starting with the
+  symbol `allsensors', followed by triples (value as an integer, type as one of `nosensor', `switch', `temperature', `reflection',
+  `angle' or `unknown' and mode as one of `raw', `boolean', `transition', `periodcount', `percent', `celsius', `fahrenheit',
+  `anglestep' or `unknown') for each of the sensors, in order of the sensor number.
+  
+  \objListCmdItem{getallvariables}{}
+  Read the values of all thirty-two variables of the RCX and return them as a list, startimg with the
+  symbol `allvariables' and followed by the value of each of the variables.
+  
+  \objListCmdItem{getbattery}{}
+  Read the battery level from the RCX and return it as a two element list, starting with the symbol `battery', followed
+  by a floating-point value representing the voltage.
+  
+  \objListCmdItem{getsensormode}{index}
+  Read the mode of the given sensor, where \objCmdArg{index} is between 1 and 3, and return it as a two element list,
+  starting with the symbol `sensormode', followed by the current value of the sensor as one of `raw', `boolean', `transition', `periodcount', `percent', `celsius', `fahrenheit',
+  `anglestep' or `unknown'.
+  
+  \objListCmdItem{getsensortype}{index}
+  Read the type of the given sensor, where \objCmdArg{index} is between 1 and 3, and return it as a two element list,
+  starting with the symbol `sensortype', followed by the current type of the sensor as one of `nosensor', `switch', `temperature',
+  `reflection', `angle' or `unknown'.
+  
+  \objListCmdItem{getsensorvalue}{index}
+  Read the value of the given sensor, where \objCmdArg{index} is between 1 and 3, and return it as a two element list,
+  starting with the symbol `sensor', followed by the current value of the sensor as an integer.
+  
+  \objListCmdItem{getslot}{}
+  Read the index of the active program and return it as a two element list, starting with the symbol `slot', followed
+  by the index as an integer between 1 and 5.
+  
+  \objListCmdItem{getvariable}{index}
+  Read the value of the given variable, where \objCmdArg{index} is between 1 and 32, and return it as a two element list,
+  starting with the symbol `variable', followed by the current value of the variable as an integer.
+  
+  \objListCmdItem{getversion}{}
+  Read the version number of the ROM and the firmware from the RCX and return it as a three element list, starting
+  with the symbol `version', followed by the ROM version number and the firmware version number, represented as integers.
+  
+  \objListCmdItem{mute}{}
+  Clear the sound buffer of the RCX and ignore future sound requests.
+  See also the \objCmdQ{clearsound} command.
+  
+  \objListCmdItem{playsound}{sound}
+  Play the given system sound, which is either `keyclick', `beep', `sweepdown', `sweepup', `error' or `fast\-sweep'.
+  
+  \objListCmdItem{playtone}{frequency duration}
+  Play the given tone, where \objCmdArg{frequency} is in Hertz and \objCmdArg{duration} is in 100ths of a second.
+  
+  \objListCmdItem{setoutputdirection}{set direction}
+  Set the direction of the given set of outputs, where \objCmdArg{set} is between 1 and 7
+  (the individual outputs are encoded as 1, 2 and 4, which are then added together to get the set of outputs to change) and
+  \objCmdArg{direction} is either `backward', `reverse' or `forward'.
+  
+  \objListCmdItem{setmessage}{message}
+  Set the message buffer to the given value, where \objCmdArg{message} is between 1 and 255.
+  
+  \objListCmdItem{setoutputpower}{set level}
+  Set the power level for the given set of outputs, where \objCmdArg{set} is between 1 and 7
+  (the individual outputs are encoded as 1, 2 and 4, which are then added together to get the set of outputs to change) and
+  \objCmdArg{level} is between 1 and 8.
+  
+  \objListCmdItem{setsensormode}{index mode}
+  Set the mode of the given sensor, where \objCmdArg{index} is between 1 and 3 and \objCmdArg{mode} is one of `raw', `boolean',
+  `transition', `periodcount', `percent', `celsius', `fahrenheit' or `anglestep'.
+  
+  \objListCmdItem{setsensortype}{index type}
+  Set the type of the given sensor, where \objCmdArg{index} is between 1 and 3 and \objCmdArg{type} is one of `nosensor',
+  `switch', `temperature', `reflection' or `angle'.
+  
+  \objListCmdItem{setslot}{index}
+  Select the given program slot as the active program, where \objCmdArg{index} is between 1 and 5.
+  
+  \objListCmdItem{setwatch}{hour minute}
+  Set the displayed time on the RCX to the given values.
+  
+  \objListCmdItem{run}{}
+  Start the active program's execution.
+  
+  \objListCmdItem{setvariable}{index value}
+  Set the value of the given variable, where \objCmdArg{index} is between 1 and 32.
+  
+  \objListCmdItem{startoutput}{set}
+  Set the given set of outputs on, where \objCmdArg{set} is between 1 and 7
+  (the individual outputs are encoded as 1, 2 and 4, which are then added together to get the set of outputs to change).
+  
+  \objListCmdItem{starttask}{index}
+  Start the execution of the given task, where \objCmdArg{index} is between 1 and 10.
+  
+  \objListCmdItem{stopalltasks}{}
+  Stop the execution of all tasks for the active program on the RCX device.
+
+  \objListCmdItem{stopoutput}{set}
+  Set the given set of outputs off, where \objCmdArg{set} is between 1 and 7
+  (the individual outputs are encoded as 1, 2 and 4, which are then added together to get the set of outputs to change).
+  
+  \objListCmdItem{stoptask}{index}
+  Stop the execution of the given task, where \objCmdArg{index} is between 1 and 10.
+  
+  \objListCmdItem{turnoff}{}
+  Turn off the RCX device.
+  
+  \objListCmdItem{unmute}{}
+  Re-enable the processing of sound requests.
+
+  \objListCmdItem{verbose}{\textnormal{[}on\textnormal{/}off\textnormal{]}}
+  Tracing to the \MaxName{} window of the messages sent will be enabled (`on'), disabled (`off') or reversed, if no argument is given.
+  
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments[The \companyReference{http://homepage.mac.com/rbate/MacNQC}{MacNQC} development environment is recommended for
+developing code to be downloaded into the RCX device.]
+
+\objEnd{\objNameE{rcx2}}
+
+% $Log: rcx2.tex,v $
+% Revision 1.4  2006/07/20 04:47:53  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.1  2005/11/22 05:43:07  churchoflambda
+% Added RFID2 and rcx2.
+%

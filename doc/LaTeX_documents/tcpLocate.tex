@@ -1,0 +1,73 @@
+\ProvidesFile{tcpLocate.tex}[v1.0.2]
+\startObject{\objNameS{tcpLocate}}{tcpLocate}
+\index{Themes!TCP/IP!tcpLocate}
+\objPicture{tcpLocatesymbol.ps}
+\objItemDescription{\objNameD{tcpLocate} is an interface to the TCP/IP stack on a Macintosh,
+providing a client to identify the IP address corresponding to an Internet address.}
+
+\objItemCreated{November 2000}
+
+\objItemVersion{1.0.2}
+
+\objItemHelp{yes}
+
+\objItemTheme{TCP/IP}
+
+\objItemClass{Devices}
+
+\objItemArgs{None}
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the command input}
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the response as a symbol}
+
+  \objListIOItem{bang}{an error was detected}
+  
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{no, works with a \objReference{tcpClient}, \objReference{tcpServer} or
+   \objReference{tcpMultiServer} object}
+
+\objItemRetainsState{yes}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{PPC-only}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+
+  \objListCmdItem{symbol}{}
+  Interpret the given value as an Internet address and return the IP address if found.
+
+  \objListCmdItem{verbose}{\textnormal{[}on\textnormal{/}off\textnormal{]}}
+  Communication tracing to the \MaxName{} window will be enabled (`on'), disabled (`off') or
+  reversed, if no argument is given.
+  
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{tcpLocate}}
+
+% $Log: tcpLocate.tex,v $
+% Revision 1.5  2006/07/20 04:47:54  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.3  2005/08/02 15:07:10  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%

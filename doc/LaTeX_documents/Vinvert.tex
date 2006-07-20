@@ -1,0 +1,67 @@
+\ProvidesFile{Vinvert.tex}[v1.0.2]
+\startObject{\objNameS{Vinvert}}{Vinvert}
+\index{Themes!Miscellaneous!Vinvert}
+\index{Themes!Vector~manipulation!Vinvert}
+\index{Vectors!Monadic~operations!Vinvert}
+\objPicture{Vinvertsymbol.ps}
+\objItemDescription{\objNameD{Vinvert} calculates the multiplicative inverse of the input
+(either a list or a single number).}
+
+\objItemCreated{April 2001}
+
+\objItemVersion{1.0.2}
+
+\objItemHelp{yes}
+
+\objItemTheme{Miscellaneous}
+
+\objItemClass{Arith/Logic/Bitwise, Lists}
+
+\objItemArgs{none}
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{anything}{the input to be processed}
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{anything}{the input after calculating the multiplicative, or the previous result
+      (if a `bang' is received)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  \objListCmdItem{\emphcorr{bang}}{}
+  Return the previous result, if any.
+  \objListCmdEnd
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments[In mathematical terms: $y_i \gets \frac{1}{\displaystyle{x_i}}$, where $x = x_1,x_2,\dots,x_n$ is the inlet value and
+$y = y_1,y_2,\dots,y_n$ is the outlet result.]
+
+\objEnd{\objNameE{Vinvert}}
+
+% $Log: Vinvert.tex,v $
+% Revision 1.5  2006/07/20 04:47:49  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.3  2005/08/02 15:07:03  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%

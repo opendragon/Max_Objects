@@ -1,0 +1,254 @@
+\ProvidesFile{map3d.tex}[v1.0.6]
+\startObject{\objNameS{map3d}}{map3d}
+\index{Themes!Programming~aids!map3d}
+\objPicture{map3dsymbol.ps}
+\objItemDescription{\objNameD{map3d} maps its input to a one of a sequence of ranges and returns the set of
+values associated with the range.}
+
+\objItemCreated{April 2001}
+
+\objItemVersion{1.0.6}
+
+\objItemHelp{yes}
+
+\objItemTheme{Programming aids}
+
+\objItemClass{Arith/Logic/Bitwise, Lists}
+
+\objItemArgs{\nothing}
+
+  \objListArgBegin
+  \objListArgItem{init-file}{(optional) symbol}{the name of the map file to load initially}
+  \objListArgEnd
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the command or data input}
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the retrieved data, the previous result (if a \objCmdQ{bang} is received),
+  the number of loaded ranges, the description of an individual range or the value of an element
+  of a range.
+  Results or retrieved data appear as a list starting with the symbol `result';
+  the number of loaded ranges appear as a two element list, starting with the symbol `count',
+  range descriptions appear as a list starting with the symbol `range' and range element values
+  appear as a list starting with the symbol `value'.}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{yes}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+
+  \objListCmdItem{add}{list}
+  Add a range to the end of the loaded set of ranges.
+  The range is in the form: \emphcorr{`*'} or \emphcorr{b1 left right b2} \emphcorr{`*'} or \emphcorr{b3 bottom top b4} \emphcorr{`*'} or \emphcorr{b5 forward back b6 output}, where
+  \emphcorr{b1}, \emphcorr{b3} and \emphcorr{b5} are either `[' or `(' and \emphcorr{b2}, \emphcorr{b4} and \emphcorr{b6} are
+  either `]' or `)';
+  \emphcorr{left}, \emphcorr{bottom} and \emphcorr{forward} are floating-point numbers, integers or one of the symbols `$-$inf' or
+  `$-\infty$', which indicate an unbounded value;
+  \emphcorr{right}, \emphcorr{top} and \emphcorr{back} are floating-point numbers, integers or one of the symbols `inf', `$+$inf',
+  `$\infty$' or `$+\infty$', which indicate an unbounded value.
+  The symbol `*' indicates a ``don't care'' value, which will match anything.
+  \emphcorr{output} is a list of values to return on a successful match.
+  The output list can contain the symbol `\$' to indicate the input values or the symbol `\$\$' to
+  indicate the offset of the input values from the vector (\emphcorr{left} \emphcorr{bottom} \emphcorr{forward}) of the
+  matching range.
+  
+  \objListCmdItem{after}{index list}
+  Add a range after the range with the given index.
+  The range is in the form: \emphcorr{`*'} or \emphcorr{b1 left right b2} \emphcorr{`*'} or \emphcorr{b3 bottom top b4} \emphcorr{`*'} or \emphcorr{b5 forward back b6 output}, where
+  \emphcorr{b1}, \emphcorr{b3} and \emphcorr{b5} are either `[' or `(' and \emphcorr{b2}, \emphcorr{b4} and \emphcorr{b6} are
+  either `]' or `)';
+  \emphcorr{left}, \emphcorr{bottom} and \emphcorr{forward} are floating-point numbers, integers or one of the symbols `$-$inf' or
+  `$-\infty$', which indicate an unbounded value;
+  \emphcorr{right}, \emphcorr{top} and \emphcorr{back} are floating-point numbers, integers or one of the symbols `inf', `$+$inf',
+  `$\infty$' or `$+\infty$', which indicate an unbounded value.
+  The symbol `*' indicates a ``don't care'' value, which will match anything.
+  \emphcorr{output} is a list of values to return on a successful match.
+  The output list can contain the symbol `\$' to indicate the input values or the symbol `\$\$' to
+  indicate the offset of the input values from the vector (\emphcorr{left} \emphcorr{bottom} \emphcorr{forward}) of the
+  matching range.
+
+  \objListCmdItem{\emphcorr{bang}}{}
+  Return the previous result, if any, as a list starting with the symbol `result'.
+
+  \objListCmdItem{before}{index list}
+  Add a range before the range with the given index.
+  The range is in the form: \emphcorr{`*'} or \emphcorr{b1 left right b2} \emphcorr{`*'} or \emphcorr{b3 bottom top b4} \emphcorr{`*'} or \emphcorr{b5 forward back b6 output}, where
+  \emphcorr{b1}, \emphcorr{b3} and \emphcorr{b5} are either `[' or `(' and \emphcorr{b2}, \emphcorr{b4} and \emphcorr{b6} are
+  either `]' or `)';
+  \emphcorr{left}, \emphcorr{bottom} and \emphcorr{forward} are floating-point numbers, integers or one of the symbols `$-$inf' or
+  `$-\infty$', which indicate an unbounded value;
+  \emphcorr{right}, \emphcorr{top} and \emphcorr{back} are floating-point numbers, integers or one of the symbols `inf', `$+$inf',
+  `$\infty$' or `$+\infty$', which indicate an unbounded value.
+  The symbol `*' indicates a ``don't care'' value, which will match anything.
+  \emphcorr{output} is a list of values to return on a successful match.
+  The output list can contain the symbol `\$' to indicate the input values or the symbol `\$\$' to
+  indicate the offset of the input values from the vector (\emphcorr{left} \emphcorr{bottom} \emphcorr{forward}) of the
+  matching range.
+
+  \objListCmdItem{clear}{}
+  The currently loaded set of ranges is removed.
+  
+  \objListCmdItem{count}{}
+  The number of currently loaded ranges is returned as a two element list, starting with the symbol
+  `count'.
+  
+  \objListCmdItem{delete}{index}
+  Removes the range with the given index from the loaded set of ranges.
+
+  \objListCmdItem{dump}{}
+  Retrieves all the ranges as a sequence of lists starting with the symbol `range'.
+  The second element of each list is the index, and the remainder of the list is in the form
+  \emphcorr{`*'} or \emphcorr{b1 left right b2} \emphcorr{`*'} or \emphcorr{b3 bottom top b4} \emphcorr{`*'} or \emphcorr{b5 forward back b6 output}, where \emphcorr{b1}, \emphcorr{b3} and \emphcorr{b5}
+  are either `[' or `(' and \emphcorr{b2}, \emphcorr{b4} and \emphcorr{b6} are either `]' or `)';
+  \emphcorr{left}, \emphcorr{bottom} and \emphcorr{forward} are floating-point numbers or the symbol `$-$inf',
+  which indicates an unbounded value; \emphcorr{right}, \emphcorr{top} and \emphcorr{back} are floating-point numbers or
+  the symbol `inf', which indicates an unbounded value.
+  The symbol `*' indicates a ``don't care'' value, which will match anything.
+  \emphcorr{output} is the list of values which will be returned on a successful match.
+
+  \objListCmdItem{\emphcorr{float}\textnormal{/}\emphcorr{integer} \emphcorr{float}\textnormal{/}\emphcorr{integer} %
+     \emphcorr{float}\textnormal{/}\emphcorr{integer}}{}
+  The given triple of values (either floating-point or integer) is compared to the loaded ranges.
+  When a match is found, the output portion of the matching range is returned, prefixed with the symbol
+  `result'.
+  
+  \objListCmdItem{get}{index edge}
+  Returns the given edge (`left', `right', `top', `bottom', `forward' or `back') of the given index as a
+  two element list, starting with the symbol `value'.
+  A ``don't care'' value is returned as the symbol `*'.
+
+  \objListCmdItem{load}{filename}
+  The currently loaded set of ranges will be set to the contents of the named map file.
+  
+  \objListCmdItem{replace}{index list}
+  Replace the range with the given index.
+  The range is in the form: \emphcorr{`*'} or \emphcorr{b1 left right b2} \emphcorr{`*'} or \emphcorr{b3 bottom top b4} \emphcorr{`*'} or \emphcorr{b5 forward back b6 output}, where
+  \emphcorr{b1}, \emphcorr{b3} and \emphcorr{b5} are either `[' or `(' and \emphcorr{b2}, \emphcorr{b4} and \emphcorr{b6} are
+  either `]' or `)';
+  \emphcorr{left}, \emphcorr{bottom} and \emphcorr{forward} are floating-point numbers, integers or one of the symbols `$-$inf' or
+  `$-\infty$', which indicate an unbounded value;
+  \emphcorr{right}, \emphcorr{top} and \emphcorr{back} are floating-point numbers, integers or one of the symbols `inf', `$+$inf',
+  `$\infty$' or `$+\infty$', which indicate an unbounded value.
+  The symbol `*' indicates a ``don't care'' value, which will match anything.
+  \emphcorr{output} is a list of values to return on a successful match.
+  The output list can contain the symbol `\$' to indicate the input values or the symbol `\$\$' to
+  indicate the offset of the input values from the vector (\emphcorr{left} \emphcorr{bottom} \emphcorr{forward}) of the
+  matching range.
+  
+  \objListCmdItem{set}{index edge value}
+  Replace the given edge (`left', `right', `top', `bottom', `forward' or `back') of the range with the
+  given index.
+  \emphcorr{value} is a floating-point number, an integer, or one of the symbols `inf', `$+$inf',
+  `$\infty$' or `$+\infty$', `$-$inf' or `$-\infty$', which indicate an unbounded value.
+  If \emphcorr{edge} is `left', `bottom', or `forward', the symbol `$-$inf' or `$-\infty$' can appear;
+  if \emphcorr{edge} is `right', `top' or `back', the symbol `inf', `$+$inf', `$\infty$' or `$+\infty$' can appear.
+  Note that a ``don't care'' value cannot be replaced using this command.
+
+  \objListCmdItem{show}{index}
+  Retrieves the range with the given index, as a list starting with the symbol `range'.
+  The second element of the list is the index, and the remainder of the list is in the form
+  \emphcorr{`*'} or \emphcorr{b1 left right b2} \emphcorr{`*'} or \emphcorr{b3 bottom top b4} \emphcorr{`*'} or \emphcorr{b5 forward back b6 output}, where \emphcorr{b1}, \emphcorr{b3} and \emphcorr{b5}
+  are either `[' or `(' and \emphcorr{b2}, \emphcorr{b4} and \emphcorr{b6} are either `]' or `)';
+  \emphcorr{left}, \emphcorr{bottom} and \emphcorr{forward} are floating-point numbers or the symbol `$-$inf',
+  which indicates an unbounded value; \emphcorr{right}, \emphcorr{top} and \emphcorr{back} are floating-point numbers or
+  the symbol `inf', which indicates an unbounded value.
+  The symbol `*' indicates a ``don't care'' value, which will match anything.
+  \emphcorr{output} is the list of values which will be returned on a successful match.
+
+  \objListCmdItem{verbose}{\textnormal{[}on\textnormal{/}off\textnormal{]}}
+  Range check tracing to the \MaxName{} window will be enabled (`on'), disabled (`off') or reversed,
+  if no argument is given.
+  
+  \objListCmdEnd
+
+\objItemFile[]
+
+\begin{quote}
+The map file is composed of a set of ranges.
+Comments start with the `\#' character and end with the `;' character.
+Ranges are either open (don't include the boundary value) or closed (the boundary value is included),
+and have boundary values that are integers, floating-point numbers, or infinities.
+An open range is indicated by a parenthesis, or round bracket, and a closed range by a square bracket.
+A range declaration is in the following form:
+
+\centerline{\emphcorr{`*'} or \emphcorr{b1 left right b2} \emphcorr{`*'} or \emphcorr{b3 bottom top b4} \emphcorr{`*'} or \emphcorr{b5 forward back b6 output}}
+
+\emphcorr{b1}, \emphcorr{b3} and \emphcorr{b5} are either `[' or `(' and \emphcorr{b2}, \emphcorr{b4} and \emphcorr{b6} are
+either `]' or `)';
+\emphcorr{left}, \emphcorr{bottom} and \emphcorr{forward} are floating-point numbers, integers or one of the symbols `$-$inf' or
+`$-\infty$', which indicate an unbounded value;
+\emphcorr{right}, \emphcorr{top} and \emphcorr{back} are floating-point numbers, integers or one of the symbols `inf', `$+$inf',
+`$\infty$' or `$+\infty$', which indicate an unbounded value.
+The symbol `*' indicates a ``don't care'' value, which will match anything.
+\emphcorr{output} is a list of values to return on a successful match.
+The output list can contain the symbol `\$' to indicate the input values or the symbol `\$\$' to
+indicate the offset of the input values from the vector (\emphcorr{left} \emphcorr{bottom} \emphcorr{forward}) of the
+matching range.
+The output list can also contain the symbols `\$x', `\$y' or `\$z' to indicate the first, second or third
+input value, or the symbols `\$\$x', `\$\$y' or `\$\$z' to indicate the offset of the first input value from
+the \emphcorr{left} value of the matching range, the offset of the second input value from the \emphcorr{bottom} value
+of the matching range or the offset of the third input value from the \emphcorr{forward} value of the matching
+range.
+If \emphcorr{left}, \emphcorr{bottom} or \emphcorr{forward} is unbounded, the corresponding input value is returned rather
+than the offset.
+Note that the order of the range declarations is critical---the first range that matches the input
+is used, and overlaps between range declarations are ignored.
+\end{quote}
+
+\objItemMessage
+
+\objItemComments
+
+\objFileDescription[0.90]{An example map file for a \objNameX{map3d} object}{map3dmap}{
+\#File: map\_file\_3d;\\
+\# Each line is terminated with a semicolon;\\
+\# A comment starts with a '\#' character;\\
+\# Note that white space is critical around symbols and operators;\\
+\vspace{1ex}
+\# Mappings;\\
+\# Format: $<$o$>$ $<$lft$>$ $<$rht$>$ $<$c$>$ $<$o$>$ $<$bot$>$ $<$top$>$ $<$c$>$ $<$o$>$
+$<$for$>$ $<$bck$>$ $<$c$>$ $<$out$>$ ;\\
+\# where $<$o$>$ is either '[' or '(' and $<$c$>$ is either ']' or ')';\\
+\# $<$lft$>$, $<$bot$>$, $<$for$>$ are numbers or the symbol '$-\infty$' (option-5) or '$-$inf';\\
+\# $<$rht$>$, $<$top$>$, $<$bck$>$ are numbers or the symbol '$\infty$' (option-5) or '$+\infty$' or;\\
+\# 'inf' or '$+$inf';\\
+\# Any of the bracketed pairs can be replaced by the symbol $*$ to indicate;\\
+\# a don't care value;\\
+\# $<$out$>$ is what to return on a match;\\
+\# $<$out$>$ can contain the symbol '\$' which is replaced by the input vector or;\\
+\# the symbol '\$\$' which is replaced by the offset of the input vector from the vector;\\
+\# ($<$lft$>$ $<$bot$>$ $<$for$>$) - the input value is returned instead of the offset for any;\\
+\# elements of the vector that are unbounded;\\
+
+{[ -20 20 ]} [ -20 20 ] ( 20 $+$inf ] alpha \$ ;\\
+( 20 30 ) ( 20 30 ) ( $-$inf 10 ] beta ;\\
+{[ 20 30 ]} [ 20 30 ] [ 15 30 ] beta-shadow \$\$ ;\\
+( -40 40 ) ( $-\infty$ 0 ) ( 12 100 ) gamma ;\\}
+
+\objDiagram{map3drails.ps}{map3drails}{Syntax diagram for 3-D map files}
+
+\objEnd{\objNameE{map3d}}
+
+% $Log: map3d.tex,v $
+% Revision 1.6  2006/07/20 04:47:52  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.4  2005/08/02 15:07:09  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%

@@ -1,0 +1,199 @@
+\ProvidesFile{listen.tex}[v1.0.2]
+\startObject{\objNameS{listen}}{listen}
+\index{Themes!Device~interface!listen}
+\objPicture{listensymbol.ps}
+\objItemDescription{\objNameD{listen} is an interface to the Macintosh Speech Recognition Manager.}
+
+\objItemCreated{April 2001}
+
+\objItemVersion{1.0.2}
+
+\objItemHelp{yes}
+
+\objItemTheme{Device interface}
+
+\objItemClass{Devices}
+
+\objItemArgs{\nothing}
+
+  \objListArgBegin
+  \objListArgItem{showFeedback}{(optional) symbol}{either `yes', `y', `no' or 'n' to indicate whether to
+        use the Apple Speech Recognition window for feedback}
+  
+  \objListArgItem{init-file}{(optional) symbol}{the name of the language file to load initially}
+
+  \objListArgEnd
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list\textnormal{/}bang}{the command input}
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{list}{the status or response.
+     Status messages (triggered by a \objCmdQ{status} command) appear as a
+        two element list, starting with the symbol `status'; response messages appear
+        as a list, starting with the symbol `result'.}
+
+  \objListIOItem{bang}{an error was detected}
+  
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{yes}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands[]
+
+  \objListCmdBegin
+  
+  \objListCmdItem{\emphcorr{bang}}{}
+  Return the previous result, if any.
+  
+  \objListCmdItem{load}{filename}
+  The currently loaded language model will be set to the contents of the named language file.
+
+  \objListCmdItem{recognize}{phrase-list}
+  The currently loaded language model will be replaced by the simplified model, \objCmdArg{phrase-list}.
+  \objCmdArg{phrase-list} consists of a sequence of alternate phrases, separated by the character `$\mid$'.
+  Phrases are a sequence of one or more English words, each followed by an (optional) list of atoms that are
+  output when this word is matched, preceeded by the character `$\{$' and followed by the character `$\}$'.
+  Each word in a phrase can be followed by an optional modifier, which begins with the character `$[$',
+  followed by one or more `O', `o', `R' or `r' characters and ending with the character `$]$'.
+  The characters `R' and `r' indicate that the word that they follow can be repeated, and the characters
+  `O' and `o' indicate that the word that they follow is optional.
+
+  \objListCmdItem{start}{}
+  If a language model has been loaded, listening will be enabled.
+
+  \objListCmdItem{status}{}
+  The state of the \objNameX{listen} object (idle, loaded or stopped) will be reported.
+
+  \objListCmdItem{stop}{}
+  Listening will be disabled.
+
+  \objListCmdEnd
+
+\objItemFile[]
+
+\begin{quote}
+The language file describes the spoken phrases that the \objNameX{listen} object will recognize and is
+composed of two sections:
+\begin{enumerate}[1)]
+\item the top-level model---a single symbol
+\item the model descriptions---a list of statements describing the elements of the language.
+\end{enumerate}
+
+Comments start with the `\#' character and end with the `;' character.
+
+The model descriptions have the following form:
+\begin{enumerate}[a)]
+\item a linguistic symbol, which is a sequence of non-blank characters, preceeded by the character `$<$' and
+followed by the character `$>$'
+\item an (optional) list of atoms that are output when this linguistic symbol is matched, preceeded by the
+character `$\{$' and followed by the character `$\}$'
+\item the symbol `$=$'
+\item one or more phrases, separated by the character `$\mid$', which indicates that the phrases are
+alternatives
+\item the character `;'
+\end{enumerate}
+
+Phrases are a sequence of one or more elements, where an element is:
+\begin{enumerate}[a)]
+\item a linguistic symbol or
+\item an English word, followed by an (optional) list of atoms that are output when this word is matched,
+preceeded by the character `$\{$' and followed by the character `$\}$'
+\end{enumerate}
+Each element in a phrase can be followed by an optional modifier, which begins with the character `$[$',
+followed by one or more `O', `o', `R' or `r' characters and ending with the character `$]$'.
+The characters `R' and `r' indicate that the element that they follow can be repeated, and the characters
+`O' and `o' indicate that the element that they follow is optional.
+
+Note that the top-level model is represents the most complex sentence that is expected.
+Each model can only have one description, and each model must be used in at least one other model.
+When a sentence is recognized, the optional lists of atoms that are associated with the matching
+words and linguistic symbols will be output as a single list, preceeded by the symbol `result'.
+\end{quote}
+
+\objItemMessage
+
+\objItemComments[Note that there can only be one \objNameX{listen} object in \MaxName{} at any time.
+As well, \MaxMSPName{} by default grabs the Sound Input Manager when it starts up, so that it is necessary to
+make it release the Sound Input Manager before using an \objNameX{listen} object.]
+
+\objFileDescription{An example language file for a \objNameX{listen} object}{listenstate1}{
+\#File: listen\_data\_1;\\
+\vspace{1ex}
+$<$CallSomeone$>$\\
+\vspace{1ex}
+$<$CallSomeone$>$ $\{$ call $\}$ $=$ Call $<$Person$>$ at $<$Place$>$ ;\\
+$<$Person$>$ $=$ Matt $\{$ MJ $\}$ $\mid$ Jason $\{$ JH $\}$ $\mid$ Chris $\{$ CD $\}$ ;\\
+$<$Place$>$ $=$ Work $\{$ 0 $\}$ $\mid$ Home $\{$ 1 $\}$ $\mid$ the office $\{$ 2 $\}$ ;\\
+\vspace{1ex}
+\# The following spoken phrases result in the indicated output:\\
+\vspace{1ex}
+\#call matt at home -$>$ call MJ 1\\
+\vspace{1ex}
+\#call jason at the office -$>$ call JH 2\\
+\vspace{1ex}
+\#call chris at work -$>$ call CD 0\\}
+
+\objFileDescription[0.85]{Another example language file for a \objNameX{listen} object}{listenstate2}{
+\#File: listen\_data\_2;\\
+\vspace{1ex}
+\# Top-level model:;\\
+\vspace{1ex}
+$<$Number$>$\\
+\vspace{1ex}
+\# Models:;\\
+\vspace{1ex}
+$<$Number$>$ $=$ zero $\{$ 0 $\}$ $\mid$ $<$LowNumber$>$ $\mid$ $<$Century$>$ and $[$ o $]$ $<$LowNumber$>$ $[$ o $]$ ;\\
+$<$LowNumber$>$ $=$ $<$LowUnits$>$ $\mid$ $<$LowTeens$>$ $\mid$ $<$LowDecades$>$ $<$LowUnits$>$ $[$ o $]$ ;\\
+$<$LowUnits$>$ $=$ one $\{$ 1 $\}$ $\mid$ two $\{$ 2 $\}$ $\mid$ three $\{$ 3 $\}$ $\mid$ four $\{$ 4 $\}$ $\mid$ five $\{$ 5 $\}$ $\mid$\\
+\hspace*{1cm}six $\{$ 6 $\}$ $\mid$ seven $\{$ 7 $\}$ $\mid$ eight $\{$ 8 $\}$ $\mid$ nine $\{$ 9 $\}$ ;\\
+$<$LowTeens$>$ $=$ ten $\{$ 10 $\}$ $\mid$ eleven $\{$ 11 $\}$ $\mid$ twelve $\{$ 12 $\}$ $\mid$ thirteen $\{$ 13 $\}$ $\mid$\\
+\hspace*{1cm}fourteen $\{$ 14 $\}$ $\mid$ fifteen $\{$ 15 $\}$ $\mid$ sixteen $\{$ 16 $\}$ $\mid$ seventeen $\{$ 17 $\}$ $\mid$\\
+\hspace*{1cm}eighteen $\{$ 18 $\}$ $\mid$ nineteen $\{$ 19 $\}$ ;\\
+$<$LowDecades$>$ $=$ twenty $\{$ 20 $\}$ $\mid$ thirty $\{$ 30 $\}$ $\mid$ forty $\{$ 40 $\}$ $\mid$ fifty $\{$ 50 $\}$ $\mid$\\
+\hspace*{1cm}sixty $\{$ 60 $\}$ $\mid$ seventy $\{$ 70 $\}$ $\mid$ eighty $\{$ 80 $\}$ $\mid$ ninety $\{$ 90 $\}$ ;\\
+$<$Century$>$ $=$ $<$MidNumber$>$ hundred $[$ o $]$ $\mid$ $<$HighUnits$>$ thousand ;\\
+$<$MidNumber$>$ $=$ $<$MidUnits$>$ $\mid$ $<$MidTeens$>$ $\mid$ $<$MidDecades$>$ $<$MidUnits$>$ $[$ o $]$ ;\\
+$<$MidUnits$>$ $=$ one $\{$ 100 $\}$ $\mid$ two $\{$ 200 $\}$ $\mid$ three $\{$ 300 $\}$ $\mid$ four $\{$ 400 $\}$ $\mid$\\
+\hspace*{1cm}five $\{$ 500 $\}$ $\mid$ six $\{$ 600 $\}$ $\mid$ seven $\{$ 700 $\}$ $\mid$ eight $\{$ 800 $\}$ $\mid$\\
+\hspace*{1cm}nine $\{$ 900 $\}$ ;\\
+$<$MidTeens$>$ $=$ ten $\{$ 1000 $\}$ $\mid$ eleven $\{$ 1100 $\}$ $\mid$ twelve $\{$ 1200 $\}$ $\mid$ thirteen $\{$ 1300 $\}$ $\mid$\\
+\hspace*{1cm}fourteen $\{$ 1400 $\}$ $\mid$ fifteen $\{$ 1500 $\}$ $\mid$ sixteen $\{$ 1600 $\}$ $\mid$\\
+\hspace*{1cm}seventeen $\{$ 1700 $\}$ $\mid$ eighteen $\{$ 1800 $\}$ $\mid$ nineteen $\{$ 1900 $\}$ ;\\
+$<$MidDecades$>$ $=$ twenty $\{$ 2000 $\}$ $\mid$ thirty $\{$ 3000 $\}$ $\mid$ forty $\{$ 4000 $\}$ $\mid$\\
+\hspace*{1cm}fifty $\{$ 5000 $\}$ $\mid$ sixty $\{$ 6000 $\}$ $\mid$ seventy $\{$ 7000 $\}$ $\mid$ eighty $\{$ 8000 $\}$ $\mid$\\
+\hspace*{1cm}ninety $\{$ 9000 $\}$ ;\\
+$<$HighUnits$>$ $=$ one $\{$ 1000 $\}$ $\mid$ two $\{$ 2000 $\}$ $\mid$ three $\{$ 3000 $\}$ $\mid$ four $\{$ 4000 $\}$ $\mid$\\
+\hspace*{1cm}five $\{$ 5000 $\}$ $\mid$ six $\{$ 6000 $\}$ $\mid$ seven $\{$ 7000 $\}$ $\mid$ eight $\{$ 8000 $\}$ $\mid$\\
+\hspace*{1cm}nine $\{$ 9000 $\}$ ;\\
+\vspace{1ex}
+\# This allows for several alternate representations of the same number:;\\
+\# 1492 = fourteen ninety two, or one thousand four hundred ninety two, or ;\\
+\#\hspace*{1cm}fourteen hundred and ninety two or other variants where the word ;\\
+\#\hspace*{1cm}'and' may or may not appear.;\\}
+
+\objDiagram{listenrails.ps}{listenrails}{Syntax diagram for language files}
+
+\objEnd{\objNameE{listen}}
+
+
+% $Log: listen.tex,v $
+% Revision 1.6  2006/07/20 04:47:52  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.4  2005/08/02 15:07:09  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%

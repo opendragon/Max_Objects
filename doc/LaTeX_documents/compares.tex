@@ -1,0 +1,61 @@
+\ProvidesFile{compares.tex}[v1.0.3]
+\startObject{\objNameS{compares}}{compares}
+\index{Themes!Programming~aids!compares}
+\objPicture{comparessymbol.ps}
+\objItemDescription{\objNameD{compares} does a case-sensitive string comparison of two symbols.}
+
+\objItemCreated{April 1999}
+
+\objItemVersion{1.0.3}
+
+\objItemHelp{yes}
+
+\objItemTheme{Programming aids}
+
+\objItemClass{Arith/Logic/Bitwise}
+
+\objItemArgs{none}
+
+\objItemInlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{symbol}{the first string}
+
+  \objListIOItem{symbol}{the second string}
+  \objListIOEnd
+
+\objItemOutlet{\nothing}
+
+  \objListIOBegin
+  \objListIOItem{integer}{the comparison result ($-1$~=~second string greater, 0~=~strings match,
+      1~=~first string greater)}
+  \objListIOEnd
+
+\objItemCompanion{none}
+
+\objItemStandalone{yes}
+
+\objItemRetainsState{no}
+
+\objItemCompatibility{\MaxName{} 3.x and \MaxName{} 4.x \{OS 9 and OS X\}}
+
+\objItemFat{Fat}
+
+\objItemCommands
+
+\objItemFile
+
+\objItemMessage
+
+\objItemComments
+
+\objEnd{\objNameE{compares}}
+
+% $Log: compares.tex,v $
+% Revision 1.5  2006/07/20 04:47:51  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.3  2005/08/02 15:07:08  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%
+

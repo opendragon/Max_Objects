@@ -1,0 +1,143 @@
+\ProvidesFile{documentationHistory.tex}
+\startObject[History]{Document~History}{Document~History}
+\objListHistBegin
+
+\objListHistItem{January 2006}{added the object \objName{senseX}}
+
+\objListHistItem{November 2005}{updated the object \objName{rcx} to support Mac OS X}
+
+\objListHistItem{July 2005}{corrected a bug with multiple \objName{tcpClient},
+\objName{tcpMultiServer} or \objName{tcpServer} objects being loaded at the same time;
+added the objects \objName{shotgun}, \objName{udpPort} and \objName{Vsplit}}
+
+\objListHistItem{May 2005}{corrected voice-change bug in \objName{speak}}
+
+\objListHistItem{September 2004}{modified the \objName{tcpClient},
+\objName{tcpMultiServer} and \objName{tcpServer} objects to support `raw' mode transfers}
+
+\objListHistItem{July 2004}{modified the \objName{rcx} object to support sending messages}
+
+\objListHistItem{January 2004}{documented the plugins used with the \objName{fidget} object}
+
+\objListHistItem{December 2003}{added support for don't care values in the \objName{map1d},
+\objName{map2d} and \objName{map3d} objects}
+
+\objListHistItem{November 2003}{added the object \objName{fidget};
+removed a potential race condition in the \objName{gvp100}, \objName{ldp1550}, \objName{mtc},
+\objName{spaceball} and \objName{x10} objects;
+restored the \objName{sysLogger} object to the OS X distribution}
+
+\objListHistItem{June 2003}{completed conversion to Carbon;
+dropped the \objName{serialX} object from the OS X distribution, as the functionality is provided in the current \objNameS{serial} object;
+dropped the \objName{rcx} and \objName{sysLogger} objects from the OS X distribution due to problems with libraries used by them;
+added the objects \objName{Vassemble}, \objName{Vdecode}, \objName{Vencode}, \objName{Vltrim},
+\objName{Vrtrim}, \objName{Vtokenize},  \objName{Vtrim} and \objName{Vunspell}}
+
+\objListHistItem{March 2003}{began conversion to Carbon, for use with Mac OS X}
+
+\objListHistItem{October 2002}{converted objects to CodeWarrior 8;
+corrected logic errors in the objects \objName{map1d}, \objName{map2d}, \objName{map3d}, \objName{tcpClient} and
+\objName{tcpServer};
+added code to support forcing the state of the DTR signal in the \objName{serialX} object}
+
+\objListHistItem{September 2002}{modified the objects \objName{tcpClient}, \objName{tcpMultiServer} and
+\objName{tcpServer} to accept a parameter of the number of receive buffers to use;
+improved the handling of fast messages for the objects \objName{tcpClient}, \objName{tcpMultiServer} and
+\objName{tcpServer}}
+
+\objListHistItem{August 2002}{added the object \objName{Vcollect}}
+
+\objListHistItem{June 2002}{converted objects to CodeWarrior 7, which no longer supports the Motorola MC68xxx processors,
+so all new objects will be PowerPC-only -- the older objects will still be available for both (in a \MaxName{} 3.x archive
+or a \MaxName{} 4.x archive)}
+
+\objListHistItem{April 2002}{added the object \objName{rcx};
+improved the handling of non-standard list elements for all objects}
+
+\objListHistItem{March 2002}{added the \objCmdQ{kind} command to the object \objName{x10};
+modified the object \objName{x10} to accept a parameter of the kind of X-10 controller attached;
+modified the objects \objName{listType}, \objName{pfsm}, \objName{serialX}, \objName{speak},
+\objName{tcpClient}, \objName{tcpMultiServer} and \objName{tcpServer} to properly handle the
+\MaxName{} special characters;
+added the objects \objName{fileLogger} and \objName{sysLogger}}
+
+\objListHistItem{February 2002}{began restructuring for \MaxName{} 4.x;
+modified internal resources so that \MaxName{} collectives and standalone applications can be built}
+
+\objListHistItem{January 2002}{added the \objCmdQ{dtr} command to the object \objName{serialX};
+enhanced the output format for the objects \objName{map1d}, \objName{map2d} and \objName{map3d}}
+
+\objListHistItem{October 2001}{added an optional argument to the objects \objName{Vceiling}, \objName{Vfloor},
+\objName{Vround} and \objName{Vtruncate} indicating the desired output format;
+modified the object \objName{mtc}'s \objCmdQ{raw} format to return all the data in a single vector rather than a series of rows;
+modified the object \objName{serialX} to support external clocking}
+
+\objListHistItem{August 2001}{began documenting compatibility with \MaxName{} 4.x}
+
+\objListHistItem{July 2001}{added the \objCmdQ{self} command to the objects \objName{tcpClient},
+\objName{tcpMultiServer} and \objName{tcpServer};
+added the \objCmdQ{mode} command to the object \objName{mtc};
+added the object \objName{spaceball}}
+
+\objListHistItem{May 2001}{extended the format of the input file for the objects \objName{map1d}, \objName{map2d} and
+\objName{map3d} to return offset/match data;
+added the objects \objName{Vcos}, \objName{Vexp} and \objName{Vsin};
+added the \objCmdQ{add}, \objCmdQ{after}, \objCmdQ{before}, \objCmdQ{clear}, \objCmdQ{count}, \objCmdQ{delete},
+\objCmdQ{dump}, \objCmdQ{get}, \objCmdQ{replace}, \objCmdQ{set} and \objCmdQ{show} commands to the objects
+\objName{map1d}, \objName{map2d} and \objName{map3d};
+added the \objCmdQ{threshold} command to the object \objName{mtcTrack}}
+
+\objListHistItem{April 2001}{improved the handling of the structural sections, such as the Table of Contents
+and modified macros that were impacted by generation of PDF;
+added the objects \objName{listen}, \objName{map3d}, \objName{mtcTrack}, \objName{queue}, \objName{speak},
+\objName{Vabs}, \objName{Vdistance}, \objName{Vinvert}, \objName{Vlog}, \objName{Vmean}, \objName{Vnegate},
+\objName{Vreverse}, \objName{Vrotate} and \objName{Vsqrt}}
+
+\objListHistItem{March 2001}{improved page layout and simplified the use of \LaTeXe{} commands;
+replaced most of the Adobe Illustrator\textregistered{} graphics with MetaPost versions}
+
+\objListHistItem{February 2001}{added cross-references and improved index and graphics inclusion}
+
+\objListHistItem{January 2001}{converted this document to \color[rgb]{0.75,0.5,0}\LaTeXe}
+
+\objListHistItem{November 2000}{made a minor correction to the description of the \objCmdQ{send} command
+for the object \objName{tcpMultiServer};
+clarified the \objCmdQ{status} commands for the objects
+\objName{tcpClient}, \objName{tcpMultiServer} and \objName{tcpServer};
+added documentation for the TCP/IP message format to the object \objName{tcpClient};
+modified the TCP/IP message format to remove extraneous fields and increase robustness
+(the resulting TCP/IP objects are not compatible with earlier versions of the same objects);
+added the objects \objName{map1d}, \objName{map2d}, \objName{tcpLocate}, \objName{Vceiling},
+\objName{Vfloor}, \objName{Vreduce}, \objName{Vround}, \objName{Vscan} and \objName{Vtruncate}}
+
+\objListHistItem{October 2000}{added the objects \objName{caseShift}, \objName{listType} and \objName{tcpMultiServer};
+added the \objCmdQ{float} command to the object \objName{serialX};
+added the \objCmdQ{status} command to the objects \objName{tcpClient} and \objName{tcpServer};
+renamed the objects \objNameS{drop}, \objNameS{jet}, \objNameS{length}, \objNameS{segment} and \objNameS{take} to
+\objName{Vdrop}, \objName{Vjet}, \objName{Vlength}, \objName{Vsegment} and \objName{Vtake},
+respectively;
+added the \objCmdQ{float} and \objCmdQ{list} commands to the object \objName{notX};
+corrected the description of the arguments to the object \objName{changes}}
+
+\objListHistItem{September 2000}{first version of this document}
+\objListHistEnd
+
+\objEnd{}
+
+% $Log: documentationHistory.tex,v $
+% Revision 1.11  2006/07/20 04:47:51  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.9  2006/03/25 21:51:18  churchoflambda
+% Added the 'senseX' object and modified the connection diagrams to show 'serial' as well as 'serialX'.
+%
+% Revision 1.8  2005/11/23 19:04:15  churchoflambda
+% Merged rcx2 object into rcx.
+%
+% Revision 1.7  2005/11/22 05:43:07  churchoflambda
+% Added RFID2 and rcx2.
+%
+% Revision 1.6  2005/08/02 15:07:08  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%
+

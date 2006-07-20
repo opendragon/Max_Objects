@@ -1,0 +1,42 @@
+\ProvidesFile{phidg_quadservo.tex}[v1.0.1]
+\startPlugin{\pluginNameS{Phidgets}{QuadServo}}{Phidgets}{QuadServo}
+
+\pluginItemDescription{\pluginNameD{Phidgets}{QuadServo} corresponds to the 4-Motor PhidgetServo device,
+which controls four servo motors.}
+
+\pluginItemCreated{December 2003}
+
+\pluginItemVersion{1.0.1}
+
+\pluginItemCommands[]
+  \pluginListCmdBegin
+
+  \pluginListCmdItem{standard-get}{All}  
+  Sends the current position of all the servoes (as a percentage) out the report output of the \objReference{fidget} object,
+  as the list `\pluginCmd{\textitcorr{standard-response}} position$_1$ position$_2$ position$_3$ position$_4$'.
+
+  \pluginListCmdItem{standard-get}{Si servo}  
+  Sends the current position of the specified servo (as a percentage) out the report output of the \objReference{fidget} object,
+  as the list `\pluginCmd{\textitcorr{standard-response}} position'.
+  The argument \objCmdArg{servo} is limited to between 1 and 4.  
+
+  \pluginListCmdItem{standard-put}{All position$_1$ position$_2$ position$_3$ position$_4$}  
+  Sets the position of all the servoes to the given values, expressed as percentages of a circle.
+
+  \pluginListCmdItem{standard-put}{So servo position}  
+  Sets the position of the specified servo to the given value, expressed as a percentage of a circle.
+  The argument \objCmdArg{servo} is limited to between 1 and 4.  
+
+  \pluginListCmdEnd
+
+\pluginItemComments
+
+\pluginEnd{\pluginNameE{Phidgets}{QuadServo}}
+
+% $Log: phidg_quadservo.tex,v $
+% Revision 1.5  2006/07/20 04:47:53  churchoflambda
+% Re-added the files to record their changes.
+%
+% Revision 1.3  2005/08/02 15:07:09  churchoflambda
+% Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.
+%
