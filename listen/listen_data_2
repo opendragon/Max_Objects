@@ -1,0 +1,36 @@
+#File: listen_data_2;
+
+# Top-level model:;
+
+<Number>
+
+# Models:;
+
+<Number> = zero { 0 } | <LowNumber> | <Century> and [ o ] <LowNumber> [ o ] ;
+<LowNumber> = <LowUnits> | <LowTeens> | <LowDecades> <LowUnits> [ o ] ;
+<LowUnits> = one { 1 } | two { 2 } | three { 3 } | four { 4 } | five { 5 } |
+          six { 6 } | seven { 7 } | eight { 8 } | nine { 9 } ;
+<LowTeens> = ten { 10 } | eleven { 11 } | twelve { 12 } | thirteen { 13 } |
+          fourteen { 14 } | fifteen { 15 } | sixteen { 16 } | seventeen { 17 } |
+          eighteen { 18 } | nineteen { 19 } ;
+<LowDecades> = twenty { 20 } | thirty { 30 } | forty { 40 } | fifty { 50 } |
+            sixty { 60 } | seventy { 70 } | eighty { 80 } | ninety { 90 } ;
+<Century> = <MidNumber> hundred [ o ] | <HighUnits> thousand ;
+<MidNumber> = <MidUnits> | <MidTeens> | <MidDecades> <MidUnits> [ o ] ;
+<MidUnits> = one { 100 } | two { 200 } | three { 300 } | four { 400 } |
+          five { 500 } | six { 600 } | seven { 700 } | eight { 800 } |
+          nine { 900 } ;
+<MidTeens> = ten { 1000 } | eleven { 1100 } | twelve { 1200 } | thirteen { 1300 } |
+          fourteen { 1400 } | fifteen { 1500 } | sixteen { 1600 } |
+          seventeen { 1700 } | eighteen { 1800 } | nineteen { 1900 } ;
+<MidDecades> = twenty { 2000 } | thirty { 3000 } | forty { 4000 } |
+            fifty { 5000 } | sixty { 6000 } | seventy { 7000 } | eighty { 8000 } |
+            ninety { 9000 } ;
+<HighUnits> = one { 1000 } | two { 2000 } | three { 3000 } | four { 4000 } |
+          five { 5000 } | six { 6000 } | seven { 7000 } | eight { 8000 } |
+          nine { 9000 } ;
+
+# This allows for several alternate representations of the same number:;
+# 1492 = fourteen ninety two, or one thousand four hundred ninety two, or ;
+#        fourteen hundred and ninety two or other variants where the word ;
+#        'and' may or may not appear.;
