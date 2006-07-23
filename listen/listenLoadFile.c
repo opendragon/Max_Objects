@@ -114,7 +114,7 @@ static bool getNextAtom
   Atom skipper;
   bool result = true;
 
-  while (result)
+  for ( ; result; )
   {
     if (xx->fBufferPreviousDefined)
     {
@@ -129,7 +129,7 @@ static bool getNextAtom
       if (value->a_w.w_sym->s_name[0] == kCommentCharacter)
       {
         /* skip a comment */
-        while (result)
+        for ( ; result; )
         {
           result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset,
           														&xx->fBufferStuffOffset, &skipper));
@@ -253,7 +253,7 @@ static MatchDataPtr getMatchData
       if (! sawClose)
       {
         binbuf_append(tempBuffer, NULL_PTR, 1, &holder);
-        count++;
+        ++count;
       }
     }
     else
@@ -279,9 +279,9 @@ static MatchDataPtr getMatchData
         Atom  tempAtom;
 
         /* Prefill the atom vector, in case of early termination. */
-        for (short ii = 0; ii < count; ii++)
+        for (short ii = 0; ii < count; ++ii)
           SETLONG(tempList + ii, 0);
-        for (short ii = 0; okSoFar && (ii < count); ii++)
+        for (short ii = 0; okSoFar && (ii < count); ++ii)
         {       
           okSoFar = (! binbuf_getatom(tempBuffer, &typeOffset, &stuffOffset, &tempAtom));
           if (okSoFar)
@@ -520,12 +520,9 @@ static PathListPtr getAPath
       if (! okSoFar)
       {
         /* Clean out aPath */
-        ElementPtr eWalker = aPath->fFirst;
-
-        while (eWalker)
+        for (ElementPtr eWalker = aPath->fFirst, element; eWalker; eWalker = element)
         {
-          ElementPtr element = eWalker->fNext;
-
+          element = eWalker->fNext;
           if (! eWalker->fIsModel)
           {
             MatchDataPtr match = eWalker->fVar.fWordElement.fMatch;
@@ -537,7 +534,6 @@ static PathListPtr getAPath
             }
           }
           FREEBYTES(eWalker, 1)
-          eWalker = element;
         }
         FREEBYTES(aPath, 1)
       }
@@ -641,16 +637,13 @@ static ModelDataPtr getAModel
         aModel->fDefined = true;
       else
       {
-        PathListPtr  pWalker = aModel->fPaths;
         MatchDataPtr match;
 
-        while (pWalker)
+        for (PathListPtr pWalker = aModel->fPaths, path; pWalker; pWalker = path)
         {
           /* Clean out aPath */
-          PathListPtr path = pWalker->fNext;
-          ElementPtr  eWalker = pWalker->fFirst, element;
-
-          while (eWalker)
+          path = pWalker->fNext;
+          for (ElementPtr eWalker = pWalker->fFirst, element; eWalker; eWalker = element)
           {
             element = eWalker->fNext;
             if (! eWalker->fIsModel)
@@ -663,10 +656,8 @@ static ModelDataPtr getAModel
               }
             }
             FREEBYTES(eWalker, 1)
-            eWalker = element;
           }
           FREEBYTES(pWalker, 1)
-          pWalker = path;
         }
         aModel->fPaths = NULL_PTR;
         match = aModel->fMatch;
@@ -697,20 +688,14 @@ static void reachModel
 #if SPEECH_RECOGNITION_SUPPORTED
   if (aModel && (! aModel->fReached))
   {
-    PathListPtr aPath = aModel->fPaths;
-
     aModel->fReached = true;
-    while (aPath)
+    for (PathListPtr aPath = aModel->fPaths; aPath; aPath = aPath->fNext)
     {
-      ElementPtr element = aPath->fFirst;
-
-      while (element)
+      for (ElementPtr element = aPath->fFirst; element; element = element->fNext)
       {
         if (element->fIsModel)
           reachModel(element->fVar.fModelElement.fDescription);
-        element = element->fNext;
       }
-      aPath = aPath->fNext;
     }
   }
 #else /* not SPEECH_RECOGNITION_SUPPORTED */
@@ -728,14 +713,10 @@ static bool circularModel
 
   if (aModel && (! aModel->fReached))
   {
-    PathListPtr aPath = aModel->fPaths;
-
     aModel->fReached = true;
-    while (aPath && (! failed))
+    for (PathListPtr aPath = aModel->fPaths; aPath && (! failed); aPath = aPath->fNext)
     {
-      ElementPtr element = aPath->fFirst;
-
-      while (element && (! failed))
+      for (ElementPtr element = aPath->fFirst; element && (! failed); element = element->fNext)
       {
         if (element->fIsModel)
         {
@@ -749,9 +730,7 @@ static bool circularModel
           else
             failed = circularModel(bModel, testModel);
         }
-        element = element->fNext;
       }
-      aPath = aPath->fNext;
     }
   }
   return failed;
@@ -768,15 +747,10 @@ static void clearReachedFlag
 #if SPEECH_RECOGNITION_SUPPORTED
   if (xx && xx->fModels)
   {
-    for (short ii = 0; ii < HASH_TABLE_SIZE; ii++)
+    for (short ii = 0; ii < HASH_TABLE_SIZE; ++ii)
     {
-      ModelDataPtr slot = *(xx->fModels + ii);
-
-      while (slot)
-      {
+      for (ModelDataPtr slot = *(xx->fModels + ii); slot; slot = slot->fNext)
         slot->fReached = false;
-        slot = slot->fNext;
-      }
     }
   }
 #else /* not SPEECH_RECOGNITION_SUPPORTED */
@@ -793,11 +767,9 @@ static bool checkDefined
 
   if (xx && xx->fModels)
   {
-    for (short ii = 0; (ii < HASH_TABLE_SIZE) && okSoFar; ii++)
+    for (short ii = 0; (ii < HASH_TABLE_SIZE) && okSoFar; ++ii)
     {
-      ModelDataPtr slot = *(xx->fModels + ii);
-
-      while (slot && okSoFar)
+      for (ModelDataPtr slot = *(xx->fModels + ii); slot && okSoFar; slot = slot->fNext)
       {
         if (! slot->fDefined)
         {
@@ -805,7 +777,6 @@ static bool checkDefined
                       slot->fSymbol->s_name)
           okSoFar = false;
         }
-        slot = slot->fNext;
       }
     }
   }
@@ -825,11 +796,9 @@ static bool checkReached
 
   if (xx && xx->fModels)
   {
-    for (short ii = 0; (ii < HASH_TABLE_SIZE) && okSoFar; ii++)
+    for (short ii = 0; (ii < HASH_TABLE_SIZE) && okSoFar; ++ii)
     {
-      ModelDataPtr slot = *(xx->fModels + ii);
-
-      while (slot && okSoFar)
+      for (ModelDataPtr slot = *(xx->fModels + ii); slot && okSoFar; slot = slot->fNext)
       {
         if (! slot->fReached)
         {
@@ -837,7 +806,6 @@ static bool checkReached
                       slot->fSymbol->s_name)
           okSoFar = false;
         }
-        slot = slot->fNext;
       }
     }
   }
@@ -857,15 +825,12 @@ static bool checkForCircularity
 
   if (xx && xx->fModels)
   {
-    for (short ii = 0; (ii < HASH_TABLE_SIZE) && okSoFar; ii++)
+    for (short ii = 0; (ii < HASH_TABLE_SIZE) && okSoFar; ++ii)
     {
-      ModelDataPtr slot = *(xx->fModels + ii);
-
-      while (slot && okSoFar)
+      for (ModelDataPtr slot = *(xx->fModels + ii); slot && okSoFar; slot = slot->fNext)
       {
         clearReachedFlag(xx);
         okSoFar = (! circularModel(slot, slot));
-        slot = slot->fNext;
       }
     }
   }
@@ -885,30 +850,24 @@ void clearHashTable
 #if SPEECH_RECOGNITION_SUPPORTED
   if (xx && xx->fModels)
   {
-    for (short ii = 0; ii < HASH_TABLE_SIZE; ii++)
+    for (short ii = 0; ii < HASH_TABLE_SIZE; ++ii)
     {
-      ModelDataPtr slot = *(xx->fModels + ii);
-
-      while (slot)
+      for (ModelDataPtr slot = *(xx->fModels + ii), next; slot; slot = next)
       {
-        ModelDataPtr next = slot->fNext;
         MatchDataPtr match = slot->fMatch;
-        PathListPtr  pWalker = slot->fPaths;
 
+        next = slot->fNext;
         if (match)
         {
           FREEBYTES(match->fData, match->fCount)
           FREEBYTES(match, 1)
         }
-        while (pWalker)
+        for (PathListPtr pWalker = slot->fPaths, path; pWalker; pWalker = path)
         {
-          PathListPtr path = pWalker->fNext;
-          ElementPtr  eWalker = pWalker->fFirst;
-
-          while (eWalker)
+          path = pWalker->fNext;
+          for (ElementPtr eWalker = pWalker->fFirst, element; eWalker; eWalker = element)
           {
-            ElementPtr element = eWalker->fNext;
-
+            element = eWalker->fNext;
             if (eWalker->fIsModel)
             {
               if (eWalker->fIsReference && eWalker->fVar.fModelElement.fModelRef)
@@ -924,13 +883,10 @@ void clearHashTable
               }
             }
             FREEBYTES(eWalker, 1)
-            eWalker = element;
           }
           FREEBYTES(pWalker, 1)
-          pWalker = path;
         }
         FREEBYTES(slot, 1)
-        slot = next;
       }
     }
     FREEBYTES(xx->fModels, HASH_TABLE_SIZE)
@@ -995,9 +951,8 @@ void createLanguageModel
       LOG_ERROR_2(OUTPUT_PREFIX "problem creating language model (%ld)", result)
     if (result == noErr)
     {
-      PathListPtr path = aModel->fPaths;
-
-      while (path && okSoFar && (result == noErr))
+      for (PathListPtr path = aModel->fPaths; path && okSoFar && (result == noErr);
+      			path = path->fNext)
       {
         SRPath anSRPath = createPath(xx, path);
 
@@ -1010,7 +965,6 @@ void createLanguageModel
         }
         else
           okSoFar = false;
-        path = path->fNext;
       }
     }
     if (okSoFar && (result == noErr))
@@ -1035,9 +989,8 @@ SRPath createPath
     result = SRNewPath(xx->fRecognitionSystem, &anSRPath);
     if (result == noErr)
     {
-      ElementPtr element = aPath->fFirst;
-
-      while (element && (result == noErr))
+      for (ElementPtr element = aPath->fFirst; element && (result == noErr);
+      			element = element->fNext)
       {
         SRSpeechObject thisElement = NULL_PTR;
 
@@ -1127,7 +1080,6 @@ SRPath createPath
                           result)
           }
         }
-        element = element->fNext;
       }
     }
     else
@@ -1216,7 +1168,7 @@ void initializeHashTable
   xx->fModels = GETBYTES(HASH_TABLE_SIZE, ModelDataPtr);
   if (xx->fModels)
   {
-    for (short ii = 0; ii < HASH_TABLE_SIZE; ii++)
+    for (short ii = 0; ii < HASH_TABLE_SIZE; ++ii)
       *(xx->fModels + ii) = NULL_PTR;
   }
 #else /* not SPEECH_RECOGNITION_SUPPORTED */
@@ -1237,14 +1189,12 @@ ModelDataPtr lookupModel
     ModelDataPtr prev = NULL_PTR;
     short        ii = short(long(name) % HASH_TABLE_SIZE);
 
-    slot = *(xx->fModels + ii);
-    while (slot)
+    for (slot = *(xx->fModels + ii); slot; slot = slot->fNext)
     {
       if (slot->fSymbol == name)
         break;
 
       prev = slot;
-      slot = slot->fNext;
     }
     if (! slot)
     {

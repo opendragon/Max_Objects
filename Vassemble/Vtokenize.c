@@ -145,11 +145,11 @@ void doTokenize
 		PAtom	temp = xx->fPreviousList;
 		short	left = 0, right = 0, last = xx->fPreviousLength;
 		
-		for ( ; left < last; left++)
+		for ( ; left < last; ++left)
 		{
 			if (! isSeparator(xx, (temp + left)->a_w.w_long))
 			{
-				for (right = short(left + 1); right < last; right++)
+				for (right = short(left + 1); right < last; ++right)
 				{
 					if (isSeparator(xx, (temp + right)->a_w.w_long))
 					{

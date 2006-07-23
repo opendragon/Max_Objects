@@ -75,11 +75,11 @@ struct PluginDescriptor
   Ptr                fShared;
   long               fRefCount;
   long               fValidMask;
- #if __powerc
+ #if FOR_MAC_PPC
   CFragConnectionID  fConnID;
   Ptr                fMainAddress;
   Pvoid              fRegistry;
-  #if defined(COMPILE_FOR_CATS)
+  #if defined(COMPILE_FOR_OSX_4)
   ProcPtr            fDoAnythingFun;
   ProcPtr            fDoBangFun;
   ProcPtr            fDoDoubleFun;
@@ -90,7 +90,8 @@ struct PluginDescriptor
   ProcPtr            fOnCreateFun;
   ProcPtr            fOnDestroyFun;
   ProcPtr            fOnReloadFun;
-  #else /* not COMPILE_FOR_CATS */
+  #endif /* COMPILE_FOR_OSX_4 */
+  #if defined(COMPILE_FOR_OS9_4)
   UniversalProcPtr   fDoAnythingUpp;
   UniversalProcPtr   fDoBangUpp;
   UniversalProcPtr   fDoDoubleUpp;
@@ -101,8 +102,8 @@ struct PluginDescriptor
   UniversalProcPtr   fOnCreateUpp;
   UniversalProcPtr   fOnDestroyUpp;
   UniversalProcPtr   fOnReloadUpp;
-  #endif /* not COMPILE_FOR_CATS */
- #endif /* __powerc */
+  #endif /* COMPILE_FOR_OS9_4 */
+ #endif /* FOR_MAC_PPC */
 }; /* PluginDescriptor */
 
 typedef PluginDescriptor * PluginDescriptorPtr;

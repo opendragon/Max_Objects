@@ -114,12 +114,13 @@ bool fileLoggerGetTheFile
   {
     Str255 aName;
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     CopyCStringToPascal(xx->fName->s_name, aName);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     strcpy(reinterpret_cast<Pchar>(aName), xx->fName->s_name);
     c2pstr(reinterpret_cast<Pchar>(aName));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
     err = HCreate(xx->fVRefNum, 0, aName, 'max2', 'TEXT');
     if (err == dupFNErr)
       err = noErr;

@@ -45,13 +45,13 @@ Pvoid cmd_SetOutputDirection
    long          slots,
    PSymbol       newDirection)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #pragma unused(slots, newDirection)
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       if ((slots > 0) && (slots <= RCX_OUTPUT_MASK))
@@ -88,7 +88,7 @@ Pvoid cmd_SetOutputDirection
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_SetOutputDirection */

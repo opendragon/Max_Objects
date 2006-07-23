@@ -42,18 +42,19 @@
  
 //#define USE_SYSLOG /* */
 
- #if (! defined(COMPILE_FOR_CATS))
+ #if defined(COMPILE_FOR_OS9_4)
   #include "GhostAPI.h"
   #define UCHAR_DEFINED /* */
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
  #include "MissingAndExtra.h"
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   #include "Common_USBX.h"
   #include "Common_USBXData.h"
   #include "LTW_Data.h"
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
 typedef int32	Int32;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 
  #define OUR_NAME      "rcx"
  #define OUR_RES_NUMB  17191
@@ -312,7 +313,7 @@ struct RcxControl
   bool    										fDeviceOpen;
   bool    										fSynchronized;
   bool    										fUseUSB;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 	IOKitContext								fUSBControl;
 	IOUSBDeviceInterface * *		fDevice;	
 	IOUSBInterfaceInterface * *	fInterface;
@@ -334,11 +335,12 @@ struct RcxControl
   bool												fReadComplete;
   bool												fReportEvents;
   bool												fStopping;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
   GHSTACK 										fGhostStack;
   Int32   										fDownloadRetries;
   Int32   										fExecuteRetries;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
  #if defined(BE_VERBOSE)
   bool    										fVerbose;
  #endif /* BE_VERBOSE */
@@ -498,7 +500,7 @@ bool rcxSendCommand
    const UInt32		expected,
    const bool			doRetry);
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 bool rcxSendControlRequest
 	(RcxControlPtr	xx,
 	 const uchar		controlOperation,
@@ -521,7 +523,7 @@ bool rcxSetRange
 bool rcxSetSpeed
 	(RcxControlPtr	xx,
 	 const bool			normalSpeed);
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 
 bool rcxSynchronize
   (RcxControlPtr xx);

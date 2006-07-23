@@ -59,7 +59,7 @@ Pvoid cmd_List
  			{
 	 			xx->fPreviousLength = argc;
 	 			xx->fPreviousList = temp;
-	 			for (short index = 0; index < argc; index++)
+	 			for (short index = 0; index < argc; ++index)
 	 				SETLONG(temp + index, argv[index].a_w.w_long);
 	 			doTokenize(xx);
  			}

@@ -96,7 +96,7 @@ Pvoid cmd_SetPushbutton
       LOG_ERROR_2(OUTPUT_PREFIX "invalid request '%s'", onOffPush->s_name)
       okSoFar = false;
     }
-    for (short jj = 0; okSoFar && (jj  < argc); jj++)
+    for (short jj = 0; okSoFar && (jj  < argc); ++jj)
     {
       switch (argv[jj].a_type)
       {
@@ -107,7 +107,7 @@ Pvoid cmd_SetPushbutton
           {
             short ii = 0;
 
-            for ( ; ii < NUM_VALID_PB_L_PUSH; ii++)
+            for ( ; ii < NUM_VALID_PB_L_PUSH; ++ii)
             {
               if (number == validControlPush[ii])
                 break;
@@ -124,7 +124,7 @@ Pvoid cmd_SetPushbutton
           {
             short ii = 0;
 
-            for ( ; ii < NUM_VALID_PB_L_ON_OFF; ii++)
+            for ( ; ii < NUM_VALID_PB_L_ON_OFF; ++ii)
             {
               if (number == validControlOnOff[ii])
                 break;
@@ -153,7 +153,7 @@ Pvoid cmd_SetPushbutton
           {
             short ii = 0;
 
-            for ( ; ii < NUM_VALID_PB_L_PUSH; ii++)
+            for ( ; ii < NUM_VALID_PB_L_PUSH; ++ii)
             {
               if (number == validControlPush[ii])
                 break;
@@ -169,7 +169,7 @@ Pvoid cmd_SetPushbutton
           {
             short ii = 0;
 
-            for ( ; ii < NUM_VALID_PB_L_ON_OFF; ii++)
+            for ( ; ii < NUM_VALID_PB_L_ON_OFF; ++ii)
             {
               if (number == validControlOnOff[ii])
                 break;

@@ -46,7 +46,7 @@ Pvoid cmd_GetBattery
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       static uchar batteryCommand[] = { RCX_POLL_BATTERY_CMD };
@@ -67,7 +67,7 @@ Pvoid cmd_GetBattery
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_GetBattery */

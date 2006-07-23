@@ -76,7 +76,7 @@ Pvoid cmd_Add
           xx->fFirstInQueue = first = next;            
         }
         else
-          xx->fDepth++;
+          ++xx->fDepth;
         if (last)
           last->fNext = newLast;
         else
@@ -87,8 +87,8 @@ Pvoid cmd_Add
         if (temp)
         {                    
           newLast->fOutput = temp;
-          for (short ii = 0; ii < argc; ii++)
-            *temp++ = argv[ii];
+          for (short ii = 0; ii < argc; ++ii, ++temp)
+            *temp = argv[ii];
         }
         else
         {

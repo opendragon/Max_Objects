@@ -42,7 +42,7 @@
 
  #include "Common_IOKitX.h"
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 // The following datatypes and defines are copied from the relevant Framework headers,
 // which aren't directly useable in CFM source:
   #define kIOUSBDeviceClassName					"IOUSBDevice"
@@ -174,7 +174,8 @@ struct IOUSBInterfaceInterface;
  // End of copies ...
 
   #define kUSBSerialNumber	"USB Serial Number"
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
   #include "usb.h"
   
 struct USBContext
@@ -185,9 +186,9 @@ struct USBContext
  	Pvoid		fOwner;
 }; /* USBContext */ 
 
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
  
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 IOReturn abortUSBPipe
 	(IOUSBInterfaceInterface * *	theInterface,
 	 const UInt8									pipeRef);
@@ -341,8 +342,9 @@ IOReturn writeUSBPipeTO
    const UInt32									buffSize,
    const UInt32									noDataTimeout,
    const UInt32									completionTimeout);
+ #endif /* COMPILE_FOR_OSX_4 */
 
- #else /* not COMPILE_FOR_CATS */
+ #if defined(COMPILE_FOR_OS9_4)
 bool setUpUSB
 	(Pvoid																obj,
 	 Pchar																name,
@@ -351,7 +353,6 @@ bool setUpUSB
 
 void shutDownUSB
 	(USBContext &	rec);
-  
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 
 #endif /* not COMMON_USBX_H_ */

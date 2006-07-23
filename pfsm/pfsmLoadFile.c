@@ -45,25 +45,18 @@ void pfsmClearHashTable
 {
   if (xx && xx->fStateSymbols)
   {
-    for (short ii = 0; ii < HASH_TABLE_SIZE; ii++)
+    for (short ii = 0; ii < HASH_TABLE_SIZE; ++ii)
     {
-      SymbolLinkPtr slot = *(xx->fStateSymbols + ii);
-
-      while (slot)
+      for (SymbolLinkPtr slot = *(xx->fStateSymbols + ii), next; slot; slot = next)
       {
-        SymbolLinkPtr next = slot->fNext;
-        TransitionPtr walker = slot->fTransitions;
-
-        while (walker)
+        next = slot->fNext;
+        for (TransitionPtr walker = slot->fTransitions, trans; walker; walker = trans)
         {
-          TransitionPtr trans = walker->fNext;
-
+          trans = walker->fNext;
           FREEBYTES(walker->fOutput, walker->fOutputCount)
           FREEBYTES(walker, 1)
-          walker = trans;
         }
         FREEBYTES(slot, 1)
-        slot = next;
       }
     }
     FREEBYTES(xx->fStateSymbols, HASH_TABLE_SIZE)
@@ -76,15 +69,12 @@ void pfsmReportHashTable
 {
   if (xx && xx->fStateSymbols)
   {
-    SymbolLinkPtr slot;
-    TransitionPtr trans;
-    Pchar         stateDescriptor;
-    Qchar					outputTag;
+    Pchar	stateDescriptor;
+    Qchar	outputTag;
 
-    for (short ii = 0; ii < HASH_TABLE_SIZE; ii++)
+    for (short ii = 0; ii < HASH_TABLE_SIZE; ++ii)
     {
-      slot = *(xx->fStateSymbols + ii);
-      while (slot)
+      for (SymbolLinkPtr slot = *(xx->fStateSymbols + ii); slot; slot = slot->fNext)
       {
         if (slot->fIsError)
           stateDescriptor = OUTPUT_PREFIX " error state %s ";
@@ -95,8 +85,7 @@ void pfsmReportHashTable
         else
           stateDescriptor = OUTPUT_PREFIX " state %s ";
         LOG_POST_2(stateDescriptor, slot->fSymbol->s_name)
-        trans = slot->fTransitions;
-        while (trans)
+        for (TransitionPtr trans = slot->fTransitions; trans; trans = trans->fNext)
         {
           Pchar nextName = trans->fNextState->fSymbol->s_name;
 
@@ -148,14 +137,12 @@ void pfsmReportHashTable
           }
           if (trans->fOutputCount)
           {
-            for (short jj = 0; jj < trans->fOutputCount; jj++)
+            for (short jj = 0; jj < trans->fOutputCount; ++jj)
               postatom(trans->fOutput + jj);
           }
           if (trans->fIsRandom)
             LOG_POST_2(OUTPUT_PREFIX "    with probability %g", trans->fProbability)
-          trans = trans->fNext;
         }
-        slot = slot->fNext;
       }
     }
   }
@@ -169,7 +156,7 @@ static void pfsmInitializeHashTable
   xx->fStateSymbols = GETBYTES(HASH_TABLE_SIZE, SymbolLinkPtr);
   if (xx->fStateSymbols)
   {
-    for (short ii = 0; ii < HASH_TABLE_SIZE; ii++)
+    for (short ii = 0; ii < HASH_TABLE_SIZE; ++ii)
       *(xx->fStateSymbols + ii) = NULL_PTR;
   }
 } /* pfsmInitializeHashTable */
@@ -182,13 +169,12 @@ static SymbolLinkPtr pfsmAddStateSymbol
   short         ii = short(long(name) % HASH_TABLE_SIZE);
   SymbolLinkPtr prev = NULL_PTR, slot = *(xx->fStateSymbols + ii);
 
-  while (slot)
+  for ( ; slot; slot = slot->fNext)
   {
     if (slot->fSymbol == name)
       break;
 
     prev = slot;
-    slot = slot->fNext;
   }
   /* Note that we should never have duplicates, so we just use this as */
   /* a safety valve */
@@ -216,12 +202,11 @@ SymbolLinkPtr pfsmLookupStateSymbol
   short         ii = short(long(name) % HASH_TABLE_SIZE);
   SymbolLinkPtr slot = *(xx->fStateSymbols + ii);
 
-  while (slot)
+  for ( ; slot; slot = slot->fNext)
   {
     if (slot->fSymbol == name)
       break;
 
-    slot = slot->fNext;
   }
   return slot;
 } /* pfsmLookupStatePSymbol/
@@ -234,7 +219,7 @@ static bool pfsmGetNextAtom
   Atom skipper;
   bool result = true;
 
-  while (result)
+  for ( ; result; )
   {
     result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset,
                                 &xx->fBufferStuffOffset, value));
@@ -243,7 +228,7 @@ static bool pfsmGetNextAtom
       if (value->a_w.w_sym->s_name[0] == kCommentCharacter)
       {
         /* skip a comment */
-        while (result)
+        for ( ; result; )
         {
           result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset,
                                     &xx->fBufferStuffOffset, &skipper));
@@ -322,7 +307,7 @@ static bool pfsmGetStateSymbols
       result = false;
     }
   }
-  while (result)
+  for ( ; result; )
   {
     if (holder.a_type == A_SYM)
     {
@@ -374,7 +359,7 @@ static bool pfsmGetErrorSymbols
       result = false;
     }
   }
-  while (result)
+  for ( ; result; )
   {
     if (holder.a_type == A_SYM)
     {
@@ -462,7 +447,7 @@ static bool pfsmGetStopSymbols
       result = false;
     }
   }
-  while (result)
+  for ( ; result; )
   {
     if (holder.a_type == A_SYM)
     {
@@ -719,11 +704,10 @@ static bool pfsmCollectATransition
     TransitionPtr prevTrans = inputSymbol->fTransitions;
     TransitionPtr newTrans = prevTrans;
 
-    while (newTrans)
+    for ( ; newTrans; newTrans = newTrans->fNext)
     {
       if (newTrans)
         prevTrans = newTrans;
-      newTrans = newTrans->fNext;
     }
     newTrans = GETBYTES(1, TransitionData);
     if (newTrans)
@@ -760,11 +744,11 @@ static bool pfsmCollectATransition
       newTrans->fOutputCount = newTrans->fDollarCount = newTrans->fDoubleDollarCount = 
             newTrans->fDollarStarCount = 0;
       /* Collect the output values, terminated by a semicolon: */
-      while (holder.a_type != A_SEMI)
+      for ( ; holder.a_type != A_SEMI; )
       {
         /* We have a value; attach it. */
         binbuf_append(collector, NULL_PTR, 1, &holder);
-        newTrans->fOutputCount++;
+        ++newTrans->fOutputCount;
         /* Note that the '$' symbols are handled in the transition engine. */
         result = pfsmGetNextAtom(xx, &holder);
         if (! result)
@@ -778,7 +762,7 @@ static bool pfsmCollectATransition
         PAtom vector = GETBYTES(newTrans->fOutputCount, Atom);
 
         newTrans->fOutput = vector;
-        for (short ii = 0; ii < newTrans->fOutputCount; ii++, vector++)
+        for (short ii = 0; ii < newTrans->fOutputCount; ++ii, ++vector)
         {
           if (binbuf_getatom(collector, &tyOffset, &stOffset, vector))
             break;
@@ -786,14 +770,14 @@ static bool pfsmCollectATransition
           if (vector->a_type == A_SYM)
           {
             if (vector->a_w.w_sym == gDollarSymbol)
-              newTrans->fDollarCount++;
+              ++newTrans->fDollarCount;
             else if (vector->a_w.w_sym == gDoubleDollarSymbol)
-              newTrans->fDoubleDollarCount++;
+              ++newTrans->fDoubleDollarCount;
             else if (vector->a_w.w_sym == gDollarStarSymbol)
-              newTrans->fDollarStarCount++;
+              ++newTrans->fDollarStarCount;
           }
           else if (vector->a_type == A_DOLLAR)
-            newTrans->fDollarCount++;
+            ++newTrans->fDollarCount;
         }
       }
       else
@@ -829,7 +813,7 @@ bool pfsmLoadTables
     if (pfsmGetStateSymbols(xx) && pfsmGetStartSymbol(xx) && pfsmGetStopSymbols(xx) &&
         pfsmGetErrorSymbols(xx))
     {
-      while (pfsmCollectATransition(xx))
+      for ( ; pfsmCollectATransition(xx); )
       {
         if (xx->fVerbose)
           LOG_POST_1(OUTPUT_PREFIX "read state transition")

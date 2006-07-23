@@ -46,13 +46,13 @@ Pvoid cmd_GetAllVariables
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       Atom  response[RCX_NUM_VARIABLES];
       bool  okSoFar = true;
 
-      for (ushort ii= 0; (ii < RCX_NUM_VARIABLES) && okSoFar; ii++)
+      for (ushort ii= 0; (ii < RCX_NUM_VARIABLES) && okSoFar; ++ii)
       {
         long value;
 
@@ -71,7 +71,7 @@ Pvoid cmd_GetAllVariables
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_GetAllVariables */

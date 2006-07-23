@@ -48,7 +48,7 @@ Pvoid cmd_Dump
   {
     RangeDataPtr walker = xx->fFirstRange;
 
-    for (long ii = 1; walker; walker = walker->fNext, ii++)
+    for (long ii = 1; walker; walker = walker->fNext, ++ii)
     {
       short	lowerUpper = short(walker->fLowerUpperDontCare ? 1 : 4);
       short outSize = short(walker->fOutputCount + lowerUpper + 1);
@@ -78,7 +78,7 @@ Pvoid cmd_Dump
 	        SETSYM(newList + 4, walker->fUpper.fIsClosed ? gCloseSquareSymbol :
 	                                                        gCloseRoundSymbol);
         }
-        for (short jj = 0; jj < walker->fOutputCount; jj++)
+        for (short jj = 0; jj < walker->fOutputCount; ++jj)
           *(newList + jj + lowerUpper + 1) = *(walker->fOutput + jj);
         outlet_anything(xx->fResultOut, gRangeSymbol, outSize, newList);
         FREEBYTES(newList, outSize)

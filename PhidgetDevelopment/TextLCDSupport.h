@@ -45,11 +45,12 @@
 static const int	CHARS_PER_LINE = 20;
 static const int	DATA_BUFFER_SIZE = 8;
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 typedef IOReturn	ReturnType;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
 typedef OSStatus	ReturnType;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
  
 ReturnType doTextLCDBacklightOff
 	(Pchar									name,

@@ -46,7 +46,7 @@ Pvoid cmd_TurnOff
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       static uchar turnOffCommand[] = { RCX_TURN_OFF_CMD };
@@ -59,7 +59,7 @@ Pvoid cmd_TurnOff
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_TurnOff */

@@ -41,7 +41,7 @@
 #include "Common_HIDXData.h"
 #include "loadOtherSegments.h"
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ getHIDElementValue ---*/
 long getHIDElementValue
 	(Pchar									name,
@@ -98,8 +98,8 @@ long getHIDElementValue
 	return 12345;	
  #endif /* not COMPILE_FOR_STUB */
 } /* getHIDElementValue */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS) && defined(COMPILE_FOR_STUB)
+#if defined(COMPILE_FOR_OSX_4) && defined(COMPILE_FOR_STUB)
  #pragma export list getHIDElementValue
-#endif /* COMPILE_FOR_CATS and COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and COMPILE_FOR_STUB */

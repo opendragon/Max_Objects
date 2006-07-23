@@ -49,10 +49,10 @@ extern "C"
 {
  #endif /* __cplusplus */
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 E_PhidgResult defineCallback
 	(STANDARD_PHID_ARGS_DEFINECALLBACK);
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
  
 E_PhidgResult doCustom
   (STANDARD_PHID_ARGS_DO);
@@ -78,25 +78,27 @@ E_PhidgResult onAttach
 E_PhidgResult onDetach
   (STANDARD_PHID_ARGS_ATTACH);
 
- #if (! defined(COMPILE_FOR_CATS))
+ #if defined(COMPILE_FOR_OS9_4)
  void reportHandler
 	(STANDARD_PHID_ARGS_REPORTHANDLER);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
  
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   #pragma export list defineCallback
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
   #pragma export list reportHandler
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
  
  #pragma export list doCustom,doGet,doPut,identify,main,niam,onAttach,onDetach
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   #define STANDARD_MAIN_CODE	\
 gSyslogFunction = environment->fSyslogFunction
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
   #define STANDARD_MAIN_CODE	/* */
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 
  #if defined(__cplusplus)
 }

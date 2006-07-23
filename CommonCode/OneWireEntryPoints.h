@@ -52,22 +52,23 @@ enum E_OneWireResult
 
 struct OneWireEnvStruct
 {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 	syslog_FP	fSyslogFunction;
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 	bool			filler; /* so that we always have something */
 }; /* OneWireEnvStruct */
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   #define SET_UP_ENVIRONMENT(zz)	\
 zz.fSyslogFunction = gSyslogFunction
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
   #define SET_UP_ENVIRONMENT(zz)	/* */
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
  
 typedef OneWireEnvStruct * OneWireEnvPtr;
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 struct OneWireRefConStruct
 {
 	PSymbol						fDeviceType;
@@ -78,7 +79,7 @@ struct OneWireRefConStruct
 }; /* OneWireRefConStruct */
 
 typedef OneWireRefConStruct * OneWireRefConPtr;
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 
  #define STANDARD_ONEWIRE_ARGS_ATTACH	\
 		Pchar							name,\
@@ -88,7 +89,7 @@ typedef OneWireRefConStruct * OneWireRefConPtr;
 		HIDDeviceDataPtr	thisDevice,\
 		OSErr *						result
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   #define STANDARD_ONEWIRE_ARGS_DEFINECALLBACK	\
  		Pchar										name,\
  		Ptr											sharedStorage,\
@@ -98,7 +99,7 @@ typedef OneWireRefConStruct * OneWireRefConPtr;
  		IOHIDElementCookie * *	cookies,\
  		Pint										numCookies,\
  		OSErr *									result
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 	     
  #define STANDARD_ONEWIRE_ARGS_DO	\
 		Pchar							name,\
@@ -111,20 +112,21 @@ typedef OneWireRefConStruct * OneWireRefConPtr;
 		PAtom				    	argv,\
 		OSErr *						result
     
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   #define STANDARD_ONEWIRE_ARGS_IDENTIFY	\
 		Pchar	name,\
 		Plong productID,\
 		Plong privateSize,\
 		Plong sharedSize,\
 		Pbool isAsynchronous
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
   #define STANDARD_ONEWIRE_ARGS_IDENTIFY	\
 		Pchar	name,\
 		Plong productID,\
 		Plong privateSize,\
 		Plong sharedSize
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 
  #define STANDARD_ONEWIRE_ARGS_MAIN	\
 		Pchar					name,\
@@ -135,7 +137,7 @@ typedef OneWireRefConStruct * OneWireRefConPtr;
 		Pchar	name,\
 		Ptr		sharedStorage
 
- #if (! defined(COMPILE_FOR_CATS))
+ #if defined(COMPILE_FOR_OS9_4)
   #define STANDARD_ONEWIRE_ARGS_REPORTHANDLER	\
   	Pchar							name,\
   	PSymbol						deviceType,\
@@ -145,9 +147,9 @@ typedef OneWireRefConStruct * OneWireRefConPtr;
 		POutlet						outlet,\
  		Pvoid							inHIDReport,\
  		const UInt32			inHIDReportLength
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 		
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 typedef E_OneWireResult (* FpDefineCallback)
 	(STANDARD_ONEWIRE_ARGS_DEFINECALLBACK);
 
@@ -174,7 +176,8 @@ typedef E_OneWireResult (* FpOnAttach)
    
 typedef E_OneWireResult (* FpOnDetach)
   (STANDARD_ONEWIRE_ARGS_ATTACH);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
 enum
 {
 	uppDoCustomProcInfo = (kCStackBased |
@@ -253,6 +256,6 @@ enum
 															STACK_ROUTINE_PARAMETER(7, SIZE_CODE(sizeof(Pvoid))) | // inHIDReport
 															STACK_ROUTINE_PARAMETER(8, SIZE_CODE(sizeof(UInt32)))) // inHIDReportLength													
 };
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
  
 #endif /* not ONEWIREENTRYPOINTS_H_ */

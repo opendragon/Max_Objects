@@ -52,7 +52,7 @@ Pvoid cmd_List
   {
  		if (checkInput(OUTPUT_PREFIX, argc, argv))
  		{
- 		  for (short index = 0; index < argc; index++)
+ 		  for (short index = 0; index < argc; ++index)
  		    processInput(xx, argv[index].a_w.w_long);
  		}
   }

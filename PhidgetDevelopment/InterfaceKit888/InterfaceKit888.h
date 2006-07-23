@@ -52,10 +52,10 @@ struct PrivateData
 	bool	fHaveEvenData;
 	bool	fHaveOddData;
 	char	fOddData[DATA_PACKET_SIZE];
- #if (! defined(COMPILE_FOR_CATS))
+ #if defined(COMPILE_FOR_OS9_4)
  	float	fAnalogInput[DATA_PACKET_SIZE];
 	long	fDigitalInput;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 }; /* PrivateData */
  
 struct SharedData

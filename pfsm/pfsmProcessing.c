@@ -59,7 +59,7 @@ static void pfsmPerformTransition
     newSize = short(trans->fOutputCount + (trans->fDoubleDollarCount * (argc - 1)));
     if (newSize)
       target = pile = GETBYTES(newSize, Atom);
-    for (short ii = 0; ii < trans->fOutputCount; ii++, element++)
+    for (short ii = 0; ii < trans->fOutputCount; ++ii, ++element)
     {
       if ((element->a_type == A_LONG) || (element->a_type == A_FLOAT))
         *target++ = *element;
@@ -70,14 +70,14 @@ static void pfsmPerformTransition
         else if (element->a_w.w_sym == gDollarStarSymbol)
         {
           SETSYM(target, trans->fNextState->fSymbol);
-          target++;
+          ++target;
         }
         else if (element->a_w.w_sym == gDoubleDollarSymbol)
         {
           PAtom walker = argv;
 
-          for (short jj = 0; jj < argc; jj++)
-            *target++ = *walker++;
+          for (short jj = 0; jj < argc; ++jj, ++target, ++walker)
+            *target = *walker;
         }
         else
           *target++ = *element;

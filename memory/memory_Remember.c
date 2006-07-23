@@ -70,8 +70,8 @@ Pvoid cmd_Remember
             if (temp)
             {
               which->fOutput = temp;
-              for (short ii = 1; ii < argc; ii++)
-                *temp++ = argv[ii];
+              for (short ii = 1; ii < argc; ++ii, ++temp)
+                *temp = argv[ii];
             }
           }
         }

@@ -42,7 +42,7 @@
 
  #include "MissingAndExtra.h"
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   #include <mach/mach_types.h>
   #include <mach/error.h>
   #include <CFPlugInCOM.h>
@@ -126,9 +126,9 @@ enum
 
 // End of copies ...
 
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 typedef ULONG (* release_FP)
     (Pvoid	thisPointer);
 
@@ -146,9 +146,9 @@ struct IOKitContext
 	io_iterator_t							fRemovedIterator;
 }; /* IOKitContext */
 
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 
 bool addInterestNotification
 	(IOKitContext &							rec,
@@ -259,6 +259,6 @@ void triggerIterators
 	 IOServiceMatchingCallback	addFunction,
 	 IOServiceMatchingCallback	removeFunction);
 	  
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 
 #endif /* not COMMON_IOKITX_H_ */

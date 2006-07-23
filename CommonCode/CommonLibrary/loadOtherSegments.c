@@ -43,7 +43,7 @@
 void loadOtherSegments
   (void)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #if (! defined(COMPILE_FOR_STUB))
   Handle ch;
   Str255 buff;
@@ -51,14 +51,14 @@ void loadOtherSegments
   OSType theType;
   short  nn = Count1Resources(OUR_SEGMENT_RESOURCE);
 
-  for (short ii = 1; ii <= nn; ii++)
+  for (short ii = 1; ii <= nn; ++ii)
   {
     ch = Get1IndResource(OUR_SEGMENT_RESOURCE, ii);
     GetResInfo(ch, &theId, &theType, buff);
     rescopy(OUR_SEGMENT_RESOURCE, theId);
   }
  #endif /* not COMPILE_FOR_STUB */
-#endif // not __powerc
+#endif // not FOR_MAC_PPC
 } /* loadOtherSegments */
 
 #if defined(COMPILE_FOR_STUB)

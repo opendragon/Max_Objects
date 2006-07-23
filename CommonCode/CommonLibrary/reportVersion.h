@@ -45,10 +45,11 @@
 ulong reportVersion
   (Qchar	name);
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 extern char		gCopyrightString[256];
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
 extern Str255	gCopyrightString;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 
 #endif /* not REPORTVERSION_H_ */

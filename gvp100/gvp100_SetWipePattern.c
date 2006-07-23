@@ -54,7 +54,7 @@ Pvoid cmd_SetWipePattern
     };
  #define NUM_VALID_WIPE  (sizeof(validControl) / sizeof(*validControl))
 
-    for (short ii = 0; ii < NUM_VALID_WIPE; ii++)
+    for (short ii = 0; ii < NUM_VALID_WIPE; ++ii)
     {
       if (number == validControl[ii])
         break;

@@ -40,7 +40,7 @@
 #include "Common_HIDX.h"
 #include "loadOtherSegments.h"
 
-#if (! defined(COMPILE_FOR_CATS)) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OS9_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ addButtons ---*/
 static void addButtons
 	(HIDDeviceDataStruct &	thisDevice,
@@ -50,7 +50,7 @@ static void addButtons
 {
 	HIDButtonCapsPtr	capsWalker = allCaps;
 	
-	for (UInt32	ii = 0; ii < capCount; ii++, capsWalker++)
+	for (UInt32	ii = 0; ii < capCount; ++ii, ++capsWalker)
 	{
 		if (capsWalker->isRange)
 			continue;
@@ -78,23 +78,23 @@ static void addButtons
 							case kHIDUsage_GD_Rx:
 							case kHIDUsage_GD_Ry:
 							case kHIDUsage_GD_Rz:
-								thisDevice.fAxisCount++;
+								++thisDevice.fAxisCount;
 								break;
 							
 							case kHIDUsage_GD_Slider:
-								thisDevice.fSliderCount++;
+								++thisDevice.fSliderCount;
 								break;
 							
 							case kHIDUsage_GD_Dial:
-								thisDevice.fDialCount++;
+								++thisDevice.fDialCount;
 								break;
 							
 							case kHIDUsage_GD_Wheel:
-								thisDevice.fWheelCount++;
+								++thisDevice.fWheelCount;
 								break;
 								
 							case kHIDUsage_GD_Hatswitch:
-								thisDevice.fHatCount++;
+								++thisDevice.fHatCount;
 								break;
 							
 						}
@@ -102,7 +102,7 @@ static void addButtons
 					break;
 
 				case kHIDPage_Button:
-					thisDevice.fButtonCount++;
+					++thisDevice.fButtonCount;
 					break;
 					
 			}
@@ -112,28 +112,27 @@ static void addButtons
 				case kIOHIDElementTypeInput_Button:
 				case kIOHIDElementTypeInput_Axis:
 				case kIOHIDElementTypeInput_ScanCodes:
-					thisDevice.fInputCount++;
+					++thisDevice.fInputCount;
 					break;
 
 				case kIOHIDElementTypeOutput:
-					thisDevice.fOutputCount++;
+					++thisDevice.fOutputCount;
 					break;
 
 				case kIOHIDElementTypeFeature:
-					thisDevice.fFeatureCount++;
+					++thisDevice.fFeatureCount;
 					break;
 
 			}
 			// Locate parent:
 			HIDElementDataPtr	parent = thisDevice.fFirstElement;
 			
-			while (parent)
+			for ( ; parent; parent = parent->fNext)
 			{
 				if ((parent->fUsage == capsWalker->collectionUsage) &&
 						(parent->fUsagePage == capsWalker->collectionUsagePage))
 					break;
 				
-				parent = parent->fNext;
 			}
 			if (parent)
 			{
@@ -142,7 +141,7 @@ static void addButtons
 				{
 					HIDElementDataPtr	lastChild = parent->fChild;
 					
-					while (lastChild->fNextSibling)
+					for ( ; lastChild->fNextSibling; )
 						lastChild = lastChild->fNextSibling;
 					lastChild->fNextSibling = newElement;
 					newElement->fPreviousSibling = lastChild;
@@ -162,9 +161,9 @@ static void addButtons
 		}
 	}
 } /* addButtons */
-#endif /* not COMPILE_FOR_CATS and not COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OS9_4 and not COMPILE_FOR_STUB */
 
-#if (! defined(COMPILE_FOR_CATS)) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OS9_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ addValueElements ---*/
 static void addValueElements
 	(HIDDeviceDataStruct &	thisDevice,
@@ -174,7 +173,7 @@ static void addValueElements
 {
 	HIDValueCapsPtr	capsWalker = allCaps;
 	
-	for (UInt32	ii = 0; ii < capCount; ii++, capsWalker++)
+	for (UInt32	ii = 0; ii < capCount; ++ii, ++capsWalker)
 	{
 		if (capsWalker->isRange)
 			continue;
@@ -203,23 +202,23 @@ static void addValueElements
 							case kHIDUsage_GD_Rx:
 							case kHIDUsage_GD_Ry:
 							case kHIDUsage_GD_Rz:
-								thisDevice.fAxisCount++;
+								++thisDevice.fAxisCount;
 								break;
 							
 							case kHIDUsage_GD_Slider:
-								thisDevice.fSliderCount++;
+								++thisDevice.fSliderCount;
 								break;
 							
 							case kHIDUsage_GD_Dial:
-								thisDevice.fDialCount++;
+								++thisDevice.fDialCount;
 								break;
 							
 							case kHIDUsage_GD_Wheel:
-								thisDevice.fWheelCount++;
+								++thisDevice.fWheelCount;
 								break;
 								
 							case kHIDUsage_GD_Hatswitch:
-								thisDevice.fHatCount++;
+								++thisDevice.fHatCount;
 								break;
 							
 						}
@@ -227,35 +226,34 @@ static void addValueElements
 					break;
 
 				case kHIDPage_Button:
-					thisDevice.fButtonCount++;
+					++thisDevice.fButtonCount;
 					break;
 					
 			}
 			switch (kind)
 			{
 				case kIOHIDElementTypeInput_Misc:
-					thisDevice.fInputCount++;
+					++thisDevice.fInputCount;
 					break;
 
 				case kIOHIDElementTypeOutput:
-					thisDevice.fOutputCount++;
+					++thisDevice.fOutputCount;
 					break;
 
 				case kIOHIDElementTypeFeature:
-					thisDevice.fFeatureCount++;
+					++thisDevice.fFeatureCount;
 					break;
 
 			}
 			// Locate parent:
 			HIDElementDataPtr	parent = thisDevice.fFirstElement;
 			
-			while (parent)
+			for ( ; parent; parent = parent->fNext)
 			{
 				if ((parent->fUsage == capsWalker->collectionUsage) &&
 						(parent->fUsagePage == capsWalker->collectionUsagePage))
 					break;
 				
-				parent = parent->fNext;
 			}
 			if (parent)
 			{
@@ -264,7 +262,7 @@ static void addValueElements
 				{
 					HIDElementDataPtr	lastChild = parent->fChild;
 					
-					while (lastChild->fNextSibling)
+					for ( ; lastChild->fNextSibling; )
 						lastChild = lastChild->fNextSibling;
 					lastChild->fNextSibling = newElement;
 					newElement->fPreviousSibling = lastChild;
@@ -284,9 +282,9 @@ static void addValueElements
 		}
 	}
 } /* addValueElements */
-#endif /* not COMPILE_FOR_CATS and not COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OS9_4 and not COMPILE_FOR_STUB */
 
-#if (! defined(COMPILE_FOR_CATS)) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OS9_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ assembleSerialNumber ---*/
 static void assembleSerialNumber
 	(Pvoid		inHIDReport,
@@ -305,16 +303,16 @@ static void assembleSerialNumber
 
 		*buffer = '_';
 		*(buffer + shortLength - 1) = 0;
-		for (UInt32 ii = 1, jj = 1; ii < inHIDReportLength; jj++, ii += 2)
+		for (UInt32 ii = 1, jj = 1; ii < inHIDReportLength; ++jj, ii += 2)
 			// ignore the first byte of each pair
 			*(buffer + jj) = *(walker + ii);
 		thisDevice->fSerialNumber = gensym(buffer);
 		FREEBYTES(buffer, shortLength);
 	}
 } /* assembleSerialNumber */
-#endif /* not COMPILE_FOR_CATS and not COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OS9_4 and not COMPILE_FOR_STUB */
 
-#if defined(COMPILE_FOR_CATS) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OSX_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ gatherHIDElementInfo ---*/
 static void gatherHIDElementInfo
 	(CFDictionaryRef				refElement,
@@ -346,9 +344,9 @@ static void gatherHIDElementInfo
 		CFNumberGetValue(reinterpret_cast<CFNumberRef>(refType), kCFNumberLongType,
 											&thisElement.fSize);
 } /* gatherHIDElementInfo */
-#endif /* COMPILE_FOR_CATS and not COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and not COMPILE_FOR_STUB */
 
-#if defined(COMPILE_FOR_CATS) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OSX_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ collectHIDElements ---*/
 static void collectHIDElements
 	(CFTypeRef							thisValue,
@@ -362,7 +360,7 @@ static void collectHIDElements
 		CFIndex						upperBound = CFArrayGetCount(thisArray);
 		HIDElementDataPtr	prevElement = NULL_PTR;
 		
-		for (CFIndex item = 0; item < upperBound; item++)
+		for (CFIndex item = 0; item < upperBound; ++item)
 		{
 			const void *	element = CFArrayGetValueAtIndex(thisArray, item);
 			
@@ -401,23 +399,23 @@ static void collectHIDElements
 										case kHIDUsage_GD_Rx:
 										case kHIDUsage_GD_Ry:
 										case kHIDUsage_GD_Rz:
-											thisDevice.fAxisCount++;
+											++thisDevice.fAxisCount;
 											break;
 										
 										case kHIDUsage_GD_Slider:
-											thisDevice.fSliderCount++;
+											++thisDevice.fSliderCount;
 											break;
 										
 										case kHIDUsage_GD_Dial:
-											thisDevice.fDialCount++;
+											++thisDevice.fDialCount;
 											break;
 										
 										case kHIDUsage_GD_Wheel:
-											thisDevice.fWheelCount++;
+											++thisDevice.fWheelCount;
 											break;
 											
 										case kHIDUsage_GD_Hatswitch:
-											thisDevice.fHatCount++;
+											++thisDevice.fHatCount;
 											break;
 										
 									}
@@ -425,7 +423,7 @@ static void collectHIDElements
 								break;
 
 							case kHIDPage_Button:
-								thisDevice.fButtonCount++;
+								++thisDevice.fButtonCount;
 								break;
 								
 						}
@@ -441,26 +439,26 @@ static void collectHIDElements
 					newElement->fUsagePage = usagePage;
 					newElement->fDepth = depth;
 					gatherHIDElementInfo(refElement, *newElement);
-					thisDevice.fElementCount++;
+					++thisDevice.fElementCount;
 					switch (elementType)
 					{
 						case kIOHIDElementTypeInput_Misc:
 						case kIOHIDElementTypeInput_Button:
 						case kIOHIDElementTypeInput_Axis:
 						case kIOHIDElementTypeInput_ScanCodes:
-							thisDevice.fInputCount++;
+							++thisDevice.fInputCount;
 							break;
 
 						case kIOHIDElementTypeOutput:
-							thisDevice.fOutputCount++;
+							++thisDevice.fOutputCount;
 							break;
 
 						case kIOHIDElementTypeFeature:
-							thisDevice.fFeatureCount++;
+							++thisDevice.fFeatureCount;
 							break;
 
 						case kIOHIDElementTypeCollection:
-							thisDevice.fCollectionCount++;
+							++thisDevice.fCollectionCount;
 							break;
 
 					}
@@ -488,9 +486,9 @@ static void collectHIDElements
 		}
 	}
 } /* collectHIDElements */
-#endif /* COMPILE_FOR_CATS and not COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and not COMPILE_FOR_STUB */
 	
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ initHIDDeviceData ---*/
 bool initHIDDeviceData
 	(Pchar										name,
@@ -595,7 +593,9 @@ bool initHIDDeviceData
 	return okSoFar;	
  #endif /* not COMPILE_FOR_STUB */
 } /* initHIDDeviceData */
-#else /* not COMPILE_FOR_CATS */	 	 
+#endif /* COMPILE_FOR_OSX_4 */
+
+#if defined(COMPILE_FOR_OS9_4)	 
 /*------------------------------------ initHIDDeviceData ---*/
 bool initHIDDeviceData
 	(Pchar											name,
@@ -691,7 +691,7 @@ bool initHIDDeviceData
 					{
 						HIDCollectionNodePtr	collWalker = collection;
 						
-						for (UInt32 ii = 1; ii <= numCollNodes; ii++, collWalker++)
+						for (UInt32 ii = 1; ii <= numCollNodes; ++ii, ++collWalker)
 						{
 							// Check for a valid collection:
 							if (collWalker->collectionUsage && collWalker->collectionUsagePage)
@@ -709,12 +709,11 @@ bool initHIDDeviceData
 									// Locate parent:
 									HIDElementDataPtr	parent = thisDevice.fFirstElement;
 									
-									while (parent)
+									for ( ; parent; parent = parent->fNext)
 									{
 										if (parent->fCookie == reinterpret_cast<IOHIDElementCookie>(collWalker->parent))
 											break;
 										
-										parent = parent->fNext;
 									}
 									if (parent)
 									{
@@ -723,7 +722,7 @@ bool initHIDDeviceData
 										{
 											HIDElementDataPtr	lastChild = parent->fChild;
 											
-											while (lastChild->fNextSibling)
+											for ( ; lastChild->fNextSibling; )
 												lastChild = lastChild->fNextSibling;
 											lastChild->fNextSibling = newElement;
 											newElement->fPreviousSibling = lastChild;
@@ -819,7 +818,7 @@ bool initHIDDeviceData
 #if 0
 						// do something...
 LOG_POST_1("buttons:")//!!
-						for (UInt32 ii = 0; ii < numButtonCaps; ii++)
+						for (UInt32 ii = 0; ii < numButtonCaps; ++ii)
 						{
 							HIDButtonCapsPtr	thisButton = allButtons + ii;
 							
@@ -846,7 +845,7 @@ LOG_POST_2("    collectionUsagePage: %d", thisButton->collectionUsagePage)//!!
 	return okSoFar;
  #endif /* not COMPILE_FOR_STUB */
 } /* initHIDDeviceData */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
 #if defined(COMPILE_FOR_STUB)
  #pragma export list initHIDDeviceData

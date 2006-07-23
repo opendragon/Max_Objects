@@ -47,7 +47,7 @@ bool checkInput
 {
   bool  okSoFar = true;
 
-  for (short ii = 0; okSoFar && (ii < argc); ii++)
+  for (short ii = 0; okSoFar && (ii < argc); ++ii)
   {
     switch (argv[ii].a_type)
     {
@@ -96,7 +96,7 @@ bool isSeparator
 	(VObjectPtr	xx,
 	 const long	value)
 {
-	for (short index = 0; index < xx->fHowMany; index++)
+	for (short index = 0; index < xx->fHowMany; ++index)
 	{
 		if (xx->fSeparators[index] == value)
 			return true;
@@ -152,7 +152,7 @@ bool setupSeparators
 	    return false;
 	    
 	}
-	for (short index = 0; index < numSeps; index++)
+	for (short index = 0; index < numSeps; ++index)
 	{
 	  if (xx->fSeparators[index] == 0)
 	    return false;

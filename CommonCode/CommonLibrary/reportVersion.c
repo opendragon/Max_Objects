@@ -39,11 +39,12 @@
 
 #include "reportVersion.h"
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 char		gCopyrightString[256];
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 Str255	gCopyrightString;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
 /*------------------------------------ reportVersion ---*/
 ulong reportVersion
@@ -60,33 +61,36 @@ ulong reportVersion
 	int								shortLength, longLength;
 	Ptr								longVersion;
  
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 	gCopyrightString[0] = '\0';
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
  	memcpy(gCopyrightString, "", 1);
     P2CStr(reinterpret_cast<Puchar>(&gCopyrightString));
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 	if (maxVers > 0)
 		theVers = reinterpret_cast<VersRecHndl>(Get1Resource('vers', 1));
   if (theVers && (! ResError()) && (! MemError()))
   {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 		char		tempString[256];
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
 		Str255	tempString;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 
     shortLength = StrLength((*theVers)->shortVersion);
     longVersion = reinterpret_cast<Ptr>(&(*theVers)->shortVersion) + shortLength + 1;
     longLength = StrLength(reinterpret_cast<Puchar>(longVersion));
     variant.parts = (*theVers)->numericVersion;
     versNumber = variant.whole;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     CopyPascalStringToC(reinterpret_cast<ConstStr255Param>(longVersion), tempString);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     memcpy(tempString, longVersion, static_cast<ulong>(longLength + 1));
     P2CStr(reinterpret_cast<Puchar>(&tempString));
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
     short	major = variant.parts.majorRev;
     short	minorAndBug = variant.parts.minorAndBugRev;
     short	minor = short(minorAndBug >> 4);
@@ -117,9 +121,9 @@ ulong reportVersion
       post("%s %hd.%hd.%hd %s", name, major, minor, bug, tempString);
     else
       post("%s %hd.%hd.%hd%s%hd %s", name, major, minor, bug, stage, nRR, tempString);
- #if (! defined(COMPILE_FOR_CATS))
+ #if defined(COMPILE_FOR_OS9_4)
     C2PStr(reinterpret_cast<Ptr>(&tempString));
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
     ReleaseResource(reinterpret_cast<Handle>(theVers));
     theVers = NULL_HDL;
   }
@@ -130,12 +134,13 @@ ulong reportVersion
     shortLength = StrLength((*theVers)->shortVersion);
     longVersion = reinterpret_cast<Ptr>(&(*theVers)->shortVersion) + shortLength + 1;
     longLength = StrLength(reinterpret_cast<Puchar>(longVersion));
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     CopyPascalStringToC(reinterpret_cast<ConstStr255Param>(longVersion), gCopyrightString);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     memcpy(gCopyrightString, longVersion, static_cast<ulong>(longLength + 1));
     P2CStr(reinterpret_cast<Puchar>(&gCopyrightString));
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
     post("%s", gCopyrightString);
     ReleaseResource(reinterpret_cast<Handle>(theVers));
   }

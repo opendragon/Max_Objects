@@ -41,7 +41,7 @@
 #include "Common_HIDXData.h"
 #include "loadOtherSegments.h"
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ closeHIDDevice ---*/
 IOReturn closeHIDDevice
 	(IOHIDDeviceInterface * *	theInterface)
@@ -57,8 +57,8 @@ IOReturn closeHIDDevice
 	return pFhidDeviceClose(theInterface);
  #endif /* not COMPILE_FOR_STUB */
 } /* closeHIDDevice */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS) && defined(COMPILE_FOR_STUB)
+#if defined(COMPILE_FOR_OSX_4) && defined(COMPILE_FOR_STUB)
  #pragma export list closeHIDDevice
-#endif /* COMPILE_FOR_CATS and COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and COMPILE_FOR_STUB */

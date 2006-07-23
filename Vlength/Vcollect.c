@@ -136,7 +136,7 @@ Pvoid VcollectFree
       xx->fTotalAtoms = xx->fAtomsInLastChunk = 0;
     }
     /* And, finally, return the free list to the system: */
-    while (xx->fFreeChunks)
+    for ( ; xx->fFreeChunks; )
     {
       CollectChunkPtr  next = xx->fFreeChunks->fNext;
 
@@ -175,7 +175,7 @@ void collectAddAtoms
       short           offset = 0, thisMove, workingCount = count;
       CollectChunkPtr outWalk = xx->fLastChunk;
 
-      while (workingCount > 0)
+      for ( ; workingCount > 0; )
       {
         if ((lastCount + workingCount) <= CHUNK_SIZE)
         {

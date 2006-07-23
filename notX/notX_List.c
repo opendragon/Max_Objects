@@ -60,7 +60,7 @@ Pvoid cmd_List
         short  badArgs = 0;
 
         memcpy(newArg, argv, argc * sizeof(Atom));
-        for (short ii = 0; ii < argc; ii++)
+        for (short ii = 0; ii < argc; ++ii)
         {
           switch (argv[ii].a_type)
           {
@@ -69,7 +69,7 @@ Pvoid cmd_List
               break;
 
             case A_SYM:
-              badArgs++;
+              ++badArgs;
               break;
 
             case A_FLOAT:
@@ -77,7 +77,7 @@ Pvoid cmd_List
               break;
 
             default:
-              badArgs++;
+            	++badArgs;
               break;
 
           }
@@ -85,7 +85,7 @@ Pvoid cmd_List
         if (badArgs)
         {
           if (badArgs == 1)
-            LOG_ERROR_1(OUTPUT_PREFIX "Non-numeric elements in list")
+            LOG_ERROR_1(OUTPUT_PREFIX "Non-numeric element in list")
           else
             LOG_ERROR_1(OUTPUT_PREFIX "More than one non-numeric elements in list")
         }

@@ -136,7 +136,7 @@ static bool tcpMultiServerConstructConnections
   a_connection = *xx->fConnectionBase;
   memset(xx->fConnections, 0, xx->fMaximumConnections * sizeof(TcpConnectionPtr));
   memset(*xx->fConnectionBase, 0, sizeof(TcpConnectionData) * xx->fMaximumConnections);
-  for (ushort ii = 0; okSoFar && (ii < xx->fMaximumConnections); ii++)
+  for (ushort ii = 0; okSoFar && (ii < xx->fMaximumConnections); ++ii)
   {
     *ptr_walker++ = a_connection;
     a_connection->fDataEndpoint = kOTInvalidEndpointRef;
@@ -154,12 +154,13 @@ static bool tcpMultiServerConstructConnections
       okSoFar = false;
     if (okSoFar)
     {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
       a_connection->fDataEndpoint = OTOpenEndpointInContext(a_config, 0, &info, &result,
                                                             xx->fAccessControl->fContext);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
       a_connection->fDataEndpoint = OTOpenEndpoint(a_config, 0, &info, &result);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
       if (result == kOTNoError)
         a_connection->fServiceType = info.servtype;
       else
@@ -192,15 +193,16 @@ static bool tcpMultiServerConstructConnections
     }
     if (okSoFar)
     {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
       WRAP_OT_CALL(xx, result, "OTInstallNotifier",
                     OTInstallNotifier(a_connection->fDataEndpoint,
                                       xx->fDataNotifier, a_connection))
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
       WRAP_OT_CALL(xx, result, "OTInstallNotifier",
                     OTInstallNotifier(a_connection->fDataEndpoint,
                                       tcpMultiServerDataNotifier, a_connection))
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTInstallNotifier failed (%ld = %s)", result)
@@ -276,10 +278,10 @@ Pvoid tcpMultiServerCreate
       }
     }
 #if OPEN_TRANSPORT_SUPPORTED
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     xx->fDataNotifier = NewOTNotifyUPP(tcpMultiServerDataNotifier);
     xx->fListenNotifier = NewOTNotifyUPP(tcpMultiServerListenNotifier);
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
     if (okSoFar)
     {
       xx->fAccessControl = acquireOpenTransport(OUR_NAME, static_cast<ushort>(port), true);
@@ -302,12 +304,13 @@ Pvoid tcpMultiServerCreate
     {
       TEndpointInfo info;
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
       xx->fListenEndpoint = OTOpenEndpointInContext(this_config, 0, &info, &result,
                                                       xx->fAccessControl->fContext);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
       xx->fListenEndpoint = OTOpenEndpoint(this_config, 0, &info, &result);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
       if (result == kOTNoError)
       {
         xx->fServiceType = info.servtype;
@@ -356,15 +359,16 @@ Pvoid tcpMultiServerCreate
     }
     if (okSoFar)
     {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
       WRAP_OT_CALL(xx, result, "OTInstallNotifier",
                     OTInstallNotifier(xx->fListenEndpoint, xx->fListenNotifier,
                                       xx))
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
       WRAP_OT_CALL(xx, result, "OTInstallNotifier",
                     OTInstallNotifier(xx->fListenEndpoint, tcpMultiServerListenNotifier,
                                       xx))
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTInstallNotifier failed (%ld = %s)", result)
@@ -400,7 +404,7 @@ Pvoid tcpMultiServerFree
 
     xx->fClosing = true;
     // Close off all other connections:
-    for (ushort ii = 0; ii < xx->fMaximumConnections; ii++)
+    for (ushort ii = 0; ii < xx->fMaximumConnections; ++ii)
     {
       connection = *(xx->fConnections + ii);
       if (connection && (connection->fDataEndpoint != kOTInvalidEndpointRef) &&
@@ -441,10 +445,10 @@ Pvoid tcpMultiServerFree
 
       }
     }
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     DisposeOTNotifyUPP(xx->fDataNotifier);
     DisposeOTNotifyUPP(xx->fListenNotifier);
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 #endif /* OPEN_TRANSPORT_SUPPORTED */
     releaseObjectMemory(xx);
 #if OPEN_TRANSPORT_SUPPORTED

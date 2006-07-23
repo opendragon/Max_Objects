@@ -69,15 +69,15 @@ Pvoid cmd_Push
           if (temp)
           {                       
             newTop->fOutput = temp;
-            for (short ii = 0; ii < argc; ii++)
-              *temp++ = argv[ii];
+            for (short ii = 0; ii < argc; ++ii, ++temp)
+              *temp = argv[ii];
           }
           else
           {
             newTop->fOutput = NULL_PTR;
             LOG_ERROR_1(OUTPUT_PREFIX "problem allocating memory for stack element")
           }
-          descriptor->fDepth++;
+          ++descriptor->fDepth;
           descriptor->fTopOfStack = newTop;
         }
         else

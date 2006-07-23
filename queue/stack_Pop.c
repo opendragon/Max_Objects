@@ -59,7 +59,7 @@ Pvoid cmd_Pop
         descriptor->fTopOfStack = top->fNext;
         FREEBYTES(top->fOutput, top->fOutputCount)
         FREEBYTES(top, 1)
-        descriptor->fDepth--;
+        --descriptor->fDepth;
       }
       else
         LOG_ERROR_1(OUTPUT_PREFIX "attempt to pop empty stack")

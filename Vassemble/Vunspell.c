@@ -159,15 +159,13 @@ void processInput
 
 			if (accumulator && rawData)
 			{
-        short     offset = 0;
-        ChunkPtr  iWalker = xx->fChunkList;
-        Pchar			temp = *rawData;
+        short	offset = 0;
+        Pchar	temp = *rawData;
         
-        while (iWalker)
+        for (ChunkPtr iWalker = xx->fChunkList; iWalker; iWalker = iWalker->fNext)
         {
-          for (short index = 0; index < iWalker->fLastEntry; index++, offset++)
+          for (short index = 0; index < iWalker->fLastEntry; ++index, ++offset)
             *(temp + offset) = char(iWalker->fData[index]);
-          iWalker = iWalker->fNext;
         }
         atombuf_text(&accumulator, rawData, xx->fPreviousLength);
         if (accumulator->a_argc)
@@ -206,7 +204,7 @@ void processInput
       workChunk->fData[index] = value;
       workChunk->fLastEntry = short(index + 1);
     } 
-    xx->fPreviousLength++;
+    ++xx->fPreviousLength;
   }
   else
   {

@@ -46,7 +46,7 @@ Pvoid cmd_Unmute
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       static uchar unmuteCommand[] = { RCX_UNMUTE_SOUND_CMD };
@@ -59,7 +59,7 @@ Pvoid cmd_Unmute
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_Unmute */

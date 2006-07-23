@@ -62,7 +62,7 @@ Pvoid cmd_List
         Pchar oldWord, newWord;
 
         memcpy(newArg, argv, argc * sizeof(Atom));
-        for (short ii = 0; ii < argc; ii++)
+        for (short ii = 0; ii < argc; ++ii)
         {
           if (newArg[ii].a_type == A_SYM)
           {

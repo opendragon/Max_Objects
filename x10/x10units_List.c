@@ -52,7 +52,7 @@ Pvoid cmd_List
   bool   okSoFar = true;
 
   EnterCallback();
-  for (short ii = 0; okSoFar && (ii < argc); ii++)
+  for (short ii = 0; okSoFar && (ii < argc); ++ii)
   {
     switch (argv[ii].a_type)
     {

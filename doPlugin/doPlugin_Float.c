@@ -44,31 +44,32 @@ Pvoid cmd_Float
   (DoPluginPtr xx,
    double      message)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #pragma unused(message)
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     PluginDescriptorPtr descriptor = xx->fActivePlugin;
 
     if (descriptor)
     {
-#if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
       OSErr myErr = reinterpret_cast<FpDoDouble>(descriptor->fDoDoubleFun)
                           (PLUGIN_FIXED_ARGUMENTS, message);
-#else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
       OSErr myErr = static_cast<OSErr>(CallUniversalProc(descriptor->fDoDoubleUpp,
                           uppDoDoubleProcInfo, PLUGIN_FIXED_ARGUMENTS,
                           message));
-#endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 
       if (myErr != noErr)
       {
       }
     }
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_Float */

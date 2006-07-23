@@ -53,7 +53,7 @@ Pvoid cmd_List
     xx->fWorkLength = 0;
     if (CheckInput(OUTPUT_PREFIX, argc, argv))
     {
-      for (short ii = 0; ii < argc; ii++)
+      for (short ii = 0; ii < argc; ++ii)
       {
         convertNumberToList(xx, argv[ii].a_w.w_long);
         if (xx->fWorkLength > 0)

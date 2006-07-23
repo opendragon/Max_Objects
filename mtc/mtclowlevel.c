@@ -39,9 +39,9 @@
 
 #include "mtc.h"
 #include <math.h>
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
  #include "ext_path.h"
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
 #define LINEBUFFER_SIZE     256 /* For buffering from external files */
 #define NEIGHBOUR_FUDGE     1.2 /* Factor to determine neighbours */
@@ -126,12 +126,12 @@ void mtcMoveRawDataFromBuffer
       }
       // Set values from the outValues vector into the set of taxels starting at aTaxel,
       // using the bit fields of inValue.
-      for (short ii = 0, jj = 0; ii < 8; ii++)
+      for (short ii = 0, jj = 0; ii < 8; ++ii)
       {
         if (inMap & (0x0080 >> ii))
         {
           (aTaxel + ii)->fRawData = *(xx->fDataRecovery + outValues[jj]);
-          jj++;
+          ++jj;
         }
         else
           (aTaxel + ii)->fRawData = 0;
@@ -144,7 +144,7 @@ void mtcMoveRawDataFromBuffer
   }
   else
   {
-    for (short taxelNum = 0; taxelNum < xx->fNumTaxels; taxelNum++, aTaxel++, inWalker++)
+    for (short taxelNum = 0; taxelNum < xx->fNumTaxels; ++taxelNum, ++aTaxel, ++inWalker)
       aTaxel->fRawData = *(xx->fDataRecovery + static_cast<uchar>(*inWalker));
   }
 } /* mtcMoveRawDataFromBuffer */
@@ -168,7 +168,7 @@ void mtcProcessTaxels
     short value;
 
     for (taxelNum = 0, aTaxel = *xx->fTaxelMapHandle; taxelNum < xx->fNumTaxels;
-        aTaxel++, taxelNum++)
+        ++aTaxel, ++taxelNum)
     {
       changed = false;
       value = aTaxel->fRawData;
@@ -199,7 +199,7 @@ void mtcProcessTaxels
 
     /* Cook the raw data */
     for (taxelNum = 0, aTaxel = *xx->fTaxelMapHandle; taxelNum < xx->fNumTaxels;
-        aTaxel++, taxelNum++)
+        ++aTaxel, ++taxelNum)
     {
       pressure = aTaxel->fRawData - aTaxel->fRawMin;
       if (pressure <= 0)
@@ -216,27 +216,23 @@ void mtcProcessTaxels
 
       outlet_int(xx->fDataStartStopOut, 1);
       /* Process each row of output */
-      for (short ii = 0; ii < xx->fMaxRow; ii++)
+      for (short ii = 0; ii < xx->fMaxRow; ++ii)
       {                
-        for (short jj = 0; jj < xx->fMaxCol; jj++)
-        {
+        for (short jj = 0; jj < xx->fMaxCol; ++jj, ++iWalker, ++oWalker)
           SETFLOAT(oWalker, float((*iWalker)->fPressure));
-          iWalker++;
-          oWalker++;
-        }
       }
       outlet_list(xx->fDataOut, 0L, short(xx->fMaxCol * xx->fMaxRow), xx->fRawRow);
       outlet_int(xx->fDataStartStopOut, 0);
     }
     else
     {
-      while (spotsSeen < xx->fNumSpots)
+      for ( ; spotsSeen < xx->fNumSpots; )
       {
         /* Determine if we have a candidate spot */
         aSpot = NULL_PTR;
         maxPressure = float(-1e6);
         for (taxelNum = 0, aTaxel = *xx->fTaxelMapHandle; taxelNum < xx->fNumTaxels;
-            aTaxel++, taxelNum++)
+            ++aTaxel, ++taxelNum)
         {
           pressure = aTaxel->fPressure;
           if (aTaxel->fBottomTaxel != sentinel)
@@ -311,7 +307,7 @@ void mtcProcessTaxels
           SETFLOAT(&(xx->fSpots + spotsSeen)->fXCoord, float(spotX / divideX));
           SETFLOAT(&(xx->fSpots + spotsSeen)->fYCoord, float(spotY / divideY));
           SETFLOAT(&(xx->fSpots + spotsSeen)->fPressure, float(maxPressure));
-          spotsSeen++;
+          ++spotsSeen;
 
           /* Adjust values to hide the neighbourhood of the spot */
           aSpot->fPressure = 0;
@@ -346,29 +342,30 @@ bool mtcReadMapFile
   Handle	bufferHandle;
   long   	bufferSize;
   Qchar		bufferScan, bufferEnd, bufferLineStart, bufferLineEnd;
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	long		outType, inType = long('TEXT');
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
   if (! strlen(xx->fMapFileName))
     /* No mapping file given. */
     return true; /* ?? */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	if (locatefile_extended(xx->fMapFileName, &xx->fMapFilePath, &outType, &inType, 1))
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   if (locatefiletype(xx->fMapFileName, &xx->fMapFileVolume, long('TEXT'), 0L))
-#endif /* not COMPILE_FOR_CATS */    
+#endif /* COMPILE_FOR_OS9_4 */    
     LOG_ERROR_2(OUTPUT_PREFIX "could not locate mapping file '%s'", xx->fMapFileName)
   else
   {
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
     Str255 tempName;
     FSSpec fileSpec;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
     OSErr  err;
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
     strcpy(reinterpret_cast<Pchar>(tempName), xx->fMapFileName);
     C2PStr(reinterpret_cast<Pchar>(tempName));
     err = FSMakeFSSpec(xx->fMapFileVolume, 0L, tempName, &fileSpec);
@@ -377,18 +374,20 @@ bool mtcReadMapFile
                   long(err))
     else
     {
-#endif /* not COMPILE_FOR_CATS */
-#if defined(COMPILE_FOR_CATS)
+#endif /* COMPILE_FOR_OS9_4 */
+#if defined(COMPILE_FOR_OSX_4)
 			FILE_REF	refNum;
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
       short 		refNum;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 			err = path_openfile(xx->fMapFileName, xx->fMapFilePath, &refNum, READ_PERM); 
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
       err = FSpOpenDF(&fileSpec, fsRdPerm, &refNum);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
       if (err != noErr)
         LOG_ERROR_2(OUTPUT_PREFIX "problem (%ld) opening the mapping file", long(err))
       else
@@ -427,9 +426,9 @@ bool mtcReadMapFile
         if (err != noErr)
           LOG_ERROR_2(OUTPUT_PREFIX "problem (%ld) closing the mapping file", long(err))
       }
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
     }
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
     if (okSoFar)
     {
       char   aChar;
@@ -482,7 +481,7 @@ bool mtcReadMapFile
           /* No control line seen. */
           break;
 
-        lineCount++;
+        ++lineCount;
         bufferLineStart = bufferLineEnd;
       }
       if (okSoFar)
@@ -582,14 +581,14 @@ bool mtcReadMapFile
               aTaxel->fBottomLeftTaxel = aTaxel->fBottomRightTaxel =
                   aTaxel->fTopLeftTaxel = aTaxel->fTopRightTaxel = sentinel;
 #endif /* MTC_USE_CORNERS */
-              aTaxel++;
-              taxelCount++;
+              ++aTaxel;
+              ++taxelCount;
             }
             if (bufferLineEnd == bufferEnd)
               /* Processed last line. */
               break;
 
-            lineCount++;
+            ++lineCount;
             bufferLineStart = bufferLineEnd;
           }
         }
@@ -611,7 +610,7 @@ bool mtcReadMapFile
     {
       xx->fTaxelMatrix = aMatrix;
       xx->fExpectedPackets = short(((xx->fMaxCol * xx->fMaxRow) + 7) / 8);
-      for (long ii = 0; ii < (xx->fMaxRow * xx->fMaxCol); ii++, aMatrix++)
+      for (long ii = 0; ii < (xx->fMaxRow * xx->fMaxCol); ++ii, ++aMatrix)
         *aMatrix = xx->fSentinelTaxel;
     }
     else
@@ -632,44 +631,48 @@ bool mtcReadNormalizationFile
   long    bufferSize;
   OSErr   err;
   Qchar		bufferScan, bufferEnd, bufferLineStart, bufferLineEnd;
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	long		outType, inType = long('TEXT');
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   Str255	tempName;
   FSSpec	fileSpec;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
   if (! strlen(xx->fNormalFileName))
     /* No normalization file given. */
     return true; /* ?? */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	err = locatefile_extended(xx->fNormalFileName, &xx->fNormalFilePath,
 														&outType, &inType, 1);
   if (err != noErr)
     LOG_ERROR_2(OUTPUT_PREFIX "could not locate normalization file '%s'",
                 xx->fNormalFileName)
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   strcpy(reinterpret_cast<Pchar>(tempName), xx->fNormalFileName);
   C2PStr(reinterpret_cast<Pchar>(tempName));
   err = FSMakeFSSpec(xx->fMapFileVolume, 0L, tempName, &fileSpec);
   if (err != noErr)
     LOG_ERROR_2(OUTPUT_PREFIX "problem (%ld) building file spec for normalization file",
                 long(err))
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   else
   {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     FILE_REF	refNum;
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     short			refNum;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     err = path_openfile(xx->fNormalFileName, xx->fNormalFilePath, &refNum, READ_PERM);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     err = FSpOpenDF(&fileSpec, fsRdPerm, &refNum);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
     if (err != noErr)
       LOG_ERROR_2(OUTPUT_PREFIX "problem (%ld) opening the normalization file",
                   long(err))
@@ -755,14 +758,14 @@ bool mtcReadNormalizationFile
           break;
 
         }
-        aTaxel++;
-        taxelCount++;
+        ++aTaxel;
+        ++taxelCount;
       }
       if (bufferLineEnd == bufferEnd)
         /* Processed last line. */
         break;
 
-      lineCount++;
+      ++lineCount;
       bufferLineStart = bufferLineEnd;
     }
     HUnlock(bufferHandle);
@@ -777,7 +780,7 @@ void mtcResetNormalization
 {
   MtcTaxelPtr aTaxel = *xx->fTaxelMapHandle;
 
-  for (short taxelCount = 0; taxelCount < xx->fNumTaxels; taxelCount++, aTaxel++)
+  for (short taxelCount = 0; taxelCount < xx->fNumTaxels; ++taxelCount, ++aTaxel)
   {
     aTaxel->fRawMin = MTC_MAX_RAW_PRESSURE;
     aTaxel->fRawMax = MTC_MIN_RAW_PRESSURE;
@@ -795,7 +798,7 @@ void mtcSetupIndices
   MtcTaxelPtr outerTaxel, innerTaxel, candidate, sentinel = xx->fSentinelTaxel;
 
   /* Fill in the data recovery table */
-  for (short ii = 0; ii < 256; ii++)
+  for (short ii = 0; ii < 256; ++ii)
     *(xx->fDataRecovery + ii) = short((ii < 200) ? ii :
                                                   (200 + (((ii - 200) * 823) / 55)));
   if (xx->fMaxCol > 1)
@@ -807,7 +810,7 @@ void mtcSetupIndices
   else
     deltaY = 1; /* for the lack of any better value! */
   for (outerTaxelCount = 0, outerTaxel = *xx->fTaxelMapHandle;
-        outerTaxelCount < xx->fNumTaxels; outerTaxelCount++, outerTaxel++)
+        outerTaxelCount < xx->fNumTaxels; ++outerTaxelCount, ++outerTaxel)
   {
     /* Determine right neighbour */
     candidate = NULL_PTR;
@@ -816,7 +819,7 @@ void mtcSetupIndices
     rightBracket = (deltaX * NEIGHBOUR_FUDGE);
     fudge = (deltaY * NEIGHBOUR_FUDGE / 2);
     for (innerTaxelCount = 0, innerTaxel = *xx->fTaxelMapHandle;
-          innerTaxelCount < xx->fNumTaxels; innerTaxelCount++, innerTaxel++)
+          innerTaxelCount < xx->fNumTaxels; ++innerTaxelCount, ++innerTaxel)
     {
       if (innerTaxel != outerTaxel)
       {
@@ -852,7 +855,7 @@ void mtcSetupIndices
     leftBracket = (deltaX * NEIGHBOUR_FUDGE / 2);
     rightBracket = (deltaX * NEIGHBOUR_FUDGE);
     for (innerTaxelCount = 0, innerTaxel = *xx->fTaxelMapHandle;
-          innerTaxelCount < xx->fNumTaxels; innerTaxelCount++, innerTaxel++)
+          innerTaxelCount < xx->fNumTaxels; ++innerTaxelCount, ++innerTaxel)
     {
       if (innerTaxel != outerTaxel)
       {
@@ -889,7 +892,7 @@ void mtcSetupIndices
     topBracket = (deltaY * NEIGHBOUR_FUDGE);
     fudge = (deltaX * NEIGHBOUR_FUDGE / 2);
     for (innerTaxelCount = 0, innerTaxel = *xx->fTaxelMapHandle;
-          innerTaxelCount < xx->fNumTaxels; innerTaxelCount++, innerTaxel++)
+          innerTaxelCount < xx->fNumTaxels; ++innerTaxelCount, ++innerTaxel)
     {
       if (innerTaxel != outerTaxel)
       {
@@ -926,7 +929,7 @@ void mtcSetupIndices
     topBracket = (deltaY * NEIGHBOUR_FUDGE);
     fudge = (deltaX * NEIGHBOUR_FUDGE / 2);
     for (innerTaxelCount = 0, innerTaxel = *xx->fTaxelMapHandle;
-          innerTaxelCount < xx->fNumTaxels; innerTaxelCount++, innerTaxel++)
+          innerTaxelCount < xx->fNumTaxels; ++innerTaxelCount, ++innerTaxel)
     {
       if (innerTaxel != outerTaxel)
       {
@@ -960,7 +963,7 @@ void mtcSetupIndices
 #if defined(MTC_USE_CORNERS)
   /* Set up diagonal indices */
   for (outerTaxelCount = 0, outerTaxel = *xx->fTaxelMapHandle;
-        outerTaxelCount < xx->fNumTaxels; outerTaxelCount++, outerTaxel++)
+        outerTaxelCount < xx->fNumTaxels; ++outerTaxelCount, ++outerTaxel)
   {
     /* Note that we are taking advantage of two facts: */
     /* All pointer fields in an MtcTaxelDesc record are initialized to the sentinel */
@@ -975,7 +978,7 @@ void mtcSetupIndices
 #endif /* MTC_USE_CORNERS */
   /* Build the pointer matrix */
   for (outerTaxelCount = 0, outerTaxel = *xx->fTaxelMapHandle;
-        outerTaxelCount < xx->fNumTaxels; outerTaxelCount++, outerTaxel++)
+        outerTaxelCount < xx->fNumTaxels; ++outerTaxelCount, ++outerTaxel)
     *(xx->fTaxelMatrix + (((outerTaxel->fYIndex - 1) * xx->fMaxCol) +
         outerTaxel->fXIndex - 1)) = outerTaxel;
 } /* mtcSetupIndices */
@@ -986,18 +989,16 @@ static void mtcSortByPressure
    const short	numSpots)
 {
   /* Note that we are guaranteed that the Atoms are all float values. */
-  bool didSwap = true;
-
-  while (didSwap)
+  for (bool didSwap = true; didSwap; )
   {
     didSwap = false;
-    for (short ii = 0; ii < numSpots; ii++)
+    for (short ii = 0; ii < numSpots; ++ii)
     {
       bool       swappedII = false;
       MtcSpotPtr atomII = spots + ii;
       float      iiValue = atomII->fPressure.a_w.w_float;
 
-      for (short jj = short(ii + 1); jj < numSpots; jj++)
+      for (short jj = short(ii + 1); jj < numSpots; ++jj)
       {
         MtcSpotPtr atomJJ = spots + jj;
 
@@ -1024,18 +1025,16 @@ static void mtcSortByX
    const short	numSpots)
 {
   /* Note that we are guaranteed that the Atoms are all float values. */
-  bool didSwap = true;
-
-  while (didSwap)
+  for (bool didSwap = true; didSwap; )
   {
     didSwap = false;
-    for (short ii = 0; ii < numSpots; ii++)
+    for (short ii = 0; ii < numSpots; ++ii)
     {
       bool       swappedII = false;
       MtcSpotPtr atomII = spots + ii;
       float      iiValue = atomII->fXCoord.a_w.w_float;
 
-      for (short jj = short(ii + 1); jj < numSpots; jj++)
+      for (short jj = short(ii + 1); jj < numSpots; ++jj)
       {
         MtcSpotPtr atomJJ = spots + jj;
 
@@ -1051,7 +1050,7 @@ static void mtcSortByX
         }
       }
       if (swappedII)
-      didSwap = true;
+      	didSwap = true;
     }
   }   
 } /* mtcSortByX */
@@ -1062,18 +1061,16 @@ static void mtcSortByY
    const short	numSpots)
 {
   /* Note that we are guaranteed that the Atoms are all float values. */
-  bool didSwap = true;
-
-  while (didSwap)
+  for (bool didSwap = true; didSwap; )
   {
     didSwap = false;
-    for (short ii = 0; ii < numSpots; ii++)
+    for (short ii = 0; ii < numSpots; ++ii)
     {
       bool       swappedII = false;
       MtcSpotPtr atomII = spots + ii;
       float      iiValue = atomII->fYCoord.a_w.w_float;
 
-      for (short jj = short(ii + 1); jj < numSpots; jj++)
+      for (short jj = short(ii + 1); jj < numSpots; ++jj)
       {
         MtcSpotPtr atomJJ = spots + jj;
 
@@ -1124,42 +1121,46 @@ bool mtcWriteNormalizationFile
   bool		okSoFar = false;
   OSErr		err;
   char		lineBuffer[LINEBUFFER_SIZE + 1];    /* Use for scan processing. */
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	long		outType, inType = long('TEXT');
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   Str255	tempName;
   FSSpec	fileSpec;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
   strcpy(reinterpret_cast<Pchar>(tempName), xx->fNormalFileName);
   C2PStr(reinterpret_cast<Pchar>(tempName));
-#endif /* not COMPILE_FOR_CATS */
-#if defined(COMPILE_FOR_CATS)
+#endif /* COMPILE_FOR_OS9_4 */
+#if defined(COMPILE_FOR_OSX_4)
 	err = locatefile_extended(xx->fNormalFileName, &xx->fNormalFilePath,
 														&outType, &inType, 1); 
   if (err != noErr)
     LOG_ERROR_2(OUTPUT_PREFIX "could not locate normalization file '%s'",
                 xx->fNormalFileName)
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   err = FSMakeFSSpec(xx->fMapFileVolume, 0L, tempName, &fileSpec);
   if (err != noErr)
     LOG_ERROR_2(OUTPUT_PREFIX "problem (%ld) building file spec for normalization file",
                 long(err))
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   else
   {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     FILE_REF	refNum;
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     short			refNum;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 		err = path_openfile(xx->fNormalFileName, xx->fNormalFilePath, &refNum, WRITE_PERM);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     err = FSpOpenDF(&fileSpec, fsWrPerm, &refNum);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
     if (err != noErr)
       LOG_ERROR_2(OUTPUT_PREFIX "problem (%ld) opening the normalization file",
                   long(err))
@@ -1170,7 +1171,7 @@ bool mtcWriteNormalizationFile
 
       okSoFar = true;
       aTaxel = *xx->fTaxelMapHandle;
-      for (short taxelCount = 0; taxelCount < xx->fNumTaxels; taxelCount++)
+      for (short taxelCount = 0; taxelCount < xx->fNumTaxels; ++taxelCount, ++aTaxel)
       {
         sprintf(lineBuffer, " %hd %lf\r", aTaxel->fRawMin, aTaxel->fScale);
         count = long(strlen(lineBuffer));
@@ -1183,7 +1184,6 @@ bool mtcWriteNormalizationFile
           break;
 
         }
-        aTaxel++;
       }
       /* Truncate the file. */
       if (okSoFar)

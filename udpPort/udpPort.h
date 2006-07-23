@@ -117,9 +117,9 @@ struct UdpObjectData
   bool								fPartnerKnown;								
   bool								fRawMode;
   bool								fVerbose;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   OTNotifyUPP					fDataNotifier;
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 }; /* UdpObjectData */
 
 typedef UdpObjectData * UdpObjectPtr;

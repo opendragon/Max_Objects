@@ -46,7 +46,7 @@ Pvoid cmd_GetSlot
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       long slot;
@@ -64,7 +64,7 @@ Pvoid cmd_GetSlot
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_GetSlot */

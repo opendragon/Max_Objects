@@ -39,7 +39,7 @@
 
 #include "loadOtherSegments.h"
 
-#if defined(COMPILE_FOR_CATS) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OSX_4) && (! defined(COMPILE_FOR_STUB))
 // The following code is courtesy of Apple:
 static UInt32	lSpringboard[] =
 {
@@ -50,9 +50,9 @@ static UInt32	lSpringboard[] =
 	0x7C0903A6,	//	mtctr	r0			{move to Count Register}
 	0x4E800420	//	bcctr	0x14, 0 {branch unconditionally to Count Register}
 };
-#endif /* COMPILE_FOR_CATS and not COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and not COMPILE_FOR_STUB */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ createMachSpringboard ---*/
 Pvoid createMachSpringboard
 	(Pvoid	aFunction)
@@ -71,8 +71,8 @@ Pvoid createMachSpringboard
 	return newSpringboard;
  #endif /* not COMPILE_FOR_STUB */
 } /* createMachSpringBoard */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_STUB) && defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4) && defined(COMPILE_FOR_STUB)
  #pragma export list createMachSpringboard
-#endif /* COMPILE_FOR_CATS and COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and COMPILE_FOR_STUB */

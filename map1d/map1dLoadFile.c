@@ -66,7 +66,7 @@ static bool map1dGetNextAtomInBuffer
   Atom skipper;
   bool result = true;
 
-  while (result)
+  for ( ; result; )
   {
     result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset,
                               &xx->fBufferStuffOffset, value));
@@ -75,7 +75,7 @@ static bool map1dGetNextAtomInBuffer
       if (value->a_w.w_sym->s_name[0] == kCommentCharacter)
       {
         /* skip a comment */
-        while (result)
+        for ( ; result; )
         {
           result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset,
                                     &xx->fBufferStuffOffset, &skipper));
@@ -276,22 +276,22 @@ static bool map1dCollectARange
     /* Collect the output values, terminated by a semicolon: */
     if (result && collector)
     {
-      while (holder.a_type != A_SEMI)
+      for ( ; holder.a_type != A_SEMI; )
       {
         /* We have a value; attach it. */
         binbuf_append(collector, NULL_PTR, 1, &holder);
-        outputCount++;
+        ++outputCount;
         if (holder.a_type == A_SYM)
         {
           if ((holder.a_w.w_sym == gDollarSymbol) ||
               (holder.a_w.w_sym == gDollarXSymbol))
-            dollarsPresent++;
+            ++dollarsPresent;
           else if ((holder.a_w.w_sym == gDoubleDollarSymbol) ||
                   (holder.a_w.w_sym == gDoubleDollarXSymbol))
-            doubleDollarsPresent++;
+            ++doubleDollarsPresent;
         }
         else if (holder.a_type == A_DOLLAR)
-          dollarsPresent++;
+          ++dollarsPresent;
         result = map1dGetNextAtomInBuffer(xx, &holder);
         if (! result)
           break;
@@ -332,7 +332,7 @@ static bool map1dCollectARange
         PAtom vector = GETBYTES(newData->fOutputCount, Atom);
 
         newData->fOutput = vector;
-        for (short ii = 0; ii < newData->fOutputCount; ii++, vector++)
+        for (short ii = 0; ii < newData->fOutputCount; ++ii, ++vector)
         {
           if (binbuf_getatom(collector, &tyOffset, &stOffset, vector))
             break;
@@ -370,9 +370,9 @@ bool map1dLoadRangeList
     map1dClearRangeList(xx);
     xx->fBufferTypeOffset = 0;
     xx->fBufferStuffOffset = 0;
-    while (map1dCollectARange(xx))
+    for ( ; map1dCollectARange(xx); )
     {
-      xx->fRangeCount++;
+      ++xx->fRangeCount;
       if (xx->fVerbose)
         LOG_POST_1(OUTPUT_PREFIX "read range specification")
     }
@@ -400,7 +400,7 @@ static bool map1dGetNextAtomInList
     okSoFar = true;
     result->a_type = A_SEMI;
   }
-  offset++;
+  ++offset;
   return okSoFar;
 } /* map1dGetNextAtomInList */
 
@@ -548,22 +548,22 @@ RangeDataPtr map1dConvertListToRange
     /* Collect the output values, terminated by a semicolon: */
     if (result && collector)
     {
-      while (holder.a_type != A_SEMI)
+      for ( ; holder.a_type != A_SEMI; )
       {
         /* We have a value; attach it. */
         binbuf_append(collector, NULL_PTR, 1, &holder);
-        outputCount++;
+        ++outputCount;
         if (holder.a_type == A_SYM)
         {
           if ((holder.a_w.w_sym == gDollarSymbol) ||
               (holder.a_w.w_sym == gDollarXSymbol))
-            dollarsPresent++;
+            ++dollarsPresent;
           else if ((holder.a_w.w_sym == gDoubleDollarSymbol) ||
                   (holder.a_w.w_sym == gDoubleDollarXSymbol))
-            doubleDollarsPresent++;
+            ++doubleDollarsPresent;
         }
         else if (holder.a_type == A_DOLLAR)
-          dollarsPresent++;
+          ++dollarsPresent;
         result = map1dGetNextAtomInList(nextAtom, numAtoms, inList, &holder);
         if (! result)
           break;
@@ -603,7 +603,7 @@ RangeDataPtr map1dConvertListToRange
         PAtom vector = GETBYTES(newData->fOutputCount, Atom);
 
         newData->fOutput = vector;
-        for (short ii = 0; ii < newData->fOutputCount; ii++, vector++)
+        for (short ii = 0; ii < newData->fOutputCount; ++ii, ++vector)
         {
           if (binbuf_getatom(collector, &tyOffset, &stOffset, vector))
             break;

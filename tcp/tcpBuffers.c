@@ -78,14 +78,14 @@ static bool addSymToBuffer
 	  {
 	    /* A mixed vector, tag needed */
 	    *aBuffer->fNextByteToUse = tag;
-	    aBuffer->fNextByteToUse++;
-	    aBuffer->fNumBytesInUse++;
+	    ++aBuffer->fNextByteToUse;
+	    ++aBuffer->fNumBytesInUse;
 	  }
 	  memcpy(aBuffer->fNextByteToUse, &dummy, sizeof(dummy));
 	  memcpy(aBuffer->fNextByteToUse + sizeof(dummy), aValue->s_name, actLength);
 	  aBuffer->fNextByteToUse += sizeof(dummy) + actLength;
 	  aBuffer->fNumBytesInUse += short(sizeof(dummy) + actLength);
-	  aBuffer->fNumElements++;
+	  ++aBuffer->fNumElements;
   }
   return true;
 } /* addSymToBuffer */
@@ -109,10 +109,10 @@ static bool addSpecialToBuffer
   {
     /* A mixed vector, tag needed */
     *aBuffer->fNextByteToUse = tag;
-    aBuffer->fNextByteToUse++;
-    aBuffer->fNumBytesInUse++;
+    ++aBuffer->fNextByteToUse;
+    ++aBuffer->fNumBytesInUse;
   }
-  aBuffer->fNumElements++;
+	++aBuffer->fNumElements;
   return true;
 } /* addSpecialToBuffer */
 
@@ -170,8 +170,8 @@ bool addFloatToBuffer
 
     }
     *aBuffer->fNextByteToUse = static_cast<uchar>(short(aValue) & 0x00FF);
-    aBuffer->fNextByteToUse++;
-    aBuffer->fNumBytesInUse++;
+    ++aBuffer->fNextByteToUse;
+    ++aBuffer->fNumBytesInUse;
   }
   else
   {
@@ -190,14 +190,14 @@ bool addFloatToBuffer
 	  {
 	    /* A mixed vector, tag needed */
 	    *aBuffer->fNextByteToUse = tag;
-	    aBuffer->fNextByteToUse++;
-	    aBuffer->fNumBytesInUse++;
+	    ++aBuffer->fNextByteToUse;
+	    ++aBuffer->fNumBytesInUse;
 	  }
 	  dummy = htonl(*reinterpret_cast<Plong>(&dummyF));
 	  memcpy(aBuffer->fNextByteToUse, &dummy, sizeof(dummy));
 	  aBuffer->fNextByteToUse += sizeof(dummy);
 	  aBuffer->fNumBytesInUse += sizeof(dummy);
-	  aBuffer->fNumElements++;
+	  ++aBuffer->fNumElements;
   }
   return true;
 } /* addFloatToBuffer */
@@ -218,8 +218,8 @@ bool addLongToBuffer
 
     }
     *aBuffer->fNextByteToUse = static_cast<uchar>(aValue & 0x00FF);
-    aBuffer->fNextByteToUse++;
-    aBuffer->fNumBytesInUse++;
+    ++aBuffer->fNextByteToUse;
+    ++aBuffer->fNumBytesInUse;
   }
   else
   {
@@ -237,13 +237,13 @@ bool addLongToBuffer
 	  {
 	    /* A mixed vector, tag needed */
 	    *aBuffer->fNextByteToUse = tag;
-	    aBuffer->fNextByteToUse++;
-	    aBuffer->fNumBytesInUse++;
+	    ++aBuffer->fNextByteToUse;
+	    ++aBuffer->fNumBytesInUse;
 	  }
 	  memcpy(aBuffer->fNextByteToUse, &dummy, sizeof(dummy));
 	  aBuffer->fNextByteToUse += sizeof(dummy);
 	  aBuffer->fNumBytesInUse += sizeof(dummy);
-	  aBuffer->fNumElements++;
+	  ++aBuffer->fNumElements;
   }
   return true;
 } /* addLongToBuffer */

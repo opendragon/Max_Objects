@@ -44,13 +44,13 @@ Pvoid cmd_SetMessage
   (RcxControlPtr xx,
    long          aByte)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #pragma unused(aByte)
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       if (aByte > 0)
@@ -72,7 +72,7 @@ Pvoid cmd_SetMessage
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_SetMessage */

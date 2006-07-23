@@ -43,13 +43,12 @@
 static void printStructure
 	(HIDElementDataPtr	thisElement)
 {
-	while (thisElement)
+	for ( ; thisElement; thisElement = thisElement->fNextSibling)
 	{
 		post("%*c %d %s %d", (thisElement->fDepth * 2) + 1, ' ',
 					thisElement->fCookie, fidgetMapElementType(thisElement->fType)->s_name,
 					thisElement->fSize);
 		printStructure(thisElement->fChild);
-		thisElement = thisElement->fNextSibling;
 	}
 } /* printStructure */
 

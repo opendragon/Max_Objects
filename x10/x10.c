@@ -139,7 +139,7 @@ void main
   gEmptySymbol = gensym("");
   gOffSymbol = gensym("off");
   gOnSymbol = gensym("on");
-  for (ushort ii = 0; ii < NUM_HOUSECODES; ii++)
+  for (ushort ii = 0; ii < NUM_HOUSECODES; ++ii)
     gHouseCodes[ii] = gensym(kHouseCodeNames[ii]);
   gVersionNumber = reportVersion(OUR_NAME);
   loadOtherSegments();
@@ -215,7 +215,7 @@ Pvoid x10Create
         xx->fPollerOut && xx->fCommandsOut && xx->fPollClock && xx->fPollQueue &&
         xx->fOutBuffer)
     {
-      for (short ii = 0; ii < COMMAND_PREFIX_SIZE; ii++)
+      for (short ii = 0; ii < COMMAND_PREFIX_SIZE; ++ii)
         *(xx->fOutBuffer + ii) = ALL_ON;
       xx->fOutCmd = xx->fOutBuffer + COMMAND_PREFIX_SIZE;
       xx->fOutArea = xx->fOutBuffer + COMMAND_PREFIX_SIZE + 1;
@@ -315,7 +315,7 @@ static void x10DoCM11
       }
       else if ((xx->fIndex < xx->fOutCount) && (workingCmd == *(xx->fOutBuffer + xx->fIndex)))
         // We're getting an echo!
-        xx->fIndex++;
+        ++xx->fIndex;
       else if (xx->fIgnoreChecksum)
       {
         xx->fMinorState = x10CM11MinorIdle;
@@ -459,7 +459,7 @@ static void x10DoCP290
         case x10CP290MajorAwaitingGraphicsData:
           if (rr == ALL_ON)
           {
-            xx->fEntryCount++;
+            ++xx->fEntryCount;
             xx->fMinorState = x10CP290MinorSawIcon2;
           }
           else
@@ -469,7 +469,7 @@ static void x10DoCP290
         case x10CP290MajorAwaitingTimerEvents:
           if (rr == ALL_ON)
           {
-            xx->fEntryCount++;
+            ++xx->fEntryCount;
             xx->fMinorState = x10CP290MinorSawEvent8;
           }
           else
@@ -631,7 +631,7 @@ static void x10DoCP290
             xx->fMinorState = x10CP290MinorIdle;
           }
           else if (rr == ALL_ON)
-            xx->fEntryCount++;
+            ++xx->fEntryCount;
           else
             xx->fMinorState = x10CP290MinorSawIcon1;
           break;
@@ -651,7 +651,7 @@ static void x10DoCP290
           if (xx->fEventByteCount == 8)
             xx->fMinorState = x10CP290MinorSawEvent8;
           else
-            xx->fEventByteCount++;
+            ++xx->fEventByteCount;
           break;
 
         default:
@@ -674,7 +674,7 @@ static void x10DoCP290
             xx->fMinorState = x10CP290MinorIdle;
           }
           else if (rr == ALL_ON)
-            xx->fEntryCount++;
+            ++xx->fEntryCount;
           else
           {
             xx->fEventByteCount = 1;

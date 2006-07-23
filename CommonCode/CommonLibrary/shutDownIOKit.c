@@ -41,7 +41,7 @@
 #include "Common_IOKitXData.h"
 #include "loadOtherSegments.h"
 
-#if defined(COMPILE_FOR_CATS) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OSX_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ destroyNotificationPort ---*/
 static bool destroyNotificationPort
 	(IOKitContext &	rec)
@@ -59,9 +59,9 @@ static bool destroyNotificationPort
 	}
 	return true;
 } /* destroyNotificationPort */
-#endif /* COMPILE_FOR_CATS and not COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and not COMPILE_FOR_STUB */
 	 	 
-#if defined(COMPILE_FOR_CATS) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OSX_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ removeNotifierFromRunLoop ---*/
 static bool removeNotifierFromRunLoop
 	(IOKitContext &	rec)
@@ -89,9 +89,9 @@ static bool removeNotifierFromRunLoop
 	}
 	return false;
 } /* removeNotifierFromRunLoop and not COMPILE_FOR_STUB */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ shutDownIOKit ---*/
 bool shutDownIOKit
 	(IOKitContext &	rec)
@@ -111,8 +111,8 @@ bool shutDownIOKit
 	return true;
  #endif /* not COMPILE_FOR_STUB */
 } /* shutDownIOKit */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 	 
-#if defined(COMPILE_FOR_CATS) && defined(COMPILE_FOR_STUB)
+#if defined(COMPILE_FOR_OSX_4) && defined(COMPILE_FOR_STUB)
  #pragma export list shutDownIOKit
-#endif /* COMPILE_FOR_CATS and COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and COMPILE_FOR_STUB */

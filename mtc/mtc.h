@@ -210,12 +210,13 @@ struct MtcControl
   short           fThreshold;
   short           fNumSpots;
   short           fExpectedPackets;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   short           fMapFilePath;
   short						fNormalFilePath;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
   short           fMapFileVolume;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
   bool            fChunkPulseSent;
   bool            fNormalizing;
   bool            fModeRaw;

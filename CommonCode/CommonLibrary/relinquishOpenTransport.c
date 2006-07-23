@@ -77,9 +77,9 @@ void relinquishOpenTransport
       }
       if (found)
       {
-  #if defined(COMPILE_FOR_CATS)
+  #if defined(COMPILE_FOR_OSX_4)
         OTClientContextPtr  context = candidate->fContext;
-  #endif /* COMPILE_FOR_CATS */
+  #endif /* COMPILE_FOR_OSX_4 */
  
         /* found it - release it */
         if (candidate->fNext)
@@ -94,11 +94,12 @@ void relinquishOpenTransport
         }
         FREEBYTES(candidate, 1)
         if (! --gObjectCount)
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
           CloseOpenTransportInContext(context);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
           CloseOpenTransport();
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
       }
       else
         LOG_ERROR_2("%s: object not recognized as an Open Transport object", name)

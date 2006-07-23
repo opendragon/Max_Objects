@@ -46,7 +46,7 @@ Pvoid cmd_GetVersion
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       static uchar unlockCommand[] = { RCX_UNLOCK_CMD, 1, 3, 5, 7, 11 };
@@ -73,7 +73,7 @@ Pvoid cmd_GetVersion
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_GetVersion */

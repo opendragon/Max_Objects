@@ -53,7 +53,7 @@ Pvoid cmd_List
     bool   okSoFar = true;
     double len = 0, temp;
 
-    for (short ii = 0; okSoFar && (ii < argc); ii++)
+    for (short ii = 0; okSoFar && (ii < argc); ++ii)
     {
       switch (argv[ii].a_type)
       {

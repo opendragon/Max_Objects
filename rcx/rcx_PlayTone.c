@@ -45,13 +45,13 @@ Pvoid cmd_PlayTone
    long          frequency,
    long          duration)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #pragma unused(frequency, duration)
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       uchar playToneCommand[] = { RCX_PLAY_TONE_CMD, 0, 0, 0 };
@@ -67,7 +67,7 @@ Pvoid cmd_PlayTone
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_PlayTone */

@@ -152,12 +152,13 @@ QtMovieHdl qtAddMovie
   oldClip = NewRgn();
   GetClip(oldClip);
   GetPort(&grafPort);
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   GetPortBounds(grafPort, &movieBounds);
   ClipRect(&movieBounds);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   ClipRect(&grafPort->portRect);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   err = NewMovieFromFile(&thisMovie->fMovie, thisMovie->fResRef, NULL_PTR, NULL_PTR,
                           newMovieActive, NULL_PTR);
   if (err != noErr)
@@ -329,19 +330,20 @@ QtMovieHdl qtLocateMovie
   thisMovie->fMovieFileValid = false;
   if (aName == gEmptySymbol)
   {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     long  aType[1];
     long  dummy;
 
     *aType = long('MooV');
     if (! open_dialog(tempName, &volRefNum, &dummy, aType, 1))
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     SFTypeList  aType;
     OSType      dummy;
 
     *aType = long('MooV');
     if (! open_dialog(tempName, &volRefNum, &dummy, aType, 1))
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
       qtMapSymbolToLowerCase(tempName, tempName);
     else
       okSoFar = false;
@@ -359,20 +361,21 @@ QtMovieHdl qtLocateMovie
   if (okSoFar)
   {
     /* Convert the file name into a Pascal string. */
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     Str255  tempString;
     
     thisMovie->fName = gensym(tempName);
     CopyCStringToPascal(tempName, tempString);
     err = FSMakeFSSpec(volRefNum, 0L, tempString, &thisMovie->fFileSpec);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     thisMovie->fName = gensym(tempName);
     C2PStr(static_cast<Ptr>(tempName));
     err = FSMakeFSSpec(volRefNum, 0L,
                     reinterpret_cast<ConstStr255Param>(const_cast<Qchar>(tempName)),
                       &thisMovie->fFileSpec);
     P2CStr(reinterpret_cast<Puchar>(tempName));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
     if (err != noErr)
     {
       LOG_ERROR_3(OUTPUT_PREFIX "problem building file spec for file '%s' -> error (%ld)", tempName,
@@ -394,7 +397,7 @@ QtMovieHdl qtLocateMovie
   if (okSoFar)
   {
     thisMovie->fMovieFileValid = true;
-    xx->fMovieCount++;
+    ++xx->fMovieCount;
     thisMovie->fNextMovie = NULL_HDL;
     thisMovie->fPreviousMovie = xx->fLastMovie;
     (*xx->fLastMovie)->fNextMovie = aMovie;
@@ -423,7 +426,7 @@ static void qtMapSymbolToLowerCase
   /* Note that using tolower() requires the inclusion of <ctype.h>, which */
   /* brings in <stdio.h> (!?!?!), which has conflicts with the Max file */
   /* routines. */
-  for ( ; *nextChar; nextChar++)
+  for ( ; *nextChar; ++nextChar)
   {
     if ((*nextChar >= 'A') && (*nextChar <= 'Z'))
       *nextChar = char(*nextChar + ('a' - 'A'));
@@ -487,7 +490,7 @@ void qtRemoveMovie
 #endif /* WQT_H_ */
     }
   }
-  xx->fMovieCount--;
+  --xx->fMovieCount;
   if (qtDisposeOfMovie(thisMovie) != noErr)
     SignalError(xx);
   HUnlock(reinterpret_cast<Handle>(aMovie));
@@ -499,14 +502,11 @@ void qtSaveMovies
   (QtPtr xx,
    Pvoid ww)
 {
-  QtMovieHdl aMovie = xx->fFirstMovie, aNext;
-
-  while (aMovie)
+  for (QtMovieHdl aMovie = xx->fFirstMovie, aNext; aMovie; aMovie = aNext)
   {
     aNext = (*aMovie)->fNextMovie;
     if (xx->fCurrentMovie != (*aMovie)->fMovie)
       binbuf_vinsert(ww, "sss", gSaveSymbol, gensym("load"), (*aMovie)->fName);
-    aMovie = aNext;
   }
 } /* qtSaveMovies */
 

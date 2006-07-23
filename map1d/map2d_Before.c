@@ -76,7 +76,7 @@ Pvoid cmd_Before
                 prev->fNext = newRange;
               else
                 xx->fFirstRange = newRange;
-              xx->fRangeCount++;
+              ++xx->fRangeCount;
             }
           }
           break;

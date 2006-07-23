@@ -70,8 +70,8 @@ Pvoid cmd_Dup
               PAtom walker = top->fOutput;
 
               newTop->fOutput = temp;
-              for (short ii = 0; ii < top->fOutputCount; ii++)
-                *temp++ = *walker++;
+              for (short ii = 0; ii < top->fOutputCount; ++ii, ++temp, ++walker)
+                *temp = *walker;
             }
             else
             {
@@ -84,7 +84,7 @@ Pvoid cmd_Dup
           newTop->fNext = top;
           newTop->fOutputCount = top->fOutputCount;
           descriptor->fTopOfStack = newTop;
-          descriptor->fDepth++;
+          ++descriptor->fDepth;
         }
         else
           LOG_ERROR_1(OUTPUT_PREFIX "problem allocating space for stack element")

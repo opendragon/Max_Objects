@@ -142,9 +142,9 @@ Pvoid tcpServerCreate
       okSoFar = initObject(OUR_NAME, xx, port, numBuffers);
     }
 #if OPEN_TRANSPORT_SUPPORTED
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     xx->fDataNotifier = NewOTNotifyUPP(tcpServerNotifier);
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
     if (okSoFar)
     {
       xx->fAccessControl = acquireOpenTransport(OUR_NAME, static_cast<ushort>(port), true);
@@ -167,12 +167,13 @@ Pvoid tcpServerCreate
     {
       TEndpointInfo info;
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
       xx->fEndpoint = OTOpenEndpointInContext(this_config, 0, &info, &result,
                                               xx->fAccessControl->fContext);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
       xx->fEndpoint = OTOpenEndpoint(this_config, 0, &info, &result);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
       if (result == kOTNoError)
       {
         xx->fServiceType = info.servtype;
@@ -220,15 +221,16 @@ Pvoid tcpServerCreate
     }
     if (okSoFar)
     {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
       WRAP_OT_CALL(xx, result, "OTInstallNotifier", OTInstallNotifier(xx->fEndpoint,
                                                                       xx->fDataNotifier,
                                                                       xx))
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
       WRAP_OT_CALL(xx, result, "OTInstallNotifier", OTInstallNotifier(xx->fEndpoint,
                                                                       tcpServerNotifier,
                                                                       xx))
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "OTInstallNotifier failed (%ld = %s)", result)
@@ -291,9 +293,9 @@ Pvoid tcpServerFree
 
       }
     }
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     DisposeOTNotifyUPP(xx->fDataNotifier);
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 #endif /* OPEN_TRANSPORT_SUPPORTED */
     releaseObjectMemory(OUR_NAME, xx);
 #if OPEN_TRANSPORT_SUPPORTED

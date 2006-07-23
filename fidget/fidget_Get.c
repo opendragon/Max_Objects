@@ -56,22 +56,23 @@ static bool performGet
 	{
 		PhidgetDescriptorPtr	kind = reinterpret_cast<PhidgetDescriptorPtr>(walkerHID->fClass);
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 		action = reinterpret_cast<FpDoGet>(kind->fDoGetFun)(OUR_NAME, deviceType,
 																												xx->fDataOut, kind->fShared,
 																												walkerHID->fPrivate, walkerHID,
 																												short(argc - 2), argv + 2,
 																												&result);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 		action = static_cast<E_PhidgResult>(CallUniversalProc(kind->fDoGetUpp, uppDoGetProcInfo,
 																OUR_NAME, deviceType, xx->fDataOut, kind->fShared,
 																walkerHID->fPrivate, walkerHID, short(argc - 2), argv + 2,
 																&result));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	}
 	if (action == kPhidgDoDefault)
 	{
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 		// Note that 'default' is only supported with 'CATS' - there is no reasonable behaviour
 		// if we are using a report handler... as we do for non-'CATS'!
 		if (argc >= 3)
@@ -117,7 +118,7 @@ static bool performGet
 							
 							SETSYM(newList, deviceType);
 							SETSYM(newList + 1, walkerHID->fSerialNumber);
-							for (UInt32 ii = 0; ii < extendedLength; ii++, longValue++)
+							for (UInt32 ii = 0; ii < extendedLength; ++ii, ++longValue)
 								SETLONG(newList + ii + 2, long(*longValue & 0x00FF));
 	      			genericListOutput(xx->fDataOut, short(extendedLength + 2), newList);
 	      			FREEBYTES(newList, extendedLength + 2)
@@ -153,7 +154,7 @@ static bool performGet
 			okSoFar = false;
   		LOG_ERROR_2(OUTPUT_PREFIX "missing value(s) for '%s:get'", deviceType->s_name)
   	}
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 	}
 	else if (result)
 		outlet_int(xx->fResultOut, result);

@@ -40,20 +40,21 @@
 #include "displayAboutBox.h"
 #include "reportVersion.h"
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
  #define  NEWLINE_ "\n"
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
  #define  NEWLINE_  "\r"
-#endif /* not COMPILE_FOR_CATS */ 
+#endif /* COMPILE_FOR_OS9_4 */ 
 
 static const int TEXT_INSET_LR = 5;
 static const int TEXT_INSET_TB = 1;
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 static ControlUserPaneDrawUPP lTPDrawProc = NULL_PTR;
-#endif /* COMPILE_FOR_CATS */  
+#endif /* COMPILE_FOR_OSX_4 */  
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 struct STPTextPaneVars
 {
 		/* OS records referenced */
@@ -65,9 +66,9 @@ struct STPTextPaneVars
 	Rect       fRTextOutline;       /* rectangle used to draw the border */
 	RgnHandle  fTextBackgroundRgn;  /* background region for the text, erased before calling TEUpdate */
 }; /* STPTextPaneVars */
-#endif /* COMPILE_FOR_CATS */  
+#endif /* COMPILE_FOR_OSX_4 */  
 
-#if defined(COMPILE_FOR_CATS) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OSX_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ TPPaneDrawProc ---*/
 static pascal void TPPaneDrawProc
 	(ControlRef      theControl,
@@ -105,10 +106,9 @@ static pascal void TPPaneDrawProc
 		HSetState(reinterpret_cast<Handle>(tpvars), state);
 	}
 } /* TPPaneDrawProc */
-#endif /* COMPILE_FOR_CATS and not COMPILE_FOR_STUB */  
+#endif /* COMPILE_FOR_OSX_4 and not COMPILE_FOR_STUB */  
 
-#if (! defined(COMPILE_FOR_STUB))
- #if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ setStyle ---*/
 static OSStatus setStyle
 	(TXNObject				textObject,
@@ -136,7 +136,9 @@ static OSStatus setStyle
 	return TXNSetTypeAttributes(textObject, 4, typeAttr, kTXNUseCurrentSelection,
 															kTXNEndOffset);
 } /* setStyle */
- #else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 and not COMPILE_FOR_STUB */
+
+#if defined(COMPILE_FOR_OS9_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ setStyle ---*/
 static void setStyle
 	(TEHandle 				textHandle,
@@ -155,8 +157,7 @@ static void setStyle
   newStyle.tsFont = fontID;
   TESetStyle(doFont + doFace + doSize + doColor, &newStyle, FALSE, textHandle);
 } /* setStyle */
- #endif /* not COMPILE_FOR_CATS */
-#endif /* not COMPILE_FOR_STUB */  
+#endif /* COMPILE_FOR_OS9_4 and not COMPILE_FOR_STUB */  
 
 /*------------------------------------ displayAboutBox ---*/
 void displayAboutBox
@@ -177,7 +178,7 @@ void displayAboutBox
   Qchar								stage = NULL_PTR;
   GrafPtr             oldPort;
   Str255							description;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   ControlHandle       aControl;
 	STPTextPaneVars * * tpvars;
 	STPTextPaneVars *   varsp;
@@ -185,9 +186,10 @@ void displayAboutBox
   OSStatus            resultCode = noErr;
   TXNObject           textObject = NULL_PTR;
   TXNFrameID          frameID = 0;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
   TEHandle            textHandle;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 	static RGBColor   	myBlack = { 0x0000, 0x0000, 0x0000 };
 	static RGBColor   	myBlue = { 0x0000, 0x0000, 0xFFFF };
 	static RGBColor   	myRed = { 0xFFFF, 0x0000, 0x0000 };
@@ -234,9 +236,9 @@ void displayAboutBox
             
 	// Get the descriptive text:
   GetIndString(description, dialogId, 1);
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   TXNInitTextension(NULL_PTR,  0, kTXNWantGraphicsMask);
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
   GetPort(&oldPort);
   DialogPtr dp = GetNewDialog(OUR_RES_NUMB_BASE, 0L, reinterpret_cast<WindowPtr>(-1L));
   WindowPtr	aWindow = GetDialogWindow(dp);
@@ -254,7 +256,7 @@ void displayAboutBox
   /* Set up the text area */  
   GetDialogItem(dp, OUR_TEXT_AREA_ID, &itemType, &item, &itemBox);
   InsetRect(&itemBox, TEXT_INSET_LR, TEXT_INSET_TB);  /* text margins */
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 	GetDialogItemAsControl(dp, OUR_TEXT_AREA_ID, &aControl);
   lTPDrawProc = NewControlUserPaneDrawUPP(TPPaneDrawProc);
   tpvars = reinterpret_cast<STPTextPaneVars**>(NewHandleClear(sizeof(STPTextPaneVars)));
@@ -292,8 +294,8 @@ void displayAboutBox
 	}
 		/* unlock our storage */
 	HUnlock(reinterpret_cast<Handle>(tpvars));
- #endif /* COMPILE_FOR_CATS */  
- #if defined(COMPILE_FOR_CATS)
+ #endif /* COMPILE_FOR_OSX_4 */  
+ #if defined(COMPILE_FOR_OSX_4)
 	resultCode = setStyle(textObject, "\pCharcoal", 24, myBlack, bold); 
  	if (! resultCode)
  		resultCode = TXNSetData(textObject, kTXNTextData, name, strlen(name),
@@ -359,7 +361,8 @@ void displayAboutBox
  	if (! resultCode)
  		resultCode = TXNSetData(textObject, kTXNTextData, lProductionPart3,
  														strlen(lProductionPart3), kTXNEndOffset, kTXNEndOffset);
-  #else /* not COMPILE_FOR_CATS */
+   #endif /* COMPILE_FOR_OSX_4 */
+  #if defined(COMPILE_FOR_OS9_4)
  	textHandle = TEStyleNew(&itemBox, &itemBox);
 	setStyle(textHandle, "\pCharcoal", 24, myBlack, bold); 
  	TEInsert(name, long(strlen(name)), textHandle);
@@ -389,8 +392,8 @@ void displayAboutBox
  	setStyle(textHandle, "\pTimes", 12, myBlack, normal); 
  	TEInsert(lProductionPart3, long(strlen(lProductionPart3)), textHandle);
 	TESetAlignment(teJustCenter, textHandle);
- #endif /* not COMPILE_FOR_CATS */
- #if defined(COMPILE_FOR_CATS)
+ #endif /* COMPILE_FOR_OS9_4 */
+ #if defined(COMPILE_FOR_OSX_4)
   if (! resultCode)
   {
     TXNControlTag   tags[] = { kTXNJustificationTag };
@@ -399,11 +402,11 @@ void displayAboutBox
     resultCode = TXNSetTXNObjectControls(textObject, false, sizeof(tags) / sizeof(tags[0]),
                                           tags, data); 
   }
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
   ShowWindow(aWindow);
- #if (! defined(COMPILE_FOR_CATS))
+ #if defined(COMPILE_FOR_OS9_4)
   TEUpdate(&itemBox, textHandle);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
   InsetRect(&itemBox, -TEXT_INSET_LR, -TEXT_INSET_TB);
   FrameRect(&itemBox);
 
@@ -415,16 +418,17 @@ void displayAboutBox
       break;
 
   }
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   TXNDeleteObject(textObject);
- #else /* not COMPILE_FOR_CATS */
+  #endif /* COMPILE_FOR_OSX_4 */
+  #if defined(COMPILE_FOR_OS9_4)
   TEDispose(textHandle);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
   DisposeDialog(dp);
   SetPort(oldPort);
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 	DisposeHandle(reinterpret_cast<Handle>(tpvars));	
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 #endif /* not COMPILE_FOR_STUB */
 } /* displayAboutBox */
 

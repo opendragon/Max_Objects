@@ -41,7 +41,7 @@
 #include "Common_HIDXData.h"
 #include "loadOtherSegments.h"
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ setHIDElementValue ---*/
 void setHIDElementValue
 	(Pchar									name,
@@ -66,7 +66,7 @@ void setHIDElementValue
 	if (extendedValueLength && extendedValue)
 	{
 		buffer = GETBYTES(extendedValueLength, char);
-		for (UInt32 ii = 0; ii < extendedValueLength; ii++)
+		for (UInt32 ii = 0; ii < extendedValueLength; ++ii)
 			*(buffer + ii) = char((extendedValue + ii)->a_w.w_long);
 		anEvent.longValueSize = extendedValueLength;
 	}
@@ -83,7 +83,9 @@ void setHIDElementValue
 		FREEBYTES(buffer, extendedValueLength) 
  #endif /* not COMPILE_FOR_STUB */
 } /* setHIDElementValue */
-#else /* not COMPILE_FOR_CATS */	 	 
+#endif /* COMPILE_FOR_OSX_4 */
+
+#if defined(COMPILE_FOR_OS9_4)	 	 
 /*------------------------------------ setHIDElementValue ---*/
 void setHIDElementValue
 	(Pchar									name,
@@ -126,7 +128,7 @@ void setHIDElementValue
 		if (extendedValueLength && extendedValue)
 		{
 			buffer = GETBYTES(extendedValueLength, Byte);
-			for (UInt32 ii = 0; ii < extendedValueLength; ii++)
+			for (UInt32 ii = 0; ii < extendedValueLength; ++ii)
 				*(buffer + ii) = static_cast<Byte>((extendedValue + ii)->a_w.w_long);
 			result = HIDSetUsageValueArray(kind, static_cast<HIDUsage>(theElement.fUsagePage),
 																			0/*collection*/, static_cast<HIDUsage>(theElement.fUsage),
@@ -156,7 +158,7 @@ void setHIDElementValue
 		FREEBYTES(report, reportLength);
  #endif /* not COMPILE_FOR_STUB */
 } /* setHIDElementValue */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
 #if defined(COMPILE_FOR_STUB)
  #pragma export list setHIDElementValue

@@ -56,7 +56,7 @@ void map3dOutputResult
     {
       PAtom outWalker = tempList;
 
-      for (short ii = 0; ii < result->fOutputCount; ii++)
+      for (short ii = 0; ii < result->fOutputCount; ++ii)
       {
         if (inWalker->a_type == A_SYM)
         {
@@ -167,7 +167,7 @@ void map3dOutputResult
               SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
             else
               SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
-            outWalker++;
+            ++outWalker;
           }
           else if (inWalker->a_w.w_sym == gDollarYSymbol)
           {
@@ -176,7 +176,7 @@ void map3dOutputResult
               SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[1]));
             else
               SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]));
-            outWalker++;
+            ++outWalker;
           }
           else if (inWalker->a_w.w_sym == gDollarZSymbol)
           {
@@ -185,7 +185,7 @@ void map3dOutputResult
               SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[2]));
             else
               SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]));
-            outWalker++;
+            ++outWalker;
           }
           else if (inWalker->a_w.w_sym == gDoubleDollarXSymbol)
           {
@@ -216,7 +216,7 @@ void map3dOutputResult
 	            else
 	              SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
             }
-            outWalker++;
+            ++outWalker;
           }
           else if (inWalker->a_w.w_sym == gDoubleDollarYSymbol)
           {
@@ -247,7 +247,7 @@ void map3dOutputResult
 	            else
 	              SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]));
             }
-            outWalker++;
+            ++outWalker;
           }
           else if (inWalker->a_w.w_sym == gDoubleDollarZSymbol)
           {
@@ -278,12 +278,12 @@ void map3dOutputResult
 	            else
 	              SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]));
             }
-            outWalker++;
+            ++outWalker;
           }
           else
           {
             *outWalker = *inWalker;
-            outWalker++;
+          	++outWalker;
           }
         }
         else if (inWalker->a_type == A_DOLLAR)
@@ -306,9 +306,9 @@ void map3dOutputResult
         else
         {
           *outWalker = *inWalker;
-          outWalker++;
+          ++outWalker;
         }
-        inWalker++;
+        ++inWalker;
       }
       outlet_anything(xx->fResultOut, gResultSymbol, outputCount, tempList);
       FREEBYTES(tempList, outputCount)
@@ -327,7 +327,7 @@ void map3dProcessData
 {
   RangeDataPtr walker = xx->fFirstRange;
 
-  while (walker)
+  for ( ; walker; walker = walker->fNext)
   {
     RangeElement toTest = walker->fLeft;
     bool         okSoFar;
@@ -714,7 +714,6 @@ void map3dProcessData
     if (okSoFar)
       break;
 
-    walker = walker->fNext;
   }
   xx->fPreviousResult = walker;
   if (walker)

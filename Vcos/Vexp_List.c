@@ -63,7 +63,7 @@ Pvoid cmd_List
         PAtom  newWalk = newArg, oldWalk = argv;
         double newValue;
 
-        for (short ii = 0; (ii < argc) && okSoFar; ii++)
+        for (short ii = 0; (ii < argc) && okSoFar; ++ii, ++newWalk, ++oldWalk)
         {
           newWalk->a_type = oldWalk->a_type;
           switch (oldWalk->a_type)
@@ -112,8 +112,6 @@ Pvoid cmd_List
             newWalk->a_type = A_FLOAT;
             newWalk->a_w.w_float = float(newValue);
           }
-          newWalk++;
-          oldWalk++;
         }
       }
       else

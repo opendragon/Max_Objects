@@ -66,7 +66,7 @@ Pvoid cmd_Anything
     }
     clearDataBuffer(*xx->fBuffer);
     okSoFar = addSymToBuffer(OUR_NAME, *xx->fBuffer, message);
-    for (short ii = 0; okSoFar && (ii < argc); ii++)
+    for (short ii = 0; okSoFar && (ii < argc); ++ii)
       okSoFar = addAtomToBuffer(OUR_NAME, *xx->fBuffer, &argv[ii]);
     if (okSoFar)
       transmitBuffer(xx);

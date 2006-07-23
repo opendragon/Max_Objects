@@ -46,15 +46,15 @@ Pvoid cmd_Anything
    short       argc,
    PAtom       argv)
 {
-#if __powerc
+#if FOR_MAC_PPC
  #pragma unused(xx)
-#else /* not __powerc */
+#else /* not FOR_MAC_PPC */
  #pragma unused(message, argc, argv)
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     PluginDescriptorPtr descriptor = xx->fActivePlugin;
 
     if (descriptor)
@@ -65,19 +65,20 @@ Pvoid cmd_Anything
       if (aHandler)
         myErr = aHandler(PLUGIN_FIXED_ARGUMENTS, argc, argv);
       else
-#if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
       myErr = reinterpret_cast<FpDoAnything>(descriptor->fDoAnythingFun)
                     (PLUGIN_FIXED_ARGUMENTS, message, argc, argv);
-#else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
       myErr = static_cast<OSErr>(CallUniversalProc(descriptor->fDoAnythingUpp,
                                         uppDoAnythingProcInfo, PLUGIN_FIXED_ARGUMENTS, 
                                         message, argc, argv));
-#endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
       if (myErr != noErr)
       {
       }
     }
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_Anything */

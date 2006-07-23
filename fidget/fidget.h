@@ -84,7 +84,7 @@ struct PhidgetDescriptor
   FSSpec								fSpec;
   bool									fIsAsynchronous;
   long									fValidMask;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   ProcPtr								fDefineCallbackFun;
   ProcPtr								fDoCustomFun;
   ProcPtr								fDoGetFun;
@@ -94,7 +94,8 @@ struct PhidgetDescriptor
   ProcPtr								fNiamFun;
   ProcPtr								fOnAttachFun;
   ProcPtr								fOnDetachFun;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
   UniversalProcPtr			fDoCustomUpp;
   UniversalProcPtr			fDoGetUpp;
   UniversalProcPtr			fDoPutUpp;
@@ -104,7 +105,7 @@ struct PhidgetDescriptor
   UniversalProcPtr			fOnAttachUpp;
   UniversalProcPtr			fOnDetachUpp;
   UniversalProcPtr			fReportHandlerUpp;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 }; /* PhidgetDescriptor */
 
 struct FidgetData
@@ -117,12 +118,13 @@ struct FidgetData
   bool									fReportEvents;
   POutlet								fResultOut;
   bool									fStopping;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   IOKitContext					fHIDControl;
 	IOKitContext					fUSBControl;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
  	USBContext						fUSBControl;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 }; /* FidgetData */
 
 typedef FidgetData * FidgetPtr;

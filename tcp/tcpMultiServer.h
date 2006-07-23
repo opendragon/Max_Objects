@@ -101,10 +101,10 @@ struct TcpMultiServerData
   ushort             fMaximumConnections;
   TcpConnectionHdl   fConnectionBase;
   TcpConnectionHdl   fConnections;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   OTNotifyUPP        fDataNotifier;
   OTNotifyUPP        fListenNotifier;
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 }; /* TcpMultiServerData */
 
 Pvoid cmd_Disconnect

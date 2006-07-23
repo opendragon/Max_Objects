@@ -46,7 +46,7 @@ Pvoid cmd_StopAllTasks
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       static uchar stopAllCommand[] = { RCX_STOP_ALL_TASKS_CMD };
@@ -59,7 +59,7 @@ Pvoid cmd_StopAllTasks
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_StopAllTasks */

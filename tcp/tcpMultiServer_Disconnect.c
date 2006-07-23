@@ -75,7 +75,7 @@ Pvoid cmd_Disconnect
     }
     else
     {
-      for (short ii = 0; ii < xx->fMaximumConnections; ii++)
+      for (short ii = 0; ii < xx->fMaximumConnections; ++ii)
       {
         connection = *(xx->fConnections + ii);
         if (connection && (connection->fDataEndpoint != kOTInvalidEndpointRef) &&

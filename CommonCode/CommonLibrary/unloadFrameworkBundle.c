@@ -39,7 +39,7 @@
 
 #include "loadOtherSegments.h"
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ unloadFrameworkBundle ---*/
 void unloadFrameworkBundle
 	(CFBundleRef &	bundleRef)
@@ -54,8 +54,8 @@ void unloadFrameworkBundle
 	}
  #endif /* not COMPILE_FOR_STUB */
 } /* unloadFrameworkBundle */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_STUB) && defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4) && defined(COMPILE_FOR_STUB)
  #pragma export list unloadFrameworkBundle
-#endif /* COMPILE_FOR_STUB and COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_STUB and COMPILE_FOR_OSX_4 */

@@ -46,7 +46,7 @@ long serialXCheckLongBaudRate
   long result;
 
   TRACE_POST_1("entering serialXCheckLongBaudRate")
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   switch (baudRate)
   {
     case 150:
@@ -118,7 +118,8 @@ long serialXCheckLongBaudRate
       break;
 
   }
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   switch (baudRate)
   {
     case 150:
@@ -194,7 +195,7 @@ long serialXCheckLongBaudRate
       break;
 
   }
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   TRACE_POST_2("exiting serialXCheckLongBaudRate %ld", result)
   return result;
 } /* serialXCheckLongBaudRate */
@@ -207,7 +208,7 @@ long serialXCheckSymbolBaudRate
   long result;
 
   TRACE_POST_1("entering serialXCheckSymbolBaudRate")
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   if ((baudSymbol == gBaud_3KSymbol) || (baudSymbol == gBaud0_3KSymbol))
   {
     baudRate = 300;
@@ -288,7 +289,7 @@ long serialXCheckSymbolBaudRate
     baudRate = 0;
     result = -1;
   }
-#else /* COMPILE_FOR_CATS */
+#else /* COMPILE_FOR_OSX_4 */
   if ((baudSymbol == gBaud_3KSymbol) || (baudSymbol == gBaud0_3KSymbol))
   {
     baudRate = 300;
@@ -398,7 +399,7 @@ long serialXCheckSymbolBaudRate
     baudRate = 0;
     result = -1;
   }
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   TRACE_POST_2("exiting serialXCheckSymbolBaudRate %ld", result)
   return result;
 } /* serialXCheckSymbolBaudRate */
@@ -408,23 +409,25 @@ OSErr serialXForceDTRState
   (SerialXControlPtr  xx,
    const bool					ifAsserted)
 {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   if (ioctl(xx->fFileDescriptor, ifAsserted ? TIOCSDTR : TIOCCDTR) == -1)
     return (noErr + 1);
     
   return noErr;
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   return Control(xx->fOutRefNum, ifAsserted ? kSERDAssertDTR : kSERDNegateDTR, NULL_PTR);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 } /* serialXForceDTRState */
 
 /*------------------------------------ serialXSetDTRHandshake ---*/
 OSErr serialXSetDTRHandshake
   (SerialXControlPtr xx)
 {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   return noErr;
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   SerShk ss; /* serial handshake record */
 
   ss.fXOn = 0;
@@ -436,7 +439,7 @@ OSErr serialXSetDTRHandshake
   ss.fInX = 0;
   ss.fDTR = static_cast<uchar>(xx->fDTRHandshakeActive ? 1 : 0);
   return Control(xx->fOutRefNum, kSERDHandshake, &ss);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 } /* serialXSetDTRHandshake */
 
 /*------------------------------------ serialXSetPortCharacteristics ---*/
@@ -444,14 +447,15 @@ bool serialXSetPortCharacteristics
   (SerialXControlPtr xx)
 {
   OSErr           err = noErr;
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   struct termios  options;
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   long            effectiveBaudBits = xx->fBaudRateBits;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
   TRACE_POST_1("entering serialXSetPortCharacteristics")
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   if (tcgetattr(xx->fFileDescriptor, &xx->fOriginalAttrs) == -1)
     err = noErr + 1;
   else
@@ -469,7 +473,8 @@ bool serialXSetPortCharacteristics
   TRACE_POST_2("exiting serialXSetPortCharacteristics %s",
                 (err == noErr) ? "true" : "false")
   return (err == noErr);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   if (effectiveBaudBits == -2)
   {
     /* MIDI rate */
@@ -503,7 +508,7 @@ bool serialXSetPortCharacteristics
   TRACE_POST_2("exiting serialXSetPortCharacteristics %s",
                 (err == noErr) ? "true" : "false")
   return (err == noErr);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 } /* serialXSetPortCharacteristics */
 
 /*------------------------------------ serialXWriteACharacter ---*/
@@ -513,7 +518,7 @@ OSErr serialXWriteACharacter
 {
   OSErr         err;
   char          sendChar = char(msg);
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   int           numBytes;
 
   TRACE_POST_1("entering serialXWriteACharacter")
@@ -521,7 +526,8 @@ OSErr serialXWriteACharacter
   if (numBytes == -1)
     LOG_ERROR_1(OUTPUT_PREFIX "write error on serial port")
   err = static_cast<OSErr>((numBytes == -1) ? (noErr + 1) : noErr);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   ParamBlockRec sendParamBlock;
 
   TRACE_POST_1("entering serialXWriteACharacter")
@@ -534,7 +540,7 @@ OSErr serialXWriteACharacter
   err = PBWrite(&sendParamBlock, false);
   if (err != noErr)
     LOG_ERROR_1(OUTPUT_PREFIX "write error on serial port")
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   TRACE_POST_2("exiting serialXWriteACharacter %d", err)
   return err;
 } /* serialXWriteACharacter */
@@ -546,7 +552,7 @@ OSErr serialXWriteASymbol
    Ptr               msg)
 {
   OSErr         err;
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   int           numBytes;
 
   TRACE_POST_1("entering serialXWriteASymbol")
@@ -554,7 +560,8 @@ OSErr serialXWriteASymbol
   if (numBytes == -1)
     LOG_ERROR_1(OUTPUT_PREFIX "write error on serial port")
   err = static_cast<OSErr>((numBytes == -1) ? (noErr + 1) : noErr);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   ParamBlockRec sendParamBlock;
 
   sendParamBlock.ioParam.ioRefNum = xx->fOutRefNum;
@@ -566,7 +573,7 @@ OSErr serialXWriteASymbol
   err = PBWrite(&sendParamBlock, false);
   if (err != noErr)
     LOG_ERROR_1(OUTPUT_PREFIX "write error on serial port")
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   TRACE_POST_2("exiting serialXWriteASymbol %d", err)
   return err;
 } /* serialXWriteASymbol */

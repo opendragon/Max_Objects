@@ -75,7 +75,7 @@ OSErr do_Anything
 
   LOG_POST_3("message '%s' seen on inlet: %ld", message->s_name, inletNumber)
   LOG_POST_3("argc: %hd argv: 0x%lx", argc, long(argv))
-  for (short ii = 0; ii < argc; ii++)
+  for (short ii = 0; ii < argc; ++ii)
   {
     switch (argv[ii].a_type)
     {
@@ -136,7 +136,7 @@ OSErr do_List
 
   LOG_POST_2("list seen on inlet: %ld", inletNumber)
   LOG_POST_3("argc: %hd argv: 0x%lx", argc, long(argv))
-  for (short ii = 0; ii < argc; ii++)
+  for (short ii = 0; ii < argc; ++ii)
   {
     switch (argv[ii].a_type)
     {

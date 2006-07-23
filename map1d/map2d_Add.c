@@ -57,7 +57,7 @@ Pvoid cmd_Add
       if (xx->fLastRange)
         xx->fLastRange->fNext = newData;
       xx->fLastRange = newData;
-      xx->fRangeCount++;
+      ++xx->fRangeCount;
       if (! xx->fFirstRange)
         xx->fFirstRange = newData;
     }

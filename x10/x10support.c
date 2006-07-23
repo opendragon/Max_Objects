@@ -133,7 +133,7 @@ void x10CM11ResendBuffer
 {
   if (--xx->fRetries)
   {
-    for (ushort ii = 0; ii < xx->fOutCount; ii++)
+    for (ushort ii = 0; ii < xx->fOutCount; ++ii)
       outlet_int(xx->fCommandsOut, long(*(xx->fOutBuffer + ii)));
     xx->fIndex = 0;
     xx->fMinorState = x10CM11MinorAwaitingChecksum;
@@ -155,7 +155,7 @@ void x10CM11SendBuffer
   ushort checker = 0;
 
   xx->fRetries = MAX_RETRIES;
-  for (ushort ii = 0; ii < howMany; ii++)
+  for (ushort ii = 0; ii < howMany; ++ii)
   {
     checker += *(xx->fOutBuffer + ii);
     outlet_int(xx->fCommandsOut, long(*(xx->fOutBuffer + ii)));
@@ -202,7 +202,7 @@ void x10CM11SendDeviceAddress
   ushort deviceCode = 0;
 
   *xx->fOutBuffer = 0x4;
-  for (ushort ii = 0; ii < NUM_HOUSECODES; ii++)
+  for (ushort ii = 0; ii < NUM_HOUSECODES; ++ii)
   {
     if (xx->fDeviceMap & kUnitCodeToBits[ii])
     {
@@ -235,7 +235,7 @@ void x10CP290CalcSum
 {
   ulong sum = 0;
 
-  for (ushort ii = 0; ii < howMany; ii++)
+  for (ushort ii = 0; ii < howMany; ++ii)
     sum += *(xx->fOutArea + offset + ii);
   *(xx->fOutArea + offset + howMany) = static_cast<uchar>(sum & 0xFF);
 } /* x10CP290CalcSum */
@@ -408,7 +408,7 @@ void x10CP290SendBuffer
   (X10ControlPtr	xx,
    const ushort		howMany)
 {
-  for (ushort ii = 0; ii < (howMany + COMMAND_PREFIX_SIZE + 1); ii++)
+  for (ushort ii = 0; ii < (howMany + COMMAND_PREFIX_SIZE + 1); ++ii)
     outlet_int(xx->fCommandsOut, long(*(xx->fOutBuffer + ii)));
 } /* x10CP290SendBuffer */
 
@@ -416,7 +416,7 @@ void x10CP290SendBuffer
 ushort x10IdentifyHouseCode
   (PSymbol aSym)
 {
-  for (ushort ii = 0; ii < NUM_HOUSECODES; ii++)
+  for (ushort ii = 0; ii < NUM_HOUSECODES; ++ii)
   {
     if (aSym == gHouseCodes[ii])
       return static_cast<ushort>(ii + 1);

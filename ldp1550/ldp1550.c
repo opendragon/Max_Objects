@@ -225,7 +225,7 @@ Pvoid ldpCreate
     {
       LdpPacketPtr prev = NULL_PTR, curr = xx->fPool;
 
-      for (short index = 0; index < xx->fPoolSize; index++)
+      for (short index = 0; index < xx->fPoolSize; ++index)
       {
         curr->fPrev = prev;
         if (prev)

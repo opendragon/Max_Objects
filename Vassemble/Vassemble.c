@@ -158,14 +158,12 @@ void processInput
       
       if (result)
       {
-        short     offset = 0;
-        ChunkPtr  walker = xx->fChunkList;
+        short	offset = 0;
         
-        while (walker)
+        for (ChunkPtr  walker = xx->fChunkList; walker; walker = walker->fNext)
         {
-          for (short index = 0; index < walker->fLastEntry; index++, offset++)
+          for (short index = 0; index < walker->fLastEntry; ++index, ++offset)
             SETLONG(result + offset, walker->fData[index]);
-          walker = walker->fNext;
         }
         genericListOutput(xx->fResultOut, xx->fPreviousLength, result);
         FREEBYTES(result, xx->fPreviousLength)
@@ -198,7 +196,7 @@ void processInput
       workChunk->fData[index] = value;
       workChunk->fLastEntry = short(index + 1);
     } 
-    xx->fPreviousLength++;
+    ++xx->fPreviousLength;
   }
   else
   {

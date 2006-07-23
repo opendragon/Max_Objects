@@ -50,10 +50,10 @@ Pvoid cmd_Zero
     Atom  report[3];
 
     spaceballZeroValues(xx);
-    for (short ii = 0; ii < 3; ii++)
+    for (short ii = 0; ii < 3; ++ii)
       SETFLOAT(report + ii, xx->fTrans[ii]);
     outlet_anything(xx->fDataOut, gTranslateSymbol, 3, report);
-    for (short ii = 0; ii < 3; ii++)
+    for (short ii = 0; ii < 3; ++ii)
       SETFLOAT(report + ii, xx->fRot[ii]);
     outlet_anything(xx->fDataOut, gRotateSymbol, 3, report);
   }

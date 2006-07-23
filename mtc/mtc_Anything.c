@@ -50,7 +50,7 @@ Pvoid cmd_Anything
   LOG_ERROR_3(OUTPUT_PREFIX "inlet %hd -> Unknown message '%s' seen", xx->fInletNumber,
               message->s_name)
   outlet_bang(xx->fErrorBangOut);
-  for (short ii = 0; ii < argc; ii++)
+  for (short ii = 0; ii < argc; ++ii)
   {
     switch (argv[ii].a_type)
     {

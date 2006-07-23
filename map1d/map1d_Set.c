@@ -80,7 +80,7 @@ Pvoid cmd_Set
       }
       if (okSoFar)
       {
-        next++;
+        ++next;
         switch (next->a_type)
         {
           case A_LONG:
@@ -103,12 +103,12 @@ Pvoid cmd_Set
             break;
 
         }
-        next++;
+        ++next;
         if (which && (slot > 0) && (slot <= xx->fRangeCount))
         {
           RangeDataPtr walker = xx->fFirstRange;
 
-          for (long ii = 1; walker && (ii < slot); ii++)
+          for (long ii = 1; walker && (ii < slot); ++ii)
             walker = walker->fNext;
           if (walker)
           {

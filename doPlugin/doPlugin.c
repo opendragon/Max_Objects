@@ -74,18 +74,20 @@ void freeRoutineDescriptors
 OSErr getAppDir
   (FSSpec * pAppFile);
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 OSErr getEntryPoint
   (CFragConnectionID  connID,
    Str255             name,
    ProcPtr *          newUpp);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+
+#if defined(COMPILE_FOR_OS9_4)
 OSErr getEntryPoint
   (CFragConnectionID  connID,
    Str255             name,
    ProcInfoType       procInfo,
    UniversalProcPtr * newUpp);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
 #if defined(OPTIONAL_FUNCTIONS)
 OSErr getFullPath
@@ -119,7 +121,7 @@ void main
   EnterCodeResource();
   PrepareCallback();
   FNS = ff;   /* Connect up the function macros. */
-#if __powerc
+#if FOR_MAC_PPC
   /* Allocate class memory and set up class. */
   setup(reinterpret_cast<t_messlist**>(&gClass), reinterpret_cast<method>(doPluginCreate),
         reinterpret_cast<method>(doPluginFree), short(sizeof(DoPluginData)),
@@ -167,9 +169,9 @@ void main
     LOG_ERROR_2(OUTPUT_PREFIX "couldn't find Preference folder: %d", myErr)
   else
     gPluginFolderFound = initPluginList();
-#else /* not __powerc */
+#else /* not FOR_MAC_PPC */
   error(OUTPUT_PREFIX "not supported on Max/68K");
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   ExitCodeResource();
 } /* main */
 
@@ -179,16 +181,16 @@ Pvoid doPluginCreate
    short   argc,
    PAtom   argv)
 {
-#if __powerc
+#if FOR_MAC_PPC
  #pragma unused(ss)
-#else /* not __powerc */
+#else /* not FOR_MAC_PPC */
  #pragma unused(ss, argc, argv)
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   DoPluginPtr xx = NULL_PTR;
 
   EnterCallback();
   LOG_ENTER()
-#if __powerc
+#if FOR_MAC_PPC
   if (gPluginFolderFound)
   {
     xx = static_cast<DoPluginPtr>(newobject(gClass));
@@ -229,33 +231,33 @@ Pvoid doPluginCreate
           /* locate initial plugin reference */
           PluginDescriptorPtr descriptor = gPluginAnchor;
 
-          while (descriptor)
+          for ( ; descriptor; descriptor = descriptor->fNext)
           {
             if (descriptor->fName == aName)
-              {
+            {
               xx->fActivePlugin = descriptor;
-              descriptor->fRefCount++;
+              ++descriptor->fRefCount;
               break;
 
             }            			
-            descriptor = descriptor->fNext;
           }
           if (xx->fActivePlugin)
           {
             xx->fOwnerInfo.fMaxObject = xx;
             xx->fOwnerInfo.fRegistry = xx->fActivePlugin->fRegistry;
             /* Invoke the onCreate() routine */
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
             myErr = reinterpret_cast<FpOnCreate>(descriptor->fOnCreateFun)
                           (&xx->fOwnerInfo, descriptor->fName->s_name,
                           descriptor->fShared, &xx->fPrivate, short(argc - 1),
                           argv + 1, &xx->fNumInlets, &xx->fNumOutlets);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
             myErr = static_cast<OSErr>(CallUniversalProc(descriptor->fOnCreateUpp, uppOnCreateProcInfo,
             																&xx->fOwnerInfo, descriptor->fName->s_name, descriptor->fShared,
             																&xx->fPrivate, short(argc - 1), argv + 1, &xx->fNumInlets,
             																&xx->fNumOutlets));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
             if (myErr == noErr)
             {
               if ((xx->fNumInlets < 1) || (xx->fNumOutlets < 1))
@@ -278,7 +280,7 @@ Pvoid doPluginCreate
                 }
                 if (xx->fOutlets && (xx->fProxies || (xx->fNumInlets == 1)))
                 {
-                  for (short ii = 0; (ii < xx->fNumOutlets) && (! failed); ii++)
+                  for (short ii = 0; (ii < xx->fNumOutlets) && (! failed); ++ii)
                   {
                     long  tag = xx->fNumOutlets - (ii + 1);
                     Pvoid temp = outlet_new(xx, NULL_PTR);
@@ -291,7 +293,7 @@ Pvoid doPluginCreate
                       failed = true;
                     }
                   }
-                  for (short ii = 0; (ii < pMax) && (! failed); ii++)
+                  for (short ii = 0; (ii < pMax) && (! failed); ++ii)
                   {
                     long  tag = pMax - ii;
                     Pvoid temp = proxy_new(xx, tag, &xx->fInletNumber);
@@ -336,10 +338,10 @@ Pvoid doPluginCreate
         xx = NULL_PTR;
       }
       else
-        gObjectCount++;
+        ++gObjectCount;
     }
   }
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   ExitCodeResource();
   return xx;
 } /* doPluginCreate */
@@ -351,23 +353,24 @@ Pvoid doPluginFree
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (xx->fActivePlugin)
     {
       PluginDescriptorPtr descriptor = xx->fActivePlugin;
 
       /* Invoke the onDestroy() routine */
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
       OSErr myErr = reinterpret_cast<FpOnDestroy>(descriptor->fOnDestroyFun)
                           (&xx->fOwnerInfo, descriptor->fShared, xx->fPrivate);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
       OSErr myErr = static_cast<OSErr>(CallUniversalProc(descriptor->fOnDestroyUpp, uppOnDestroyProcInfo,
       																			&xx->fOwnerInfo, descriptor->fShared, xx->fPrivate));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
       if (myErr != noErr)
         LOG_ERROR_2(OUTPUT_PREFIX "problem running onDestroy() for plügin: %d", myErr)
-      descriptor->fRefCount--;
+      --descriptor->fRefCount;
     }
     if ((xx->fNumInlets > 1) && xx->fProxies)
     {
@@ -377,20 +380,19 @@ Pvoid doPluginFree
     if (! --gObjectCount)
     {
       /* Walk down the descriptor list, disconnecting */
-      PluginDescriptorPtr walker = gPluginAnchor;
-
-      while (walker)
+      for (PluginDescriptorPtr walker = gPluginAnchor, next; walker; walker = next)
       {
-        PluginDescriptorPtr next = walker->fNext;
-#if defined(COMPILE_FOR_CATS)
-        OSErr               myErr = reinterpret_cast<FpNiam>(walker->fNiamFun)
+#if defined(COMPILE_FOR_OSX_4)
+        OSErr	myErr = reinterpret_cast<FpNiam>(walker->fNiamFun)
                                           (&xx->fOwnerInfo, walker->fShared);
-#else /* not COMPILE_FOR_CATS */
-        OSErr               myErr = static_cast<OSErr>(CallUniversalProc(walker->fNiamUpp,
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
+        OSErr	myErr = static_cast<OSErr>(CallUniversalProc(walker->fNiamUpp,
         																										uppNiamProcInfo, &xx->fOwnerInfo,
                                                             walker->fShared));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
+        next = walker->fNext;
         if (myErr != noErr)
           LOG_ERROR_2(OUTPUT_PREFIX "problem running niam() for plügin: %d", myErr)
         freeRoutineDescriptors(walker);
@@ -400,7 +402,7 @@ Pvoid doPluginFree
       }
       gPluginAnchor = NULL_PTR;
     }
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   LOG_EXIT()
   ExitMaxMessageHandler()
@@ -411,10 +413,10 @@ bool checkForPluginsFolder
   (const short	volumeID,
    const long		dirID)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #pragma unused(volumeID, dirID)
-#endif /* not __powerc */
-#if __powerc
+#endif /* not FOR_MAC_PPC */
+#if FOR_MAC_PPC
   Boolean   targetIsFolder, wasAliased;
   bool      foundFolder = false;
   HFileInfo myCPB;
@@ -472,14 +474,14 @@ bool checkForPluginsFolder
         }
       }
     }
-    index++;
+    ++index;
   }
   DisposePtr(reinterpret_cast<Ptr>(myCPB.ioNamePtr));
   myCPB.ioNamePtr = 0;
   return foundFolder;
-#else /* not __powerc */
+#else /* not FOR_MAC_PPC */
   return false;
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
 } /* checkForPluginsFolder */
 
 /*------------------------------------ compareStrings ---*/
@@ -498,11 +500,11 @@ bool compareStrings
 void freeRoutineDescriptors
   (PluginDescriptorPtr descriptor)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #pragma unused(descriptor)
-#endif /* not __powerc */
-#if __powerc
- #if (! defined(COMPILE_FOR_CATS))
+#endif /* not FOR_MAC_PPC */
+#if FOR_MAC_PPC
+ #if defined(COMPILE_FOR_OS9_4)
   long routineMask = descriptor->fValidMask;
 
   if (routineMask & kDoAnythingValid)
@@ -555,20 +557,20 @@ void freeRoutineDescriptors
     DisposeRoutineDescriptor(descriptor->fOnReloadUpp);   
     descriptor->fOnReloadUpp = NULL_PTR;
   }
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
   descriptor->fValidMask = 0;
   CloseConnection(&descriptor->fConnID);
-  #endif /* __powerc */
+  #endif /* FOR_MAC_PPC */
 } /* freeRoutineDescriptors */
 
 /*------------------------------------ getAppDir ---*/
 OSErr getAppDir
   (FSSpec * pAppFile)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #pragma unused(pAppFile)
-#endif /* not __powerc */
-#if __powerc
+#endif /* not FOR_MAC_PPC */
+#if FOR_MAC_PPC
   ProcessInfoRec      myInfo;
   ProcessSerialNumber myPSN;
   OSErr               myErr = GetCurrentProcess(&myPSN);
@@ -583,22 +585,22 @@ OSErr getAppDir
   else
     LOG_ERROR_2(OUTPUT_PREFIX "problem getting current process: %d", myErr)
   return myErr;
-#else /* not __powerc */
+#else /* not FOR_MAC_PPC */
   return noErr;
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
 } /* getAppDir */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ getEntryPoint ---*/
 OSErr getEntryPoint
   (CFragConnectionID  connID,
    Str255             name,
    ProcPtr *          newFun)
 {
- #if (! __powerc)
+ #if (! FOR_MAC_PPC)
   #pragma unused(connID, name, procInfo, newUpp)
- #endif /* not __powerc */
- #if __powerc
+ #endif /* not FOR_MAC_PPC */
+ #if FOR_MAC_PPC
   OSErr            myErr = noErr;
   Ptr              entryAddress;
   CFragSymbolClass symClass;
@@ -614,13 +616,13 @@ OSErr getEntryPoint
     LOG_ERROR_2(OUTPUT_PREFIX "couldn't locate symbol: %s", tempString)
   }    
   return myErr;
- #else /* not __powerc */
+ #else /* not FOR_MAC_PPC */
   return noErr;
- #endif /* not __powerc */
+ #endif /* not FOR_MAC_PPC */
 } /* getEntryPoint */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ getEntryPoint ---*/
 OSErr getEntryPoint
   (CFragConnectionID  connID,
@@ -628,10 +630,10 @@ OSErr getEntryPoint
    ProcInfoType       procInfo,
    UniversalProcPtr * newUpp)
 {
- #if (! __powerc)
+ #if (! FOR_MAC_PPC)
   #pragma unused(connID, name, procInfo, newUpp)
- #endif /* not __powerc */
- #if __powerc
+ #endif /* not FOR_MAC_PPC */
+ #if FOR_MAC_PPC
   OSErr            myErr = noErr;
   Ptr              entryAddress;
   CFragSymbolClass symClass;
@@ -651,11 +653,11 @@ OSErr getEntryPoint
     c2pstr(reinterpret_cast<Pchar>(name));
   }    
   return myErr;
- #else /* not __powerc */
+ #else /* not FOR_MAC_PPC */
   return noErr;
- #endif /* not __powerc */
+ #endif /* not FOR_MAC_PPC */
 } /* getEntryPoint */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
 #if defined(OPTIONAL_FUNCTIONS)
 /*------------------------------------ getFullPath ---*/
@@ -664,10 +666,10 @@ OSErr getFullPath
    long &         fullPathLength,
    Handle &       fullPath)
 {
- #if (! __powerc)
+ #if (! FOR_MAC_PPC)
   #pragma unused(spec, fullPathLength, fullPath)
- #endif /* not __powerc */
- #if __powerc
+ #endif /* not FOR_MAC_PPC */
+ #if FOR_MAC_PPC
   OSErr      result = noErr, realResult = noErr;
   FSSpec     tempSpec;
   CInfoPBRec pb;
@@ -759,9 +761,9 @@ OSErr getFullPath
     fullPathLength = 0;
   }
   return result;
- #else /* not __powerc */
+ #else /* not FOR_MAC_PPC */
   return noErr;
- #endif /* not __powerc */
+ #endif /* not FOR_MAC_PPC */
 } /* getFullPath */
 #endif // OPTIONAL_FUNCTIONS
 
@@ -769,7 +771,7 @@ OSErr getFullPath
 bool initPluginList
   (void)
 {
-#if __powerc	
+#if FOR_MAC_PPC	
   OSErr             myErr = noErr;
   bool              result = true;
   Str255            errName;
@@ -793,23 +795,24 @@ bool initPluginList
   }
   else
   {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     char  tempString[256];
     
     CopyPascalStringToC(errName, tempString);
     LOG_ERROR_3(OUTPUT_PREFIX "loading problem: %d, name: '%s'", myErr, tempString)
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     p2cstr(errName);
     LOG_ERROR_3(OUTPUT_PREFIX "loading problem: %d, name: '%s'", myErr,
                   reinterpret_cast<Pchar>(errName))
     c2pstr(reinterpret_cast<Pchar>(errName));
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
     result = false;
   }
   return result;
-#else /* not __powerc */
+#else /* not FOR_MAC_PPC */
   return false;
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
 } /* initPluginList */
 
 #if defined(OPTIONAL_FUNCTIONS)
@@ -820,10 +823,10 @@ OSErr makeFSSpecCompat
    ConstStr255Param fileName,
    FSSpec *         spec)
 {
- #if (! __powerc)
+ #if (! FOR_MAC_PPC)
   #pragma unused(vRefNum, dirID, fileName, spec)
- #endif /* not __powerc */
- #if __powerc
+ #endif /* not FOR_MAC_PPC */
+ #if FOR_MAC_PPC
   /* Let the file system create the FSSpec if it can since it does the job */
   /* much more efficiently than I can. */
   OSErr result = FSMakeFSSpec(vRefNum, dirID, fileName, spec);
@@ -835,9 +838,9 @@ OSErr makeFSSpecCompat
   if ((result == noErr) && (spec->parID == 0))
     spec->parID = fsRtParID;
   return result;
- #else /* not __powerc */
+ #else /* not FOR_MAC_PPC */
   return noErr;
- #endif /* not __powerc */
+ #endif /* not FOR_MAC_PPC */
 } /* makeFSSpecCompat */
 #endif // OPTIONAL_FUNCTIONS
 
@@ -847,31 +850,33 @@ void refreshDescriptors
 {
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     PluginDescriptorPtr descriptor = xx->fActivePlugin;
 
     if (descriptor)
     {
       Str255 tempName;
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
       CopyCStringToPascal(descriptor->fName->s_name, tempName);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
       strcpy(reinterpret_cast<Pchar>(tempName), descriptor->fName->s_name);
       c2pstr(reinterpret_cast<Pchar>(tempName));
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
       freeRoutineDescriptors(descriptor);
       flushRegistry(descriptor->fRegistry);
       if (validateEntryPoints(descriptor, &descriptor->fSpec, tempName))
       {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
         OSErr myErr = reinterpret_cast<FpOnReload>(descriptor->fOnReloadFun)
                             (descriptor->fConnID, &xx->fOwnerInfo, descriptor->fShared);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
         OSErr myErr = static_cast<OSErr>(CallUniversalProc(descriptor->fOnReloadUpp, uppOnReloadProcInfo,
                                               descriptor->fConnID, &xx->fOwnerInfo,
                                               descriptor->fShared));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
         if (myErr != noErr)
           LOG_ERROR_2(OUTPUT_PREFIX "problem running onReload() for plügin: %d", myErr)
@@ -879,7 +884,7 @@ void refreshDescriptors
       else
         LOG_ERROR_2("couldn't refresh the entry points for '%s'", descriptor->fName->s_name)
     }
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
 } /* refreshDescriptors */
 
@@ -887,7 +892,7 @@ void refreshDescriptors
 void rescanPlugins
   (void)
 {
-#if __powerc
+#if FOR_MAC_PPC
   Boolean   targetIsFolder, wasAliased;
   HFileInfo myCPB;
   FSSpec    newFSS;
@@ -912,16 +917,17 @@ void rescanPlugins
         bool                found = false;
         PSymbol             aName;
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
         char                tempString[256];
         
         CopyPascalStringToC(myCPB.ioNamePtr, tempString);
         aName = gensym(tempString);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
         aName = gensym(p2cstr(myCPB.ioNamePtr));
         c2pstr(reinterpret_cast<Pchar>(myCPB.ioNamePtr));
- #endif /* not COMPILE_FOR_CATS */
-        while (walker)
+ #endif /* COMPILE_FOR_OS9_4 */
+        for ( ; walker; walker = walker->fNext)
         {
           if (walker->fName == aName)
           {
@@ -929,7 +935,6 @@ void rescanPlugins
             break;
 
           }
-          walker = walker->fNext;
         }
         myErr = FSMakeFSSpec(gPluginVol, gPluginDir, myCPB.ioNamePtr, &newFSS);
         if (myErr != noErr)
@@ -973,14 +978,15 @@ void rescanPlugins
               memcpy(&descriptor->fSpec, &newFSS, sizeof(newFSS));
               transientStuff.fRegistry = descriptor->fRegistry = createRegistry();
               /* Execute the main entry point: */
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
               myErr = reinterpret_cast<FpMain>(descriptor->fMainFun)
                             (descriptor->fConnID, &transientStuff, &descriptor->fShared);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
               myErr = static_cast<OSErr>(CallUniversalProc(descriptor->fMainUpp, uppMainProcInfo,
                                               descriptor->fConnID, &transientStuff,
                                               &descriptor->fShared));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
               if (myErr != noErr)
               {
                 LOG_ERROR_2(OUTPUT_PREFIX "problem running main() for plügin: %d", myErr)
@@ -994,7 +1000,7 @@ void rescanPlugins
     }
   }
   DisposePtr(reinterpret_cast<Ptr>(myCPB.ioNamePtr));
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
 } /* rescanPlugins */
 
 /*------------------------------------ validateEntryPoints ---*/
@@ -1003,10 +1009,10 @@ bool validateEntryPoints
    FSSpec *            anFSS,
    Puchar              name)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #pragma unused(descriptor, anFSS, name)
-#endif /* not __powerc */
-#if __powerc
+#endif /* not FOR_MAC_PPC */
+#if FOR_MAC_PPC
   Str255 errName;
   long   routineMask = 0;
   OSErr  myErr = GetDiskFragment(anFSS, 0, kCFragGoesToEOF, name, kPrivateCFragCopy,
@@ -1014,122 +1020,133 @@ bool validateEntryPoints
 
   if (myErr == noErr)
   {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     descriptor->fMainFun = reinterpret_cast<ProcPtr>(descriptor->fMainAddress);
     if (! descriptor->fMainFun)
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     descriptor->fMainUpp = NewRoutineDescriptor(reinterpret_cast<ProcPtr>(descriptor->fMainAddress), uppMainProcInfo,
                                                 GetCurrentISA());                                       
     if (! descriptor->fMainUpp)
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
       myErr = memFullErr;
   }
   if (myErr == noErr)
   {
     routineMask |= kMainValid;        
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdo_Anything", &descriptor->fDoAnythingFun);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdo_Anything", uppDoAnythingProcInfo, &descriptor->fDoAnythingUpp);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kDoAnythingValid;        
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdo_Bang", &descriptor->fDoBangFun);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdo_Bang", uppDoBangProcInfo, &descriptor->fDoBangUpp);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kDoBangValid;        
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdo_Double", &descriptor->fDoDoubleFun);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdo_Double", uppDoDoubleProcInfo, &descriptor->fDoDoubleUpp);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kDoDoubleValid;        
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdo_List", &descriptor->fDoListFun);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdo_List", uppDoListProcInfo, &descriptor->fDoListUpp);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kDoListValid;        
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdo_Long", &descriptor->fDoLongFun);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdo_Long", uppDoLongProcInfo, &descriptor->fDoLongUpp);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kDoLongValid;        
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pniam", &descriptor->fNiamFun);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pniam", uppNiamProcInfo, &descriptor->fNiamUpp);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kNiamValid;        
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\ponCreate", &descriptor->fOnCreateFun);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\ponCreate", uppOnCreateProcInfo, &descriptor->fOnCreateUpp);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kOnCreateValid;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\ponDestroy", &descriptor->fOnDestroyFun);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\ponDestroy", uppOnDestroyProcInfo, &descriptor->fOnDestroyUpp);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kOnDestroyValid;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\ponReload", &descriptor->fOnReloadFun);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\ponReload", uppOnReloadProcInfo, &descriptor->fOnReloadUpp);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
     routineMask |= kOnReloadValid;
   descriptor->fValidMask = routineMask;
   if (myErr != noErr)
   {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     char  tempString[256];
     
     CopyPascalStringToC(errName, tempString);
     LOG_ERROR_3(OUTPUT_PREFIX "loading problem: %d, name: '%s'", myErr, tempString)
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     p2cstr(errName);
     LOG_ERROR_3(OUTPUT_PREFIX "loading problem: %d, name: '%s'", myErr,
                 reinterpret_cast<Pchar>(errName))
     c2pstr(reinterpret_cast<Pchar>(errName));
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
     /* Clear out routine descriptors */
     freeRoutineDescriptors(descriptor);
     return false;
 
   }
   return true;
-#else /* not __powerc */
+#else /* not FOR_MAC_PPC */
   return false;
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
 } /* validateEntryPoints */	              		                        
 
 StandardInfoRoutine(DoPluginPtr)

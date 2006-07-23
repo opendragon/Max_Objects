@@ -56,17 +56,18 @@ static bool performPut
 	{
 		PhidgetDescriptorPtr	kind = reinterpret_cast<PhidgetDescriptorPtr>(walkerHID->fClass);
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 		action = reinterpret_cast<FpDoPut>(kind->fDoPutFun)(OUR_NAME, deviceType, xx->fDataOut,
 																												kind->fShared, walkerHID->fPrivate,
 																												walkerHID, short(argc - 2),
 																												argv + 2, &result);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 		action = static_cast<E_PhidgResult>(CallUniversalProc(kind->fDoPutUpp, uppDoPutProcInfo,
 																OUR_NAME, deviceType, xx->fDataOut, kind->fShared,
 																walkerHID->fPrivate, walkerHID, short(argc - 2), argv + 2,
 																&result));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	}
 	if (action == kPhidgDoDefault)
 	{
@@ -88,7 +89,7 @@ static bool performPut
   		{
   			int	ii;
   			
-  			for (ii = 3; ii < argc; ii++)
+  			for (ii = 3; ii < argc; ++ii)
   			{
   				if (argv[ii].a_type != A_LONG)
   				{
@@ -125,11 +126,12 @@ static bool performPut
 			  }
 			  if (anElement)
 			  {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 	 				IOReturn	result;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
 	 				OSStatus	result;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 	 				
 	 				setHIDElementValue(OUR_NAME, *walkerHID, *anElement, extendedLength,
 	 														extendedValue, singleValue, result);

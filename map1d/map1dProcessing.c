@@ -54,7 +54,7 @@ void map1dOutputResult
     {
       PAtom outWalker = tempList;
 
-      for (short ii = 0; ii < result->fOutputCount; ii++)
+      for (short ii = 0; ii < result->fOutputCount; ++ii)
       {
         if (inWalker->a_type == A_SYM)
         {
@@ -108,8 +108,8 @@ void map1dOutputResult
         }
         else
           *outWalker = *inWalker;
-        outWalker++;
-        inWalker++;
+        ++outWalker;
+        ++inWalker;
       }
       outlet_anything(xx->fResultOut, gResultSymbol, outputCount, tempList);
       FREEBYTES(tempList, outputCount)
@@ -130,7 +130,7 @@ void map1dProcessData
   {
     float inValue = getFOIFloat(input);
 
-    while (walker)
+    for ( ; walker; walker = walker->fNext)
     {
       RangeElement toTest = walker->fLower;
       bool         okSoFar;
@@ -195,14 +195,13 @@ void map1dProcessData
       if (okSoFar)
         break;
 
-      walker = walker->fNext;
     }
   }
   else
   {
     long inValue = getFOILong(input);
 
-    while (walker)
+    for ( ; walker; walker = walker->fNext)
     {
       RangeElement toTest = walker->fLower;
       bool         okSoFar;
@@ -267,7 +266,6 @@ void map1dProcessData
       if (okSoFar)
         break;
 
-      walker = walker->fNext;
     }
   }
   xx->fPreviousResult = walker;

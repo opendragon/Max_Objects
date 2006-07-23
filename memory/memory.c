@@ -100,18 +100,16 @@ static void memoryResolveCommonName
 
   if (name != gEmptySymbol)
   {
-    descriptor = gMemoryAnchor;
-    while (descriptor)
+    for (descriptor = gMemoryAnchor; descriptor; descriptor = descriptor->fNext)
     {
       if (descriptor->fTag == name)
         break;
 
-      descriptor = descriptor->fNext;
     }
   }
   if (descriptor)
   {
-    descriptor->fReferenceCount++;
+    ++descriptor->fReferenceCount;
     xx->fSymbols = descriptor;
   }
   else

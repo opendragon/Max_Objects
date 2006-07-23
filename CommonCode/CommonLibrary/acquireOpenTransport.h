@@ -43,11 +43,11 @@
  #include "MissingAndExtra.h"
  #include <OpenTptInternet.h>
 
- #if __powerc
+ #if FOR_MAC_PPC
   #define OPEN_TRANSPORT_SUPPORTED 1
- #else /* not __powerc */
+ #else /* not FOR_MAC_PPC */
   #define OPEN_TRANSPORT_SUPPORTED 0
- #endif /* not __powerc */
+ #endif /* not FOR_MAC_PPC */
  #define OT_CONTROL_SYMBOL "##otcontrol##"
 
 enum
@@ -59,9 +59,9 @@ struct AccessOTControlBlock
 {
   AccessOTControlBlock * fNext;
   AccessOTControlBlock * fPrevious;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   OTClientContextPtr     fContext;
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
   ushort                 fPort;
   bool                   fIsServer;
 }; /* AccessOTControlBlock */

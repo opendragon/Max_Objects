@@ -52,7 +52,7 @@ Pvoid cmd_List
     bool  passThrough = false;
     short anIndex, thisIndex;
 
-    for (short ii = 0; (! passThrough) && (ii <= xx->fLastIndex); ii++)
+    for (short ii = 0; (! passThrough) && (ii <= xx->fLastIndex); ++ii)
     {
       anIndex = xx->fWhichIndex[ii];
       thisIndex = short((anIndex > 0) ? (anIndex - 1) : (argc + anIndex));
@@ -102,7 +102,7 @@ Pvoid cmd_List
     {
       genericListOutput(xx->fResultOut, argc, argv);
       /* Remember the changed value(s) */
-      for (short ii = 0; ii <= xx->fLastIndex; ii++)
+      for (short ii = 0; ii <= xx->fLastIndex; ++ii)
       {
         anIndex = xx->fWhichIndex[ii];
         thisIndex = short((anIndex > 0) ? (anIndex - 1) : (argc + anIndex));

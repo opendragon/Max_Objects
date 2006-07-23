@@ -152,7 +152,7 @@ LdpPacketPtr ldpNewPacket
 
   xx->fPool = newPacket->fNext;
   newPacket->fPrev = newPacket->fNext = NULL_PTR;
-  xx->fPoolAvailable--;
+  --xx->fPoolAvailable;
   return newPacket;
 } /* ldpNewPacket */
 
@@ -166,7 +166,7 @@ void ldpReleasePacket
     pp->fPrev = NULL_PTR;
     pp->fNext = xx->fPool;
     xx->fPool = pp;
-    xx->fPoolAvailable++;
+    ++xx->fPoolAvailable;
   }
 } /* ldpReleasePacket */
 

@@ -263,7 +263,7 @@ Pvoid gvpCreate
       GvpPacketPtr prev = NULL_PTR;
       GvpPacketPtr curr = xx->fPool;
 
-      for (short index = 0; index < xx->fPoolSize; index++)
+      for (short index = 0; index < xx->fPoolSize; ++index)
       {
         curr->fPrev = prev;
         if (prev)
@@ -341,7 +341,7 @@ void gvpPerformWriteCommand
         SETLONG(dataList, numBytesToFollow + 2);
         SETLONG(dataList + 1, long(effectsAddress & 0x00FF));
         SETLONG(dataList + 2, long(commandCode));
-        for (short ii = 0; ii < numBytesToFollow; ii++)
+        for (short ii = 0; ii < numBytesToFollow; ++ii)
         {
           dataValue = *bytesToFollow++;
           SETLONG(dataList + ii + 3, dataValue);
@@ -510,7 +510,7 @@ Pvoid gvpProcessResponse
             uchar				dataValue;
             static Atom	dataList[128];
 
-            for (short ii = 0; ii < aPacket->fSize; ii++)
+            for (short ii = 0; ii < aPacket->fSize; ++ii)
             {
               dataValue = aPacket->fBuffer[ii];
               SETLONG(dataList + ii, dataValue);

@@ -61,6 +61,27 @@ extern "C"
  #if defined(__cplusplus)
 }
  #endif /* __cplusplus */
+
+/* Set up names for machine-dependent code tests: */
+ #undef FOR_MAC_68K
+ #undef FOR_MAC_PPC
+ #undef FOR_WIN_XP
+ #if defined(__MC68K__)
+  #define FOR_MAC_68K 1
+ #elif defined(__INTEL_)
+  #define FOR_WIN_XP 1
+ #else /* not __INTEL__ */
+  #define FOR_MAC_PPC 1
+ #endif /* not __INTEL__ */
+ #if (! defined(FOR_MAC_68K))
+  #define FOR_MAC_68K 0
+ #endif /* not FOR_MAC_68K */
+ #if (! defined(FOR_MAC_PPC))
+  #define FOR_MAC_PPC 0
+ #endif /* not FOR_MAC_PPC */
+ #if (! defined(FOR_WIN_XP))
+  #define FOR_WIN_XP	0
+ #endif /* not FOR_WIN_XP */
   
  #define NULL_HDL 0L
  #define NULL_PTR 0L /* There is a problem with NULL == 0, rather than == 0L */
@@ -102,11 +123,11 @@ typedef struct qelem  	Qelem;
  #define OUR_TEXT_AREA_ID 3
  #define OUR_STR_OFFSET		1
 
- #if (__powerc)
+ #if FOR_MAC_PPC
   #define SYSLOG_OK 1
- #else /* not __powerc */
+ #else /* not FOR_MAC_PPC */
   #define SYSLOG_OK 0
- #endif /* not __powerc */
+ #endif /* not FOR_MAC_PPC */
 
  #if (! defined(SYSLOG_LEVEL))
   #define SYSLOG_LEVEL LOG_DEBUG
@@ -175,17 +196,17 @@ typedef const uchar *		Quchar;
 extern "C"
 {
  #endif /* __cplusplus */
- #if (! __powerc) && (! defined(__CFM68K__))
+ #if (! FOR_MAC_PPC) && (! defined(__CFM68K__))
   #define PrepareCallback() RememberA4() 
   #define EnterCallback()   long oldA4 = SetUpA4()
   #define ExitCallback()    RestoreA4(oldA4)
- #else /* __powerc or __CFM68K__ */
+ #else /* FOR_MAC_PPC or __CFM68K__ */
   #define PrepareCallback() /* */
   #define EnterCallback()   /* */
   #define ExitCallback()    /* */
- #endif /* __powerc or __CFM68K__ */
+ #endif /* FOR_MAC_PPC or __CFM68K__ */
  #if defined(IS_MAIN)
-  #if (! __powerc) && (! defined(__CFM68K__))
+  #if (! FOR_MAC_PPC) && (! defined(__CFM68K__))
 	void RememberA4
 		(void);
 		
@@ -211,13 +232,13 @@ extern "C"
 	long RestoreA4
 		(long : __D0) :
 			__D0 = 0xC18C;
-  #else /* __powerc or __CFM68K__ */
+  #else /* FOR_MAC_PPC or __CFM68K__ */
    #define RememberA4()  0
    #define SetUpA4()     0L
    #define RestoreA4(xx) 0L
-  #endif /* __powerc or __CFM68K__ */
+  #endif /* FOR_MAC_PPC or __CFM68K__ */
  #else /* not IS_MAIN */
-  #if (! __powerc) && (! defined(__CFM68K__))
+  #if (! FOR_MAC_PPC) && (! defined(__CFM68K__))
 	extern void RememberA4
 		(void);
 	
@@ -227,17 +248,17 @@ extern "C"
 	long RestoreA4
 		(long : __D0) :
 			__D0 = 0xC18C;
-  #else /* __powerc or __CFM68K__ */
+  #else /* FOR_MAC_PPC or __CFM68K__ */
    #define RememberA4()  0
    #define SetUpA4()     0L
    #define RestoreA4(xx) 0L
-  #endif /* __powerc or __CFM68K__ */
+  #endif /* FOR_MAC_PPC or __CFM68K__ */
  #endif /* not IS_MAIN */
  #if defined(__cplusplus)
 }
  #endif /* __cplusplus */
 
- #if defined(__powerc)
+ #if defined(FOR_MAC_PPC)
   #if defined(__cplusplus)
 extern "C"
 {
@@ -274,7 +295,7 @@ int fseek
   #endif /* __cplusplus */
   
   /*#define bf_singlefast(h,hsize,argc,argv) ((*(FNS[f_bf_singlefast]))(h,hsize,argc,argv))*/
- #else /* not __powerc */
+ #else /* not FOR_MAC_PPC */
   /* Incorrect function definitions!!!! */
   #undef fclose
   #define fclose(xx)      ((*(FNS[f_fclose])) (xx))
@@ -284,7 +305,7 @@ int fseek
   #define fscanf          (*(FNS[f_fscanf]))
   #undef fseek
   #define fseek(xx,yy,zz) ((*(FNS[f_fseek])) (xx, yy, zz))
- #endif /* not __powerc */
+ #endif /* not FOR_MAC_PPC */
 
  #define FREEBYTES(ptr, numb)   \
 {\
@@ -366,11 +387,12 @@ Pvoid cmd_Anything\
 
 /* Syslog stuff: */
  #if SYSLOG_OK
-  #if defined(COMPILE_FOR_CATS)
+  #if defined(COMPILE_FOR_OSX_4)
    #include <sys/syslog.h>
-  #else /* not COMPILE_FOR_CATS */
+  #endif /* COMPILE_FOR_OSX_4 */
+  #if defined(COMPILE_FOR_OS9_4)
    #include "syslog.h"
-  #endif /* not COMPILE_FOR_CATS */
+  #endif /* COMPILE_FOR_OS9_4 */
  #endif /* SYSLOG_OK */
  
  #if SYSLOG_OK && defined(USE_SYSLOG)
@@ -379,11 +401,11 @@ Pvoid cmd_Anything\
   #define SYSLOG_AVAILABLE 0
  #endif /* not SYSLOG_OK or not USE_SYSLOG */
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   #define Syslog	\
    	if (gSyslogFunction)\
    		gSyslogFunction /* to connect to the "real thing" */
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 
  #if SYSLOG_AVAILABLE
   #define LOG_ERROR_1(xx) \
@@ -532,7 +554,7 @@ mextern(Pfptr)	FNS;            /* Max function macros table */
 mextern(Pvoid)	gClass;         /* Pointer to class object */
 mextern(ulong)	gVersionNumber; /* The version number obtained from the 'vers' resource */
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 typedef void (* closelog_FP)
 	(void);
 typedef void (* openlog_FP)
@@ -544,7 +566,7 @@ typedef OSErr (* syslog_FP)
 	 Qchar	format,
 	 ...);
 extern syslog_FP	gSyslogFunction; // Note that the variable is NOT present in main()
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 extern long				gSyslogCount; // Note that the variable is NOT present in main()
 
 #endif /* not MISSINGANDEXTRA_H_ */

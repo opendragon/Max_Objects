@@ -66,7 +66,7 @@ Pvoid cmd_List
       outlet_bang(xx->fDoneOut);
     }
     clearDataBuffer(*xx->fBuffer);
-    for (short ii = 0; okSoFar && (ii < argc); ii++)
+    for (short ii = 0; okSoFar && (ii < argc); ++ii)
       okSoFar = addAtomToBuffer(OUR_NAME, *xx->fBuffer, &argv[ii]);
     if (okSoFar)
       transmitBuffer(xx);

@@ -81,7 +81,7 @@ Pvoid cmd_Load
           okSoFar = false;
         }
       }
-      while (okSoFar && (numSymbols > 0))
+      for ( ; okSoFar && (numSymbols > 0); )
       {
         okSoFar = (! binbuf_getatom(inBuffer, &typeOffset, &stuffOffset, &tempAtom));
         if (okSoFar)
@@ -131,9 +131,9 @@ Pvoid cmd_Load
           if (atomVector)
           {                       
             /* Prefill the atom vector, in case of early termination. */
-            for (short ii = 0; ii < numAtoms; ii++)
+            for (short ii = 0; ii < numAtoms; ++ii)
               SETLONG(atomVector + ii, 0);
-            for (short ii = 0; okSoFar && (ii < numAtoms); ii++)
+            for (short ii = 0; okSoFar && (ii < numAtoms); ++ii)
             {       
               okSoFar = (! binbuf_getatom(inBuffer, &typeOffset, &stuffOffset, &tempAtom));
               if (okSoFar)
@@ -145,7 +145,7 @@ Pvoid cmd_Load
           atomVector = NULL_PTR;
         theSymbol->fOutput = atomVector;
         theSymbol->fOutputCount = numAtoms;
-        numSymbols--;
+        --numSymbols;
       }
     }
     freeobject(reinterpret_cast<PObject>(inBuffer));

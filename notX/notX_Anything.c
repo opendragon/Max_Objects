@@ -58,7 +58,7 @@ Pvoid cmd_Anything
 
       SETSYM(newArg, message);
       memcpy(newArg + 1, argv, argc * sizeof(Atom));
-      for (short ii = 0; ii <= argc; ii++)
+      for (short ii = 0; ii <= argc; ++ii)
       {
         switch (newArg[ii].a_type)
         {
@@ -67,7 +67,7 @@ Pvoid cmd_Anything
             break;
 
           case A_SYM:
-            badArgs++;
+            ++badArgs;
             break;
 
           case A_FLOAT:
@@ -75,7 +75,7 @@ Pvoid cmd_Anything
             break;
 
           default:
-            badArgs++;
+            ++badArgs;
             break;
 
         }

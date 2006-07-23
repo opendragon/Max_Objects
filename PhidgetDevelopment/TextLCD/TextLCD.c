@@ -63,7 +63,7 @@ static PSymbol	lRightSymbol = NULL_PTR;
 static PSymbol	lShiftSymbol = NULL_PTR;
 static PSymbol	lWriteSymbol = NULL_PTR;
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ defineCallback ---*/
 E_PhidgResult defineCallback
 	(STANDARD_PHID_ARGS_DEFINECALLBACK)
@@ -72,7 +72,7 @@ E_PhidgResult defineCallback
 	*result = noErr;
 	return kPhidgSuccess;
 } /* defineCallback */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 	
 /*------------------------------------ doCustom ---*/
 E_PhidgResult doCustom
@@ -84,11 +84,12 @@ E_PhidgResult doCustom
 	return kPhidgDoDefault;
 #else /* not USE_DEFAULT */
  #pragma unused(outlet,privateStorage)
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 	IOReturn	result2 = KERN_SUCCESS;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
 	OSStatus	result2 = noErr;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 	SharedPtr	sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
 	
 	if (argc >= 1)
@@ -343,7 +344,7 @@ E_PhidgResult doCustom
 						Ptr			toAdd = NULL_PTR;
 						
 						memset(buffer, 0, sizeof(buffer));
-						for (short ii = 1; ii < argc; ii++)
+						for (short ii = 1; ii < argc; ++ii)
 						{
 							switch (argv[ii].a_type)
 							{
@@ -388,7 +389,7 @@ E_PhidgResult doCustom
 		          	if (ii < (argc - 1))
 		          	{
 		          		*(buffer + lastChar) = ' ';
-		          		lastChar++;
+		          		++lastChar;
 		          		if (lastChar >= CHARS_PER_LINE)
 		          			break;
 		          			
@@ -458,11 +459,12 @@ E_PhidgResult doPut
 OSErr identify
   (STANDARD_PHID_ARGS_IDENTIFY)
 {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
  #pragma unused(name,isAsynchronous,privateSize)
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
  #pragma unused(name,privateSize)
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	*productID = 0x52;
 	*sharedSize = sizeof(SharedData);
   return noErr;
@@ -472,11 +474,12 @@ OSErr identify
 OSErr main
   (STANDARD_PHID_ARGS_MAIN)
 {
-#if defined(COMPILE_FOR_CATS)
-#pragma unused(name)
-#else /* not COMPILE_FOR_CATS */
+#if defined(COMPILE_FOR_OSX_4)
+ #pragma unused(name)
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
  #pragma unused(name,environment)
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	STANDARD_MAIN_CODE;
 	SharedPtr	sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
 	
@@ -564,11 +567,11 @@ E_PhidgResult onDetach
 #endif /* not USE_DEFAULT */
 } /* onDetach */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ reportHandler ---*/
 void reportHandler
 	(STANDARD_PHID_ARGS_REPORTHANDLER)
 {
  #pragma unused(name,deviceType,sharedStorage,privateStorage,thisDevice,outlet,inHIDReport,inHIDReportLength)
 } /* reportHandler */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */

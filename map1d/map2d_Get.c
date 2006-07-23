@@ -52,7 +52,7 @@ Pvoid cmd_Get
     {
       RangeDataPtr walker = xx->fFirstRange;
 
-      for (long ii = 1; walker && (ii < num); ii++)
+      for (long ii = 1; walker && (ii < num); ++ii)
         walker = walker->fNext;
       if (walker)
       {

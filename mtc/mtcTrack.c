@@ -214,22 +214,20 @@ static bool setUpMemory
     MtcSamplePtr   sampleWalk = xx->fSamples;
     Pdouble        actWalk = xx->fActDistances;
 
-    for (short ii = 0; ii < xx->fHowMany; ii++)
+    for (short ii = 0; ii < xx->fHowMany; ++ii, ++retainedWalk)
     {
       retainedWalk->fLastP = retainedWalk->fLastX = retainedWalk->fLastY =
           retainedWalk->fDeltaX = retainedWalk->fDeltaY = retainedWalk->fNewP =
           retainedWalk->fNewX = retainedWalk->fNewY = 0;
       retainedWalk->fVelocity = retainedWalk->fForce = 0;
       retainedWalk->fValid = false;
-      retainedWalk++;
     }
-    for (short ii = 0; ii < xx->fMaxSamples; ii++)
+    for (short ii = 0; ii < xx->fMaxSamples; ++ii, ++sampleWalk)
     {
       sampleWalk->fThisP = sampleWalk->fThisX = sampleWalk->fThisY = 0;
       sampleWalk->fActDistance = actWalk;
       sampleWalk->fAvailable = false;
       actWalk += xx->fHowMany;
-      sampleWalk++;
     }
     memset(xx->fActDistances, 0, howMany2 * sizeof(double));
     okSoFar = true;

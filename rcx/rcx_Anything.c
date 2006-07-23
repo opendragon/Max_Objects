@@ -49,7 +49,7 @@ Pvoid cmd_Anything
   EnterCallback();
   LOG_ERROR_2(OUTPUT_PREFIX "Unknown message '%s' seen", message->s_name)
   outlet_bang(xx->fErrorBangOut);
-  for (short ii = 0; ii < argc; ii++)
+  for (short ii = 0; ii < argc; ++ii)
   {
     switch (argv[ii].a_type)
     {

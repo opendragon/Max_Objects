@@ -63,7 +63,7 @@ Pvoid rcxCreate
 Pvoid rcxFree
   (RcxControlPtr xx);
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 UInt32 rcxNotify
   (GHNOTIFYCODE notifyCode,
    PBKRESULT    resultCode,
@@ -71,12 +71,12 @@ UInt32 rcxNotify
    GHQUEUE      queue,
    GHCOMMAND    command,
    Pvoid        context);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 static uchar	gRcxSync[] = { 0x55, 0xFF, 0x00 };
 static uchar	gRcxNo55Sync[] = { 0xFF, 0x00 };
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 	
 /*------------------------------------ main ---*/
 void main
@@ -85,7 +85,7 @@ void main
   EnterCodeResource();
   PrepareCallback();
   FNS = ff;   /* Connect up the function macros. */
-#if __powerc
+#if FOR_MAC_PPC
   /* Allocate class memory and set up class. */
   setup(reinterpret_cast<t_messlist**>(&gClass), reinterpret_cast<method>(rcxCreate), 
         reinterpret_cast<method>(rcxFree), short(sizeof(RcxControl)),
@@ -183,9 +183,9 @@ void main
   gVersionSymbol = gensym("version");
   gVersionNumber = reportVersion(OUR_NAME);
   loadOtherSegments();
-#else /* not __powerc */
+#else /* not FOR_MAC_PPC */
   error(OUTPUT_PREFIX "not supported on Max/68K");
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   ExitCodeResource();
 } /* main */
 
@@ -210,7 +210,7 @@ UInt32 rcxCopyFromReply
   return 0;
 } /* rcxCopyFromReply */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ addUSBDevice ---*/
 static void addUSBDevice
 	(RcxControlPtr	xx,
@@ -344,9 +344,9 @@ static void addUSBDevice
 	else
 		LOG_POST_1("problem creating plugin device interface");
 } /* addUSBDevice */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ USBDeviceAdded ---*/
 static void USBDeviceAdded
 	(Pvoid					refCon,
@@ -404,24 +404,22 @@ static void USBDeviceAdded
 		}
   }	
 } /* USBDeviceAdded */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxCopyFromRawBuffer ---*/
 static void rcxCopyFromRawBuffer
 	(RcxControlPtr	xx)
 {
-	while (xx->fReadRemaining && (xx->fRawReceiveStart < xx->fRawReceiveEnd))
-	{
+	for ( ; xx->fReadRemaining && (xx->fRawReceiveStart < xx->fRawReceiveEnd);
+				--xx->fReadRemaining)
 		*(xx->fReadWalker)++ = *(xx->fRawReceiveStart)++;
-		--xx->fReadRemaining;
-	}
 	if (! xx->fReadRemaining)
 		xx->fReadComplete = true;
 } /* rcxCopyFromRawBuffer */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxTriggerRead ---*/
 static void rcxTriggerRead
 	(RcxControlPtr	xx)
@@ -433,9 +431,9 @@ static void rcxTriggerRead
 	if (result != KERN_SUCCESS)
 		LOG_POST_3("readUSBPipeAsync returns: %d (0x%x)", result, result);
 } /* rcxTriggerRead */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxReadCompletion ---*/
 static void rcxReadCompletion
 	(RcxControlPtr	xx,
@@ -450,9 +448,9 @@ static void rcxReadCompletion
 	if (! xx->fReadComplete)
 		rcxTriggerRead(xx);
 } /* rcxReadCompletion */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ USBDeviceRemoved ---*/
 static void USBDeviceRemoved
 	(Pvoid					refCon,
@@ -476,7 +474,7 @@ static void USBDeviceRemoved
 		}
   }	
 } /* USBDeviceRemoved */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
 /*------------------------------------ rcxCreate ---*/
 Pvoid rcxCreate
@@ -487,8 +485,8 @@ Pvoid rcxCreate
 
   EnterCallback();
   LOG_ENTER()
-#if __powerc
- #if defined(COMPILE_FOR_CATS)
+#if FOR_MAC_PPC
+ #if defined(COMPILE_FOR_OSX_4)
   PSymbol	checkGlobal = gensym(RCX_CONTROL_SYMBOL);
 
   if (checkGlobal->s_thing)
@@ -497,16 +495,16 @@ Pvoid rcxCreate
   	xx = NULL_PTR; 	
   }
   else
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 	  xx = static_cast<RcxControlPtr>(newobject(gClass));
   if (xx)
   {
- #if (! defined(COMPILE_FOR_CATS))
+ #if defined(COMPILE_FOR_OS9_4)
     PBKRESULT ghostResult;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
     bool      okSoFar = true;
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     xx->fStopping = xx->fReportEvents = xx->fFastMode = xx->fHighPower = false;
     xx->fComplementData = true;
     xx->fLastCommand = 0;
@@ -524,18 +522,19 @@ Pvoid rcxCreate
       LOG_ERROR_2(OUTPUT_PREFIX "invalid power (%s) for device", whichPortOrPower->s_name)
       okSoFar = false;
     }
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     xx->fGhostStack = NULL_PTR;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
     xx->fDeviceOpen = xx->fSynchronized = false;
     xx->fUseUSB = true;
     if (portClass == gSerialSymbol)
     {
       xx->fUseUSB = false;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 			LOG_ERROR_1(OUTPUT_PREFIX "serial port is not currently supported")
 			okSoFar = false;
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
     }
     else if ((portClass == gEmptySymbol) || (portClass == gUsbSymbol))
       xx->fUseUSB = true;
@@ -547,28 +546,30 @@ Pvoid rcxCreate
     if (okSoFar)
     {
       xx->fReplyBuffer = GETBYTES(MAX_REPLY_BUFFER, uchar);
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 	    xx->fReceiveBuffer = GETBYTES(MAX_RECEIVE_BUFFER, uchar);
 	    xx->fRawReceiveBuffer = GETBYTES(kReadPacketSize, uchar);
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
       xx->fErrorBangOut = static_cast<POutlet>(bangout(xx));
       xx->fCommandComplete = static_cast<POutlet>(bangout(xx));
       xx->fDataOut = static_cast<POutlet>(outlet_new(xx, 0L));   /* normally just a list */
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 	    if (xx->fReplyBuffer && xx->fReceiveBuffer && xx->fRawReceiveBuffer &&
 	    			xx->fErrorBangOut && xx->fCommandComplete && xx->fDataOut)
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
       if (xx->fReplyBuffer && xx->fErrorBangOut && xx->fCommandComplete && xx->fDataOut)
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
       {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 				if (setUpIOKit(xx, OUR_NAME, xx->fUSBControl, kIOUSBDeviceClassName,
 												USBDeviceAdded, USBDeviceRemoved))
 				{
 					// other initialization...
 					triggerIterators(xx, xx->fUSBControl, USBDeviceAdded, USBDeviceRemoved);
 		    }
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
         // Create a Ghost stack for communication...
         ghostResult = GhCreateStack(xx->fUseUSB ? "LEGO.Pbk.CommStack.Port.USB" :
                                                   "LEGO.Pbk.CommStack.Port.RS232",
@@ -672,7 +673,7 @@ Pvoid rcxCreate
           //}
   #endif /* not USE_NOWAIT */
         }
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
       }
       else
       {
@@ -686,7 +687,7 @@ Pvoid rcxCreate
       xx = NULL_PTR;
     }
   }
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   ExitCodeResource();
   return xx;
 } /* rcxCreate */
@@ -698,8 +699,8 @@ Pvoid rcxFree
   EnterCallback();
   if (xx)
   {
-#if __powerc
- #if defined(COMPILE_FOR_CATS)
+#if FOR_MAC_PPC
+ #if defined(COMPILE_FOR_OSX_4)
   	IOReturn	operResult;
   	ULONG			relResult;
   	
@@ -731,7 +732,8 @@ Pvoid rcxFree
 	  if (xx->fReadCompletion)
 	  	releaseCallback(xx->fReadCompletion);
 	  xx->fReadCompletion = NULL_PTR;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     if (xx->fGhostStack)
     {
       PBKRESULT ghostResult;
@@ -748,9 +750,9 @@ Pvoid rcxFree
                     long(ghostResult))
       xx->fGhostStack = NULL_PTR;
     }
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
     FREEBYTES(xx->fReplyBuffer, MAX_REPLY_BUFFER)
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   LOG_EXIT()
   ExitMaxMessageHandler()
@@ -789,7 +791,7 @@ bool rcxGetValue
   return false;
 } /* rcxGetValue */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxFrameData ---*/
 static Puchar rcxFrameData
 	(RcxControlPtr	xx,
@@ -862,9 +864,9 @@ static Puchar rcxFrameData
 		*outWalker = static_cast<uchar>(~dataSum);
 	return framedData;
 } /* rcxFrameData */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxReadData ---*/
 static UInt32 rcxReadData
 	(RcxControlPtr	xx,
@@ -899,23 +901,23 @@ static UInt32 rcxReadData
 	}
 	return static_cast<UInt32>(xx->fReadWalker - buffer);			
 } /* rcxReadData */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxDrainReadBuffer ---*/
 static void rcxDrainReadBuffer
 	(RcxControlPtr	xx)
 {
 	Puchar	buff = GETBYTES(MAX_REPLY_BUFFER, uchar);
 	
-	while (rcxReadData(xx, buff, MAX_REPLY_BUFFER, 10) > 0)
+	for ( ; rcxReadData(xx, buff, MAX_REPLY_BUFFER, 10) > 0; )
 	{
 	}
 	FREEBYTES(buff, MAX_REPLY_BUFFER)
 } /* rcxDrainReadBuffer */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxFindSync ---*/
 static UInt32 rcxFindSync
 	(RcxControlPtr	xx,
@@ -947,9 +949,9 @@ static UInt32 rcxFindSync
 	}
 	return 0;
 } /* rcxFindSync */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxVerifyReply ---*/
 static UInt32 rcxVerifyReply
 	(RcxControlPtr	xx,
@@ -1003,9 +1005,9 @@ static UInt32 rcxVerifyReply
 
 	return ((match - data) / width);
 } /* rcxVerifyReply */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxFindReply ---*/
 static UInt32 rcxFindReply
 	(RcxControlPtr	xx,
@@ -1028,9 +1030,9 @@ static UInt32 rcxFindReply
 	}
 	return 0;
 } /* rcxFindReply */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxReceiveReply ---*/
 static UInt32 rcxReceiveReply
 	(RcxControlPtr	xx,
@@ -1053,7 +1055,7 @@ static UInt32 rcxReceiveReply
 		length = rcxFindReply(xx, replyOffset);
 		if (length != expected)
 		{
-			while (xx->fReceiveLength < MAX_RECEIVE_BUFFER)
+			for ( ; xx->fReceiveLength < MAX_RECEIVE_BUFFER; )
 			{
 				if (rcxReadData(xx, xx->fReceiveBuffer + xx->fReceiveLength, 1, timeout) != 1)
 					break;
@@ -1069,9 +1071,9 @@ static UInt32 rcxReceiveReply
 	}
 	return length;	
 } /* rcxReceiveReply */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxCopyToReply ---*/
 static void rcxCopyToReply
   (RcxControlPtr	xx,
@@ -1135,9 +1137,9 @@ static void rcxCopyToReply
     }
 	}
 } /* rcxCopyToReply */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ rcxNotify ---*/
 UInt32 rcxNotify
   (GHNOTIFYCODE notifyCode,
@@ -1147,15 +1149,15 @@ UInt32 rcxNotify
    GHCOMMAND    command,
    Pvoid        context)
 {
- #if __powerc
+ #if FOR_MAC_PPC
   #pragma unused(ghostStack,queue)
- #else /* not __powerc */
+ #else /* not FOR_MAC_PPC */
   #pragma unused(notifyCode, resultCode, ghostStack, queue, command, context)
- #endif /* not __powerc */
+ #endif /* not FOR_MAC_PPC */
   RcxControlPtr xx = static_cast<RcxControlPtr>(context);
   uint32        retCode = 1;
 
- #if __powerc
+ #if FOR_MAC_PPC
   LOG_POST_3(OUTPUT_PREFIX "notify triggered notifyCode=%d, resultCode=0x%lX",
               notifyCode, resultCode)
   if (notifyCode == NotifyCommand)
@@ -1225,11 +1227,11 @@ UInt32 rcxNotify
       retCode = 0;
   }
   return retCode;
- #else /* not __powerc */
+ #else /* not FOR_MAC_PPC */
   return 0;
- #endif /* not __powerc */
+ #endif /* not FOR_MAC_PPC */
 } /* rcxNotify */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
 /*------------------------------------ rcxSendCommand ---*/
 bool rcxSendCommand
@@ -1239,14 +1241,14 @@ bool rcxSendCommand
    const UInt32   expected,
    const bool     doRetry)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #pragma unused(sendData, sendLength, expected, doRetry)
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   bool okSoFar = true, actualRetry = doRetry;
 
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (! expected)
       actualRetry = false;
     if (xx->fVerbose)
@@ -1290,7 +1292,7 @@ bool rcxSendCommand
 				      		
       }
     }
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 		UInt32	framedSize = 0;
 		Puchar	framedData = rcxFrameData(xx, sendData, sendLength, framedSize, actualRetry);
 		int			numTries = (doRetry ? 4 : 1);
@@ -1300,7 +1302,7 @@ bool rcxSendCommand
 			Puchar	walker = framedData;
 			UInt32	actualSize = framedSize;
 			
-			while (actualSize > 0)
+			for ( ; actualSize > 0; )
 			{
 				rcxDrainReadBuffer(xx);			
 				UInt32		transfer = ((actualSize > kMaxWritePacket) ? kMaxWritePacket : actualSize);
@@ -1329,7 +1331,8 @@ bool rcxSendCommand
 			}
 		}
     FREEBYTES(framedData, framedSize)		
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     PBKRESULT ghostResult = PBKOK;
     GHQUEUE   aQueue = NULL_PTR;
 
@@ -1420,13 +1423,13 @@ bool rcxSendCommand
     if (aQueue)
       GhDestroyCommandQueue(aQueue);
   #endif /* not USE_NOWAIT */
- #endif /* not COMPILE_FOR_CATS */
-#endif /* __powerc */
+ #endif /* COMPILE_FOR_OS9_4 */
+#endif /* FOR_MAC_PPC */
   }
   return okSoFar;
 } /* rcxSendCommand */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxSendControlRequest ---*/
 bool rcxSendControlRequest
 	(RcxControlPtr	xx,
@@ -1449,9 +1452,9 @@ bool rcxSendControlRequest
 	result = sendUSBControlRequestTO(xx->fInterface, 0, request);
 	return (result == KERN_SUCCESS);
 } /* rcxSendControlRequest */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxSendControlRequest ---*/
 bool rcxSendControlRequest
 	(RcxControlPtr	xx,
@@ -1475,9 +1478,9 @@ bool rcxSendControlRequest
 	result = sendUSBControlRequestTO(xx->fInterface, 0, request);
 	return (result == KERN_SUCCESS);
 } /* rcxSendControlRequest */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxSetRange ---*/
 bool rcxSetRange
 	(RcxControlPtr	xx,
@@ -1487,9 +1490,9 @@ bool rcxSetRange
 	
 	return rcxSendControlRequest(xx, LTW_REQ_SET_PARM, LTW_PARM_RANGE, range, &reply, sizeof(reply));
 } /* rcxSetRange */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 	 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rcxSetSpeed ---*/
 bool rcxSetSpeed
 	(RcxControlPtr	xx,
@@ -1509,7 +1512,7 @@ bool rcxSetSpeed
 						rcxSendControlRequest(xx, LTW_REQ_SET_TX_CARRIER_FREQUENCY, 38, &reply2, sizeof(reply2)); /* 38 kHz */
 	return didIt;
 } /* rcxSetSpeed */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
 /*------------------------------------ rcxSynchronize ---*/
 bool rcxSynchronize
@@ -1519,7 +1522,7 @@ bool rcxSynchronize
 
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (xx->fSynchronized)
       didIt = true;
     else
@@ -1533,7 +1536,7 @@ bool rcxSynchronize
                                 true);
       xx->fSynchronized = didIt;
     }
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   return didIt;
 } /* rcxSynchronize */

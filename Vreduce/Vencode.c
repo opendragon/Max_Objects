@@ -150,25 +150,25 @@ void convertNumberToList
     
     xx->fWorkList[ii].a_w.w_long = workingNumber % base;
     workingNumber /= base;
-    count++;
+    ++count;
     if (! workingNumber)
       break;
       
     if (jj < (numBases - 1))
-      jj++;
+      ++jj;
     if (! wasNegative)
     {
       if (jj == numBases)
       {
         xx->fWorkList[ii - 1].a_w.w_long = workingNumber;
-        count++;
+        ++count;
         break;
         
       }
     }
   }
   // Now, move it into the right location:
-  for (int ii = 0; ii < count; ii++)
+  for (int ii = 0; ii < count; ++ii)
     SETLONG(xx->fWorkList + ii, xx->fWorkList[NUM_ATOMS + ii - count].a_w.w_long);
   xx->fWorkLength = count;
 } /* convertNumberToList */

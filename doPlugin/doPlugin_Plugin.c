@@ -46,15 +46,15 @@ Pvoid cmd_Plugin
    short       argc,
    PAtom       argv)
 {
-#if __powerc
+#if FOR_MAC_PPC
  #pragma unused(message)
-#else /* not __powerc */
+#else /* not FOR_MAC_PPC */
  #pragma unused(message, argc, argv)
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     PluginDescriptorPtr descriptor = xx->fActivePlugin;
 
     if (descriptor)
@@ -72,10 +72,8 @@ Pvoid cmd_Plugin
           }
           else if (which == gListSymbol)
           {
-            descriptor = gPluginAnchor;
-
             LOG_POST_1(OUTPUT_PREFIX "List of plŸgins:")
-            while (descriptor)
+            for (descriptor = gPluginAnchor; descriptor; descriptor = descriptor->fNext)
             {
               LOG_POST_2("  Name: %s", descriptor->fName->s_name)
               descriptor = descriptor->fNext;
@@ -96,7 +94,7 @@ Pvoid cmd_Plugin
         LOG_POST_4("Name: %s, inlets: %hd, outlets: %hd", descriptor->fName->s_name,
                     xx->fNumInlets, xx->fNumOutlets)
     }
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_Plugin */

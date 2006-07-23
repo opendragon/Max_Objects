@@ -46,7 +46,7 @@ Pvoid cmd_Run
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       static uchar runCommand[] = { RCX_START_TASK_CMD, 0 };
@@ -58,7 +58,7 @@ Pvoid cmd_Run
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_Run */

@@ -55,7 +55,7 @@ Pvoid cmd_List
       bool  sawInteger = false, sawFloat = false, sawSymbol = false;
       bool  sawUnknown = false;
 
-      for (short ii = 0; (ii < argc) && (! sawUnknown); ii++)
+      for (short ii = 0; (ii < argc) && (! sawUnknown); ++ii)
       {
         switch (argv[ii].a_type)
         {

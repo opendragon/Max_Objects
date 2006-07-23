@@ -62,7 +62,7 @@ Pvoid cmd_List
 
       case 1:
         /* Normal command, normal inlet */
-        for (short ii = 0; okSoFar && (ii < argc); ii++)
+        for (short ii = 0; okSoFar && (ii < argc); ++ii)
         {
           switch (argv[ii].a_type)
           {

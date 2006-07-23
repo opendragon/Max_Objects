@@ -44,20 +44,21 @@ Pvoid cmd_Break
   (SerialXControlPtr xx)
 {
   EnterCallback();
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   if (ioctl(xx->fFileDescriptor, TIOCSBRK) != -1)
   {
     long delayTime = (16000L + xx->fBaudRate) / xx->fBaudRate;
 
     clock_delay(xx->fBreakClock, delayTime);
   } 
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   if (SerSetBrk(xx->fOutRefNum) == noErr)
   {
     long delayTime = (16000L + xx->fBaudRate) / xx->fBaudRate;
 
     clock_delay(xx->fBreakClock, delayTime);
   }
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   ExitMaxMessageHandler()
 } /* cmd_Break */

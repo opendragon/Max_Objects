@@ -46,12 +46,12 @@
 
  #if SYSLOG_OK
 extern long					gSyslogCount;
-  #if defined(COMPILE_FOR_CATS)
+  #if defined(COMPILE_FOR_OSX_4)
 extern syslog_FP		gSyslogFunction;
 extern CFBundleRef	gSyslogSysBundle;
 extern closelog_FP	gSyslogDoCloselog;			
 extern openlog_FP		gSyslogDoOpenlog;
-  #endif /* COMPILE_FOR_CATS */
+  #endif /* COMPILE_FOR_OSX_4 */
  #endif /* SYSLOG_OK */
  
 #endif /* not ACQUIRESYSLOG_H_ */

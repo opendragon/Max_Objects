@@ -48,7 +48,7 @@ bool CheckInput
 {
   bool  okSoFar = true;
 
-  for (short ii = 0; okSoFar && (ii < argc); ii++)
+  for (short ii = 0; okSoFar && (ii < argc); ++ii)
   {
     switch (argv[ii].a_type)
     {

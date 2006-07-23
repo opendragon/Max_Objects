@@ -40,7 +40,7 @@
 #if (! defined(COMMON_HIDXDATA_H_))
  #define COMMON_HIDXDATA_H_ /* */
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 // The following datatypes and defines are copied from the relevant Framework headers,
 // which aren't directly useable in CFM source:
 
@@ -436,6 +436,6 @@ typedef IOReturn ( * hidSetElementValue_FP)
 	 Pvoid												callbackTarget,
 	 Pvoid												callbackRefcon);	 
 
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 
 #endif /* not COMMON_HIDXDATA_H_ */

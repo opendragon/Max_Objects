@@ -60,7 +60,7 @@ Pvoid cmd_Anything
 
       SETSYM(newArg, message);
       memcpy(newArg + 1, argv, argc * sizeof(Atom));
-      for (short ii = 0; ii <= argc; ii++)
+      for (short ii = 0; ii <= argc; ++ii)
       {
         if (newArg[ii].a_type == A_SYM)
         {

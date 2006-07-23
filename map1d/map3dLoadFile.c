@@ -66,7 +66,7 @@ static bool map3dGetNextAtomInBuffer
   Atom skipper;
   bool result = true;
 
-  while (result)
+  for ( ; result; )
   {
     result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset,
                                 &xx->fBufferStuffOffset, value));
@@ -75,7 +75,7 @@ static bool map3dGetNextAtomInBuffer
       if (value->a_w.w_sym->s_name[0] == kCommentCharacter)
       {
         /* skip a comment */
-        while (result)
+        for ( ; result; )
         {
           result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset,
                                       &xx->fBufferStuffOffset, &skipper));
@@ -521,27 +521,27 @@ static bool map3dCollectARange
     /* Collect the output values, terminated by a semicolon: */
     if (result && collector)
     {
-      while (holder.a_type != A_SEMI)
+      for ( ; holder.a_type != A_SEMI; )
       {
         /* We have a value; attach it. */
         binbuf_append(collector, NULL_PTR, 1, &holder);
-        outputCount++;
+        ++outputCount;
         if (holder.a_type == A_SYM)
         {
           if (holder.a_w.w_sym == gDollarSymbol)
-            dollarsPresent++;
+            ++dollarsPresent;
           else if (holder.a_w.w_sym == gDoubleDollarSymbol)
-            doubleDollarsPresent++;
+            ++doubleDollarsPresent;
           else if ((holder.a_w.w_sym == gDollarXSymbol) ||
                   (holder.a_w.w_sym == gDollarYSymbol) ||
                   (holder.a_w.w_sym == gDollarZSymbol) ||
                   (holder.a_w.w_sym == gDoubleDollarXSymbol) ||
                   (holder.a_w.w_sym == gDoubleDollarYSymbol) ||
                   (holder.a_w.w_sym == gDoubleDollarZSymbol))
-            singleDollarsPresent++;
+            ++singleDollarsPresent;
         }
         else if (holder.a_type == A_DOLLAR)
-          dollarsPresent++;
+          ++dollarsPresent;
         result = map3dGetNextAtomInBuffer(xx, &holder);
         if (! result)
           break;
@@ -615,7 +615,7 @@ static bool map3dCollectARange
         PAtom vector = GETBYTES(newData->fOutputCount, Atom);
 
         newData->fOutput = vector;
-        for (short ii = 0; ii < newData->fOutputCount; ii++, vector++)
+        for (short ii = 0; ii < newData->fOutputCount; ++ii, ++vector)
         {
           if (binbuf_getatom(collector, &tyOffset, &stOffset, vector))
             break;
@@ -653,9 +653,9 @@ bool map3dLoadRangeList
     map3dClearRangeList(xx);
     xx->fBufferTypeOffset = 0;
     xx->fBufferStuffOffset = 0;
-    while (map3dCollectARange(xx))
+    for ( ; map3dCollectARange(xx); )
     {
-      xx->fRangeCount++;
+      ++xx->fRangeCount;
       if (xx->fVerbose)
         LOG_POST_1(OUTPUT_PREFIX "read range specification")
     }
@@ -683,7 +683,7 @@ static bool map3dGetNextAtomInList
     okSoFar = true;
     result->a_type = A_SEMI;
   }
-  offset++;
+  ++offset;
   return okSoFar;
 } /* map3dGetNextAtomInList */
 
@@ -1075,27 +1075,27 @@ RangeDataPtr map3dConvertListToRange
     /* Collect the output values, terminated by a semicolon: */
     if (result && collector)
     {
-      while (holder.a_type != A_SEMI)
+      for ( ; holder.a_type != A_SEMI; )
       {
         /* We have a value; attach it. */
         binbuf_append(collector, NULL_PTR, 1, &holder);
-        outputCount++;
+        ++outputCount;
         if (holder.a_type == A_SYM)
         {
           if (holder.a_w.w_sym == gDollarSymbol)
-            dollarsPresent++;
+            ++dollarsPresent;
           else if (holder.a_w.w_sym == gDoubleDollarSymbol)
-            doubleDollarsPresent++;
+            ++doubleDollarsPresent;
           else if ((holder.a_w.w_sym == gDollarXSymbol) ||
                   (holder.a_w.w_sym == gDollarYSymbol) ||
                   (holder.a_w.w_sym == gDollarZSymbol) ||
                   (holder.a_w.w_sym == gDoubleDollarXSymbol) ||
                   (holder.a_w.w_sym == gDoubleDollarYSymbol) ||
                   (holder.a_w.w_sym == gDoubleDollarZSymbol))
-            singleDollarsPresent++;
+            ++singleDollarsPresent;
         }
         else if (holder.a_type == A_DOLLAR)
-          dollarsPresent++;
+          ++dollarsPresent;
         result = map3dGetNextAtomInList(nextAtom, numAtoms, inList, &holder);
         if (! result)
           break;
@@ -1168,7 +1168,7 @@ RangeDataPtr map3dConvertListToRange
         PAtom vector = GETBYTES(newData->fOutputCount, Atom);
 
         newData->fOutput = vector;
-        for (short ii = 0; ii < newData->fOutputCount; ii++, vector++)
+        for (short ii = 0; ii < newData->fOutputCount; ++ii, ++vector)
         {
           if (binbuf_getatom(collector, &tyOffset, &stOffset, vector))
             break;

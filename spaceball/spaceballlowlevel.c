@@ -81,10 +81,10 @@ void spaceballProcessPacket
             xx->fRot[1] += SIGN_EXTEND(ry);
             xx->fRot[2] += SIGN_EXTEND(rz);
           }
-          for (short ii = 0; ii < 3; ii++)
+          for (short ii = 0; ii < 3; ++ii)
             SETFLOAT(report + ii, xx->fTrans[ii]);
           outlet_anything(xx->fDataOut, gTranslateSymbol, 3, report);
-          for (short ii = 0; ii < 3; ii++)
+          for (short ii = 0; ii < 3; ++ii)
             SETFLOAT(report + ii, xx->fRot[ii]);
           outlet_anything(xx->fDataOut, gRotateSymbol, 3, report);
         }
@@ -98,7 +98,7 @@ void spaceballProcessPacket
           long newButtons = (((xx->fBuffer[1] & 0x1f) << 4) | (xx->fBuffer[2] & 0x0f));
           long buttonChanges = (xx->fButtons ^ newButtons), mask = 1;
 
-          for (long ii = 0; buttonChanges; ii++)
+          for (long ii = 0; buttonChanges; ++ii)
           {
             if (buttonChanges & mask)
             {

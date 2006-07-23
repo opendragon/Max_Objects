@@ -43,14 +43,11 @@
 void queueClear
   (QueuePtr xx)
 {
-  QueueEntryPtr first = xx->fFirstInQueue, next;
-
-  while (first)
+  for (QueueEntryPtr first = xx->fFirstInQueue, next; first; first = next)
   {
     next = first->fNext;
     FREEBYTES(first->fOutput, first->fOutputCount)
     FREEBYTES(first, 1)
-    first = next;
   }
   xx->fFirstInQueue = xx->fLastInQueue = NULL_PTR;
   xx->fDepth = 0;

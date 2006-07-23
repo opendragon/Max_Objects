@@ -46,7 +46,7 @@ Pvoid cmd_ClearMemory
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       bool          okSoFar = true;
@@ -58,7 +58,7 @@ Pvoid cmd_ClearMemory
       if (! rcxSendCommand(xx, stopAllCommand, sizeof(stopAllCommand),
                             RCX_STOP_ALL_TASKS_REPLY, true))
         okSoFar = false;
-      for (ushort ii = 0; (ii < RCX_NUM_PROGRAMS) && okSoFar; ii++)
+      for (ushort ii = 0; (ii < RCX_NUM_PROGRAMS) && okSoFar; ++ii)
       {
         slotCommand[1] = static_cast<uchar>(ii);
         if (! rcxSendCommand(xx, slotCommand, sizeof(slotCommand),
@@ -84,7 +84,7 @@ Pvoid cmd_ClearMemory
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_ClearMemory */

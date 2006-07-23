@@ -44,7 +44,7 @@
  #include <MixedMode.h>
  #include "StandardPluginTypes.h"
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 typedef OSErr (* FpDoAnything)
   (OwnerPtr 		owner,
    HOutlet  		outlets,
@@ -115,7 +115,8 @@ typedef OSErr (* FpOnReload)
   (CFragConnectionID  connID,
    OwnerPtr           owner,
    Ptr                sharedStorage);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
   #define PLUGIN_PROCINFO_PREFIX \
 STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(OwnerPtr))) | \
 STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(HOutlet))) | \
@@ -179,6 +180,6 @@ enum
                         STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(OwnerPtr))) |
                         STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(Ptr))))
 };
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 
 #endif /* not PLUGINENTRYPOINTS_H_ */

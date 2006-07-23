@@ -68,7 +68,7 @@ Pvoid cmd_List
 				
 				if (result)
 				{
-					for (short index = 0; index <= right; index++)
+					for (short index = 0; index <= right; ++index)
 						SETLONG(result + index, argv[index].a_w.w_long);
 					xx->fPreviousList = result;
 					xx->fPreviousLength = short(right + 1);

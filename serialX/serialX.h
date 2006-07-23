@@ -46,15 +46,16 @@
  #include "MissingAndExtra.h"
 
  #include <math.h>
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   #include <fcntl.h>
   #include <sys/ioctl.h>
   #include <termios.h>
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
   #include <Serial.h>
   #include <CommResources.h>
   #include <CRMSerialDevices.h>
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 
  #define __cstdio__  /* suppress in ctype.h! */
  #pragma push
@@ -95,16 +96,17 @@ struct SerialXControl
   bool           fChunked;
   bool           fDTRHandshakeActive;
   bool           fExternalClock;
-#if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   struct termios fOriginalAttrs;
   int            fFileDescriptor;
   Pchar          fPortName;
   ulong          fPortNameLength;
-#else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
   SInt16         fInRefNum;
   SInt16         fOutRefNum;
   char           fPortCharacter;
-#endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 }; /* SerialXControl */
 
 typedef SerialXControl * SerialXControlPtr;

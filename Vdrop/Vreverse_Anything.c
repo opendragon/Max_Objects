@@ -54,7 +54,7 @@ Pvoid cmd_Anything
     clearPrevious(xx);
     if (newList)
     {
-      for (short ii = 0; ii < argc; ii++)
+      for (short ii = 0; ii < argc; ++ii)
         *(newList + ii) = *(argv + argc - (ii + 1));
       SETSYM(newList + argc, message);
       xx->fPreviousList = newList;

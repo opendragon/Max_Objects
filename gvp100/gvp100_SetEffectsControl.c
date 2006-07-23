@@ -66,7 +66,7 @@ Pvoid cmd_SetEffectsAnalogControl
       8,      8,      8,      8,      4,      8,      4,      8
     };
 
-    for (short jj = 0; okSoFar && (jj  < argc); jj++)
+    for (short jj = 0; okSoFar && (jj  < argc); ++jj)
     {
       switch (argv[jj].a_type)
       {
@@ -87,7 +87,7 @@ Pvoid cmd_SetEffectsAnalogControl
             /* even index - validate and remember it! */
             number = long(argv[jj].a_w.w_float);
             value = 0;
-            for (ii = 0; ii < NUM_VALID_EFFECTS_CONTROLS; ii++)
+            for (ii = 0; ii < NUM_VALID_EFFECTS_CONTROLS; ++ii)
             {
               if (number == validControl[ii])
                 break;
@@ -119,7 +119,7 @@ Pvoid cmd_SetEffectsAnalogControl
             /* even index - validate and remember it! */
             number = argv[jj].a_w.w_long;
             value = 0;
-            for (ii = 0; ii < NUM_VALID_EFFECTS_CONTROLS; ii++)
+            for (ii = 0; ii < NUM_VALID_EFFECTS_CONTROLS; ++ii)
             {
               if (number == validControl[ii])
                 break;

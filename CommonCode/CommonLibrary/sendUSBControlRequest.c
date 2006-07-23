@@ -41,7 +41,7 @@
 #include "Common_USBXData.h"
 #include "loadOtherSegments.h"
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ sendUSBControlRequest ---*/
 IOReturn sendUSBControlRequest
 	(IOUSBInterfaceInterface * *	theInterface,
@@ -59,8 +59,8 @@ IOReturn sendUSBControlRequest
 	return pFusbControlRequest(theInterface, pipeRef, &request);
  #endif /* not COMPILE_FOR_STUB */
 } /* sendUSBControlRequest */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS) and defined(COMPILE_FOR_STUB)
+#if defined(COMPILE_FOR_OSX_4) and defined(COMPILE_FOR_STUB)
  #pragma export list sendUSBControlRequest
-#endif /* COMPILE_FOR_CATS and COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and COMPILE_FOR_STUB */

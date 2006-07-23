@@ -60,11 +60,11 @@ static bool collectSamples
     MtcSamplePtr sWalk = xx->fSamples;
     PAtom        aWalk = argv;
 
-    for (short ii = 0; ii < xx->fMaxSamples; ii++)
+    for (short ii = 0; ii < xx->fMaxSamples; ++ii)
       xx->fSamples[ii].fAvailable = false;
     if (count > xx->fMaxSamples)
       count = xx->fMaxSamples;
-    for (short ii = 0; okSoFar && (ii < count); ii++)
+    for (short ii = 0; okSoFar && (ii < count); ++ii)
     {
       switch (aWalk->a_type)
       {
@@ -89,7 +89,7 @@ static bool collectSamples
       }
       if (okSoFar)
       {
-        aWalk++;
+        ++aWalk;
         switch (aWalk->a_type)
         {
           case A_FLOAT:
@@ -115,7 +115,7 @@ static bool collectSamples
       }
       if (okSoFar)
       {
-        aWalk++;
+        ++aWalk;
         switch (aWalk->a_type)
         {
           case A_FLOAT:
@@ -141,9 +141,9 @@ static bool collectSamples
       }
       if (okSoFar)
       {
-        aWalk++;
+        ++aWalk;
         sWalk->fAvailable = true;
-        sWalk++;
+        ++sWalk;
       }
     }
     if (okSoFar)
@@ -160,23 +160,20 @@ static void calculateDistances
 {
   MtcSamplePtr sWalk = xx->fSamples;
 
-  for (short ii = 0; ii < xx->fSampleCount; ii++)
+  for (short ii = 0; ii < xx->fSampleCount; ++ii, ++sWalk)
   {
     Pdouble        actPtr = sWalk->fActDistance;
     double         thisX = sWalk->fThisX, thisY = sWalk->fThisY;
     MtcRetainedPtr rWalk = xx->fRetainedData;
 
-    for (short jj = 0; jj < xx->fRetainedCount; jj++)
+    for (short jj = 0; jj < xx->fRetainedCount; ++jj, ++rWalk, ++actPtr)
     {
       if (rWalk->fValid)
         *actPtr = ((rWalk->fLastX - thisX) * (rWalk->fLastX - thisX)) +
                     ((rWalk->fLastY - thisY) * (rWalk->fLastY - thisY));
       else
         *actPtr = FLT_MAX;
-      rWalk++;
-      actPtr++;
     }
-    sWalk++;
   }
 } /* calculateDistances */
 
@@ -189,14 +186,14 @@ static void assignSamples
   short          rest = xx->fSampleCount;
   short          oldCount = xx->fRetainedCount, newCount = 0;
 
-  for (short ii = 0; ii < oldCount; ii++)
+  for (short ii = 0; ii < oldCount; ++ii, ++rWalk)
   {
     /* Match the current set of retained points */
     double currBest = -1;
     short  currMatch = -1;
 
     sWalk = xx->fSamples;
-    for (short jj = 0; jj < xx->fSampleCount; jj++)
+    for (short jj = 0; jj < xx->fSampleCount; ++jj, ++sWalk)
     {
       if (sWalk->fAvailable)
       {
@@ -219,7 +216,6 @@ static void assignSamples
           currMatch = jj;
         }
       }      
-      sWalk++;
     }
     if (currBest >= 0)
     {
@@ -234,12 +230,11 @@ static void assignSamples
       rWalk->fVelocity = sqrt((rWalk->fDeltaX * rWalk->fDeltaX) +
                               (rWalk->fDeltaY * rWalk->fDeltaY));
       rWalk->fValid = true;
-      rest--;
-      newCount++;
+      --rest;
+      ++newCount;
     }
     else
       rWalk->fValid = false;
-    rWalk++;
   }
   /* Remove any unmatched retained points, by moving later points earlier */
   if (newCount < oldCount)
@@ -247,15 +242,14 @@ static void assignSamples
     MtcRetainedPtr outRetPtr = xx->fRetainedData;
 
     rWalk = xx->fRetainedData;
-    for (short ii = 0; ii < newCount; ii++)
+    for (short ii = 0; ii < newCount; ++ii, ++rWalk)
     {
       if (rWalk->fValid)
       {
         if (outRetPtr != rWalk)
           *outRetPtr = *rWalk;
-        outRetPtr++;
+        ++outRetPtr;
       }
-      rWalk++;
     }
   }
   /* Check if we have samples left over: */
@@ -263,7 +257,7 @@ static void assignSamples
   {
     rWalk = xx->fRetainedData + newCount;
     sWalk = xx->fSamples;
-    for (short jj = 0; rest && (jj < xx->fSampleCount); jj++)
+    for (short jj = 0; rest && (jj < xx->fSampleCount); ++jj, ++sWalk)
     {
       if (sWalk->fAvailable)
       {
@@ -274,11 +268,10 @@ static void assignSamples
         rWalk->fVelocity = 0;
         rWalk->fForce = sWalk->fThisP;
         rWalk->fValid = true;
-        rWalk++;
-        rest--;
-        newCount++;
+        ++rWalk;
+        --rest;
+        ++newCount;
       }
-      sWalk++;
     }
   }
   xx->fRetainedCount = newCount;
@@ -296,13 +289,13 @@ static void generateOutput
   if (xx->fAddBatchNumber)
     offset = 1;
   else
-    resultSize--;
+    --resultSize;
   if (xx->fAddIndex)
-    offset++;
+    ++offset;
   else
-    resultSize--;
+    --resultSize;
   outlet_int(xx->fPointCountOut, long(outCount));
-  for (short ii = 0; ii < outCount; ii++)
+  for (short ii = 0; ii < outCount; ++ii, ++rWalk)
   {
     if (xx->fAddBatchNumber)
     {
@@ -319,9 +312,8 @@ static void generateOutput
     SETFLOAT(resultVector + offset + 4, float(rWalk->fVelocity));
     SETFLOAT(resultVector + offset + 5, float(rWalk->fForce));
     outlet_list(xx->fResultOut, NULL_PTR, resultSize, resultVector);
-    rWalk++;
   }
-  xx->fBatchNumber++;
+  ++xx->fBatchNumber;
   outlet_bang(xx->fLinesCompleteOut);
 } /* generateOutput */
 
@@ -341,12 +333,11 @@ Pvoid cmd_List
       MtcRetainedPtr rWalk = xx->fRetainedData;
 
       /* Previous new values should become the old values: */
-      for (short ii = 0; ii < xx->fRetainedCount; ii++)
+      for (short ii = 0; ii < xx->fRetainedCount; ++ii, ++rWalk)
       {
         rWalk->fLastX = rWalk->fNewX;
         rWalk->fLastY = rWalk->fNewY;
         rWalk->fLastP = rWalk->fNewP;
-        rWalk++;
       }
       calculateDistances(xx);
       assignSamples(xx);

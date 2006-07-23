@@ -86,7 +86,7 @@ static void processListenEvent
     // Find an available connection:
     if (xx->fActiveConnections < xx->fMaximumConnections)
     {
-      for (ushort ii = 0; ii < xx->fMaximumConnections; ii++)
+      for (ushort ii = 0; ii < xx->fMaximumConnections; ++ii)
       {
         candidate = *(xx->fConnections + ii);
         if (candidate && (candidate->fDataEndpoint != kOTInvalidEndpointRef) &&
@@ -186,7 +186,7 @@ pascal void tcpMultiServerDataNotifier
         if (! connection->fActive)
         {
           connection->fActive = true;
-          xx->fActiveConnections++;
+          ++xx->fActiveConnections;
         }
         setConnectionState(connection, TCP_OBJECT_CONNECTED);
         break;
@@ -222,7 +222,7 @@ pascal void tcpMultiServerDataNotifier
         if (connection->fActive)
         {
           connection->fActive = false;
-          xx->fActiveConnections--;
+          --xx->fActiveConnections;
         }
         break;
 
@@ -231,7 +231,7 @@ pascal void tcpMultiServerDataNotifier
         if (connection->fActive)
         {
           connection->fActive = false;
-          xx->fActiveConnections--;
+          --xx->fActiveConnections;
         }
         break;
 
@@ -278,7 +278,7 @@ pascal void tcpMultiServerDataNotifier
         if (connection->fActive)
         {
           connection->fActive = false;
-          xx->fActiveConnections--;
+          --xx->fActiveConnections;
         }
         break;
 

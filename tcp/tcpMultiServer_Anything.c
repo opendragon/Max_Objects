@@ -49,7 +49,7 @@ Pvoid cmd_Anything
 #pragma unused(xx)
   EnterCallback();
   LOG_ERROR_2(OUTPUT_PREFIX "unknown message '%s' seen", message->s_name)
-  for (short ii = 0; ii < argc; ii++)
+  for (short ii = 0; ii < argc; ++ii)
   {
     switch (argv[ii].a_type)
     {

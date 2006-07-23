@@ -56,7 +56,7 @@ void map2dOutputResult
     {
       PAtom outWalker = tempList;
 
-      for (short ii = 0; ii < result->fOutputCount; ii++)
+      for (short ii = 0; ii < result->fOutputCount; ++ii)
       {
         if (inWalker->a_type == A_SYM)
         {
@@ -137,7 +137,7 @@ void map2dOutputResult
               SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
             else
               SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
-            outWalker++;
+            ++outWalker;
           }
           else if (inWalker->a_w.w_sym == gDollarYSymbol)
           {
@@ -146,7 +146,7 @@ void map2dOutputResult
               SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[1]));
             else
               SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]));
-            outWalker++;
+            ++outWalker;
           }
           else if (inWalker->a_w.w_sym == gDoubleDollarXSymbol)
           {
@@ -177,7 +177,7 @@ void map2dOutputResult
 	            else
 	              SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
             }
-            outWalker++;
+            ++outWalker;
           }
           else if (inWalker->a_w.w_sym == gDoubleDollarYSymbol)
           {
@@ -208,12 +208,12 @@ void map2dOutputResult
 	            else
 	              SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]));
             }
-            outWalker++;
+            ++outWalker;
           }
           else
           {
             *outWalker = *inWalker;
-            outWalker++;
+            ++outWalker;
           }
         }
         else if (inWalker->a_type == A_DOLLAR)
@@ -232,9 +232,9 @@ void map2dOutputResult
         else
         {
           *outWalker = *inWalker;
-          outWalker++;
+          ++outWalker;
         }
-        inWalker++;
+        ++inWalker;
       }
       outlet_anything(xx->fResultOut, gResultSymbol, outputCount, tempList);
       FREEBYTES(tempList, outputCount)
@@ -252,7 +252,7 @@ void map2dProcessData
 {
   RangeDataPtr walker = xx->fFirstRange;
 
-  while (walker)
+  for ( ; walker; walker = walker->fNext)
   {
     RangeElement toTest = walker->fLeft;
     bool         okSoFar;
@@ -510,7 +510,6 @@ void map2dProcessData
     if (okSoFar)
       break;
 
-    walker = walker->fNext;
   }
   xx->fPreviousResult = walker;
   if (walker)

@@ -46,33 +46,34 @@ Pvoid cmd_List
    short       argc,
    PAtom       argv)
 {
-#if __powerc
+#if FOR_MAC_PPC
  #pragma unused(message)
-#else /* not __powerc */
+#else /* not FOR_MAC_PPC */
  #pragma unused(message, argc, argv)
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     PluginDescriptorPtr descriptor = xx->fActivePlugin;
 
     if (descriptor)
     {
-#if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
       OSErr myErr = reinterpret_cast<FpDoList>(descriptor->fDoListFun)
                           (PLUGIN_FIXED_ARGUMENTS, argc, argv);
-#else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
       OSErr myErr = static_cast<OSErr>(CallUniversalProc(descriptor->fDoListUpp,
                                             uppDoListProcInfo, PLUGIN_FIXED_ARGUMENTS,
                                             argc, argv));
-#endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 
       if (myErr != noErr)
       {
       }
     }
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_List */

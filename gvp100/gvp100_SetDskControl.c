@@ -61,10 +61,10 @@ Pvoid cmd_SetDskAnalogControl
 #define NUM_VALID_DSK_CONTROLS  (sizeof(validControl) / sizeof(*validControl))
     static int  shiftAmount[] =
     {
-      4,      8,      8,      8
+      4, 8, 8, 8
     };
 
-    for (short jj = 0; okSoFar && (jj < argc); jj++)
+    for (short jj = 0; okSoFar && (jj < argc); ++jj)
     {
       switch (argv[jj].a_type)
       {
@@ -85,7 +85,7 @@ Pvoid cmd_SetDskAnalogControl
             /* even index - validate and remember it! */
             number = long(argv[jj].a_w.w_float);
             value = 0;
-            for (ii = 0; ii < NUM_VALID_DSK_CONTROLS; ii++)
+            for (ii = 0; ii < NUM_VALID_DSK_CONTROLS; ++ii)
             {
               if (number == validControl[ii])
                 break;
@@ -117,7 +117,7 @@ Pvoid cmd_SetDskAnalogControl
             /* even index - validate and remember it! */
             number = argv[jj].a_w.w_long;
             value = 0;
-            for (ii = 0; ii < NUM_VALID_DSK_CONTROLS; ii++)
+            for (ii = 0; ii < NUM_VALID_DSK_CONTROLS; ++ii)
             {
               if (number == validControl[ii])
                 break;

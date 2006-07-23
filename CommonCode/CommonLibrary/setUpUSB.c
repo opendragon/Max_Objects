@@ -40,7 +40,7 @@
 #include "Common_USBX.h"
 #include "loadOtherSegments.h"
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 bool setUpUSB
 	(Pvoid																obj,
 	 Pchar																name,
@@ -89,8 +89,8 @@ bool setUpUSB
 	return rec.fActive;
  #endif /* not COMPILE_FOR_STUB */
 } /* setUpUSB */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if (! defined(COMPILE_FOR_CATS)) && defined(COMPILE_FOR_STUB)
+#if defined(COMPILE_FOR_OS9_4) && defined(COMPILE_FOR_STUB)
  #pragma export list setUpUSB
-#endif /* not COMPILE_FOR_CATS and COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OS9_4 and COMPILE_FOR_STUB */

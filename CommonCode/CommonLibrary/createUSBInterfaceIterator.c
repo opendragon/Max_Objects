@@ -41,7 +41,7 @@
 #include "Common_USBXData.h"
 #include "loadOtherSegments.h"
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ createUSBInterfaceIterator ---*/
 IOReturn createUSBInterfaceIterator
 	(IOUSBDeviceInterface * *			theInterface,
@@ -59,8 +59,8 @@ IOReturn createUSBInterfaceIterator
 	return pFusbCreateInterfaceIterator(theInterface, &request, &iter);
  #endif /* not COMPILE_FOR_STUB */
 } /* createUSBInterfaceIterator */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS) and defined(COMPILE_FOR_STUB)
+#if defined(COMPILE_FOR_OSX_4) and defined(COMPILE_FOR_STUB)
  #pragma export list createUSBInterfaceIterator
-#endif /* COMPILE_FOR_CATS and COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and COMPILE_FOR_STUB */

@@ -61,7 +61,7 @@ static PSymbol makeSymbolFromValues
 	char	buffer[12];
 
 	buffer[0] = '_';
-	for (int ii = 1, jj = 1; ii <= 5; ii++, jj += 2)
+	for (int ii = 1, jj = 1; ii <= 5; ++ii, jj += 2)
 	{
 		int	nextByte = *(values + ii) & 0x00FF;
 
@@ -72,7 +72,7 @@ static PSymbol makeSymbolFromValues
 	return gensym(buffer);
 } /* makeSymbolFromValues */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ inputCallback ---*/
 static void inputCallback
 	(STANDARD_HID_ARGS_INPUTEVENTHANDLER)
@@ -96,9 +96,9 @@ static void inputCallback
 		}
 	}		
 } /* inputCallback */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ defineCallback ---*/
 E_PhidgResult defineCallback
 	(STANDARD_PHID_ARGS_DEFINECALLBACK)
@@ -112,7 +112,7 @@ E_PhidgResult defineCallback
 	*result = noErr;
 	return kPhidgSuccess;
 } /* defineCallback */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
 /*------------------------------------ doCustom ---*/
 E_PhidgResult doCustom
@@ -170,11 +170,12 @@ E_PhidgResult doCustom
 				  if (anElement)
 				  {
 				  	long			singleValue = -1; // this value seems to work...
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 						IOReturn	result2;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
 						OSStatus	result2;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 						
 						setHIDElementValue(name, *thisDevice, *anElement, 0, NULL_PTR, singleValue, result2);
 						privateData->fActive = true;
@@ -212,7 +213,7 @@ E_PhidgResult doGet
 		LOG_ERROR_3("%s: extra arguments for '%s:get'", name, deviceType->s_name)
 	else
 	{
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 		// Get the raw data
   	HIDElementDataPtr	anElement = NULL_PTR;
   	
@@ -252,7 +253,8 @@ E_PhidgResult doGet
 	  }
 	  else
 	  	LOG_ERROR_3("%s: element not found for '%s:get'", name, deviceType->s_name)
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
 		if (privateData->fTagSeen)
 		{
 			Atom	reportList[3];
@@ -263,7 +265,7 @@ E_PhidgResult doGet
 			genericListOutput(outlet, 3, reportList);
 		}
 		*result = noErr;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 	}
 	return kPhidgSuccess;
 #endif /* not USE_DEFAULT */
@@ -291,9 +293,9 @@ OSErr identify
 	*productID = 0x030;
 	*privateSize = sizeof(PrivateData);
 	*sharedSize = sizeof(SharedData);
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	*isAsynchronous = true;
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
   return noErr;
 } /* identify */
 
@@ -301,11 +303,12 @@ OSErr identify
 OSErr main
   (STANDARD_PHID_ARGS_MAIN)
 {
-#if defined(COMPILE_FOR_CATS)
-#pragma unused(name)
-#else /* not COMPILE_FOR_CATS */
+#if defined(COMPILE_FOR_OSX_4)
+ #pragma unused(name)
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
  #pragma unused(name,environment)
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	STANDARD_MAIN_CODE;
 	SharedPtr	sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
 	
@@ -397,7 +400,7 @@ E_PhidgResult onDetach
 #endif /* not USE_DEFAULT */
 } /* onDetach */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ reportHandler ---*/
 void reportHandler
 	(STANDARD_PHID_ARGS_REPORTHANDLER)
@@ -460,4 +463,4 @@ void reportHandler
 	}
  #endif /* not USE_DEFAULT */
 } /* reportHandler */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */

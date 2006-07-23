@@ -47,13 +47,8 @@ Pvoid cmd_Bang
   if (xx)
   {
     /* Output all the queue elements in order: */
-    QueueEntryPtr first = xx->fFirstInQueue;
-
-    while (first)
-    {
+    for (QueueEntryPtr first = xx->fFirstInQueue; first; first = first->fNext)
       genericListOutput(xx->fResultOut, first->fOutputCount, first->fOutput);
-      first = first->fNext;
-    }
   }
   ExitMaxMessageHandler()
 } /* cmd_Bang */

@@ -110,9 +110,9 @@ AccessOTControlPtr acquireOpenTransport
       {
   			if (base)
   			{
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   				result->fContext = base->fContext;
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
   			}
   			else
   			{
@@ -123,12 +123,13 @@ AccessOTControlPtr acquireOpenTransport
       else
       {
         /* first call: set it up */
-  #if defined(COMPILE_FOR_CATS)
+  #if defined(COMPILE_FOR_OSX_4)
         OSStatus err = InitOpenTransportInContext(kInitOTForExtensionMask,
                                                   &result->fContext);
-  #else /* not COMPILE_FOR_CATS */
+  #endif /* COMPILE_FOR_OSX_4 */
+  #if defined(COMPILE_FOR_OS9_4)
         OSStatus err = InitOpenTransport();
-  #endif /* not COMPILE_FOR_CATS */
+  #endif /* COMPILE_FOR_OS9_4 */
 
         if (err == kOTNoError)
         {

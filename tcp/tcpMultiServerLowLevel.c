@@ -357,7 +357,7 @@ void releaseObjectMemory
       OSStatus         result;
       TcpConnectionPtr conn_walker = *xx->fConnectionBase;
 
-      for (ushort ii = 0; ii < xx->fMaximumConnections; ++ii)
+      for (ushort ii = 0; ii < xx->fMaximumConnections; ++ii, ++conn_walker)
       {
         // Do any special clean-up here. TBD
         if (conn_walker->fDataEndpoint != kOTInvalidEndpointRef)
@@ -372,7 +372,6 @@ void releaseObjectMemory
 		        reportEndpointState(xx, conn_walker->fDataEndpoint);
           }
         }
-        conn_walker++;
       }
   #endif /* OPEN_TRANSPORT_SUPPORTED */
       HUnlock(reinterpret_cast<Handle>(xx->fConnectionBase));

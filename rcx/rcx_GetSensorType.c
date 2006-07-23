@@ -44,13 +44,13 @@ Pvoid cmd_GetSensorType
   (RcxControlPtr xx,
    long          slot)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #pragma unused(slot)
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       if ((slot > 0) && (slot <= RCX_NUM_SENSORS))
@@ -102,7 +102,7 @@ Pvoid cmd_GetSensorType
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_GetSensorType */

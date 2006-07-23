@@ -74,14 +74,12 @@ static void doRealRegistryFlush
   {
     MessageDescriptorPtr walker, next;
 
-    for (short ii = 0; ii < MESSAGE_DESCRIPTOR_TABLE_SIZE; ii++)
+    for (short ii = 0; ii < MESSAGE_DESCRIPTOR_TABLE_SIZE; ++ii)
     {
-      walker = *(registry + ii);
-      while (walker)
+      for (walker = *(registry + ii); walker; walker = next)
       {
         next = walker->fNext;
         DisposePtr(reinterpret_cast<Ptr>(walker));
-        walker = next;
       }
       *(registry + ii) = NULL_PTR;
     }
@@ -113,15 +111,14 @@ static PluginFunk doRealIdentifyMessage
 {
   if (registry && name)
   {
-    long                 slot = doMessageHash(name);
-    MessageDescriptorPtr walker = *(registry + slot);
-
-    while (walker)
+    long	slot = doMessageHash(name);
+    
+    for (MessageDescriptorPtr walker = *(registry + slot); walker;
+    			walker = walker->fNext)
     {
       if (walker->fName == name)
         return walker->fHandler;
 
-      walker = walker->fNext;
     }
   }
   return NULL_PTR;
@@ -138,12 +135,11 @@ static bool doRealAddMessageToRegistry
     long                 slot = doMessageHash(name);
     MessageDescriptorPtr walker = *(registry + slot), newDescriptor;
 
-    while (walker)
+    for ( ; walker; walker = walker->fNext)
     {
       if (walker->fName == name)
         return false;
 
-      walker = walker->fNext;
     }
     newDescriptor = reinterpret_cast<MessageDescriptorPtr>(NewPtrClear(sizeof(MessageDescriptor)));
     if (newDescriptor)
@@ -167,10 +163,10 @@ static bool doRealRemoveMessageFromRegistry
 {
   if (registry && name)
   {
-    long                 slot = doMessageHash(name);
-    MessageDescriptorPtr walker = *(registry + slot), previous = NULL_PTR;
+    long	slot = doMessageHash(name);
 
-    while (walker)
+    for (MessageDescriptorPtr walker = *(registry + slot), previous = NULL_PTR; walker;
+    			walker = walker->fNext)
     {
       if (walker->fName == name)
       {
@@ -185,7 +181,6 @@ static bool doRealRemoveMessageFromRegistry
 
       }            
       previous = walker;
-      walker = walker->fNext;
     }
   }
   return false;

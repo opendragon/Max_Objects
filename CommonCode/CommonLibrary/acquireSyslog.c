@@ -43,12 +43,12 @@
 
 #if SYSLOG_OK && (! defined(COMPILE_FOR_STUB))
 long				gSyslogCount = 0;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 syslog_FP		gSyslogFunction = NULL_PTR;
 CFBundleRef	gSyslogSysBundle = NULL_PTR;
 closelog_FP	gSyslogDoCloselog = NULL_PTR;			
 openlog_FP	gSyslogDoOpenlog = NULL_PTR;
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 #endif /* SYSLOG_OK and not COMPILE_FOR_STUB */
 
 /*------------------------------------ acquireSyslog ---*/
@@ -61,7 +61,7 @@ void acquireSyslog
 
   if (! checkGlobal->s_thing)
   {
-  #if defined(COMPILE_FOR_CATS)
+  #if defined(COMPILE_FOR_OSX_4)
  		OSStatus	err = noErr;
  		
 		if (! gSyslogSysBundle)
@@ -78,16 +78,17 @@ void acquireSyslog
 			if (gSyslogDoOpenlog)
 				gSyslogDoOpenlog("Max/MSP", 0, LOG_LOCAL0);
 		}
-  #else /* not COMPILE_FOR_CATS */
+  #endif /* COMPILE_FOR_OSX_4 */
+  #if defined(COMPILE_FOR_OS9_4)
     ProcessSerialNumber	thisProcess;
 
     GetCurrentProcess(&thisProcess);
     Openlog(&thisProcess, LOG_LOCAL0);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
     Syslog(SYSLOG_LEVEL, "------------------------------------------");
     checkGlobal->s_thing = reinterpret_cast<PObject>(checkGlobal);
   }
-  gSyslogCount++;
+  ++gSyslogCount;
  #endif /* SYSLOG_OK */
 #endif /* not COMPILE_FOR_STUB */
 } /* acquireSyslog */

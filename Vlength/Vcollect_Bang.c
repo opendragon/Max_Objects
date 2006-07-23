@@ -58,16 +58,15 @@ Pvoid cmd_Bang
 
           if (pile)
           {
-            PAtom           outWalker = pile;
-            CollectChunkPtr inWalker = xx->fFirstChunk;
-            short           toGo = xx->fTotalAtoms, thisMove = CHUNK_SIZE;
+            PAtom	outWalker = pile;
+            short	toGo = xx->fTotalAtoms, thisMove = CHUNK_SIZE;
 
-            while (inWalker && (toGo > 0))
+            for (CollectChunkPtr inWalker = xx->fFirstChunk; inWalker && (toGo > 0);
+            			inWalker = inWalker->fNext)
             {
               if (toGo < CHUNK_SIZE)
                 thisMove = toGo;
               memcpy(outWalker, &inWalker->fAtoms, thisMove * sizeof(Atom));
-              inWalker = inWalker->fNext;
               outWalker += CHUNK_SIZE;
               toGo -= CHUNK_SIZE;
             }

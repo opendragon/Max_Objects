@@ -48,7 +48,7 @@ Pvoid cmd_Dump
   {
     RangeDataPtr walker = xx->fFirstRange;
 
-    for (long ii = 1; walker; walker = walker->fNext, ii++)
+    for (long ii = 1; walker; walker = walker->fNext, ++ii)
     {
 	  	short	leftRight = short(walker->fLeftRightDontCare ? 1 : 4);
 	  	short	bottomTop = short(walker->fBottomTopDontCare ? 1 : 4);
@@ -128,7 +128,7 @@ Pvoid cmd_Dump
 	                                                        gCloseRoundSymbol);
         }
 				nextPos += forwardBack;
-        for (short jj = 0; jj < walker->fOutputCount; jj++)
+        for (short jj = 0; jj < walker->fOutputCount; ++jj)
           *(nextPos + jj) = *(walker->fOutput + jj);
         outlet_anything(xx->fResultOut, gRangeSymbol, outSize, newList);
         FREEBYTES(newList, outSize)

@@ -46,7 +46,7 @@ Pvoid cmd_ClearSound
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       static uchar clearSoundCommand[] = { RCX_CLEAR_SOUND_CMD };
@@ -59,7 +59,7 @@ Pvoid cmd_ClearSound
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_ClearSound */

@@ -49,13 +49,12 @@ Pvoid cmd_Int
   {
     if (xx->fRightInput || num)
     {
-      long mm = xx->fRightInput, nn = num, tt;
+      long mm = xx->fRightInput;
 
-      while (nn)
+      for (long nn = num, tt; nn; nn = tt)
       {
         tt = (mm % nn);
         mm = nn;
-        nn = tt;
       }
       xx->fPreviousResult = mm;       
       outlet_int(xx->fResultOut, long(xx->fPreviousResult));

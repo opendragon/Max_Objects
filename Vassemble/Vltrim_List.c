@@ -55,7 +55,7 @@ Pvoid cmd_List
  		{
  			short left = 0;
  			
- 			for ( ; left < argc; left++)
+ 			for ( ; left < argc; ++left)
  			{
  				if (! isSeparator(xx, argv[left].a_w.w_long))
  					break;
@@ -69,7 +69,7 @@ Pvoid cmd_List
 				
 				if (result)
 				{
-					for (short index = left; index < argc; index++)
+					for (short index = left; index < argc; ++index)
 						SETLONG(result + index - left, argv[index].a_w.w_long);
 					xx->fPreviousList = result;
 					xx->fPreviousLength = short(argc - left);

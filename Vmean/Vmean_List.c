@@ -56,7 +56,7 @@ Pvoid cmd_List
     if (xx->fOperation == OP_Arithmetic)
     {
       result = 0;
-      for (short ii = 0; okSoFar && (ii < argc); ii++)
+      for (short ii = 0; okSoFar && (ii < argc); ++ii)
       {
         switch (argv[ii].a_type)
         {
@@ -86,7 +86,7 @@ Pvoid cmd_List
     else if (xx->fOperation == OP_Geometric)
     {
       result = 1;
-      for (short ii = 0; okSoFar && (ii < argc); ii++)
+      for (short ii = 0; okSoFar && (ii < argc); ++ii)
       {
         switch (argv[ii].a_type)
         {
@@ -140,7 +140,7 @@ Pvoid cmd_List
     else if (xx->fOperation == OP_Harmonic)
     {
       result = 0;
-      for (short ii = 0; okSoFar && (ii < argc); ii++)
+      for (short ii = 0; okSoFar && (ii < argc); ++ii)
       {
         switch (argv[ii].a_type)
         {

@@ -77,18 +77,20 @@ void freeRoutineDescriptors
 OSErr getAppDir
   (FSSpec * pAppFile);
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 OSErr getEntryPoint
   (CFragConnectionID	connID,
    Str255							name,
    ProcPtr *					newUpp);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+
+#if defined(COMPILE_FOR_OS9_4)
 OSErr getEntryPoint
   (CFragConnectionID  connID,
    Str255             name,
    ProcInfoType       procInfo,
    UniversalProcPtr * newUpp);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
 bool initPhidgetList
   (void);
@@ -174,7 +176,7 @@ void main
   ExitCodeResource();
 } /* main */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ removeHIDDevice ---*/
 static void removeHIDDevice
 	(Pvoid					refCon,
@@ -216,11 +218,13 @@ static void removeHIDDevice
 		}
 		if (thisDeviceHID == xx->fHIDDevices)
 			xx->fHIDDevices = thisDeviceHID->fNext;
-		xx->fHIDDeviceCount--;
+		--xx->fHIDDeviceCount;
 		releaseHIDData(xx->fHIDControl, thisDeviceHID);
 	}
 } /* removeHIDDevice */
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ removeHIDDevice ---*/
 static void removeHIDDevice
 	(FidgetPtr															xx,
@@ -270,13 +274,13 @@ static void removeHIDDevice
 		}
 		if (thisDeviceHID == xx->fHIDDevices)
 			xx->fHIDDevices = thisDeviceHID->fNext;
-		xx->fHIDDeviceCount--;
+		--xx->fHIDDeviceCount;
 		releaseHIDData(thisDeviceHID);	
 	}
 } /* removeHIDDevice */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ queueHandlerRedirect ---*/
 static void queueHandlerRedirect
 	(FidgetPtr	xx,
@@ -303,9 +307,9 @@ LOG_POST_1("queue redirect called")//!!
 			FREEBYTES(longValue, longValueSize);		
 	}	
 } /* queueHandlerRedirect */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ reportHandlerRedirect ---*/
 static void reportHandlerRedirect
 	(FidgetPtr	xx,
@@ -330,9 +334,9 @@ static void reportHandlerRedirect
 		FREEBYTES(reportData, reportLength);		
 	}	
 } /* reportHandlerRedirect */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ rawQueueHandlerProc ---*/
 static void rawQueueHandlerProc
 	(STANDARD_HID_ARGS_INPUTEVENTHANDLER)
@@ -358,9 +362,9 @@ LOG_POST_1("raw queue handler called")//!!
 	defer_low(xx, reinterpret_cast<method>(queueHandlerRedirect), NULL_PTR,
 						QUEUE_HANDLER_MESSAGE_SIZE, eventData);
 } /* rawQueueHandlerProc */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ rawReportHandlerProc ---*/
 static void rawReportHandlerProc
 	(Pvoid	inHIDReport,
@@ -382,9 +386,9 @@ static void rawReportHandlerProc
 	defer_low(xx, reinterpret_cast<method>(reportHandlerRedirect), NULL_PTR,
 						REPORT_HANDLER_MESSAGE_SIZE, eventData);
 } /* rawReportHandlerProc */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ addHIDDevice ---*/
 static void addHIDDevice
 	(FidgetPtr		xx,
@@ -507,13 +511,15 @@ static void addHIDDevice
 			xx->fHIDDevices->fPrevious = newData;
 		newData->fNext = xx->fHIDDevices;
 		xx->fHIDDevices = newData;
-		xx->fHIDDeviceCount++;
+		++xx->fHIDDeviceCount;
 	}
 	if (! okSoFar)
 		// We can't use this object, or ...
 		releaseHIDData(xx->fHIDControl, newData);
 } /* addHIDDevice */
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ addHIDDevice ---*/
 static void addHIDDevice
 	(FidgetPtr															xx,
@@ -604,7 +610,7 @@ static void addHIDDevice
 						xx->fHIDDevices->fPrevious = aDevice;
 					aDevice->fNext = xx->fHIDDevices;
 					xx->fHIDDevices = aDevice;
-					xx->fHIDDeviceCount++;
+					++xx->fHIDDeviceCount;
 				}
 				else
 					// We can't use this object, or ...
@@ -616,9 +622,9 @@ static void addHIDDevice
 									result);
 	}
 } /* addHIDDevice */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ HIDDeviceAdded ---*/
 static void HIDDeviceAdded
 	(Pvoid					refCon,
@@ -659,9 +665,9 @@ static void HIDDeviceAdded
 		}
   }	
 } /* HIDDeviceAdded */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ addUSBDevice ---*/
 static void addUSBDevice
 	(FidgetPtr		xx,
@@ -726,9 +732,9 @@ static void addUSBDevice
 		}
 	}
 } /* addUSBDevice */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ USBDeviceAdded ---*/
 static void USBDeviceAdded
 	(Pvoid					refCon,
@@ -813,9 +819,9 @@ static void USBDeviceAdded
 		}
   }	
 } /* USBDeviceAdded */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ USBDeviceNotification ---*/
 static void USBDeviceNotification
 	(Pvoid	arg)
@@ -848,9 +854,9 @@ static void USBDeviceNotification
 		}
 	}	
 } /* USBDeviceNotification */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ USBDeviceRemoved ---*/
 static void USBDeviceRemoved
 	(Pvoid					refCon,
@@ -874,7 +880,7 @@ static void USBDeviceRemoved
 		}
   }	
 } /* USBDeviceRemoved */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
 /*------------------------------------ checkForPhidgetsFolder ---*/
 bool checkForPhidgetsFolder
@@ -937,7 +943,7 @@ bool checkForPhidgetsFolder
         }
       }
     }
-    index++;
+    ++index;
   }
   DisposePtr(reinterpret_cast<Ptr>(myCPB.ioNamePtr));
   myCPB.ioNamePtr = 0;
@@ -984,7 +990,7 @@ Pvoid fidgetCreate
     if (xx->fResultOut && xx->fDataOut)
     {
     	scanPhidgetFolder(xx);
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 			if (setUpIOKit(xx, OUR_NAME, xx->fUSBControl, kIOUSBDeviceClassName,
 											USBDeviceAdded, USBDeviceRemoved) &&
 					setUpIOKit(xx, OUR_NAME, xx->fHIDControl, kIOHIDDeviceKey,
@@ -994,12 +1000,13 @@ Pvoid fidgetCreate
 				triggerIterators(xx, xx->fHIDControl, HIDDeviceAdded, NULL_PTR);
 				triggerIterators(xx, xx->fUSBControl, USBDeviceAdded, USBDeviceRemoved);
 	    }
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
  			if (setUpUSB(xx, OUR_NAME, xx->fUSBControl, USBDeviceNotification))
  			{
  				// other initialization...
  			} 
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 			else
 			{
 	      freeobject(reinterpret_cast<PObject>(xx));
@@ -1039,24 +1046,26 @@ Pvoid fidgetFree
 	  	if (kind)
 	  	{
 	  		whichOne = kind->fName;
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	  		action = reinterpret_cast<FpOnDetach>(kind->fOnDetachFun)
 													  			(OUR_NAME, whichOne, kind->fShared, walker->fPrivate,
 													  			walker, &result);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 				action = static_cast<E_PhidgResult>(CallUniversalProc(kind->fOnDetachUpp, uppOnDetachProcInfo,
 																				OUR_NAME, whichOne, kind->fShared, walker->fPrivate, walker,
 																				&result));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 			}
 			if (action == kPhidgDoDefault)
 				LOG_POST_3("detach %s:%s", whichOne->s_name, walker->fSerialNumber->s_name);
 	  	next = walker->fNext;
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 			releaseHIDData(xx->fHIDControl, walker);	  	
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 			releaseHIDData(walker);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	  }
 	  xx->fHIDDevices = NULL_PTR;
 	  for (PhidgetDescriptorPtr walker = xx->fPhidgets, next; walker; walker = next)
@@ -1064,13 +1073,14 @@ Pvoid fidgetFree
 	  	next = walker->fNext;
 	  	
       /* Execute the niam entry point: */
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
       OSErr	myErr = reinterpret_cast<FpNiam>(walker->fNiamFun)
 								      								(OUR_NAME, walker->fShared);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
       OSErr	myErr = static_cast<OSErr>(CallUniversalProc(walker->fNiamUpp, uppNiamProcInfo, OUR_NAME,
       																			walker->fShared));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
       
       if (myErr != noErr)
         LOG_ERROR_2(OUTPUT_PREFIX "problem running niam() for phidget: %d", myErr)	  	
@@ -1079,12 +1089,13 @@ Pvoid fidgetFree
 	  	FREEBYTES(walker, 1);
 	  }
 	  xx->fPhidgets = NULL_PTR;
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	  shutDownIOKit(xx->fHIDControl);
 	  shutDownIOKit(xx->fUSBControl);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 		shutDownUSB(xx->fUSBControl);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	  gensym(FIDGET_CONTROL_SYMBOL)->s_thing = NULL_PTR;
   }
   LOG_EXIT()
@@ -1213,7 +1224,7 @@ OSErr getAppDir
   return myErr;
 } /* getAppDir */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ getEntryPoint ---*/
 OSErr getEntryPoint
   (CFragConnectionID  connID,
@@ -1236,9 +1247,9 @@ OSErr getEntryPoint
   }    
   return myErr;
 } /* getEntryPoint */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ getEntryPoint ---*/
 OSErr getEntryPoint
   (CFragConnectionID  connID,
@@ -1266,7 +1277,7 @@ OSErr getEntryPoint
   }    
   return myErr;
 } /* getEntryPoint */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
 /*------------------------------------ initPhidgetList ---*/
 bool initPhidgetList
@@ -1314,16 +1325,17 @@ void scanPhidgetFolder
         bool									found = false;
         PSymbol								aName;
         
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
         char                	tempString[256];
         
         CopyPascalStringToC(myCPB.ioNamePtr, tempString);
         aName = gensym(tempString);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
         aName = gensym(p2cstr(myCPB.ioNamePtr));
         c2pstr(reinterpret_cast<Pchar>(myCPB.ioNamePtr));
-#endif /* not COMPILE_FOR_CATS */
-        while (walker)
+#endif /* COMPILE_FOR_OS9_4 */
+        for ( ; walker; walker = walker->fNext)
         {
           if (walker->fName == aName)
           {
@@ -1331,7 +1343,6 @@ void scanPhidgetFolder
             break;
 
           }
-          walker = walker->fNext;
         }
         myErr = FSMakeFSSpec(gPhidgetVol, gPhidgetDir, myCPB.ioNamePtr, &newFSS);
         if (myErr != noErr)
@@ -1379,16 +1390,17 @@ void scanPhidgetFolder
           }
           memcpy(&walker->fSpec, &newFSS, sizeof(newFSS));
           walker->fPrivateSize = walker->fSharedSize = 0;
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
           walker->fIsAsynchronous = false;
 					myErr = reinterpret_cast<FpIdentify>(walker->fIdentifyFun)
 																			(OUR_NAME, &walker->fProductID, &walker->fPrivateSize,
 																			&walker->fSharedSize, &walker->fIsAsynchronous);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 					myErr = static_cast<OSErr>(CallUniversalProc(walker->fIdentifyUpp, uppIdentifyProcInfo,
 																			OUR_NAME, &walker->fProductID, &walker->fPrivateSize,
 																			&walker->fSharedSize));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 					if (myErr != noErr)
 					{
             LOG_ERROR_2(OUTPUT_PREFIX "problem running identify() for phidget: %d", myErr)
@@ -1401,13 +1413,14 @@ void scanPhidgetFolder
           PhidgEnvStruct	ourEnvironment;
           
 					SET_UP_ENVIRONMENT(ourEnvironment);
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
           myErr = reinterpret_cast<FpMain>(walker->fMainFun)
                         							(OUR_NAME, walker->fShared, &ourEnvironment);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
           myErr = static_cast<OSErr>(CallUniversalProc(walker->fMainUpp, uppMainProcInfo,
                                           OUR_NAME, walker->fShared, &ourEnvironment));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
           if (myErr != noErr)
           {
             LOG_ERROR_2(OUTPUT_PREFIX "problem running main() for phidget: %d", myErr)
@@ -1434,109 +1447,118 @@ bool validateEntryPoints
                                   
   if (myErr == noErr)
   {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     descriptor->fMainFun = reinterpret_cast<ProcPtr>(descriptor->fMainAddress);
     if (! descriptor->fMainFun)
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     descriptor->fMainUpp = NewRoutineDescriptor(reinterpret_cast<ProcPtr>(descriptor->fMainAddress),
     																						uppMainProcInfo, GetCurrentISA());                                       
     if (! descriptor->fMainUpp)
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
       myErr = memFullErr;
   }
   if (myErr == noErr)
     routineMask |= kMainValid;        
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   if (myErr == noErr)
     myErr = getEntryPoint(descriptor->fConnID, "\pdefineCallback", &descriptor->fDefineCallbackFun);
 	if (myErr == noErr)
 		routineMask != kDefineCallbackValid;
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
   if (myErr == noErr)
   {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdoCustom", &descriptor->fDoCustomFun);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdoCustom", uppDoCustomProcInfo,
     											&descriptor->fDoCustomUpp);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kDoCustomValid;        
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdoGet", &descriptor->fDoGetFun);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdoGet", uppDoGetProcInfo, &descriptor->fDoGetUpp);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kDoGetValid;        
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdoPut", &descriptor->fDoPutFun);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pdoPut", uppDoPutProcInfo, &descriptor->fDoPutUpp);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kDoPutValid;        
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pidentify", &descriptor->fIdentifyFun);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pidentify", uppIdentifyProcInfo, &descriptor->fIdentifyUpp);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kIdentifyValid;        
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pniam", &descriptor->fNiamFun);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\pniam", uppNiamProcInfo, &descriptor->fNiamUpp);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kNiamValid;        
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\ponAttach", &descriptor->fOnAttachFun);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\ponAttach", uppOnAttachProcInfo, &descriptor->fOnAttachUpp);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
   {
     routineMask |= kOnAttachValid;
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     myErr = getEntryPoint(descriptor->fConnID, "\ponDetach", &descriptor->fOnDetachFun);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     myErr = getEntryPoint(descriptor->fConnID, "\ponDetach", uppOnDetachProcInfo, &descriptor->fOnDetachUpp);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   }
   if (myErr == noErr)
     routineMask |= kOnDetachValid;
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 	if (myErr == noErr)
     myErr = getEntryPoint(descriptor->fConnID, "\preportHandler", uppReportHandlerProcInfo, &descriptor->fReportHandlerUpp);
 	if (myErr == noErr)
 		routineMask |= kReportHandlerValid;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   descriptor->fValidMask = routineMask;
   if (myErr != noErr)
   {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     char  tempString[256];
     
     CopyPascalStringToC(errName, tempString);
     LOG_ERROR_3(OUTPUT_PREFIX "loading problem: %d, name: '%s'", myErr, tempString)
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     p2cstr(errName);
     LOG_ERROR_3(OUTPUT_PREFIX "loading problem: %d, name: '%s'", myErr,
                 reinterpret_cast<Pchar>(errName))
     c2pstr(reinterpret_cast<Pchar>(errName));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
     /* Clear out routine descriptors */
     freeRoutineDescriptors(descriptor);
     return false;

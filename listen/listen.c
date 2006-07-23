@@ -251,11 +251,12 @@ Pvoid listenCreate
     {
       SRCallBackParam speechCallBackPB;
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
       speechCallBackPB.callBack = NewSRCallBackUPP(listenCallBack);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
       speechCallBackPB.callBack = NewSRCallBackProc(listenCallBack);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
       speechCallBackPB.refCon = long(xx);
       result = SRSetProperty(xx->fRecognizer, kSRCallBackParam, &speechCallBackPB,
                               sizeof(speechCallBackPB));
@@ -335,11 +336,12 @@ Pvoid listenFree
           callBackPB.callBack = NULL_PTR;
           result = SRSetProperty(xx->fRecognizer, kSRCallBackParam, &callBackPB,
                                   sizeof(callBackPB));
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
           DisposeSRCallBackUPP(savedCallBack);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
           DisposeRoutineDescriptor(savedCallBack);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
         }
       }
       SRReleaseObject(xx->fRecognizer);
@@ -480,9 +482,9 @@ Pvoid listenProcessQueue
           Atom  tempAtom;
 
           /* Prefill the atom vector, in case of early termination. */
-          for (short ii = 0; ii < atomCount; ii++)
+          for (short ii = 0; ii < atomCount; ++ii)
             SETLONG(tempList + ii, 0);
-          for (short ii = 0; okSoFar && (ii < atomCount); ii++)
+          for (short ii = 0; okSoFar && (ii < atomCount); ++ii)
           {       
             okSoFar = (! binbuf_getatom(accumulator, &typeOffset, &stuffOffset,
                                         &tempAtom));
@@ -584,7 +586,7 @@ bool traverseResponse
 
     /* Process the children: */
     result = SRCountItems(model, &number);
-    for (long ii = 0; (result == noErr) && (ii < number) && okSoFar; ii++)
+    for (long ii = 0; (result == noErr) && (ii < number) && okSoFar; ++ii)
     {
       result = SRGetIndexedItem(model, &child, ii);
       if (result == noErr)

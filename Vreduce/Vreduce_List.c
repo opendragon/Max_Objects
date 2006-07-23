@@ -71,7 +71,7 @@ Pvoid cmd_List
           break;
 
       }
-      for (short ii = 0; ii < argc; ii++)
+      for (short ii = 0; ii < argc; ++ii)
       {
         switch (argv[ii].a_type)
         {

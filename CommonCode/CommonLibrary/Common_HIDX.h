@@ -40,7 +40,7 @@
 #if (! defined(COMMON_HIDX_H_))
  #define COMMON_HIDX_H_ /* */
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   #include "Common_IOKitX.h"
 
  // The following datatypes and defines are copied from the relevant Framework headers,
@@ -209,7 +209,8 @@ typedef void (*IOHIDCallbackFunction)
               (void * target, IOReturn result, void * refcon, void * sender);
 
 // End of copies ...
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
   #include "Common_USBX.h"
   #include "hid.h"
 
@@ -226,9 +227,9 @@ enum IOHIDElementType
 	kIOHIDElementTypeCollection        = 513
 }; /* IOHIDElementType */
 	
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
   #define STANDARD_HID_ARGS_INPUTEVENTHANDLER	\
 		Pvoid								refCon,\
 		IOHIDElementCookie	elementCookie,\
@@ -238,7 +239,7 @@ enum IOHIDElementType
 
 typedef void (* InputEventHandler)
 	(STANDARD_HID_ARGS_INPUTEVENTHANDLER);
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 	
 struct HIDDeviceDataStruct;
 
@@ -265,9 +266,9 @@ struct HIDElementDataStruct
   IOHIDElementType		fType;
   long								fUsage;	
   long								fUsagePage;
- #if (! defined(COMPILE_FOR_CATS))
+ #if defined(COMPILE_FOR_OS9_4)
  	UInt32							fReportID;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 }; /* ElementDataStruct */
 
 struct HIDDeviceDataStruct
@@ -296,7 +297,7 @@ struct HIDDeviceDataStruct
 	long											fVendorID;
 	long											fVersionNumber;
 	long											fWheelCount;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 	IOHIDCallbackFunction			fInputCallback;
 	InputEventHandler					fInputFunction;
 	IOHIDQueueInterface * *		fInputQueue;
@@ -307,18 +308,19 @@ struct HIDDeviceDataStruct
   InputEventHandler					fQueueHandler;
 	Ptr												fRefCon;
 	long											fRefConSize;
- #else /* not COMPILE_FOR_CATS */ 
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4) 
 	HIDDeviceConnectionRef		fConnection;
 	USBDeviceRef							fDevice;
 	HIDDeviceDispatchTablePtr	fDispatchTable;
 	HIDPreparsedDataRef				fPrepReport;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 }; /* HIDDeviceDataStruct */
 
 void initHIDElementData
 	(HIDElementDataStruct &	thisElement);
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 IOReturn closeHIDDevice
 	(IOHIDDeviceInterface * *	theInterface);
 
@@ -365,8 +367,9 @@ void setUpHIDInputQueue
 	 InputEventHandler			aFun,
 	 IOHIDElementCookie *		cookies,
 	 int										numCookies);
-  
- #else /* not COMPILE_FOR_CATS */	 
+ #endif /* COMPILE_FOR_OSX_4 */
+ 
+ #if defined(COMPILE_FOR_OS9_4)
 bool initHIDDeviceData
 	(Pchar											name,
 	 HIDDeviceDataStruct &			thisDevice,
@@ -385,7 +388,6 @@ void setHIDElementValue
 	 PAtom									extendedValue,
 	 long										singleValue,
 	 OSStatus &							result);
-
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
  
 #endif /* not COMMON_HIDX_H_ */

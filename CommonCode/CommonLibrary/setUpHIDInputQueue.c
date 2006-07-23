@@ -41,7 +41,7 @@
 #include "Common_HIDXData.h"
 #include "loadOtherSegments.h"
 
-#if defined(COMPILE_FOR_CATS) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OSX_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ doInputEventHandler ---*/
 static void doInputEventHandler
 	(Pvoid		target,
@@ -64,9 +64,9 @@ LOG_POST_1("doInputEventHandler")//!!
 		thisDevice->fInputFunction(refcon, event.elementCookie, event.value,
 																event.longValueSize, event.longValue);
 } /* doInputEventHandler */
-#endif /* COMPILE_FOR_CATS and not COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and not COMPILE_FOR_STUB */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ setUpHIDInputQueue ---*/
 void setUpHIDInputQueue
 	(Pchar									name,
@@ -102,7 +102,7 @@ void setUpHIDInputQueue
 																	(*thisDevice.fInputQueue)->addElement);
 			pFhasElement = fillCallback(hidqHasElement_FP, funkChunk2,
 																	(*thisDevice.fInputQueue)->hasElement);														
-			for (int	ii = 0; ii < numCookies; ii++)
+			for (int	ii = 0; ii < numCookies; ++ii)
 			{
 LOG_POST_3("cookie %d: %d", ii, long(*(cookies + ii)))//!!
 				if (! pFhasElement(thisDevice.fInputQueue, *(cookies + ii)))
@@ -176,8 +176,8 @@ LOG_POST_3("cookie %d: %d", ii, long(*(cookies + ii)))//!!
 		LOG_POST_2("%s: could not allocate input queue", name)
  #endif /* not COMPILE_FOR_STUB */
 } /* setUpHIDInputQueue */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS) && defined(COMPILE_FOR_STUB)
+#if defined(COMPILE_FOR_OSX_4) && defined(COMPILE_FOR_STUB)
  #pragma export list setUpHIDInputQueue
-#endif /* COMPILE_FOR_CATS and COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and COMPILE_FOR_STUB */

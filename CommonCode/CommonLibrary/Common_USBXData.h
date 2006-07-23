@@ -42,7 +42,7 @@
 
  #include "Common_USBX.h"
  
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 // The following datatypes and defines are copied from the relevant Framework headers,
 // which aren't directly useable in CFM source:
 
@@ -359,6 +359,6 @@ typedef IOReturn (* usbWritePipeTO_FP)
 	 UInt32	noDataTimeout,
 	 UInt32	completionTimeout);
 	 
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 
 #endif /* not COMMON_USBXDATA_H_ */

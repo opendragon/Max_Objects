@@ -70,7 +70,7 @@ Pvoid cmd_After
                 walker = walker->fNext;
               newRange->fNext = walker->fNext;
               walker->fNext = newRange;
-              xx->fRangeCount++;
+              ++xx->fRangeCount;
               if (xx->fLastRange == walker)
                 xx->fLastRange = newRange;
             }

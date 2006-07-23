@@ -52,7 +52,7 @@ Pvoid cmd_Show
       long         ii = 1;
       RangeDataPtr walker = xx->fFirstRange;
 
-      for ( ; walker && (ii < num); ii++)
+      for ( ; walker && (ii < num); ++ii)
         walker = walker->fNext;
       if (walker)
       {
@@ -84,7 +84,7 @@ Pvoid cmd_Show
 	          SETSYM(newList + 4, walker->fUpper.fIsClosed ? gCloseSquareSymbol :
 	                                                          gCloseRoundSymbol);
           }
-          for (ii = 0; ii < walker->fOutputCount; ii++)
+          for (ii = 0; ii < walker->fOutputCount; ++ii)
             *(newList + ii + lowerUpper + 1) = *(walker->fOutput + ii);
           outlet_anything(xx->fResultOut, gRangeSymbol, outSize, newList);
           FREEBYTES(newList, outSize)

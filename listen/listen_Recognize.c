@@ -140,7 +140,7 @@ static MatchDataPtr getMatchDataSimple
       if (! sawClose)
       {
         binbuf_append(tempBuffer, NULL_PTR, 1, &holder);
-        count++;
+        ++count;
       }
     }
     else
@@ -166,9 +166,9 @@ static MatchDataPtr getMatchDataSimple
         Atom  tempAtom;
 
         /* Prefill the atom vector, in case of early termination. */
-        for (short ii = 0; ii < count; ii++)
+        for (short ii = 0; ii < count; ++ii)
           SETLONG(tempList + ii, 0);
-        for (short ii = 0; okSoFar && (ii < count); ii++)
+        for (short ii = 0; okSoFar && (ii < count); ++ii)
         {       
           okSoFar = (! binbuf_getatom(tempBuffer, &typeOffset, &stuffOffset, &tempAtom));
           if (okSoFar)
@@ -416,12 +416,9 @@ static PathListPtr getASimplePath
       if (! okSoFar)
       {
         /* Clean out aPath */
-        ElementPtr eWalker = aPath->fFirst;
-
-        while (eWalker)
+        for (ElementPtr eWalker = aPath->fFirst, element; eWalker; eWalker = element)
         {
-          ElementPtr element = eWalker->fNext;
-
+          element = eWalker->fNext;
           if (! eWalker->fIsModel)
           {
             MatchDataPtr match = eWalker->fVar.fWordElement.fMatch;
@@ -433,7 +430,6 @@ static PathListPtr getASimplePath
             }
           }
           FREEBYTES(eWalker, 1)
-          eWalker = element;
         }
         FREEBYTES(aPath, 1)
       }

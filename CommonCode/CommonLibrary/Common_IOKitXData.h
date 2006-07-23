@@ -40,7 +40,7 @@
 #if (! defined(COMMON_IOKITXDATA_H_))
  #define COMMON_IOKITXDATA_H_ /* */
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
  // The following datatypes are copied from the relevant Framework headers, which aren't directly
  // useable in CFM source:
  
@@ -143,6 +143,6 @@ typedef SInt32 (* runLoopRunInMode_FP)
 typedef CFMutableDictionaryRef (* serviceMatching_FP)
 	(Qchar	name); 
 
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 
 #endif /* not COMMON_IOKITXDATA_H_ */

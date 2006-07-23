@@ -53,7 +53,7 @@ Pvoid deferred_Unload
     if (aMovie)
     {
       qtSetCurrentMovie(xx, NULL_HDL);
-      while (aMovie)
+      for ( ; aMovie; aMovie = aNext)
       {
         HLock(reinterpret_cast<Handle>(aMovie));
         thisMovie = *aMovie;
@@ -61,7 +61,6 @@ Pvoid deferred_Unload
         qtDisposeOfMovie(thisMovie);            
         HUnlock(reinterpret_cast<Handle>(aMovie));
         disposhandle(reinterpret_cast<Handle>(aMovie));
-        aMovie = aNext;
       }
     }
     xx->fPendingMovie = NULL_PTR;

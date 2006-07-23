@@ -121,13 +121,14 @@ Pvoid tcpLocateCreate
     /* Set up the endpoint */
     if (okSoFar)
     {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
       xx->fService = OTOpenInternetServicesInContext(kDefaultInternetServicesPath, 0,
                                                       &result,
                                                       xx->fAccessControl->fContext);
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
       xx->fService = OTOpenInternetServices(kDefaultInternetServicesPath, 0, &result);
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
       if (result != kOTNoError)
       {
         REPORT_ERROR(OUTPUT_PREFIX "unable to obtain an endpoint (%ld = %s)", result)

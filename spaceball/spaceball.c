@@ -203,9 +203,9 @@ void spaceballPerformWriteCommand
       xx->fChunkPulseSent = true;
     }
     /* Send data. */
-    for (short ii = 0; ii < numBytesToSend; ii++)
+    for (short ii = 0; ii < numBytesToSend; ++ii, ++bytesToFollow)
     {
-      dataValue = *bytesToFollow++;
+      dataValue = *bytesToFollow;
       SETLONG(dataList + ii, dataValue);
     }
     outlet_list(xx->fDataSendOut, 0L, numBytesToSend, dataList);
@@ -239,7 +239,7 @@ Pvoid spaceballProcessQueue
       if (! xx->fDelayCounter)
       {
         spaceballPerformWriteCommand(xx, sizeof(resetString) - 1, resetString);
-        xx->fDelayCounter++;
+        ++xx->fDelayCounter;
       }
       else if (xx->fDelayCounter++ >= xx->fResetDuration)
       {
@@ -255,7 +255,7 @@ Pvoid spaceballProcessQueue
       {
         spaceballPerformWriteCommand(xx, sizeof(initString) - 1, initString);
         spaceballZeroValues(xx);
-        xx->fDelayCounter++;
+        ++xx->fDelayCounter;
       }
       else if (xx->fDelayCounter++ >= xx->fInitDuration)
       {
@@ -291,7 +291,7 @@ Pvoid spaceballProcessResponse
       if (slot < IN_BUFFER_SIZE)
       {
         xx->fBuffer[slot] = incoming;
-        xx->fBufferPos++;
+        ++xx->fBufferPos;
       }
       else
       {
@@ -316,7 +316,7 @@ Pvoid spaceballProcessResponse
           if (slot < IN_BUFFER_SIZE)
           {
             xx->fBuffer[slot] = incoming;
-            xx->fBufferPos++;
+            ++xx->fBufferPos;
           }
           else
           {
@@ -340,7 +340,7 @@ Pvoid spaceballProcessResponse
       if (slot < IN_BUFFER_SIZE)
       {
         xx->fBuffer[slot] = incoming;
-        xx->fBufferPos++;
+        ++xx->fBufferPos;
       }
       else
       {

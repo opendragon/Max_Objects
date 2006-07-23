@@ -55,7 +55,7 @@ Pvoid cmd_List
     clearPrevious(xx);
     if (newList)
     {
-      for (short ii = 0; ii < argc; ii++)
+      for (short ii = 0; ii < argc; ++ii)
         *(newList + ii) = *(argv + argc - (ii + 1));
       xx->fPreviousList = newList;
       xx->fPreviousLength = argc;

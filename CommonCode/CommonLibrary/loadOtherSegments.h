@@ -42,7 +42,7 @@
 
  #include "MissingAndExtra.h"
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 struct TransferVector_rec
 {
 	ProcPtr	fProcPtr;
@@ -94,7 +94,7 @@ void releaseMachSpringboard
   	
 void unloadFrameworkBundle
 	(CFBundleRef &	bundleRef);
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 
 void loadOtherSegments
   (void);

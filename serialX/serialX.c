@@ -130,7 +130,7 @@ void main
   ExitCodeResource();
 } /* main */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ CloseSerialDrivers ---*/
 static OSErr CloseSerialDrivers
   (const SInt16	inRefNum,
@@ -156,9 +156,9 @@ static OSErr CloseSerialDrivers
   TRACE_POST_2("exiting CloseSerialDrivers %d", err)
   return err;
 } /* CloseSerialDrivers */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ CommunicationsResourceManagerExists ---*/
 static bool CommunicationsResourceManagerExists
   (void)
@@ -168,9 +168,9 @@ static bool CommunicationsResourceManagerExists
   return ((Gestalt(gestaltCRMAttr, &response) == noErr) &&
             ((response & (1 << gestaltCRMPresent) != 0)));
 } /* CommunicationsResourceManagerExists */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ DriverIsOpen ---*/
 static bool DriverIsOpen
   (ConstStr255Param driverName)
@@ -181,7 +181,7 @@ static bool DriverIsOpen
   StringPtr  namePtr;
 
   TRACE_POST_1("entering DriverIsOpen")
-  while ((! found) && (unit < LMGetUnitTableEntryCount()))
+  for ( ; (! found) && (unit < LMGetUnitTableEntryCount()); )
   {
     dceHandle = GetDCtlEntry(short(~unit));
     if (dceHandle && (*dceHandle)->dCtlDriver)
@@ -197,14 +197,14 @@ static bool DriverIsOpen
         isOpen = (((*dceHandle)->dCtlFlags & dOpenedMask) != 0);
       }
     }
-    unit++;
+    ++unit;
   }
   TRACE_POST_2("exiting DriverIsOpen %s", isOpen ? "true" : "false")
   return isOpen;
 } /* DriverIsOpen */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ SerialArbitrationExists ---*/
 static bool SerialArbitrationExists
   (void)
@@ -214,9 +214,9 @@ static bool SerialArbitrationExists
   return ((Gestalt(gestaltArbitorAttr, &response) == noErr) &&
             ((response & (1 << gestaltSerialArbitrationExists) != 0)));
 } /* SerialArbitrationExists */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ OpenOneSerialDriver ---*/
 static OSErr OpenOneSerialDriver
   (ConstStr255Param driverName,
@@ -235,9 +235,9 @@ static OSErr OpenOneSerialDriver
   TRACE_POST_2("exiting OpenOneSerialDriver %d", err)
   return err;
 } /* OpenOneSerialDriver */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ OpenSerialDrivers ---*/
 static OSErr OpenSerialDrivers
   (ConstStr255Param inName,
@@ -259,7 +259,7 @@ static OSErr OpenSerialDrivers
   TRACE_POST_2("exiting OpenSerialDrivers %d", err)
   return err;
 } /* OpenSerialDrivers */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
 /*------------------------------------ AttemptToOpenSerialPorts ---*/
 static bool AttemptToOpenSerialPorts
@@ -268,11 +268,12 @@ static bool AttemptToOpenSerialPorts
   bool okSoFar = true;
 
   TRACE_POST_1("entering AttemptToOpenSerialPorts")
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   xx->fFileDescriptor = open(xx->fPortName, O_RDWR | O_NOCTTY | O_NONBLOCK);
   if (xx->fFileDescriptor == -1)
     LOG_ERROR_1(OUTPUT_PREFIX "unable to open device")
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   if (CommunicationsResourceManagerExists())
   {
     CRMRec       commRecord;
@@ -337,12 +338,12 @@ static bool AttemptToOpenSerialPorts
     else
       okSoFar = true;
   }
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   TRACE_POST_2("exiting AttemptToOpenSerialPorts %s", okSoFar ? "true" : "false")
   return okSoFar;
 } /* AttemptToOpenSerialPorts */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ CheckPortName ---*/
 static char CheckPortName
   (PSymbol portName)
@@ -375,7 +376,7 @@ static char CheckPortName
   TRACE_POST_2("exiting CheckPortName %c", candidate)
   return candidate;
 } /* CheckPortname */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
 /*------------------------------------ CheckDataBits ---*/
 static long CheckDataBits
@@ -384,7 +385,7 @@ static long CheckDataBits
   long result;
 
   TRACE_POST_1("entering CheckDataBits")
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   switch (dataBits)
   {
     case 5:
@@ -408,7 +409,8 @@ static long CheckDataBits
       break;
 
   }
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   switch (dataBits)
   {
     case 5:
@@ -432,7 +434,7 @@ static long CheckDataBits
       break;
 
   }
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   TRACE_POST_2("exiting CheckDataBits %ld", result)
   return result;
 } /* CheckDataBits */
@@ -445,7 +447,7 @@ static long CheckStopBits
   long result = -1;
 
   TRACE_POST_1("entering CheckStopBits")
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   if (stopBits >= 0)
   {
     if (fabs(stopBits - 1.0) < FLOAT_TOLERANCE)
@@ -453,7 +455,8 @@ static long CheckStopBits
     else if (fabs(stopBits - 2.0) < FLOAT_TOLERANCE)
       result = CSTOPB; // 2 stop bits
   }
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   if (stopBits >= 0)
   {
     if (fabs(stopBits - 1.0) < FLOAT_TOLERANCE)
@@ -463,7 +466,7 @@ static long CheckStopBits
     else if (fabs(stopBits - 1.5) < FLOAT_TOLERANCE)
       result = stop15;
   }
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   TRACE_POST_2("exiting CheckStopBits %ld", result)
   return result;
 } /* CheckStopBits */
@@ -475,7 +478,7 @@ static long CheckParityState
   long result = -1;
 
   TRACE_POST_1("entering CheckParityState")
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
   if ((parityState == gOffSymbol) || (parityState == gNoSymbol) ||
       (parityState == gNoneSymbol))
     result = 0;
@@ -483,7 +486,8 @@ static long CheckParityState
     result = PARENB;
   else if (parityState == gOddSymbol)
     result = (PARENB | PARODD);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   if ((parityState == gOffSymbol) || (parityState == gNoSymbol) ||
       (parityState == gNoneSymbol))
     result = noParity;
@@ -491,7 +495,7 @@ static long CheckParityState
     result = evenParity;
   else if (parityState == gOddSymbol)
     result = oddParity;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   TRACE_POST_2("exiting CheckParityState %ld", result)
   return result;
 } /* CheckParityState */
@@ -509,11 +513,12 @@ static bool SetInputBuffering
     HLock(aBuff);
     xx->fInBuffer = aBuff;
     memset(*aBuff, 0, INBUFFER_SIZE);
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 //TBD
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     SerSetBuf(xx->fInRefNum, *aBuff, INBUFFER_SIZE);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
     okSoFar = true;
   }
   TRACE_POST_2("exiting SetInputBuffering %s", okSoFar ? "true" : "false")
@@ -530,11 +535,12 @@ Pvoid serialXClearBreak
   {
     long delayTime;
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     ioctl(xx->fFileDescriptor, TIOCCBRK);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     SerClrBrk(xx->fOutRefNum);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
     delayTime = (2000L + xx->fBaudRate) / xx->fBaudRate;
     clock_delay(xx->fClearClock, delayTime);
   }
@@ -558,7 +564,7 @@ Pvoid serialXCreate
   {
     bool skipCheck = false;
 
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
     xx->fFileDescriptor = -1;
     xx->fPortName = NULL_PTR;
     xx->fPortNameLength = 0;
@@ -567,7 +573,8 @@ Pvoid serialXCreate
     xx->fDataBits = CS8;
     xx->fStopBits = 0;
     xx->fParityState = 0;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
     xx->fInRefNum = xx->fOutRefNum = 0;
     xx->fPortCharacter = 'A';
     xx->fBaudRate = 4800;
@@ -575,7 +582,7 @@ Pvoid serialXCreate
     xx->fDataBits = data8;
     xx->fStopBits = stop10;
     xx->fParityState = noParity;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
     xx->fBreakClock = xx->fClearClock = NULL_PTR;
     xx->fInBuffer = NULL_HDL;
     xx->fChunked = false;
@@ -589,13 +596,14 @@ Pvoid serialXCreate
       LOG_ERROR_1(OUTPUT_PREFIX "port name is not a symbol")
     else
     {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
       Pchar aName = argv[0].a_w.w_sym->s_name;
       
       xx->fPortNameLength = strlen(aName);
       xx->fPortName = GETBYTES(xx->fPortNameLength + 1, char);
       strcpy(xx->fPortName, aName);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
       xx->fPortCharacter = CheckPortName(argv[0].a_w.w_sym);
       if (! xx->fPortCharacter)
       {
@@ -603,7 +611,7 @@ Pvoid serialXCreate
                     argv[0].a_w.w_sym->s_name)
         xx->fPortCharacter = 'A';
       }
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
     }
     if (argc > 1)
     {
@@ -621,13 +629,14 @@ Pvoid serialXCreate
         LOG_ERROR_1(OUTPUT_PREFIX "baud rate is not numeric")
       if (! skipCheck)
         xx->fBaudRateBits = serialXCheckLongBaudRate(xx->fBaudRate);
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
       if (xx->fBaudRateBits == -1)
       {
         LOG_ERROR_2(OUTPUT_PREFIX "bad baud rate (%ld) specified", xx->fBaudRate)
         xx->fBaudRateBits = B4800;
       }
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
       if (xx->fBaudRateBits == -1)
       {
         LOG_ERROR_2(OUTPUT_PREFIX "bad baud rate (%ld) specified", xx->fBaudRate)
@@ -635,7 +644,7 @@ Pvoid serialXCreate
       }
       else if ((xx->fBaudRateBits == baud115K) || (xx->fBaudRateBits == baud230K))
         xx->fBaudRate = baud57600;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
     }
     if (argc > 2)
     {
@@ -652,11 +661,12 @@ Pvoid serialXCreate
       if (xx->fDataBits == -1)
       {
         LOG_ERROR_2(OUTPUT_PREFIX "bad data bits (%ld) specified", dataBits)
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
         xx->fDataBits = CS8;
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
         xx->fDataBits = data8;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
       }
     }
     if (argc > 3)
@@ -675,11 +685,12 @@ Pvoid serialXCreate
       if (xx->fStopBits == -1)
       {
         LOG_ERROR_2(OUTPUT_PREFIX "bad stop bits (%g) specified", stopBits)
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
         xx->fStopBits = 0;
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
         xx->fStopBits = stop10;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
       }
     }
     if (argc > 4)
@@ -693,11 +704,12 @@ Pvoid serialXCreate
         if (xx->fParityState == -1)
         {
           LOG_ERROR_2(OUTPUT_PREFIX "bad parity (%s) specified", argv[4].a_w.w_sym->s_name)
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
           xx->fParityState = 0;
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
           xx->fParityState = noParity;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
         }
       }
     }
@@ -759,7 +771,7 @@ Pvoid serialXFree
   EnterCallback();
   if (xx)
   {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     if (xx->fFileDescriptor != -1)
     {
       tcdrain(xx->fFileDescriptor);
@@ -767,13 +779,14 @@ Pvoid serialXFree
       close(xx->fFileDescriptor);
       xx->fFileDescriptor = -1;
     }
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
     if (xx->fInRefNum || xx->fOutRefNum)
     {
       CloseSerialDrivers(xx->fInRefNum, xx->fOutRefNum);
       xx->fInRefNum = xx->fOutRefNum = 0;
     }
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
     if (xx->fInBuffer)
     {
       HUnlock(xx->fInBuffer);
@@ -794,9 +807,9 @@ Pvoid serialXFree
       freeobject(reinterpret_cast<PObject>(xx->fClearClock));
       xx->fClearClock = NULL_PTR;
     }
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
     FREEBYTES(xx->fPortName, xx->fPortNameLength + 1);
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
   }
   LOG_EXIT()
   ExitMaxMessageHandler()

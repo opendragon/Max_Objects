@@ -41,7 +41,7 @@
 #include "Common_IOKitXData.h"
 #include "loadOtherSegments.h"
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ releasePlugInInterface ---*/
 void releasePlugInInterface
 	(IOCFPlugInInterface * *	theInterface,
@@ -57,8 +57,8 @@ void releasePlugInInterface
 	result = pFreleaseInterface(reinterpret_cast<Pvoid*>(theInterface));
  #endif /* not COMPILE_FOR_STUB */
 } /* releasePlugInInterface */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 	 
-#if defined(COMPILE_FOR_CATS) && defined(COMPILE_FOR_STUB)
+#if defined(COMPILE_FOR_OSX_4) && defined(COMPILE_FOR_STUB)
  #pragma export list releasePlugInInterface
-#endif /* COMPILE_FOR_CATS and COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and COMPILE_FOR_STUB */

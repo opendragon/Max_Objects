@@ -65,17 +65,15 @@ Pvoid cmd_Store
       {
         SymbolLinkPtr slot;
 
-        for (short ii = 0; ii < HASH_TABLE_SIZE; ii++)
+        for (short ii = 0; ii < HASH_TABLE_SIZE; ++ii)
         {
-          slot = *(descriptor->fSymbolTable + ii);
-          while (slot)
+          for (slot = *(descriptor->fSymbolTable + ii); slot; slot = slot->fNext)
           {
             SETSYM(tempAtom, slot->fSymbol);
             SETLONG(tempAtom + 1, long(slot->fOutputCount));
             binbuf_append(outBuffer, NULL_PTR, 2, tempAtom);
             if (slot->fOutput && slot->fOutputCount)
               binbuf_append(outBuffer, NULL_PTR, slot->fOutputCount, slot->fOutput);
-            slot = slot->fNext;
           }
         }
       }

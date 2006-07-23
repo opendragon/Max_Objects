@@ -147,22 +147,22 @@ void shiftAString
 
   if (xx->fDown)
   {
-    while (*inWalker)
+    for ( ; *inWalker; ++inWalker, ++outWalker)
     {
-      aChar = *inWalker++;
+      aChar = *inWalker;
       if ((aChar >= 'A') && (aChar <= 'Z'))
         aChar -= ('A' - 'a');
-      *outWalker++ = char(aChar);
+      *outWalker = char(aChar);
     }
   }
   else
   {
-    while (*inWalker)
+    for ( ; *inWalker; ++inWalker, ++outWalker)
     {
-      aChar = *inWalker++;
+      aChar = *inWalker;
       if ((aChar >= 'a') && (aChar <= 'z'))
         aChar += ('A' - 'a');
-      *outWalker++ = char(aChar);
+      *outWalker = char(aChar);
     }
   }
   *outWalker = 0;

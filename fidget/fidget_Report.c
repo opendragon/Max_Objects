@@ -61,7 +61,7 @@ Pvoid cmd_Report
 	  	walker = xx->fHIDDevices;
 	  	allocCount = (xx->fHIDDeviceCount * 2);
 	  	tempList = GETBYTES(allocCount, Atom);
-	  	for (ii = 0; ii < xx->fHIDDeviceCount; ii++)
+	  	for (ii = 0; ii < xx->fHIDDeviceCount; ++ii)
 	  	{
 				PSymbol	name = gUnknownSymbol;
 
@@ -83,7 +83,7 @@ Pvoid cmd_Report
 	  	walker = xx->fHIDDevices;
 	  	allocCount = xx->fHIDDeviceCount + 1;
 	  	tempList = GETBYTES(allocCount, Atom);
-	  	for (ii = 0; ii < xx->fHIDDeviceCount; ii++)
+	  	for (ii = 0; ii < xx->fHIDDeviceCount; ++ii)
 	  	{
 				PSymbol	name = gUnknownSymbol;
 
@@ -94,10 +94,10 @@ Pvoid cmd_Report
 	  			if (! outputCount)
 	  			{
 	  				SETSYM(tempList, deviceType);
-	  				outputCount++;
+	  				++outputCount;
 	  			}
 		   		SETSYM(tempList + outputCount, walker->fSerialNumber);
-		   		outputCount++;
+		   		++outputCount;
 	   		}
 	  		walker = walker->fNext;
 	  		if (! walker)
@@ -137,7 +137,7 @@ Pvoid cmd_Report
 			  	outType = gElementsSymbol;
 			  	allocCount = (walker->fElementCount * 3);
 			  	tempList = GETBYTES(allocCount, Atom);
-			  	for (ii = 0; ii < walker->fElementCount; ii++)
+			  	for (ii = 0; ii < walker->fElementCount; ++ii)
 			  	{
 			   		SETLONG(tempList + outputCount, reinterpret_cast<long>(anElement->fCookie));
 			   		SETSYM(tempList + outputCount + 1, fidgetMapElementType(anElement->fType));
@@ -189,7 +189,7 @@ Pvoid cmd_Report
 			  	outType = gElementsSymbol;
 			  	allocCount = (walker->fElementCount * 3);
 			  	tempList = GETBYTES(allocCount, Atom);
-			  	for (ii = 0; ii < walker->fElementCount; ii++)
+			  	for (ii = 0; ii < walker->fElementCount; ++ii)
 			  	{
 			   		SETLONG(tempList + outputCount, reinterpret_cast<long>(anElement->fCookie));
 			   		SETSYM(tempList + outputCount + 1, fidgetMapElementType(anElement->fType));

@@ -41,7 +41,7 @@
 #include "Common_IOKitXData.h"
 #include "loadOtherSegments.h"
 
-#if defined(COMPILE_FOR_CATS) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OSX_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ addNotification ---*/
 static bool addNotification
 	(IOKitContext &							rec,
@@ -67,9 +67,9 @@ static bool addNotification
 	}
 	return false;
 } /* addNotification */	 
-#endif /* COMPILE_FOR_CATS and not COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and not COMPILE_FOR_STUB */
 
-#if defined(COMPILE_FOR_CATS) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OSX_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ addNotifierToRunLoop ---*/
 static bool addNotifierToRunLoop
 	(IOKitContext &	rec)
@@ -98,9 +98,9 @@ static bool addNotifierToRunLoop
 	}
 	return false;
 } /* addNotifierToRunLoop */
-#endif /* COMPILE_FOR_CATS and not COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and not COMPILE_FOR_STUB */
 
-#if defined(COMPILE_FOR_CATS) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OSX_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ createMatchingDictionary ---*/
 static bool createMatchingDictionary
 	(IOKitContext &	rec,
@@ -121,9 +121,9 @@ static bool createMatchingDictionary
 	rec.fMatchDictionary = NULL_PTR;
 	return false;
 } /* createMatchingDictionary */
-#endif /* COMPILE_FOR_CATS and not COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and not COMPILE_FOR_STUB */
 	 	
-#if defined(COMPILE_FOR_CATS) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OSX_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ createNotificationPort ---*/
 static bool createNotificationPort
 	(IOKitContext &	rec)
@@ -143,9 +143,9 @@ static bool createNotificationPort
 	rec.fNotifier = NULL_PTR;
 	return false;
 } /* createNotificationPort */
-#endif /* COMPILE_FOR_CATS and not COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and not COMPILE_FOR_STUB */
 
-#if defined(COMPILE_FOR_CATS) && (! defined(COMPILE_FOR_STUB))
+#if defined(COMPILE_FOR_OSX_4) && (! defined(COMPILE_FOR_STUB))
 /*------------------------------------ getMasterPort ---*/
 static bool getMasterPort
 	(IOKitContext &	rec)
@@ -166,9 +166,9 @@ static bool getMasterPort
 	rec.fMasterPort = MACH_PORT_NULL;
 	return false; 
 } /* getMasterPort */
-#endif /* COMPILE_FOR_CATS and not COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and not COMPILE_FOR_STUB */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ setUpIOKit ---*/
 bool setUpIOKit
 	(Pvoid											obj,
@@ -252,8 +252,8 @@ bool setUpIOKit
 	return okSoFar;
  #endif /* not COMPILE_FOR_STUB */
 } /* setUpIOKit */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 	 
-#if defined(COMPILE_FOR_CATS) && defined(COMPILE_FOR_STUB)
+#if defined(COMPILE_FOR_OSX_4) && defined(COMPILE_FOR_STUB)
  #pragma export list setUpIOKit
-#endif /* COMPILE_FOR_CATS and COMPILE_FOR_STUB */
+#endif /* COMPILE_FOR_OSX_4 and COMPILE_FOR_STUB */

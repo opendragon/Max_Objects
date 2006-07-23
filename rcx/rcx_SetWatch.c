@@ -45,13 +45,13 @@ Pvoid cmd_SetWatch
    long          hour,
    long          minute)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #pragma unused(hour, minute)
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       uchar setWatchCommand[] = { RCX_SET_WATCH_CMD, 0, 0 };
@@ -66,7 +66,7 @@ Pvoid cmd_SetWatch
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_SetWatch */

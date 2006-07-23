@@ -56,18 +56,19 @@ static bool performDo
 	{
 		PhidgetDescriptorPtr	kind = reinterpret_cast<PhidgetDescriptorPtr>(walkerHID->fClass);
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 		action = reinterpret_cast<FpDoCustom>(kind->fDoCustomFun)(OUR_NAME, deviceType,
 																															xx->fResultOut,
 																															kind->fShared, walkerHID->fPrivate,
 																															walkerHID, short(argc - 2),
 																															argv + 2, &result);
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 		action = static_cast<E_PhidgResult>(CallUniversalProc(kind->fDoCustomUpp, uppDoCustomProcInfo,
 																OUR_NAME, deviceType, xx->fResultOut, kind->fShared,
 																walkerHID->fPrivate, walkerHID, short(argc - 2),
 																argv + 2, &result));
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	}
 	if (action == kPhidgDoDefault)
 	{

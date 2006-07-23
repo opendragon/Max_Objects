@@ -52,14 +52,12 @@ SymbolLinkPtr memoryAddSymbol
     short         ii = short(long(name) % HASH_TABLE_SIZE);
     SymbolLinkPtr prev = NULL_PTR;
 
-    slot = *(descriptor->fSymbolTable + ii);
-    while (slot)
+    for (slot = *(descriptor->fSymbolTable + ii); slot; slot = slot->fNext)
     {
       if (slot->fSymbol == name)
         break;
 
       prev = slot;
-      slot = slot->fNext;
     }
     if (! slot)
     {
@@ -73,7 +71,7 @@ SymbolLinkPtr memoryAddSymbol
         prev->fNext = slot;
       else
         *(descriptor->fSymbolTable + ii) = slot;
-      xx->fSymbolCount++;
+      ++xx->fSymbolCount;
     }
   }
   return slot;
@@ -91,15 +89,13 @@ void memoryClearHashTable
     {
       SymbolLinkPtr slot, next;
 
-      for (short ii = 0; ii < HASH_TABLE_SIZE; ii++)
+      for (short ii = 0; ii < HASH_TABLE_SIZE; ++ii)
       {
-        slot = *(descriptor->fSymbolTable + ii);
-        while (slot)
+        for (slot = *(descriptor->fSymbolTable + ii); slot; slot = next)
         {
           next = slot->fNext;
           FREEBYTES(slot->fOutput, slot->fOutputCount)
           FREEBYTES(slot, 1)
-          slot = next;
         }
       }
       FREEBYTES(descriptor->fSymbolTable, HASH_TABLE_SIZE)
@@ -120,7 +116,7 @@ void memoryInitializeHashTable
     descriptor->fSymbolTable = GETBYTES(HASH_TABLE_SIZE, SymbolLinkPtr);
     if (descriptor->fSymbolTable)
     {
-      for (short ii = 0; ii < HASH_TABLE_SIZE; ii++)
+      for (short ii = 0; ii < HASH_TABLE_SIZE; ++ii)
         *(descriptor->fSymbolTable + ii) = NULL_PTR;
     }
   }
@@ -138,13 +134,11 @@ SymbolLinkPtr memoryLookupSymbol
   {
     short ii = short(long(name) % HASH_TABLE_SIZE);
 
-    slot = *(descriptor->fSymbolTable + ii);
-    while (slot)
+    for (slot = *(descriptor->fSymbolTable + ii); slot; slot = slot->fNext)
     {
       if (slot->fSymbol == name)
         break;
 
-      slot = slot->fNext;
     }
   }
   return slot;
@@ -163,13 +157,12 @@ void memoryRemoveSymbol
     SymbolLinkPtr prev = NULL_PTR;
     SymbolLinkPtr slot = *(descriptor->fSymbolTable + ii);
 
-    while (slot)
+    for ( ; slot; slot = slot->fNext)
     {
       if (slot->fSymbol == name)
         break;
 
       prev = slot;
-      slot = slot->fNext;
     }
     if (slot)
     {
@@ -179,7 +172,7 @@ void memoryRemoveSymbol
         *(descriptor->fSymbolTable + ii) = slot->fNext;
       FREEBYTES(slot->fOutput, slot->fOutputCount)
       FREEBYTES(slot, 1)
-      xx->fSymbolCount--;
+      --xx->fSymbolCount;
     }
   }
 } /* memoryRemoveSymbol */

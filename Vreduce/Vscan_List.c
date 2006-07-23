@@ -78,7 +78,7 @@ Pvoid cmd_List
           break;
       
       }
-      for (short ii = 0; newArg && (ii < argc); ii++)
+      for (short ii = 0; newArg && (ii < argc); ++ii)
       {
         switch (argv[ii].a_type)
         {
@@ -142,7 +142,7 @@ Pvoid cmd_List
             SETFLOAT(argWalk, float(leftFloat));
           else
             SETLONG(argWalk, leftLong);
-          argWalk++;
+          ++argWalk;
           switch (xx->fOperation)
           {
             case OP_ADD:

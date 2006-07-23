@@ -47,14 +47,11 @@ void stackClear
 
   if (descriptor)
   {
-    StackEntryPtr top = descriptor->fTopOfStack, next;
-
-    while (top)
+    for (StackEntryPtr top = descriptor->fTopOfStack, next; top; top = next)
     {
       next = top->fNext;
       FREEBYTES(top->fOutput, top->fOutputCount)
       FREEBYTES(top, 1)
-      top = next;
     }
     descriptor->fTopOfStack = NULL_PTR;
     descriptor->fDepth = 0;

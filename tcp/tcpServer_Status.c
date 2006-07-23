@@ -96,7 +96,7 @@ Pvoid cmd_Status
     else
     {
       SETLONG(response + 1, xx->fServerPort);
-      resp_length++;
+      ++resp_length;
     }
     outlet_anything(xx->fResultOut, gStatusSymbol, resp_length, response);
 #endif /* OPEN_TRANSPORT_SUPPORTED */

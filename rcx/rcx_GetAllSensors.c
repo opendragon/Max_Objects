@@ -46,13 +46,13 @@ Pvoid cmd_GetAllSensors
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       bool  okSoFar = true;
       Atom  response[RCX_NUM_SENSORS * 3];
 
-      for (short ii = 0, jj = 0; okSoFar && (ii < RCX_NUM_SENSORS); ii++, jj += 3)
+      for (short ii = 0, jj = 0; okSoFar && (ii < RCX_NUM_SENSORS); ++ii, jj += 3)
       {
         long value;
 
@@ -153,7 +153,7 @@ Pvoid cmd_GetAllSensors
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_GetAllSensors */

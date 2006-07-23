@@ -44,13 +44,13 @@ Pvoid cmd_PlaySound
   (RcxControlPtr xx,
    PSymbol       newSound)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #pragma unused(newSound)
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       uchar playSoundCommand[] = { RCX_PLAY_SOUND_CMD, 0 };
@@ -85,7 +85,7 @@ Pvoid cmd_PlaySound
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_PlaySound */

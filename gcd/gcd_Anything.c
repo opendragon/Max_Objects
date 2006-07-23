@@ -31,29 +31,27 @@ Pvoid cmd_Anything
      PAtom   argv)
 {
 #pragma unused(xx)
-    short ii = 0;
+	short ii = 0;
 
-    EnterCallback();
-    error(OUTPUT_PREFIX "unknown message '%s' seen", message->s_name);
-    for (;
-        ii < argc;
-        ii++)
-    {
-        switch (argv[ii].a_type)
-        {
-            case A_LONG:
-                post("  argument %hd is a long: %ld", ii, argv[ii].a_w.w_long);
-                break;
-                
-            case A_SYM:
-                post("  argument %hd is a symbol: '%s'", ii, argv[ii].a_w.w_sym->s_name);
-                break;
+	EnterCallback();
+	error(OUTPUT_PREFIX "unknown message '%s' seen", message->s_name);
+	for ( ; ii < argc; ++ii)
+	{
+		switch (argv[ii].a_type)
+		{
+			case A_LONG:
+				post("  argument %hd is a long: %ld", ii, argv[ii].a_w.w_long);
+				break;
 
-            case A_FLOAT:
-                post("  argument %hd is a float: %f", ii, asDouble(argv[ii].a_w.w_float));
-                break;
+			case A_SYM:
+				post("  argument %hd is a symbol: '%s'", ii, argv[ii].a_w.w_sym->s_name);
+				break;
 
-        }
-    }
-    ExitMaxMessageHandler()
+			case A_FLOAT:
+				post("  argument %hd is a float: %f", ii, asDouble(argv[ii].a_w.w_float));
+				break;
+
+		}
+	}
+	ExitMaxMessageHandler()
 } /* cmd_Anything */

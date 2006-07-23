@@ -45,11 +45,11 @@
  #include "MissingAndExtra.h"
  #include <SpeechRecognition.h>
  
- #if __powerc
+ #if FOR_MAC_PPC
   #define SPEECH_RECOGNITION_SUPPORTED 1
- #else /* not __powerc */
+ #else /* not FOR_MAC_PPC */
   #define SPEECH_RECOGNITION_SUPPORTED 0
- #endif /* not __powerc */
+ #endif /* not FOR_MAC_PPC */
 
  #define OUR_NAME      "listen"
  #define OUR_RES_NUMB  17148

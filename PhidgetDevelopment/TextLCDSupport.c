@@ -51,7 +51,7 @@ ReturnType doTextLCDBacklightOff
 	Atom				buffer[DATA_BUFFER_SIZE];
 	
 	SETLONG(buffer, HD44780_Backlight_Off_0);
-	for (int ii = 1; ii < (DATA_BUFFER_SIZE - 1); ii++)
+	for (int ii = 1; ii < (DATA_BUFFER_SIZE - 1); ++ii)
 		SETLONG(buffer + ii, 0);
 	SETLONG(buffer + DATA_BUFFER_SIZE - 1, HD44780_Backlight_Off_n);
 	setHIDElementValue(name, thisDevice, outputElement, DATA_BUFFER_SIZE, buffer, 0, result);	
@@ -68,7 +68,7 @@ ReturnType doTextLCDBacklightOn
 	Atom				buffer[DATA_BUFFER_SIZE];
 	
 	SETLONG(buffer, HD44780_Backlight_On_0);
-	for (int ii = 1; ii < (DATA_BUFFER_SIZE - 1); ii++)
+	for (int ii = 1; ii < (DATA_BUFFER_SIZE - 1); ++ii)
 		SETLONG(buffer + ii, 0);
 	SETLONG(buffer + DATA_BUFFER_SIZE - 1, HD44780_Backlight_On_n);
 	setHIDElementValue(name, thisDevice, outputElement, DATA_BUFFER_SIZE, buffer, 0, result);	
@@ -83,11 +83,12 @@ ReturnType doTextLCDClear
 {
 	ReturnType	result = doTextLCDClearLine1(name, thisDevice, outputElement);
 	
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	if (result == KERN_SUCCESS)
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 	if (result == noErr)
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 		result = doTextLCDClearLine2(name, thisDevice, outputElement);
 	return result;
 } /* doTextLCDClear */
@@ -137,11 +138,12 @@ ReturnType doTextLCDGo
 	 const int							row,
 	 const int							column)
 {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	ReturnType	result = KERN_SUCCESS;
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 	ReturnType	result = noErr;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	Atom				buffer[DATA_BUFFER_SIZE];
 	int					startColumn;
 	
@@ -236,11 +238,12 @@ ReturnType doTextLCDWrite
 	 HIDElementDataStruct &	outputElement,
 	 Qchar									input)
 {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	ReturnType	result = KERN_SUCCESS;
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 	ReturnType	result = noErr;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	char				frame[CHARS_PER_LINE + 3];
 	Atom				buffer[DATA_BUFFER_SIZE];
 	
@@ -260,28 +263,30 @@ ReturnType doTextLCDWrite
 	*(frame + inLen + 1) = TextLCD_ControlMode;
 	size_t	out = 0;
 	
-	for (size_t in = 0; in <= (inLen + 1); in++)
+	for (size_t in = 0; in <= (inLen + 1); ++in)
 	{
 		SETLONG(buffer + out, long(*(frame + in)));
 		if (++out >= (DATA_BUFFER_SIZE - 1))
 		{
 			SETLONG(buffer + DATA_BUFFER_SIZE - 1, long(out));
 			setHIDElementValue(name, thisDevice, outputElement, DATA_BUFFER_SIZE, buffer, 0, result);
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 			if (result != KERN_SUCCESS)
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 			if (result != noErr)
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 				break;
 				
 			out = 0;
 		}	
 	}
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	if (out && (result == KERN_SUCCESS))
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 	if (out && (result == noErr))
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	{
 		SETLONG(buffer + DATA_BUFFER_SIZE - 1, long(out));
 		setHIDElementValue(name, thisDevice, outputElement, DATA_BUFFER_SIZE, buffer, 0, result);
@@ -298,11 +303,12 @@ ReturnType doTextLCDWriteLine1
 {
 	ReturnType	result = doTextLCDGo(name, thisDevice, outputElement, 1, 1);
 	
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	if (result == KERN_SUCCESS)
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 	if (result == noErr)
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 		result = doTextLCDWrite(name, thisDevice, outputElement, input);
 	return result;
 } /* doTextLCDWriteLine1 */
@@ -316,11 +322,12 @@ ReturnType doTextLCDWriteLine2
 {
 	ReturnType	result = doTextLCDGo(name, thisDevice, outputElement, 2, 1);
 	
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	if (result == KERN_SUCCESS)
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 	if (result == noErr)
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 		result = doTextLCDWrite(name, thisDevice, outputElement, input);
 	return result;
 } /* doTextLCDWriteLine2 */

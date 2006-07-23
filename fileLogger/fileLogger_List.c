@@ -55,7 +55,7 @@ Pvoid cmd_List
 
     if (okSoFar)
     {
-      for (short ii = 0; okSoFar && (ii < argc); ii++)
+      for (short ii = 0; okSoFar && (ii < argc); ++ii)
       {
         Ptr toAdd = NULL_PTR;
 

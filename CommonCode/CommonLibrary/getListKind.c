@@ -56,7 +56,7 @@ uchar getListKind
 
   if (! lDollarSymbol)
     lDollarSymbol = gensym("$");
-  for (short ii = 0; ii < argc; ii++)
+  for (short ii = 0; ii < argc; ++ii)
   {
     short aType = argv[ii].a_type;
 

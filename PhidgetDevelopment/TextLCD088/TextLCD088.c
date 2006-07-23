@@ -70,7 +70,7 @@ static PSymbol	lToSymbol = NULL_PTR;
 static PSymbol	lTriggerSymbol = NULL_PTR;
 static PSymbol	lWriteSymbol = NULL_PTR;
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ inputCallback ---*/
 static void inputCallback
 	(STANDARD_HID_ARGS_INPUTEVENTHANDLER)
@@ -88,14 +88,14 @@ static void inputCallback
 		SETSYM(reportList + 1, data->fThisDevice->fSerialNumber);
 		SETSYM(reportList + 2, lDiSymbol);
 		SETLONG(reportList + 3, value);
-		for (UInt32 ii = 0; ii <= MAX_INDEX; ii++)
+		for (UInt32 ii = 0; ii <= MAX_INDEX; ++ii)
 			SETLONG(reportList + ii + 4, (value & (1 << ii)) ? 1 : 0);
 		genericListOutput(data->fOutlet, DIGITAL_REPORT_SIZE, reportList);
 	}		
 } /* inputCallback */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ defineCallback ---*/
 E_PhidgResult defineCallback
 	(STANDARD_PHID_ARGS_DEFINECALLBACK)
@@ -109,7 +109,7 @@ E_PhidgResult defineCallback
 	*result = noErr;
 	return kPhidgSuccess;
 } /* defineCallback */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 	
 /*------------------------------------ doCustom ---*/
 E_PhidgResult doCustom
@@ -121,11 +121,12 @@ E_PhidgResult doCustom
 	return kPhidgDoDefault;
 #else /* not USE_DEFAULT */
  #pragma unused(outlet)
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 	IOReturn		result2 = KERN_SUCCESS;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
 	OSStatus		result2 = noErr;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 	PrivatePtr	privateData = reinterpret_cast<PrivatePtr>(privateStorage);
 	SharedPtr		sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
 	
@@ -437,7 +438,7 @@ E_PhidgResult doCustom
 						Ptr			toAdd = NULL_PTR;
 						
 						memset(buffer, 0, sizeof(buffer));
-						for (short ii = 2; ii < argc; ii++)
+						for (short ii = 2; ii < argc; ++ii)
 						{
 							switch (argv[ii].a_type)
 							{
@@ -482,7 +483,7 @@ E_PhidgResult doCustom
 		          	if (ii < (argc - 1))
 		          	{
 		          		*(buffer + lastChar) = ' ';
-		          		lastChar++;
+		          		++lastChar;
 		          		if (lastChar >= CHARS_PER_LINE)
 		          			break;
 		          			
@@ -532,7 +533,7 @@ E_PhidgResult doCustom
 				Atom			buffer[DATA_BUFFER_SIZE];
 				
 				SETLONG(buffer, singleValue);
-				for (int ii = 1; ii < (DATA_BUFFER_SIZE - 1); ii++)
+				for (int ii = 1; ii < (DATA_BUFFER_SIZE - 1); ++ii)
 					SETLONG(buffer + ii, 0);
 				SETLONG(buffer + DATA_BUFFER_SIZE - 1, 0x10); // request digital output
 				setHIDElementValue(name, *thisDevice, *anElement, DATA_BUFFER_SIZE, buffer, 0, result2);	
@@ -588,7 +589,7 @@ E_PhidgResult doGet
 		{
 			if (doInput)
 			{
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 				// Get the raw data
 		  	HIDElementDataPtr	anElement = NULL_PTR;
 		  	
@@ -614,7 +615,7 @@ E_PhidgResult doGet
 						SETSYM(reportList + 1, thisDevice->fSerialNumber);
 						SETSYM(reportList + 2, lDiSymbol);
 						SETLONG(reportList + 3, value);
-						for (UInt32 ii = 0; ii <= MAX_INDEX; ii++)
+						for (UInt32 ii = 0; ii <= MAX_INDEX; ++ii)
 							SETLONG(reportList + ii + 4, (value & (1 << ii)) ? 1 : 0);
 						genericListOutput(outlet, DIGITAL_REPORT_SIZE, reportList);
 						*result = static_cast<OSErr>(result2);
@@ -622,17 +623,18 @@ E_PhidgResult doGet
 			  }
 			  else
 			  	LOG_ERROR_3("%s: element not found for '%s:get'", name, deviceType->s_name)	
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
 				// Extract the output bit vector and concatenate with the raw bits
 				SETSYM(reportList, deviceType);
 				SETSYM(reportList + 1, thisDevice->fSerialNumber);
 				SETSYM(reportList + 2, lDiSymbol);
 				SETLONG(reportList + 3, privateData->fDigitalInput);
-				for (UInt32 ii = 0; ii <= MAX_INDEX; ii++)
+				for (UInt32 ii = 0; ii <= MAX_INDEX; ++ii)
 					SETLONG(reportList + ii + 4, (privateData->fDigitalInput & (1 << ii)) ? 1 : 0);
 				genericListOutput(outlet, DIGITAL_REPORT_SIZE, reportList);
 				*result = noErr;
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 			}
 			else
 			{
@@ -641,7 +643,7 @@ E_PhidgResult doGet
 				SETSYM(reportList + 1, thisDevice->fSerialNumber);
 				SETSYM(reportList + 2, lDoSymbol);
 				SETLONG(reportList + 3, privateData->fDigitalOutputs);
-				for (UInt32 ii = 0; ii <= MAX_INDEX; ii++)
+				for (UInt32 ii = 0; ii <= MAX_INDEX; ++ii)
 					SETLONG(reportList + ii + 4, (privateData->fDigitalOutputs & (1 << ii)) ? 1 : 0);
 				genericListOutput(outlet, DIGITAL_REPORT_SIZE, reportList);
 			}
@@ -701,15 +703,16 @@ E_PhidgResult doPut
 	 		}
 		  if (anElement)
 		  {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 				IOReturn	result2;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
 				OSStatus	result2;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 				Atom			buffer[DATA_BUFFER_SIZE];
 				
 				SETLONG(buffer, singleValue);
-				for (int ii = 1; ii < (DATA_BUFFER_SIZE - 1); ii++)
+				for (int ii = 1; ii < (DATA_BUFFER_SIZE - 1); ++ii)
 					SETLONG(buffer + ii, 0);
 				SETLONG(buffer + DATA_BUFFER_SIZE - 1, 0x10); // request digital output
 				setHIDElementValue(name, *thisDevice, *anElement, DATA_BUFFER_SIZE, buffer, 0, result2);	
@@ -736,9 +739,9 @@ OSErr identify
 	*productID = 0x53;
 	*privateSize = sizeof(PrivateData);
 	*sharedSize = sizeof(SharedData);
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 	*isAsynchronous = true;
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
   return noErr;
 } /* identify */
 
@@ -746,11 +749,12 @@ OSErr identify
 OSErr main
   (STANDARD_PHID_ARGS_MAIN)
 {
-#if defined(COMPILE_FOR_CATS)
-#pragma unused(name)
-#else /* not COMPILE_FOR_CATS */
+#if defined(COMPILE_FOR_OSX_4)
+ #pragma unused(name)
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
  #pragma unused(name,environment)
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	STANDARD_MAIN_CODE;
 	SharedPtr	sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
 	
@@ -860,7 +864,7 @@ E_PhidgResult onDetach
 #endif /* not USE_DEFAULT */
 } /* onDetach */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ reportHandler ---*/
 void reportHandler
 	(STANDARD_PHID_ARGS_REPORTHANDLER)
@@ -915,7 +919,7 @@ void reportHandler
 				SETSYM(reportList + 1, thisDevice->fSerialNumber);
 				SETSYM(reportList + 2, lDiSymbol);
 				SETLONG(reportList + 3, privateData->fDigitalInput);
-				for (UInt32 ii = 0; ii <= MAX_INDEX; ii++)
+				for (UInt32 ii = 0; ii <= MAX_INDEX; ++ii)
 					SETLONG(reportList + ii + 4, (privateData->fDigitalInput & (1 << ii)) ? 1 : 0);
 				genericListOutput(outlet, DIGITAL_REPORT_SIZE, reportList);
 			}		
@@ -925,4 +929,4 @@ void reportHandler
 	}
  #endif /* not USE_DEFAULT */
 } /* reportHandler */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */

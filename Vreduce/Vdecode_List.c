@@ -66,7 +66,7 @@ Pvoid cmd_List
           sum += argv[ii].a_w.w_long * base;
           base *= xx->fInfo.fBases[jj];
           if (jj < (numBases - 1))
-            jj++;
+            ++jj;
         }
         xx->fPreviousLong = sum;
         outlet_int(xx->fResultOut, xx->fPreviousLong);

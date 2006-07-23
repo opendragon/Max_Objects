@@ -53,15 +53,16 @@ Pvoid cmd_Bang
   static bool   sawBreak = false;
 
   EnterCallback();
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 //TBD
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
   SerStatus(xx->fInRefNum, &serStatus);
   if ((serStatus.cumErrs & breakErr) != 0)
     sawBreak = true;
   inCount = 0;
   err = SerGetBuf(xx->fInRefNum, &inCount);
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
   if ((err == noErr) && (inCount > 0))
   {
     if (inCount < LOCBUFFER_SIZE)
@@ -86,7 +87,7 @@ Pvoid cmd_Bang
       if (PBRead(&receiveParamBlock, false) == noErr)
       {
         /* send the received characters out, one at a time or in chunks */
-        for (long ii = 0; ii < inCount; ii++)
+        for (long ii = 0; ii < inCount; ++ii)
         {
           nextVal = *nextChar++;
           if (sawBreak && (! nextVal))

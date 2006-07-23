@@ -62,7 +62,7 @@ Pvoid cmd_Delete
         xx->fFirstRange = walker->fNext;
       FREEBYTES(walker->fOutput, walker->fOutputCount)
       FREEBYTES(walker, 1)
-      xx->fRangeCount--;
+      --xx->fRangeCount;
     }
   }
   ExitMaxMessageHandler()

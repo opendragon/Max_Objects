@@ -43,7 +43,7 @@
 #include "AdvancedServo.h"
 #include "genericListOutput.h"
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ defineCallback ---*/
 E_PhidgResult defineCallback
 	(STANDARD_PHID_ARGS_DEFINECALLBACK)
@@ -52,7 +52,7 @@ E_PhidgResult defineCallback
 	*result = noErr;
 	return kPhidgSuccess;
 } /* defineCallback */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 	
 /*------------------------------------ doCustom ---*/
 E_PhidgResult doCustom
@@ -103,11 +103,12 @@ E_PhidgResult doPut
 OSErr identify
   (STANDARD_PHID_ARGS_IDENTIFY)
 {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
  #pragma unused(name,privateSize,sharedSize,isAsynchronous)
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
  #pragma unused(name,privateSize,sharedSize)
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	*productID = 0x03B;
   return noErr;
 } /* identify */
@@ -116,11 +117,12 @@ OSErr identify
 OSErr main
   (STANDARD_PHID_ARGS_MAIN)
 {
-#if defined(COMPILE_FOR_CATS)
-#pragma unused(name,sharedStorage)
-#else /* not COMPILE_FOR_CATS */
+#if defined(COMPILE_FOR_OSX_4)
+ #pragma unused(name,sharedStorage)
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
  #pragma unused(name,sharedStorage,environment)
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	STANDARD_MAIN_CODE;
   return noErr;
 } /* main */
@@ -163,11 +165,11 @@ E_PhidgResult onDetach
 #endif /* not USE_DEFAULT */
 } /* onDetach */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ reportHandler ---*/
 void reportHandler
 	(STANDARD_PHID_ARGS_REPORTHANDLER)
 {
  #pragma unused(name,deviceType,sharedStorage,privateStorage,thisDevice,outlet,inHIDReport,inHIDReportLength)
 } /* reportHandler */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */

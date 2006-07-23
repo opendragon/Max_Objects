@@ -58,17 +58,17 @@ static void clearDeviceData
 	if (thisDevice.fNext)
 		thisDevice.fNext->fPrevious = thisDevice.fPrevious;
 	thisDevice.fPrevious = thisDevice.fNext = NULL_PTR;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 	thisDevice.fInterface = NULL_PTR;
 	if (thisDevice.fInterestCallback)
 		releaseCallback(thisDevice.fInterestCallback);
 	if (thisDevice.fInputCallback)
 		releaseCallback(thisDevice.fInputCallback);
- #endif /* COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
 } /* clearDeviceData */
 #endif /* not COMPILE_FOR_STUB */
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ releaseHIDData ---*/
 void releaseHIDData
 	(IOKitContext &			rec,
@@ -129,7 +129,9 @@ void releaseHIDData
 	}
  #endif /* not COMPILE_FOR_STUB */
 } /* releaseHIDData */
-#else /* not COMPILE_FOR_CATS */	 	 
+#endif /* COMPILE_FOR_OSX_4 */
+
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ releaseHIDData ---*/
 void releaseHIDData
 	(HIDDeviceDataPtr &	thisDevice)
@@ -150,7 +152,7 @@ void releaseHIDData
 	}
  #endif /* not COMPILE_FOR_STUB */
 } /* releaseHIDData */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 
 #if defined(COMPILE_FOR_STUB)
  #pragma export list initHIDElementData,initHIDDeviceData

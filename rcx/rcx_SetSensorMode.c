@@ -45,13 +45,13 @@ Pvoid cmd_SetSensorMode
    long          slot,
    PSymbol       newMode)
 {
-#if (! __powerc)
+#if (! FOR_MAC_PPC)
  #pragma unused(slot, newMode)
-#endif /* not __powerc */
+#endif /* not FOR_MAC_PPC */
   EnterCallback();
   if (xx)
   {
-#if __powerc
+#if FOR_MAC_PPC
     if (rcxSynchronize(xx))
     {
       if ((slot > 0) && (slot <= RCX_NUM_SENSORS))
@@ -99,7 +99,7 @@ Pvoid cmd_SetSensorMode
     }
     else
       outlet_bang(xx->fErrorBangOut);
-#endif /* __powerc */
+#endif /* FOR_MAC_PPC */
   }
   ExitMaxMessageHandler()
 } /* cmd_SetSensorMode */

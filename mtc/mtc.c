@@ -532,7 +532,7 @@ void mtcPerformWriteCommand
     }
     /* Send data. */
     SETLONG(dataList, commandCode);
-    for (short ii = 0; ii < numBytesToFollow; ii++)
+    for (short ii = 0; ii < numBytesToFollow; ++ii)
     {
       dataValue = *bytesToFollow++;
       SETLONG(dataList + ii + 1, dataValue);
@@ -623,7 +623,7 @@ Pvoid mtcProcessResponse
         {
           /* Copy incoming into the buffer. */
           *(xx->fDataBuffer + xx->fNextByte) = static_cast<uchar>(incoming);
-          xx->fNextByte++;
+          ++xx->fNextByte;
           if (xx->fIsPacketHeader)
           {
             /* Analyze the map byte */
@@ -689,7 +689,7 @@ Pvoid mtcProcessResponse
         {
           xx->fDescriptor[xx->fDescriptorLength] = char(incoming);
           if (xx->fDescriptorLength < MAX_DESCRIPTOR_LENGTH)
-            xx->fDescriptorLength++;
+            ++xx->fDescriptorLength;
           else
           {
             LOG_ERROR_1(OUTPUT_PREFIX "overlong descriptor truncated")

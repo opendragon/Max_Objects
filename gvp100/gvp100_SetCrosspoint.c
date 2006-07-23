@@ -56,7 +56,7 @@ Pvoid cmd_SetCrosspoint
     long           number;
     uchar          dummy;
 
-    for (short jj = 0; okSoFar && (jj < argc); jj++)
+    for (short jj = 0; okSoFar && (jj < argc); ++jj)
     {
       switch (argv[jj].a_type)
       {

@@ -58,7 +58,7 @@ Pvoid cmd_List
     static char numBuffer[32];
 
     *xx->fBuffer = '\0';
-    for (short ii = 0; ii < argc; ii++)
+    for (short ii = 0; ii < argc; ++ii)
     {
       Ptr toAdd = NULL_PTR;
 

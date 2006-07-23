@@ -51,7 +51,7 @@ static PSymbol	lFlipSymbol = NULL_PTR;
 static PSymbol	lOffSymbol = NULL_PTR;
 static PSymbol	lOnSymbol = NULL_PTR;
 
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ defineCallback ---*/
 E_PhidgResult defineCallback
 	(STANDARD_PHID_ARGS_DEFINECALLBACK)
@@ -60,7 +60,7 @@ E_PhidgResult defineCallback
 	*result = noErr;
 	return kPhidgSuccess;
 } /* defineCallback */
-#endif /* COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
 	
 /*------------------------------------ doCustom ---*/
 E_PhidgResult doCustom
@@ -129,11 +129,12 @@ E_PhidgResult doCustom
 		  if (anElement)
 		  {
 		  	long			singleValue = privateData->fDigitalOutputs;
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 				IOReturn	result2;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
 				OSStatus	result2;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 				
 				if (doFlip)
 					singleValue ^= (1 << index);
@@ -182,7 +183,7 @@ E_PhidgResult doGet
 		SETSYM(reportList, deviceType);
 		SETSYM(reportList + 1, thisDevice->fSerialNumber);
 		SETLONG(reportList + 2, privateData->fDigitalOutputs);
-		for (UInt32 ii = 0; ii <= MAX_INDEX; ii++)
+		for (UInt32 ii = 0; ii <= MAX_INDEX; ++ii)
 			SETLONG(reportList + ii + 3, (privateData->fDigitalOutputs & (1 << ii)) ? 1 : 0);
 		genericListOutput(outlet, DIGITAL_REPORT_SIZE, reportList);
 	}
@@ -236,11 +237,12 @@ E_PhidgResult doPut
 	 		}
 		  if (anElement)
 		  {
- #if defined(COMPILE_FOR_CATS)
+ #if defined(COMPILE_FOR_OSX_4)
 				IOReturn	result2;
- #else /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OSX_4 */
+ #if defined(COMPILE_FOR_OS9_4)
 				OSStatus	result2;
- #endif /* not COMPILE_FOR_CATS */
+ #endif /* COMPILE_FOR_OS9_4 */
 				
 				setHIDElementValue(name, *thisDevice, *anElement, 0, NULL_PTR, singleValue, result2);
 				privateData->fDigitalOutputs = singleValue;
@@ -262,11 +264,12 @@ E_PhidgResult doPut
 OSErr identify
   (STANDARD_PHID_ARGS_IDENTIFY)
 {
-#if defined(COMPILE_FOR_CATS)
+#if defined(COMPILE_FOR_OSX_4)
  #pragma unused(name,isAsynchronous)
-#else /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
  #pragma unused(name)
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	*productID = 0x040;
 	*privateSize = sizeof(PrivateData);
 	*sharedSize = sizeof(SharedData);
@@ -277,11 +280,12 @@ OSErr identify
 OSErr main
   (STANDARD_PHID_ARGS_MAIN)
 {
-#if defined(COMPILE_FOR_CATS)
-#pragma unused(name)
-#else /* not COMPILE_FOR_CATS */
+#if defined(COMPILE_FOR_OSX_4)
+ #pragma unused(name)
+#endif /* COMPILE_FOR_OSX_4 */
+#if defined(COMPILE_FOR_OS9_4)
  #pragma unused(name,environment)
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */
 	STANDARD_MAIN_CODE;
 	SharedPtr	sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
 	
@@ -361,11 +365,11 @@ E_PhidgResult onDetach
 #endif /* not USE_DEFAULT */
 } /* onDetach */
 
-#if (! defined(COMPILE_FOR_CATS))
+#if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ reportHandler ---*/
 void reportHandler
 	(STANDARD_PHID_ARGS_REPORTHANDLER)
 {
  #pragma unused(name,deviceType,sharedStorage,privateStorage,thisDevice,outlet,inHIDReport,inHIDReportLength)
 } /* reportHandler */
-#endif /* not COMPILE_FOR_CATS */
+#endif /* COMPILE_FOR_OS9_4 */

@@ -54,7 +54,7 @@ void relinquishSyslog
     if (! --gSyslogCount)
     {
       checkGlobal->s_thing = NULL_PTR;
-  #if defined(COMPILE_FOR_CATS)
+  #if defined(COMPILE_FOR_OSX_4)
 	 		OSStatus	err = noErr;
  		
 			if (! gSyslogSysBundle)
@@ -69,9 +69,10 @@ void relinquishSyslog
 					gSyslogDoCloselog();
 			}
 			gSyslogFunction = NULL_PTR;
-  #else /* not COMPILE_FOR_CATS */
+  #endif /* COMPILE_FOR_OSX_4 */
+  #if defined(COMPILE_FOR_OS9_4)
       Closelog();
-  #endif /* not COMPILE_FOR_CATS */
+  #endif /* COMPILE_FOR_OS9_4 */
     }
   }
  #endif /* not SYSLOG_OK */
