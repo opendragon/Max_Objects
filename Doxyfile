@@ -1,11 +1,11 @@
-# Doxyfile 1.4.6
+# Doxyfile 1.4.7
 
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
 PROJECT_NAME           = "Max Objects"
 PROJECT_NUMBER         = 1.0
-OUTPUT_DIRECTORY       = "/Volumes/Merovingen/NJs Max Objects/nonCVS/Doxy"
+OUTPUT_DIRECTORY       = "/Volumes/Merovingen/NJs Max Objects Docs/Doxy"
 CREATE_SUBDIRS         = YES
 OUTPUT_LANGUAGE        = English
 USE_WINDOWS_ENCODING   = NO
@@ -142,6 +142,7 @@ INLINE_SOURCES         = NO
 STRIP_CODE_COMMENTS    = YES
 REFERENCED_BY_RELATION = YES
 REFERENCES_RELATION    = YES
+REFERENCES_LINK_SOURCE = YES
 USE_HTAGS              = NO
 VERBATIM_HEADERS       = YES
 #---------------------------------------------------------------------------
@@ -229,7 +230,7 @@ EXPAND_ONLY_PREDEF     = NO
 SEARCH_INCLUDES        = YES
 INCLUDE_PATH           = 
 INCLUDE_FILE_PATTERNS  = 
-PREDEFINED             = 
+PREDEFINED             = COMPILE_FOR_OSX_4=1
 EXPAND_AS_DEFINED      = 
 SKIP_FUNCTION_MACROS   = NO
 #---------------------------------------------------------------------------
@@ -254,6 +255,7 @@ TEMPLATE_RELATIONS     = YES
 INCLUDE_GRAPH          = YES
 INCLUDED_BY_GRAPH      = YES
 CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
 GRAPHICAL_HIERARCHY    = YES
 DIRECTORY_GRAPH        = YES
 DOT_IMAGE_FORMAT       = png
