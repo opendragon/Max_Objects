@@ -1,0 +1,108 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		F6AC96F91803123300C79326 /* MiscellaneousObjects */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F6AC96FA1803123300C79326 /* Build configuration list for PBXAggregateTarget "MiscellaneousObjects" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = MiscellaneousObjects;
+			productName = MiscellaneousObjects;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXGroup section */
+		F6AC96F21803121200C79326 = {
+			isa = PBXGroup;
+			children = (
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		F6AC96F31803121200C79326 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+			};
+			buildConfigurationList = F6AC96F61803121200C79326 /* Build configuration list for PBXProject "Miscellaneous" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F6AC96F21803121200C79326;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F6AC96F91803123300C79326 /* MiscellaneousObjects */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		F6AC96F71803121200C79326 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				VALID_ARCHS = i386;
+			};
+			name = Development;
+		};
+		F6AC96F81803121200C79326 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				VALID_ARCHS = i386;
+			};
+			name = Deployment;
+		};
+		F6AC96FB1803123300C79326 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Development;
+		};
+		F6AC96FC1803123300C79326 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F6AC96F61803121200C79326 /* Build configuration list for PBXProject "Miscellaneous" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6AC96F71803121200C79326 /* Development */,
+				F6AC96F81803121200C79326 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		F6AC96FA1803123300C79326 /* Build configuration list for PBXAggregateTarget "MiscellaneousObjects" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6AC96FB1803123300C79326 /* Development */,
+				F6AC96FC1803123300C79326 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F6AC96F31803121200C79326 /* Project object */;
+}

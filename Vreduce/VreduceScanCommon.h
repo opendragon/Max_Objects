@@ -38,62 +38,58 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(VREDUCESCANCOMMON_H_))
- #define VREDUCESCANCOMMON_H_ /* */
- 
- #include "MissingAndExtra.h"
- #include "genericListOutput.h"
+# define VREDUCESCANCOMMON_H_ /* */
+
+# include "missingAndExtra.h"
+# include "genericListOutput.h"
 
 enum OpCode
 {
-  OP_unknown = 0,
-  OP_ADD,
-  OP_AND,
-  OP_BITAND,
-  OP_BITOR,
-  OP_DIVIDE,
-  OP_EXOR,
-  OP_MAX,
-  OP_MIN,
-  OP_MODULUS,
-  OP_MULTIPLY,
-  OP_OR,
-  OP_SUBTRACT
-}; /* OpCode */
+    OP_unknown = 0,
+    OP_ADD,
+    OP_AND,
+    OP_BITAND,
+    OP_BITOR,
+    OP_DIVIDE,
+    OP_EXOR,
+    OP_MAX,
+    OP_MIN,
+    OP_MODULUS,
+    OP_MULTIPLY,
+    OP_OR,
+    OP_SUBTRACT
+}; // OpCode
 
 enum InputRestriction
 {
-  IR_NONE = 0,
-  IR_INTEGER = 1,
-  IR_NONZERO = 2,
-  IR_INTEGER_NONZERO = 3
-}; /* InputRestriction */
+    IR_NONE = 0,
+    IR_INTEGER = 1,
+    IR_NONZERO = 2,
+    IR_INTEGER_NONZERO = 3
+}; // InputRestriction
 
-typedef InputRestriction * InputRestrictPtr;
+bool checkInput(void *                 xx,
+                const char *           name,
+                const short            argc,
+                t_atom *               argv,
+                const InputRestriction check);
 
-bool CheckInput
-  (Qchar									name,
-   const short						argc,
-   PAtom									argv,
-   const InputRestriction	check);
+OpCode identifySymbol(t_symbol *         name,
+                      InputRestriction * check);
 
-OpCode IdentifySymbol
-  (PSymbol          name,
-   InputRestrictPtr check);
+void setUpCommonSymbols(void);
 
-void SetUpCommonSymbols
-  (void);
-
-mextern(PSymbol) gAddSymbol;      /* Pointer to unique Symbol for '+' */
-mextern(PSymbol) gAndSymbol;      /* Pointer to unique Symbol for '&&' */
-mextern(PSymbol) gBitAndSymbol;   /* Pointer to unique Symbol for '&' */
-mextern(PSymbol) gBitOrSymbol;    /* Pointer to unique Symbol for '|' */
-mextern(PSymbol) gDivideSymbol;   /* Pointer to unique Symbol for '/' */
-mextern(PSymbol) gExorSymbol;     /* Pointer to unique Symbol for '^' */
-mextern(PSymbol) gMaxSymbol;      /* Pointer to unique Symbol for 'max' */
-mextern(PSymbol) gMinSymbol;      /* Pointer to unique Symbol for 'min' */
-mextern(PSymbol) gModulusSymbol;  /* Pointer to unique Symbol for '%' */
-mextern(PSymbol) gMultiplySymbol; /* Pointer to unique Symbol for '*' */
-mextern(PSymbol) gOrSymbol;       /* Pointer to unique Symbol for '||' */
-mextern(PSymbol) gSubtractSymbol; /* Pointer to unique Symbol for '-' */
+mextern(t_symbol *) gAddSymbol;      /* Pointer to unique symbol for '+' */
+mextern(t_symbol *) gAndSymbol;      /* Pointer to unique symbol for '&&' */
+mextern(t_symbol *) gBitAndSymbol;   /* Pointer to unique symbol for '&' */
+mextern(t_symbol *) gBitOrSymbol;    /* Pointer to unique symbol for '|' */
+mextern(t_symbol *) gDivideSymbol;   /* Pointer to unique symbol for '/' */
+mextern(t_symbol *) gExorSymbol;     /* Pointer to unique symbol for '^' */
+mextern(t_symbol *) gMaxSymbol;      /* Pointer to unique symbol for 'max' */
+mextern(t_symbol *) gMinSymbol;      /* Pointer to unique symbol for 'min' */
+mextern(t_symbol *) gModulusSymbol;  /* Pointer to unique symbol for '%' */
+mextern(t_symbol *) gMultiplySymbol; /* Pointer to unique symbol for '*' */
+mextern(t_symbol *) gOrSymbol;       /* Pointer to unique symbol for '||' */
+mextern(t_symbol *) gSubtractSymbol; /* Pointer to unique symbol for '-' */
 
 #endif /* not VREDUCESCANCOMMON_H_ */

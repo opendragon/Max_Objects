@@ -38,106 +38,84 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(MEMORY_H_))
- #define MEMORY_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define MEMORY_H_ /* */
 
- #include "MissingAndExtra.h"
- #include "genericListOutput.h"
+# include "missingAndExtra.h"
+# include "genericListOutput.h"
 
- #define OUR_NAME      "memory"
- #define OUR_RES_NUMB  17137
- #define OUTPUT_PREFIX "memory: "
- 
- #define HASH_TABLE_SIZE 53 /* a small prime that's not too small */
+# define OUR_NAME      "memory"
+// # define OUR_RES_NUMB  17137
+# define OUTPUT_PREFIX "memory: "
+
+# define HASH_TABLE_SIZE 53 /* a small prime that's not too small */
 
 struct SymbolLink
 {
-  SymbolLink *  fNext;
-  PSymbol       fSymbol;
-  PAtom         fOutput;
-  short         fOutputCount;
-}; /* SymbolLink */
-
-typedef SymbolLink * SymbolLinkPtr;
-
-typedef SymbolLinkPtr * SymbolLinkHdl;
+    SymbolLink * fNext;
+    t_symbol *   fSymbol;
+    t_atom *     fOutput;
+    short        fOutputCount;
+}; // SymbolLink
 
 struct MemoryDescriptor
 {
-  SymbolLinkHdl       fSymbolTable;
-  MemoryDescriptor *  fPrevious;
-  MemoryDescriptor *  fNext;
-  PSymbol             fTag;
-  short               fReferenceCount;
-}; /* MemoryDescriptor */
-
-typedef MemoryDescriptor * MemoryDescriptorPtr;
+    SymbolLink **      fSymbolTable;
+    MemoryDescriptor * fPrevious;
+    MemoryDescriptor * fNext;
+    t_symbol *         fTag;
+    short              fReferenceCount;
+}; // MemoryDescriptor
 
 struct MemoryData
 {
-  Object              fObject;
-  POutlet             fResultOut;
-  POutlet             fErrorBangOut;
-  MemoryDescriptorPtr fSymbols;
-  long                fSymbolCount;
-  bool                fVerbose;
-}; /* MemoryData */
+    t_object           fObject;
+    t_outlet *         fResultOut;
+    t_outlet *         fErrorBangOut;
+    MemoryDescriptor * fSymbols;
+    long               fSymbolCount;
+    bool               fVerbose;
+}; // MemoryData
 
-typedef MemoryData * MemoryPtr;
+void cmd_Clear(MemoryData * xx);
 
-Pvoid cmd_Clear
-  (MemoryPtr xx);
+void cmd_Forget(MemoryData * xx,
+                t_symbol *   name);
 
-Pvoid cmd_Forget
-  (MemoryPtr xx,
-   PSymbol   name);
+void cmd_Load(MemoryData * xx,
+              t_symbol *   fileName);
 
-Pvoid cmd_Load
-  (MemoryPtr xx,
-   PSymbol   fileName);
+void cmd_Recall(MemoryData * xx,
+                t_symbol *   name);
 
-Pvoid cmd_Recall
-  (MemoryPtr xx,
-   PSymbol   name);
+void cmd_Remember(MemoryData * xx,
+                  t_symbol *   message,
+                  short        argc,
+                  t_atom *     argv);
 
-Pvoid cmd_Remember
-  (MemoryPtr xx,
-   PSymbol   message,
-   short     argc,
-   PAtom     argv);
+void cmd_Store(MemoryData * xx,
+               t_symbol *   fileName);
 
-Pvoid cmd_Store
-  (MemoryPtr xx,
-   PSymbol   fileName);
+void cmd_Trace(MemoryData * xx,
+               t_symbol *   onOff);
 
-Pvoid cmd_Trace
-  (MemoryPtr xx,
-   PSymbol   onOff);
+SymbolLink * memoryAddSymbol(MemoryData * xx,
+                             t_symbol *   name);
 
-SymbolLinkPtr memoryAddSymbol
-  (MemoryPtr xx,
-   PSymbol   name);
+void memoryClearHashTable(MemoryData * xx);
 
-void memoryClearHashTable
-  (MemoryPtr xx);
+void memoryInitializeHashTable(MemoryData * xx);
 
-void memoryInitializeHashTable
-  (MemoryPtr xx);
+SymbolLink * memoryLookupSymbol(MemoryData * xx,
+                                t_symbol *   name);
 
-SymbolLinkPtr memoryLookupSymbol
-  (MemoryPtr xx,
-   PSymbol   name);
+void memoryRemoveSymbol(MemoryData * xx,
+                        t_symbol *   name);
 
-void memoryRemoveSymbol
-  (MemoryPtr xx,
-   PSymbol   name);
+StandardRoutineDeclarations(MemoryData *);
 
-StandardRoutineDeclarations(MemoryPtr)
-
-mextern(PSymbol)             gEmptySymbol;  /* Pointer to unique Symbol for '' */
-mextern(PSymbol)             gOffSymbol;    /* Pointer to unique Symbol for 'off' */
-mextern(PSymbol)             gOnSymbol;     /* Pointer to unique Symbol for 'on' */
-mextern(MemoryDescriptorPtr) gMemoryAnchor; /* First memory descriptor */
+mextern(t_symbol *)         gEmptySymbol;  /* Pointer to unique symbol for '' */
+mextern(t_symbol *)         gOffSymbol;    /* Pointer to unique symbol for 'off' */
+mextern(t_symbol *)         gOnSymbol;     /* Pointer to unique symbol for 'on' */
+mextern(MemoryDescriptor *) gMemoryAnchor; /* First memory descriptor */
 
 #endif /* not MEMORY_H_ */

@@ -42,17 +42,13 @@
 
  #include "StandardPluginTypes.h"
 
-Pvoid createRegistry
-  (void);
+Pvoid createRegistry(void);
 
-void flushRegistry
-  (Pvoid registry);
+void flushRegistry(Pvoid registry);
 
-void freeRegistry
-  (Pvoid registry);
+void freeRegistry(Pvoid registry);
 
-PluginFunk identifyMessage
-  (Pvoid   registry,
-   PSymbol name);
+PluginFunk identifyMessage(Pvoid   registry,
+                           PSymbol name);
 
 #endif /* not PLUGINAUXCALLBACKS_H */

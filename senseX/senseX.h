@@ -38,52 +38,45 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(SENSEX_H_))
- #define SENSEX_H_ /* */
+# define SENSEX_H_ /* */
 
-/*#define USE_SYSLOG /* */
+# include "missingAndExtra.h"
 
- #include "MissingAndExtra.h"
-
- #define OUR_NAME      "senseX"
- #define OUR_RES_NUMB  17207
- #define OUTPUT_PREFIX "senseX: "
+# define OUR_NAME      "senseX"
+// # define OUR_RES_NUMB  17207
+# define OUTPUT_PREFIX "senseX: "
 
 enum E_State
 {
-	kAwaitingFirstMessage,
-	kBetweenMessages,
-	kAfterSecondMessage
+    kAwaitingFirstMessage,
+    kBetweenMessages,
+    kAfterSecondMessage
 };
 
 struct SenseXData
 {
-  Object  fObject;
-  PClock	fPollClock;
-  Pvoid   fProxy;
-  POutlet fResultOut;
-  PQelem	fPollQueue;
-  E_State	fState;
-  bool		fStopping;
-  long    fInletNumber;
-  long		fOffDelay;
-  long		fOnDelay;
-}; /* SenseXData */
+    t_object   fObject;
+    t_clock *  fPollClock;
+    void *     fProxy;
+    t_outlet * fResultOut;
+    t_qelem *  fPollQueue;
+    E_State    fState;
+    bool       fStopping;
+    long       fInletNumber;
+    long       fOffDelay;
+    long       fOnDelay;
+}; // SenseXData
 
-typedef SenseXData * SenseXPtr;
+void cmd_Off(SenseXData * xx,
+             long         duration);
 
-Pvoid cmd_Off
-  (SenseXPtr xx,
-   long      duration);
+void cmd_On(SenseXData * xx,
+            long         duration);
 
-Pvoid cmd_On
-  (SenseXPtr xx,
-   long      duration);
+StandardRoutineDeclarations(SenseXData *);
 
-StandardRoutineDeclarations(SenseXPtr)
+void senseXDoMessage(SenseXData * xx);
 
-void senseXDoMessage
-	(SenseXPtr	xx);
-
-mextern(PSymbol) gEmptySymbol; /* Pointer to unique Symbol for '' */
+mextern(t_symbol *) gEmptySymbol; /* Pointer to unique symbol for '' */
 
 #endif /* not SENSEX_H_ */

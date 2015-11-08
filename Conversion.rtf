@@ -1,0 +1,58 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww15200\viewh15940\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 Max conversion steps:\
+1) Copy original source directory (xxx) from CVS directory to Xcode directory.\
+2) Remove CVS and xxx_Data directories from copy.\
+3) Remove xxx.mcp, xxx.mcp.xml, xxx.nonX-4, xxx.X-4 and xxx.ppc-4 files from copy.\
+4) Rename xxx.help to xxx.maxhelp.\
+\
+Project changes:\
+1) Set Base SDK to Latest.\
+2) Set Deployment to 10.5.\
+3) Set Architectures to 32-bit (for Max5).\
+4) Set Compiler to Default.\
+5) Replace external framework, MaxAPI.framework, with one in Max_Development/MaxSDK-5.1.7/c74support/max-includes.\
+6) Make sure that the Framework Search Paths has $(C74SUPPORT)/max-includes, not some long path including ../../ et cetera.\
+7) Change the User-Defined macro C74SUPPORT to have the value /Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support.\
+8) Change the PRODUCT_VERSION macro to have the value 5.1.7.\
+9) Change the Installation Build Products Location to $(SRCROOT)/../externals.\
+\
+To set up a new project:\
+1) Copy the 'dummy' project folder to 'xxx' and rename the project to 'xxx' - within Xcode.\
+2) Open xxx.xcodeproj and add the source files from the source folder.\
+2a) Remove dummy.c.\
+2b) Rename zzz.c to zzz.cpp so that C++ syntax will be used.\
+3) main has no arguments and returns int, and FNS is no longer needed.\
+4) Re-indent the source code.\
+4a) Make sure singleton lines are bracketed.\
+4b) Put first argument of function on first line of prototype.\
+4c) Split multiple variable declarations so that they are one per line.\
+4d) Change 'Pzzz' to 'zzz *', 'Qzzz' to 'const zzz *' and 'xxxPtr' to 'xxxData *\'92.\
+4e) 'assist_string' is available, but the resources aren't.\
+4f) In comparisons, make sure that the left-hand expression is the constant, if at all possible.\
+4g) The first field in the object structure is of type 't_object'; Atom should be replaced with 't_atom', Symbol with 't_symbol', et cetera.\
+4h) Remove '\CocoaLigature0 EnterCodeResource', 'ExitCodeResource', 'EnterCallback', 'ExitCallback', 'PrepareCallback', 'RememberA4', 'SetUpA4', 'RestoreA4', LOG_ENTER and LOG_EXIT calls.\
+4i) Cast macros must be replaced with 'C++-style' casts.\
+4j) 'Assist' functions have a last argument of 'char *'; use 'strncpy_zero', with a last argument of 'MAX_ASSISTANCE'.\
+4k) Fix '#' lines to be left-aligned, with spaces after the '#' for indentation purposes.\
+4l) Methods no longer return void * - they are void!\
+4m) 'cmd_Info' is gone!\
+4n) Replace 'setup' with 'class_new', 'addmess' with 'class_addmethod', et cetera.\
+4o) Replace 'newobject' with 'object_alloc'; note that the arguments to the create routine have changed.\
+4p) Remove references to 'reportVersion', as it uses code to access resources!\
+4q) Use object_error and object_post instead of error, post or syslog - this will require an additional argument of the object.\
+4r) Note that the maxhelp files will likely need to be loaded and then saved - remove the dragon, as it gets 'colourized'.\
+4s) Change 'addinx' (processing secondary inlets) to an addmess, as done with gcd.\
+4t) Add an 'xx' initial argument to reportAnything and to LOG macros.\
+4u) Set version number, copyright date in Info.plist, using Xcode.\
+4v) Change 'sprintf' to 'snprintf' where possible.\
+4w) Apply UniversalIndent' to source code.\
+\
+\CocoaLigature1 *** use t_hashtab [http://cycling74.com/sdk/MaxSDK-5.1.7/html/group__hashtab.html] instead of our own hash tables\
+\
+\'97 in documentation, check the exit lines of rail diagrams \'97 they may need to be lengthened; also check the index formats\
+}

@@ -38,18 +38,15 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(VASSEMBLE_H_))
- #define VASSEMBLE_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define VASSEMBLE_H_ /* */
 
- #include "VObjectCommon.h"
+# include "VassembleObjectCommon.h"
 
- #define OUR_NAME      "Vassemble"
- #define OUR_RES_NUMB  17193
- #define OUTPUT_PREFIX "Vassemble: "
+# define OUR_NAME      "Vassemble"
+// # define OUR_RES_NUMB  17193
+# define OUTPUT_PREFIX "Vassemble: "
 
-void processInput
-  (VObjectPtr xx,
-   const long	value);
- 
+void processInput(VObjectData * xx,
+                  const long    value);
+
 #endif /* not VASSEMBLE_H_ */

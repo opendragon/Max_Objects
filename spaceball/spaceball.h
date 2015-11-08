@@ -38,120 +38,107 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(SPACEBALL_H_))
- #define SPACEBALL_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define SPACEBALL_H_ /* */
 
- #include "MissingAndExtra.h"
+# include "missingAndExtra.h"
 
- #define OUR_NAME      "spaceball"
- #define OUR_RES_NUMB  17161
- #define OUTPUT_PREFIX "spaceball: "
+# define OUR_NAME      "spaceball"
+// # define OUR_RES_NUMB  17161
+# define OUTPUT_PREFIX "spaceball: "
 
- #define BE_VERBOSE           /* */
- #define REPORT_STATE_CHANGES /*!!*/
+# define BE_VERBOSE           /* */
+# define REPORT_STATE_CHANGES /*!!*/
 
- #define IN_BUFFER_SIZE  1000
- #define OUT_BUFFER_SIZE 120
- #define MAX_POLL_RATE   1000
- #define SER_SAMPLE_RATE 100 /* default sampling rate for the serial port */
+# define IN_BUFFER_SIZE  1000
+# define OUT_BUFFER_SIZE 120
+# define MAX_POLL_RATE   1000
+# define SER_SAMPLE_RATE 100 /* default sampling rate for the serial port */
 
- #if (! defined(BE_VERBOSE))
-  #undef REPORT_STATE_CHANGES
- #endif /* not BE_VERBOSE */
+# if (! defined(BE_VERBOSE))
+#  undef REPORT_STATE_CHANGES
+# endif /* not BE_VERBOSE */
 
 enum SpaceballResponseCode
 {
-  SPACEBALL_RESPONSE_END_CMD     = 0x000D, /* '\r' */
-  SPACEBALL_RESPONSE_NEW_LINE    = 0x000A, /* '\n' */
-  SPACEBALL_RESPONSE_DISP_PACKET = 0x0044, /* 'D' */
-  SPACEBALL_RESPONSE_KEY_PACKET  = 0x004b, /* 'K' */
-  SPACEBALL_RESPONSE_INFO_PACKET = 0x0040, /* '@' */
-  SPACEBALL_RESPONSE_INFO_1      = 0x0031, /* '1' */
-  SPACEBALL_RESPONSE_INFO_2      = 0x0032, /* '2' */
-  SPACEBALL_RESPONSE_ESCAPE      = 0x005e, /* '^' */
-  SPACEBALL_RESPONSE_XOFF        = 0x0013, /* XOFF */
-  SPACEBALL_RESPONSE_XON         = 0x0011  /* XON */
-}; /* SpaceballResponseCode */
+    kSpaceballResponseEndCommand = 0x000D, /* '\r' */
+    kSpaceballResponseNewLine    = 0x000A, /* '\n' */
+    kSpaceballResponseDispPacket = 0x0044, /* 'D' */
+    kSpaceballResponseKeyPacket  = 0x004b, /* 'K' */
+    kSpaceballResponseInfoPacket = 0x0040, /* '@' */
+    kSpaceballResponseInfo1      = 0x0031, /* '1' */
+    kSpaceballResponseInfo2      = 0x0032, /* '2' */
+    kSpaceballResponseEscape     = 0x005e, /* '^' */
+    kSpaceballResponseXoff       = 0x0013, /* XOFF */
+    kSpaceballResponseXon        = 0x0011  /* XON */
+}; // SpaceballResponseCode
 
-struct SpaceballControl
+struct SpaceballData
 {
-  Object  fObject;
-  PClock  fPollClock;
-  Pvoid   fProxy;
-  POutlet fChunkSendOut;
-  POutlet fDataSendOut;
-  POutlet fErrorBangOut;
-  POutlet fSampleBangOut;
-  POutlet fDataOut;
-  PQelem  fPollQueue;
-  long    fInletNumber;
-  uchar   fBuffer[IN_BUFFER_SIZE];
-  float   fTrans[3];
-  float   fRot[3];
-  short   fBufferPos;
-  short   fPollRate;
-  short   fResetDuration;
-  short   fInitDuration;
-  short   fDelayCounter;
-  long    fButtons;
-  bool    fChunkPulseSent;
-  bool    fInited;
-  bool    fNextCharEscaped;
-  bool    fOutputBlocked;
-  bool    fModeDelta;
-  bool    fReset;
-  bool    fSkipping;
-  bool		fStopping;
- #if defined(BE_VERBOSE)
-  bool    fVerbose;
- #endif /* BE_VERBOSE */
-}; /* SpaceballControl */
+    t_object      fObject;
+    t_clock *     fPollClock;
+    void *        fProxy;
+    t_outlet *    fChunkSendOut;
+    t_outlet *    fDataSendOut;
+    t_outlet *    fErrorBangOut;
+    t_outlet *    fSampleBangOut;
+    t_outlet *    fDataOut;
+    t_qelem *     fPollQueue;
+    long          fInletNumber;
+    unsigned char fBuffer[IN_BUFFER_SIZE];
+    float         fTrans[3];
+    float         fRot[3];
+    short         fBufferPos;
+    short         fPollRate;
+    short         fResetDuration;
+    short         fInitDuration;
+    short         fDelayCounter;
+    long          fButtons;
+    bool          fChunkPulseSent;
+    bool          fInited;
+    bool          fNextCharEscaped;
+    bool          fOutputBlocked;
+    bool          fModeDelta;
+    bool          fReset;
+    bool          fSkipping;
+    bool          fStopping;
+# if defined(BE_VERBOSE)
+    bool          fVerbose;
+# endif /* BE_VERBOSE */
+}; // SpaceballData
 
-typedef SpaceballControl * SpaceballControlPtr;
+void cmd_Mode(SpaceballData * xx,
+              t_symbol *      addOrDelta);
 
-Pvoid cmd_Mode
-  (SpaceballControlPtr xx,
-   PSymbol             addOrDelta);
+void cmd_Reset(SpaceballData * xx);
 
-Pvoid cmd_Reset
-  (SpaceballControlPtr xx);
+void cmd_Verbose(SpaceballData * xx,
+                 t_symbol *      onOff);
 
-Pvoid cmd_Verbose
-  (SpaceballControlPtr xx,
-   PSymbol             onOff);
+void cmd_Zero(SpaceballData * xx);
 
-Pvoid cmd_Zero
-  (SpaceballControlPtr xx);
+void spaceballPerformWriteCommand(SpaceballData * xx,
+                                  const short     numBytesToSend,
+                                  unsigned char * bytesToFollow);
 
-void spaceballPerformWriteCommand
-  (SpaceballControlPtr xx,
-   const short         numBytesToSend,
-   Puchar              bytesToFollow);
+void spaceballProcessPacket(SpaceballData * xx);
 
-void spaceballProcessPacket
-  (SpaceballControlPtr xx);
+void spaceballProcessResponse(SpaceballData * xx,
+                              long            rr);
 
-Pvoid spaceballProcessResponse
-  (SpaceballControlPtr xx,
-   long                rr);
+bool spaceballSetMode(SpaceballData * xx,
+                      t_symbol *      addOrDelta);
 
-bool spaceballSetMode
-  (SpaceballControlPtr xx,
-   PSymbol             addOrDelta);
+void spaceballZeroValues(SpaceballData * xx);
 
-void spaceballZeroValues
-  (SpaceballControlPtr xx);
+StandardRoutineDeclarations(SpaceballData *);
 
-StandardRoutineDeclarations(SpaceballControlPtr)
-
-mextern(PSymbol) gAddSymbol;       /* Pointer to unique symbol for 'add' */
-mextern(PSymbol) gButtonSymbol;    /* Pointer to unique symbol for 'button' */
-mextern(PSymbol) gDeltaSymbol;     /* Pointer to unique symbol for 'delta' */
-mextern(PSymbol) gEmptySymbol;     /* Pointer to unique symbol for '' */
-mextern(PSymbol) gOffSymbol;       /* Pointer to unique symbol for 'off' */
-mextern(PSymbol) gOnSymbol;        /* Pointer to unique symbol for 'on' */
-mextern(PSymbol) gRotateSymbol;    /* Pointer to unique symbol for 'rotate' */
-mextern(PSymbol) gTranslateSymbol; /* Pointer to unique symbol for 'translate' */
+mextern(t_symbol *) gAddSymbol;       /* Pointer to unique symbol for 'add' */
+mextern(t_symbol *) gButtonSymbol;    /* Pointer to unique symbol for 'button' */
+mextern(t_symbol *) gDeltaSymbol;     /* Pointer to unique symbol for 'delta' */
+mextern(t_symbol *) gEmptySymbol;     /* Pointer to unique symbol for '' */
+mextern(t_symbol *) gOffSymbol;       /* Pointer to unique symbol for 'off' */
+mextern(t_symbol *) gOnSymbol;        /* Pointer to unique symbol for 'on' */
+mextern(t_symbol *) gRotateSymbol;    /* Pointer to unique symbol for 'rotate' */
+mextern(t_symbol *) gTranslateSymbol; /* Pointer to unique symbol for 'translate' */
 
 #endif /* not SPACEBALL_H_ */

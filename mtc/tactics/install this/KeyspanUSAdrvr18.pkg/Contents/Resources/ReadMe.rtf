@@ -1,0 +1,92 @@
+{\rtf1\mac\ansicpg10000\cocoartf100
+{\fonttbl\f0\fnil\fcharset77 Monaco;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww13340\viewh13080\viewkind1\viewscale100
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+
+\f0\fs18 \cf0 \ul INTRODUCTION\
+\
+\ulnone Version 1.8 as of 10/12/03.\
+Assistant version 1.8 as of 10/12/03\
+\
+\
+These are release notes for KeyspanUSAdriver.kext, the MacOS X driver for the Keyspan family of USB serial adapters.\
+\
+This version requires OS X version 10.1.3 or later.\
+\
+Note that now the installer doesn't require reboot.  If running 10.2 or later, device can be used immediately without reboot.  If running 10.1.x you have to manually reboot.  If you are adding the USA-19H and upgrading from an earlier version of the driver on Mac OS 10.2.x, you also have to reboot.\
+\
+Note: because of an apparent bug in Apple's installer on Mac OS X 10.3, if you are upgrading the Keyspan driver from an earlier version, you must either unplug the adapter BEFORE starting this installer or reboot after running it.\
+\
+\
+Changes since 1.7:\
+\
+1. Fixed bug where, in Mac OS X 10.3, assistant and driver couldn't communicate properly.  Caused either bad data in place of event trace or device status, or sometimes caused the Keyspan Serial Assistant to crash\
+2. Changed handling of doConfigCompl and statusMsg to allow events to arrive out of order around close.  Happens in some situation where EHCI is used and the adapter is plugged into a HS hub.\
+\
+\
+Changes since 1.6:\
+\
+1. Fixed bug where write, tcdrain, close in OSX could cause data loss at very low baud rates.  Fix applies to 19H family, 28X family (28X, 19W, 19QW) and 49W family (49W, 49WLC and 4E230).  Fix not yet implemented for 18X, 19, 28, 19Qi, UPS-112.\
+\
+2. Some changes to improve function of assistant under OSX 10.3.  This is a work in progress, while the main function of the driver is fine, there is still a problem with the assistant getting status info from the driver.\
+\
+\
+Changes since 1.4:\
+\
+1. Add support for USA-19H\
+2. Added support for remoteWakeup (defaults on in 19H and 49W/49WLC)\
+3. Added configuration XML to 19H, 49W and 28XB for receiveFIFO, txAckAdvance and remoteWakeup\
+4. added support for programming firmware into USA-19H\
+\
+\
+\
+\
+\
+\ul SOFTWARE OVERVIEW\ulnone \
+\
+This softwar release is a Mac OS X kernel device driver.  This means that any failure or bug in this software could easily crash your system and/or compromise your data.  Use caution.\
+\
+This software supports the following Keyspan hardware:\
+\
+1. Twin Serial Adapter (models USA-28X, USA-28XA and USA-28XB)\
+2. PDA Adapter (models USA-19 and USA-19Qi)\
+3. High Speed Serial Adapter (models USA-19W and USA-19QW)\
+4. USA-18X Serial Adapter\
+5. USA-28 USB Serial Adapter\
+6. USA-49W 4-port Serial Adapter (models USA-49W, USA-49WLC, USA-4E230)\
+7. USA-19H USB Serial Adapter (models USA-19Hs and USA-19Hp)\
+8. serial port in MPR-112 Mobile Port Replicator\
+\
+This version also installs an assistant application, called 'Keyspan Serial Assistant' into the OSX Applications folder.  This application list all Keyspan Serial devices which are currently connected to your computer.\
+\
+\
+\ul API\ulnone \
+\
+This driver provides serial services through the POSIX API.  The names of the two serial ports are:\
+\
+  - /dev/tty.KeyUSA28X<geo>1  -- or -- /dev/cu.KeyUSA28X<geo>1\
+  - /dev/tty.KeyUSA28X<geo>2  -- or -- /dev/cu.KeyUSA28X<geo>2\
+\
+where <geo> is the 2 or more digit geographical name.  (e.g. "913" means USB bus #9, host hub port #1 and external hub port #3)\
+\
+Note that using the "cu" ports allows you to open() the port with a normal\
+blocking call and it doesn't wait on DCD.  Open()ing the "tty" port waits for DCD high unless O_NONBLOCK is used.\
+\
+See the 'man' page on 'termios' as well as /sys/termios.h\
+\
+\ul Serial Features\ulnone \
+\
+The Keyspan USB/Serial driver supports all POSIX serial port features described in termios, subject to the following details and limitations:\
+\
+1. Baud rates up to 230400 (on USA-28X, USA-18X, USA-19W, USA-19QW, USA-19H); up to 115200 on USA-19Qi and USA-28; up to 57600 on USA-19\
+\
+2. Xon/Xoff flow control on all devices\
+\
+3. CTS/DTR hardware flow control on all devices\
+\
+4. RTS/DSR hardware flow control on devices with DB9 connector (USA-19xx; USA-49W, USA-49WLC, USA-4E230)\
+\
+5. Modem control on all available signals (input: CTS and DCD, output: DTR on USA-28X and USA-18X).  (input: CTS, DSR, RI and DCD, output: RTS, DTR on USA-19xx and USA-49W)  (see note below)\
+\
+}

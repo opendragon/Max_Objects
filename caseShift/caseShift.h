@@ -38,43 +38,37 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(CASESHIFT_H_))
- #define CASESHIFT_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define CASESHIFT_H_ /* */
 
- #include "MissingAndExtra.h"
- #include "genericListOutput.h"
+# include "missingAndExtra.h"
+# include "genericListOutput.h"
 
- #define OUR_NAME      "caseShift"
- #define OUR_RES_NUMB  17146
- #define OUTPUT_PREFIX "caseShift: "
- 
+# define OUR_NAME      "caseShift"
+// # define OUR_RES_NUMB  17146
+# define OUTPUT_PREFIX "caseShift: "
+
 struct CaseShiftData
 {
-  Object  fObject;
-  POutlet fResultOut;
-  double  fPreviousFloat;
-  long    fPreviousLong;
-  short   fPreviousLength;
-  PAtom   fPreviousList;
-  bool    fDown;
-  short   fPreviousKind;
-}; /* CaseShiftData */
+    t_object   fObject;
+    t_outlet * fResultOut;
+    double     fPreviousFloat;
+    long       fPreviousLong;
+    short      fPreviousLength;
+    t_atom *   fPreviousList;
+    bool       fDown;
+    short      fPreviousKind;
+}; // CaseShiftData
 
-typedef CaseShiftData * CaseShiftPtr;
+void clearPrevious(CaseShiftData * xx);
 
-void clearPrevious
-  (CaseShiftPtr xx);
+void shiftAString(CaseShiftData * xx,
+                  char *          newWord,
+                  const char *    oldWord);
 
-void shiftAString
-  (CaseShiftPtr xx,
-   Pchar        newWord,
-   Qchar        oldWord);
+StandardRoutineDeclarations(CaseShiftData *);
 
-StandardRoutineDeclarations(CaseShiftPtr)
-
-mextern(PSymbol) gDownSymbol;  /* Pointer to unique Symbol for 'up' */
-mextern(PSymbol) gEmptySymbol; /* Pointer to unique Symbol for '' */
-mextern(PSymbol) gUpSymbol;    /* Pointer to unique Symbol for 'down' */
+mextern(t_symbol *) gDownSymbol;  /* Pointer to unique symbol for 'up' */
+mextern(t_symbol *) gEmptySymbol; /* Pointer to unique symbol for '' */
+mextern(t_symbol *) gUPSymbol;    /* Pointer to unique symbol for 'down' */
 
 #endif /* not CASESHIFT_H_ */

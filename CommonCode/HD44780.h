@@ -38,53 +38,53 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(HD44780_H_))
- #define HD44780_H_	/* */
- 
-static const char	HD44780_ClearDisplay = 0x01;
+ #define HD44780_H_ /* */
 
-static const char	HD44780_ReturnHome = 0x02;
+static const char HD44780_ClearDisplay = 0x01;
 
-static const char	HD44780_EntryModeSet = 0x04;
-static const char	HD44780_EntryMode_Decrement = 0x00;
-static const char	HD44780_EntryMode_Increment = 0x02;
-static const char	HD44780_EntryMode_NoShift = 0x00;
-static const char	HD44780_EntryMode_WithShift = 0x01;
+static const char HD44780_ReturnHome = 0x02;
 
-static const char	HD44780_DisplayOnOff = 0x08;
-static const char	HD44780_Display_Off = 0x00;
-static const char	HD44780_Display_On = 0x04;
-static const char	HD44780_Display_NoCursor = 0x00;
-static const char	HD44780_Display_WithCursor = 0x02;
-static const char	HD44780_Display_NoBlink = 0x00;
-static const char	HD44780_Display_WithBlink = 0x01;
+static const char HD44780_EntryModeSet = 0x04;
+static const char HD44780_EntryMode_Decrement = 0x00;
+static const char HD44780_EntryMode_Increment = 0x02;
+static const char HD44780_EntryMode_NoShift = 0x00;
+static const char HD44780_EntryMode_WithShift = 0x01;
 
-static const char	HD44780_CursorDisplayShift = 0x10;
-static const char	HD44780_CursorDisplay_ChangeCursor = 0x00;
-static const char	HD44780_CursorDisplay_ChangeDisplay = 0x08;
-static const char	HD44780_CursorDisplay_GoLeft = 0x00;
-static const char	HD44780_CursorDisplay_GoRight = 0x04;
+static const char HD44780_DisplayOnOff = 0x08;
+static const char HD44780_Display_Off = 0x00;
+static const char HD44780_Display_On = 0x04;
+static const char HD44780_Display_NoCursor = 0x00;
+static const char HD44780_Display_WithCursor = 0x02;
+static const char HD44780_Display_NoBlink = 0x00;
+static const char HD44780_Display_WithBlink = 0x01;
 
-static const char	HD44780_FunctionSet = 0x20;
-static const char	HD44780_Function_4Bit = 0x00;
-static const char	HD44780_Function_8Bit = 0x10;
-static const char	HD44780_Function_1x5x7 = 0x00;
-static const char	HD44780_Function_1x5x10 = 0x04;
-static const char	HD44780_Function_2x5x7 = 0x08;
+static const char HD44780_CursorDisplayShift = 0x10;
+static const char HD44780_CursorDisplay_ChangeCursor = 0x00;
+static const char HD44780_CursorDisplay_ChangeDisplay = 0x08;
+static const char HD44780_CursorDisplay_GoLeft = 0x00;
+static const char HD44780_CursorDisplay_GoRight = 0x04;
 
-static const char	HD44780_CGRamSet = 0x40; // low bits are the address
+static const char HD44780_FunctionSet = 0x20;
+static const char HD44780_Function_4Bit = 0x00;
+static const char HD44780_Function_8Bit = 0x10;
+static const char HD44780_Function_1x5x7 = 0x00;
+static const char HD44780_Function_1x5x10 = 0x04;
+static const char HD44780_Function_2x5x7 = 0x08;
 
-static const char	HD44780_DDRamSet = 0x80; // low bits are the address
-static const char	HD44780_DDRam_MaxCell = 0x27;
-static const char	HD44780_DDRam_Line2 = 0x40;
+static const char HD44780_CGRamSet = 0x40; // low bits are the address
 
-static const char	HD44780_Backlight_Off_0 = 0x00;
-static const char	HD44780_Backlight_Off_n = 0x11;
-static const char	HD44780_Backlight_On_0 = 0x01;
-static const char	HD44780_Backlight_On_n = 0x11;
+static const char HD44780_DDRamSet = 0x80; // low bits are the address
+static const char HD44780_DDRam_MaxCell = 0x27;
+static const char HD44780_DDRam_Line2 = 0x40;
+
+static const char HD44780_Backlight_Off_0 = 0x00;
+static const char HD44780_Backlight_Off_n = 0x11;
+static const char HD44780_Backlight_On_0 = 0x01;
+static const char HD44780_Backlight_On_n = 0x11;
 
 // Protocol commands:
-static const char	TextLCD_Escape = 0x00;
-static const char	TextLCD_ControlMode = 0x01;
-static const char	TextLCD_DataMode = 0x02;
+static const char TextLCD_Escape = 0x00;
+static const char TextLCD_ControlMode = 0x01;
+static const char TextLCD_DataMode = 0x02;
 
 #endif /* not HD44780_H_ */

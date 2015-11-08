@@ -38,233 +38,149 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(UDPPORT_H_))
- #define UDPPORT_H_ /* */
+# define UDPPORT_H_ /* */
 
-// #define USE_SYSLOG  /* must be set in order to pull in the definitions that we need! */
- #define SYSLOG_LEVEL	LOG_INFO
- 
- #include "MissingAndExtra.h"
- #include "acquireOpenTransport.h"
- #include "udpBuffers.h"
- #if (OPEN_TRANSPORT_SUPPORTED && defined(USE_SYSLOG))
-  #include "syslog.h"
- #endif /* OPEN_TRANSPORT_SUPPORTED and USE_SYSLOG */
+# include "missingAndExtra.h"
+# include "udpBuffers.h"
 
- #define NUM_RX_BUFFERS 25
+# define NUM_RX_BUFFERS 25
 
- #define DEFAULT_PORT 0x00FFFFL
- #define MAX_PORT     0x00FFFFL
- 
- #define BE_VERBOSE /* */
- 
-// #define TRACE_OT_CALLS /* */
-// #define TRACE_MAX_MESSAGES /* */
- 
- #define ADD_TO_ADDRESS(yy, amount) (reinterpret_cast<Ptr>(yy) + amount) 
+# define DEFAULT_PORT 0x00FFFFL
+# define MAX_PORT     0x00FFFFL
 
- #define signalError(xx)   qelem_set(xx->fErrorQueue)
- #define signalRebind(xx)  qelem_set(xx->fRebindQueue)
- #define signalReceive(xx) qelem_set(xx->fReceiveQueue)
+# define BE_VERBOSE /* */
 
- #define OUR_NAME      "udpPort"
- #define OUR_RES_NUMB  17181
- #define OUTPUT_PREFIX "udpPort: "
+// # define TRACE_OT_CALLS /* */
+// # define TRACE_MAX_MESSAGES /* */
 
-enum UdpObjectState
+# define ADD_TO_ADDRESS(yy, amount) (reinterpret_cast<char *>(yy) + amount)
+
+# define signalError(xx)   qelem_set(xx->fErrorQueue)
+# define signalReceive(xx) qelem_set(xx->fReceiveQueue)
+
+# define OUR_NAME      "udpPort"
+// # define OUR_RES_NUMB  17181
+# define OUTPUT_PREFIX "udpPort: "
+
+enum UdpState
 {
-  TCP_OBJECT_UNBOUND,
-  TCP_OBJECT_BOUND
-}; /* UdpObjectState */
+    kUdpStateUnbound,
+    kUdpStateBound
+}; // UdpState
 
-struct UdpBufferLinkData
+struct UdpBufferLink
 {
-  UdpBufferLinkData * fPrevious;
-  UdpBufferLinkData * fNext;
-  DataBufferPtr       fData;
-}; /* UdpBufferLinkData */
+    UdpBufferLink * fPrevious;
+    UdpBufferLink * fNext;
+    DataBuffer *    fData;
+}; // UdpBufferLink
 
-typedef UdpBufferLinkData * UdpBufferLinkPtr;
-typedef UdpBufferLinkPtr *  UdpBufferLinkHdl;
- 
 struct UdpObjectData
 {
-  Object							fObject;
-  POutlet							fErrorBangOut;
-  POutlet							fResultOut;
-  PQelem							fErrorQueue;
-  PQelem							fRebindQueue;
-  PQelem 							fReceiveQueue;
-  AccessOTControlPtr	fAccessControl;
-  UdpBufferLinkHdl		fLinkBase;
-  UdpBufferLinkPtr		fReceiveHead;
-  UdpBufferLinkPtr		fReceiveTail;
-  UdpBufferLinkPtr		fPoolHead;
-  UdpBufferLinkPtr		fPoolTail;
-  DataBufferHdl				fBufferBase;
-  DataBufferPtr				fReceiveBuffer;
-  DataBufferPtr				fSendBuffer;
-  EndpointRef					fEndpoint;
-  ulong								fSelfAddress;
-  PSymbol							fSelfName;
-  ushort							fSelfPort;
-  UInt32							fServiceType;
-  ulong								fPartnerAddress;
-  ushort							fPartnerPort;
-  short								fAddressSize;
-  short								fTransferSize;
-  UdpObjectState			fState;
-  bool								fClosing;
-  bool								fPartnerKnown;								
-  bool								fRawMode;
-  bool								fVerbose;
- #if defined(COMPILE_FOR_OSX_4)
-  OTNotifyUPP					fDataNotifier;
- #endif /* COMPILE_FOR_OSX_4 */
-}; /* UdpObjectData */
+    t_object           fObject;
+    t_outlet *         fErrorBangOut;
+    t_outlet *         fResultOut;
+    t_qelem *          fErrorQueue;
+    t_qelem *          fReceiveQueue;
+    UdpBufferLink **   fLinkBase;
+    UdpBufferLink *    fReceiveHead;
+    UdpBufferLink *    fReceiveTail;
+    UdpBufferLink *    fPoolHead;
+    UdpBufferLink *    fPoolTail;
+    DataBuffer **      fBufferBase;
+    DataBuffer *       fReceiveBuffer;
+    DataBuffer *       fSendBuffer;
+    CFSocketRef        fSocket;
+    unsigned long      fSelfAddress;
+    t_symbol *         fSelfName;
+    unsigned short     fSelfPort;
+    UInt32             fServiceType;
+    in_addr            fPartnerAddress;
+    unsigned short     fPartnerPort;
+    short              fAddressSize;
+    UdpState           fState;
+    bool               fClosing;
+    bool               fPartnerKnown;
+    bool               fRawMode;
+    bool               fVerbose;
+}; // UdpObjectData
 
-typedef UdpObjectData * UdpObjectPtr;
+void cmd_Mode(UdpObjectData * xx,
+              t_symbol *      rawOrCooked);
 
-Pvoid cmd_Mode
-  (UdpObjectPtr xx,
-   PSymbol      rawOrCooked);
+void cmd_Port(UdpObjectData * xx,
+              long            number);
 
-Pvoid cmd_Port
-  (UdpObjectPtr xx,
-   long         number);
+void cmd_Self(UdpObjectData * xx);
 
-Pvoid cmd_Self
-  (UdpObjectPtr xx);
+void cmd_Send(UdpObjectData * xx,
+              t_symbol *      message,
+              short           argc,
+              t_atom *        argv);
 
-Pvoid cmd_Send
-  (UdpObjectPtr xx,
-   PSymbol      message,
-   short        argc,
-   PAtom        argv);
+void cmd_SendTo(UdpObjectData * xx,
+                t_symbol *      ipAddress,
+                long            portNumber);
 
-Pvoid cmd_SendTo
-  (UdpObjectPtr xx,
-   PSymbol      ipAddress,
-   long         portNumber);
+void cmd_Status(UdpObjectData * xx);
 
-Pvoid cmd_Status
-  (UdpObjectPtr xx);
+void cmd_Verbose(UdpObjectData * xx,
+                 t_symbol *      onOff);
 
-Pvoid cmd_Verbose
-  (UdpObjectPtr xx,
-   PSymbol      onOff);
- 
-bool checkIpString
-  (PSymbol	ipAddress,
-   short &	byte_0,
-   short &	byte_1,
-   short &	byte_2,
-   short &  byte_3);
+bool initObject(UdpObjectData * xx,
+                const long      port,
+                const long      numBuffers);
 
-Ptr describeEndpointState
-  (EndpointRef anEndpoint);
+bool makeReceiveBufferAvailable(UdpObjectData * xx);
 
-bool initObject
-  (UdpObjectPtr xx,
-   const long   port,
-   const long   numBuffers);
+t_symbol * mapStateToSymbol(const UdpState aState);
 
-bool makeReceiveBufferAvailable
-  (UdpObjectPtr xx);
+void presetObjectPointers(UdpObjectData * xx);
 
-Ptr mapEventToString
-  (const OTEventCode	code);
+void processReceiveQueue(UdpObjectData * xx);
 
-PSymbol mapStateToSymbol
-  (const UdpObjectState	aState);
+void releaseObjectMemory(UdpObjectData * xx);
 
-void presetObjectPointers
-  (UdpObjectPtr xx);
+void setObjectState(UdpObjectData * xx,
+                    const UdpState  newState);
 
-Pvoid processRebindQueue
-  (UdpObjectPtr xx);
+void setUpStateSymbols(void);
 
-Pvoid processReceiveQueue
-  (UdpObjectPtr xx);
+void transmitBuffer(UdpObjectData * xx,
+                    DataBuffer *    aBuffer);
 
-void releaseObjectMemory
-  (UdpObjectPtr xx);
+bool udpPortSetPort(UdpObjectData * xx,
+                    const bool      bangOnError);
 
-void reportEndpointState
-	(UdpObjectPtr	xx);
+StandardRoutineDeclarations(UdpObjectData *);
 
-void setObjectState
-  (UdpObjectPtr   			xx,
-   const UdpObjectState	newState);
+# if (defined(TRACE_OT_CALLS) && defined(BE_VERBOSE))
+#  define WRAP_OT_CALL(xx, res, name, aCall) \
+    { \
+        res = aCall; \
+        if (xx->fVerbose)\
+        { \
+            post(xx, OUTPUT_PREFIX name " --> (%ld = %s)", static_cast<long>(res), mapErrorCodeToString(res));\
+        } \
+    }
+# else /* not TRACE_OT_CALLS or not BE_VERBOSE */
+#  define WRAP_OT_CALL(xx, res, name, aCall) \
+    res = aCall;
+# endif /* not TRACE_OT_CALLS or not BE_VERBOSE */
 
-void setUpStateSymbols
-  (void);
-    
-void transmitBuffer
-  (UdpObjectPtr  xx,
-   DataBufferPtr aBuffer);
+# define REPORT_ERROR(xx, msg, value) \
+    LOG_ERROR_3(xx, msg, static_cast<long>(value), mapErrorCodeToString(value))
 
-pascal void udpPortNotifier
-  (Pvoid       context,
-   OTEventCode code,
-   OTResult    result,
-   Pvoid       cookie);
-
-bool udpPortSetPort
-  (UdpObjectPtr xx,
-   const bool		bangOnError);
-
-StandardRoutineDeclarations(UdpObjectPtr)
-
- #if (defined(TRACE_OT_CALLS) && defined(BE_VERBOSE))
-  #if defined(USE_SYSLOG)
-   #define WRAP_OT_CALL(xx, res, name, aCall) \
-{\
-  res = aCall;\
-  Syslog(SYSLOG_LEVEL, OUTPUT_PREFIX name " --> (%ld = %s)", long(res),\
-          mapErrorCodeToString(res));\
-  if (xx->fVerbose)\
-    post(OUTPUT_PREFIX name " --> (%ld = %s)", long(res), mapErrorCodeToString(res));\
-}
-  #else /* not USE_SYSLOG */
-   #define WRAP_OT_CALL(xx, res, name, aCall) \
-{\
-  res = aCall;\
-  if (xx->fVerbose)\
-    post(OUTPUT_PREFIX name " --> (%ld = %s)", long(res), mapErrorCodeToString(res));\
-}
-  #endif /* not USE_SYSLOG */
- #else /* not TRACE_OT_CALLS or not BE_VERBOSE */
-  #define WRAP_OT_CALL(xx, res, name, aCall) \
-res = aCall;
- #endif /* not TRACE_OT_CALLS or not BE_VERBOSE */
-  
- #define REPORT_ERROR(msg, value) \
-LOG_ERROR_3(msg, long(value), mapErrorCodeToString(value))
-
- #if defined(macintosh)
- // Big-endian, so network byte order is our order
-  #define htonl(xx) (xx)
-  #define htons(xx) (xx)
-  #define ntohl(xx) (xx)
-  #define ntohs(xx) (xx)
- #else /* not macintosh */
-  #define htonl(xx) (((xx & 0x0FF) << 24) | (((xx >> 8) & 0x0FF) << 16) | (((xx >> 16) & 0x0FF) << 8) | ((xx >> 24) & 0x0FF))
-  #define htons(xx) (((xx & 0x0FF) << 8) | ((xx >> 8) & 0x0FF))
-  #define ntohl(xx) (((xx & 0x0FF) << 24) | (((xx >> 8) & 0x0FF) << 16) | (((xx >> 16) & 0x0FF) << 8) | ((xx >> 24) & 0x0FF))
-  #define ntohs(xx) (((xx & 0x0FF) << 8) | ((xx >> 8) & 0x0FF))
- #endif /* not macintosh */
-
-mextern(PSymbol) gBoundSymbol;   /* Pointer to unique Symbol for 'bound' */
-mextern(PSymbol) gEmptySymbol;   /* Pointer to unique Symbol for '' */
-mextern(PSymbol) gFromSymbol;    /* Pointer to unique Symbol for 'from' */
-mextern(PSymbol) gMaxSymbol;     /* Pointer to unique Symbol for 'max' */
-mextern(PSymbol) gOffSymbol;     /* Pointer to unique Symbol for 'off' */
-mextern(PSymbol) gOnSymbol;      /* Pointer to unique Symbol for 'on' */
-mextern(PSymbol) gRawSymbol;     /* Pointer to unique Symbol for 'raw' */
-mextern(PSymbol) gSelfSymbol;    /* Pointer to unique Symbol for 'self' */
-mextern(PSymbol) gStatusSymbol;  /* Pointer to unique Symbol for 'status' */
-mextern(PSymbol) gUnboundSymbol; /* Pointer to unique Symbol for 'unbound' */
-mextern(PSymbol) gUnknownSymbol; /* Pointer to unique Symbol for 'unknown' */
-mextern(short)   gResourceBase;  /* Base value for resources */
+mextern(t_symbol *) gBoundSymbol;   /* Pointer to unique symbol for 'bound' */
+mextern(t_symbol *) gEmptySymbol;   /* Pointer to unique symbol for '' */
+mextern(t_symbol *) gFromSymbol;    /* Pointer to unique symbol for 'from' */
+mextern(t_symbol *) gMaxSymbol;     /* Pointer to unique symbol for 'max' */
+mextern(t_symbol *) gOffSymbol;     /* Pointer to unique symbol for 'off' */
+mextern(t_symbol *) gOnSymbol;      /* Pointer to unique symbol for 'on' */
+mextern(t_symbol *) gRawSymbol;     /* Pointer to unique symbol for 'raw' */
+mextern(t_symbol *) gSelfSymbol;    /* Pointer to unique symbol for 'self' */
+mextern(t_symbol *) gStatusSymbol;  /* Pointer to unique symbol for 'status' */
+mextern(t_symbol *) gUnboundSymbol; /* Pointer to unique symbol for 'unbound' */
+mextern(t_symbol *) gUnknownSymbol; /* Pointer to unique symbol for 'unknown' */
 
 #endif /* not UDPPORT_H_ */

@@ -38,42 +38,38 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(VMEAN_H_))
- #define VMEAN_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define VMEAN_H_ /* */
 
- #include "MissingAndExtra.h"
- #include <Math.h>
+# include "missingAndExtra.h"
+# include <Math.h>
 
- #define OUR_NAME      "Vmean"
- #define OUR_RES_NUMB  17162
- #define OUTPUT_PREFIX "Vmean: "
+# define OUR_NAME      "Vmean"
+// # define OUR_RES_NUMB  17162
+# define OUTPUT_PREFIX "Vmean: "
 
 enum OpCode
 {
-  OP_unknown = 0,
-  OP_Arithmetic,
-  OP_Geometric,
-  OP_Harmonic
-}; /* OpCode */
+    OP_unknown = 0,
+    OP_Arithmetic,
+    OP_Geometric,
+    OP_Harmonic
+}; // OpCode
 
 struct VmeanData
 {
-  Object  fObject;
-  POutlet fResultOut;
-  OpCode  fOperation;
-  double  fPreviousFloat;
-}; /* VmeanData */
+    t_object   fObject;
+    t_outlet * fResultOut;
+    OpCode     fOperation;
+    double     fPreviousFloat;
+}; // VmeanData
 
-typedef VmeanData * VmeanPtr;
+StandardRoutineDeclarations(VmeanData *);
 
-StandardRoutineDeclarations(VmeanPtr)
-
-mextern(PSymbol) gASymbol;     /* Pointer to unique Symbol for 'a' */
-mextern(PSymbol) gArithSymbol; /* Pointer to unique Symbol for 'arith' */
-mextern(PSymbol) gGSymbol;     /* Pointer to unique Symbol for 'g' */
-mextern(PSymbol) gGeomSymbol;  /* Pointer to unique Symbol for 'geom' */
-mextern(PSymbol) gHSymbol;     /* Pointer to unique Symbol for 'h' */
-mextern(PSymbol) gHarmSymbol;  /* Pointer to unique Symbol for 'harm' */
+mextern(t_symbol *) gASymbol;     /* Pointer to unique symbol for 'a' */
+mextern(t_symbol *) gArithSymbol; /* Pointer to unique symbol for 'arith' */
+mextern(t_symbol *) gGSymbol;     /* Pointer to unique symbol for 'g' */
+mextern(t_symbol *) gGeomSymbol;  /* Pointer to unique symbol for 'geom' */
+mextern(t_symbol *) gHSymbol;     /* Pointer to unique symbol for 'h' */
+mextern(t_symbol *) gHarmSymbol;  /* Pointer to unique symbol for 'harm' */
 
 #endif /* not VMEAN_H_ */

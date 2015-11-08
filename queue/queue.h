@@ -38,74 +38,60 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(QUEUE_H_))
- #define QUEUE_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define QUEUE_H_ /* */
 
- #include "MissingAndExtra.h"
- #include "genericListOutput.h"
+# include "missingAndExtra.h"
+# include "genericListOutput.h"
 
- #define OUR_NAME      "queue"
- #define OUR_RES_NUMB  17178
- #define OUTPUT_PREFIX "queue: "
- 
+# define OUR_NAME      "queue"
+// # define OUR_RES_NUMB  17178
+# define OUTPUT_PREFIX "queue: "
+
 struct QueueEntry
 {
-  QueueEntry *  fNext;
-  PAtom         fOutput;
-  short         fOutputCount;
+    QueueEntry * fNext;
+    t_atom *     fOutput;
+    short        fOutputCount;
 }; /* QueueEntry */
-
-typedef QueueEntry * QueueEntryPtr;
 
 struct QueueData
 {
-  Object        fObject;
-  POutlet       fResultOut;
-  POutlet       fDepthOut;
-  POutlet       fErrorBangOut;
-  QueueEntryPtr fFirstInQueue;
-  QueueEntryPtr fLastInQueue;
-  long          fDepth;
-  long          fMaxDepth;
-  bool          fVerbose;
-}; /* QueueData */
+    t_object     fObject;
+    t_outlet *   fResultOut;
+    t_outlet *   fDepthOut;
+    t_outlet *   fErrorBangOut;
+    QueueEntry * fFirstInQueue;
+    QueueEntry * fLastInQueue;
+    long         fDepth;
+    long         fMaxDepth;
+    bool         fVerbose;
+}; // QueueData
 
-typedef QueueData * QueuePtr;
+void cmd_Add(QueueData * xx,
+             t_symbol *  message,
+             short       argc,
+             t_atom *    argv);
 
-Pvoid cmd_Add
-  (QueuePtr xx,
-   PSymbol  message,
-   short    argc,
-   PAtom    argv);
+void cmd_Clear(QueueData * xx);
 
-Pvoid cmd_Clear
-  (QueuePtr xx);
+void cmd_Depth(QueueData * xx);
 
-Pvoid cmd_Depth
-  (QueuePtr xx);
+void cmd_Fetch(QueueData * xx);
 
-Pvoid cmd_Fetch
-  (QueuePtr xx);
+void cmd_Pull(QueueData * xx);
 
-Pvoid cmd_Pull
-  (QueuePtr xx);
+void cmd_SetDepth(QueueData * xx,
+                  long        number);
 
-Pvoid cmd_SetDepth
-  (QueuePtr xx,
-   long     number);
+void cmd_Trace(QueueData * xx,
+               t_symbol *  onOff);
 
-Pvoid cmd_Trace
-  (QueuePtr xx,
-   PSymbol  onOff);
+void queueClear(QueueData * xx);
 
-void queueClear
-  (QueuePtr xx);
+StandardRoutineDeclarations(QueueData *);
 
-StandardRoutineDeclarations(QueuePtr)
-
-mextern(PSymbol) gEmptySymbol; /* Pointer to unique Symbol for '' */
-mextern(PSymbol) gOffSymbol;   /* Pointer to unique Symbol for 'off' */
-mextern(PSymbol) gOnSymbol;    /* Pointer to unique Symbol for 'on' */
+mextern(t_symbol *) gEmptySymbol; /* Pointer to unique symbol for '' */
+mextern(t_symbol *) gOffSymbol;   /* Pointer to unique symbol for 'off' */
+mextern(t_symbol *) gOnSymbol;    /* Pointer to unique symbol for 'on' */
 
 #endif /* not QUEUE_H_ */

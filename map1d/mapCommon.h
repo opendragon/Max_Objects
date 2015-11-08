@@ -38,188 +38,137 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(MAPCOMMON_H_))
- #define MAPCOMMON_H_ /* */
+# define MAPCOMMON_H_ /* */
 
- #include "MissingAndExtra.h"
- #include "genericListOutput.h"
+# include "missingAndExtra.h"
+# include "genericListOutput.h"
 
- #define kCommentCharacter '#'
+# define kCommentCharacter '#'
 
 enum Category
 {
-  MatchInteger,
-  MatchFloat,
-  MatchInfinity,
-  MatchUnknown
-}; /* Category */
+    MatchInteger,
+    MatchFloat,
+    MatchInfinity,
+    MatchUnknown
+}; // Category
+
+union ForI_
+{
+    float fFloat;
+    long  fInteger;
+}; // ForI_
 
 struct FloatOrInteger
 {
-  union
-  {
-    float fFloat;
-    long  fInteger;
-  } fValue;
-  bool fIsFloat;
-}; /* FloatOrInteger */
+    ForI_ fValue;
+    bool  fIsFloat;
+}; // FloatOrInteger
 
 struct RangeElement
 {
-  FloatOrInteger fValue;
-  Category       fKind;
-  bool           fIsClosed;
-}; /* RangeElement */
+    FloatOrInteger fValue;
+    Category       fKind;
+    bool           fIsClosed;
+}; // RangeElement
 
-inline float getFOIFloat
-  (const FloatOrInteger & value)
+inline float getFOIFloat(const FloatOrInteger & value)
 {
-  return value.fValue.fFloat;
-} /* getFOIFloat */
-
-inline long getFOILong
-  (const FloatOrInteger & value)
+    return value.fValue.fFloat;
+} // getFOIFloat
+inline long getFOILong(const FloatOrInteger & value)
 {
-  return value.fValue.fInteger;
-} /* getFOILong */
-
-inline float getFOIValue
-  (const FloatOrInteger & value)
+    return value.fValue.fInteger;
+} // getFOILong
+inline float getFOIValue(const FloatOrInteger & value)
 {
-  return (value.fIsFloat ? value.fValue.fFloat : value.fValue.fInteger);
-} /* getFOIValue */
-
-inline void setFOI2Float
-  (FloatOrInteger & target,
-   const float      value)
+    return value.fIsFloat ? value.fValue.fFloat : value.fValue.fInteger;
+} // getFOIValue
+inline void setFOI2Float(FloatOrInteger & target,
+                         const float      value)
 {
-  target.fIsFloat = true;
-  target.fValue.fFloat = value;
-} /* setFOI2Float */
-
-inline void setFOI2Integer
-  (FloatOrInteger & target,
-   const long       value)
+    target.fIsFloat = true;
+    target.fValue.fFloat = value;
+} // setFOI2Float
+inline void setFOI2Integer(FloatOrInteger & target,
+                           const long       value)
 {
-  target.fIsFloat = false;
-  target.fValue.fInteger = value;
-} /* setFOI2Integer */
+    target.fIsFloat = false;
+    target.fValue.fInteger = value;
+} // setFOI2Integer
+ # define MapRoutineDeclarations(type) \
+    void cmd_Add(type       xx, \
+                 t_symbol * message, \
+                 short      argc, \
+                 t_atom *   argv); \
+\
+    void cmd_After(type       xx, \
+                   t_symbol * message, \
+                   short      argc, \
+                   t_atom *   argv); \
+\
+    void cmd_Before(type       xx, \
+                    t_symbol * message, \
+                    short      argc, \
+                    t_atom *   argv); \
+\
+    void cmd_Clear(type xx); \
+\
+    void cmd_Count(type xx); \
+\
+    void cmd_Delete(type xx, \
+                     long num); \
+\
+    void cmd_Dump(type xx); \
+\
+    void cmd_Get(type       xx, \
+                 long       num, \
+                 t_symbol * which); \
+\
+    void cmd_Load(type       xx, \
+                  t_symbol * fileName); \
+\
+    void cmd_Replace(type       xx, \
+                     t_symbol * message, \
+                     short      argc, \
+                     t_atom *   argv); \
+\
+    void cmd_Set(type       xx, \
+                 t_symbol * message, \
+                 short      argc, \
+                 t_atom *   argv); \
+\
+    void cmd_Show(type xx, \
+                  long num); \
+\
+    void cmd_Verbose(type       xx, \
+                     t_symbol * onOff)
 
-typedef RangeElement * RangeElementPtr;
-
- #define MapRoutineDeclarations(ObjPtr) \
-Pvoid cmd_Add\
-  (ObjPtr  xx,\
-   PSymbol message,\
-   short   argc,\
-   PAtom   argv);\
-\
-Pvoid cmd_After\
-  (ObjPtr  xx,\
-   PSymbol message,\
-   short   argc,\
-   PAtom   argv);\
-\
-Pvoid cmd_Before\
-  (ObjPtr  xx,\
-   PSymbol message,\
-   short   argc,\
-   PAtom   argv);\
-\
-Pvoid cmd_Clear\
-  (ObjPtr xx);\
-\
-Pvoid cmd_Count\
-  (ObjPtr xx);\
-\
-Pvoid cmd_Delete\
-  (ObjPtr xx,\
-   long   num);\
-\
-Pvoid cmd_Dump\
-  (ObjPtr xx);\
-\
-Pvoid cmd_Get\
-  (ObjPtr  xx,\
-   long    num,\
-   PSymbol which);\
-\
-Pvoid cmd_Load\
-  (ObjPtr  xx,\
-   PSymbol fileName);\
-\
-Pvoid cmd_Replace\
-  (ObjPtr  xx,\
-   PSymbol message,\
-   short   argc,\
-   PAtom   argv);\
-\
-Pvoid cmd_Set\
-  (ObjPtr  xx,\
-   PSymbol message,\
-   short   argc,\
-   PAtom   argv);\
-\
-Pvoid cmd_Show\
-  (ObjPtr xx,\
-   long   num);\
-\
-Pvoid cmd_Verbose\
-  (ObjPtr  xx,\
-   PSymbol onOff);
-
- #define SetUpSymbols() \
-gAsteriskSymbol = gensym("*");\
-gCloseRoundSymbol = gensym(")");\
-gCloseSquareSymbol = gensym("]");\
-gCountSymbol = gensym("count");\
-gDollarSymbol = gensym("$");\
-gDollarXSymbol = gensym("$x");\
-gDollarYSymbol = gensym("$y");\
-gDollarZSymbol = gensym("$z");\
-gDoubleDollarSymbol = gensym("$$");\
-gDoubleDollarXSymbol = gensym("$$x");\
-gDoubleDollarYSymbol = gensym("$$y");\
-gDoubleDollarZSymbol = gensym("$$z");\
-gEmptySymbol = gensym("");\
-gNegInfSymbol1 = gensym("-inf");\
-gNegInfSymbol2 = gensym("-°");\
-gOffSymbol = gensym("off");\
-gOnSymbol = gensym("on");\
-gOpenRoundSymbol = gensym("(");\
-gOpenSquareSymbol = gensym("[");\
-gPosInfSymbol1 = gensym("inf");\
-gPosInfSymbol2 = gensym("+inf");\
-gPosInfSymbol3 = gensym("°");\
-gPosInfSymbol4 = gensym("+°");\
-gRangeSymbol = gensym("range");\
-gResultSymbol = gensym("result");\
-gValueSymbol = gensym("value");
-
-mextern(PSymbol) gAsteriskSymbol;      /* Pointer to unique Symbol for '*' */
-mextern(PSymbol) gCloseRoundSymbol;    /* Pointer to unique Symbol for ')' */
-mextern(PSymbol) gCloseSquareSymbol;   /* Pointer to unique Symbol for ']' */
-mextern(PSymbol) gCountSymbol;         /* Pointer to unique Symbol for 'count' */
-mextern(PSymbol) gDollarSymbol;        /* Pointer to unique Symbol for '$' */
-mextern(PSymbol) gDollarXSymbol;       /* Pointer to unique Symbol for '$z' */
-mextern(PSymbol) gDollarYSymbol;       /* Pointer to unique Symbol for '$z' */
-mextern(PSymbol) gDollarZSymbol;       /* Pointer to unique Symbol for '$z' */
-mextern(PSymbol) gDoubleDollarSymbol;  /* Pointer to unique Symbol for '$$' */
-mextern(PSymbol) gDoubleDollarXSymbol; /* Pointer to unique Symbol for '$$z' */
-mextern(PSymbol) gDoubleDollarYSymbol; /* Pointer to unique Symbol for '$$z' */
-mextern(PSymbol) gDoubleDollarZSymbol; /* Pointer to unique Symbol for '$$z' */
-mextern(PSymbol) gEmptySymbol;         /* Pointer to unique Symbol for '' */
-mextern(PSymbol) gNegInfSymbol1;       /* Pointer to unique Symbol for '-inf' */
-mextern(PSymbol) gNegInfSymbol2;       /* Pointer to unique Symbol for '-°' */
-mextern(PSymbol) gOffSymbol;           /* Pointer to unique Symbol for 'off' */
-mextern(PSymbol) gOnSymbol;            /* Pointer to unique Symbol for 'on' */
-mextern(PSymbol) gOpenRoundSymbol;     /* Pointer to unique Symbol for '(' */
-mextern(PSymbol) gOpenSquareSymbol;    /* Pointer to unique Symbol for '[' */
-mextern(PSymbol) gPosInfSymbol1;       /* Pointer to unique Symbol for 'inf' */
-mextern(PSymbol) gPosInfSymbol2;       /* Pointer to unique Symbol for '+inf' */
-mextern(PSymbol) gPosInfSymbol3;       /* Pointer to unique Symbol for '°' */
-mextern(PSymbol) gPosInfSymbol4;       /* Pointer to unique Symbol for '+°" */
-mextern(PSymbol) gRangeSymbol;         /* Pointer to unique Symbol for 'range' */
-mextern(PSymbol) gResultSymbol;        /* Pointer to unique Symbol for 'result' */
-mextern(PSymbol) gValueSymbol;         /* Pointer to unique Symbol for 'value' */
+mextern(t_symbol *) gAsteriskSymbol;      /* Pointer to unique symbol for '*' */
+mextern(t_symbol *) gCloseRoundSymbol;    /* Pointer to unique symbol for ')' */
+mextern(t_symbol *) gCloseSquareSymbol;   /* Pointer to unique symbol for ']' */
+mextern(t_symbol *) gCountSymbol;         /* Pointer to unique symbol for 'count' */
+mextern(t_symbol *) gDollarSymbol;        /* Pointer to unique symbol for '$' */
+mextern(t_symbol *) gDollarXSymbol;       /* Pointer to unique symbol for '$z' */
+mextern(t_symbol *) gDollarYSymbol;       /* Pointer to unique symbol for '$z' */
+mextern(t_symbol *) gDollarZSymbol;       /* Pointer to unique symbol for '$z' */
+mextern(t_symbol *) gDoubleDollarSymbol;  /* Pointer to unique symbol for '$$' */
+mextern(t_symbol *) gDoubleDollarXSymbol; /* Pointer to unique symbol for '$$z' */
+mextern(t_symbol *) gDoubleDollarYSymbol; /* Pointer to unique symbol for '$$z' */
+mextern(t_symbol *) gDoubleDollarZSymbol; /* Pointer to unique symbol for '$$z' */
+mextern(t_symbol *) gEmptySymbol;         /* Pointer to unique symbol for '' */
+mextern(t_symbol *) gNegInfSymbol1;       /* Pointer to unique symbol for '-inf' */
+mextern(t_symbol *) gNegInfSymbol2;       /* Pointer to unique symbol for '-âˆž' */
+mextern(t_symbol *) gOffSymbol;           /* Pointer to unique symbol for 'off' */
+mextern(t_symbol *) gOnSymbol;            /* Pointer to unique symbol for 'on' */
+mextern(t_symbol *) gOpenRoundSymbol;     /* Pointer to unique symbol for '(' */
+mextern(t_symbol *) gOpenSquareSymbol;    /* Pointer to unique symbol for '[' */
+mextern(t_symbol *) gPosInfSymbol1;       /* Pointer to unique symbol for 'inf' */
+mextern(t_symbol *) gPosInfSymbol2;       /* Pointer to unique symbol for '+inf' */
+mextern(t_symbol *) gPosInfSymbol3;       /* Pointer to unique symbol for 'âˆž' */
+mextern(t_symbol *) gPosInfSymbol4;       /* Pointer to unique symbol for '+âˆž" */
+mextern(t_symbol *) gRangeSymbol;         /* Pointer to unique symbol for 'range' */
+mextern(t_symbol *) gResultSymbol;        /* Pointer to unique symbol for 'result' */
+mextern(t_symbol *) gValueSymbol;         /* Pointer to unique symbol for 'value' */
 
 #endif /* not MAPCOMMON_H_ */

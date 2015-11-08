@@ -1,0 +1,15 @@
+Title Driver for Keyspan USB Serial Adapters
+Version 1.8
+Description 
+DefaultLocation /
+DeleteWarning You will not be able to use your Keyspan Serial Adapter
+
+### Package Flags
+
+NeedsAuthorization YES
+Required NO
+Relocatable NO
+RequiresReboot NO
+UseUserMask YES
+OverwritePermissions NO
+InstallFat NO

@@ -38,31 +38,31 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(X10BASE_H_))
- #define X10BASE_H_ /* */
- 
- #include "MissingAndExtra.h"
+# define X10BASE_H_ /* */
 
- #define NUM_HOUSECODES 16
- #define HOUSECODES_DATA \
-{\
-  0x0080, /* 1 */\
-  0x0040, /* 2 */\
-  0x0020, /* 3 */\
-  0x0010, /* 4 */\
-  0x0008, /* 5 */\
-  0x0004, /* 6 */\
-  0x0002, /* 7 */\
-  0x0001, /* 8 */\
-  0x8000, /* 9 */\
-  0x4000, /* 10 */\
-  0x2000, /* 11 */\
-  0x1000, /* 12 */\
-  0x0800, /* 13 */\
-  0x0400, /* 14 */\
-  0x0200, /* 15 */\
-  0x0100  /* 16 */\
-}
+# include "missingAndExtra.h"
 
-mextern(ushort) kUnitCodeToBits[NUM_HOUSECODES] minit(HOUSECODES_DATA);
-  
+# define NUM_HOUSECODES 16
+# define HOUSECODES_DATA \
+    { \
+        0x0080, /* 1 */ \
+        0x0040, /* 2 */ \
+        0x0020, /* 3 */ \
+        0x0010, /* 4 */ \
+        0x0008, /* 5 */ \
+        0x0004, /* 6 */ \
+        0x0002, /* 7 */ \
+        0x0001, /* 8 */ \
+        0x8000, /* 9 */ \
+        0x4000, /* 10 */ \
+        0x2000, /* 11 */ \
+        0x1000, /* 12 */ \
+        0x0800, /* 13 */ \
+        0x0400, /* 14 */ \
+        0x0200, /* 15 */ \
+        0x0100  /* 16 */ \
+    }
+
+mextern(unsigned short) kUnitCodeToBits[NUM_HOUSECODES] minit(HOUSECODES_DATA);
+
 #endif /* not X10BASE_H_ */

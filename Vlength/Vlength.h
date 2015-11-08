@@ -38,24 +38,20 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(VLENGTH_H_))
- #define VLENGTH_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define VLENGTH_H_ /* */
 
- #include "MissingAndExtra.h"
+# include "missingAndExtra.h"
 
- #define OUR_NAME      "Vlength"
- #define OUR_RES_NUMB  17142
- #define OUTPUT_PREFIX "Vlength: "
- 
+# define OUR_NAME      "Vlength"
+// # define OUR_RES_NUMB  17142
+# define OUTPUT_PREFIX "Vlength: "
+
 struct VlengthData
 {
-  Object  fObject;
-  POutlet fResultOut;
-}; /* VlengthData */
+    t_object   fObject;
+    t_outlet * fResultOut;
+}; // VlengthData
 
-typedef VlengthData * VlengthPtr;
-
-StandardRoutineDeclarations(VlengthPtr)
+StandardRoutineDeclarations(VlengthData *);
 
 #endif /* not VLENGTH_H_ */

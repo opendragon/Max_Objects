@@ -38,71 +38,64 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(UDPBUFFERS_H_))
- #define UDPBUFFERS_H_ /* */
-    
- #include "getListKind.h"
+# define UDPBUFFERS_H_ /* */
+
+# include "getListKind.h"
+# include <CoreServices/CoreServices.h>
+# include <sys/socket.h>
+# include <netinet/in.h>
 
 struct DataBuffer
 {
-  InetAddress fSender;
-  Puchar      fNextByteToUse;
-  short       fNumBytesInUse;
-  /* send/receive from this element: */
-  short       fNumElements;
-  short       fSanityCheck;
-  uchar       fDataType;
-  uchar       fElements[1]; /* dummy field to construct/deconstruct Atoms */
-}; /* DataBuffer */
+    sockaddr_in     fSender;
+    unsigned char * fNextByteToUse;
+    short           fNumBytesInUse;
+    /* send/receive from this element: */
+    short           fNumElements;
+    short           fSanityCheck;
+    unsigned char   fDataType;
+    unsigned char   fElements[1]; /* dummy field to construct/deconstruct Atoms */
+}; // DataBuffer
 
-typedef DataBuffer *    DataBufferPtr;
-typedef DataBufferPtr * DataBufferHdl;
+# define MAX_BUFFER_TO_SEND       30000
+# define SIZEOF_DATABUFFER_HDR    (sizeof(short) + sizeof(short) + sizeof(unsigned char))
+# define SIZEOF_DATABUFFER_PREFIX (sizeof(char *) + sizeof(short) + sizeof(sockaddr_in))
+# define SIZEOF_OVERHEAD          (SIZEOF_DATABUFFER_HDR + SIZEOF_DATABUFFER_PREFIX)
+# define MAX_BUFFER_TO_RECEIVE    (MAX_BUFFER_TO_SEND + SIZEOF_DATABUFFER_HDR)
+# define BUFF_MEMORY_TO_ALLOC     (MAX_BUFFER_TO_SEND + SIZEOF_OVERHEAD)
+# define MAX_ATOMS_EXPECTED       (MAX_BUFFER_TO_SEND / sizeof(long))
 
- #define MAX_BUFFER_TO_SEND       30000
- /* SIZEOF_DATABUFFER_HDR = fNumElements + fSanityCheck + fDataType */
- #define SIZEOF_DATABUFFER_HDR    (sizeof(short) + sizeof(short) + sizeof(uchar))
- /* SIZEOF_DATABUFFER_PREFIX = fNumBytesInUse + fNextByteToUse */
- #define SIZEOF_DATABUFFER_PREFIX (sizeof(Ptr) + sizeof(short) + sizeof(InetAddress))
- #define SIZEOF_OVERHEAD          (SIZEOF_DATABUFFER_HDR + SIZEOF_DATABUFFER_PREFIX)
- #define MAX_BUFFER_TO_RECEIVE    (MAX_BUFFER_TO_SEND + SIZEOF_DATABUFFER_HDR)
- #define BUFF_MEMORY_TO_ALLOC     (MAX_BUFFER_TO_SEND + SIZEOF_OVERHEAD)
- #define MAX_ATOMS_EXPECTED       (MAX_BUFFER_TO_SEND / sizeof(long))
+bool addAtomToBuffer(void *       xx,
+                     DataBuffer * aBuffer,
+                     t_atom *     aValue,
+                     const bool   rawMode);
 
-bool addAtomToBuffer
-  (DataBufferPtr	aBuffer,
-   const short		maxSize,
-   PAtom					aValue,
-   const bool     rawMode);
+bool addFloatToBuffer(void *       xx,
+                      DataBuffer * aBuffer,
+                      const float  aValue,
+                      const bool   rawMode);
 
-bool addFloatToBuffer
-  (DataBufferPtr	aBuffer,
-   const short		maxSize,
-   const float		aValue,
-   const bool     rawMode);
+bool addLongToBuffer(void *       xx,
+                     DataBuffer * aBuffer,
+                     const long   aValue,
+                     const bool   rawMode);
 
-bool addLongToBuffer
-  (DataBufferPtr	aBuffer,
-   const short		maxSize,
-   const long			aValue,
-   const bool     rawMode);
+void clearDataBuffer(DataBuffer * aBuffer);
 
-void clearDataBuffer
-  (DataBufferPtr aBuffer);
+t_atom * convertBufferToAtoms(void *        xx,
+                              t_handle      aBuffer,
+                              sockaddr_in & sender,
+                              short &       numAtoms,
+                              const short   numBytes,
+                              const bool    rawMode);
 
-PAtom convertBufferToAtoms
-  (Handle				aBuffer,
-   InetAddress	sender,
-   short &			numAtoms,
-   const short  numBytes,
-   const bool   rawMode);
+void copyDataBuffer(DataBuffer *       outBuffer,
+                    const DataBuffer * inBuffer);
 
-void copyDataBuffer
-  (DataBufferPtr       outBuffer,
-   const DataBufferPtr inBuffer);
+short validateBuffer(void *       xx,
+                     DataBuffer * aBuffer,
+                     const bool   rawMode);
 
-short validateBuffer
-  (DataBufferPtr	aBuffer,
-   const bool     rawMode);
-
-mextern(PSymbol) gDollarSymbol; /* Pointer to unique Symbol for '$' */
+mextern(t_symbol *) gDollarSymbol; /* Pointer to unique symbol for '$' */
 
 #endif /* not UDPBUFFERS_H_ */

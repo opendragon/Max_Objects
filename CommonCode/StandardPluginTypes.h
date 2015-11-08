@@ -44,22 +44,22 @@
 
 struct OwnerData
 {
-  Pvoid fMaxObject;
-  Pvoid fRegistry;
+    Pvoid fMaxObject;
+    Pvoid fRegistry;
 }; /* OwnerData */
 
 typedef OwnerData * OwnerPtr;
 
  #define PLUGIN_HEADER_PREFIX \
-OwnerPtr 		owner,\
-HOutlet  		outlets,\
-Ptr      		sharedStorage,\
-Ptr      		privateStorage,\
-const long	inletNumber
+    OwnerPtr owner, \
+    HOutlet outlets, \
+    Ptr sharedStorage, \
+    Ptr privateStorage, \
+    const long inletNumber
 
-typedef OSErr (* PluginFunk)
-  (PLUGIN_HEADER_PREFIX,
-   const short	argc,
-   PAtom				argv);
+typedef OSErr (*PluginFunk)
+    (PLUGIN_HEADER_PREFIX,
+    const short argc,
+    PAtom       argv);
 
 #endif /* not STANDARDPLUGINTYPES_H_ */

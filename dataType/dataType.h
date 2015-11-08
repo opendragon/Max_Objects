@@ -38,34 +38,30 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(DATATYPE_H_))
- #define DATATYPE_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define DATATYPE_H_ /* */
 
- #include "MissingAndExtra.h"
+# include "missingAndExtra.h"
 
- #define OUR_NAME      "dataType"
- #define OUR_RES_NUMB  17129
- #define OUTPUT_PREFIX "dataType: "
- 
+# define OUR_NAME      "dataType"
+// # define OUR_RES_NUMB  17129
+# define OUTPUT_PREFIX "dataType: "
+
 enum TypeCode
 {
-  TYPE_unknown = 0,
-  TYPE_BANG,
-  TYPE_FLOAT,
-  TYPE_INT,
-  TYPE_LIST,
-  TYPE_SYM
-}; /* TypeCode */
+    TYPE_unknown = 0,
+    TYPE_BANG,
+    TYPE_FLOAT,
+    TYPE_INT,
+    TYPE_LIST,
+    TYPE_SYM
+}; // TypeCode
 
 struct DataTypeData
 {
-  Object  fObject;
-  POutlet fResultOut;
-}; /* DataTypeData */
+    t_object   fObject;
+    t_outlet * fResultOut;
+}; // DataTypeData
 
-typedef DataTypeData * DataTypePtr;
-
-StandardRoutineDeclarations(DataTypePtr)
+StandardRoutineDeclarations(DataTypeData *);
 
 #endif /* not DATATYPE_H_ */

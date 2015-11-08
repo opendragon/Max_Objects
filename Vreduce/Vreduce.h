@@ -38,29 +38,25 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(VREDUCE_H_))
- #define VREDUCE_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define VREDUCE_H_ /* */
 
- #include "VreduceScanCommon.h"
+# include "VreduceScanCommon.h"
 
- #define OUR_NAME      "Vreduce"
- #define OUR_RES_NUMB  17155
- #define OUTPUT_PREFIX "Vreduce: "
- 
+# define OUR_NAME      "Vreduce"
+// # define OUR_RES_NUMB  17155
+# define OUTPUT_PREFIX "Vreduce: "
+
 struct VreduceData
 {
-  Object           fObject;
-  POutlet          fResultOut;
-  OpCode           fOperation;
-  InputRestriction fCheck;
-  double           fPreviousFloat;
-  long             fPreviousLong;
-  bool             fResultIsFloat;
-}; /* VreduceData */
+    t_object         fObject;
+    t_outlet *       fResultOut;
+    OpCode           fOperation;
+    InputRestriction fCheck;
+    double           fPreviousFloat;
+    long             fPreviousLong;
+    bool             fResultIsFloat;
+}; // VreduceData
 
-typedef VreduceData * VreducePtr;
-
-StandardRoutineDeclarations(VreducePtr)
+StandardRoutineDeclarations(VreduceData *);
 
 #endif /* not VREDUCE_H_ */

@@ -38,25 +38,21 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(SHOTGUN_H_))
- #define SHOTGUN_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define SHOTGUN_H_ /* */
 
- #include "MissingAndExtra.h"
+# include "missingAndExtra.h"
 
- #define OUR_NAME      "shotgun"
- #define OUR_RES_NUMB  17204
- #define OUTPUT_PREFIX "shotgun: "
+# define OUR_NAME      "shotgun"
+// # define OUR_RES_NUMB  17204
+# define OUTPUT_PREFIX "shotgun: "
 
 struct ShotgunData
 {
-  Object	fObject;
-  HOutlet	fResultsOut;
-  short		fNumOutlets;
-}; /* ShotgunData */
+    t_object    fObject;
+    t_outlet ** fResultsOut;
+    short       fNumOutlets;
+}; // ShotgunData
 
-typedef ShotgunData * ShotgunPtr;
-
-StandardRoutineDeclarations(ShotgunPtr)
+StandardRoutineDeclarations(ShotgunData *);
 
 #endif /* not SHOTGUN_H_ */

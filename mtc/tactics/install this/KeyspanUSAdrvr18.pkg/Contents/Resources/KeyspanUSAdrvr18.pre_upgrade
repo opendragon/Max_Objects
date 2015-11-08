@@ -1,0 +1,10 @@
+#!/bin/sh
+
+logger running KeyspanUSAdriver:pre_upgrade
+
+PRODUCT_NAME=KeyspanUSAdriver.kext
+
+#if [ -e /System/Library/Extensions/"$PRODUCT_NAME" ]; then
+#	rm -R -f /System/Library/Extensions/"$PRODUCT_NAME".old
+#	mv /System/Library/Extensions/"$PRODUCT_NAME" /System/Library/Extensions/"$PRODUCT_NAME".old
+#fi

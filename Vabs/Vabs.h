@@ -38,14 +38,12 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(VABS_H_))
- #define VABS_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define VABS_H_ /* */
 
- #include "VObjectCommon.h"
+# include "VabsObjectCommon.h"
 
- #define OUR_NAME      "Vabs"
- #define OUR_RES_NUMB  17160
- #define OUTPUT_PREFIX "Vabs: "
- 
+# define OUR_NAME      "Vabs"
+// # define OUR_RES_NUMB  17160
+# define OUTPUT_PREFIX "Vabs: "
+
 #endif /* not VABS_H_ */

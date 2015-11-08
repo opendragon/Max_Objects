@@ -38,25 +38,21 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(VLENGTH_H_))
- #define VLENGTH_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define VLENGTH_H_ /* */
 
- #include "MissingAndExtra.h"
- #include <math.h>
+# include "missingAndExtra.h"
+# include <math.h>
 
- #define OUR_NAME      "Vdistance"
- #define OUR_RES_NUMB  17163
- #define OUTPUT_PREFIX "Vdistance: "
- 
+# define OUR_NAME      "Vdistance"
+// # define OUR_RES_NUMB  17163
+# define OUTPUT_PREFIX "Vdistance: "
+
 struct VdistanceData
 {
-  Object  fObject;
-  POutlet fResultOut;
-}; /* VdistanceData */
+    t_object   fObject;
+    t_outlet * fResultOut;
+}; // VdistanceData
 
-typedef VdistanceData * VdistancePtr;
-
-StandardRoutineDeclarations(VdistancePtr)
+StandardRoutineDeclarations(VdistanceData *);
 
 #endif /* not VLENGTH_H_ */

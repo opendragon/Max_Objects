@@ -1,5 +1,4 @@
 #include "Carbon.r"
-#include "QuickDraw.r"
 
 resource 'STR#' (17146, "caseShift") {
 	{	/* array StringArray: 3 elements */

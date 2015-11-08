@@ -38,300 +38,261 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(MTC_H_))
- #define MTC_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define MTC_H_ /* */
 
- #include "MissingAndExtra.h"
+# include "missingAndExtra.h"
 
- #define OUR_NAME      "mtc"
- #define OUR_RES_NUMB  17135
- #define OUTPUT_PREFIX "mtc: "
+# define OUR_NAME      "mtc"
+// # define OUR_RES_NUMB  17135
+# define OUTPUT_PREFIX "mtc: "
 
- #define BE_VERBOSE           /* */
- #define REPORT_STATE_CHANGES /*!!*/
- #define MAX_MESSAGE_BYTES    260
+# define BE_VERBOSE           /* */
+# define REPORT_STATE_CHANGES /*!!*/
+# define MAX_MESSAGE_BYTES    260
 
- #define MAX_DESCRIPTOR_LENGTH 80
+# define MAX_DESCRIPTOR_LENGTH 80
 
- #define MAX_SPOTS       10
- #define MAX_POLL_RATE   1000
- #define SER_SAMPLE_RATE 100 /* default sampling rate for the serial port */
- #define DEFAULT_SPOTS   1
+# define MAX_SPOTS       10
+# define MAX_POLL_RATE   1000
+# define SER_SAMPLE_RATE 100 /* default sampling rate for the serial port */
+# define DEFAULT_SPOTS   1
 
- #if (! defined(BE_VERBOSE))
-  #undef REPORT_STATE_CHANGES
- #endif /* not BE_VERBOSE */
+# if (! defined(BE_VERBOSE))
+#  undef REPORT_STATE_CHANGES
+# endif /* not BE_VERBOSE */
 
-typedef uchar MtcMessageBuffer[MAX_MESSAGE_BYTES + 3];
+typedef unsigned char MtcMessageBuffer[MAX_MESSAGE_BYTES + 3];
 
- #define MTC_MAX_COOKED_PRESSURE 2000
- #define MTC_MAX_THRESHOLD       5000
- #define MTC_DEFAULT_THRESHOLD   2000
- #define MTC_MAX_RAW_PRESSURE    255
- #define MTC_MIN_RAW_PRESSURE    0
+# define MTC_MAX_COOKED_PRESSURE 2000
+# define MTC_MAX_THRESHOLD       5000
+# define MTC_DEFAULT_THRESHOLD   2000
+# define MTC_MAX_RAW_PRESSURE    255
+# define MTC_MIN_RAW_PRESSURE    0
 
 enum MtcCommandCode
 {
-  MTC_no_command              = 0x0000,
-  MTC_CMD_END_COMMAND         = 0x000D,
-  MTC_CMD_BEGIN_SEND_DATA     = 0x0062,
-  MTC_CMD_SET_DIFF_THRESH     = 0x0068,
-  MTC_CMD_SET_OFFSET_DATA     = 0x006F,
-  MTC_CMD_PING_UNIT           = 0x0070,
-  MTC_CMD_STOP_SEND_DATA      = 0x0073,
-  MTC_CMD_SET_SAMPLE_INTERVAL = 0x0074,
-  MTC_CMD_SEND_UNIT_DESC      = 0x0075
-}; /* MtcCommandCode */
+    kMtcNoCommand                = 0x0000,
+    kMtcCommandEnd               = 0x000D,
+    kMtcCommandBeginSendData     = 0x0062,
+    kMtcCommandSetDiffThreshold  = 0x0068,
+    kMtcCommandSetOffsetData     = 0x006F,
+    kMtcCommandPingUnit          = 0x0070,
+    kMtcCommandStopSendData      = 0x0073,
+    kMtcCommandSetSampleInterval = 0x0074,
+    kMtcCommandSendUnitDesc      = 0x0075
+}; // MtcCommandCode
 
 enum MtcState
 {
-  MTC_AWAITING_END_OF_COMMAND,
-  MTC_AWAITING_END_OF_COMP,
-  MTC_AWAITING_END_OF_DATA,
-  MTC_AWAITING_END_OF_DESC,
-  MTC_AWAITING_NUM_BYTES,
-  MTC_AWAITING_NUM_PACKETS,
-  MTC_AWAITING_SAMPLE_NUMBER,
-  MTC_IDLE,
-  MTC_LOOKING_FOR_END,
-  MTC_SKIP_TO_ACK,
-  MTC_SKIP_TO_END,
-  MTC_state_unknown
-}; /* MtcState */
+    kMtcStateAwaitingEndOfCommand,
+    kMtcStateAwaitingEndOfComp,
+    kMtcStateAwaitingEndOfData,
+    kMtcStateAwaitingEndOfDesc,
+    kMtcStateAwaitingNumBytes,
+    kMtcStateAwaitingNumPackets,
+    kMtcStateAwaitingSampleNumber,
+    kMtcStateIdle,
+    kMtcStateLookingForEnd,
+    kMtcStateSkipToAck,
+    kMtcStateSkipToEnd,
+    kMtcStateUnknown
+}; // MtcState
 
 enum MtcResponseCode
 {
-  MTC_RESPONSE_END_CMD   = 0x000D,
-  MTC_RESPONSE_ACK       = 0x0061,
-  MTC_RESPONSE_SEND_COMP = 0x0063,
-  MTC_RESPONSE_SEND_DATA = 0x0064,
-  MTC_RESPONSE_UNIT_DESC = 0x0075
-}; /* MtcResponseCode */
+    kMtcResponseEndCommand = 0x000D,
+    kMtcResponseAck        = 0x0061,
+    kMtcResponseSendComp   = 0x0063,
+    kMtcResponseSendData   = 0x0064,
+    kMtcResponseUnitDesc   = 0x0075
+}; // MtcResponseCode
 
 struct MtcTaxelDesc
 {
-  float           fXCoord;
-  float           fYCoord;
-  double          fScale;
-  double          fPressure;
-  MtcTaxelDesc *  fBottomTaxel;
-  MtcTaxelDesc *  fLeftTaxel;
-  MtcTaxelDesc *  fRightTaxel;
-  MtcTaxelDesc *  fTopTaxel;
+    float          fXCoord;
+    float          fYCoord;
+    double         fScale;
+    double         fPressure;
+    MtcTaxelDesc * fBottomTaxel;
+    MtcTaxelDesc * fLeftTaxel;
+    MtcTaxelDesc * fRightTaxel;
+    MtcTaxelDesc * fTopTaxel;
  #if defined(MTC_USE_CORNERS)
-  MtcTaxelDesc *  fBottomLeftTaxel;
-  MtcTaxelDesc *  fBottomRightTaxel;
-  MtcTaxelDesc *  fTopLeftTaxel;
-  MtcTaxelDesc *  fTopRightTaxel;
+    MtcTaxelDesc * fBottomLeftTaxel;
+    MtcTaxelDesc * fBottomRightTaxel;
+    MtcTaxelDesc * fTopLeftTaxel;
+    MtcTaxelDesc * fTopRightTaxel;
  #endif /* MTC_USE_CORNERS */
-  short           fTaxelNumber;
-  short           fXIndex;
-  short           fYIndex;
-  short           fCookedData;
-  short           fRawMax;
-  short           fRawMin;
-  short           fRawData;
-}; /* MtcTaxelDesc */
-
-typedef MtcTaxelDesc * MtcTaxelPtr;
-
-typedef MtcTaxelPtr * MtcTaxelHdl;
+    short          fTaxelNumber;
+    short          fXIndex;
+    short          fYIndex;
+    short          fCookedData;
+    short          fRawMax;
+    short          fRawMin;
+    short          fRawData;
+}; // MtcTaxelDesc
 
 struct MtcSpot
 {
-  Atom fXCoord;
-  Atom fYCoord;
-  Atom fPressure;
-}; /* MtcSpot */
+    t_atom fXCoord;
+    t_atom fYCoord;
+    t_atom fPressure;
+}; // MtcSpot
 
-typedef MtcSpot * MtcSpotPtr;
-
-#define AtomsPerSpot (sizeof(MtcSpot) / sizeof(Atom))
+#define AtomsPerSpot (sizeof(MtcSpot) / sizeof(t_atom))
 
 enum MtcOrder
 {
-  MTC_BY_PRESSURE,
-  MTC_BY_X,
-  MTC_BY_Y,
-  MTC_UNORDERED
-}; /* MtcOrder */
+    kMtcOrderByPressure,
+    kMtcOrderByX,
+    kMtcOrderByY,
+    kMtcOrderUnordered
+}; // MtcOrder
 
-struct MtcControl
+struct MtcData
 {
-  Object          fObject;
-  PClock          fPollClock;
-  Pvoid           fProxy;
-  POutlet         fChunkSendOut;
-  POutlet         fCommandComplete;
-  POutlet         fDataSendOut;
-  POutlet         fErrorBangOut;
-  POutlet         fSampleBangOut;
-  POutlet         fDataStartStopOut;
-  POutlet         fDataOut;
-  PQelem          fPollQueue;
-  MtcTaxelHdl     fTaxelMapHandle;
-  MtcTaxelHdl     fTaxelMatrix;
-  MtcTaxelPtr     fSentinelTaxel;
-  MtcSpotPtr      fSpots;
-  PAtom           fRawRow;
-  Pchar           fMapFileName;
-  Pchar           fNormalFileName;
-  Puchar          fDataBuffer;
-  Pshort          fDataRecovery;
-  long            fInletNumber;
-  long            fLastSampleNumber;
-  long            fSampleNumber;
-  long            fSampleNumberBase;
-  float           fXMaxActual;
-  float           fXMinActual;
-  float           fYMaxActual;
-  float           fYMinActual;
-  float           fXMax;
-  float           fYMax;
-  float           fRateMax;
-  float           fRateCurrent;
-  MtcState        fState;
-  MtcResponseCode fResponse;
-  MtcOrder        fSortOrder;
-  char            fDescriptor[MAX_DESCRIPTOR_LENGTH + 1];
-  short           fDescriptorLength;
-  short           fPollRate;
-  short           fPoolAvailable;
-  short           fPoolSize;
-  short           fNextTaxel;
-  short           fNextByte;
-  short           fLastByte;
-  short           fNumBytes;
-  short           fNumPackets;
-  short           fNumTaxels;
-  short           fMaxCol;
-  short           fMaxRow;
-  short           fThreshold;
-  short           fNumSpots;
-  short           fExpectedPackets;
- #if defined(COMPILE_FOR_OSX_4)
-  short           fMapFilePath;
-  short						fNormalFilePath;
- #endif /* COMPILE_FOR_OSX_4 */
- #if defined(COMPILE_FOR_OS9_4)
-  short           fMapFileVolume;
- #endif /* COMPILE_FOR_OS9_4 */
-  bool            fChunkPulseSent;
-  bool            fNormalizing;
-  bool            fModeRaw;
-  bool            fDataCompressed;
-  bool            fIsPacketHeader;
-  bool            fStarted;
-  bool            fStopped;
-  bool						fStopping;
-  bool            fUseCompression;
+    t_object        fObject;
+    t_clock *       fPollClock;
+    void *          fProxy;
+    t_outlet *      fChunkSendOut;
+    t_outlet *      fCommandComplete;
+    t_outlet *      fDataSendOut;
+    t_outlet *      fErrorBangOut;
+    t_outlet *      fSampleBangOut;
+    t_outlet *      fDataStartStopOut;
+    t_outlet *      fDataOut;
+    t_qelem *       fPollQueue;
+    MtcTaxelDesc ** fTaxelMapHandle;
+    MtcTaxelDesc ** fTaxelMatrix;
+    MtcTaxelDesc *  fSentinelTaxel;
+    MtcSpot *       fSpots;
+    t_atom *        fRawRow;
+    char *          fMapFileName;
+    char *          fNormalFileName;
+    unsigned char * fDataBuffer;
+    short *         fDataRecovery;
+    long            fInletNumber;
+    long            fLastSampleNumber;
+    long            fSampleNumber;
+    long            fSampleNumberBase;
+    float           fXMaxActual;
+    float           fXMinActual;
+    float           fYMaxActual;
+    float           fYMinActual;
+    float           fXMax;
+    float           fYMax;
+    float           fRateMax;
+    float           fRateCurrent;
+    MtcState        fState;
+    MtcResponseCode fResponse;
+    MtcOrder        fSortOrder;
+    char            fDescriptor[MAX_DESCRIPTOR_LENGTH + 1];
+    short           fDescriptorLength;
+    short           fPollRate;
+    short           fPoolAvailable;
+    short           fPoolSize;
+    short           fNextTaxel;
+    short           fNextByte;
+    short           fLastByte;
+    short           fNumBytes;
+    short           fNumPackets;
+    short           fNumTaxels;
+    short           fMaxCol;
+    short           fMaxRow;
+    short           fThreshold;
+    short           fNumSpots;
+    short           fExpectedPackets;
+    short           fMapFilePath;
+    short           fNormalFilePath;
+    bool            fChunkPulseSent;
+    bool            fNormalizing;
+    bool            fModeRaw;
+    bool            fDataCompressed;
+    bool            fIsPacketHeader;
+    bool            fStarted;
+    bool            fStopped;
+    bool            fStopping;
+    bool            fUseCompression;
  #if defined(BE_VERBOSE)
-  bool            fVerbose;
+    bool            fVerbose;
  #endif /* BE_VERBOSE */
-}; /* MtcControl */
+}; /* MtcData */
 
-typedef MtcControl * MtcControlPtr;
+void cmd_Describe(MtcData * xx);
 
-Pvoid cmd_Describe
-  (MtcControlPtr xx);
+void cmd_Mode(MtcData *  xx,
+              t_symbol * rawOrCooked);
 
-Pvoid cmd_Mode
-  (MtcControlPtr xx,
-   PSymbol       rawOrCooked);
+void cmd_Order(MtcData *  xx,
+               t_symbol * newOrder);
 
-Pvoid cmd_Order
-  (MtcControlPtr xx,
-   PSymbol       newOrder);
+void cmd_Ping(MtcData * xx);
 
-Pvoid cmd_Ping
-  (MtcControlPtr xx);
+void cmd_Start(MtcData *  xx,
+               t_symbol * kind);
 
-Pvoid cmd_Start
-  (MtcControlPtr xx,
-   PSymbol       kind);
+void cmd_Stop(MtcData * xx);
 
-Pvoid cmd_Stop
-  (MtcControlPtr xx);
+void cmd_Threshold(MtcData * xx,
+                   long      number);
 
-Pvoid cmd_Threshold
-  (MtcControlPtr xx,
-   long          number);
+void cmd_Train(MtcData *  xx,
+               t_symbol * startStop);
 
-Pvoid cmd_Train
-  (MtcControlPtr xx,
-   PSymbol       startStop);
+void cmd_Verbose(MtcData *  xx,
+                 t_symbol * onOff);
 
-Pvoid cmd_Verbose
-  (MtcControlPtr xx,
-   PSymbol       onOff);
+void mtcPerformWriteCommand(MtcData *            xx,
+                            const MtcCommandCode commandCode,
+                            const unsigned char  numBytesToFollow,
+                            unsigned char *      bytesToFollow);
 
-void mtcPerformWriteCommand
-  (MtcControlPtr  			xx,
-   const MtcCommandCode	commandCode,
-   const uchar          numBytesToFollow,
-   Puchar         			bytesToFollow);
+void mtcDoStart(MtcData * xx);
 
-void mtcDoStart
-  (MtcControlPtr xx);
+void mtcDoStop(MtcData * xx);
 
-void mtcDoStop
-  (MtcControlPtr xx);
+void mtcMoveRawDataFromBuffer(MtcData * xx);
 
-void mtcMoveRawDataFromBuffer
-  (MtcControlPtr xx);
+void mtcProcessResponse(MtcData * xx,
+                        long      rr);
 
-Pvoid mtcProcessResponse
-  (MtcControlPtr xx,
-   long          rr);
+void mtcProcessTaxels(MtcData * xx);
 
-void mtcProcessTaxels
-  (MtcControlPtr xx);
+bool mtcReadMapFile(MtcData * xx);
 
-bool mtcReadMapFile
-  (MtcControlPtr xx);
+bool mtcReadNormalizationFile(MtcData * xx);
 
-bool mtcReadNormalizationFile
-  (MtcControlPtr xx);
+void mtcResetNormalization(MtcData * xx);
 
-void mtcResetNormalization
-  (MtcControlPtr xx);
+bool mtcSetKind(MtcData *  xx,
+                t_symbol * kind);
 
-bool mtcSetKind
-  (MtcControlPtr xx,
-   PSymbol       kind);
+bool mtcSetMode(MtcData *  xx,
+                t_symbol * rawOrCooked);
 
-bool mtcSetMode
-  (MtcControlPtr xx,
-   PSymbol       rawOrCooked);
+bool mtcSetOrder(MtcData *  xx,
+                 t_symbol * order);
 
-bool mtcSetOrder
-  (MtcControlPtr xx,
-   PSymbol       order);
+void mtcSetupIndices(MtcData * xx);
 
-void mtcSetupIndices
-  (MtcControlPtr xx);
+void mtcSortTaxels(MtcData *   xx,
+                   const short numSpots);
 
-void mtcSortTaxels
-  (MtcControlPtr	xx,
-   const short		numSpots);
+bool mtcWriteNormalizationFile(MtcData * xx);
 
-bool mtcWriteNormalizationFile
-  (MtcControlPtr xx);
+StandardRoutineDeclarations(MtcData *);
 
-StandardRoutineDeclarations(MtcControlPtr)
-
-mextern(PSymbol) gCompressedSymbol; /* Pointer to unique symbol for 'compressed' */
-mextern(PSymbol) gCookedSymbol;     /* Pointer to unique symbol for 'cooked' */
-mextern(PSymbol) gEmptySymbol;      /* Pointer to unique symbol for '' */
-mextern(PSymbol) gNormalSymbol;     /* Pointer to unique symbol for 'normal' */
-mextern(PSymbol) gOffSymbol;        /* Pointer to unique symbol for 'off' */
-mextern(PSymbol) gOnSymbol;         /* Pointer to unique symbol for 'on' */
-mextern(PSymbol) gPSymbol;          /* Pointer to unique symbol for 'p' */
-mextern(PSymbol) gRawSymbol;        /* Pointer to unique symbol for 'raw' */
-mextern(PSymbol) gStartSymbol;      /* Pointer to unique symbol for 'start' */
-mextern(PSymbol) gStopSymbol;       /* Pointer to unique symbol for 'stop' */
-mextern(PSymbol) gXSymbol;          /* Pointer to unique symbol for 'x' */
-mextern(PSymbol) gYSymbol;          /* Pointer to unique symbol for 'y' */
+mextern(t_symbol *) gCompressedSymbol; /* Pointer to unique symbol for 'compressed' */
+mextern(t_symbol *) gCookedSymbol;     /* Pointer to unique symbol for 'cooked' */
+mextern(t_symbol *) gEmptySymbol;      /* Pointer to unique symbol for '' */
+mextern(t_symbol *) gNormalSymbol;     /* Pointer to unique symbol for 'normal' */
+mextern(t_symbol *) gOffSymbol;        /* Pointer to unique symbol for 'off' */
+mextern(t_symbol *) gOnSymbol;         /* Pointer to unique symbol for 'on' */
+mextern(t_symbol *) gPSymbol;          /* Pointer to unique symbol for 'p' */
+mextern(t_symbol *) gRawSymbol;        /* Pointer to unique symbol for 'raw' */
+mextern(t_symbol *) gStartSymbol;      /* Pointer to unique symbol for 'start' */
+mextern(t_symbol *) gStopSymbol;       /* Pointer to unique symbol for 'stop' */
+mextern(t_symbol *) gXSymbol;          /* Pointer to unique symbol for 'x' */
+mextern(t_symbol *) gYSymbol;          /* Pointer to unique symbol for 'y' */
 
 #endif /* not MTC_H_ */

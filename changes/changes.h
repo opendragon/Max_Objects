@@ -38,30 +38,26 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(CHANGES_H_))
- #define CHANGES_H_  /* */
- 
- /*#define USE_SYSLOG /* */
+# define CHANGES_H_  /* */
 
- #include "MissingAndExtra.h"
- #include "genericListOutput.h"
+# include "missingAndExtra.h"
+# include "genericListOutput.h"
 
- #define OUR_NAME      "changes"
- #define OUR_RES_NUMB  17123
- #define OUTPUT_PREFIX "changes: "
- 
- #define NUM_INDICES 5   /* Note that we can't pass more than 7 arguments */
+# define OUR_NAME      "changes"
+// #define OUR_RES_NUMB  17123
+# define OUTPUT_PREFIX "changes: "
+
+# define NUM_INDICES 5   /* Note that we can't pass more than 7 arguments */
 
 struct ChangesData
 {
-  Object  fObject;
-  POutlet fResultOut;
-  Atom    fPreviousValue[NUM_INDICES];
-  short   fWhichIndex[NUM_INDICES];
-  short   fLastIndex;
-}; /* ChangesData */
+    t_object   fObject;
+    t_outlet * fResultOut;
+    t_atom     fPreviousValue[NUM_INDICES];
+    short      fWhichIndex[NUM_INDICES];
+    short      fLastIndex;
+}; // ChangesData
 
-typedef ChangesData * ChangesPtr;
-
-StandardRoutineDeclarations(ChangesPtr)
+StandardRoutineDeclarations(ChangesData *);
 
 #endif /* not CHANGES_H_ */

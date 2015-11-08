@@ -1,0 +1,249 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		F6AC9704180313A100C79326 /* AllObjects */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F6AC9705180313A100C79326 /* Build configuration list for PBXAggregateTarget "AllObjects" */;
+			buildPhases = (
+			);
+			dependencies = (
+				F6CC831F180362E10078F37B /* PBXTargetDependency */,
+				F6CC8321180362E80078F37B /* PBXTargetDependency */,
+				F6CC8323180362EF0078F37B /* PBXTargetDependency */,
+				F6CC8325180362F50078F37B /* PBXTargetDependency */,
+				F6CC8327180362FA0078F37B /* PBXTargetDependency */,
+			);
+			name = AllObjects;
+			productName = AllObjects;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		F6CC831E180362E10078F37B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6CC82E918035D1E0078F37B /* Device Interface.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F6CC82E518035CAF0078F37B;
+			remoteInfo = Device;
+		};
+		F6CC8320180362E80078F37B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6CC82ED18035D380078F37B /* Miscellaneous.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F6AC96F91803123300C79326;
+			remoteInfo = MiscellaneousObjects;
+		};
+		F6CC8322180362EF0078F37B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6CC82F818035DE80078F37B /* Programming Aids.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F6CC82FB18035DFC0078F37B;
+			remoteInfo = Programming;
+		};
+		F6CC8324180362F50078F37B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6CC83151803601E0078F37B /* TCP and UDP.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F6CC83191803602D0078F37B;
+			remoteInfo = TCP;
+		};
+		F6CC8326180362FA0078F37B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6CC830618035EAF0078F37B /* Vector Manipulation.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F6CC830A18035ED90078F37B;
+			remoteInfo = Vector;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F6CC82E918035D1E0078F37B /* Device Interface.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Device Interface.xcodeproj"; path = "../Device Interface/Device Interface.xcodeproj"; sourceTree = "<group>"; };
+		F6CC82ED18035D380078F37B /* Miscellaneous.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Miscellaneous.xcodeproj; path = ../Miscellaneous/Miscellaneous.xcodeproj; sourceTree = "<group>"; };
+		F6CC82F818035DE80078F37B /* Programming Aids.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Programming Aids.xcodeproj"; path = "../Programming Aids/Programming Aids.xcodeproj"; sourceTree = "<group>"; };
+		F6CC830618035EAF0078F37B /* Vector Manipulation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Vector Manipulation.xcodeproj"; path = "../Vector Manipulation/Vector Manipulation.xcodeproj"; sourceTree = "<group>"; };
+		F6CC83151803601E0078F37B /* TCP and UDP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TCP and UDP.xcodeproj"; path = "../TCP and UDP/TCP and UDP.xcodeproj"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		F6AC96FD1803138D00C79326 = {
+			isa = PBXGroup;
+			children = (
+				F6CC82E918035D1E0078F37B /* Device Interface.xcodeproj */,
+				F6CC82ED18035D380078F37B /* Miscellaneous.xcodeproj */,
+				F6CC82F818035DE80078F37B /* Programming Aids.xcodeproj */,
+				F6CC83151803601E0078F37B /* TCP and UDP.xcodeproj */,
+				F6CC830618035EAF0078F37B /* Vector Manipulation.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+		F6CC82EA18035D1E0078F37B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F6CC82EE18035D380078F37B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F6CC82F918035DE80078F37B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F6CC830718035EAF0078F37B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F6CC83161803601E0078F37B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		F6AC96FE1803138D00C79326 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+			};
+			buildConfigurationList = F6AC97011803138D00C79326 /* Build configuration list for PBXProject "All" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F6AC96FD1803138D00C79326;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F6CC82EA18035D1E0078F37B /* Products */;
+					ProjectRef = F6CC82E918035D1E0078F37B /* Device Interface.xcodeproj */;
+				},
+				{
+					ProductGroup = F6CC82EE18035D380078F37B /* Products */;
+					ProjectRef = F6CC82ED18035D380078F37B /* Miscellaneous.xcodeproj */;
+				},
+				{
+					ProductGroup = F6CC82F918035DE80078F37B /* Products */;
+					ProjectRef = F6CC82F818035DE80078F37B /* Programming Aids.xcodeproj */;
+				},
+				{
+					ProductGroup = F6CC83161803601E0078F37B /* Products */;
+					ProjectRef = F6CC83151803601E0078F37B /* TCP and UDP.xcodeproj */;
+				},
+				{
+					ProductGroup = F6CC830718035EAF0078F37B /* Products */;
+					ProjectRef = F6CC830618035EAF0078F37B /* Vector Manipulation.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				F6AC9704180313A100C79326 /* AllObjects */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXTargetDependency section */
+		F6CC831F180362E10078F37B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Device;
+			targetProxy = F6CC831E180362E10078F37B /* PBXContainerItemProxy */;
+		};
+		F6CC8321180362E80078F37B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MiscellaneousObjects;
+			targetProxy = F6CC8320180362E80078F37B /* PBXContainerItemProxy */;
+		};
+		F6CC8323180362EF0078F37B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Programming;
+			targetProxy = F6CC8322180362EF0078F37B /* PBXContainerItemProxy */;
+		};
+		F6CC8325180362F50078F37B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TCP;
+			targetProxy = F6CC8324180362F50078F37B /* PBXContainerItemProxy */;
+		};
+		F6CC8327180362FA0078F37B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Vector;
+			targetProxy = F6CC8326180362FA0078F37B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F6AC97021803138D00C79326 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Development;
+		};
+		F6AC97031803138D00C79326 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Deployment;
+		};
+		F6AC9706180313A100C79326 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = i386;
+			};
+			name = Development;
+		};
+		F6AC9707180313A100C79326 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = i386;
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F6AC97011803138D00C79326 /* Build configuration list for PBXProject "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6AC97021803138D00C79326 /* Development */,
+				F6AC97031803138D00C79326 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		F6AC9705180313A100C79326 /* Build configuration list for PBXAggregateTarget "AllObjects" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6AC9706180313A100C79326 /* Development */,
+				F6AC9707180313A100C79326 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F6AC96FE1803138D00C79326 /* Project object */;
+}

@@ -38,26 +38,22 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(GCD_H_))
- #define GCD_H_  /* */
- 
- /*#define USE_SYSLOG /* */
+# define GCD_H_  /* */
 
- #include "MissingAndExtra.h"
+# include "missingAndExtra.h"
 
- #define OUR_NAME      "gcd"
- #define OUR_RES_NUMB  17130
- #define OUTPUT_PREFIX "gcd: "
+# define OUR_NAME      "gcd"
+// # define OUR_RES_NUMB  17130
+# define OUTPUT_PREFIX "gcd: "
 
 struct GcdData
 {
-  Object  fObject;
-  POutlet fResultOut;
-  long    fRightInput;
-  long    fPreviousResult;
-}; /* GcdData */
+    t_object   fObject;
+    t_outlet * fResultOut;
+    long       fRightInput;
+    long       fPreviousResult;
+}; // GcdData
 
-typedef GcdData * GcdPtr;
-
-StandardRoutineDeclarations(GcdPtr)
+StandardRoutineDeclarations(GcdData *);
 
 #endif /* not GCD_H_ */

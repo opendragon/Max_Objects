@@ -44,141 +44,141 @@
  #include <MixedMode.h>
  #include "StandardPluginTypes.h"
 
- #if defined(COMPILE_FOR_OSX_4)
-typedef OSErr (* FpDoAnything)
-  (OwnerPtr 		owner,
-   HOutlet  		outlets,
-   Ptr      		sharedStorage,
-   Ptr      		privateStorage,
-   const long   inletNumber,
-   PSymbol  		message,
-   const short  argc,
-   PAtom    		argv);
+ #if COMPILE_FOR_OSX_4
+typedef OSErr (*FpDoAnything)
+    (OwnerPtr   owner,
+    HOutlet     outlets,
+    Ptr         sharedStorage,
+    Ptr         privateStorage,
+    const long  inletNumber,
+    PSymbol     message,
+    const short argc,
+    PAtom       argv);
 
-typedef OSErr (* FpDoBang)
-  (OwnerPtr 	owner,
-   HOutlet  	outlets,
-   Ptr      	sharedStorage,
-   Ptr      	privateStorage,
-   const long	inletNumber);
+typedef OSErr (*FpDoBang)
+    (OwnerPtr  owner,
+    HOutlet    outlets,
+    Ptr        sharedStorage,
+    Ptr        privateStorage,
+    const long inletNumber);
 
-typedef OSErr (* FpDoDouble)
-  (OwnerPtr 		owner,
-   HOutlet  		outlets,
-   Ptr      		sharedStorage,
-   Ptr      		privateStorage,
-   const long   inletNumber,
-   const double	value);
+typedef OSErr (*FpDoDouble)
+    (OwnerPtr    owner,
+    HOutlet      outlets,
+    Ptr          sharedStorage,
+    Ptr          privateStorage,
+    const long   inletNumber,
+    const double value);
 
-typedef OSErr (* FpDoList)
-  (OwnerPtr 		owner,
-   HOutlet  		outlets,
-   Ptr      		sharedStorage,
-   Ptr      		privateStorage,
-   const long		inletNumber,
-   const short	argc,
-   PAtom    		argv);
+typedef OSErr (*FpDoList)
+    (OwnerPtr   owner,
+    HOutlet     outlets,
+    Ptr         sharedStorage,
+    Ptr         privateStorage,
+    const long  inletNumber,
+    const short argc,
+    PAtom       argv);
 
-typedef OSErr (* FpDoLong)
-  (OwnerPtr 	owner,
-   HOutlet  	outlets,
-   Ptr      	sharedStorage,
-   Ptr      	privateStorage,
-   const long	inletNumber,
-   const long	value);
-  
-typedef OSErr (* FpMain)
-  (CFragConnectionID  connID,
-   OwnerPtr           owner,
-   Handle             sharedStorage);
+typedef OSErr (*FpDoLong)
+    (OwnerPtr  owner,
+    HOutlet    outlets,
+    Ptr        sharedStorage,
+    Ptr        privateStorage,
+    const long inletNumber,
+    const long value);
 
-typedef OSErr (* FpNiam)
-  (OwnerPtr owner,
-   Ptr      sharedStorage);
-   
-typedef OSErr (* FpOnCreate)
-  (OwnerPtr 		owner,
-   Pchar    		theName,
-   Ptr      		sharedStorage,
-   Handle   		privateStorage,
-   const short	argc,
-   PAtom    		argv,
-   Pshort   		numInlets,
-   Pshort   		numOutlets);
-   
-typedef OSErr (* FpOnDestroy)
-  (OwnerPtr owner,
-   Ptr      sharedStorage,
-   Ptr      privateStorage);
- 
-typedef OSErr (* FpOnReload)
-  (CFragConnectionID  connID,
-   OwnerPtr           owner,
-   Ptr                sharedStorage);
+typedef OSErr (*FpMain)
+    (CFragConnectionID connID,
+    OwnerPtr           owner,
+    Handle             sharedStorage);
+
+typedef OSErr (*FpNiam)
+    (OwnerPtr owner,
+    Ptr       sharedStorage);
+
+typedef OSErr (*FpOnCreate)
+    (OwnerPtr   owner,
+    Pchar       theName,
+    Ptr         sharedStorage,
+    Handle      privateStorage,
+    const short argc,
+    PAtom       argv,
+    Pshort      numInlets,
+    Pshort      numOutlets);
+
+typedef OSErr (*FpOnDestroy)
+    (OwnerPtr owner,
+    Ptr       sharedStorage,
+    Ptr       privateStorage);
+
+typedef OSErr (*FpOnReload)
+    (CFragConnectionID connID,
+    OwnerPtr           owner,
+    Ptr                sharedStorage);
  #endif /* COMPILE_FOR_OSX_4 */
- #if defined(COMPILE_FOR_OS9_4)
+ #if COMPILE_FOR_OS9_4
   #define PLUGIN_PROCINFO_PREFIX \
-STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(OwnerPtr))) | \
-STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(HOutlet))) | \
-STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(Ptr))) | \
-STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(Ptr))) | \
-STACK_ROUTINE_PARAMETER(5, SIZE_CODE(sizeof(long)))
+    STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(OwnerPtr))) | \
+    STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(HOutlet))) | \
+    STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(Ptr))) | \
+    STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(Ptr))) | \
+    STACK_ROUTINE_PARAMETER(5, SIZE_CODE(sizeof(long)))
 
   #define FIRST_PLUGIN_ARG 6
 
 enum
 {
-  uppDoAnythingProcInfo = (kCStackBased |
+    uppDoAnythingProcInfo = (kCStackBased |
+                             RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
+                             PLUGIN_PROCINFO_PREFIX |
+                             STACK_ROUTINE_PARAMETER(FIRST_PLUGIN_ARG, SIZE_CODE(sizeof(PSymbol))) |
+                             STACK_ROUTINE_PARAMETER((FIRST_PLUGIN_ARG + 1), SIZE_CODE(sizeof(short))) |
+                             STACK_ROUTINE_PARAMETER((FIRST_PLUGIN_ARG + 2), SIZE_CODE(sizeof(PAtom)))),
+    uppDoBangProcInfo = (kCStackBased |
+                         RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
+                         PLUGIN_PROCINFO_PREFIX),
+    uppDoDoubleProcInfo = (kCStackBased |
+                           RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
+                           PLUGIN_PROCINFO_PREFIX |
+                           STACK_ROUTINE_PARAMETER(FIRST_PLUGIN_ARG, SIZE_CODE(sizeof(double)))),
+    uppDoListProcInfo = (kCStackBased |
+                         RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
+                         PLUGIN_PROCINFO_PREFIX |
+                         STACK_ROUTINE_PARAMETER(FIRST_PLUGIN_ARG, SIZE_CODE(sizeof(short))) |
+                         STACK_ROUTINE_PARAMETER((FIRST_PLUGIN_ARG + 1), SIZE_CODE(sizeof(PAtom)))),
+    uppDoLongProcInfo = (kCStackBased |
+                         RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
+                         PLUGIN_PROCINFO_PREFIX |
+                         STACK_ROUTINE_PARAMETER(FIRST_PLUGIN_ARG, SIZE_CODE(sizeof(long)))),
+    uppMainProcInfo = (kCStackBased |
+                       RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
+                       STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(CFragConnectionID))) |
+                       STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(OwnerPtr))) |
+                       STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(Handle)))),
+    uppNiamProcInfo = (kCStackBased |
+                       RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
+                       STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(OwnerPtr))) |
+                       STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(Ptr)))),
+    uppOnCreateProcInfo = (kCStackBased |
+                           RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
+                           STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(OwnerPtr))) |
+                           STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(Pchar))) |
+                           STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(Ptr))) |
+                           STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(Handle))) |
+                           STACK_ROUTINE_PARAMETER(5, SIZE_CODE(sizeof(short))) |
+                           STACK_ROUTINE_PARAMETER(6, SIZE_CODE(sizeof(PAtom))) |
+                           STACK_ROUTINE_PARAMETER(7, SIZE_CODE(sizeof(Pshort))) |
+                           STACK_ROUTINE_PARAMETER(8, SIZE_CODE(sizeof(Pshort)))),
+    uppOnDestroyProcInfo = (kCStackBased |
                             RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
-                            PLUGIN_PROCINFO_PREFIX |
-                            STACK_ROUTINE_PARAMETER(FIRST_PLUGIN_ARG, SIZE_CODE(sizeof(PSymbol))) |
-                            STACK_ROUTINE_PARAMETER((FIRST_PLUGIN_ARG + 1), SIZE_CODE(sizeof(short))) |
-                            STACK_ROUTINE_PARAMETER((FIRST_PLUGIN_ARG + 2), SIZE_CODE(sizeof(PAtom)))),
-  uppDoBangProcInfo = (kCStackBased |
-                      RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
-                      PLUGIN_PROCINFO_PREFIX),
-  uppDoDoubleProcInfo = (kCStackBased |
-                        RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
-                        PLUGIN_PROCINFO_PREFIX |
-                        STACK_ROUTINE_PARAMETER(FIRST_PLUGIN_ARG, SIZE_CODE(sizeof(double)))),
-  uppDoListProcInfo = (kCStackBased |
-                      RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
-                      PLUGIN_PROCINFO_PREFIX |
-                      STACK_ROUTINE_PARAMETER(FIRST_PLUGIN_ARG, SIZE_CODE(sizeof(short))) |
-                      STACK_ROUTINE_PARAMETER((FIRST_PLUGIN_ARG + 1), SIZE_CODE(sizeof(PAtom)))),
-  uppDoLongProcInfo = (kCStackBased |
-                      RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
-                      PLUGIN_PROCINFO_PREFIX |
-                      STACK_ROUTINE_PARAMETER(FIRST_PLUGIN_ARG, SIZE_CODE(sizeof(long)))),
-  uppMainProcInfo = (kCStackBased | 
-                    RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
-                    STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(CFragConnectionID))) |
-                    STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(OwnerPtr))) |
-                    STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(Handle)))),
-  uppNiamProcInfo = (kCStackBased |
-                    RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
-                    STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(OwnerPtr))) |
-                    STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(Ptr)))),
-  uppOnCreateProcInfo = (kCStackBased |
-                        RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
-                        STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(OwnerPtr))) |
-                        STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(Pchar))) |
-                        STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(Ptr))) |
-                        STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(Handle))) |
-                        STACK_ROUTINE_PARAMETER(5, SIZE_CODE(sizeof(short))) |
-                        STACK_ROUTINE_PARAMETER(6, SIZE_CODE(sizeof(PAtom))) |
-                        STACK_ROUTINE_PARAMETER(7, SIZE_CODE(sizeof(Pshort))) |
-                        STACK_ROUTINE_PARAMETER(8, SIZE_CODE(sizeof(Pshort)))),
-  uppOnDestroyProcInfo = (kCStackBased |
-                        RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
-                        STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(OwnerPtr))) |
-                        STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(Ptr))) |
-                        STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(Ptr)))),
-  uppOnReloadProcInfo = (kCStackBased | 
-                        RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
-                        STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(CFragConnectionID))) |
-                        STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(OwnerPtr))) |
-                        STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(Ptr))))
+                            STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(OwnerPtr))) |
+                            STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(Ptr))) |
+                            STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(Ptr)))),
+    uppOnReloadProcInfo = (kCStackBased |
+                           RESULT_SIZE(SIZE_CODE(sizeof(OSErr))) |
+                           STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(CFragConnectionID))) |
+                           STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(OwnerPtr))) |
+                           STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(Ptr))))
 };
  #endif /* COMPILE_FOR_OS9_4 */
 

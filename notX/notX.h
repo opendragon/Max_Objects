@@ -38,31 +38,26 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(NOTX_H_))
- #define NOTX_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define NOTX_H_ /* */
 
- #include "MissingAndExtra.h"
- #include "genericListOutput.h"
+# include "missingAndExtra.h"
+# include "genericListOutput.h"
 
- #define OUR_NAME      "notX"
- #define OUR_RES_NUMB  17126
- #define OUTPUT_PREFIX "notX: "
+# define OUR_NAME      "notX"
+// # define OUR_RES_NUMB  17126
+# define OUTPUT_PREFIX "notX: "
 
 struct NotXData
 {
-  Object  fObject;
-  POutlet fResultOut;
-  long    fPreviousResult;
-  short   fPreviousLength;
-  PAtom   fPreviousList;
-}; /* NotXData */
+    t_object   fObject;
+    t_outlet * fResultOut;
+    long       fPreviousResult;
+    short      fPreviousLength;
+    t_atom *   fPreviousList;
+}; // NotXData
 
-typedef NotXData * NotXPtr;
+void clearPrevious(NotXData * xx);
 
-void clearPrevious
-  (NotXPtr xx);
-
-StandardRoutineDeclarations(NotXPtr)
+StandardRoutineDeclarations(NotXData *);
 
 #endif /* not NOTX_H_ */

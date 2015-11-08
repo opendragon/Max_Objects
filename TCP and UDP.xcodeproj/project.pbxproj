@@ -1,0 +1,107 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		F6CC83191803602D0078F37B /* TCP */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F6CC831A1803602D0078F37B /* Build configuration list for PBXAggregateTarget "TCP" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = TCP;
+			productName = TCP;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXGroup section */
+		F6CC830E1803601E0078F37B = {
+			isa = PBXGroup;
+			children = (
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		F6CC830F1803601E0078F37B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+			};
+			buildConfigurationList = F6CC83121803601E0078F37B /* Build configuration list for PBXProject "TCP and UDP" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F6CC830E1803601E0078F37B;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F6CC83191803602D0078F37B /* TCP */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		F6CC83131803601E0078F37B /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Development;
+		};
+		F6CC83141803601E0078F37B /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Deployment;
+		};
+		F6CC831B1803602D0078F37B /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = i386;
+			};
+			name = Development;
+		};
+		F6CC831C1803602D0078F37B /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = i386;
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F6CC83121803601E0078F37B /* Build configuration list for PBXProject "TCP and UDP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6CC83131803601E0078F37B /* Development */,
+				F6CC83141803601E0078F37B /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		F6CC831A1803602D0078F37B /* Build configuration list for PBXAggregateTarget "TCP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6CC831B1803602D0078F37B /* Development */,
+				F6CC831C1803602D0078F37B /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F6CC830F1803601E0078F37B /* Project object */;
+}

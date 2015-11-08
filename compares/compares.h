@@ -38,29 +38,25 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(COMPARES_H_))
- #define COMPARES_H_ /* */
+# define COMPARES_H_ /* */
 
-/*#define USE_SYSLOG /* */
+# include "missingAndExtra.h"
 
- #include "MissingAndExtra.h"
-
- #define OUR_NAME      "compares"
- #define OUR_RES_NUMB  17134
- #define OUTPUT_PREFIX "compares: "
+# define OUR_NAME      "compares"
+// # define OUR_RES_NUMB  17134
+# define OUTPUT_PREFIX "compares: "
 
 struct ComparesData
 {
-  Object  fObject;
-  Pvoid   fProxy;
-  POutlet fResultOut;
-  long    fInletNumber;
-  PSymbol fRightInput;
-}; /* ComparesData */
+    t_object   fObject;
+    void *     fProxy;
+    t_outlet * fResultOut;
+    long       fInletNumber;
+    t_symbol * fRightInput;
+}; // ComparesData
 
-typedef ComparesData * ComparesPtr;
+StandardRoutineDeclarations(ComparesData *);
 
-StandardRoutineDeclarations(ComparesPtr)
-
-mextern(PSymbol) gEmptySymbol; /* Pointer to unique Symbol for '' */
+mextern(t_symbol *) gEmptySymbol; /* Pointer to unique symbol for '' */
 
 #endif /* not COMPARES_H_ */

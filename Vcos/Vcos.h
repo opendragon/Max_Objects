@@ -38,14 +38,12 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(VCOS_H_))
- #define VCOS_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define VCOS_H_ /* */
 
- #include "VObjectCommon.h"
+# include "VabsObjectCommon.h"
 
- #define OUR_NAME      "Vcos"
- #define OUR_RES_NUMB  17176
- #define OUTPUT_PREFIX "Vcos: "
- 
+# define OUR_NAME      "Vcos"
+// # define OUR_RES_NUMB  17176
+# define OUTPUT_PREFIX "Vcos: "
+
 #endif /* not VCOS_H_ */

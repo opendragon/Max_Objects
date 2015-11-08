@@ -1,0 +1,108 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		F6CC82E518035CAF0078F37B /* Device */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F6CC82E618035CAF0078F37B /* Build configuration list for PBXAggregateTarget "Device" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = Device;
+			productName = Device;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXGroup section */
+		F6CC82DE18035CA00078F37B = {
+			isa = PBXGroup;
+			children = (
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		F6CC82DF18035CA00078F37B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+			};
+			buildConfigurationList = F6CC82E218035CA00078F37B /* Build configuration list for PBXProject "Device Interface" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F6CC82DE18035CA00078F37B;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F6CC82E518035CAF0078F37B /* Device */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		F6CC82E318035CA00078F37B /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Development;
+		};
+		F6CC82E418035CA00078F37B /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Deployment;
+		};
+		F6CC82E718035CAF0078F37B /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = i386;
+			};
+			name = Development;
+		};
+		F6CC82E818035CAF0078F37B /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = i386;
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F6CC82E218035CA00078F37B /* Build configuration list for PBXProject "Device Interface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6CC82E318035CA00078F37B /* Development */,
+				F6CC82E418035CA00078F37B /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		F6CC82E618035CAF0078F37B /* Build configuration list for PBXAggregateTarget "Device" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6CC82E718035CAF0078F37B /* Development */,
+				F6CC82E818035CAF0078F37B /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F6CC82DF18035CA00078F37B /* Project object */;
+}

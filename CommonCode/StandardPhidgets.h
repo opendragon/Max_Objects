@@ -49,55 +49,55 @@ extern "C"
 {
  #endif /* __cplusplus */
 
- #if defined(COMPILE_FOR_OSX_4)
+ #if COMPILE_FOR_OSX_4
 E_PhidgResult defineCallback
-	(STANDARD_PHID_ARGS_DEFINECALLBACK);
+    (STANDARD_PHID_ARGS_DEFINECALLBACK);
  #endif /* COMPILE_FOR_OSX_4 */
- 
+
 E_PhidgResult doCustom
-  (STANDARD_PHID_ARGS_DO);
+    (STANDARD_PHID_ARGS_DO);
 
 E_PhidgResult doGet
-  (STANDARD_PHID_ARGS_DO);
+    (STANDARD_PHID_ARGS_DO);
 
 E_PhidgResult doPut
-  (STANDARD_PHID_ARGS_DO);
+    (STANDARD_PHID_ARGS_DO);
 
 OSErr identify
-	(STANDARD_PHID_ARGS_IDENTIFY);
-	
+    (STANDARD_PHID_ARGS_IDENTIFY);
+
 OSErr main
-  (STANDARD_PHID_ARGS_MAIN);
+    (STANDARD_PHID_ARGS_MAIN);
 
 OSErr niam
-  (STANDARD_PHID_ARGS_NIAM);
+    (STANDARD_PHID_ARGS_NIAM);
 
 E_PhidgResult onAttach
-  (STANDARD_PHID_ARGS_ATTACH);
+    (STANDARD_PHID_ARGS_ATTACH);
 
 E_PhidgResult onDetach
-  (STANDARD_PHID_ARGS_ATTACH);
+    (STANDARD_PHID_ARGS_ATTACH);
 
- #if defined(COMPILE_FOR_OS9_4)
- void reportHandler
-	(STANDARD_PHID_ARGS_REPORTHANDLER);
+ #if COMPILE_FOR_OS9_4
+void reportHandler
+    (STANDARD_PHID_ARGS_REPORTHANDLER);
  #endif /* COMPILE_FOR_OS9_4 */
- 
- #if defined(COMPILE_FOR_OSX_4)
+
+ #if COMPILE_FOR_OSX_4
   #pragma export list defineCallback
  #endif /* COMPILE_FOR_OSX_4 */
- #if defined(COMPILE_FOR_OS9_4)
+ #if COMPILE_FOR_OS9_4
   #pragma export list reportHandler
  #endif /* COMPILE_FOR_OS9_4 */
- 
+
  #pragma export list doCustom,doGet,doPut,identify,main,niam,onAttach,onDetach
 
- #if defined(COMPILE_FOR_OSX_4)
-  #define STANDARD_MAIN_CODE	\
-gSyslogFunction = environment->fSyslogFunction
+ #if COMPILE_FOR_OSX_4
+  #define STANDARD_MAIN_CODE    \
+    gSyslogFunction = environment->fSyslogFunction
  #endif /* COMPILE_FOR_OSX_4 */
- #if defined(COMPILE_FOR_OS9_4)
-  #define STANDARD_MAIN_CODE	/* */
+ #if COMPILE_FOR_OS9_4
+  #define STANDARD_MAIN_CODE    /* */
  #endif /* COMPILE_FOR_OS9_4 */
 
  #if defined(__cplusplus)

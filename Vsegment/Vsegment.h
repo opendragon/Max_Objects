@@ -38,32 +38,27 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(VSEGMENT_H_))
- #define VSEGMENT_H_  /* */
- 
- /*#define USE_SYSLOG /* */
+# define VSEGMENT_H_  /* */
 
- #include "MissingAndExtra.h"
- #include "genericListOutput.h"
+# include "missingAndExtra.h"
+# include "genericListOutput.h"
 
- #define OUR_NAME      "Vsegment"
- #define OUR_RES_NUMB  17141
- #define OUTPUT_PREFIX "Vsegment: "
- 
+# define OUR_NAME      "Vsegment"
+// # define OUR_RES_NUMB  17141
+# define OUTPUT_PREFIX "Vsegment: "
+
 struct VsegmentData
 {
-  Object  fObject;
-  POutlet fResultOut;
-  short   fPreviousLength;
-  PAtom   fPreviousList;
-  short   fHowMany;
-  short   fStart;
+    t_object   fObject;
+    t_outlet * fResultOut;
+    short      fPreviousLength;
+    t_atom *   fPreviousList;
+    short      fHowMany;
+    short      fStart;
 }; /* VsegmentData */
 
-typedef VsegmentData * VsegmentPtr;
+void clearPrevious(VsegmentData * xx);
 
-void clearPrevious
-  (VsegmentPtr xx);
-
-StandardRoutineDeclarations(VsegmentPtr)
+StandardRoutineDeclarations(VsegmentData *);
 
 #endif /* not VSEGMENT_H_ */

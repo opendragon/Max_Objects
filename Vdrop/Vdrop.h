@@ -38,14 +38,12 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(VDROP_H_))
- #define VDROP_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define VDROP_H_ /* */
 
- #include "VObjectCommon.h"
+# include "VdropObjectCommon.h"
 
- #define OUR_NAME      "Vdrop"
- #define OUR_RES_NUMB  17140
- #define OUTPUT_PREFIX "Vdrop: "
- 
+# define OUR_NAME      "Vdrop"
+// # define OUR_RES_NUMB  17140
+# define OUTPUT_PREFIX "Vdrop: "
+
 #endif /* not VDROP_H_ */

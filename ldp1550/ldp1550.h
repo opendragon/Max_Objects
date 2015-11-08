@@ -38,282 +38,246 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(LDP1550_H_))
- #define LDP1550_H_  /* */
- 
- /*#define USE_SYSLOG /* */
+# define LDP1550_H_  /* */
 
- #include "MissingAndExtra.h"
+# include "missingAndExtra.h"
 
- #define INFO_SAMPLE_RATE   10      /* default poll rate multiplier */
- #define MAX_CHAPTER_NUMBER 79
- #define MAX_COMMAND_LENGTH 30
- #define MAX_FRAME_NUMBER   54000
- #define MAX_POLL_RATE      1000
- #define MAX_POOL_SIZE      200
- #define MAX_REPETITIONS    15
- #define MAX_STEP_FACTOR    255
- #define OUR_NAME           "ldp1550"
- #define OUR_RES_NUMB       17120
- #define OUTPUT_PREFIX      "ldp1550: "
- #define POOL_SIZE          30  /* default message pool size */
- #define SER_SAMPLE_RATE    100 /* default sampling rate for the serial port */
+# define INFO_SAMPLE_RATE   10      /* default poll rate multiplier */
+# define MAX_CHAPTER_NUMBER 79
+# define MAX_COMMAND_LENGTH 30
+# define MAX_FRAME_NUMBER   54000
+# define MAX_POLL_RATE      1000
+# define MAX_POOL_SIZE      200
+# define MAX_REPETITIONS    15
+# define MAX_STEP_FACTOR    255
+# define OUR_NAME           "ldp1550"
+// # define OUR_RES_NUMB       17120
+# define OUTPUT_PREFIX      "ldp1550: "
+# define POOL_SIZE          30  /* default message pool size */
+# define SER_SAMPLE_RATE    100 /* default sampling rate for the serial port */
 
 enum LdpMode
 {
-  LDP_FRAME_MODE,
-  LDP_CHAPTER_MODE,
-  LDP_SEGMENT_MODE
-}; /* LdpMode */
+    kLdpModeFrame,
+    kLdpModeChapter,
+    kLdpModeSegment
+}; // LdpMode
 
 enum LdpReturnCode
 {
-  LDP_COMPLETE   = 0x01,
-  LDP_ERROR      = 0x02,
-  LDP_LID_OPEN   = 0x03,
-  LDP_PGM_END    = 0x04,
-  LDP_NOT_TARGET = 0x05,
-  LDP_NO_FRAME   = 0x06,
-  LDP_ACK        = 0x0A,
-  LDP_NACK       = 0x0B
-}; /* LdpReturnCode */
+    kLdpReturnComplete   = 0x01,
+    kLdpReturnError      = 0x02,
+    kLdpReturnLidOpen    = 0x03,
+    kLdpReturnProgramEnd = 0x04,
+    kLdpReturnNotTarget  = 0x05,
+    kLdpReturnNoFrame    = 0x06,
+    kLdpReturnAck        = 0x0A,
+    kLdpReturnNack       = 0x0B
+}; // LdpReturnCode
 
 enum LdpCommandCode
 {
-  LDP_no_command       = 0x00,
-  LDP_can_interrupt    = 0x01,
-  LDP_signal_accepted  = 0x02,
-  LDP_signal_done      = 0x03,
-  LDP_PICTURE_OFF      = 0x26,
-  LDP_PICTURE_ON       = 0x27,
-  LDP_PSC_ENABLE       = 0x28,
-  LDP_PSC_DISABLE      = 0x29,
-  LDP_STEP_STILL_FWD   = 0x2B,
-  LDP_STEP_STILL_REV   = 0x2C,
-  LDP_PLAY_FWD         = 0x3A,
-  LDP_PLAY_F_FWD       = 0x3B, /* plays as 90 fps */
-  LDP_PLAY_S_FWD       = 0x3C, /* plays as 30 fps */
-  LDP_STEP_FWD         = 0x3D, /* needs SPEED */
-  LDP_SCAN_FWD         = 0x3E,
-  LDP_STOP             = 0x3F,
-  LDP_ENTER            = 0x40,
-  LDP_SEARCH           = 0x43, /* needs FRAME, returns COMPLETE */
-  LDP_REPEAT           = 0x44, /* needs FRAME */
-  LDP_SOUND_1_ON       = 0x46,
-  LDP_SOUND_1_OFF      = 0x47,
-  LDP_SOUND_2_ON       = 0x48,
-  LDP_SOUND_2_OFF      = 0x49,
-  LDP_PLAY_REV         = 0x4A,
-  LDP_PLAY_F_REV       = 0x4B, /* plays as 90 fps reverse */
-  LDP_PLAY_S_REV       = 0x4C, /* plays as 30 fps reverse */
-  LDP_STEP_REV         = 0x4D, /* needs SPEED */
-  LDP_SCAN_REV         = 0x4E,
-  LDP_STILL            = 0x4F,
-  LDP_SHOW_ON          = 0x50,
-  LDP_SHOW_OFF         = 0x51,
-  LDP_SET_FRAME_MODE   = 0x55,
-  LDP_RESET            = 0x56,
-  LDP_MEMORY           = 0x5A,
-  LDP_MSEARCH          = 0x5B,
-  LDP_SKIP             = 0x5C,
-  LDP_ADDR_INQ         = 0x60,
-  LDP_CONTINUE         = 0x61,
-  LDP_STATUS_INQ       = 0x67,
-  LDP_SET_CHAPTER_MODE = 0x69,
-  LDP_CHAPTER_INQ      = 0x76
-}; /* LdpCommandCode */
+    kLdpNoCommand               = 0x00,
+    kLdpCommandCanInterrupt     = 0x01,
+    kLdpCommandSignalAccepted   = 0x02,
+    kLdpCommandSignalDone       = 0x03,
+    kLdpCommandPictureOff       = 0x26,
+    kLdpCommandPictureOn        = 0x27,
+    kLdpCommandPscEnable        = 0x28,
+    kLdpCommandPscDisable       = 0x29,
+    kLdpCommandStepStillForward = 0x2B,
+    kLdpCommandStepStillReverse = 0x2C,
+    kLdpCommandPlayForward      = 0x3A,
+    kLdpCommandPlayFastForward  = 0x3B, /* plays as 90 fps */
+    kLdpCommandPlaySlowForward  = 0x3C, /* plays as 30 fps */
+    kLdpCommandStepForward      = 0x3D, /* needs SPEED */
+    kLdpCommandScanForward      = 0x3E,
+    kLdpCommandStop             = 0x3F,
+    kLdpCommandEnter            = 0x40,
+    kLdpCommandSearch           = 0x43, /* needs FRAME, returns COMPLETE */
+    kLdpCommandRepeat           = 0x44, /* needs FRAME */
+    kLdpCommandSound1On         = 0x46,
+    kLdpCommandSound1Off        = 0x47,
+    kLdpCommandSound2On         = 0x48,
+    kLdpCommandSound2Off        = 0x49,
+    kLdpCommandPlayReverse      = 0x4A,
+    kLdpCommandPlayFastReverse  = 0x4B, /* plays as 90 fps reverse */
+    kLdpCommandPlaySlowReverse  = 0x4C, /* plays as 30 fps reverse */
+    kLdpCommandStepReverse      = 0x4D, /* needs SPEED */
+    kLdpCommandScanReverse      = 0x4E,
+    kLdpCommandStill            = 0x4F,
+    kLdpCommandShowOn           = 0x50,
+    kLdpCommandShowOff          = 0x51,
+    kLdpCommandSetFrameMode     = 0x55,
+    kLdpCommandReset            = 0x56,
+    kLdpCommandMemory           = 0x5A,
+    kLdpCommandMSearch          = 0x5B,
+    kLdpCommandSkip             = 0x5C,
+    kLdpCommandAddressInquiry   = 0x60,
+    kLdpCommandContinue         = 0x61,
+    kLdpCommandStatusInquiry    = 0x67,
+    kLdpCommandSetChapterMode   = 0x69,
+    kLdpCommandChapterInquiry   = 0x76
+}; // LdpCommandCode
 
 enum LdpState
 {
-  LDP_not_waiting,
-  LDP_AWAITING_ACK,
-  LDP_AWAITING_CHAPTER_BYTE_1,
-  LDP_AWAITING_CHAPTER_BYTE_2,
-  LDP_AWAITING_COMPLETE,
-  LDP_AWAITING_FRAME_BYTE_1,
-  LDP_AWAITING_FRAME_BYTE_2,
-  LDP_AWAITING_FRAME_BYTE_3,
-  LDP_AWAITING_FRAME_BYTE_4,
-  LDP_AWAITING_FRAME_BYTE_5,
-  LDP_AWAITING_STATUS_BYTE_1,
-  LDP_AWAITING_STATUS_BYTE_2,
-  LDP_AWAITING_STATUS_BYTE_3,
-  LDP_AWAITING_STATUS_BYTE_4,
-  LDP_AWAITING_STATUS_BYTE_5
-}; /* LdpState */
+    kLdpStateNotWaiting,
+    kLdpStateAwaitingAck,
+    kLdpStateAwaitingChapterByte1,
+    kLdpStateAwaitingChapterByte2,
+    kLdpStateAwaitingComplete,
+    kLdpStateAwaitingFrameByte1,
+    kLdpStateAwaitingFrameByte2,
+    kLdpStateAwaitingFrameByte3,
+    kLdpStateAwaitingFrameByte4,
+    kLdpStateAwaitingFrameByte5,
+    kLdpStateAwaitingStatusByte1,
+    kLdpStateAwaitingStatusByte2,
+    kLdpStateAwaitingStatusByte3,
+    kLdpStateAwaitingStatusByte4,
+    kLdpStateAwaitingStatusByte5
+}; // LdpState
 
 struct LdpPacket
 {
-  LdpCommandCode  fCommand;
-  LdpPacket *     fNext;
-  LdpPacket *     fPrev;
-  LdpState        fState;
-}; /* LdpPacket */
+    LdpCommandCode fCommand;
+    LdpPacket *    fNext;
+    LdpPacket *    fPrev;
+    LdpState       fState;
+}; // LdpPacket
 
-typedef LdpPacket * LdpPacketPtr;
-
-struct LdpControl
+struct LdpData
 {
-  Object       fObject;
-  bool         fInfoSamplingEnabled;
-  bool         fStopping;
-  PClock       fPollClock;
-  LdpMode      fMode;
-  LdpPacketPtr fFirst;
-  LdpPacketPtr fInterruptPoint;
-  LdpPacketPtr fLast;
-  LdpPacketPtr fPool;
-  long         fFrameNumber;
-  POutlet      fChapterNumberOut;
-  POutlet      fCommandAccepted;
-  POutlet      fCommandComplete;
-  POutlet      fCommandsOut;
-  POutlet      fCommandStatus;
-  POutlet      fErrorBangOut;
-  POutlet      fFrameNumberOut;
-  POutlet      fKeyModeStatus;
-  POutlet      fPollerOut;
-  POutlet      fProgramStopCodeOut;
-  PQelem       fPollQueue;
-  short        fChapterNumber;
-  short        fInfoCount;
-  short        fInfoRate;
-  short        fPollRate;
-  short        fPoolAvailable;
-  short        fPoolSize;
-}; /* LdpControl */
+    t_object    fObject;
+    bool        fInfoSamplingEnabled;
+    bool        fStopping;
+    t_clock *   fPollClock;
+    LdpMode     fMode;
+    LdpPacket * fFirst;
+    LdpPacket * fInterruptPoint;
+    LdpPacket * fLast;
+    LdpPacket * fPool;
+    long        fFrameNumber;
+    t_outlet *  fChapterNumberOut;
+    t_outlet *  fCommandAccepted;
+    t_outlet *  fCommandComplete;
+    t_outlet *  fCommandsOut;
+    t_outlet *  fCommandStatus;
+    t_outlet *  fErrorBangOut;
+    t_outlet *  fFrameNumberOut;
+    t_outlet *  fKeyModeStatus;
+    t_outlet *  fPollerOut;
+    t_outlet *  fProgramStopCodeOut;
+    t_qelem *   fPollQueue;
+    short       fChapterNumber;
+    short       fInfoCount;
+    short       fInfoRate;
+    short       fPollRate;
+    short       fPoolAvailable;
+    short       fPoolSize;
+}; // LdpData
 
-typedef LdpControl * LdpControlPtr;
+void cmd_AllInfo(LdpData * xx);
 
-Pvoid cmd_AllInfo
-  (LdpControlPtr xx);
+void cmd_Chapter(LdpData * xx);
 
-Pvoid cmd_Chapter
-  (LdpControlPtr xx);
+void cmd_Continue(LdpData * xx);
 
-Pvoid cmd_Continue
-  (LdpControlPtr xx);
+void cmd_Frame(LdpData * xx);
 
-Pvoid cmd_Frame
-  (LdpControlPtr xx);
+void cmd_Memory(LdpData * xx);
 
-Pvoid cmd_Memory
-  (LdpControlPtr xx);
+void cmd_Mode(LdpData *  xx,
+              t_symbol * mode);
 
-Pvoid cmd_Mode
-  (LdpControlPtr xx,
-   PSymbol       mode);
+void cmd_MSearch(LdpData * xx);
 
-Pvoid cmd_MSearch
-  (LdpControlPtr xx);
+void cmd_Picture(LdpData *  xx,
+                 t_symbol * onOff);
 
-Pvoid cmd_Picture
-  (LdpControlPtr xx,
-   PSymbol       onOff);
+void cmd_Play(LdpData *  xx,
+              t_symbol * mode,
+              long       stepRate);
 
-Pvoid cmd_Play
-  (LdpControlPtr xx,
-   PSymbol       mode,
-   long          stepRate);
+void cmd_PlayTill(LdpData *  xx,
+                  long       position,
+                  t_symbol * mode,
+                  long       stepFactor);
 
-Pvoid cmd_PlayTill
-  (LdpControlPtr xx,
-   long          position,
-   PSymbol       mode,
-   long          stepFactor);
+void cmd_PSCEnable(LdpData *  xx,
+                   t_symbol * onOff);
 
-Pvoid cmd_PSCEnable
-  (LdpControlPtr xx,
-   PSymbol       onOff);
+void cmd_Repeat(LdpData *  xx,
+                long       position,
+                t_symbol * mode,
+                long       repeatCount,
+                long       stepFactor);
 
-Pvoid cmd_Repeat
-  (LdpControlPtr xx,
-   long          position,
-   PSymbol       mode,
-   long          repeatCount,
-   long          stepFactor);
+void cmd_Reset(LdpData * xx);
 
-Pvoid cmd_Reset
-  (LdpControlPtr xx);
+void cmd_Search(LdpData * xx,
+                long      position);
 
-Pvoid cmd_Search
-  (LdpControlPtr xx,
-   long          position);
+void cmd_Show(LdpData *  xx,
+              t_symbol * onOff);
 
-Pvoid cmd_Show
-  (LdpControlPtr xx,
-   PSymbol       onOff);
+void cmd_Sound(LdpData *  xx,
+               long       chan,
+               t_symbol * onOff);
 
-Pvoid cmd_Sound
-  (LdpControlPtr xx,
-   long          chan,
-   PSymbol       onOff);
+void cmd_Status(LdpData * xx);
 
-Pvoid cmd_Status
-  (LdpControlPtr xx);
+void cmd_StepStill(LdpData *  xx,
+                   t_symbol * mode);
 
-Pvoid cmd_StepStill
-  (LdpControlPtr xx,
-   PSymbol       mode);
+void cmd_Still(LdpData * xx);
 
-Pvoid cmd_Still
-  (LdpControlPtr xx);
+void cmd_Stop(LdpData * xx);
 
-Pvoid cmd_Stop
-  (LdpControlPtr xx);
+void cmd_XReset(LdpData * xx);
 
-Pvoid cmd_XReset
-  (LdpControlPtr xx);
+void ldpAddCommand(LdpData *            xx,
+                   const LdpCommandCode cc,
+                   const LdpState       rr);
 
-void ldpAddCommand
-  (LdpControlPtr  			xx,
-   const LdpCommandCode cc,
-   const LdpState       rr);
+bool ldpCheckPoolSpace(LdpData *   xx,
+                       const short numCommands);
 
-bool ldpCheckPoolSpace
-  (LdpControlPtr xx,
-   const short   numCommands);
+void ldpClearPackets(LdpData * xx);
 
-void ldpClearPackets
-  (LdpControlPtr xx);
+LdpPacket * ldpGetFirstPacket(LdpData * xx);
 
-LdpPacketPtr ldpGetFirstPacket
-  (LdpControlPtr xx);
+void ldpInitCommands(LdpData * xx);
 
-void ldpInitCommands
-  (LdpControlPtr xx);
+void ldpInsertCommand(LdpData *            xx,
+                      LdpPacket *          before,
+                      const LdpCommandCode cc,
+                      const LdpState       rr);
 
-void ldpInsertCommand
-  (LdpControlPtr  			xx,
-   LdpPacketPtr   			before,
-   const LdpCommandCode cc,
-   const LdpState       rr);
+LdpPacket * ldpNewPacket(LdpData * xx);
 
-LdpPacketPtr ldpNewPacket
-  (LdpControlPtr xx);
+void ldpReleasePacket(LdpData *   xx,
+                      LdpPacket * pp);
 
-void ldpReleasePacket
-  (LdpControlPtr xx,
-   LdpPacketPtr  pp);
+void ldpSendCommand(LdpData * xx);
 
-void ldpSendCommand
-  (LdpControlPtr xx);
+StandardRoutineDeclarations(LdpData *);
 
-StandardRoutineDeclarations(LdpControlPtr)
-
-mextern(PSymbol) gChapterSymbol; /* Pointer to unique Symbol for 'chapter' */
-mextern(PSymbol) gEmptySymbol;   /* Pointer to unique Symbol for '' */
-mextern(PSymbol) gFastSymbol;    /* Pointer to unique Symbol for 'fast' */
-mextern(PSymbol) gFrameSymbol;   /* Pointer to unique Symbol for 'frame' */
-mextern(PSymbol) gFwdSymbol;     /* Pointer to unique Symbol for 'fwd' */
-mextern(PSymbol) gOffSymbol;     /* Pointer to unique Symbol for 'off' */
-mextern(PSymbol) gOnSymbol;      /* Pointer to unique Symbol for 'on' */
-mextern(PSymbol) gRevFastSymbol; /* Pointer to unique Symbol for 'rev-fast' */
-mextern(PSymbol) gRevScanSymbol; /* Pointer to unique Symbol for 'rev-scan' */
-mextern(PSymbol) gRevSlowSymbol; /* Pointer to unique Symbol for 'rev-slow' */
-mextern(PSymbol) gRevStepSymbol; /* Pointer to unique Symbol for 'rev-step' */
-mextern(PSymbol) gRevSymbol;     /* Pointer to unique Symbol for 'rev' */
-mextern(PSymbol) gScanSymbol;    /* Pointer to unique Symbol for 'scan' */
-mextern(PSymbol) gSlowSymbol;    /* Pointer to unique Symbol for 'slow' */
-mextern(PSymbol) gStepSymbol;    /* Pointer to unique Symbol for 'step' */
+mextern(t_symbol *) gChapterSymbol; /* Pointer to unique symbol for 'chapter' */
+mextern(t_symbol *) gEmptySymbol;   /* Pointer to unique symbol for '' */
+mextern(t_symbol *) gFastSymbol;    /* Pointer to unique symbol for 'fast' */
+mextern(t_symbol *) gFrameSymbol;   /* Pointer to unique symbol for 'frame' */
+mextern(t_symbol *) gFwdSymbol;     /* Pointer to unique symbol for 'fwd' */
+mextern(t_symbol *) gOffSymbol;     /* Pointer to unique symbol for 'off' */
+mextern(t_symbol *) gOnSymbol;      /* Pointer to unique symbol for 'on' */
+mextern(t_symbol *) gRevFastSymbol; /* Pointer to unique symbol for 'rev-fast' */
+mextern(t_symbol *) gRevScanSymbol; /* Pointer to unique symbol for 'rev-scan' */
+mextern(t_symbol *) gRevSlowSymbol; /* Pointer to unique symbol for 'rev-slow' */
+mextern(t_symbol *) gRevStepSymbol; /* Pointer to unique symbol for 'rev-step' */
+mextern(t_symbol *) gRevSymbol;     /* Pointer to unique symbol for 'rev' */
+mextern(t_symbol *) gScanSymbol;    /* Pointer to unique symbol for 'scan' */
+mextern(t_symbol *) gSlowSymbol;    /* Pointer to unique symbol for 'slow' */
+mextern(t_symbol *) gStepSymbol;    /* Pointer to unique symbol for 'step' */
 
 #endif /* not LDP1550_H_ */

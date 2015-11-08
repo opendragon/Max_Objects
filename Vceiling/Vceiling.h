@@ -38,14 +38,12 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(VCEILING_H_))
- #define VCEILING_H_ /* */
- 
- /*#define USE_SYSLOG /* */
+# define VCEILING_H_ /* */
 
- #include "VObjectCommon.h"
+# include "VceilingObjectCommon.h"
 
- #define OUR_NAME      "Vceiling"
- #define OUR_RES_NUMB  17149
- #define OUTPUT_PREFIX "Vceiling: "
- 
+# define OUR_NAME      "Vceiling"
+// # define OUR_RES_NUMB  17149
+# define OUTPUT_PREFIX "Vceiling: "
+
 #endif /* not VCEILING_H_ */

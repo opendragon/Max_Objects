@@ -38,37 +38,31 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(FILELOGGER_H_))
- #define FILELOGGER_H_ /* */
- 
- #include "MissingAndExtra.h"
- 
- #define OUR_NAME      "fileLogger"
- #define OUR_RES_NUMB  17186
- #define OUTPUT_PREFIX "fileLogger: "
- 
+# define FILELOGGER_H_ /* */
+
+# include "missingAndExtra.h"
+# include "stdio.h"
+
+# define OUR_NAME      "fileLogger"
+// # define OUR_RES_NUMB  17186
+# define OUTPUT_PREFIX "fileLogger: "
+
 struct FileLoggerData
 {
-  Object  fObject;
-  PSymbol fName;
-  short   fRefNum;
-  short   fVRefNum;
-  Str255  fVolName;
-}; /* FileLoggerData */
-
-typedef FileLoggerData * FileLoggerPtr;
+    t_object     fObject;
+    t_symbol *   fName;
+    t_filehandle fFileRef;
+}; // FileLoggerData
 
 /* file access routines: */
 
-bool fileLoggerGetTheFile
-  (FileLoggerPtr xx);
+bool fileLoggerGetTheFile(FileLoggerData * xx);
 
-bool fileLoggerReleaseTheFile
-  (FileLoggerPtr xx);
+bool fileLoggerReleaseTheFile(FileLoggerData * xx);
 
-bool fileLoggerWriteStringToTheFile
-  (FileLoggerPtr xx,
-   Ptr           value);
+bool fileLoggerWriteStringToTheFile(FileLoggerData * xx,
+                                    const char *     value);
 
-StandardRoutineDeclarations(FileLoggerPtr)
+StandardRoutineDeclarations(FileLoggerData *);
 
 #endif /* not FILELOGGER_H_ */

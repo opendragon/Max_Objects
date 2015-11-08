@@ -38,73 +38,63 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(MAP1D_H_))
- #define MAP1D_H_ /* */
+# define MAP1D_H_ /* */
 
-/*#define USE_SYSLOG /* */
+# include "mapCommon.h"
 
- #include "mapCommon.h"
-
- #define BE_VERBOSE    /* */
- #define OUR_NAME      "map1d"
- #define OUR_RES_NUMB  17153
- #define OUTPUT_PREFIX "map1d: "
+# define BE_VERBOSE    /* */
+# define OUR_NAME      "map1d"
+// # define OUR_RES_NUMB  17153
+# define OUTPUT_PREFIX "map1d: "
 
 struct RangeData
 {
-  RangeData *   fNext;
-  PAtom         fOutput;
-  short         fOutputCount;
-  RangeElement  fLower;
-  RangeElement  fUpper;
-  short         fDollarsPresent;
-  short         fDoubleDollarsPresent;
-  bool					fLowerUpperDontCare;
-}; /* RangeData */
-
-typedef RangeData * RangeDataPtr;
+    RangeData *  fNext;
+    t_atom *     fOutput;
+    short        fOutputCount;
+    RangeElement fLower;
+    RangeElement fUpper;
+    short        fDollarsPresent;
+    short        fDoubleDollarsPresent;
+    bool         fLowerUpperDontCare;
+}; // RangeData
 
 struct Map1dData
 {
-  Object         fObject;
-  POutlet        fResultOut;
-  PBinbuf        fBuffer;
-  RangeDataPtr   fFirstRange;
-  RangeDataPtr   fLastRange;
-  RangeDataPtr   fPreviousResult;
-  long           fBufferTypeOffset;
-  long           fBufferStuffOffset;
-  FloatOrInteger fPreviousInput;
-  short          fRangeCount;
-  bool           fVerbose;
-}; /* Map1dData */
+    t_object       fObject;
+    t_outlet *     fResultOut;
+    t_binbuf *     fBuffer;
+    RangeData *    fFirstRange;
+    RangeData *    fLastRange;
+    RangeData *    fPreviousResult;
+    long           fBufferTypeOffset;
+    long           fBufferStuffOffset;
+    FloatOrInteger fPreviousInput;
+    short          fRangeCount;
+    bool           fVerbose;
+}; // Map1dData
 
-typedef Map1dData * Map1dPtr;
+MapRoutineDeclarations(Map1dData *);
 
-MapRoutineDeclarations(Map1dPtr)
+void map1dClearRangeList(Map1dData * xx);
 
-void map1dClearRangeList
-  (Map1dPtr xx);
+RangeData * map1dConvertListToRange(Map1dData * xx,
+                                    const short offset,
+                                    const short numAtoms,
+                                    t_atom *    inList);
 
-RangeDataPtr map1dConvertListToRange
-  (const short	offset,
-   const short	numAtoms,
-   PAtom				inList);
+bool map1dLoadRangeList(Map1dData * xx,
+                        t_symbol *  fileName);
 
-bool map1dLoadRangeList
-  (Map1dPtr xx,
-   PSymbol  filename);
+void map1dOutputResult(Map1dData * xx,
+                       RangeData * result);
 
-void map1dOutputResult
-  (Map1dPtr     xx,
-   RangeDataPtr result);
+void map1dProcessData(Map1dData *            xx,
+                      const FloatOrInteger & input);
 
-void map1dProcessData
-  (Map1dPtr       				xx,
-   const FloatOrInteger & input);
+StandardRoutineDeclarations(Map1dData *);
 
-StandardRoutineDeclarations(Map1dPtr)
-
-mextern(PSymbol) gLowerSymbol; /* Pointer to unique Symbol for 'lower' */
-mextern(PSymbol) gUpperSymbol; /* Pointer to unique Symbol for 'upper' */
+mextern(t_symbol *) gLowerSymbol; /* Pointer to unique symbol for 'lower' */
+mextern(t_symbol *) gUpperSymbol; /* Pointer to unique symbol for 'upper' */
 
 #endif /* not MAP1D_H_ */
