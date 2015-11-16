@@ -10,6 +10,8 @@
 		F60FA48F18144AF600290F0C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F60FA48E18144AF600290F0C /* CoreServices.framework */; };
 		F6227CF71811D7E700F3939C /* tcpMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = F6227CF51811D7E700F3939C /* tcpMapping.h */; };
 		F6227CFF1811D85E00F3939C /* tcpBuffers.h in Headers */ = {isa = PBXBuildFile; fileRef = F6227CFD1811D85E00F3939C /* tcpBuffers.h */; };
+		F62623341BF94EEA00D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623331BF94EEA00D27BE9 /* CoreFoundation.framework */; };
+		F62623361BF94EF600D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623351BF94EF600D27BE9 /* MaxAPI.framework */; };
 		F6489E4E181329DB000D0F4E /* tcpBuffers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6489E4C181329DB000D0F4E /* tcpBuffers.cpp */; };
 		F6489E4F181329DB000D0F4E /* tcpMapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6489E4D181329DB000D0F4E /* tcpMapping.cpp */; };
 		F68D8323181190E00085E721 /* tcpMultiServer_Anything.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D8314181190DF0085E721 /* tcpMultiServer_Anything.cpp */; };
@@ -27,9 +29,7 @@
 		F68D832F181190E00085E721 /* tcpMultiServer.h in Headers */ = {isa = PBXBuildFile; fileRef = F68D8320181190E00085E721 /* tcpMultiServer.h */; };
 		F68D8330181190E00085E721 /* tcpMultiServerLowLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D8321181190E00085E721 /* tcpMultiServerLowLevel.cpp */; };
 		F68D8331181190E00085E721 /* tcpMultiServerNotifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D8322181190E00085E721 /* tcpMultiServerNotifier.cpp */; };
-		F6CE72011800860300E05120 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6CE72001800860300E05120 /* MaxAPI.framework */; };
 		F6CE72CC18019BFB00E05120 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */; };
-		F6CE72D61801A3A700E05120 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6CE72D51801A3A700E05120 /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +38,8 @@
 		F60FA48E18144AF600290F0C /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		F6227CF51811D7E700F3939C /* tcpMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tcpMapping.h; path = ../tcpClient/tcpMapping.h; sourceTree = "<group>"; };
 		F6227CFD1811D85E00F3939C /* tcpBuffers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tcpBuffers.h; path = ../tcpClient/tcpBuffers.h; sourceTree = "<group>"; };
+		F62623331BF94EEA00D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		F62623351BF94EF600D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F6489E4C181329DB000D0F4E /* tcpBuffers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tcpBuffers.cpp; path = ../tcpClient/tcpBuffers.cpp; sourceTree = "<group>"; };
 		F6489E4D181329DB000D0F4E /* tcpMapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tcpMapping.cpp; path = ../tcpClient/tcpMapping.cpp; sourceTree = "<group>"; };
 		F68D8314181190DF0085E721 /* tcpMultiServer_Anything.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpMultiServer_Anything.cpp; sourceTree = "<group>"; };
@@ -55,9 +57,7 @@
 		F68D8320181190E00085E721 /* tcpMultiServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tcpMultiServer.h; sourceTree = "<group>"; };
 		F68D8321181190E00085E721 /* tcpMultiServerLowLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpMultiServerLowLevel.cpp; sourceTree = "<group>"; };
 		F68D8322181190E00085E721 /* tcpMultiServerNotifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpMultiServerNotifier.cpp; sourceTree = "<group>"; };
-		F6CE72001800860300E05120 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/NJs_Max_Objects/Xcode/dummy/../../../../../Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "../../../Library/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<group>"; };
-		F6CE72D51801A3A700E05120 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,9 +65,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F62623361BF94EF600D27BE9 /* MaxAPI.framework in Frameworks */,
+				F62623341BF94EEA00D27BE9 /* CoreFoundation.framework in Frameworks */,
 				F6CE72CC18019BFB00E05120 /* libCommonLibrary.a in Frameworks */,
-				F6CE72011800860300E05120 /* MaxAPI.framework in Frameworks */,
-				F6CE72D61801A3A700E05120 /* CoreFoundation.framework in Frameworks */,
 				F60FA48F18144AF600290F0C /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,8 +90,8 @@
 			isa = PBXGroup;
 			children = (
 				F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */,
-				F6CE72001800860300E05120 /* MaxAPI.framework */,
-				F6CE72D51801A3A700E05120 /* CoreFoundation.framework */,
+				F62623351BF94EF600D27BE9 /* MaxAPI.framework */,
+				F62623331BF94EEA00D27BE9 /* CoreFoundation.framework */,
 				F60FA48E18144AF600290F0C /* CoreServices.framework */,
 			);
 			name = "External Frameworks and Libraries";

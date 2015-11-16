@@ -21,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F62622A41BF9421D00D27BE9 /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../maxmspsdk.xcconfig; sourceTree = "<group>"; };
 		F6489E5A1813370F000D0F4E /* getListKind.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = getListKind.cpp; sourceTree = "<group>"; };
 		F6489E5B18133710000D0F4E /* getListKind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getListKind.h; sourceTree = "<group>"; };
 		F6CE72401800BB8300E05120 /* libCommonLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCommonLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +73,7 @@
 				F6CE72491800BBB900E05120 /* genericListOutput.h */,
 				F6489E5A1813370F000D0F4E /* getListKind.cpp */,
 				F6489E5B18133710000D0F4E /* getListKind.h */,
+				F62622A41BF9421D00D27BE9 /* maxmspsdk.xcconfig */,
 				F6CE72511800C0FC00E05120 /* missingAndExtra.h */,
 				F6CE72871800EC1B00E05120 /* reportAnything.cpp */,
 				F6CE72881800EC1B00E05120 /* reportAnything.h */,
@@ -131,7 +133,7 @@
 		F6CE72381800BB8300E05120 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Norman Jaffe";
 			};
 			buildConfigurationList = F6CE723B1800BB8300E05120 /* Build configuration list for PBXProject "CommonLibrary" */;
@@ -170,7 +172,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
 				C74SUPPORT = "/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -186,6 +187,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = NO;
 				DSTROOT = "";
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes",
@@ -214,7 +216,7 @@
 					/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers,
 				);
 				INSTALL_PATH = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = i386;
@@ -225,7 +227,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
 				C74SUPPORT = "/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -264,7 +265,7 @@
 					/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers,
 				);
 				INSTALL_PATH = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 				VALID_ARCHS = i386;
 			};
@@ -273,7 +274,7 @@
 		F6CE72451800BB8300E05120 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -294,7 +295,7 @@
 		F6CE72461800BB8300E05120 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

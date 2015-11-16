@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F62622AF1BF947D200D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62622AE1BF947D200D27BE9 /* CoreFoundation.framework */; };
+		F62622C11BF94AA400D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62622C01BF94AA400D27BE9 /* MaxAPI.framework */; };
 		F6972933180C82970082C8CD /* gvp100_AllStop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F697291D180C82970082C8CD /* gvp100_AllStop.cpp */; };
 		F6972934180C82970082C8CD /* gvp100_Assist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F697291E180C82970082C8CD /* gvp100_Assist.cpp */; };
 		F6972935180C82970082C8CD /* gvp100_BreakDone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F697291F180C82970082C8CD /* gvp100_BreakDone.cpp */; };
@@ -30,14 +32,14 @@
 		F6972947180C82970082C8CD /* gvp100.h in Headers */ = {isa = PBXBuildFile; fileRef = F6972931180C82970082C8CD /* gvp100.h */; };
 		F6972948180C82970082C8CD /* gvp100packets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972932180C82970082C8CD /* gvp100packets.cpp */; };
 		F697294A180CA18B0082C8CD /* gvp100_In1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972949180CA18B0082C8CD /* gvp100_In1.cpp */; };
-		F6CE72011800860300E05120 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6CE72001800860300E05120 /* MaxAPI.framework */; };
 		F6CE72CC18019BFB00E05120 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */; };
-		F6CE72D61801A3A700E05120 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6CE72D51801A3A700E05120 /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		22CF10220EE984600054F513 /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
 		2FBBEAE508F335360078DB84 /* gvp.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gvp.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		F62622AE1BF947D200D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		F62622C01BF94AA400D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F697291D180C82970082C8CD /* gvp100_AllStop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_AllStop.cpp; sourceTree = "<group>"; };
 		F697291E180C82970082C8CD /* gvp100_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_Assist.cpp; sourceTree = "<group>"; };
 		F697291F180C82970082C8CD /* gvp100_BreakDone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_BreakDone.cpp; sourceTree = "<group>"; };
@@ -61,9 +63,7 @@
 		F6972931180C82970082C8CD /* gvp100.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gvp100.h; sourceTree = "<group>"; };
 		F6972932180C82970082C8CD /* gvp100packets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100packets.cpp; sourceTree = "<group>"; };
 		F6972949180CA18B0082C8CD /* gvp100_In1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_In1.cpp; sourceTree = "<group>"; };
-		F6CE72001800860300E05120 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/NJs_Max_Objects/Xcode/dummy/../../../../../Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "../../../Library/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<group>"; };
-		F6CE72D51801A3A700E05120 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +72,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6CE72CC18019BFB00E05120 /* libCommonLibrary.a in Frameworks */,
-				F6CE72011800860300E05120 /* MaxAPI.framework in Frameworks */,
-				F6CE72D61801A3A700E05120 /* CoreFoundation.framework in Frameworks */,
+				F62622C11BF94AA400D27BE9 /* MaxAPI.framework in Frameworks */,
+				F62622AF1BF947D200D27BE9 /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,8 +95,8 @@
 			isa = PBXGroup;
 			children = (
 				F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */,
-				F6CE72001800860300E05120 /* MaxAPI.framework */,
-				F6CE72D51801A3A700E05120 /* CoreFoundation.framework */,
+				F62622C01BF94AA400D27BE9 /* MaxAPI.framework */,
+				F62622AE1BF947D200D27BE9 /* CoreFoundation.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -178,7 +178,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0710;
 			};
 			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "gvp" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -252,7 +252,9 @@
 		2FBBEAD008F335010078DB84 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Development;
@@ -269,26 +271,23 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
 			buildSettings = {
-				ARCHS = i386;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = "$(SRCROOT)/../externals";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				HEADER_SEARCH_PATHS = (
 					"\"$(C74SUPPORT)/max-includes\"",
 					"\"$(C74SUPPORT)/msp-includes\"",
 					"\"$(C74SUPPORT)/jit-includes\"",
 				);
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = ../Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-fkibzenrtrheuretixgtgmtqoojy/Build/Products/Debug",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cycling74.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = gvp;
 				PRODUCT_VERSION = 1.0.5;
 				USER_HEADER_SEARCH_PATHS = ../CommonLibrary;
@@ -300,25 +299,22 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
 			buildSettings = {
-				ARCHS = i386;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = "$(SRCROOT)/../externals";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"\"$(C74SUPPORT)/max-includes\"",
 					"\"$(C74SUPPORT)/msp-includes\"",
 					"\"$(C74SUPPORT)/jit-includes\"",
 				);
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = ../Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-fkibzenrtrheuretixgtgmtqoojy/Build/Products/Debug",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cycling74.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = gvp;
 				PRODUCT_VERSION = 1.0.5;
 				USER_HEADER_SEARCH_PATHS = ../CommonLibrary;

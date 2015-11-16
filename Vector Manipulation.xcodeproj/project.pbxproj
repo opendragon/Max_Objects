@@ -19,10 +19,577 @@
 		};
 /* End PBXAggregateTarget section */
 
+/* Begin PBXContainerItemProxy section */
+		F62621E21BF93B4A00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621DE1BF93B4A00D27BE9 /* Vunspell.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62621E81BF93B5500D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621E41BF93B5400D27BE9 /* Vtruncate.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62621EE1BF93B5E00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621EA1BF93B5E00D27BE9 /* Vtrim.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62621F41BF93B6900D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621F01BF93B6900D27BE9 /* Vtokenize.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62621FA1BF93BF800D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621F61BF93BF800D27BE9 /* Vtake.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622001BF93C0500D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621FC1BF93C0500D27BE9 /* Vsqrt.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622061BF93C1100D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622021BF93C1100D27BE9 /* Vsplit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F626220C1BF93C1D00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622081BF93C1D00D27BE9 /* Vsin.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622121BF93C2900D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626220E1BF93C2900D27BE9 /* Vsegment.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622181BF93C3600D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622141BF93C3500D27BE9 /* Vscan.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F626221E1BF93C3F00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626221A1BF93C3F00D27BE9 /* Vrtrim.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622241BF93C4E00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622201BF93C4E00D27BE9 /* Vround.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F626222A1BF93C5800D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622261BF93C5800D27BE9 /* Vrotate.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622301BF93C6400D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626222C1BF93C6400D27BE9 /* Vreverse.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622361BF93C6F00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622321BF93C6F00D27BE9 /* Vreduce.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F626223C1BF93C7B00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622381BF93C7B00D27BE9 /* Vnegate.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622421BF93C8500D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626223E1BF93C8400D27BE9 /* Vmean.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622481BF93C8F00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622441BF93C8F00D27BE9 /* Vltrim.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F626224E1BF93C9900D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626224A1BF93C9900D27BE9 /* Vlog.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622541BF93CA400D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622501BF93CA400D27BE9 /* Vlength.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F626225A1BF93CAE00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622561BF93CAE00D27BE9 /* Vjet.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622601BF93CBA00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626225C1BF93CB900D27BE9 /* Vinvert.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622661BF93CC400D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622621BF93CC400D27BE9 /* Vfloor.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F626226C1BF93CCE00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622681BF93CCD00D27BE9 /* Vexp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622721BF93CD700D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626226E1BF93CD700D27BE9 /* Vencode.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622781BF93CE100D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622741BF93CE100D27BE9 /* Vdrop.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F626227E1BF93CEB00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626227A1BF93CEB00D27BE9 /* Vdistance.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622841BF93CF600D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622801BF93CF600D27BE9 /* Vdecode.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F626228A1BF93D0200D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622861BF93D0200D27BE9 /* Vcos.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622901BF93D0D00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626228C1BF93D0D00D27BE9 /* Vcollect.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622961BF93D1700D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622921BF93D1700D27BE9 /* Vceiling.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F626229C1BF93D2300D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622981BF93D2300D27BE9 /* Vassemble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62622A21BF93D3000D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626229E1BF93D3000D27BE9 /* Vabs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F62621DE1BF93B4A00D27BE9 /* Vunspell.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vunspell.xcodeproj; path = Vunspell/Vunspell.xcodeproj; sourceTree = "<group>"; };
+		F62621E41BF93B5400D27BE9 /* Vtruncate.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vtruncate.xcodeproj; path = Vtruncate/Vtruncate.xcodeproj; sourceTree = "<group>"; };
+		F62621EA1BF93B5E00D27BE9 /* Vtrim.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vtrim.xcodeproj; path = Vtrim/Vtrim.xcodeproj; sourceTree = "<group>"; };
+		F62621F01BF93B6900D27BE9 /* Vtokenize.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vtokenize.xcodeproj; path = Vtokenize/Vtokenize.xcodeproj; sourceTree = "<group>"; };
+		F62621F61BF93BF800D27BE9 /* Vtake.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vtake.xcodeproj; path = Vtake/Vtake.xcodeproj; sourceTree = "<group>"; };
+		F62621FC1BF93C0500D27BE9 /* Vsqrt.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vsqrt.xcodeproj; path = Vsqrt/Vsqrt.xcodeproj; sourceTree = "<group>"; };
+		F62622021BF93C1100D27BE9 /* Vsplit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vsplit.xcodeproj; path = Vsplit/Vsplit.xcodeproj; sourceTree = "<group>"; };
+		F62622081BF93C1D00D27BE9 /* Vsin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vsin.xcodeproj; path = Vsin/Vsin.xcodeproj; sourceTree = "<group>"; };
+		F626220E1BF93C2900D27BE9 /* Vsegment.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vsegment.xcodeproj; path = Vsegment/Vsegment.xcodeproj; sourceTree = "<group>"; };
+		F62622141BF93C3500D27BE9 /* Vscan.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vscan.xcodeproj; path = Vscan/Vscan.xcodeproj; sourceTree = "<group>"; };
+		F626221A1BF93C3F00D27BE9 /* Vrtrim.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vrtrim.xcodeproj; path = Vrtrim/Vrtrim.xcodeproj; sourceTree = "<group>"; };
+		F62622201BF93C4E00D27BE9 /* Vround.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vround.xcodeproj; path = Vround/Vround.xcodeproj; sourceTree = "<group>"; };
+		F62622261BF93C5800D27BE9 /* Vrotate.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vrotate.xcodeproj; path = Vrotate/Vrotate.xcodeproj; sourceTree = "<group>"; };
+		F626222C1BF93C6400D27BE9 /* Vreverse.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vreverse.xcodeproj; path = Vreverse/Vreverse.xcodeproj; sourceTree = "<group>"; };
+		F62622321BF93C6F00D27BE9 /* Vreduce.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vreduce.xcodeproj; path = Vreduce/Vreduce.xcodeproj; sourceTree = "<group>"; };
+		F62622381BF93C7B00D27BE9 /* Vnegate.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vnegate.xcodeproj; path = Vnegate/Vnegate.xcodeproj; sourceTree = "<group>"; };
+		F626223E1BF93C8400D27BE9 /* Vmean.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vmean.xcodeproj; path = Vmean/Vmean.xcodeproj; sourceTree = "<group>"; };
+		F62622441BF93C8F00D27BE9 /* Vltrim.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vltrim.xcodeproj; path = Vltrim/Vltrim.xcodeproj; sourceTree = "<group>"; };
+		F626224A1BF93C9900D27BE9 /* Vlog.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vlog.xcodeproj; path = Vlog/Vlog.xcodeproj; sourceTree = "<group>"; };
+		F62622501BF93CA400D27BE9 /* Vlength.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vlength.xcodeproj; path = Vlength/Vlength.xcodeproj; sourceTree = "<group>"; };
+		F62622561BF93CAE00D27BE9 /* Vjet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vjet.xcodeproj; path = Vjet/Vjet.xcodeproj; sourceTree = "<group>"; };
+		F626225C1BF93CB900D27BE9 /* Vinvert.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vinvert.xcodeproj; path = Vinvert/Vinvert.xcodeproj; sourceTree = "<group>"; };
+		F62622621BF93CC400D27BE9 /* Vfloor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vfloor.xcodeproj; path = Vfloor/Vfloor.xcodeproj; sourceTree = "<group>"; };
+		F62622681BF93CCD00D27BE9 /* Vexp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vexp.xcodeproj; path = Vexp/Vexp.xcodeproj; sourceTree = "<group>"; };
+		F626226E1BF93CD700D27BE9 /* Vencode.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vencode.xcodeproj; path = Vencode/Vencode.xcodeproj; sourceTree = "<group>"; };
+		F62622741BF93CE100D27BE9 /* Vdrop.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vdrop.xcodeproj; path = Vdrop/Vdrop.xcodeproj; sourceTree = "<group>"; };
+		F626227A1BF93CEB00D27BE9 /* Vdistance.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vdistance.xcodeproj; path = Vdistance/Vdistance.xcodeproj; sourceTree = "<group>"; };
+		F62622801BF93CF600D27BE9 /* Vdecode.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vdecode.xcodeproj; path = Vdecode/Vdecode.xcodeproj; sourceTree = "<group>"; };
+		F62622861BF93D0200D27BE9 /* Vcos.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vcos.xcodeproj; path = Vcos/Vcos.xcodeproj; sourceTree = "<group>"; };
+		F626228C1BF93D0D00D27BE9 /* Vcollect.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vcollect.xcodeproj; path = Vcollect/Vcollect.xcodeproj; sourceTree = "<group>"; };
+		F62622921BF93D1700D27BE9 /* Vceiling.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vceiling.xcodeproj; path = Vceiling/Vceiling.xcodeproj; sourceTree = "<group>"; };
+		F62622981BF93D2300D27BE9 /* Vassemble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vassemble.xcodeproj; path = Vassemble/Vassemble.xcodeproj; sourceTree = "<group>"; };
+		F626229E1BF93D3000D27BE9 /* Vabs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vabs.xcodeproj; path = Vabs/Vabs.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
+		F62621DF1BF93B4A00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62621E31BF93B4A00D27BE9 /* Vunspell.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62621E51BF93B5400D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62621E91BF93B5500D27BE9 /* Vtruncate.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62621EB1BF93B5E00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62621EF1BF93B5E00D27BE9 /* Vtrim.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62621F11BF93B6900D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62621F51BF93B6900D27BE9 /* Vtokenize.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62621F71BF93BF800D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62621FB1BF93BF800D27BE9 /* Vtake.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62621FD1BF93C0500D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622011BF93C0500D27BE9 /* Vsqrt.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622031BF93C1100D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622071BF93C1100D27BE9 /* Vsplit.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622091BF93C1D00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F626220D1BF93C1D00D27BE9 /* Vsin.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F626220F1BF93C2900D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622131BF93C2900D27BE9 /* Vsegment.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622151BF93C3500D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622191BF93C3600D27BE9 /* Vscan.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F626221B1BF93C3F00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F626221F1BF93C3F00D27BE9 /* Vrtrim.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622211BF93C4E00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622251BF93C4E00D27BE9 /* Vround.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622271BF93C5800D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F626222B1BF93C5800D27BE9 /* Vrotate.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F626222D1BF93C6400D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622311BF93C6400D27BE9 /* Vreverse.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622331BF93C6F00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622371BF93C6F00D27BE9 /* Vreduce.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622391BF93C7B00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F626223D1BF93C7B00D27BE9 /* Vnegate.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F626223F1BF93C8400D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622431BF93C8500D27BE9 /* Vmean.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622451BF93C8F00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622491BF93C8F00D27BE9 /* Vltrim.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F626224B1BF93C9900D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F626224F1BF93C9900D27BE9 /* Vlog.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622511BF93CA400D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622551BF93CA400D27BE9 /* Vlength.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622571BF93CAE00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F626225B1BF93CAE00D27BE9 /* Vjet.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F626225D1BF93CB900D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622611BF93CBA00D27BE9 /* Vinvert.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622631BF93CC400D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622671BF93CC400D27BE9 /* Vfloor.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622691BF93CCD00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F626226D1BF93CCE00D27BE9 /* Vexp.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F626226F1BF93CD700D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622731BF93CD700D27BE9 /* Vencode.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622751BF93CE100D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622791BF93CE100D27BE9 /* Vdrop.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F626227B1BF93CEB00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F626227F1BF93CEB00D27BE9 /* Vdistance.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622811BF93CF600D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622851BF93CF600D27BE9 /* Vdecode.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622871BF93D0200D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F626228B1BF93D0200D27BE9 /* Vcos.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F626228D1BF93D0D00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622911BF93D0D00D27BE9 /* Vcollect.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622931BF93D1700D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622971BF93D1700D27BE9 /* Vceiling.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62622991BF93D2300D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F626229D1BF93D2300D27BE9 /* Vassemble.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F626229F1BF93D3000D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62622A31BF93D3000D27BE9 /* Vabs.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F6CC82FF18035EAF0078F37B = {
 			isa = PBXGroup;
 			children = (
+				F626229E1BF93D3000D27BE9 /* Vabs.xcodeproj */,
+				F62622981BF93D2300D27BE9 /* Vassemble.xcodeproj */,
+				F62622921BF93D1700D27BE9 /* Vceiling.xcodeproj */,
+				F626228C1BF93D0D00D27BE9 /* Vcollect.xcodeproj */,
+				F62622861BF93D0200D27BE9 /* Vcos.xcodeproj */,
+				F62622801BF93CF600D27BE9 /* Vdecode.xcodeproj */,
+				F626227A1BF93CEB00D27BE9 /* Vdistance.xcodeproj */,
+				F62622741BF93CE100D27BE9 /* Vdrop.xcodeproj */,
+				F626226E1BF93CD700D27BE9 /* Vencode.xcodeproj */,
+				F62622681BF93CCD00D27BE9 /* Vexp.xcodeproj */,
+				F62622621BF93CC400D27BE9 /* Vfloor.xcodeproj */,
+				F626225C1BF93CB900D27BE9 /* Vinvert.xcodeproj */,
+				F62622561BF93CAE00D27BE9 /* Vjet.xcodeproj */,
+				F62622501BF93CA400D27BE9 /* Vlength.xcodeproj */,
+				F626224A1BF93C9900D27BE9 /* Vlog.xcodeproj */,
+				F62622441BF93C8F00D27BE9 /* Vltrim.xcodeproj */,
+				F626223E1BF93C8400D27BE9 /* Vmean.xcodeproj */,
+				F62622381BF93C7B00D27BE9 /* Vnegate.xcodeproj */,
+				F62622321BF93C6F00D27BE9 /* Vreduce.xcodeproj */,
+				F626222C1BF93C6400D27BE9 /* Vreverse.xcodeproj */,
+				F62622261BF93C5800D27BE9 /* Vrotate.xcodeproj */,
+				F62622201BF93C4E00D27BE9 /* Vround.xcodeproj */,
+				F626221A1BF93C3F00D27BE9 /* Vrtrim.xcodeproj */,
+				F62622141BF93C3500D27BE9 /* Vscan.xcodeproj */,
+				F626220E1BF93C2900D27BE9 /* Vsegment.xcodeproj */,
+				F62622081BF93C1D00D27BE9 /* Vsin.xcodeproj */,
+				F62622021BF93C1100D27BE9 /* Vsplit.xcodeproj */,
+				F62621FC1BF93C0500D27BE9 /* Vsqrt.xcodeproj */,
+				F62621F61BF93BF800D27BE9 /* Vtake.xcodeproj */,
+				F62621F01BF93B6900D27BE9 /* Vtokenize.xcodeproj */,
+				F62621EA1BF93B5E00D27BE9 /* Vtrim.xcodeproj */,
+				F62621E41BF93B5400D27BE9 /* Vtruncate.xcodeproj */,
+				F62621DE1BF93B4A00D27BE9 /* Vunspell.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -43,12 +610,380 @@
 			);
 			mainGroup = F6CC82FF18035EAF0078F37B;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F626229F1BF93D3000D27BE9 /* Products */;
+					ProjectRef = F626229E1BF93D3000D27BE9 /* Vabs.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622991BF93D2300D27BE9 /* Products */;
+					ProjectRef = F62622981BF93D2300D27BE9 /* Vassemble.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622931BF93D1700D27BE9 /* Products */;
+					ProjectRef = F62622921BF93D1700D27BE9 /* Vceiling.xcodeproj */;
+				},
+				{
+					ProductGroup = F626228D1BF93D0D00D27BE9 /* Products */;
+					ProjectRef = F626228C1BF93D0D00D27BE9 /* Vcollect.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622871BF93D0200D27BE9 /* Products */;
+					ProjectRef = F62622861BF93D0200D27BE9 /* Vcos.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622811BF93CF600D27BE9 /* Products */;
+					ProjectRef = F62622801BF93CF600D27BE9 /* Vdecode.xcodeproj */;
+				},
+				{
+					ProductGroup = F626227B1BF93CEB00D27BE9 /* Products */;
+					ProjectRef = F626227A1BF93CEB00D27BE9 /* Vdistance.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622751BF93CE100D27BE9 /* Products */;
+					ProjectRef = F62622741BF93CE100D27BE9 /* Vdrop.xcodeproj */;
+				},
+				{
+					ProductGroup = F626226F1BF93CD700D27BE9 /* Products */;
+					ProjectRef = F626226E1BF93CD700D27BE9 /* Vencode.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622691BF93CCD00D27BE9 /* Products */;
+					ProjectRef = F62622681BF93CCD00D27BE9 /* Vexp.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622631BF93CC400D27BE9 /* Products */;
+					ProjectRef = F62622621BF93CC400D27BE9 /* Vfloor.xcodeproj */;
+				},
+				{
+					ProductGroup = F626225D1BF93CB900D27BE9 /* Products */;
+					ProjectRef = F626225C1BF93CB900D27BE9 /* Vinvert.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622571BF93CAE00D27BE9 /* Products */;
+					ProjectRef = F62622561BF93CAE00D27BE9 /* Vjet.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622511BF93CA400D27BE9 /* Products */;
+					ProjectRef = F62622501BF93CA400D27BE9 /* Vlength.xcodeproj */;
+				},
+				{
+					ProductGroup = F626224B1BF93C9900D27BE9 /* Products */;
+					ProjectRef = F626224A1BF93C9900D27BE9 /* Vlog.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622451BF93C8F00D27BE9 /* Products */;
+					ProjectRef = F62622441BF93C8F00D27BE9 /* Vltrim.xcodeproj */;
+				},
+				{
+					ProductGroup = F626223F1BF93C8400D27BE9 /* Products */;
+					ProjectRef = F626223E1BF93C8400D27BE9 /* Vmean.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622391BF93C7B00D27BE9 /* Products */;
+					ProjectRef = F62622381BF93C7B00D27BE9 /* Vnegate.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622331BF93C6F00D27BE9 /* Products */;
+					ProjectRef = F62622321BF93C6F00D27BE9 /* Vreduce.xcodeproj */;
+				},
+				{
+					ProductGroup = F626222D1BF93C6400D27BE9 /* Products */;
+					ProjectRef = F626222C1BF93C6400D27BE9 /* Vreverse.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622271BF93C5800D27BE9 /* Products */;
+					ProjectRef = F62622261BF93C5800D27BE9 /* Vrotate.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622211BF93C4E00D27BE9 /* Products */;
+					ProjectRef = F62622201BF93C4E00D27BE9 /* Vround.xcodeproj */;
+				},
+				{
+					ProductGroup = F626221B1BF93C3F00D27BE9 /* Products */;
+					ProjectRef = F626221A1BF93C3F00D27BE9 /* Vrtrim.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622151BF93C3500D27BE9 /* Products */;
+					ProjectRef = F62622141BF93C3500D27BE9 /* Vscan.xcodeproj */;
+				},
+				{
+					ProductGroup = F626220F1BF93C2900D27BE9 /* Products */;
+					ProjectRef = F626220E1BF93C2900D27BE9 /* Vsegment.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622091BF93C1D00D27BE9 /* Products */;
+					ProjectRef = F62622081BF93C1D00D27BE9 /* Vsin.xcodeproj */;
+				},
+				{
+					ProductGroup = F62622031BF93C1100D27BE9 /* Products */;
+					ProjectRef = F62622021BF93C1100D27BE9 /* Vsplit.xcodeproj */;
+				},
+				{
+					ProductGroup = F62621FD1BF93C0500D27BE9 /* Products */;
+					ProjectRef = F62621FC1BF93C0500D27BE9 /* Vsqrt.xcodeproj */;
+				},
+				{
+					ProductGroup = F62621F71BF93BF800D27BE9 /* Products */;
+					ProjectRef = F62621F61BF93BF800D27BE9 /* Vtake.xcodeproj */;
+				},
+				{
+					ProductGroup = F62621F11BF93B6900D27BE9 /* Products */;
+					ProjectRef = F62621F01BF93B6900D27BE9 /* Vtokenize.xcodeproj */;
+				},
+				{
+					ProductGroup = F62621EB1BF93B5E00D27BE9 /* Products */;
+					ProjectRef = F62621EA1BF93B5E00D27BE9 /* Vtrim.xcodeproj */;
+				},
+				{
+					ProductGroup = F62621E51BF93B5400D27BE9 /* Products */;
+					ProjectRef = F62621E41BF93B5400D27BE9 /* Vtruncate.xcodeproj */;
+				},
+				{
+					ProductGroup = F62621DF1BF93B4A00D27BE9 /* Products */;
+					ProjectRef = F62621DE1BF93B4A00D27BE9 /* Vunspell.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F6CC830A18035ED90078F37B /* Vector */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F62621E31BF93B4A00D27BE9 /* Vunspell.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vunspell.mxo;
+			remoteRef = F62621E21BF93B4A00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62621E91BF93B5500D27BE9 /* Vtruncate.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vtruncate.mxo;
+			remoteRef = F62621E81BF93B5500D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62621EF1BF93B5E00D27BE9 /* Vtrim.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vtrim.mxo;
+			remoteRef = F62621EE1BF93B5E00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62621F51BF93B6900D27BE9 /* Vtokenize.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vtokenize.mxo;
+			remoteRef = F62621F41BF93B6900D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62621FB1BF93BF800D27BE9 /* Vtake.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vtake.mxo;
+			remoteRef = F62621FA1BF93BF800D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622011BF93C0500D27BE9 /* Vsqrt.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vsqrt.mxo;
+			remoteRef = F62622001BF93C0500D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622071BF93C1100D27BE9 /* Vsplit.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vsplit.mxo;
+			remoteRef = F62622061BF93C1100D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F626220D1BF93C1D00D27BE9 /* Vsin.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vsin.mxo;
+			remoteRef = F626220C1BF93C1D00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622131BF93C2900D27BE9 /* Vsegment.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vsegment.mxo;
+			remoteRef = F62622121BF93C2900D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622191BF93C3600D27BE9 /* Vscan.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vscan.mxo;
+			remoteRef = F62622181BF93C3600D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F626221F1BF93C3F00D27BE9 /* Vrtrim.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vrtrim.mxo;
+			remoteRef = F626221E1BF93C3F00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622251BF93C4E00D27BE9 /* Vround.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vround.mxo;
+			remoteRef = F62622241BF93C4E00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F626222B1BF93C5800D27BE9 /* Vrotate.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vrotate.mxo;
+			remoteRef = F626222A1BF93C5800D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622311BF93C6400D27BE9 /* Vreverse.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vreverse.mxo;
+			remoteRef = F62622301BF93C6400D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622371BF93C6F00D27BE9 /* Vreduce.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vreduce.mxo;
+			remoteRef = F62622361BF93C6F00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F626223D1BF93C7B00D27BE9 /* Vnegate.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vnegate.mxo;
+			remoteRef = F626223C1BF93C7B00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622431BF93C8500D27BE9 /* Vmean.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vmean.mxo;
+			remoteRef = F62622421BF93C8500D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622491BF93C8F00D27BE9 /* Vltrim.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vltrim.mxo;
+			remoteRef = F62622481BF93C8F00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F626224F1BF93C9900D27BE9 /* Vlog.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vlog.mxo;
+			remoteRef = F626224E1BF93C9900D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622551BF93CA400D27BE9 /* Vlength.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vlength.mxo;
+			remoteRef = F62622541BF93CA400D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F626225B1BF93CAE00D27BE9 /* Vjet.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vjet.mxo;
+			remoteRef = F626225A1BF93CAE00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622611BF93CBA00D27BE9 /* Vinvert.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vinvert.mxo;
+			remoteRef = F62622601BF93CBA00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622671BF93CC400D27BE9 /* Vfloor.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vfloor.mxo;
+			remoteRef = F62622661BF93CC400D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F626226D1BF93CCE00D27BE9 /* Vexp.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vexp.mxo;
+			remoteRef = F626226C1BF93CCE00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622731BF93CD700D27BE9 /* Vencode.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vencode.mxo;
+			remoteRef = F62622721BF93CD700D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622791BF93CE100D27BE9 /* Vdrop.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vdrop.mxo;
+			remoteRef = F62622781BF93CE100D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F626227F1BF93CEB00D27BE9 /* Vdistance.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vdistance.mxo;
+			remoteRef = F626227E1BF93CEB00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622851BF93CF600D27BE9 /* Vdecode.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vdecode.mxo;
+			remoteRef = F62622841BF93CF600D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F626228B1BF93D0200D27BE9 /* Vcos.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vcos.mxo;
+			remoteRef = F626228A1BF93D0200D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622911BF93D0D00D27BE9 /* Vcollect.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vcollect.mxo;
+			remoteRef = F62622901BF93D0D00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622971BF93D1700D27BE9 /* Vceiling.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vceiling.mxo;
+			remoteRef = F62622961BF93D1700D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F626229D1BF93D2300D27BE9 /* Vassemble.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vassemble.mxo;
+			remoteRef = F626229C1BF93D2300D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62622A31BF93D3000D27BE9 /* Vabs.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Vabs.mxo;
+			remoteRef = F62622A21BF93D3000D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin XCBuildConfiguration section */
 		F6CC830418035EAF0078F37B /* Development */ = {
@@ -100,6 +1035,7 @@
 				F6CC830D18035ED90078F37B /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
 		};
 /* End XCConfigurationList section */
 	};

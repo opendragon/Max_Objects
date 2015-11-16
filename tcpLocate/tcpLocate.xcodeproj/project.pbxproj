@@ -11,6 +11,8 @@
 		F6227CFB1811D82A00F3939C /* tcpMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = F6227CF91811D82A00F3939C /* tcpMapping.h */; };
 		F6227D021811D88100F3939C /* tcpBuffers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6227D001811D88100F3939C /* tcpBuffers.cpp */; };
 		F6227D031811D88100F3939C /* tcpBuffers.h in Headers */ = {isa = PBXBuildFile; fileRef = F6227D011811D88100F3939C /* tcpBuffers.h */; };
+		F62623301BF94EC700D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F626232F1BF94EC700D27BE9 /* CoreFoundation.framework */; };
+		F62623321BF94ED200D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623311BF94ED200D27BE9 /* MaxAPI.framework */; };
 		F62C40AF18144A350018005B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62C40AE18144A350018005B /* CoreServices.framework */; };
 		F68D830E18118F010085E721 /* tcpLocate_Anything.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D830818118F010085E721 /* tcpLocate_Anything.cpp */; };
 		F68D830F18118F010085E721 /* tcpLocate_Assist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D830918118F010085E721 /* tcpLocate_Assist.cpp */; };
@@ -18,9 +20,7 @@
 		F68D831118118F010085E721 /* tcpLocate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D830B18118F010085E721 /* tcpLocate.cpp */; };
 		F68D831218118F010085E721 /* tcpLocate.h in Headers */ = {isa = PBXBuildFile; fileRef = F68D830C18118F010085E721 /* tcpLocate.h */; };
 		F68D831318118F010085E721 /* tcpLocateLowLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D830D18118F010085E721 /* tcpLocateLowLevel.cpp */; };
-		F6CE72011800860300E05120 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6CE72001800860300E05120 /* MaxAPI.framework */; };
 		F6CE72CC18019BFB00E05120 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */; };
-		F6CE72D61801A3A700E05120 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6CE72D51801A3A700E05120 /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +30,8 @@
 		F6227CF91811D82A00F3939C /* tcpMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tcpMapping.h; path = ../tcpClient/tcpMapping.h; sourceTree = "<group>"; };
 		F6227D001811D88100F3939C /* tcpBuffers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tcpBuffers.cpp; path = ../tcpClient/tcpBuffers.cpp; sourceTree = "<group>"; };
 		F6227D011811D88100F3939C /* tcpBuffers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tcpBuffers.h; path = ../tcpClient/tcpBuffers.h; sourceTree = "<group>"; };
+		F626232F1BF94EC700D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		F62623311BF94ED200D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F62C40AE18144A350018005B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		F68D830818118F010085E721 /* tcpLocate_Anything.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpLocate_Anything.cpp; sourceTree = "<group>"; };
 		F68D830918118F010085E721 /* tcpLocate_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpLocate_Assist.cpp; sourceTree = "<group>"; };
@@ -37,9 +39,7 @@
 		F68D830B18118F010085E721 /* tcpLocate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpLocate.cpp; sourceTree = "<group>"; };
 		F68D830C18118F010085E721 /* tcpLocate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tcpLocate.h; sourceTree = "<group>"; };
 		F68D830D18118F010085E721 /* tcpLocateLowLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpLocateLowLevel.cpp; sourceTree = "<group>"; };
-		F6CE72001800860300E05120 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/NJs_Max_Objects/Xcode/dummy/../../../../../Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "../../../Library/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<group>"; };
-		F6CE72D51801A3A700E05120 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,9 +47,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F62623321BF94ED200D27BE9 /* MaxAPI.framework in Frameworks */,
+				F62623301BF94EC700D27BE9 /* CoreFoundation.framework in Frameworks */,
 				F6CE72CC18019BFB00E05120 /* libCommonLibrary.a in Frameworks */,
-				F6CE72011800860300E05120 /* MaxAPI.framework in Frameworks */,
-				F6CE72D61801A3A700E05120 /* CoreFoundation.framework in Frameworks */,
 				F62C40AF18144A350018005B /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,8 +72,8 @@
 			isa = PBXGroup;
 			children = (
 				F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */,
-				F6CE72001800860300E05120 /* MaxAPI.framework */,
-				F6CE72D51801A3A700E05120 /* CoreFoundation.framework */,
+				F62623311BF94ED200D27BE9 /* MaxAPI.framework */,
+				F626232F1BF94EC700D27BE9 /* CoreFoundation.framework */,
 				F62C40AE18144A350018005B /* CoreServices.framework */,
 			);
 			name = "External Frameworks and Libraries";

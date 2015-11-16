@@ -19,10 +19,101 @@
 		};
 /* End PBXAggregateTarget section */
 
+/* Begin PBXContainerItemProxy section */
+		F62621C41BF93AD100D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621C01BF93AD100D27BE9 /* udpPort.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62621CA1BF93ADD00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621C61BF93ADD00D27BE9 /* tcpServer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62621D01BF93AE700D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621CC1BF93AE700D27BE9 /* tcpMultiServer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62621D61BF93AF100D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621D21BF93AF000D27BE9 /* tcpLocate.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F62621DC1BF93AFB00D27BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621D81BF93AFB00D27BE9 /* tcpClient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F62621C01BF93AD100D27BE9 /* udpPort.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = udpPort.xcodeproj; path = udpPort/udpPort.xcodeproj; sourceTree = "<group>"; };
+		F62621C61BF93ADD00D27BE9 /* tcpServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = tcpServer.xcodeproj; path = tcpServer/tcpServer.xcodeproj; sourceTree = "<group>"; };
+		F62621CC1BF93AE700D27BE9 /* tcpMultiServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = tcpMultiServer.xcodeproj; path = tcpMultiServer/tcpMultiServer.xcodeproj; sourceTree = "<group>"; };
+		F62621D21BF93AF000D27BE9 /* tcpLocate.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = tcpLocate.xcodeproj; path = tcpLocate/tcpLocate.xcodeproj; sourceTree = "<group>"; };
+		F62621D81BF93AFB00D27BE9 /* tcpClient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = tcpClient.xcodeproj; path = tcpClient/tcpClient.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
+		F62621C11BF93AD100D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62621C51BF93AD100D27BE9 /* udpPort.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62621C71BF93ADD00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62621CB1BF93ADD00D27BE9 /* tcpServer.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62621CD1BF93AE700D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62621D11BF93AE700D27BE9 /* tcpMultiServer.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62621D31BF93AF000D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62621D71BF93AF100D27BE9 /* tcpLocate.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F62621D91BF93AFB00D27BE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F62621DD1BF93AFB00D27BE9 /* tcpClient.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F6CC830E1803601E0078F37B = {
 			isa = PBXGroup;
 			children = (
+				F62621D81BF93AFB00D27BE9 /* tcpClient.xcodeproj */,
+				F62621D21BF93AF000D27BE9 /* tcpLocate.xcodeproj */,
+				F62621CC1BF93AE700D27BE9 /* tcpMultiServer.xcodeproj */,
+				F62621C61BF93ADD00D27BE9 /* tcpServer.xcodeproj */,
+				F62621C01BF93AD100D27BE9 /* udpPort.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -43,12 +134,72 @@
 			);
 			mainGroup = F6CC830E1803601E0078F37B;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F62621D91BF93AFB00D27BE9 /* Products */;
+					ProjectRef = F62621D81BF93AFB00D27BE9 /* tcpClient.xcodeproj */;
+				},
+				{
+					ProductGroup = F62621D31BF93AF000D27BE9 /* Products */;
+					ProjectRef = F62621D21BF93AF000D27BE9 /* tcpLocate.xcodeproj */;
+				},
+				{
+					ProductGroup = F62621CD1BF93AE700D27BE9 /* Products */;
+					ProjectRef = F62621CC1BF93AE700D27BE9 /* tcpMultiServer.xcodeproj */;
+				},
+				{
+					ProductGroup = F62621C71BF93ADD00D27BE9 /* Products */;
+					ProjectRef = F62621C61BF93ADD00D27BE9 /* tcpServer.xcodeproj */;
+				},
+				{
+					ProductGroup = F62621C11BF93AD100D27BE9 /* Products */;
+					ProjectRef = F62621C01BF93AD100D27BE9 /* udpPort.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F6CC83191803602D0078F37B /* TCP */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F62621C51BF93AD100D27BE9 /* udpPort.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = udpPort.mxo;
+			remoteRef = F62621C41BF93AD100D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62621CB1BF93ADD00D27BE9 /* tcpServer.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = tcpServer.mxo;
+			remoteRef = F62621CA1BF93ADD00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62621D11BF93AE700D27BE9 /* tcpMultiServer.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = tcpMultiServer.mxo;
+			remoteRef = F62621D01BF93AE700D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62621D71BF93AF100D27BE9 /* tcpLocate.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = tcpLocate.mxo;
+			remoteRef = F62621D61BF93AF100D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F62621DD1BF93AFB00D27BE9 /* tcpClient.mxo */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = tcpClient.mxo;
+			remoteRef = F62621DC1BF93AFB00D27BE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin XCBuildConfiguration section */
 		F6CC83131803601E0078F37B /* Development */ = {
@@ -100,6 +251,7 @@
 				F6CC831C1803602D0078F37B /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
 		};
 /* End XCConfigurationList section */
 	};

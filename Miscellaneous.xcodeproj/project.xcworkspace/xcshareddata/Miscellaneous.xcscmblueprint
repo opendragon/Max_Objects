@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "28E6C69F823A7F0977B6FC43EA2B116238CA0F95",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "28E6C69F823A7F0977B6FC43EA2B116238CA0F95" : 0,
+    "20DC6287C6D318433B681296E0BF364C4882CD47" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7455AD73-8580-460B-9A55-5783D4F38E18",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "28E6C69F823A7F0977B6FC43EA2B116238CA0F95" : "Max_Objects\/",
+    "20DC6287C6D318433B681296E0BF364C4882CD47" : "..\/..\/..\/Users\/njaffe\/Documents\/Max%207\/Packages\/max-sdk"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Miscellaneous",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Miscellaneous.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Cycling74\/max-sdk.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "20DC6287C6D318433B681296E0BF364C4882CD47"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/opendragon\/Max_Objects",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "28E6C69F823A7F0977B6FC43EA2B116238CA0F95"
+    }
+  ]
+}

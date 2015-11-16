@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:All/All.xcodeproj">
+      location = "group:All.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:CommonLibrary/CommonLibrary.xcodeproj">
@@ -36,19 +36,19 @@
          location = "group:dataType/dataType.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:fileLogger/fileLogger.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:gcd/gcd.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:listType/listType.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:notX/notX.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:fileLogger/fileLogger.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:mtcTrack/mtcTrack.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:notX/notX.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:shotgun/shotgun.xcodeproj">
