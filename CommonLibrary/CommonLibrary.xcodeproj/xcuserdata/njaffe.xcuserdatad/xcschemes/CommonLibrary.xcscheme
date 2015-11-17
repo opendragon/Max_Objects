@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F6CE723F1800BB8300E05120"
+               BlueprintIdentifier = "F6253A8A1BFA1762005FB7EF"
                BuildableName = "libCommonLibrary.a"
                BlueprintName = "CommonLibrary"
                ReferencedContainer = "container:CommonLibrary.xcodeproj">
@@ -24,8 +24,8 @@
    </BuildAction>
    <TestAction
       buildConfiguration = "Development"
-      selectedDebuggerIdentifier = ""
-      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F6CE723F1800BB8300E05120"
+            BlueprintIdentifier = "F6253A8A1BFA1762005FB7EF"
             BuildableName = "libCommonLibrary.a"
             BlueprintName = "CommonLibrary"
             ReferencedContainer = "container:CommonLibrary.xcodeproj">
@@ -60,6 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F6253A8A1BFA1762005FB7EF"
+            BuildableName = "libCommonLibrary.a"
+            BlueprintName = "CommonLibrary"
+            ReferencedContainer = "container:CommonLibrary.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Development">

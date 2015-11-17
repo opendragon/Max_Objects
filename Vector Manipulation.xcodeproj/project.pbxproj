@@ -13,6 +13,39 @@
 			buildPhases = (
 			);
 			dependencies = (
+				F6A9D4A51BFAF48500518D80 /* PBXTargetDependency */,
+				F6A9D4A31BFAF48200518D80 /* PBXTargetDependency */,
+				F6A9D4A11BFAF47E00518D80 /* PBXTargetDependency */,
+				F6A9D49F1BFAF47A00518D80 /* PBXTargetDependency */,
+				F6A9D49D1BFAF47600518D80 /* PBXTargetDependency */,
+				F6A9D49B1BFAF47200518D80 /* PBXTargetDependency */,
+				F6A9D4991BFAF46E00518D80 /* PBXTargetDependency */,
+				F6A9D4971BFAF46900518D80 /* PBXTargetDependency */,
+				F6A9D4951BFAF46500518D80 /* PBXTargetDependency */,
+				F6A9D4931BFAF46000518D80 /* PBXTargetDependency */,
+				F6A9D4911BFAF45B00518D80 /* PBXTargetDependency */,
+				F6A9D48F1BFAF45600518D80 /* PBXTargetDependency */,
+				F6A9D48D1BFAF45100518D80 /* PBXTargetDependency */,
+				F6A9D48B1BFAF44C00518D80 /* PBXTargetDependency */,
+				F6A9D4891BFAF44600518D80 /* PBXTargetDependency */,
+				F6A9D4871BFAF44000518D80 /* PBXTargetDependency */,
+				F6A9D4851BFAF43C00518D80 /* PBXTargetDependency */,
+				F6A9D4831BFAF43400518D80 /* PBXTargetDependency */,
+				F6A9D4811BFAF42F00518D80 /* PBXTargetDependency */,
+				F6A9D47F1BFAF42900518D80 /* PBXTargetDependency */,
+				F6A9D47D1BFAF42400518D80 /* PBXTargetDependency */,
+				F6A9D47B1BFAF41D00518D80 /* PBXTargetDependency */,
+				F6A9D4791BFAF41800518D80 /* PBXTargetDependency */,
+				F6A9D4771BFAF41200518D80 /* PBXTargetDependency */,
+				F6A9D4751BFAF40C00518D80 /* PBXTargetDependency */,
+				F6A9D4731BFAF40700518D80 /* PBXTargetDependency */,
+				F6A9D4711BFAF40100518D80 /* PBXTargetDependency */,
+				F6A9D46F1BFAF3FC00518D80 /* PBXTargetDependency */,
+				F6A9D46D1BFAF3F600518D80 /* PBXTargetDependency */,
+				F6A9D46B1BFAF3F000518D80 /* PBXTargetDependency */,
+				F6A9D4691BFAF3EB00518D80 /* PBXTargetDependency */,
+				F6A9D4671BFAF3E400518D80 /* PBXTargetDependency */,
+				F6A9D4441BFAF3DC00518D80 /* PBXTargetDependency */,
 			);
 			name = Vector;
 			productName = Vector;
@@ -249,6 +282,237 @@
 			containerPortal = F626229E1BF93D3000D27BE9 /* Vabs.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4431BFAF3DC00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621DE1BF93B4A00D27BE9 /* Vunspell.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4661BFAF3E400518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621E41BF93B5400D27BE9 /* Vtruncate.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4681BFAF3EB00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621EA1BF93B5E00D27BE9 /* Vtrim.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D46A1BFAF3F000518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621F01BF93B6900D27BE9 /* Vtokenize.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D46C1BFAF3F600518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621F61BF93BF800D27BE9 /* Vtake.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D46E1BFAF3FC00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621FC1BF93C0500D27BE9 /* Vsqrt.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4701BFAF40100518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622021BF93C1100D27BE9 /* Vsplit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4721BFAF40700518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622081BF93C1D00D27BE9 /* Vsin.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4741BFAF40C00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626220E1BF93C2900D27BE9 /* Vsegment.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4761BFAF41200518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622141BF93C3500D27BE9 /* Vscan.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4781BFAF41800518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626221A1BF93C3F00D27BE9 /* Vrtrim.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D47A1BFAF41D00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622201BF93C4E00D27BE9 /* Vround.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D47C1BFAF42400518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622261BF93C5800D27BE9 /* Vrotate.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D47E1BFAF42900518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626222C1BF93C6400D27BE9 /* Vreverse.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4801BFAF42F00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622321BF93C6F00D27BE9 /* Vreduce.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4821BFAF43400518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622381BF93C7B00D27BE9 /* Vnegate.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4841BFAF43C00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626223E1BF93C8400D27BE9 /* Vmean.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4861BFAF44000518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622441BF93C8F00D27BE9 /* Vltrim.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4881BFAF44600518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626224A1BF93C9900D27BE9 /* Vlog.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D48A1BFAF44C00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622501BF93CA400D27BE9 /* Vlength.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D48C1BFAF45100518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622561BF93CAE00D27BE9 /* Vjet.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D48E1BFAF45600518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626225C1BF93CB900D27BE9 /* Vinvert.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4901BFAF45B00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622621BF93CC400D27BE9 /* Vfloor.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4921BFAF46000518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622681BF93CCD00D27BE9 /* Vexp.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4941BFAF46500518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626226E1BF93CD700D27BE9 /* Vencode.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4961BFAF46900518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622741BF93CE100D27BE9 /* Vdrop.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4981BFAF46E00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626227A1BF93CEB00D27BE9 /* Vdistance.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D49A1BFAF47200518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622801BF93CF600D27BE9 /* Vdecode.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D49C1BFAF47600518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622861BF93D0200D27BE9 /* Vcos.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D49E1BFAF47A00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626228C1BF93D0D00D27BE9 /* Vcollect.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4A01BFAF47E00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622921BF93D1700D27BE9 /* Vceiling.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4A21BFAF48200518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62622981BF93D2300D27BE9 /* Vassemble.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4A41BFAF48500518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626229E1BF93D3000D27BE9 /* Vabs.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
 			remoteInfo = "max-external";
 		};
 /* End PBXContainerItemProxy section */
@@ -599,7 +863,7 @@
 		F6CC830018035EAF0078F37B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0710;
 			};
 			buildConfigurationList = F6CC830318035EAF0078F37B /* Build configuration list for PBXProject "Vector Manipulation" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -985,10 +1249,180 @@
 		};
 /* End PBXReferenceProxy section */
 
+/* Begin PBXTargetDependency section */
+		F6A9D4441BFAF3DC00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4431BFAF3DC00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4671BFAF3E400518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4661BFAF3E400518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4691BFAF3EB00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4681BFAF3EB00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D46B1BFAF3F000518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D46A1BFAF3F000518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D46D1BFAF3F600518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D46C1BFAF3F600518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D46F1BFAF3FC00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D46E1BFAF3FC00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4711BFAF40100518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4701BFAF40100518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4731BFAF40700518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4721BFAF40700518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4751BFAF40C00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4741BFAF40C00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4771BFAF41200518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4761BFAF41200518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4791BFAF41800518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4781BFAF41800518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D47B1BFAF41D00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D47A1BFAF41D00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D47D1BFAF42400518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D47C1BFAF42400518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D47F1BFAF42900518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D47E1BFAF42900518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4811BFAF42F00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4801BFAF42F00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4831BFAF43400518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4821BFAF43400518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4851BFAF43C00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4841BFAF43C00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4871BFAF44000518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4861BFAF44000518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4891BFAF44600518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4881BFAF44600518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D48B1BFAF44C00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D48A1BFAF44C00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D48D1BFAF45100518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D48C1BFAF45100518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D48F1BFAF45600518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D48E1BFAF45600518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4911BFAF45B00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4901BFAF45B00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4931BFAF46000518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4921BFAF46000518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4951BFAF46500518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4941BFAF46500518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4971BFAF46900518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4961BFAF46900518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4991BFAF46E00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4981BFAF46E00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D49B1BFAF47200518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D49A1BFAF47200518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D49D1BFAF47600518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D49C1BFAF47600518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D49F1BFAF47A00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D49E1BFAF47A00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4A11BFAF47E00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4A01BFAF47E00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4A31BFAF48200518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4A21BFAF48200518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4A51BFAF48500518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4A41BFAF48500518D80 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		F6CC830418035EAF0078F37B /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Development;
 		};
@@ -1001,7 +1435,6 @@
 		F6CC830C18035ED90078F37B /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = i386;
 			};
@@ -1010,7 +1443,6 @@
 		F6CC830D18035ED90078F37B /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = i386;
 			};

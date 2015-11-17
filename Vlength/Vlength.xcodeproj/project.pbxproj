@@ -14,7 +14,7 @@
 		F6574C171809AD2D00153C4D /* Vlength_List.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6574C121809AD2D00153C4D /* Vlength_List.cpp */; };
 		F6574C181809AD2D00153C4D /* Vlength.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6574C131809AD2D00153C4D /* Vlength.cpp */; };
 		F6574C191809AD2D00153C4D /* Vlength.h in Headers */ = {isa = PBXBuildFile; fileRef = F6574C141809AD2D00153C4D /* Vlength.h */; };
-		F6CE72CC18019BFB00E05120 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */; };
+		F6A9D4FE1BFAF7A300518D80 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A9D4FD1BFAF7A300518D80 /* libCommonLibrary.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,12 +22,12 @@
 		2FBBEAE508F335360078DB84 /* Vlength.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Vlength.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62623941BF9515F00D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F62623961BF9516B00D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
-		F6574C101809AD2D00153C4D /* Vlength_Anything.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vlength_Anything.cpp; sourceTree = "<group>"; };
-		F6574C111809AD2D00153C4D /* Vlength_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vlength_Assist.cpp; sourceTree = "<group>"; };
-		F6574C121809AD2D00153C4D /* Vlength_List.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vlength_List.cpp; sourceTree = "<group>"; };
-		F6574C131809AD2D00153C4D /* Vlength.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vlength.cpp; sourceTree = "<group>"; };
-		F6574C141809AD2D00153C4D /* Vlength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vlength.h; sourceTree = "<group>"; };
-		F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "../../../Library/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<group>"; };
+		F6574C101809AD2D00153C4D /* Vlength_Anything.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vlength_Anything.cpp; sourceTree = SOURCE_ROOT; };
+		F6574C111809AD2D00153C4D /* Vlength_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vlength_Assist.cpp; sourceTree = SOURCE_ROOT; };
+		F6574C121809AD2D00153C4D /* Vlength_List.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vlength_List.cpp; sourceTree = SOURCE_ROOT; };
+		F6574C131809AD2D00153C4D /* Vlength.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vlength.cpp; sourceTree = SOURCE_ROOT; };
+		F6574C141809AD2D00153C4D /* Vlength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vlength.h; sourceTree = SOURCE_ROOT; };
+		F6A9D4FD1BFAF7A300518D80 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "/Users/njaffe/Library/Developer/Xcode/DerivedData/NJObjects-cfvosuyivjfhivdvtnowssnhdiht/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,9 +35,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6A9D4FE1BFAF7A300518D80 /* libCommonLibrary.a in Frameworks */,
 				F62623971BF9516B00D27BE9 /* MaxAPI.framework in Frameworks */,
 				F62623951BF9515F00D27BE9 /* CoreFoundation.framework in Frameworks */,
-				F6CE72CC18019BFB00E05120 /* libCommonLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,7 +58,7 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */,
+				F6A9D4FD1BFAF7A300518D80 /* libCommonLibrary.a */,
 				F62623961BF9516B00D27BE9 /* MaxAPI.framework */,
 				F62623941BF9515F00D27BE9 /* CoreFoundation.framework */,
 			);
@@ -124,7 +124,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0710;
 			};
 			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "Vlength" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -180,7 +180,9 @@
 		2FBBEAD008F335010078DB84 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Development;
@@ -197,7 +199,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
 			buildSettings = {
-				ARCHS = i386;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = "$(SRCROOT)/../externals";
@@ -228,7 +229,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
 			buildSettings = {
-				ARCHS = i386;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = "$(SRCROOT)/../externals";

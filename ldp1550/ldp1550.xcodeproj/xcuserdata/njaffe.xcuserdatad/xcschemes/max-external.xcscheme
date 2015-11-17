@@ -17,7 +17,7 @@
                BlueprintIdentifier = "F6CE723F1800BB8300E05120"
                BuildableName = "libCommonLibrary.a"
                BlueprintName = "CommonLibrary"
-               ReferencedContainer = "container:../CommonLibrary/CommonLibrary.xcodeproj">
+               ReferencedContainer = "container:../CommonLibrary/CommonLibraryOld.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -62,7 +62,7 @@
             BlueprintIdentifier = "F6CE723F1800BB8300E05120"
             BuildableName = "libCommonLibrary.a"
             BlueprintName = "CommonLibrary"
-            ReferencedContainer = "container:../CommonLibrary/CommonLibrary.xcodeproj">
+            ReferencedContainer = "container:../CommonLibrary/CommonLibraryOld.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>

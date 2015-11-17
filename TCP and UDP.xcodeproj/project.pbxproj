@@ -13,6 +13,11 @@
 			buildPhases = (
 			);
 			dependencies = (
+				F6A9D4421BFAF3CE00518D80 /* PBXTargetDependency */,
+				F6A9D4401BFAF3CB00518D80 /* PBXTargetDependency */,
+				F6A9D43E1BFAF3C800518D80 /* PBXTargetDependency */,
+				F6A9D43C1BFAF3C300518D80 /* PBXTargetDependency */,
+				F6A9D4351BFAF3C000518D80 /* PBXTargetDependency */,
 			);
 			name = TCP;
 			productName = TCP;
@@ -53,6 +58,41 @@
 			containerPortal = F62621D81BF93AFB00D27BE9 /* tcpClient.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4341BFAF3C000518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621C01BF93AD100D27BE9 /* udpPort.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D43B1BFAF3C300518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621C61BF93ADD00D27BE9 /* tcpServer.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D43D1BFAF3C800518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621CC1BF93AE700D27BE9 /* tcpMultiServer.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D43F1BFAF3CB00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621D21BF93AF000D27BE9 /* tcpLocate.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4411BFAF3CE00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621D81BF93AFB00D27BE9 /* tcpClient.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
 			remoteInfo = "max-external";
 		};
 /* End PBXContainerItemProxy section */
@@ -123,7 +163,7 @@
 		F6CC830F1803601E0078F37B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0710;
 			};
 			buildConfigurationList = F6CC83121803601E0078F37B /* Build configuration list for PBXProject "TCP and UDP" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -201,10 +241,40 @@
 		};
 /* End PBXReferenceProxy section */
 
+/* Begin PBXTargetDependency section */
+		F6A9D4351BFAF3C000518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4341BFAF3C000518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D43C1BFAF3C300518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D43B1BFAF3C300518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D43E1BFAF3C800518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D43D1BFAF3C800518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4401BFAF3CB00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D43F1BFAF3CB00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4421BFAF3CE00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4411BFAF3CE00518D80 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		F6CC83131803601E0078F37B /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Development;
 		};
@@ -217,7 +287,6 @@
 		F6CC831B1803602D0078F37B /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = i386;
 			};
@@ -226,7 +295,6 @@
 		F6CC831C1803602D0078F37B /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = i386;
 			};

@@ -20,49 +20,14 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXFileReference section */
-		F65FE7F71BF92C1500F75FD0 /* TCP and UDP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "TCP and UDP.xcodeproj"; sourceTree = "<group>"; };
-		F65FE7FA1BF92C1500F75FD0 /* Vector Manipulation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Vector Manipulation.xcodeproj"; sourceTree = "<group>"; };
-		F65FE7FD1BF92C1500F75FD0 /* Programming Aids.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Programming Aids.xcodeproj"; sourceTree = "<group>"; };
-		F65FE8001BF92C1500F75FD0 /* Miscellaneous.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Miscellaneous.xcodeproj; sourceTree = "<group>"; };
-		F65FE8031BF92C1500F75FD0 /* Device Interface.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Device Interface.xcodeproj"; sourceTree = "<group>"; };
+		F65FE7F71BF92C1500F75FD0 /* TCP and UDP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "TCP and UDP.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		F65FE7FA1BF92C1500F75FD0 /* Vector Manipulation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Vector Manipulation.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		F65FE7FD1BF92C1500F75FD0 /* Programming Aids.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Programming Aids.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		F65FE8001BF92C1500F75FD0 /* Miscellaneous.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Miscellaneous.xcodeproj; sourceTree = SOURCE_ROOT; };
+		F65FE8031BF92C1500F75FD0 /* Device Interface.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Device Interface.xcodeproj"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		F65FE7F81BF92C1500F75FD0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		F65FE7FB1BF92C1500F75FD0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		F65FE7FE1BF92C1500F75FD0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		F65FE8011BF92C1500F75FD0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		F65FE8041BF92C1500F75FD0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		F6AC96FD1803138D00C79326 = {
 			isa = PBXGroup;
 			children = (
@@ -80,7 +45,7 @@
 		F6AC96FE1803138D00C79326 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0710;
 			};
 			buildConfigurationList = F6AC97011803138D00C79326 /* Build configuration list for PBXProject "All" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -91,28 +56,6 @@
 			);
 			mainGroup = F6AC96FD1803138D00C79326;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = F65FE8041BF92C1500F75FD0 /* Products */;
-					ProjectRef = F65FE8031BF92C1500F75FD0 /* Device Interface.xcodeproj */;
-				},
-				{
-					ProductGroup = F65FE8011BF92C1500F75FD0 /* Products */;
-					ProjectRef = F65FE8001BF92C1500F75FD0 /* Miscellaneous.xcodeproj */;
-				},
-				{
-					ProductGroup = F65FE7FE1BF92C1500F75FD0 /* Products */;
-					ProjectRef = F65FE7FD1BF92C1500F75FD0 /* Programming Aids.xcodeproj */;
-				},
-				{
-					ProductGroup = F65FE7F81BF92C1500F75FD0 /* Products */;
-					ProjectRef = F65FE7F71BF92C1500F75FD0 /* TCP and UDP.xcodeproj */;
-				},
-				{
-					ProductGroup = F65FE7FB1BF92C1500F75FD0 /* Products */;
-					ProjectRef = F65FE7FA1BF92C1500F75FD0 /* Vector Manipulation.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				F6AC9704180313A100C79326 /* AllObjects */,
@@ -124,6 +67,8 @@
 		F6AC97021803138D00C79326 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Development;
 		};
@@ -136,7 +81,6 @@
 		F6AC9706180313A100C79326 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = i386;
 			};
@@ -145,7 +89,6 @@
 		F6AC9707180313A100C79326 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = i386;
 			};

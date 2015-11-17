@@ -131,6 +131,7 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
+
 /*------------------------------------ gvpReportStateChange ---*/
 void gvpReportStateChange(GvpData * xx)
 {
@@ -176,6 +177,7 @@ void gvpReportStateChange(GvpData * xx)
 # pragma unused(xx)
 #endif /* not REPORT_STATE_CHANGES */
 } // gvpReportStateChange
+
 /*------------------------------------ gvpCreate ---*/
 void * gvpCreate(long selectAddress,
                  long pollRate,
@@ -259,6 +261,7 @@ void * gvpCreate(long selectAddress,
     }
     return xx;
 } // gvpCreate
+
 /*------------------------------------ gvpFree ---*/
 void gvpFree(GvpData * xx)
 {
@@ -280,6 +283,7 @@ void gvpFree(GvpData * xx)
         FREEBYTES(xx->fPool, xx->fPoolSize);
     }
 } // gvpFree
+
 /*------------------------------------ gvpPerformWriteCommand ---*/
 void gvpPerformWriteCommand(GvpData *            xx,
                             const long           effectsAddress,
@@ -359,6 +363,7 @@ void gvpPerformWriteCommand(GvpData *            xx,
         lockout_set(prevLock);
     }
 } // gvpPerformWriteCommand
+
 /*------------------------------------ gvpProcessClock ---*/
 void gvpProcessClock(GvpData * xx)
 {
@@ -367,6 +372,7 @@ void gvpProcessClock(GvpData * xx)
         qelem_set(xx->fPollQueue);
     }
 } // gvpProcessClock
+
 /*------------------------------------ gvpProcessQueue ---*/
 void gvpProcessQueue(GvpData * xx)
 {

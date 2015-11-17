@@ -13,6 +13,16 @@
 			buildPhases = (
 			);
 			dependencies = (
+				F6A9D4331BFAF3B300518D80 /* PBXTargetDependency */,
+				F6A9D4311BFAF3AE00518D80 /* PBXTargetDependency */,
+				F6A9D42F1BFAF3AB00518D80 /* PBXTargetDependency */,
+				F6A9D42D1BFAF3A800518D80 /* PBXTargetDependency */,
+				F6A9D42B1BFAF3A400518D80 /* PBXTargetDependency */,
+				F6A9D4291BFAF3A000518D80 /* PBXTargetDependency */,
+				F6A9D4271BFAF39C00518D80 /* PBXTargetDependency */,
+				F6A9D4251BFAF39800518D80 /* PBXTargetDependency */,
+				F6A9D4231BFAF39300518D80 /* PBXTargetDependency */,
+				F6A9D4171BFAF38E00518D80 /* PBXTargetDependency */,
 			);
 			name = Programming;
 			productName = Programming;
@@ -88,6 +98,76 @@
 			containerPortal = F62621BA1BF93ABA00D27BE9 /* changes.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4161BFAF38E00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621841BF93A5200D27BE9 /* stack.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4221BFAF39300518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626218A1BF93A5F00D27BE9 /* senseX.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4241BFAF39800518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621901BF93A6A00D27BE9 /* queue.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4261BFAF39C00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621961BF93A7700D27BE9 /* pfsm.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4281BFAF3A000518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F626219C1BF93A8300D27BE9 /* memory.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D42A1BFAF3A400518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621A21BF93A8F00D27BE9 /* map3d.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D42C1BFAF3A800518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621A81BF93A9B00D27BE9 /* map2d.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D42E1BFAF3AB00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621AE1BF93AA400D27BE9 /* map1d.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4301BFAF3AE00518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621B41BF93AB000D27BE9 /* compares.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F6A9D4321BFAF3B300518D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621BA1BF93ABA00D27BE9 /* changes.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
 			remoteInfo = "max-external";
 		};
 /* End PBXContainerItemProxy section */
@@ -208,7 +288,7 @@
 		F6CC82F218035DE80078F37B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0710;
 			};
 			buildConfigurationList = F6CC82F518035DE80078F37B /* Build configuration list for PBXProject "Programming Aids" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -341,10 +421,65 @@
 		};
 /* End PBXReferenceProxy section */
 
+/* Begin PBXTargetDependency section */
+		F6A9D4171BFAF38E00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4161BFAF38E00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4231BFAF39300518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4221BFAF39300518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4251BFAF39800518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4241BFAF39800518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4271BFAF39C00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4261BFAF39C00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4291BFAF3A000518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4281BFAF3A000518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D42B1BFAF3A400518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D42A1BFAF3A400518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D42D1BFAF3A800518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D42C1BFAF3A800518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D42F1BFAF3AB00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D42E1BFAF3AB00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4311BFAF3AE00518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4301BFAF3AE00518D80 /* PBXContainerItemProxy */;
+		};
+		F6A9D4331BFAF3B300518D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F6A9D4321BFAF3B300518D80 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		F6CC82F618035DE80078F37B /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Development;
 		};
@@ -357,7 +492,6 @@
 		F6CC82FD18035DFC0078F37B /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = i386;
 			};
@@ -366,7 +500,6 @@
 		F6CC82FE18035DFC0078F37B /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = i386;
 			};

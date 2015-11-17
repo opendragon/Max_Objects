@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:All.xcodeproj">
+      location = "container:All.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:CommonLibrary/CommonLibrary.xcodeproj">
+      location = "container:/Volumes/Shejidan/git.repositories/Max_Objects/CommonLibrary/CommonLibrary.xcodeproj">
    </FileRef>
    <Group
       location = "container:"

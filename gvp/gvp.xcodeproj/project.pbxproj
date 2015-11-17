@@ -32,7 +32,7 @@
 		F6972947180C82970082C8CD /* gvp100.h in Headers */ = {isa = PBXBuildFile; fileRef = F6972931180C82970082C8CD /* gvp100.h */; };
 		F6972948180C82970082C8CD /* gvp100packets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972932180C82970082C8CD /* gvp100packets.cpp */; };
 		F697294A180CA18B0082C8CD /* gvp100_In1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972949180CA18B0082C8CD /* gvp100_In1.cpp */; };
-		F6CE72CC18019BFB00E05120 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */; };
+		F6A9D4A71BFAF4A200518D80 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A9D4A61BFAF4A200518D80 /* libCommonLibrary.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,30 +40,30 @@
 		2FBBEAE508F335360078DB84 /* gvp.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gvp.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62622AE1BF947D200D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F62622C01BF94AA400D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
-		F697291D180C82970082C8CD /* gvp100_AllStop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_AllStop.cpp; sourceTree = "<group>"; };
-		F697291E180C82970082C8CD /* gvp100_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_Assist.cpp; sourceTree = "<group>"; };
-		F697291F180C82970082C8CD /* gvp100_BreakDone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_BreakDone.cpp; sourceTree = "<group>"; };
-		F6972920180C82970082C8CD /* gvp100_EndSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_EndSequence.cpp; sourceTree = "<group>"; };
-		F6972921180C82970082C8CD /* gvp100_LearnEmem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_LearnEmem.cpp; sourceTree = "<group>"; };
-		F6972922180C82970082C8CD /* gvp100_RecallEmem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_RecallEmem.cpp; sourceTree = "<group>"; };
-		F6972923180C82970082C8CD /* gvp100_SetCrosspoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetCrosspoint.cpp; sourceTree = "<group>"; };
-		F6972924180C82970082C8CD /* gvp100_SetDskClipLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetDskClipLevel.cpp; sourceTree = "<group>"; };
-		F6972925180C82970082C8CD /* gvp100_SetDskControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetDskControl.cpp; sourceTree = "<group>"; };
-		F6972926180C82970082C8CD /* gvp100_SetEffectsControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetEffectsControl.cpp; sourceTree = "<group>"; };
-		F6972927180C82970082C8CD /* gvp100_SetEffectsPosition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetEffectsPosition.cpp; sourceTree = "<group>"; };
-		F6972928180C82970082C8CD /* gvp100_SetJoystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetJoystick.cpp; sourceTree = "<group>"; };
-		F6972929180C82970082C8CD /* gvp100_SetPushbutton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetPushbutton.cpp; sourceTree = "<group>"; };
-		F697292A180C82970082C8CD /* gvp100_SetTakePosition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetTakePosition.cpp; sourceTree = "<group>"; };
-		F697292B180C82970082C8CD /* gvp100_SetTransitionMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetTransitionMode.cpp; sourceTree = "<group>"; };
-		F697292C180C82970082C8CD /* gvp100_SetTransitionRate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetTransitionRate.cpp; sourceTree = "<group>"; };
-		F697292D180C82970082C8CD /* gvp100_SetWipePattern.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetWipePattern.cpp; sourceTree = "<group>"; };
-		F697292E180C82970082C8CD /* gvp100_Verbose.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_Verbose.cpp; sourceTree = "<group>"; };
-		F697292F180C82970082C8CD /* gvp100_XReset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_XReset.cpp; sourceTree = "<group>"; };
-		F6972930180C82970082C8CD /* gvp100.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100.cpp; sourceTree = "<group>"; };
-		F6972931180C82970082C8CD /* gvp100.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gvp100.h; sourceTree = "<group>"; };
-		F6972932180C82970082C8CD /* gvp100packets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100packets.cpp; sourceTree = "<group>"; };
-		F6972949180CA18B0082C8CD /* gvp100_In1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_In1.cpp; sourceTree = "<group>"; };
-		F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "../../../Library/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<group>"; };
+		F697291D180C82970082C8CD /* gvp100_AllStop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_AllStop.cpp; sourceTree = SOURCE_ROOT; };
+		F697291E180C82970082C8CD /* gvp100_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_Assist.cpp; sourceTree = SOURCE_ROOT; };
+		F697291F180C82970082C8CD /* gvp100_BreakDone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_BreakDone.cpp; sourceTree = SOURCE_ROOT; };
+		F6972920180C82970082C8CD /* gvp100_EndSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_EndSequence.cpp; sourceTree = SOURCE_ROOT; };
+		F6972921180C82970082C8CD /* gvp100_LearnEmem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_LearnEmem.cpp; sourceTree = SOURCE_ROOT; };
+		F6972922180C82970082C8CD /* gvp100_RecallEmem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_RecallEmem.cpp; sourceTree = SOURCE_ROOT; };
+		F6972923180C82970082C8CD /* gvp100_SetCrosspoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetCrosspoint.cpp; sourceTree = SOURCE_ROOT; };
+		F6972924180C82970082C8CD /* gvp100_SetDskClipLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetDskClipLevel.cpp; sourceTree = SOURCE_ROOT; };
+		F6972925180C82970082C8CD /* gvp100_SetDskControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetDskControl.cpp; sourceTree = SOURCE_ROOT; };
+		F6972926180C82970082C8CD /* gvp100_SetEffectsControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetEffectsControl.cpp; sourceTree = SOURCE_ROOT; };
+		F6972927180C82970082C8CD /* gvp100_SetEffectsPosition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetEffectsPosition.cpp; sourceTree = SOURCE_ROOT; };
+		F6972928180C82970082C8CD /* gvp100_SetJoystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetJoystick.cpp; sourceTree = SOURCE_ROOT; };
+		F6972929180C82970082C8CD /* gvp100_SetPushbutton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetPushbutton.cpp; sourceTree = SOURCE_ROOT; };
+		F697292A180C82970082C8CD /* gvp100_SetTakePosition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetTakePosition.cpp; sourceTree = SOURCE_ROOT; };
+		F697292B180C82970082C8CD /* gvp100_SetTransitionMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetTransitionMode.cpp; sourceTree = SOURCE_ROOT; };
+		F697292C180C82970082C8CD /* gvp100_SetTransitionRate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetTransitionRate.cpp; sourceTree = SOURCE_ROOT; };
+		F697292D180C82970082C8CD /* gvp100_SetWipePattern.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetWipePattern.cpp; sourceTree = SOURCE_ROOT; };
+		F697292E180C82970082C8CD /* gvp100_Verbose.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_Verbose.cpp; sourceTree = SOURCE_ROOT; };
+		F697292F180C82970082C8CD /* gvp100_XReset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_XReset.cpp; sourceTree = SOURCE_ROOT; };
+		F6972930180C82970082C8CD /* gvp100.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100.cpp; sourceTree = SOURCE_ROOT; };
+		F6972931180C82970082C8CD /* gvp100.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gvp100.h; sourceTree = SOURCE_ROOT; };
+		F6972932180C82970082C8CD /* gvp100packets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100packets.cpp; sourceTree = SOURCE_ROOT; };
+		F6972949180CA18B0082C8CD /* gvp100_In1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_In1.cpp; sourceTree = SOURCE_ROOT; };
+		F6A9D4A61BFAF4A200518D80 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "/Users/njaffe/Library/Developer/Xcode/DerivedData/NJObjects-cfvosuyivjfhivdvtnowssnhdiht/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6CE72CC18019BFB00E05120 /* libCommonLibrary.a in Frameworks */,
+				F6A9D4A71BFAF4A200518D80 /* libCommonLibrary.a in Frameworks */,
 				F62622C11BF94AA400D27BE9 /* MaxAPI.framework in Frameworks */,
 				F62622AF1BF947D200D27BE9 /* CoreFoundation.framework in Frameworks */,
 			);
@@ -94,7 +94,7 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				F6CE72CB18019BFB00E05120 /* libCommonLibrary.a */,
+				F6A9D4A61BFAF4A200518D80 /* libCommonLibrary.a */,
 				F62622C01BF94AA400D27BE9 /* MaxAPI.framework */,
 				F62622AE1BF947D200D27BE9 /* CoreFoundation.framework */,
 			);
