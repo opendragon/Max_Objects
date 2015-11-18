@@ -50,7 +50,7 @@ static void deferred_Int(FileLoggerData * xx,
 
     if (okSoFar)
     {
-        snprintf(numBuffer, sizeof(numBuffer), "%ld\n", argv->a_w.w_long);
+        snprintf(numBuffer, sizeof(numBuffer), "%ld\n", (long) argv->a_w.w_long);
         fileLoggerWriteStringToTheFile(xx, numBuffer);
         fileLoggerReleaseTheFile(xx);
     }

@@ -227,7 +227,7 @@ void x10CP290CalcSum(X10ControlData *     xx,
                      const unsigned short offset,
                      const unsigned short howMany)
 {
-    ulong sum = 0;
+    unsigned long sum = 0;
 
     for (unsigned short ii = 0; ii < howMany; ++ii)
     {

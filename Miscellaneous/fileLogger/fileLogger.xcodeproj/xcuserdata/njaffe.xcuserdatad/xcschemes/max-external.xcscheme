@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-               BuildableName = "fileLogger.bundle"
+               BuildableName = "fileLogger.mxo"
                BlueprintName = "max-external"
                ReferencedContainer = "container:fileLogger.xcodeproj">
             </BuildableReference>

@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-               BuildableName = "map3d.bundle"
+               BuildableName = "map3d.mxo"
                BlueprintName = "max-external"
                ReferencedContainer = "container:map3d.xcodeproj">
             </BuildableReference>

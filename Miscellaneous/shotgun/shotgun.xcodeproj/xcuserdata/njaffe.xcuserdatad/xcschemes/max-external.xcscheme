@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-               BuildableName = "shotgun.bundle"
+               BuildableName = "shotgun.mxo"
                BlueprintName = "max-external"
                ReferencedContainer = "container:shotgun.xcodeproj">
             </BuildableReference>

@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-               BuildableName = "caseShift.bundle"
+               BuildableName = "caseShift.mxo"
                BlueprintName = "max-external"
                ReferencedContainer = "container:caseShift.xcodeproj">
             </BuildableReference>

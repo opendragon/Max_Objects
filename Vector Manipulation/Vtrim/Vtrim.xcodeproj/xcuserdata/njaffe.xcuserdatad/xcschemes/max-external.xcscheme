@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-               BuildableName = "Vtrim.bundle"
+               BuildableName = "Vtrim.mxo"
                BlueprintName = "max-external"
                ReferencedContainer = "container:Vtrim.xcodeproj">
             </BuildableReference>

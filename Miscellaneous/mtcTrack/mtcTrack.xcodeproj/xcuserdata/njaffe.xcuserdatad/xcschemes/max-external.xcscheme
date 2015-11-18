@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-               BuildableName = "mtcTrack.bundle"
+               BuildableName = "mtcTrack.mxo"
                BlueprintName = "max-external"
                ReferencedContainer = "container:mtcTrack.xcodeproj">
             </BuildableReference>

@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-               BuildableName = "Vtokenize.bundle"
+               BuildableName = "Vtokenize.mxo"
                BlueprintName = "max-external"
                ReferencedContainer = "container:Vtokenize.xcodeproj">
             </BuildableReference>

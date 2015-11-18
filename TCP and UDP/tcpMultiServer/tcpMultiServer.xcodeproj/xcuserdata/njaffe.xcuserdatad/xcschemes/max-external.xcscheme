@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-               BuildableName = "tcpMultiServer.bundle"
+               BuildableName = "tcpMultiServer.mxo"
                BlueprintName = "max-external"
                ReferencedContainer = "container:tcpMultiServer.xcodeproj">
             </BuildableReference>

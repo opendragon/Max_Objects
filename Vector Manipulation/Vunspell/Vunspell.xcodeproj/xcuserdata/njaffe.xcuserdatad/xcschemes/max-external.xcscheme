@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-               BuildableName = "Vunspell.bundle"
+               BuildableName = "Vunspell.mxo"
                BlueprintName = "max-external"
                ReferencedContainer = "container:Vunspell.xcodeproj">
             </BuildableReference>

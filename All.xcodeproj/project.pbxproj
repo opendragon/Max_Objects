@@ -13,11 +13,54 @@
 			buildPhases = (
 			);
 			dependencies = (
+				F6185E111BFCAFD100CC4D55 /* PBXTargetDependency */,
+				F6185E1A1BFCAFDA00CC4D55 /* PBXTargetDependency */,
+				F6185E181BFCAFD500CC4D55 /* PBXTargetDependency */,
+				F6185E1C1BFCAFE600CC4D55 /* PBXTargetDependency */,
+				F6185E1E1BFCAFEF00CC4D55 /* PBXTargetDependency */,
 			);
 			name = AllObjects;
 			productName = AllObjects;
 		};
 /* End PBXAggregateTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		F6185E101BFCAFD100CC4D55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F65FE8031BF92C1500F75FD0 /* Device Interface.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F6CC82E518035CAF0078F37B;
+			remoteInfo = Device;
+		};
+		F6185E171BFCAFD500CC4D55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F65FE7FD1BF92C1500F75FD0 /* Programming Aids.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F6CC82FB18035DFC0078F37B;
+			remoteInfo = Programming;
+		};
+		F6185E191BFCAFDA00CC4D55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F65FE8001BF92C1500F75FD0 /* Miscellaneous.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F6AC96F91803123300C79326;
+			remoteInfo = MiscellaneousObjects;
+		};
+		F6185E1B1BFCAFE600CC4D55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F65FE7F71BF92C1500F75FD0 /* TCP and UDP.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F6CC83191803602D0078F37B;
+			remoteInfo = TCP;
+		};
+		F6185E1D1BFCAFEF00CC4D55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F65FE7FA1BF92C1500F75FD0 /* Vector Manipulation.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F6CC830A18035ED90078F37B;
+			remoteInfo = Vector;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		F65FE7F71BF92C1500F75FD0 /* TCP and UDP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TCP and UDP.xcodeproj"; path = "TCP and UDP/TCP and UDP.xcodeproj"; sourceTree = SOURCE_ROOT; };
@@ -119,6 +162,34 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXTargetDependency section */
+		F6185E111BFCAFD100CC4D55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Device;
+			targetProxy = F6185E101BFCAFD100CC4D55 /* PBXContainerItemProxy */;
+		};
+		F6185E181BFCAFD500CC4D55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Programming;
+			targetProxy = F6185E171BFCAFD500CC4D55 /* PBXContainerItemProxy */;
+		};
+		F6185E1A1BFCAFDA00CC4D55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MiscellaneousObjects;
+			targetProxy = F6185E191BFCAFDA00CC4D55 /* PBXContainerItemProxy */;
+		};
+		F6185E1C1BFCAFE600CC4D55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TCP;
+			targetProxy = F6185E1B1BFCAFE600CC4D55 /* PBXContainerItemProxy */;
+		};
+		F6185E1E1BFCAFEF00CC4D55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Vector;
+			targetProxy = F6185E1D1BFCAFEF00CC4D55 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		F6AC97021803138D00C79326 /* Development */ = {

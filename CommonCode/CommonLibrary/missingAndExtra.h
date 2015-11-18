@@ -208,6 +208,18 @@ typedef void     t_binbuf; // Missing declaration
 #  define TRACE_POST_6(xx, ff, aa, bb, cc, dd, ee)  /* */
 # endif /* not ALLOW_TRACE */
 
+# if (! defined(SETFLOAT))
+#  define SETFLOAT(aa, bb) /* */
+# endif /* not SETFLOAT)) */
+
+# if (! defined(SETLONG))
+#  define SETLONG(aa, bb) /* */
+# endif /* not SETLONG)) */
+
+# if (! defined(SETSYM))
+#  define SETSYM(aa, bb) /* */
+# endif /* not SETSYM)) */
+
 mextern(t_class *) gClass; /* Pointer to class object */
 
 #endif /* not MISSINGANDEXTRA_H_ */

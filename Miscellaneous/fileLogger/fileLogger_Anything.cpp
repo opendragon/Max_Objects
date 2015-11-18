@@ -61,7 +61,7 @@ static void deferred_Anything(FileLoggerData * xx,
                 switch (argv[ii].a_type)
                 {
                     case A_LONG:
-                        snprintf(numBuffer, sizeof(numBuffer), "%ld", argv[ii].a_w.w_long);
+                        snprintf(numBuffer, sizeof(numBuffer), "%ld", (long) argv[ii].a_w.w_long);
                         toAdd = numBuffer;
                         break;
 

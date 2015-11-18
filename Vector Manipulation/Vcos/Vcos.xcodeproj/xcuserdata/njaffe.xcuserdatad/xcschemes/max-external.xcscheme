@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-               BuildableName = "Vcos.bundle"
+               BuildableName = "Vcos.mxo"
                BlueprintName = "max-external"
                ReferencedContainer = "container:Vcos.xcodeproj">
             </BuildableReference>
