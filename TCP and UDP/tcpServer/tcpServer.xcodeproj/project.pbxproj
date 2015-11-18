@@ -38,7 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2FBBEAE508F335360078DB84 /* tcpServer.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tcpServer.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FBBEAE508F335360078DB84 /* tcpServer.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tcpServer.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6227CF11811D7C000F3939C /* tcpCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tcpCommon.h; path = ../tcpClient/tcpCommon.h; sourceTree = SOURCE_ROOT; };
 		F6227D051811D8BD00F3939C /* tcpBuffers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tcpBuffers.h; path = ../tcpClient/tcpBuffers.h; sourceTree = SOURCE_ROOT; };
 		F6227D071811D8BD00F3939C /* tcpMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tcpMapping.h; path = ../tcpClient/tcpMapping.h; sourceTree = SOURCE_ROOT; };
@@ -139,7 +139,7 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2FBBEAE508F335360078DB84 /* tcpServer.bundle */,
+				2FBBEAE508F335360078DB84 /* tcpServer.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -177,7 +177,7 @@
 			);
 			name = "max-external";
 			productName = iterator;
-			productReference = 2FBBEAE508F335360078DB84 /* tcpServer.bundle */;
+			productReference = 2FBBEAE508F335360078DB84 /* tcpServer.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -275,58 +275,22 @@
 		};
 		2FBBEAE108F335360078DB84 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6546C0A1BFC284D005BBE4B /* maxmspsdk.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DSTROOT = "$(SRCROOT)/../externals";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes",
-				);
 				GCC_OPTIMIZATION_LEVEL = 0;
-				HEADER_SEARCH_PATHS = (
-					"\"$(C74SUPPORT)/max-includes\"",
-					"\"$(C74SUPPORT)/msp-includes\"",
-					"\"$(C74SUPPORT)/jit-includes\"",
-				);
-				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-fkibzenrtrheuretixgtgmtqoojy/Build/Products/Debug",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development",
-				);
-				PRODUCT_NAME = tcpServer;
 				PRODUCT_VERSION = 1.1.7;
-				USER_HEADER_SEARCH_PATHS = ../CommonLibrary;
-				VALID_ARCHS = i386;
 			};
 			name = Development;
 		};
 		2FBBEAE208F335360078DB84 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6546C0A1BFC284D005BBE4B /* maxmspsdk.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
-				DSTROOT = "$(SRCROOT)/../externals";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes",
-				);
-				HEADER_SEARCH_PATHS = (
-					"\"$(C74SUPPORT)/max-includes\"",
-					"\"$(C74SUPPORT)/msp-includes\"",
-					"\"$(C74SUPPORT)/jit-includes\"",
-				);
-				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-fkibzenrtrheuretixgtgmtqoojy/Build/Products/Debug",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development",
-				);
-				PRODUCT_NAME = tcpServer;
 				PRODUCT_VERSION = 1.1.7;
-				USER_HEADER_SEARCH_PATHS = ../CommonLibrary;
-				VALID_ARCHS = i386;
 			};
 			name = Deployment;
 		};

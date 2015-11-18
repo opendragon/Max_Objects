@@ -92,12 +92,12 @@ extern "C"
 /* Missing type declarations */
 struct atombuf
 {
-	long 				a_argc;
+	long 		a_argc;
 	struct atom a_argv[1];
 }; /* atombuf */
 
 typedef struct atombuf	Atombuf;
-typedef struct binbuf		Binbuf;
+typedef struct binbuf	Binbuf;
 typedef struct clock  	Clock;
 typedef struct outlet 	Outlet;
 typedef struct qelem  	Qelem;
@@ -158,7 +158,7 @@ typedef unsigned char  uchar;
 typedef unsigned short 	ushort;
 typedef unsigned long  	ulong;
 typedef Atom *         	PAtom;
-typedef Atombuf *				PAtombuf;
+typedef Atombuf *		PAtombuf;
 typedef Binbuf *       	PBinbuf;
 typedef bool *         	Pbool;
 typedef Box *          	PBox;
@@ -183,8 +183,8 @@ typedef Pvoid *        	Hvoid;
 typedef GWorldPtr      	PGWorld;
 typedef PixMapHandle   	HPixmap;
 
-typedef const char *		Qchar;
-typedef const uchar *		Quchar;
+typedef const char *	Qchar;
+typedef const uchar *	Quchar;
 
  /* Set up A0/A4 code. Note that this will ONLY work if the called routine is in */
  /* the same segment as the caller, and it CANNOT be mixed with the standard */
@@ -277,12 +277,12 @@ int fclose
 	(long xx);
 
 int fprintf
-	(long		xx,
+	(long	xx,
 	 Qchar	format,
 	 ...);
 
 int fscanf
-	(long		xx,
+	(long	xx,
 	 Qchar	format,
 	 ...);
 
@@ -559,14 +559,14 @@ typedef void (* closelog_FP)
 	(void);
 typedef void (* openlog_FP)
 	(Qchar	ident,
-	 int		logopt,
-	 int		facility);
+	 int	logopt,
+	 int	facility);
 typedef OSErr (* syslog_FP)
-	(int		priority,
+	(int	priority,
 	 Qchar	format,
 	 ...);
 extern syslog_FP	gSyslogFunction; // Note that the variable is NOT present in main()
  #endif /* COMPILE_FOR_OSX_4 */
-extern long				gSyslogCount; // Note that the variable is NOT present in main()
+extern long			gSyslogCount; // Note that the variable is NOT present in main()
 
 #endif /* not MISSINGANDEXTRA_H_ */

@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-               BuildableName = "ldp1550.bundle"
+               BuildableName = "ldp1550.mxo"
                BlueprintName = "max-external"
                ReferencedContainer = "container:ldp1550.xcodeproj">
             </BuildableReference>

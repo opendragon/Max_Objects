@@ -6,10 +6,14 @@
    </FileRef>
    <Group
       location = "container:"
-      name = "CommonLibrary">
-      <FileRef
-         location = "container:/Volumes/Shejidan/git.repositories/Max_Objects/CommonLibrary/CommonLibrary.xcodeproj">
-      </FileRef>
+      name = "CommonCode">
+      <Group
+         location = "container:"
+         name = "CommonLibrary">
+         <FileRef
+            location = "container:CommonCode/CommonLibrary/CommonLibrary.xcodeproj">
+         </FileRef>
+      </Group>
    </Group>
    <Group
       location = "container:"
