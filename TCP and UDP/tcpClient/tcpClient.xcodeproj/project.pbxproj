@@ -1,0 +1,361 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F626232C1BF94EA200D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F626232B1BF94EA200D27BE9 /* CoreFoundation.framework */; };
+		F626232E1BF94EB000D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F626232D1BF94EB000D27BE9 /* MaxAPI.framework */; };
+		F6489E52181329F4000D0F4E /* tcpBuffers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6489E50181329F4000D0F4E /* tcpBuffers.cpp */; };
+		F6489E53181329F4000D0F4E /* tcpMapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6489E51181329F4000D0F4E /* tcpMapping.cpp */; };
+		F6489E59181332BC000D0F4E /* tcpObject_Verbose.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6489E58181332BC000D0F4E /* tcpObject_Verbose.cpp */; };
+		F6546C051BFC283C005BBE4B /* maxmspsdk.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F6546C041BFC283C005BBE4B /* maxmspsdk.xcconfig */; };
+		F68D82F11811877D0085E721 /* tcpBuffers.h in Headers */ = {isa = PBXBuildFile; fileRef = F68D82D91811877D0085E721 /* tcpBuffers.h */; };
+		F68D82F21811877D0085E721 /* tcpClient_Anything.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82DA1811877D0085E721 /* tcpClient_Anything.cpp */; };
+		F68D82F31811877D0085E721 /* tcpClient_Assist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82DB1811877D0085E721 /* tcpClient_Assist.cpp */; };
+		F68D82F41811877D0085E721 /* tcpClient_Connect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82DC1811877D0085E721 /* tcpClient_Connect.cpp */; };
+		F68D82F51811877D0085E721 /* tcpClient_Disconnect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82DD1811877D0085E721 /* tcpClient_Disconnect.cpp */; };
+		F68D82F61811877D0085E721 /* tcpClient_Float.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82DE1811877D0085E721 /* tcpClient_Float.cpp */; };
+		F68D82F71811877D0085E721 /* tcpClient_Int.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82DF1811877D0085E721 /* tcpClient_Int.cpp */; };
+		F68D82F81811877D0085E721 /* tcpClient_List.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82E01811877D0085E721 /* tcpClient_List.cpp */; };
+		F68D82F91811877D0085E721 /* tcpClient_Mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82E11811877D0085E721 /* tcpClient_Mode.cpp */; };
+		F68D82FA1811877D0085E721 /* tcpClient_Port.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82E21811877D0085E721 /* tcpClient_Port.cpp */; };
+		F68D82FB1811877D0085E721 /* tcpClient_Self.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82E31811877D0085E721 /* tcpClient_Self.cpp */; };
+		F68D82FC1811877D0085E721 /* tcpClient_Send.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82E41811877D0085E721 /* tcpClient_Send.cpp */; };
+		F68D82FD1811877D0085E721 /* tcpClient_Server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82E51811877D0085E721 /* tcpClient_Server.cpp */; };
+		F68D82FE1811877D0085E721 /* tcpClient_Status.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82E61811877D0085E721 /* tcpClient_Status.cpp */; };
+		F68D82FF1811877D0085E721 /* tcpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82E71811877D0085E721 /* tcpClient.cpp */; };
+		F68D83001811877D0085E721 /* tcpClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F68D82E81811877D0085E721 /* tcpClient.h */; };
+		F68D83011811877D0085E721 /* tcpClientLowLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82E91811877D0085E721 /* tcpClientLowLevel.cpp */; };
+		F68D83021811877D0085E721 /* tcpClientNotifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82EA1811877D0085E721 /* tcpClientNotifier.cpp */; };
+		F68D83031811877D0085E721 /* tcpCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68D82EB1811877D0085E721 /* tcpCommon.cpp */; };
+		F68D83041811877D0085E721 /* tcpCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = F68D82EC1811877D0085E721 /* tcpCommon.h */; };
+		F68D83061811877D0085E721 /* tcpMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = F68D82EE1811877D0085E721 /* tcpMapping.h */; };
+		F69F2B5918144A9E002CE3E8 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F69F2B5818144A9E002CE3E8 /* CoreServices.framework */; };
+		F6A9D4DA1BFAF68B00518D80 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A9D4D91BFAF68B00518D80 /* libCommonLibrary.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2FBBEAE508F335360078DB84 /* tcpClient.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tcpClient.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F626232B1BF94EA200D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		F626232D1BF94EB000D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
+		F6489E50181329F4000D0F4E /* tcpBuffers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpBuffers.cpp; sourceTree = SOURCE_ROOT; };
+		F6489E51181329F4000D0F4E /* tcpMapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpMapping.cpp; sourceTree = SOURCE_ROOT; };
+		F6489E58181332BC000D0F4E /* tcpObject_Verbose.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpObject_Verbose.cpp; sourceTree = SOURCE_ROOT; };
+		F6546C041BFC283C005BBE4B /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
+		F68D82D91811877D0085E721 /* tcpBuffers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = tcpBuffers.h; sourceTree = SOURCE_ROOT; };
+		F68D82DA1811877D0085E721 /* tcpClient_Anything.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient_Anything.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82DB1811877D0085E721 /* tcpClient_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient_Assist.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82DC1811877D0085E721 /* tcpClient_Connect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient_Connect.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82DD1811877D0085E721 /* tcpClient_Disconnect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient_Disconnect.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82DE1811877D0085E721 /* tcpClient_Float.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient_Float.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82DF1811877D0085E721 /* tcpClient_Int.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient_Int.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82E01811877D0085E721 /* tcpClient_List.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient_List.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82E11811877D0085E721 /* tcpClient_Mode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient_Mode.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82E21811877D0085E721 /* tcpClient_Port.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient_Port.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82E31811877D0085E721 /* tcpClient_Self.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient_Self.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82E41811877D0085E721 /* tcpClient_Send.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient_Send.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82E51811877D0085E721 /* tcpClient_Server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient_Server.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82E61811877D0085E721 /* tcpClient_Status.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient_Status.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82E71811877D0085E721 /* tcpClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClient.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82E81811877D0085E721 /* tcpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tcpClient.h; sourceTree = SOURCE_ROOT; };
+		F68D82E91811877D0085E721 /* tcpClientLowLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClientLowLevel.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82EA1811877D0085E721 /* tcpClientNotifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpClientNotifier.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82EB1811877D0085E721 /* tcpCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpCommon.cpp; sourceTree = SOURCE_ROOT; };
+		F68D82EC1811877D0085E721 /* tcpCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tcpCommon.h; sourceTree = SOURCE_ROOT; };
+		F68D82EE1811877D0085E721 /* tcpMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tcpMapping.h; sourceTree = SOURCE_ROOT; };
+		F69F2B5818144A9E002CE3E8 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		F6A9D4D91BFAF68B00518D80 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "/Users/njaffe/Library/Developer/Xcode/DerivedData/NJObjects-cfvosuyivjfhivdvtnowssnhdiht/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2FBBEADC08F335360078DB84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6A9D4DA1BFAF68B00518D80 /* libCommonLibrary.a in Frameworks */,
+				F626232E1BF94EB000D27BE9 /* MaxAPI.framework in Frameworks */,
+				F626232C1BF94EA200D27BE9 /* CoreFoundation.framework in Frameworks */,
+				F69F2B5918144A9E002CE3E8 /* CoreServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* iterator */ = {
+			isa = PBXGroup;
+			children = (
+				F6546C041BFC283C005BBE4B /* maxmspsdk.xcconfig */,
+				08FB77ADFE841716C02AAC07 /* Source */,
+				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
+				19C28FB4FE9D528D11CA2CBB /* Products */,
+			);
+			name = iterator;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				F6A9D4D91BFAF68B00518D80 /* libCommonLibrary.a */,
+				F626232D1BF94EB000D27BE9 /* MaxAPI.framework */,
+				F626232B1BF94EA200D27BE9 /* CoreFoundation.framework */,
+				F69F2B5818144A9E002CE3E8 /* CoreServices.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77ADFE841716C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F6489E50181329F4000D0F4E /* tcpBuffers.cpp */,
+				F68D82D91811877D0085E721 /* tcpBuffers.h */,
+				F68D82DA1811877D0085E721 /* tcpClient_Anything.cpp */,
+				F68D82DB1811877D0085E721 /* tcpClient_Assist.cpp */,
+				F68D82DC1811877D0085E721 /* tcpClient_Connect.cpp */,
+				F68D82DD1811877D0085E721 /* tcpClient_Disconnect.cpp */,
+				F68D82DE1811877D0085E721 /* tcpClient_Float.cpp */,
+				F68D82DF1811877D0085E721 /* tcpClient_Int.cpp */,
+				F68D82E01811877D0085E721 /* tcpClient_List.cpp */,
+				F68D82E11811877D0085E721 /* tcpClient_Mode.cpp */,
+				F68D82E21811877D0085E721 /* tcpClient_Port.cpp */,
+				F68D82E31811877D0085E721 /* tcpClient_Self.cpp */,
+				F68D82E41811877D0085E721 /* tcpClient_Send.cpp */,
+				F68D82E51811877D0085E721 /* tcpClient_Server.cpp */,
+				F68D82E61811877D0085E721 /* tcpClient_Status.cpp */,
+				F68D82E71811877D0085E721 /* tcpClient.cpp */,
+				F68D82E81811877D0085E721 /* tcpClient.h */,
+				F68D82E91811877D0085E721 /* tcpClientLowLevel.cpp */,
+				F68D82EA1811877D0085E721 /* tcpClientNotifier.cpp */,
+				F68D82EB1811877D0085E721 /* tcpCommon.cpp */,
+				F68D82EC1811877D0085E721 /* tcpCommon.h */,
+				F6489E51181329F4000D0F4E /* tcpMapping.cpp */,
+				F68D82EE1811877D0085E721 /* tcpMapping.h */,
+				F6489E58181332BC000D0F4E /* tcpObject_Verbose.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		19C28FB4FE9D528D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2FBBEAE508F335360078DB84 /* tcpClient.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2FBBEAD708F335360078DB84 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F68D82F11811877D0085E721 /* tcpBuffers.h in Headers */,
+				F68D83041811877D0085E721 /* tcpCommon.h in Headers */,
+				F68D83061811877D0085E721 /* tcpMapping.h in Headers */,
+				F68D83001811877D0085E721 /* tcpClient.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2FBBEAD608F335360078DB84 /* max-external */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */;
+			buildPhases = (
+				2FBBEAD708F335360078DB84 /* Headers */,
+				2FBBEAD808F335360078DB84 /* Resources */,
+				2FBBEADA08F335360078DB84 /* Sources */,
+				2FBBEADC08F335360078DB84 /* Frameworks */,
+				2FBBEADF08F335360078DB84 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "max-external";
+			productName = iterator;
+			productReference = 2FBBEAE508F335360078DB84 /* tcpClient.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+			};
+			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "tcpClient" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* iterator */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2FBBEAD608F335360078DB84 /* max-external */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2FBBEAD808F335360078DB84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6546C051BFC283C005BBE4B /* maxmspsdk.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		2FBBEADF08F335360078DB84 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2FBBEADA08F335360078DB84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F68D82F21811877D0085E721 /* tcpClient_Anything.cpp in Sources */,
+				F68D82FB1811877D0085E721 /* tcpClient_Self.cpp in Sources */,
+				F68D82F71811877D0085E721 /* tcpClient_Int.cpp in Sources */,
+				F6489E52181329F4000D0F4E /* tcpBuffers.cpp in Sources */,
+				F6489E53181329F4000D0F4E /* tcpMapping.cpp in Sources */,
+				F68D83011811877D0085E721 /* tcpClientLowLevel.cpp in Sources */,
+				F68D82F61811877D0085E721 /* tcpClient_Float.cpp in Sources */,
+				F68D83031811877D0085E721 /* tcpCommon.cpp in Sources */,
+				F68D82F31811877D0085E721 /* tcpClient_Assist.cpp in Sources */,
+				F68D82FC1811877D0085E721 /* tcpClient_Send.cpp in Sources */,
+				F68D82F41811877D0085E721 /* tcpClient_Connect.cpp in Sources */,
+				F68D83021811877D0085E721 /* tcpClientNotifier.cpp in Sources */,
+				F68D82F81811877D0085E721 /* tcpClient_List.cpp in Sources */,
+				F68D82F91811877D0085E721 /* tcpClient_Mode.cpp in Sources */,
+				F68D82FA1811877D0085E721 /* tcpClient_Port.cpp in Sources */,
+				F68D82FD1811877D0085E721 /* tcpClient_Server.cpp in Sources */,
+				F6489E59181332BC000D0F4E /* tcpObject_Verbose.cpp in Sources */,
+				F68D82F51811877D0085E721 /* tcpClient_Disconnect.cpp in Sources */,
+				F68D82FE1811877D0085E721 /* tcpClient_Status.cpp in Sources */,
+				F68D82FF1811877D0085E721 /* tcpClient.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2FBBEAD008F335010078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Development;
+		};
+		2FBBEAD108F335010078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				SDKROOT = macosx;
+			};
+			name = Deployment;
+		};
+		2FBBEAE108F335360078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = "$(SRCROOT)/../externals";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes",
+				);
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-fkibzenrtrheuretixgtgmtqoojy/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development",
+				);
+				PRODUCT_NAME = tcpClient;
+				PRODUCT_VERSION = 1.1.7;
+				USER_HEADER_SEARCH_PATHS = ../CommonLibrary;
+				VALID_ARCHS = i386;
+			};
+			name = Development;
+		};
+		2FBBEAE208F335360078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = "$(SRCROOT)/../externals";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-fkibzenrtrheuretixgtgmtqoojy/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development",
+				);
+				PRODUCT_NAME = tcpClient;
+				PRODUCT_VERSION = 1.1.7;
+				USER_HEADER_SEARCH_PATHS = ../CommonLibrary;
+				VALID_ARCHS = i386;
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "tcpClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAD008F335010078DB84 /* Development */,
+				2FBBEAD108F335010078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAE108F335360078DB84 /* Development */,
+				2FBBEAE208F335360078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

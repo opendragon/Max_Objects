@@ -1,0 +1,345 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F626230F1BF94DB300D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F626230E1BF94DB300D27BE9 /* CoreFoundation.framework */; };
+		F62623111BF94DC000D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623101BF94DC000D27BE9 /* MaxAPI.framework */; };
+		F6546BF91BFC27E0005BBE4B /* maxmspsdk.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F6546BF81BFC27E0005BBE4B /* maxmspsdk.xcconfig */; };
+		F6A9D4CE1BFAF63100518D80 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A9D4CD1BFAF63100518D80 /* libCommonLibrary.a */; };
+		F6F94AA7180B3A03007E73AA /* map3d_Add.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94A93180B3A03007E73AA /* map3d_Add.cpp */; };
+		F6F94AA8180B3A03007E73AA /* map3d_After.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94A94180B3A03007E73AA /* map3d_After.cpp */; };
+		F6F94AA9180B3A03007E73AA /* map3d_Assist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94A95180B3A03007E73AA /* map3d_Assist.cpp */; };
+		F6F94AAA180B3A03007E73AA /* map3d_Bang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94A96180B3A03007E73AA /* map3d_Bang.cpp */; };
+		F6F94AAB180B3A03007E73AA /* map3d_Before.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94A97180B3A03007E73AA /* map3d_Before.cpp */; };
+		F6F94AAC180B3A03007E73AA /* map3d_Clear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94A98180B3A03007E73AA /* map3d_Clear.cpp */; };
+		F6F94AAD180B3A03007E73AA /* map3d_Count.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94A99180B3A03007E73AA /* map3d_Count.cpp */; };
+		F6F94AAE180B3A03007E73AA /* map3d_Delete.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94A9A180B3A03007E73AA /* map3d_Delete.cpp */; };
+		F6F94AAF180B3A03007E73AA /* map3d_Dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94A9B180B3A03007E73AA /* map3d_Dump.cpp */; };
+		F6F94AB0180B3A03007E73AA /* map3d_Get.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94A9C180B3A03007E73AA /* map3d_Get.cpp */; };
+		F6F94AB1180B3A03007E73AA /* map3d_List.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94A9D180B3A03007E73AA /* map3d_List.cpp */; };
+		F6F94AB2180B3A03007E73AA /* map3d_Load.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94A9E180B3A03007E73AA /* map3d_Load.cpp */; };
+		F6F94AB3180B3A03007E73AA /* map3d_Replace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94A9F180B3A03007E73AA /* map3d_Replace.cpp */; };
+		F6F94AB4180B3A03007E73AA /* map3d_Set.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94AA0180B3A03007E73AA /* map3d_Set.cpp */; };
+		F6F94AB5180B3A03007E73AA /* map3d_Show.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94AA1180B3A03007E73AA /* map3d_Show.cpp */; };
+		F6F94AB6180B3A03007E73AA /* map3d_Verbose.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94AA2180B3A03007E73AA /* map3d_Verbose.cpp */; };
+		F6F94AB7180B3A03007E73AA /* map3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94AA3180B3A03007E73AA /* map3d.cpp */; };
+		F6F94AB8180B3A03007E73AA /* map3d.h in Headers */ = {isa = PBXBuildFile; fileRef = F6F94AA4180B3A03007E73AA /* map3d.h */; };
+		F6F94AB9180B3A03007E73AA /* map3dLoadFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94AA5180B3A03007E73AA /* map3dLoadFile.cpp */; };
+		F6F94ABA180B3A03007E73AA /* map3dProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F94AA6180B3A03007E73AA /* map3dProcessing.cpp */; };
+		F6F94ABC180B3B62007E73AA /* mapCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = F6F94ABB180B3B62007E73AA /* mapCommon.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2FBBEAE508F335360078DB84 /* map3d.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = map3d.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F626230E1BF94DB300D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		F62623101BF94DC000D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
+		F6546BF81BFC27E0005BBE4B /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
+		F6A9D4CD1BFAF63100518D80 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "/Users/njaffe/Library/Developer/Xcode/DerivedData/NJObjects-cfvosuyivjfhivdvtnowssnhdiht/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<absolute>"; };
+		F6F94A93180B3A03007E73AA /* map3d_Add.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Add.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94A94180B3A03007E73AA /* map3d_After.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_After.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94A95180B3A03007E73AA /* map3d_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Assist.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94A96180B3A03007E73AA /* map3d_Bang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Bang.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94A97180B3A03007E73AA /* map3d_Before.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Before.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94A98180B3A03007E73AA /* map3d_Clear.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Clear.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94A99180B3A03007E73AA /* map3d_Count.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Count.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94A9A180B3A03007E73AA /* map3d_Delete.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Delete.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94A9B180B3A03007E73AA /* map3d_Dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Dump.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94A9C180B3A03007E73AA /* map3d_Get.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Get.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94A9D180B3A03007E73AA /* map3d_List.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_List.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94A9E180B3A03007E73AA /* map3d_Load.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Load.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94A9F180B3A03007E73AA /* map3d_Replace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Replace.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94AA0180B3A03007E73AA /* map3d_Set.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Set.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94AA1180B3A03007E73AA /* map3d_Show.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Show.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94AA2180B3A03007E73AA /* map3d_Verbose.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d_Verbose.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94AA3180B3A03007E73AA /* map3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3d.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94AA4180B3A03007E73AA /* map3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map3d.h; sourceTree = SOURCE_ROOT; };
+		F6F94AA5180B3A03007E73AA /* map3dLoadFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3dLoadFile.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94AA6180B3A03007E73AA /* map3dProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map3dProcessing.cpp; sourceTree = SOURCE_ROOT; };
+		F6F94ABB180B3B62007E73AA /* mapCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapCommon.h; path = ../map1d/mapCommon.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2FBBEADC08F335360078DB84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6A9D4CE1BFAF63100518D80 /* libCommonLibrary.a in Frameworks */,
+				F62623111BF94DC000D27BE9 /* MaxAPI.framework in Frameworks */,
+				F626230F1BF94DB300D27BE9 /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* iterator */ = {
+			isa = PBXGroup;
+			children = (
+				F6546BF81BFC27E0005BBE4B /* maxmspsdk.xcconfig */,
+				08FB77ADFE841716C02AAC07 /* Source */,
+				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
+				19C28FB4FE9D528D11CA2CBB /* Products */,
+			);
+			name = iterator;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				F6A9D4CD1BFAF63100518D80 /* libCommonLibrary.a */,
+				F62623101BF94DC000D27BE9 /* MaxAPI.framework */,
+				F626230E1BF94DB300D27BE9 /* CoreFoundation.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77ADFE841716C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F6F94ABB180B3B62007E73AA /* mapCommon.h */,
+				F6F94A93180B3A03007E73AA /* map3d_Add.cpp */,
+				F6F94A94180B3A03007E73AA /* map3d_After.cpp */,
+				F6F94A95180B3A03007E73AA /* map3d_Assist.cpp */,
+				F6F94A96180B3A03007E73AA /* map3d_Bang.cpp */,
+				F6F94A97180B3A03007E73AA /* map3d_Before.cpp */,
+				F6F94A98180B3A03007E73AA /* map3d_Clear.cpp */,
+				F6F94A99180B3A03007E73AA /* map3d_Count.cpp */,
+				F6F94A9A180B3A03007E73AA /* map3d_Delete.cpp */,
+				F6F94A9B180B3A03007E73AA /* map3d_Dump.cpp */,
+				F6F94A9C180B3A03007E73AA /* map3d_Get.cpp */,
+				F6F94A9D180B3A03007E73AA /* map3d_List.cpp */,
+				F6F94A9E180B3A03007E73AA /* map3d_Load.cpp */,
+				F6F94A9F180B3A03007E73AA /* map3d_Replace.cpp */,
+				F6F94AA0180B3A03007E73AA /* map3d_Set.cpp */,
+				F6F94AA1180B3A03007E73AA /* map3d_Show.cpp */,
+				F6F94AA2180B3A03007E73AA /* map3d_Verbose.cpp */,
+				F6F94AA3180B3A03007E73AA /* map3d.cpp */,
+				F6F94AA4180B3A03007E73AA /* map3d.h */,
+				F6F94AA5180B3A03007E73AA /* map3dLoadFile.cpp */,
+				F6F94AA6180B3A03007E73AA /* map3dProcessing.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		19C28FB4FE9D528D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2FBBEAE508F335360078DB84 /* map3d.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2FBBEAD708F335360078DB84 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6F94ABC180B3B62007E73AA /* mapCommon.h in Headers */,
+				F6F94AB8180B3A03007E73AA /* map3d.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2FBBEAD608F335360078DB84 /* max-external */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */;
+			buildPhases = (
+				2FBBEAD708F335360078DB84 /* Headers */,
+				2FBBEAD808F335360078DB84 /* Resources */,
+				2FBBEADA08F335360078DB84 /* Sources */,
+				2FBBEADC08F335360078DB84 /* Frameworks */,
+				2FBBEADF08F335360078DB84 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "max-external";
+			productName = iterator;
+			productReference = 2FBBEAE508F335360078DB84 /* map3d.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+			};
+			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "map3d" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* iterator */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2FBBEAD608F335360078DB84 /* max-external */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2FBBEAD808F335360078DB84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6546BF91BFC27E0005BBE4B /* maxmspsdk.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		2FBBEADF08F335360078DB84 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2FBBEADA08F335360078DB84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6F94AA9180B3A03007E73AA /* map3d_Assist.cpp in Sources */,
+				F6F94AB1180B3A03007E73AA /* map3d_List.cpp in Sources */,
+				F6F94ABA180B3A03007E73AA /* map3dProcessing.cpp in Sources */,
+				F6F94AA8180B3A03007E73AA /* map3d_After.cpp in Sources */,
+				F6F94AAE180B3A03007E73AA /* map3d_Delete.cpp in Sources */,
+				F6F94AB3180B3A03007E73AA /* map3d_Replace.cpp in Sources */,
+				F6F94AA7180B3A03007E73AA /* map3d_Add.cpp in Sources */,
+				F6F94AB4180B3A03007E73AA /* map3d_Set.cpp in Sources */,
+				F6F94AB2180B3A03007E73AA /* map3d_Load.cpp in Sources */,
+				F6F94AB6180B3A03007E73AA /* map3d_Verbose.cpp in Sources */,
+				F6F94AAF180B3A03007E73AA /* map3d_Dump.cpp in Sources */,
+				F6F94AB9180B3A03007E73AA /* map3dLoadFile.cpp in Sources */,
+				F6F94AAC180B3A03007E73AA /* map3d_Clear.cpp in Sources */,
+				F6F94AB5180B3A03007E73AA /* map3d_Show.cpp in Sources */,
+				F6F94AAD180B3A03007E73AA /* map3d_Count.cpp in Sources */,
+				F6F94AAB180B3A03007E73AA /* map3d_Before.cpp in Sources */,
+				F6F94AB7180B3A03007E73AA /* map3d.cpp in Sources */,
+				F6F94AAA180B3A03007E73AA /* map3d_Bang.cpp in Sources */,
+				F6F94AB0180B3A03007E73AA /* map3d_Get.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2FBBEAD008F335010078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Development;
+		};
+		2FBBEAD108F335010078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				SDKROOT = macosx;
+			};
+			name = Deployment;
+		};
+		2FBBEAE108F335360078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = "$(SRCROOT)/../externals";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes",
+				);
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-fkibzenrtrheuretixgtgmtqoojy/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development",
+				);
+				PRODUCT_NAME = map3d;
+				PRODUCT_VERSION = 1.0.6;
+				USER_HEADER_SEARCH_PATHS = ../CommonLibrary;
+				VALID_ARCHS = i386;
+			};
+			name = Development;
+		};
+		2FBBEAE208F335360078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = "$(SRCROOT)/../externals";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-fkibzenrtrheuretixgtgmtqoojy/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development",
+				);
+				PRODUCT_NAME = map3d;
+				PRODUCT_VERSION = 1.0.6;
+				USER_HEADER_SEARCH_PATHS = ../CommonLibrary;
+				VALID_ARCHS = i386;
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "map3d" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAD008F335010078DB84 /* Development */,
+				2FBBEAD108F335010078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAE108F335360078DB84 /* Development */,
+				2FBBEAE208F335360078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

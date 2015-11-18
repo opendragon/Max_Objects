@@ -1,0 +1,349 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F62623071BF94D6400D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623061BF94D6400D27BE9 /* CoreFoundation.framework */; };
+		F62623091BF94D7200D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623081BF94D7200D27BE9 /* MaxAPI.framework */; };
+		F6546BF51BFC27D5005BBE4B /* maxmspsdk.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F6546BF41BFC27D5005BBE4B /* maxmspsdk.xcconfig */; };
+		F686BA5C180B023700570E43 /* map1d_Add.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA46180B023700570E43 /* map1d_Add.cpp */; };
+		F686BA5D180B023700570E43 /* map1d_After.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA47180B023700570E43 /* map1d_After.cpp */; };
+		F686BA5E180B023700570E43 /* map1d_Assist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA48180B023700570E43 /* map1d_Assist.cpp */; };
+		F686BA5F180B023700570E43 /* map1d_Bang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA49180B023700570E43 /* map1d_Bang.cpp */; };
+		F686BA60180B023700570E43 /* map1d_Before.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA4A180B023700570E43 /* map1d_Before.cpp */; };
+		F686BA61180B023700570E43 /* map1d_Clear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA4B180B023700570E43 /* map1d_Clear.cpp */; };
+		F686BA62180B023700570E43 /* map1d_Count.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA4C180B023700570E43 /* map1d_Count.cpp */; };
+		F686BA63180B023700570E43 /* map1d_Delete.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA4D180B023700570E43 /* map1d_Delete.cpp */; };
+		F686BA64180B023700570E43 /* map1d_Dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA4E180B023700570E43 /* map1d_Dump.cpp */; };
+		F686BA65180B023700570E43 /* map1d_Float.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA4F180B023700570E43 /* map1d_Float.cpp */; };
+		F686BA66180B023700570E43 /* map1d_Get.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA50180B023700570E43 /* map1d_Get.cpp */; };
+		F686BA67180B023700570E43 /* map1d_Int.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA51180B023700570E43 /* map1d_Int.cpp */; };
+		F686BA68180B023700570E43 /* map1d_Load.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA52180B023700570E43 /* map1d_Load.cpp */; };
+		F686BA69180B023700570E43 /* map1d_Replace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA53180B023700570E43 /* map1d_Replace.cpp */; };
+		F686BA6A180B023700570E43 /* map1d_Set.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA54180B023700570E43 /* map1d_Set.cpp */; };
+		F686BA6B180B023700570E43 /* map1d_Show.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA55180B023700570E43 /* map1d_Show.cpp */; };
+		F686BA6C180B023700570E43 /* map1d_Verbose.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA56180B023700570E43 /* map1d_Verbose.cpp */; };
+		F686BA6D180B023700570E43 /* map1d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA57180B023700570E43 /* map1d.cpp */; };
+		F686BA6E180B023700570E43 /* map1d.h in Headers */ = {isa = PBXBuildFile; fileRef = F686BA58180B023700570E43 /* map1d.h */; };
+		F686BA6F180B023700570E43 /* map1dLoadFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA59180B023700570E43 /* map1dLoadFile.cpp */; };
+		F686BA70180B023700570E43 /* map1dProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F686BA5A180B023700570E43 /* map1dProcessing.cpp */; };
+		F686BA71180B023700570E43 /* mapCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = F686BA5B180B023700570E43 /* mapCommon.h */; };
+		F6A9D4CA1BFAF60D00518D80 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A9D4C91BFAF60D00518D80 /* libCommonLibrary.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2FBBEAE508F335360078DB84 /* map1d.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = map1d.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F62623061BF94D6400D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		F62623081BF94D7200D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
+		F6546BF41BFC27D5005BBE4B /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
+		F686BA46180B023700570E43 /* map1d_Add.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Add.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA47180B023700570E43 /* map1d_After.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_After.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA48180B023700570E43 /* map1d_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Assist.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA49180B023700570E43 /* map1d_Bang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Bang.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA4A180B023700570E43 /* map1d_Before.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Before.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA4B180B023700570E43 /* map1d_Clear.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Clear.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA4C180B023700570E43 /* map1d_Count.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Count.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA4D180B023700570E43 /* map1d_Delete.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Delete.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA4E180B023700570E43 /* map1d_Dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Dump.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA4F180B023700570E43 /* map1d_Float.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Float.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA50180B023700570E43 /* map1d_Get.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Get.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA51180B023700570E43 /* map1d_Int.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Int.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA52180B023700570E43 /* map1d_Load.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Load.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA53180B023700570E43 /* map1d_Replace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Replace.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA54180B023700570E43 /* map1d_Set.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Set.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA55180B023700570E43 /* map1d_Show.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Show.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA56180B023700570E43 /* map1d_Verbose.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d_Verbose.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA57180B023700570E43 /* map1d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1d.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA58180B023700570E43 /* map1d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map1d.h; sourceTree = SOURCE_ROOT; };
+		F686BA59180B023700570E43 /* map1dLoadFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1dLoadFile.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA5A180B023700570E43 /* map1dProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map1dProcessing.cpp; sourceTree = SOURCE_ROOT; };
+		F686BA5B180B023700570E43 /* mapCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mapCommon.h; sourceTree = SOURCE_ROOT; };
+		F6A9D4C91BFAF60D00518D80 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "/Users/njaffe/Library/Developer/Xcode/DerivedData/NJObjects-cfvosuyivjfhivdvtnowssnhdiht/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2FBBEADC08F335360078DB84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6A9D4CA1BFAF60D00518D80 /* libCommonLibrary.a in Frameworks */,
+				F62623091BF94D7200D27BE9 /* MaxAPI.framework in Frameworks */,
+				F62623071BF94D6400D27BE9 /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* iterator */ = {
+			isa = PBXGroup;
+			children = (
+				F6546BF41BFC27D5005BBE4B /* maxmspsdk.xcconfig */,
+				08FB77ADFE841716C02AAC07 /* Source */,
+				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
+				19C28FB4FE9D528D11CA2CBB /* Products */,
+			);
+			name = iterator;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				F6A9D4C91BFAF60D00518D80 /* libCommonLibrary.a */,
+				F62623081BF94D7200D27BE9 /* MaxAPI.framework */,
+				F62623061BF94D6400D27BE9 /* CoreFoundation.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77ADFE841716C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F686BA46180B023700570E43 /* map1d_Add.cpp */,
+				F686BA47180B023700570E43 /* map1d_After.cpp */,
+				F686BA48180B023700570E43 /* map1d_Assist.cpp */,
+				F686BA49180B023700570E43 /* map1d_Bang.cpp */,
+				F686BA4A180B023700570E43 /* map1d_Before.cpp */,
+				F686BA4B180B023700570E43 /* map1d_Clear.cpp */,
+				F686BA4C180B023700570E43 /* map1d_Count.cpp */,
+				F686BA4D180B023700570E43 /* map1d_Delete.cpp */,
+				F686BA4E180B023700570E43 /* map1d_Dump.cpp */,
+				F686BA4F180B023700570E43 /* map1d_Float.cpp */,
+				F686BA50180B023700570E43 /* map1d_Get.cpp */,
+				F686BA51180B023700570E43 /* map1d_Int.cpp */,
+				F686BA52180B023700570E43 /* map1d_Load.cpp */,
+				F686BA53180B023700570E43 /* map1d_Replace.cpp */,
+				F686BA54180B023700570E43 /* map1d_Set.cpp */,
+				F686BA55180B023700570E43 /* map1d_Show.cpp */,
+				F686BA56180B023700570E43 /* map1d_Verbose.cpp */,
+				F686BA57180B023700570E43 /* map1d.cpp */,
+				F686BA58180B023700570E43 /* map1d.h */,
+				F686BA59180B023700570E43 /* map1dLoadFile.cpp */,
+				F686BA5A180B023700570E43 /* map1dProcessing.cpp */,
+				F686BA5B180B023700570E43 /* mapCommon.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		19C28FB4FE9D528D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2FBBEAE508F335360078DB84 /* map1d.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2FBBEAD708F335360078DB84 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F686BA71180B023700570E43 /* mapCommon.h in Headers */,
+				F686BA6E180B023700570E43 /* map1d.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2FBBEAD608F335360078DB84 /* max-external */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */;
+			buildPhases = (
+				2FBBEAD708F335360078DB84 /* Headers */,
+				2FBBEAD808F335360078DB84 /* Resources */,
+				2FBBEADA08F335360078DB84 /* Sources */,
+				2FBBEADC08F335360078DB84 /* Frameworks */,
+				2FBBEADF08F335360078DB84 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "max-external";
+			productName = iterator;
+			productReference = 2FBBEAE508F335360078DB84 /* map1d.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+			};
+			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "map1d" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* iterator */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2FBBEAD608F335360078DB84 /* max-external */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2FBBEAD808F335360078DB84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6546BF51BFC27D5005BBE4B /* maxmspsdk.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		2FBBEADF08F335360078DB84 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2FBBEADA08F335360078DB84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F686BA70180B023700570E43 /* map1dProcessing.cpp in Sources */,
+				F686BA66180B023700570E43 /* map1d_Get.cpp in Sources */,
+				F686BA69180B023700570E43 /* map1d_Replace.cpp in Sources */,
+				F686BA6A180B023700570E43 /* map1d_Set.cpp in Sources */,
+				F686BA60180B023700570E43 /* map1d_Before.cpp in Sources */,
+				F686BA64180B023700570E43 /* map1d_Dump.cpp in Sources */,
+				F686BA61180B023700570E43 /* map1d_Clear.cpp in Sources */,
+				F686BA6D180B023700570E43 /* map1d.cpp in Sources */,
+				F686BA63180B023700570E43 /* map1d_Delete.cpp in Sources */,
+				F686BA5E180B023700570E43 /* map1d_Assist.cpp in Sources */,
+				F686BA6F180B023700570E43 /* map1dLoadFile.cpp in Sources */,
+				F686BA62180B023700570E43 /* map1d_Count.cpp in Sources */,
+				F686BA67180B023700570E43 /* map1d_Int.cpp in Sources */,
+				F686BA6C180B023700570E43 /* map1d_Verbose.cpp in Sources */,
+				F686BA5C180B023700570E43 /* map1d_Add.cpp in Sources */,
+				F686BA65180B023700570E43 /* map1d_Float.cpp in Sources */,
+				F686BA6B180B023700570E43 /* map1d_Show.cpp in Sources */,
+				F686BA5D180B023700570E43 /* map1d_After.cpp in Sources */,
+				F686BA5F180B023700570E43 /* map1d_Bang.cpp in Sources */,
+				F686BA68180B023700570E43 /* map1d_Load.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2FBBEAD008F335010078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Development;
+		};
+		2FBBEAD108F335010078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				SDKROOT = macosx;
+			};
+			name = Deployment;
+		};
+		2FBBEAE108F335360078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = "$(SRCROOT)/../externals";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes",
+				);
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-fkibzenrtrheuretixgtgmtqoojy/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development",
+				);
+				PRODUCT_NAME = map1d;
+				PRODUCT_VERSION = 1.0.6;
+				USER_HEADER_SEARCH_PATHS = ../CommonLibrary;
+				VALID_ARCHS = i386;
+			};
+			name = Development;
+		};
+		2FBBEAE208F335360078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = "$(SRCROOT)/../externals";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-fkibzenrtrheuretixgtgmtqoojy/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development",
+				);
+				PRODUCT_NAME = map1d;
+				PRODUCT_VERSION = 1.0.6;
+				USER_HEADER_SEARCH_PATHS = ../CommonLibrary;
+				VALID_ARCHS = i386;
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "map1d" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAD008F335010078DB84 /* Development */,
+				2FBBEAD108F335010078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAE108F335360078DB84 /* Development */,
+				2FBBEAE208F335360078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

@@ -1,0 +1,313 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F62623231BF94E5800D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623221BF94E5800D27BE9 /* CoreFoundation.framework */; };
+		F62623251BF94E6500D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623241BF94E6500D27BE9 /* MaxAPI.framework */; };
+		F6546C031BFC2825005BBE4B /* maxmspsdk.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F6546C021BFC2825005BBE4B /* maxmspsdk.xcconfig */; };
+		F6972910180C76660082C8CD /* stack_Assist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972903180C76660082C8CD /* stack_Assist.cpp */; };
+		F6972911180C76660082C8CD /* stack_Clear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972904180C76660082C8CD /* stack_Clear.cpp */; };
+		F6972912180C76660082C8CD /* stack_Depth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972905180C76660082C8CD /* stack_Depth.cpp */; };
+		F6972913180C76660082C8CD /* stack_Dup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972906180C76660082C8CD /* stack_Dup.cpp */; };
+		F6972914180C76660082C8CD /* stack_Pop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972907180C76660082C8CD /* stack_Pop.cpp */; };
+		F6972915180C76660082C8CD /* stack_Push.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972908180C76660082C8CD /* stack_Push.cpp */; };
+		F6972916180C76660082C8CD /* stack_Swap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972909180C76660082C8CD /* stack_Swap.cpp */; };
+		F6972917180C76660082C8CD /* stack_Top.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F697290A180C76660082C8CD /* stack_Top.cpp */; };
+		F6972918180C76660082C8CD /* stack_TopPop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F697290B180C76660082C8CD /* stack_TopPop.cpp */; };
+		F6972919180C76660082C8CD /* stack_Trace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F697290C180C76660082C8CD /* stack_Trace.cpp */; };
+		F697291A180C76660082C8CD /* stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F697290D180C76660082C8CD /* stack.cpp */; };
+		F697291B180C76660082C8CD /* stack.h in Headers */ = {isa = PBXBuildFile; fileRef = F697290E180C76660082C8CD /* stack.h */; };
+		F697291C180C76660082C8CD /* stackSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F697290F180C76660082C8CD /* stackSupport.cpp */; };
+		F6A9D4D81BFAF67700518D80 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A9D4D71BFAF67700518D80 /* libCommonLibrary.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2FBBEAE508F335360078DB84 /* stack.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = stack.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F62623221BF94E5800D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		F62623241BF94E6500D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
+		F6546C021BFC2825005BBE4B /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
+		F6972903180C76660082C8CD /* stack_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stack_Assist.cpp; sourceTree = SOURCE_ROOT; };
+		F6972904180C76660082C8CD /* stack_Clear.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stack_Clear.cpp; sourceTree = SOURCE_ROOT; };
+		F6972905180C76660082C8CD /* stack_Depth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stack_Depth.cpp; sourceTree = SOURCE_ROOT; };
+		F6972906180C76660082C8CD /* stack_Dup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stack_Dup.cpp; sourceTree = SOURCE_ROOT; };
+		F6972907180C76660082C8CD /* stack_Pop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stack_Pop.cpp; sourceTree = SOURCE_ROOT; };
+		F6972908180C76660082C8CD /* stack_Push.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stack_Push.cpp; sourceTree = SOURCE_ROOT; };
+		F6972909180C76660082C8CD /* stack_Swap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stack_Swap.cpp; sourceTree = SOURCE_ROOT; };
+		F697290A180C76660082C8CD /* stack_Top.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stack_Top.cpp; sourceTree = SOURCE_ROOT; };
+		F697290B180C76660082C8CD /* stack_TopPop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stack_TopPop.cpp; sourceTree = SOURCE_ROOT; };
+		F697290C180C76660082C8CD /* stack_Trace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stack_Trace.cpp; sourceTree = SOURCE_ROOT; };
+		F697290D180C76660082C8CD /* stack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stack.cpp; sourceTree = SOURCE_ROOT; };
+		F697290E180C76660082C8CD /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = SOURCE_ROOT; };
+		F697290F180C76660082C8CD /* stackSupport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stackSupport.cpp; sourceTree = SOURCE_ROOT; };
+		F6A9D4D71BFAF67700518D80 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "/Users/njaffe/Library/Developer/Xcode/DerivedData/NJObjects-cfvosuyivjfhivdvtnowssnhdiht/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2FBBEADC08F335360078DB84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6A9D4D81BFAF67700518D80 /* libCommonLibrary.a in Frameworks */,
+				F62623251BF94E6500D27BE9 /* MaxAPI.framework in Frameworks */,
+				F62623231BF94E5800D27BE9 /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* iterator */ = {
+			isa = PBXGroup;
+			children = (
+				F6546C021BFC2825005BBE4B /* maxmspsdk.xcconfig */,
+				08FB77ADFE841716C02AAC07 /* Source */,
+				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
+				19C28FB4FE9D528D11CA2CBB /* Products */,
+			);
+			name = iterator;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				F6A9D4D71BFAF67700518D80 /* libCommonLibrary.a */,
+				F62623241BF94E6500D27BE9 /* MaxAPI.framework */,
+				F62623221BF94E5800D27BE9 /* CoreFoundation.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77ADFE841716C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F6972903180C76660082C8CD /* stack_Assist.cpp */,
+				F6972904180C76660082C8CD /* stack_Clear.cpp */,
+				F6972905180C76660082C8CD /* stack_Depth.cpp */,
+				F6972906180C76660082C8CD /* stack_Dup.cpp */,
+				F6972907180C76660082C8CD /* stack_Pop.cpp */,
+				F6972908180C76660082C8CD /* stack_Push.cpp */,
+				F6972909180C76660082C8CD /* stack_Swap.cpp */,
+				F697290A180C76660082C8CD /* stack_Top.cpp */,
+				F697290B180C76660082C8CD /* stack_TopPop.cpp */,
+				F697290C180C76660082C8CD /* stack_Trace.cpp */,
+				F697290D180C76660082C8CD /* stack.cpp */,
+				F697290E180C76660082C8CD /* stack.h */,
+				F697290F180C76660082C8CD /* stackSupport.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		19C28FB4FE9D528D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2FBBEAE508F335360078DB84 /* stack.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2FBBEAD708F335360078DB84 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F697291B180C76660082C8CD /* stack.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2FBBEAD608F335360078DB84 /* max-external */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */;
+			buildPhases = (
+				2FBBEAD708F335360078DB84 /* Headers */,
+				2FBBEAD808F335360078DB84 /* Resources */,
+				2FBBEADA08F335360078DB84 /* Sources */,
+				2FBBEADC08F335360078DB84 /* Frameworks */,
+				2FBBEADF08F335360078DB84 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "max-external";
+			productName = iterator;
+			productReference = 2FBBEAE508F335360078DB84 /* stack.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+			};
+			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "stack" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* iterator */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2FBBEAD608F335360078DB84 /* max-external */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2FBBEAD808F335360078DB84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6546C031BFC2825005BBE4B /* maxmspsdk.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		2FBBEADF08F335360078DB84 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2FBBEADA08F335360078DB84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6972919180C76660082C8CD /* stack_Trace.cpp in Sources */,
+				F6972913180C76660082C8CD /* stack_Dup.cpp in Sources */,
+				F6972914180C76660082C8CD /* stack_Pop.cpp in Sources */,
+				F6972910180C76660082C8CD /* stack_Assist.cpp in Sources */,
+				F6972918180C76660082C8CD /* stack_TopPop.cpp in Sources */,
+				F6972911180C76660082C8CD /* stack_Clear.cpp in Sources */,
+				F6972915180C76660082C8CD /* stack_Push.cpp in Sources */,
+				F6972912180C76660082C8CD /* stack_Depth.cpp in Sources */,
+				F697291A180C76660082C8CD /* stack.cpp in Sources */,
+				F697291C180C76660082C8CD /* stackSupport.cpp in Sources */,
+				F6972917180C76660082C8CD /* stack_Top.cpp in Sources */,
+				F6972916180C76660082C8CD /* stack_Swap.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2FBBEAD008F335010078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Development;
+		};
+		2FBBEAD108F335010078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				SDKROOT = macosx;
+			};
+			name = Deployment;
+		};
+		2FBBEAE108F335360078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = "$(SRCROOT)/../externals";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes",
+				);
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-fkibzenrtrheuretixgtgmtqoojy/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development",
+				);
+				PRODUCT_NAME = stack;
+				PRODUCT_VERSION = 1.0.2;
+				USER_HEADER_SEARCH_PATHS = ../CommonLibrary;
+				VALID_ARCHS = i386;
+			};
+			name = Development;
+		};
+		2FBBEAE208F335360078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = "$(SRCROOT)/../externals";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/Merovingen/Max_Development/MaxSDK-5.1.7/c74support/max-includes",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-fkibzenrtrheuretixgtgmtqoojy/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NJObjects-dahzbzpqeoowltawxtrrejsuzmmj/Build/Products/Development",
+				);
+				PRODUCT_NAME = stack;
+				PRODUCT_VERSION = 1.0.2;
+				USER_HEADER_SEARCH_PATHS = ../CommonLibrary;
+				VALID_ARCHS = i386;
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "stack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAD008F335010078DB84 /* Development */,
+				2FBBEAD108F335010078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAE108F335360078DB84 /* Development */,
+				2FBBEAE208F335360078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

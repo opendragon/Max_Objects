@@ -20,14 +20,49 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXFileReference section */
-		F65FE7F71BF92C1500F75FD0 /* TCP and UDP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "TCP and UDP.xcodeproj"; sourceTree = SOURCE_ROOT; };
-		F65FE7FA1BF92C1500F75FD0 /* Vector Manipulation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Vector Manipulation.xcodeproj"; sourceTree = SOURCE_ROOT; };
-		F65FE7FD1BF92C1500F75FD0 /* Programming Aids.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Programming Aids.xcodeproj"; sourceTree = SOURCE_ROOT; };
-		F65FE8001BF92C1500F75FD0 /* Miscellaneous.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Miscellaneous.xcodeproj; sourceTree = SOURCE_ROOT; };
-		F65FE8031BF92C1500F75FD0 /* Device Interface.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Device Interface.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		F65FE7F71BF92C1500F75FD0 /* TCP and UDP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TCP and UDP.xcodeproj"; path = "TCP and UDP/TCP and UDP.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		F65FE7FA1BF92C1500F75FD0 /* Vector Manipulation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Vector Manipulation.xcodeproj"; path = "Vector Manipulation/Vector Manipulation.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		F65FE7FD1BF92C1500F75FD0 /* Programming Aids.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Programming Aids.xcodeproj"; path = "Programming Aids/Programming Aids.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		F65FE8001BF92C1500F75FD0 /* Miscellaneous.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Miscellaneous.xcodeproj; path = Miscellaneous/Miscellaneous.xcodeproj; sourceTree = SOURCE_ROOT; };
+		F65FE8031BF92C1500F75FD0 /* Device Interface.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Device Interface.xcodeproj"; path = "Device Interface/Device Interface.xcodeproj"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		F68EA7E91BFB6EE7001A60DC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F68EA7F61BFB6EF5001A60DC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F68EA8031BFB6F02001A60DC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F68EA80B1BFB6F0D001A60DC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F68EA82F1BFB6F1B001A60DC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F6AC96FD1803138D00C79326 = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +91,28 @@
 			);
 			mainGroup = F6AC96FD1803138D00C79326;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F68EA7E91BFB6EE7001A60DC /* Products */;
+					ProjectRef = F65FE8031BF92C1500F75FD0 /* Device Interface.xcodeproj */;
+				},
+				{
+					ProductGroup = F68EA7F61BFB6EF5001A60DC /* Products */;
+					ProjectRef = F65FE8001BF92C1500F75FD0 /* Miscellaneous.xcodeproj */;
+				},
+				{
+					ProductGroup = F68EA8031BFB6F02001A60DC /* Products */;
+					ProjectRef = F65FE7FD1BF92C1500F75FD0 /* Programming Aids.xcodeproj */;
+				},
+				{
+					ProductGroup = F68EA80B1BFB6F0D001A60DC /* Products */;
+					ProjectRef = F65FE7F71BF92C1500F75FD0 /* TCP and UDP.xcodeproj */;
+				},
+				{
+					ProductGroup = F68EA82F1BFB6F1B001A60DC /* Products */;
+					ProjectRef = F65FE7FA1BF92C1500F75FD0 /* Vector Manipulation.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F6AC9704180313A100C79326 /* AllObjects */,
