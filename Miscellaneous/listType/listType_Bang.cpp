@@ -40,10 +40,10 @@
 #include "listType.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(ListTypeData * xx)
+BANG_HEADER(ListTypeData)
 {
     if (xx)
     {
-        outlet_int(xx->fResultOut, static_cast<long>(TYPE_NOT_A_LIST));
+        outlet_int(xx->fResultOut, TO_INT(TYPE_NOT_A_LIST));
     }
 } // cmd_Bang

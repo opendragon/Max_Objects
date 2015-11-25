@@ -41,22 +41,126 @@
 #include "senseX.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * senseXCreate(long onDelay,
-                    long offDelay);
+/*------------------------------------ senseXProcessClock ---*/
+static void senseXProcessClock(SenseXData * xx)
+{
+    if (xx && (! xx->fStopping))
+    {
+        qelem_set(xx->fPollQueue);
+    }
+} // senseXProcessClock
 
-void senseXFree(SenseXData * xx);
+/*------------------------------------ senseXProcessQueue ---*/
+static void senseXProcessQueue(SenseXData * xx)
+{
+    if (xx && (! xx->fStopping))
+    {
+        short prevLock;
+        
+        switch (xx->fState)
+        {
+            case kBetweenMessages:
+                prevLock = lockout_set(1);
+                xx->fState = kAwaitingFirstMessage;
+                lockout_set(prevLock);
+                break;
+                
+            case kAfterSecondMessage:
+                prevLock = lockout_set(1);
+                outlet_int(xx->fResultOut, 0);
+                xx->fState = kAwaitingFirstMessage;
+                lockout_set(prevLock);
+                break;
+                
+            default:
+                break;
+        }
+#if USE_EVNUM
+        evnum_incr();
+#endif /* USE_EVNUM */
+    }
+} // senseXProcessQueue
 
-void senseXProcessClock(SenseXData * xx);
+/*------------------------------------ senseXCreate ---*/
+static void * senseXCreate(const long onDelay,
+                           const long offDelay)
+{
+    SenseXData * xx = static_cast<SenseXData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        long actOffDelay;
+        long actOnDelay;
+        
+        if (0 > offDelay)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "off delay is not valid")
+            actOffDelay = 0;
+        }
+        else
+        {
+            actOffDelay = offDelay;
+        }
+        if (0 > onDelay)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "on delay is not valid")
+            actOnDelay = 0;
+        }
+        else
+        {
+            actOnDelay = onDelay;
+        }
+        xx->fOffDelay = actOffDelay;
+        xx->fOnDelay = actOnDelay;
+        xx->fStopping = false;
+        xx->fPollClock = MAKE_CLOCK(xx, senseXProcessClock);
+        xx->fPollQueue = MAKE_QELEM(xx, senseXProcessQueue);
+        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
+        xx->fProxy = proxy_new(xx, 1L, &xx->fInletNumber);
+        xx->fState = kAwaitingFirstMessage;
+        if (! (xx->fResultOut && xx->fProxy))
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // senseXCreate
 
-void senseXProcessQueue(SenseXData * xx);
+/*------------------------------------ senseXFree ---*/
+static void senseXFree(SenseXData * xx)
+{
+    if (xx)
+    {
+        xx->fStopping = true;
+        if (xx->fPollClock)
+        {
+            clock_unset(xx->fPollClock);
+            clock_free(reinterpret_cast<t_object *>(xx->fPollClock));
+            xx->fPollClock = NULL;
+        }
+        if (xx->fPollQueue)
+        {
+            qelem_unset(xx->fPollQueue);
+            qelem_free(xx->fPollQueue);
+            xx->fPollQueue = NULL;
+        }
+        if (xx->fProxy)
+        {
+            freeobject(reinterpret_cast<t_object *>(xx->fProxy));
+            xx->fProxy = NULL;
+        }
+    }
+} // senseXFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(senseXCreate), reinterpret_cast<method>(senseXFree),
-                               sizeof(SenseXData), reinterpret_cast<method>(0L), A_LONG, A_LONG, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(senseXCreate),
+                               reinterpret_cast<method>(senseXFree), sizeof(SenseXData),
+                               reinterpret_cast<method>(0L), A_LONG, A_LONG, 0);
 
     if (temp)
     {
@@ -74,41 +178,7 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ senseXCreate ---*/
-void * senseXCreate(long onDelay,
-                    long offDelay)
-{
-    SenseXData * xx = static_cast<SenseXData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        if (offDelay < 0)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "off delay is not valid")
-            offDelay = 0;
-        }
-        if (onDelay < 0)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "on delay is not valid")
-            onDelay = 0;
-        }
-        xx->fOffDelay = offDelay;
-        xx->fOnDelay = onDelay;
-        xx->fStopping = false;
-        xx->fPollClock = static_cast<t_clock *>(clock_new(xx, reinterpret_cast<method>(senseXProcessClock)));
-        xx->fPollQueue = static_cast<t_qelem *>(qelem_new(xx, reinterpret_cast<method>(senseXProcessQueue)));
-        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
-        xx->fProxy = proxy_new(xx, 1L, &xx->fInletNumber);
-        xx->fState = kAwaitingFirstMessage;
-        if (! (xx->fResultOut || xx->fProxy))
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // senseXCreate
 /*------------------------------------ senseXDoMessage ---*/
 void senseXDoMessage(SenseXData * xx)
 {
@@ -120,7 +190,7 @@ void senseXDoMessage(SenseXData * xx)
         {
             case kAwaitingFirstMessage:
                 prevLock = lockout_set(1);
-                if (xx->fOnDelay > 0)
+                if (0 > xx->fOnDelay)
                 {
                     clock_delay(xx->fPollClock, xx->fOnDelay);
                     xx->fState = kBetweenMessages;
@@ -128,7 +198,7 @@ void senseXDoMessage(SenseXData * xx)
                 else
                 {
                     outlet_int(xx->fResultOut, 1);
-                    if (xx->fOffDelay > 0)
+                    if (0 > xx->fOffDelay)
                     {
                         clock_delay(xx->fPollClock, xx->fOffDelay);
                         xx->fState = kAfterSecondMessage;
@@ -161,67 +231,7 @@ void senseXDoMessage(SenseXData * xx)
 
             default:
                 break;
+                
         }
     }
 } // senseXDoMessage
-/*------------------------------------ senseXFree ---*/
-void senseXFree(SenseXData * xx)
-{
-    if (xx)
-    {
-        xx->fStopping = true;
-        if (xx->fPollClock)
-        {
-            clock_unset(xx->fPollClock);
-            clock_free(reinterpret_cast<t_object *>(xx->fPollClock));
-            xx->fPollClock = NULL_PTR;
-        }
-        if (xx->fPollQueue)
-        {
-            qelem_unset(xx->fPollQueue);
-            qelem_free(xx->fPollQueue);
-            xx->fPollQueue = NULL_PTR;
-        }
-        if (xx->fProxy)
-        {
-            freeobject(reinterpret_cast<t_object *>(xx->fProxy));
-            xx->fProxy = NULL_PTR;
-        }
-    }
-} // senseXFree
-/*------------------------------------ senseXProcessClock ---*/
-void senseXProcessClock(SenseXData * xx)
-{
-    if (xx && (! xx->fStopping))
-    {
-        qelem_set(xx->fPollQueue);
-    }
-} // senseXProcessClock
-/*------------------------------------ senseXProcessQueue ---*/
-void senseXProcessQueue(SenseXData * xx)
-{
-    if (xx && (! xx->fStopping))
-    {
-        short prevLock;
-
-        switch (xx->fState)
-        {
-            case kBetweenMessages:
-                prevLock = lockout_set(1);
-                xx->fState = kAwaitingFirstMessage;
-                lockout_set(prevLock);
-                break;
-
-            case kAfterSecondMessage:
-                prevLock = lockout_set(1);
-                outlet_int(xx->fResultOut, 0);
-                xx->fState = kAwaitingFirstMessage;
-                lockout_set(prevLock);
-                break;
-
-            default:
-                break;
-        }
-        evnum_incr();
-    }
-} // senseXProcessQueue

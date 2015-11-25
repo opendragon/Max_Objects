@@ -42,14 +42,50 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VunspellCreate(long separator1,
-                      long separator2,
-                      long separator3,
-                      long separator4,
-                      long separator5);
+/*------------------------------------ VunspellCreate ---*/
+static void * VunspellCreate(const long separator1,
+                             const long separator2,
+                             const long separator3,
+                             const long separator4,
+                             const long separator5)
+{
+    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        if (setupSeparators(xx, separator1, separator2, separator3, separator4, separator5))
+        {
+            xx->fPreviousList = NULL;
+            xx->fPreviousLength = 0;
+            xx->fChunkList = xx->fLastChunk = NULL;
+            xx->fAssembled = false;
+            xx->fBangOut = static_cast<t_outlet *>(bangout(xx));
+            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+            if (! (xx->fBangOut && xx->fResultOut))
+            {
+                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+                freeobject(reinterpret_cast<t_object *>(xx));
+                xx = NULL;
+            }
+        }
+        else
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "bad separator list")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // VunspellCreate
 
-void VunspellFree(VObjectData * xx);
+/*------------------------------------ VunspellFree ---*/
+static void VunspellFree(VObjectData * xx)
+{
+    if (xx)
+    {
+        clearPrevious(xx);
+    }
+} // VunspellFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -57,7 +93,8 @@ int main(void)
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VunspellCreate),
                                reinterpret_cast<method>(VunspellFree), sizeof(VObjectData),
-                               reinterpret_cast<method>(0L), A_LONG, A_DEFLONG, A_DEFLONG, A_DEFLONG, A_DEFLONG, 0);
+                               reinterpret_cast<method>(0L), A_LONG, A_DEFLONG, A_DEFLONG,
+                               A_DEFLONG, A_DEFLONG, 0);
 
     if (temp)
     {
@@ -72,49 +109,7 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VunspellCreate ---*/
-void * VunspellCreate(long separator1,
-                      long separator2,
-                      long separator3,
-                      long separator4,
-                      long separator5)
-{
-    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        if (setupSeparators(xx, separator1, separator2, separator3, separator4, separator5))
-        {
-            xx->fPreviousList = NULL_PTR;
-            xx->fPreviousLength = 0;
-            xx->fChunkList = xx->fLastChunk = NULL_PTR;
-            xx->fAssembled = false;
-            xx->fBangOut = static_cast<t_outlet *>(bangout(xx));
-            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-            if (! (xx->fBangOut && xx->fResultOut))
-            {
-                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-                freeobject(reinterpret_cast<t_object *>(xx));
-                xx = NULL_PTR;
-            }
-        }
-        else
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "bad separator list")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // VunspellCreate
-/*------------------------------------ VunspellFree ---*/
-void VunspellFree(VObjectData * xx)
-{
-    if (xx)
-    {
-        clearPrevious(xx);
-    }
-} // VunspellFree
 /*------------------------------------ processInput ---*/
 void processInput(VObjectData * xx,
                   const long    value)
@@ -148,7 +143,8 @@ void processInput(VObjectData * xx,
                 atombuf_text(&accumulator, rawData, xx->fPreviousLength);
                 if (accumulator->a_argc)
                 {
-                    genericListOutput(xx->fResultOut, static_cast<short>(accumulator->a_argc), accumulator->a_argv);
+                    genericListOutput(xx->fResultOut, static_cast<short>(accumulator->a_argc),
+                                      accumulator->a_argv);
                 }
             }
             if (rawData)
@@ -174,12 +170,12 @@ void processInput(VObjectData * xx,
 
         if (CHUNK_SIZE == index)
         {
-            ChunkData * newChunk = GETBYTES(1, ChunkData);
+            ChunkData * newChunk = GET_BYTES(1, ChunkData);
 
             if (newChunk)
             {
                 workChunk->fNext = xx->fLastChunk = newChunk;
-                newChunk->fNext = NULL_PTR;
+                newChunk->fNext = NULL;
                 newChunk->fLastEntry = 1;
                 newChunk->fData[0] = value;
             }
@@ -193,15 +189,15 @@ void processInput(VObjectData * xx,
     }
     else
     {
-        workChunk = GETBYTES(1, ChunkData);
+        workChunk = GET_BYTES(1, ChunkData);
         if (workChunk)
         {
             xx->fChunkList = xx->fLastChunk = workChunk;
-            workChunk->fNext = NULL_PTR;
+            workChunk->fNext = NULL;
             workChunk->fLastEntry = xx->fPreviousLength = 1;
             workChunk->fData[0] = value;
         }
     }
 } // processInput
 
-StandardAnythingRoutine(VObjectData *)
+StandardAnythingRoutine(VObjectData)

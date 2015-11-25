@@ -40,10 +40,10 @@
 #include "dataType.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(DataTypeData * xx)
+BANG_HEADER(DataTypeData)
 {
     if (xx)
     {
-        outlet_int(xx->fResultOut, static_cast<long>(TYPE_BANG));
+        outlet_int(xx->fResultOut, TO_INT(TYPE_BANG));
     }
 } // cmd_Bang

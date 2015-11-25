@@ -139,8 +139,10 @@ static void x10DoCM11(X10ControlData * xx,
 
         default:
             break;
+
     }
 } // x10DoCM11
+
 /*------------------------------------ x10DoCP290 ---*/
 static void x10DoCP290(X10ControlData * xx,
                        const long       rr)
@@ -204,6 +206,7 @@ static void x10DoCP290(X10ControlData * xx,
                         xx->fMajorState = x10CP290MajorIdle;
                         xx->fMinorState = x10CP290MinorIdle;
                         break;
+                        
                 }
             }
             else
@@ -216,257 +219,270 @@ static void x10DoCP290(X10ControlData * xx,
             /* other cases might change minor state to x10CP290MinorSawStatus */
         case x10CP290MinorSawStatus:
             switch (xx->fMajorState)
-        {
-            case x10CP290MajorAwaitingUpload:
-                xx->fMinorState = x10CP290MinorSawHouseCode;
-                break;
+            {
+                case x10CP290MajorAwaitingUpload:
+                    xx->fMinorState = x10CP290MinorSawHouseCode;
+                    break;
 
-            case x10CP290MajorAwaitingClockAndHouseCode:
-                outlet_int(xx->fMinuteOut, rr);
-                xx->fMinorState = x10CP290MinorSawMinutes;
-                break;
+                case x10CP290MajorAwaitingClockAndHouseCode:
+                    outlet_int(xx->fMinuteOut, rr);
+                    xx->fMinorState = x10CP290MinorSawMinutes;
+                    break;
 
-            case x10CP290MajorAwaitingGraphicsData:
-                if (ALL_ON == rr)
-                {
-                    ++xx->fEntryCount;
-                    xx->fMinorState = x10CP290MinorSawIcon2;
-                }
-                else
-                {
-                    xx->fMinorState = x10CP290MinorSawIcon1;
-                }
-                break;
+                case x10CP290MajorAwaitingGraphicsData:
+                    if (ALL_ON == rr)
+                    {
+                        ++xx->fEntryCount;
+                        xx->fMinorState = x10CP290MinorSawIcon2;
+                    }
+                    else
+                    {
+                        xx->fMinorState = x10CP290MinorSawIcon1;
+                    }
+                    break;
 
-            case x10CP290MajorAwaitingTimerEvents:
-                if (ALL_ON == rr)
-                {
-                    ++xx->fEntryCount;
-                    xx->fMinorState = x10CP290MinorSawEvent8;
-                }
-                else
-                {
-                    xx->fEventByteCount = 1;
-                    xx->fMinorState = x10CP290MinorSawEvent1;
-                }
-                break;
+                case x10CP290MajorAwaitingTimerEvents:
+                    if (ALL_ON == rr)
+                    {
+                        ++xx->fEntryCount;
+                        xx->fMinorState = x10CP290MinorSawEvent8;
+                    }
+                    else
+                    {
+                        xx->fEventByteCount = 1;
+                        xx->fMinorState = x10CP290MinorSawEvent1;
+                    }
+                    break;
 
-            default:
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
-        }
+                default:
+                    xx->fMajorState = x10CP290MajorIdle;
+                    xx->fMinorState = x10CP290MinorIdle;
+                    break;
+                    
+            }
             break;
 
         case x10CP290MinorSawHouseCode:
             switch (xx->fMajorState)
-        {
-            case x10CP290MajorAwaitingUpload:
-                xx->fMinorState = x10CP290MinorSawUnits1;
-                break;
+            {
+                case x10CP290MajorAwaitingUpload:
+                    xx->fMinorState = x10CP290MinorSawUnits1;
+                    break;
 
-            default:
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
-        }
+                default:
+                    xx->fMajorState = x10CP290MajorIdle;
+                    xx->fMinorState = x10CP290MinorIdle;
+                    break;
+                    
+            }
             break;
 
         case x10CP290MinorSawUnits1:
             switch (xx->fMajorState)
-        {
-            case x10CP290MajorAwaitingUpload:
-                xx->fMinorState = x10CP290MinorSawUnits2;
-                break;
+            {
+                case x10CP290MajorAwaitingUpload:
+                    xx->fMinorState = x10CP290MinorSawUnits2;
+                    break;
 
-            default:
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
-        }
+                default:
+                    xx->fMajorState = x10CP290MajorIdle;
+                    xx->fMinorState = x10CP290MinorIdle;
+                    break;
+                    
+            }
             break;
 
         case x10CP290MinorSawUnits2:
             switch (xx->fMajorState)
-        {
-            case x10CP290MajorAwaitingUpload:
-                outlet_int(xx->fHouseCode, static_cast<long>(rr >> 4));
-                xx->fMinorState = x10CP290MinorSawBaseHouseCode;
-                break;
+            {
+                case x10CP290MajorAwaitingUpload:
+                    outlet_int(xx->fHouseCode, TO_INT(rr >> 4));
+                    xx->fMinorState = x10CP290MinorSawBaseHouseCode;
+                    break;
 
-            default:
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
-        }
+                default:
+                    xx->fMajorState = x10CP290MajorIdle;
+                    xx->fMinorState = x10CP290MinorIdle;
+                    break;
+                    
+            }
             break;
 
         case x10CP290MinorSawBaseHouseCode:
             switch (xx->fMajorState)
-        {
-            case x10CP290MajorAwaitingUpload:
-                outlet_bang(xx->fCommandComplete);
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
+            {
+                case x10CP290MajorAwaitingUpload:
+                    outlet_bang(xx->fCommandComplete);
+                    xx->fMajorState = x10CP290MajorIdle;
+                    xx->fMinorState = x10CP290MinorIdle;
+                    break;
 
-            case x10CP290MajorAwaitingClockAndHouseCode:
-                outlet_bang(xx->fCommandComplete);
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
+                case x10CP290MajorAwaitingClockAndHouseCode:
+                    outlet_bang(xx->fCommandComplete);
+                    xx->fMajorState = x10CP290MajorIdle;
+                    xx->fMinorState = x10CP290MinorIdle;
+                    break;
 
-            default:
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
-        }
+                default:
+                    xx->fMajorState = x10CP290MajorIdle;
+                    xx->fMinorState = x10CP290MinorIdle;
+                    break;
+                    
+            }
             break;
 
         case x10CP290MinorSawMinutes:
             switch (xx->fMajorState)
-        {
-            case x10CP290MajorAwaitingClockAndHouseCode:
-                outlet_int(xx->fHourOut, rr);
-                xx->fMinorState = x10CP290MinorSawHours;
-                break;
+            {
+                case x10CP290MajorAwaitingClockAndHouseCode:
+                    outlet_int(xx->fHourOut, rr);
+                    xx->fMinorState = x10CP290MinorSawHours;
+                    break;
 
-            default:
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
-        }
+                default:
+                    xx->fMajorState = x10CP290MajorIdle;
+                    xx->fMinorState = x10CP290MinorIdle;
+                    break;
+                    
+            }
             break;
 
         case x10CP290MinorSawHours:
             switch (xx->fMajorState)
-        {
-            case x10CP290MajorAwaitingClockAndHouseCode:
-                outlet_int(xx->fDayOut, rr);
-                xx->fMinorState = x10CP290MinorSawDays;
-                break;
+            {
+                case x10CP290MajorAwaitingClockAndHouseCode:
+                    outlet_int(xx->fDayOut, rr);
+                    xx->fMinorState = x10CP290MinorSawDays;
+                    break;
 
-            default:
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
-        }
+                default:
+                    xx->fMajorState = x10CP290MajorIdle;
+                    xx->fMinorState = x10CP290MinorIdle;
+                    break;
+                    
+            }
             break;
 
         case x10CP290MinorSawDays:
             switch (xx->fMajorState)
-        {
-            case x10CP290MajorAwaitingClockAndHouseCode:
-                outlet_int(xx->fHouseCode, static_cast<long>(rr >> 4));
-                xx->fMinorState = x10CP290MinorSawBaseHouseCode;
-                break;
+            {
+                case x10CP290MajorAwaitingClockAndHouseCode:
+                    outlet_int(xx->fHouseCode, TO_INT(rr >> 4));
+                    xx->fMinorState = x10CP290MinorSawBaseHouseCode;
+                    break;
 
-            default:
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
-        }
+                default:
+                    xx->fMajorState = x10CP290MajorIdle;
+                    xx->fMinorState = x10CP290MinorIdle;
+                    break;
+                    
+            }
             break;
 
         case x10CP290MinorSawIcon1:
             switch (xx->fMajorState)
-        {
-            case x10CP290MajorAwaitingGraphicsData:
-                xx->fMinorState = x10CP290MinorSawIcon2;
-                break;
+            {
+                case x10CP290MajorAwaitingGraphicsData:
+                    xx->fMinorState = x10CP290MinorSawIcon2;
+                    break;
 
-            default:
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
-        }
+                default:
+                    xx->fMajorState = x10CP290MajorIdle;
+                    xx->fMinorState = x10CP290MinorIdle;
+                    break;
+                    
+            }
             break;
 
         case x10CP290MinorSawIcon2:
             switch (xx->fMajorState)
-        {
-            case x10CP290MajorAwaitingGraphicsData:
-                if (xx->fEntryCount >= 256)
-                {
-                    outlet_bang(xx->fCommandComplete);
-                    xx->fEntryCount = 0;
+            {
+                case x10CP290MajorAwaitingGraphicsData:
+                    if (xx->fEntryCount >= 256)
+                    {
+                        outlet_bang(xx->fCommandComplete);
+                        xx->fEntryCount = 0;
+                        xx->fMajorState = x10CP290MajorIdle;
+                        xx->fMinorState = x10CP290MinorIdle;
+                    }
+                    else if (ALL_ON == rr)
+                    {
+                        ++xx->fEntryCount;
+                    }
+                    else
+                    {
+                        xx->fMinorState = x10CP290MinorSawIcon1;
+                    }
+                    break;
+
+                default:
                     xx->fMajorState = x10CP290MajorIdle;
                     xx->fMinorState = x10CP290MinorIdle;
-                }
-                else if (ALL_ON == rr)
-                {
-                    ++xx->fEntryCount;
-                }
-                else
-                {
-                    xx->fMinorState = x10CP290MinorSawIcon1;
-                }
-                break;
-
-            default:
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
-        }
+                    break;
+                    
+            }
             break;
 
         case x10CP290MinorSawEvent1:
             switch (xx->fMajorState)
-        {
-            case x10CP290MajorAwaitingTimerEvents:
-                if (8 == xx->fEventByteCount)
-                {
-                    xx->fMinorState = x10CP290MinorSawEvent8;
-                }
-                else
-                {
-                    ++xx->fEventByteCount;
-                }
-                break;
+            {
+                case x10CP290MajorAwaitingTimerEvents:
+                    if (8 == xx->fEventByteCount)
+                    {
+                        xx->fMinorState = x10CP290MinorSawEvent8;
+                    }
+                    else
+                    {
+                        ++xx->fEventByteCount;
+                    }
+                    break;
 
-            default:
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
-        }
+                default:
+                    xx->fMajorState = x10CP290MajorIdle;
+                    xx->fMinorState = x10CP290MinorIdle;
+                    break;
+                    
+            }
             break;
 
         case x10CP290MinorSawEvent8:
             switch (xx->fMajorState)
-        {
-            case x10CP290MajorAwaitingTimerEvents:
-                if (xx->fEntryCount >= 128)
-                {
-                    outlet_bang(xx->fCommandComplete);
-                    xx->fEntryCount = 0;
+            {
+                case x10CP290MajorAwaitingTimerEvents:
+                    if (xx->fEntryCount >= 128)
+                    {
+                        outlet_bang(xx->fCommandComplete);
+                        xx->fEntryCount = 0;
+                        xx->fMajorState = x10CP290MajorIdle;
+                        xx->fMinorState = x10CP290MinorIdle;
+                    }
+                    else if (ALL_ON == rr)
+                    {
+                        ++xx->fEntryCount;
+                    }
+                    else
+                    {
+                        xx->fEventByteCount = 1;
+                        xx->fMinorState = x10CP290MinorSawEvent1;
+                    }
+                    break;
+
+                default:
                     xx->fMajorState = x10CP290MajorIdle;
                     xx->fMinorState = x10CP290MinorIdle;
-                }
-                else if (ALL_ON == rr)
-                {
-                    ++xx->fEntryCount;
-                }
-                else
-                {
-                    xx->fEventByteCount = 1;
-                    xx->fMinorState = x10CP290MinorSawEvent1;
-                }
-                break;
-
-            default:
-                xx->fMajorState = x10CP290MajorIdle;
-                xx->fMinorState = x10CP290MinorIdle;
-                break;
-        }
+                    break;
+                    
+            }
             break;
 
         default:
             break;
+            
     }
 } // x10DoCP290
+
 /*------------------------------------ cmd_In1 ---*/
-void cmd_In1(X10ControlData * xx,
-             const long       rr)
+IN1_HEADER(X10ControlData)
 {
     /* We've received a byte. Check if it matches what we are expecting. */
     if (xx)
@@ -474,16 +490,17 @@ void cmd_In1(X10ControlData * xx,
         switch (xx->fKind)
         {
             case X10KindCM11:
-                x10DoCM11(xx, rr);
+                x10DoCM11(xx, msg);
                 break;
 
 
             case X10KindCP290:
-                x10DoCP290(xx, rr);
+                x10DoCP290(xx, msg);
                 break;
 
             default:
                 break;
+                
         }
     }
 } // cmd_In1

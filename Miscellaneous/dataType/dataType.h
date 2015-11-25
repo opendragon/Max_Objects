@@ -62,6 +62,6 @@ struct DataTypeData
     t_outlet * fResultOut;
 }; // DataTypeData
 
-StandardRoutineDeclarations(DataTypeData *);
+StandardRoutineDeclarations(DataTypeData);
 
 #endif /* not DATATYPE_H_ */

@@ -40,11 +40,7 @@
 #include "fileLogger.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(FileLoggerData * xx,
-                void *           bb,
-                long             msg,
-                long             arg,
-                char *           dstString)
+ASSIST_HEADER(FileLoggerData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

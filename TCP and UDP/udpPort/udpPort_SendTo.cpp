@@ -48,12 +48,13 @@ void cmd_SendTo(UdpObjectData * xx,
     REPORT_MAX_MESSAGE("server")
     if (xx)
     {
-        if ((portNumber < 0) || (portNumber > MAX_PORT))
+        if ((0 > portNumber) || (MAX_PORT < portNumber))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid port (%ld)", portNumber)
             signalError(xx);
         }
-        else if ((ipAddress == gEmptySymbol) || (1 == inet_pton(AF_INET, ipAddress->s_name, &xx->fPartnerAddress)))
+        else if ((ipAddress == gEmptySymbol) || (1 == inet_pton(AF_INET, ipAddress->s_name,
+                                                                &xx->fPartnerAddress)))
         {
             xx->fPartnerPort = static_cast<unsigned short>(portNumber);
             xx->fPartnerKnown = true;

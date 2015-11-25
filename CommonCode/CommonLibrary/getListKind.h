@@ -42,9 +42,12 @@
 
 # include "missingAndExtra.h"
 
-# define A_ERROR 123 /* This should not be a legal Atom type */
+# define A_ERROR 123 /* This should not be a legal t_atom type */
 
-unsigned char getListKind(const short argc,
-                          t_atom *    argv);
+# define GETLISTKIND_HEADER \
+unsigned char getListKind(const short argc,\
+                          t_atom *    argv)
+
+GETLISTKIND_HEADER;
 
 #endif /* not GETLISTKIND_H_ */

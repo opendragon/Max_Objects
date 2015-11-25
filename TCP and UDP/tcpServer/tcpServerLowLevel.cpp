@@ -44,6 +44,7 @@ void processRebindQueue(TcpObjectData * xx)
 {
     if (xx)
     {
+#if 0
         short    prev_lock = lockout_set(1);
         OSStatus result = kOTNoError;
 
@@ -66,7 +67,7 @@ void processRebindQueue(TcpObjectData * xx)
             bind_request.addr.len = sizeof(in_address);
             bind_request.addr.buf = reinterpret_cast<unsigned char *>(&in_address);
             bind_request.qlen = 1;
-            WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fSocket, &bind_request, NULL_PTR))
+            WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fSocket, &bind_request, NULL))
             if (result != kOTNoError)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
@@ -75,9 +76,13 @@ void processRebindQueue(TcpObjectData * xx)
             }
         }
         lockout_set(prev_lock);
+#if USE_EVNUM
         evnum_incr();
+#endif /* USE_EVNUM */
+#endif//0
     }
 } // processRebindQueue
+
 /*------------------------------------ processReceiveQueue ---*/
 void processReceiveQueue(TcpObjectData * xx)
 {
@@ -103,14 +108,14 @@ void processReceiveQueue(TcpObjectData * xx)
             /* Grab the head of the received list */
             if (temp->fNext)
             {
-                temp->fNext->fPrevious = NULL_PTR;
+                temp->fNext->fPrevious = NULL;
             }
             xx->fReceiveHead = temp->fNext;
             if (! xx->fReceiveHead)
             {
-                xx->fReceiveTail = NULL_PTR;
+                xx->fReceiveTail = NULL;
             }
-            temp->fNext = NULL_PTR;
+            temp->fNext = NULL;
             walker = reinterpret_cast<char *>(&temp->fData->fNumElements);
             numMessages = validateBuffer(xx, OUR_NAME, temp->fData, xx->fRawMode);
             for (short ii = 0; ii < numMessages; ++ii)
@@ -118,13 +123,13 @@ void processReceiveQueue(TcpObjectData * xx)
                 /* Allow interrupts while we process the buffer */
                 lockout_set(prev_lock);
                 numAtoms = 0;
-                gotStuff = convertBufferToAtoms(xx, OUR_NAME, &walker, numAtoms, 0, temp->fData->fNumBytesInUse,
-                                                xx->fRawMode);
+                gotStuff = convertBufferToAtoms(xx, OUR_NAME, &walker, numAtoms, 0,
+                                                temp->fData->fNumBytesInUse, xx->fRawMode);
                 prev_lock = lockout_set(1);
                 if (numAtoms > 0)
                 {
                     outlet_anything(xx->fResultOut, gReplySymbol, numAtoms, gotStuff);
-                    FREEBYTES(gotStuff, numAtoms);
+                    FREE_BYTES(gotStuff);
                 }
             }
             /* Add the temp link to the buffer pool */
@@ -140,9 +145,12 @@ void processReceiveQueue(TcpObjectData * xx)
             xx->fPoolTail = temp;
         }
         lockout_set(prev_lock);
+#if USE_EVNUM
         evnum_incr();
+#endif /* USE_EVNUM */
     }
 } // processReceiveQueue
+
 /*------------------------------------ makeReceiveBufferAvailable ---*/
 bool makeReceiveBufferAvailable(TcpObjectData * xx)
 {
@@ -150,6 +158,7 @@ bool makeReceiveBufferAvailable(TcpObjectData * xx)
 
     if (xx)
     {
+#if 0
         OSStatus err;
         OTFlags  flags;
 
@@ -174,14 +183,14 @@ bool makeReceiveBufferAvailable(TcpObjectData * xx)
 
                 if (temp->fNext)
                 {
-                    temp->fNext->fPrevious = NULL_PTR;
+                    temp->fNext->fPrevious = NULL;
                 }
                 xx->fPoolHead = temp->fNext;
                 if (! xx->fPoolHead)
                 {
-                    xx->fPoolTail = NULL_PTR;
+                    xx->fPoolTail = NULL;
                 }
-                temp->fNext = NULL_PTR;
+                temp->fNext = NULL;
                 /* Exchange the receive buffer and the pool buffer */
                 temp->fData = xx->fReceiveBuffer;
                 xx->fReceiveBuffer = swapper;
@@ -204,9 +213,11 @@ bool makeReceiveBufferAvailable(TcpObjectData * xx)
             }
             signalReceive(xx);
         }
+#endif//0
     }
     return okSoFar;
 } // makeReceiveBufferAvailable
+
 /*------------------------------------ setObjectState ---*/
 void setObjectState(TcpObjectData * xx,
                     const TcpState  newState)
@@ -222,12 +233,14 @@ void setObjectState(TcpObjectData * xx,
 #endif /* BE_VERBOSE */
     }
 } // setObjectState
+
 /*------------------------------------ transmitBuffer ---*/
 void transmitBuffer(TcpObjectData * xx,
                     DataBuffer *    aBuffer)
 {
     if (xx && aBuffer)
     {
+#if 0
         OSStatus result;
 
         if (xx->fRawMode)
@@ -249,5 +262,6 @@ void transmitBuffer(TcpObjectData * xx,
             REPORT_ERROR(xx, OUTPUT_PREFIX "OTSnd failed (%ld = %s)", result)
             reportEndpointState(OUR_NAME, xx);
         }
+#endif//0
     }
 } // transmitBuffer

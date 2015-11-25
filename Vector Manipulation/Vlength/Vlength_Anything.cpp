@@ -40,10 +40,7 @@
 #include "Vlength.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(VlengthData * xx,
-                  t_symbol *    message,
-                  short         argc,
-                  t_atom *      argv)
+ANYTHING_HEADER(VlengthData)
 {
 #pragma unused(message, argv)
     if (xx)

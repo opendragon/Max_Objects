@@ -40,14 +40,11 @@
 #include "Vlength.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VlengthData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VlengthData)
 {
 #pragma unused(message, argv)
     if (xx)
     {
-        outlet_int(xx->fResultOut, static_cast<long>(argc));
+        outlet_int(xx->fResultOut, TO_INT(argc));
     }
 } // cmd_List

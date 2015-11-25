@@ -46,10 +46,11 @@ void map3dOutputResult(Map3dData * xx,
 {
     if (result->fDollarsPresent || result->fDoubleDollarsPresent || result->fSingleDollarsPresent)
     {
-        short    outputCount = static_cast<short>(result->fOutputCount + (2 * result->fDollarsPresent) +
-                                                   (2 * result->fDoubleDollarsPresent));
+        short    outputCount = static_cast<short>(result->fOutputCount +
+                                                  (2 * result->fDollarsPresent) +
+                                                  (2 * result->fDoubleDollarsPresent));
         t_atom * inWalker = result->fOutput;
-        t_atom * tempList = GETBYTES(outputCount, t_atom);
+        t_atom * tempList = GET_BYTES(outputCount, t_atom);
 
         if (tempList)
         {
@@ -64,27 +65,27 @@ void map3dOutputResult(Map3dData * xx,
                         /* Output previous input */
                         if (xx->fPreviousInput[0].fIsFloat)
                         {
-                            SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                         }
                         else
                         {
-                            SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
                         }
                         if (xx->fPreviousInput[1].fIsFloat)
                         {
-                            SETFLOAT(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
+                            A_SETFLOAT(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
                         }
                         else
                         {
-                            SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
+                            A_SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
                         }
                         if (xx->fPreviousInput[2].fIsFloat)
                         {
-                            SETFLOAT(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
+                            A_SETFLOAT(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
                         }
                         else
                         {
-                            SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
+                            A_SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
                         }
                         outWalker += 3;
                     }
@@ -95,112 +96,112 @@ void map3dOutputResult(Map3dData * xx,
                         {
                             if (xx->fPreviousInput[0].fIsFloat)
                             {
-                                SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                                A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                             }
                             else
                             {
-                                SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
                             }
                         }
                         else if (MatchFloat == result->fLeft.fKind)
                         {
-                            SETFLOAT(outWalker, static_cast<float>(getFOIValue(xx->fPreviousInput[0]) -
-                                                                   getFOIValue(result->fLeft.fValue)));
+                            A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[0]) -
+                                       getFOIValue(result->fLeft.fValue));
                         }
                         else if (MatchInteger == result->fLeft.fKind)
                         {
                             if (xx->fPreviousInput[0].fIsFloat)
                             {
-                                SETFLOAT(outWalker, static_cast<float>(getFOIValue(xx->fPreviousInput[0]) -
-                                                                       getFOIValue(result->fLeft.fValue)));
+                                A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[0]) -
+                                           getFOIValue(result->fLeft.fValue));
                             }
                             else
                             {
-                                SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]) -
-                                        getFOILong(result->fLeft.fValue));
+                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]) -
+                                          getFOILong(result->fLeft.fValue));
                             }
                         }
                         else if (xx->fPreviousInput[0].fIsFloat)
                         {
-                            SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                         }
                         else
                         {
-                            SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
                         }
                         if (result->fBottomTopDontCare)
                         {
                             if (xx->fPreviousInput[1].fIsFloat)
                             {
-                                SETFLOAT(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
+                                A_SETFLOAT(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
                             }
                             else
                             {
-                                SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
+                                A_SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
                             }
                         }
                         else if (MatchFloat == result->fBottom.fKind)
                         {
-                            SETFLOAT(outWalker + 1, static_cast<float>(getFOIValue(xx->fPreviousInput[1]) -
-                                                                       getFOIValue(result->fBottom.fValue)));
+                            A_SETFLOAT(outWalker + 1, getFOIValue(xx->fPreviousInput[1]) -
+                                       getFOIValue(result->fBottom.fValue));
                         }
                         else if (MatchInteger == result->fBottom.fKind)
                         {
                             if (xx->fPreviousInput[1].fIsFloat)
                             {
-                                SETFLOAT(outWalker + 1, static_cast<float>(getFOIValue(xx->fPreviousInput[1]) -
-                                                                           getFOIValue(result->fBottom.fValue)));
+                                A_SETFLOAT(outWalker + 1, getFOIValue(xx->fPreviousInput[1]) -
+                                           getFOIValue(result->fBottom.fValue));
                             }
                             else
                             {
-                                SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]) -
-                                        getFOILong(result->fBottom.fValue));
+                                A_SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]) -
+                                          getFOILong(result->fBottom.fValue));
                             }
                         }
                         else if (xx->fPreviousInput[1].fIsFloat)
                         {
-                            SETFLOAT(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
+                            A_SETFLOAT(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
                         }
                         else
                         {
-                            SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
+                            A_SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
                         }
                         if (result->fForwardBackDontCare)
                         {
                             if (xx->fPreviousInput[2].fIsFloat)
                             {
-                                SETFLOAT(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
+                                A_SETFLOAT(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
                             }
                             else
                             {
-                                SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
+                                A_SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
                             }
                         }
                         else if (MatchFloat == result->fForward.fKind)
                         {
-                            SETFLOAT(outWalker + 2, static_cast<float>(getFOIValue(xx->fPreviousInput[2]) -
-                                                                       getFOIValue(result->fForward.fValue)));
+                            A_SETFLOAT(outWalker + 2, getFOIValue(xx->fPreviousInput[2]) -
+                                       getFOIValue(result->fForward.fValue));
                         }
                         else if (MatchInteger == result->fForward.fKind)
                         {
                             if (xx->fPreviousInput[2].fIsFloat)
                             {
-                                SETFLOAT(outWalker + 2, static_cast<float>(getFOIValue(xx->fPreviousInput[2]) -
-                                                                           getFOIValue(result->fForward.fValue)));
+                                A_SETFLOAT(outWalker + 2, getFOIValue(xx->fPreviousInput[2]) -
+                                           getFOIValue(result->fForward.fValue));
                             }
                             else
                             {
-                                SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]) -
-                                        getFOILong(result->fBottom.fValue));
+                                A_SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]) -
+                                          getFOILong(result->fBottom.fValue));
                             }
                         }
                         else if (xx->fPreviousInput[2].fIsFloat)
                         {
-                            SETFLOAT(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
+                            A_SETFLOAT(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
                         }
                         else
                         {
-                            SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
+                            A_SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
                         }
                         outWalker += 3;
                     }
@@ -209,11 +210,11 @@ void map3dOutputResult(Map3dData * xx,
                         /* Output previous input */
                         if (xx->fPreviousInput[0].fIsFloat)
                         {
-                            SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                         }
                         else
                         {
-                            SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
                         }
                         ++outWalker;
                     }
@@ -222,11 +223,11 @@ void map3dOutputResult(Map3dData * xx,
                         /* Output previous input */
                         if (xx->fPreviousInput[1].fIsFloat)
                         {
-                            SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[1]));
+                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[1]));
                         }
                         else
                         {
-                            SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]));
+                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]));
                         }
                         ++outWalker;
                     }
@@ -235,11 +236,11 @@ void map3dOutputResult(Map3dData * xx,
                         /* Output previous input */
                         if (xx->fPreviousInput[2].fIsFloat)
                         {
-                            SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[2]));
+                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[2]));
                         }
                         else
                         {
-                            SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]));
+                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]));
                         }
                         ++outWalker;
                     }
@@ -250,38 +251,38 @@ void map3dOutputResult(Map3dData * xx,
                         {
                             if (xx->fPreviousInput[0].fIsFloat)
                             {
-                                SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                                A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                             }
                             else
                             {
-                                SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
                             }
                         }
                         else if (MatchFloat == result->fLeft.fKind)
                         {
-                            SETFLOAT(outWalker, static_cast<float>(getFOIValue(xx->fPreviousInput[0]) -
-                                                                   getFOIValue(result->fLeft.fValue)));
+                            A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[0]) -
+                                       getFOIValue(result->fLeft.fValue));
                         }
                         else if (MatchInteger == result->fLeft.fKind)
                         {
                             if (xx->fPreviousInput[0].fIsFloat)
                             {
-                                SETFLOAT(outWalker, static_cast<float>(getFOIValue(xx->fPreviousInput[0]) -
-                                                                       getFOIValue(result->fLeft.fValue)));
+                                A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[0]) -
+                                           getFOIValue(result->fLeft.fValue));
                             }
                             else
                             {
-                                SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]) -
-                                        getFOILong(result->fLeft.fValue));
+                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]) -
+                                          getFOILong(result->fLeft.fValue));
                             }
                         }
                         else if (xx->fPreviousInput[0].fIsFloat)
                         {
-                            SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                         }
                         else
                         {
-                            SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
                         }
                         ++outWalker;
                     }
@@ -292,38 +293,38 @@ void map3dOutputResult(Map3dData * xx,
                         {
                             if (xx->fPreviousInput[1].fIsFloat)
                             {
-                                SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[1]));
+                                A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[1]));
                             }
                             else
                             {
-                                SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]));
+                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]));
                             }
                         }
                         else if (MatchFloat == result->fBottom.fKind)
                         {
-                            SETFLOAT(outWalker, static_cast<float>(getFOIValue(xx->fPreviousInput[1]) -
-                                                                   getFOIValue(result->fBottom.fValue)));
+                            A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[1]) -
+                                       getFOIValue(result->fBottom.fValue));
                         }
                         else if (MatchInteger == result->fBottom.fKind)
                         {
                             if (xx->fPreviousInput[1].fIsFloat)
                             {
-                                SETFLOAT(outWalker, static_cast<float>(getFOIValue(xx->fPreviousInput[1]) -
-                                                                       getFOIValue(result->fBottom.fValue)));
+                                A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[1]) -
+                                           getFOIValue(result->fBottom.fValue));
                             }
                             else
                             {
-                                SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]) -
-                                        getFOILong(result->fBottom.fValue));
+                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]) -
+                                          getFOILong(result->fBottom.fValue));
                             }
                         }
                         else if (xx->fPreviousInput[1].fIsFloat)
                         {
-                            SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[1]));
+                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[1]));
                         }
                         else
                         {
-                            SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]));
+                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]));
                         }
                         ++outWalker;
                     }
@@ -334,38 +335,38 @@ void map3dOutputResult(Map3dData * xx,
                         {
                             if (xx->fPreviousInput[2].fIsFloat)
                             {
-                                SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[2]));
+                                A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[2]));
                             }
                             else
                             {
-                                SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]));
+                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]));
                             }
                         }
                         else if (MatchFloat == result->fForward.fKind)
                         {
-                            SETFLOAT(outWalker, static_cast<float>(getFOIValue(xx->fPreviousInput[2]) -
-                                                                   getFOIValue(result->fForward.fValue)));
+                            A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[2]) -
+                                       getFOIValue(result->fForward.fValue));
                         }
                         else if (MatchInteger == result->fForward.fKind)
                         {
                             if (xx->fPreviousInput[2].fIsFloat)
                             {
-                                SETFLOAT(outWalker, static_cast<float>(getFOIValue(xx->fPreviousInput[2]) -
-                                                                       getFOIValue(result->fForward.fValue)));
+                                A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[2]) -
+                                           getFOIValue(result->fForward.fValue));
                             }
                             else
                             {
-                                SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]) -
-                                        getFOILong(result->fBottom.fValue));
+                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]) -
+                                          getFOILong(result->fBottom.fValue));
                             }
                         }
                         else if (xx->fPreviousInput[2].fIsFloat)
                         {
-                            SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[2]));
+                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[2]));
                         }
                         else
                         {
-                            SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]));
+                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]));
                         }
                         ++outWalker;
                     }
@@ -375,32 +376,32 @@ void map3dOutputResult(Map3dData * xx,
                         ++outWalker;
                     }
                 }
-                else if (A_DOLLAR == inWalker->a_type)
+                else if ((A_DOLLAR == inWalker->a_type) || (A_DOLLSYM == inWalker->a_type))
                 {
                     /* Output previous input */
                     if (xx->fPreviousInput[0].fIsFloat)
                     {
-                        SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                        A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                     }
                     else
                     {
-                        SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                        A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
                     }
                     if (xx->fPreviousInput[1].fIsFloat)
                     {
-                        SETFLOAT(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
+                        A_SETFLOAT(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
                     }
                     else
                     {
-                        SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
+                        A_SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
                     }
                     if (xx->fPreviousInput[2].fIsFloat)
                     {
-                        SETFLOAT(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
+                        A_SETFLOAT(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
                     }
                     else
                     {
-                        SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
+                        A_SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
                     }
                     outWalker += 3;
                 }
@@ -412,7 +413,7 @@ void map3dOutputResult(Map3dData * xx,
                 ++inWalker;
             }
             outlet_anything(xx->fResultOut, gResultSymbol, outputCount, tempList);
-            FREEBYTES(tempList, outputCount);
+            FREE_BYTES(tempList);
         }
     }
     else
@@ -420,6 +421,7 @@ void map3dOutputResult(Map3dData * xx,
         outlet_anything(xx->fResultOut, gResultSymbol, result->fOutputCount, result->fOutput);
     }
 } // map3dOutputResult
+
 /*------------------------------------ map3dProcessData ---*/
 void map3dProcessData(Map3dData *            xx,
                       const FloatOrInteger & xCoord,
@@ -439,7 +441,7 @@ void map3dProcessData(Map3dData *            xx,
         }
         else if (xCoord.fIsFloat)
         {
-            float inValue = getFOIFloat(xCoord);
+            double inValue = getFOIFloat(xCoord);
 
             switch (toTest.fKind)
             {
@@ -472,6 +474,7 @@ void map3dProcessData(Map3dData *            xx,
                 default:
                     okSoFar = false;
                     break;
+                    
             }
             if (okSoFar)
             {
@@ -508,6 +511,7 @@ void map3dProcessData(Map3dData *            xx,
                     default:
                         okSoFar = false;
                         break;
+                        
                 }
             }
         }
@@ -546,6 +550,7 @@ void map3dProcessData(Map3dData *            xx,
                 default:
                     okSoFar = false;
                     break;
+                    
             }
             if (okSoFar)
             {
@@ -581,6 +586,7 @@ void map3dProcessData(Map3dData *            xx,
                     default:
                         okSoFar = false;
                         break;
+                        
                 }
             }
         }
@@ -588,7 +594,7 @@ void map3dProcessData(Map3dData *            xx,
         {
             if (yCoord.fIsFloat)
             {
-                float inValue = getFOIFloat(yCoord);
+                double inValue = getFOIFloat(yCoord);
 
                 if (okSoFar)
                 {
@@ -624,6 +630,7 @@ void map3dProcessData(Map3dData *            xx,
                         default:
                             okSoFar = false;
                             break;
+                            
                     }
                 }
                 if (okSoFar)
@@ -660,6 +667,7 @@ void map3dProcessData(Map3dData *            xx,
                         default:
                             okSoFar = false;
                             break;
+                            
                     }
                 }
             }
@@ -701,6 +709,7 @@ void map3dProcessData(Map3dData *            xx,
                         default:
                             okSoFar = false;
                             break;
+                            
                     }
                 }
                 if (okSoFar)
@@ -737,6 +746,7 @@ void map3dProcessData(Map3dData *            xx,
                         default:
                             okSoFar = false;
                             break;
+                            
                     }
                 }
             }
@@ -745,7 +755,7 @@ void map3dProcessData(Map3dData *            xx,
         {
             if (zCoord.fIsFloat)
             {
-                float inValue = getFOIFloat(zCoord);
+                double inValue = getFOIFloat(zCoord);
 
                 if (okSoFar)
                 {
@@ -781,6 +791,7 @@ void map3dProcessData(Map3dData *            xx,
                         default:
                             okSoFar = false;
                             break;
+                            
                     }
                 }
                 if (okSoFar)
@@ -817,6 +828,7 @@ void map3dProcessData(Map3dData *            xx,
                         default:
                             okSoFar = false;
                             break;
+                            
                     }
                 }
             }
@@ -858,6 +870,7 @@ void map3dProcessData(Map3dData *            xx,
                         default:
                             okSoFar = false;
                             break;
+                            
                     }
                 }
                 if (okSoFar)
@@ -894,6 +907,7 @@ void map3dProcessData(Map3dData *            xx,
                         default:
                             okSoFar = false;
                             break;
+                            
                     }
                 }
             }
@@ -902,6 +916,7 @@ void map3dProcessData(Map3dData *            xx,
         {
             break;
         }
+        
     }
     xx->fPreviousResult = walker;
     if (walker)

@@ -40,16 +40,16 @@
 #include "tcpMultiServer.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(TcpMultiServerData * xx)
+BANG_HEADER(TcpMultiServerData)
 {
     if (xx)
     {
         t_atom response[4];
 
-        SETLONG(response, 0L);
-        SETSYM(response + 1, mapStateToSymbol(xx->fState));
-        SETLONG(response + 2, xx->fActiveConnections);
-        SETLONG(response + 3, xx->fServerPort);
+        A_SETLONG(response, 0L);
+        A_SETSYM(response + 1, mapStateToSymbol(xx->fState));
+        A_SETLONG(response + 2, xx->fActiveConnections);
+        A_SETLONG(response + 3, xx->fServerPort);
         outlet_anything(xx->fResultOut, gStatusSymbol, 4, response);
     }
 } // cmd_Bang

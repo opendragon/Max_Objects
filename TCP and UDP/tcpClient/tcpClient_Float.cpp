@@ -40,8 +40,7 @@
 #include "tcpClient.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(TcpObjectData * xx,
-               double          msg)
+FLOAT_HEADER(TcpObjectData)
 {
     REPORT_MAX_MESSAGE("float")
     if (xx)
@@ -50,7 +49,7 @@ void cmd_Float(TcpObjectData * xx,
         {
             clearDataBuffer(xx->fSendBuffer);
             xx->fSendBuffer->fDataType = A_FLOAT;
-            addFloatToBuffer(xx, OUR_NAME, xx->fSendBuffer, static_cast<float>(msg), xx->fRawMode);
+            addFloatToBuffer(xx, OUR_NAME, xx->fSendBuffer, TO_DBL(msg), xx->fRawMode);
             transmitBuffer(xx, xx->fSendBuffer);
         }
         else

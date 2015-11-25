@@ -54,7 +54,8 @@ void cmd_RecallEmem(GvpData * xx,
         {
             unsigned char dummy = static_cast<unsigned char>(number);
 
-            gvpPerformWriteCommand(xx, 0, kCommandRecallEmemToSwitcher, 1, &dummy, kStateAwaitingByteCount1, true);
+            gvpPerformWriteCommand(xx, 0, kCommandRecallEmemToSwitcher, 1, &dummy,
+                                   kStateAwaitingByteCount1, true);
         }
     }
 } // cmd_RecallEmem

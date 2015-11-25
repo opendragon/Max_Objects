@@ -50,10 +50,12 @@ void cmd_GetHouseCode(X10ControlData * xx)
             break;
 
         case X10KindCP290:
-            x10CP290DoSingleton(xx, x10CP290RequestClockAndBaseHouseCode, x10CP290MajorAwaitingClockAndHouseCode);
+            x10CP290DoSingleton(xx, x10CP290RequestClockAndBaseHouseCode,
+                                x10CP290MajorAwaitingClockAndHouseCode);
             break;
 
         default:
             break;
+            
     }
 } // cmd_GetHouseCode

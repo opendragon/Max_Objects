@@ -49,13 +49,14 @@ void map1dClearRangeList(Map1dData * xx)
             RangeData * walker = xx->fFirstRange;
 
             xx->fFirstRange = walker->fNext;
-            FREEBYTES(walker->fOutput, walker->fOutputCount)
-            FREEBYTES(walker, 1)
+            FREE_BYTES(walker->fOutput);
+            FREE_BYTES(walker);
         }
-        xx->fPreviousResult = xx->fLastRange = NULL_PTR;
+        xx->fPreviousResult = xx->fLastRange = NULL;
         xx->fRangeCount = 0;
     }
 } // map1dClearRangeList
+
 /*------------------------------------ map1dGetNextAtomInBuffer ---*/
 static bool map1dGetNextAtomInBuffer(Map1dData * xx,
                                      t_atom &    value)
@@ -65,7 +66,8 @@ static bool map1dGetNextAtomInBuffer(Map1dData * xx,
 
     for ( ; result; )
     {
-        result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset, &xx->fBufferStuffOffset, &value));
+        result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset, &xx->fBufferStuffOffset,
+                                   &value));
         if (result && (A_SYM == value.a_type))
         {
             if (kCommentCharacter == value.a_w.w_sym->s_name[0])
@@ -73,11 +75,13 @@ static bool map1dGetNextAtomInBuffer(Map1dData * xx,
                 /* skip a comment */
                 for ( ; result; )
                 {
-                    result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset, &xx->fBufferStuffOffset, &skipper));
+                    result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset,
+                                               &xx->fBufferStuffOffset, &skipper));
                     if (A_SEMI == skipper.a_type)
                     {
                         break;
                     }
+                    
                 }
                 /* At this point, we've read the trailing semicolon, so we need to get the next atom. */
             }
@@ -86,15 +90,18 @@ static bool map1dGetNextAtomInBuffer(Map1dData * xx,
                 /* We've seen a symbol other than '#' */
                 break;
             }
+            
         }
         else
         {
             /* We've seen something other than a symbol, so we can leave... */
             break;
         }
+        
     }
     return result;
 } // map1dGetNextAtomInBuffer
+
 /*------------------------------------ map1dReportUnexpected ---*/
 static void map1dReportUnexpected(Map1dData * xx,
                                   t_atom &    what)
@@ -102,11 +109,12 @@ static void map1dReportUnexpected(Map1dData * xx,
     switch (what.a_type)
     {
         case A_FLOAT:
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected floating point (%g)", static_cast<double>(what.a_w.w_float))
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected floating point (%g)",
+                        TO_DBL(what.a_w.w_float))
             break;
 
         case A_LONG:
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected long (%ld)", what.a_w.w_long)
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected long (" LONG_FORMAT ")", what.a_w.w_long)
             break;
 
         case A_SYM:
@@ -122,32 +130,35 @@ static void map1dReportUnexpected(Map1dData * xx,
             break;
 
         case A_DOLLAR:
+        case A_DOLLSYM:
             LOG_ERROR_1(xx, OUTPUT_PREFIX "unexpected dollar")
             break;
 
         default:
             LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected atom, type=%d", static_cast<int>(what.a_type))
             break;
+            
     }
 } // map1dReportUnexpected
+
 /*------------------------------------ map1dCollectARange ---*/
 static bool map1dCollectARange(Map1dData * xx)
 {
-    t_atom     holder;
-    bool       result = map1dGetNextAtomInBuffer(xx, holder);
-    bool       lowerClosed = false;
-    bool       upperClosed = false;
-    bool       lowerUpperDontCare = false;
-    float      lowerFloatValue;
-    float      upperFloatValue;
-    long       lowerIntValue;
-    long       upperIntValue;
-    Category   lowerMatch = MatchUnknown;
-    Category   upperMatch = MatchUnknown;
-    short      outputCount = 0;
-    t_binbuf * collector = NULL_PTR;
-    short      dollarsPresent = 0;
-    short      doubleDollarsPresent = 0;
+    t_atom      holder;
+    bool        result = map1dGetNextAtomInBuffer(xx, holder);
+    bool        lowerClosed = false;
+    bool        upperClosed = false;
+    bool        lowerUpperDontCare = false;
+    double      lowerFloatValue;
+    double      upperFloatValue;
+    t_atom_long lowerIntValue;
+    t_atom_long upperIntValue;
+    Category    lowerMatch = MatchUnknown;
+    Category    upperMatch = MatchUnknown;
+    short       outputCount = 0;
+    t_binbuf *  collector = NULL;
+    short       dollarsPresent = 0;
+    short       doubleDollarsPresent = 0;
 
     if (result)
     {
@@ -182,7 +193,8 @@ static bool map1dCollectARange(Map1dData * xx)
             switch (holder.a_type)
             {
                 case A_SYM:
-                    if ((holder.a_w.w_sym == gNegInfSymbol1) || (holder.a_w.w_sym == gNegInfSymbol2))
+                    if ((holder.a_w.w_sym == gNegInfSymbol1) ||
+                        (holder.a_w.w_sym == gNegInfSymbol2))
                     {
                         lowerMatch = MatchInfinity;
                     }
@@ -207,6 +219,7 @@ static bool map1dCollectARange(Map1dData * xx)
                     map1dReportUnexpected(xx, holder);
                     result = false;
                     break;
+                    
             }
         }
     }
@@ -219,8 +232,10 @@ static bool map1dCollectARange(Map1dData * xx)
             switch (holder.a_type)
             {
                 case A_SYM:
-                    if ((holder.a_w.w_sym == gPosInfSymbol1) || (holder.a_w.w_sym == gPosInfSymbol2) ||
-                        (holder.a_w.w_sym == gPosInfSymbol3) || (holder.a_w.w_sym == gPosInfSymbol4))
+                    if ((holder.a_w.w_sym == gPosInfSymbol1) ||
+                        (holder.a_w.w_sym == gPosInfSymbol2) ||
+                        (holder.a_w.w_sym == gPosInfSymbol3) ||
+                        (holder.a_w.w_sym == gPosInfSymbol4))
                     {
                         upperMatch = MatchInfinity;
                     }
@@ -245,6 +260,7 @@ static bool map1dCollectARange(Map1dData * xx)
                     map1dReportUnexpected(xx, holder);
                     result = false;
                     break;
+                    
             }
         }
     }
@@ -282,7 +298,7 @@ static bool map1dCollectARange(Map1dData * xx)
             for ( ; holder.a_type != A_SEMI; )
             {
                 /* We have a value; attach it. */
-                binbuf_append(collector, NULL_PTR, 1, &holder);
+                binbuf_append(collector, NULL, 1, &holder);
                 ++outputCount;
                 if (A_SYM == holder.a_type)
                 {
@@ -290,12 +306,13 @@ static bool map1dCollectARange(Map1dData * xx)
                     {
                         ++dollarsPresent;
                     }
-                    else if ((holder.a_w.w_sym == gDoubleDollarSymbol) || (holder.a_w.w_sym == gDoubleDollarXSymbol))
+                    else if ((holder.a_w.w_sym == gDoubleDollarSymbol) ||
+                             (holder.a_w.w_sym == gDoubleDollarXSymbol))
                     {
                         ++doubleDollarsPresent;
                     }
                 }
-                else if (A_DOLLAR == holder.a_type)
+                else if ((A_DOLLAR == holder.a_type) || (A_DOLLSYM == holder.a_type))
                 {
                     ++dollarsPresent;
                 }
@@ -304,17 +321,18 @@ static bool map1dCollectARange(Map1dData * xx)
                 {
                     break;
                 }
+                
             }
         }
     }
     // Assemble the information and attach to the list
     if (result)
     {
-        RangeData * newData = GETBYTES(1, RangeData);
+        RangeData * newData = GET_BYTES(1, RangeData);
 
         if (newData)
         {
-            newData->fNext = NULL_PTR;
+            newData->fNext = NULL;
             newData->fOutputCount = outputCount;
             newData->fDollarsPresent = dollarsPresent;
             newData->fDoubleDollarsPresent = doubleDollarsPresent;
@@ -346,7 +364,7 @@ static bool map1dCollectARange(Map1dData * xx)
             {
                 long     tyOffset = 0;
                 long     stOffset = 0;
-                t_atom * vector = GETBYTES(newData->fOutputCount, t_atom);
+                t_atom * vector = GET_BYTES(newData->fOutputCount, t_atom);
 
                 newData->fOutput = vector;
                 for (short ii = 0; ii < newData->fOutputCount; ++ii, ++vector)
@@ -355,11 +373,12 @@ static bool map1dCollectARange(Map1dData * xx)
                     {
                         break;
                     }
+                    
                 }
             }
             else
             {
-                newData->fOutput = NULL_PTR;
+                newData->fOutput = NULL;
             }
             if (xx->fLastRange)
             {
@@ -378,6 +397,7 @@ static bool map1dCollectARange(Map1dData * xx)
     }
     return result;
 } // map1dCollectARange
+
 /*------------------------------------ map1dLoadRangeList ---*/
 bool map1dLoadRangeList(Map1dData * xx,
                         t_symbol *  fileName)
@@ -422,6 +442,7 @@ bool map1dLoadRangeList(Map1dData * xx,
     }
     return result;
 } // map1dLoadRangeList
+
 /*------------------------------------ map1dGetNextAtomInList ---*/
 static bool map1dGetNextAtomInList(short &     offset,
                                    const short numAtoms,
@@ -443,6 +464,7 @@ static bool map1dGetNextAtomInList(short &     offset,
     ++offset;
     return okSoFar;
 } // map1dGetNextAtomInList
+
 /*------------------------------------ map1dConvertListToRange ---*/
 RangeData * map1dConvertListToRange(Map1dData * xx,
                                     const short offset,
@@ -462,10 +484,10 @@ RangeData * map1dConvertListToRange(Map1dData * xx,
     Category    lowerMatch = MatchUnknown;
     Category    upperMatch = MatchUnknown;
     short       outputCount = 0;
-    t_binbuf *  collector = NULL_PTR;
+    t_binbuf *  collector = NULL;
     short       dollarsPresent = 0;
     short       doubleDollarsPresent = 0;
-    RangeData * newData = NULL_PTR;
+    RangeData * newData = NULL;
 
     if (result)
     {
@@ -500,7 +522,8 @@ RangeData * map1dConvertListToRange(Map1dData * xx,
             switch (holder.a_type)
             {
                 case A_SYM:
-                    if ((holder.a_w.w_sym == gNegInfSymbol1) || (holder.a_w.w_sym == gNegInfSymbol2))
+                    if ((holder.a_w.w_sym == gNegInfSymbol1) ||
+                        (holder.a_w.w_sym == gNegInfSymbol2))
                     {
                         lowerMatch = MatchInfinity;
                     }
@@ -525,6 +548,7 @@ RangeData * map1dConvertListToRange(Map1dData * xx,
                     map1dReportUnexpected(xx, holder);
                     result = false;
                     break;
+                    
             }
         }
     }
@@ -537,8 +561,10 @@ RangeData * map1dConvertListToRange(Map1dData * xx,
             switch (holder.a_type)
             {
                 case A_SYM:
-                    if ((holder.a_w.w_sym == gPosInfSymbol1) || (holder.a_w.w_sym == gPosInfSymbol2) ||
-                        (holder.a_w.w_sym == gPosInfSymbol3) || (holder.a_w.w_sym == gPosInfSymbol4))
+                    if ((holder.a_w.w_sym == gPosInfSymbol1) ||
+                        (holder.a_w.w_sym == gPosInfSymbol2) ||
+                        (holder.a_w.w_sym == gPosInfSymbol3) ||
+                        (holder.a_w.w_sym == gPosInfSymbol4))
                     {
                         upperMatch = MatchInfinity;
                     }
@@ -563,6 +589,7 @@ RangeData * map1dConvertListToRange(Map1dData * xx,
                     map1dReportUnexpected(xx, holder);
                     result = false;
                     break;
+                    
             }
         }
     }
@@ -600,7 +627,7 @@ RangeData * map1dConvertListToRange(Map1dData * xx,
             for ( ; holder.a_type != A_SEMI; )
             {
                 /* We have a value; attach it. */
-                binbuf_append(collector, NULL_PTR, 1, &holder);
+                binbuf_append(collector, NULL, 1, &holder);
                 ++outputCount;
                 if (A_SYM == holder.a_type)
                 {
@@ -608,12 +635,13 @@ RangeData * map1dConvertListToRange(Map1dData * xx,
                     {
                         ++dollarsPresent;
                     }
-                    else if ((holder.a_w.w_sym == gDoubleDollarSymbol) || (holder.a_w.w_sym == gDoubleDollarXSymbol))
+                    else if ((holder.a_w.w_sym == gDoubleDollarSymbol) ||
+                             (holder.a_w.w_sym == gDoubleDollarXSymbol))
                     {
                         ++doubleDollarsPresent;
                     }
                 }
-                else if (A_DOLLAR == holder.a_type)
+                else if ((A_DOLLAR == holder.a_type) || (A_DOLLSYM == holder.a_type))
                 {
                     ++dollarsPresent;
                 }
@@ -622,16 +650,17 @@ RangeData * map1dConvertListToRange(Map1dData * xx,
                 {
                     break;
                 }
+                
             }
         }
     }
     // Assemble the information and attach to the list
     if (result)
     {
-        newData = GETBYTES(1, RangeData);
+        newData = GET_BYTES(1, RangeData);
         if (newData)
         {
-            newData->fNext = NULL_PTR;
+            newData->fNext = NULL;
             newData->fOutputCount = outputCount;
             newData->fDollarsPresent = dollarsPresent;
             newData->fDoubleDollarsPresent = doubleDollarsPresent;
@@ -663,7 +692,7 @@ RangeData * map1dConvertListToRange(Map1dData * xx,
             {
                 long     tyOffset = 0;
                 long     stOffset = 0;
-                t_atom * vector = GETBYTES(newData->fOutputCount, t_atom);
+                t_atom * vector = GET_BYTES(newData->fOutputCount, t_atom);
 
                 newData->fOutput = vector;
                 for (short ii = 0; ii < newData->fOutputCount; ++ii, ++vector)
@@ -672,11 +701,12 @@ RangeData * map1dConvertListToRange(Map1dData * xx,
                     {
                         break;
                     }
+                    
                 }
             }
             else
             {
-                newData->fOutput = NULL_PTR;
+                newData->fOutput = NULL;
             }
         }
     }

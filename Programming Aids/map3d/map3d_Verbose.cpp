@@ -40,8 +40,7 @@
 #include "map3d.h"
 
 /*------------------------------------ cmd_Verbose ---*/
-void cmd_Verbose(Map3dData * xx,
-                 t_symbol *  onOff)
+VERBOSE_HEADER(Map3dData)
 {
     if (xx)
     {

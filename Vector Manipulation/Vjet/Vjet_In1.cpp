@@ -40,19 +40,18 @@
 #include "Vjet.h"
 
 /*------------------------------------ cmd_In1 ---*/
-void cmd_In1(VObjectData * xx,
-             long          number)
+IN1_HEADER(VObjectData)
 {
     /* We've received a number. */
     if (xx)
     {
-        if (number > 0)
+        if (0 < msg)
         {
-            xx->fHowMany = static_cast<short>(number);
+            xx->fHowMany = static_cast<short>(msg);
         }
         else
         {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid segment size (%ld)", number)
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid segment size (%ld)", msg)
         }
     }
 } // cmd_In1

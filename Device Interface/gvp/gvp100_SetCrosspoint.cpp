@@ -51,7 +51,7 @@ void cmd_SetCrosspoint(GvpData *  xx,
         GvpCommandCode aCommand = kNoCommand;
         bool           okSoFar = true;
         t_symbol *     aName;
-        long           number;
+        t_atom_long    number;
         unsigned char  dummy;
 
         for (short jj = 0; okSoFar && (jj < argc); ++jj)
@@ -59,28 +59,28 @@ void cmd_SetCrosspoint(GvpData *  xx,
             switch (argv[jj].a_type)
             {
                 case A_FLOAT:
-                    number = static_cast<long>(argv[jj].a_w.w_float);
+                    number = TO_INT(argv[jj].a_w.w_float);
                     if (jj & 1)
                     {
                         /* odd index - validate and do it! */
-                        if ((number < 0) || (number > 9))
+                        if ((0 > number) || (9 < number))
                         {
                             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid crosspoint number (%g)",
-                                        static_cast<double>(argv[jj].a_w.w_float))
+                                        TO_DBL(argv[jj].a_w.w_float))
                             okSoFar = false;
                         }
                         else
                         {
                             dummy = static_cast<unsigned char>(number);
-                            gvpPerformWriteCommand(xx, 0, aCommand, 1, &dummy, kStateAwaitingByteCount1,
-                                                   jj == (argc - 1));
+                            gvpPerformWriteCommand(xx, 0, aCommand, 1, &dummy,
+                                                   kStateAwaitingByteCount1, jj == (argc - 1));
                         }
                     }
                     else
                     {
                         /* even index - invalid! */
                         LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid bus name (%g)",
-                                    static_cast<double>(argv[jj].a_w.w_float))
+                                    TO_DBL(argv[jj].a_w.w_float))
                         okSoFar = false;
                     }
                     break;
@@ -90,16 +90,17 @@ void cmd_SetCrosspoint(GvpData *  xx,
                     if (jj & 1)
                     {
                         /* odd index - validate and do it! */
-                        if ((number < 0) || (number > 9))
+                        if ((0 > number) || (9 < number))
                         {
-                            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid crosspoint number (%ld)", number)
+                            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid crosspoint number (" LONG_FORMAT
+                                        ")", number)
                             okSoFar = false;
                         }
                         else
                         {
                             dummy = static_cast<unsigned char>(number);
-                            gvpPerformWriteCommand(xx, 0, aCommand, 1, &dummy, kStateAwaitingByteCount1,
-                                                   jj == (argc - 1));
+                            gvpPerformWriteCommand(xx, 0, aCommand, 1, &dummy,
+                                                   kStateAwaitingByteCount1, jj == (argc - 1));
                         }
                     }
                     else
@@ -125,14 +126,15 @@ void cmd_SetCrosspoint(GvpData *  xx,
                         }
                         else
                         {
-                            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid crosspoint name '%s'", aName->s_name)
+                            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid crosspoint name '%s'",
+                                        aName->s_name)
                             okSoFar = false;
                         }
                         if (okSoFar)
                         {
                             dummy = static_cast<unsigned char>(number);
-                            gvpPerformWriteCommand(xx, 0, aCommand, 1, &dummy, kStateAwaitingByteCount1,
-                                                   jj == (argc - 1));
+                            gvpPerformWriteCommand(xx, 0, aCommand, 1, &dummy,
+                                                   kStateAwaitingByteCount1, jj == (argc - 1));
                         }
                     }
                     else
@@ -165,6 +167,7 @@ void cmd_SetCrosspoint(GvpData *  xx,
                     LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen",
                                 static_cast<int>(argv[jj].a_type))
                     break;
+                    
             }
         }
         if (okSoFar)

@@ -40,8 +40,7 @@
 #include "Vinvert.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(VObjectData * xx,
-               double        msg)
+FLOAT_HEADER(VObjectData)
 {
     if (xx)
     {
@@ -52,7 +51,7 @@ void cmd_Float(VObjectData * xx,
         }
         else
         {
-            xx->fPreviousFloat = (1.0 / msg);
+            xx->fPreviousFloat = TO_DBL(1.0 / msg);
             xx->fPreviousKind = A_FLOAT;
             outlet_float(xx->fResultOut, xx->fPreviousFloat);
         }

@@ -41,17 +41,45 @@
 #include "Vsplit.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VsplitCreate(long howMany);
+/*------------------------------------ VsplitCreate ---*/
+static void * VsplitCreate(const long howMany)
+{
+    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fHowMany = static_cast<short>(howMany);
+        xx->fPreviousList = xx->fPreviousRightList = NULL;
+        xx->fPreviousLength = xx->fPreviousRightLength = 0;
+        intin(xx, 1);
+        xx->fRightResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+        if (! (xx->fResultOut && xx->fRightResultOut))
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // VsplitCreate
 
-void VsplitFree(VObjectData * xx);
+/*------------------------------------ VsplitFree ---*/
+static void VsplitFree(VObjectData * xx)
+{
+    if (xx)
+    {
+        clearPrevious(xx);
+    }
+} // VsplitFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VsplitCreate), reinterpret_cast<method>(VsplitFree),
-                               sizeof(VObjectData), reinterpret_cast<method>(0L), A_LONG, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VsplitCreate),
+                               reinterpret_cast<method>(VsplitFree), sizeof(VObjectData),
+                               reinterpret_cast<method>(0L), A_LONG, 0);
 
     if (temp)
     {
@@ -66,39 +94,10 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VsplitCreate ---*/
-void * VsplitCreate(long howMany)
-{
-    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fHowMany = static_cast<short>(howMany);
-        xx->fPreviousList = xx->fPreviousRightList = NULL_PTR;
-        xx->fPreviousLength = xx->fPreviousRightLength = 0;
-        intin(xx, 1);
-        xx->fRightResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-        if ((! xx->fResultOut) || (! xx->fRightResultOut))
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // VsplitCreate
-/*------------------------------------ VsplitFree ---*/
-void VsplitFree(VObjectData * xx)
-{
-    if (xx)
-    {
-        clearPrevious(xx);
-    }
-} // VsplitFree
 /*------------------------------------ clearPrevious ---*/
 void clearPrevious(VObjectData * xx)
 {
-    FREEBYTES(xx->fPreviousList, xx->fPreviousLength);
-    FREEBYTES(xx->fPreviousRightList, xx->fPreviousRightLength);
+    FREE_BYTES(xx->fPreviousList);
+    FREE_BYTES(xx->fPreviousRightList);
 } // clearPrevious

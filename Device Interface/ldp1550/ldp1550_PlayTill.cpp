@@ -59,13 +59,14 @@ void cmd_PlayTill(LdpData *  xx,
         else
         {
             maxPosition = ((xx->fMode == kLdpModeChapter) ? MAX_CHAPTER_NUMBER : MAX_FRAME_NUMBER);
-            if ((position <= 0) || (position >= maxPosition) || (stepFactor < 0) || (stepFactor > MAX_STEP_FACTOR))
+            if ((position <= 0) || (position >= maxPosition) || (stepFactor < 0) ||
+                (stepFactor > MAX_STEP_FACTOR))
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "bad argument to command 'playtill'")
                 outlet_bang(xx->fErrorBangOut);
             }
-            else if ((mode != gEmptySymbol) && (mode != gFwdSymbol) && (mode != gFastSymbol) && (mode != gStepSymbol) &&
-                     (mode != gSlowSymbol))
+            else if ((mode != gEmptySymbol) && (mode != gFwdSymbol) && (mode != gFastSymbol) &&
+                     (mode != gStepSymbol) && (mode != gSlowSymbol))
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "bad mode for command 'playtill'")
                 outlet_bang(xx->fErrorBangOut);
@@ -110,15 +111,20 @@ void cmd_PlayTill(LdpData *  xx,
                     /* Set the target frame */
                     if (xx->fMode == kLdpModeFrame)
                     {
-                        ldpAddCommand(xx, static_cast<LdpCommandCode>(((position / 10000) % 10) + '0'),
+                        ldpAddCommand(xx,
+                                      static_cast<LdpCommandCode>(((position / 10000) % 10) + '0'),
                                       kLdpStateAwaitingAck);
-                        ldpAddCommand(xx, static_cast<LdpCommandCode>(((position / 1000) % 10) + '0'),
+                        ldpAddCommand(xx,
+                                      static_cast<LdpCommandCode>(((position / 1000) % 10) + '0'),
                                       kLdpStateAwaitingAck);
-                        ldpAddCommand(xx, static_cast<LdpCommandCode>(((position / 100) % 10) + '0'),
+                        ldpAddCommand(xx,
+                                      static_cast<LdpCommandCode>(((position / 100) % 10) + '0'),
                                       kLdpStateAwaitingAck);
                     }
-                    ldpAddCommand(xx, static_cast<LdpCommandCode>(((position / 10) % 10) + '0'), kLdpStateAwaitingAck);
-                    ldpAddCommand(xx, static_cast<LdpCommandCode>((position % 10) + '0'), kLdpStateAwaitingAck);
+                    ldpAddCommand(xx, static_cast<LdpCommandCode>(((position / 10) % 10) + '0'),
+                                  kLdpStateAwaitingAck);
+                    ldpAddCommand(xx, static_cast<LdpCommandCode>((position % 10) + '0'),
+                                  kLdpStateAwaitingAck);
                     /* Set the play mode */
                     ldpAddCommand(xx, static_cast<LdpCommandCode>(speed), kLdpStateAwaitingAck);
                     ldpAddCommand(xx, kLdpCommandEnter, kLdpStateAwaitingAck);
@@ -129,11 +135,14 @@ void cmd_PlayTill(LdpData *  xx,
                     /* If step mode, send the step factor */
                     if (mode == gStepSymbol)
                     {
-                        ldpAddCommand(xx, static_cast<LdpCommandCode>(((stepFactor / 100) % 10) + '0'),
+                        ldpAddCommand(xx,
+                                      static_cast<LdpCommandCode>(((stepFactor / 100) % 10) + '0'),
                                       kLdpStateAwaitingAck);
-                        ldpAddCommand(xx, static_cast<LdpCommandCode>(((stepFactor / 10) % 10) + '0'),
+                        ldpAddCommand(xx,
+                                      static_cast<LdpCommandCode>(((stepFactor / 10) % 10) + '0'),
                                       kLdpStateAwaitingAck);
-                        ldpAddCommand(xx, static_cast<LdpCommandCode>((stepFactor % 10) + '0'), kLdpStateAwaitingAck);
+                        ldpAddCommand(xx, static_cast<LdpCommandCode>((stepFactor % 10) + '0'),
+                                      kLdpStateAwaitingAck);
                         ldpAddCommand(xx, kLdpCommandEnter, kLdpStateAwaitingAck);
                     }
                     ldpAddCommand(xx, kLdpCommandSignalAccepted, kLdpStateNotWaiting);

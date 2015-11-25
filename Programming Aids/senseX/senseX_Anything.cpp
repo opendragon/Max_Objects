@@ -40,10 +40,7 @@
 #include "senseX.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(SenseXData * xx,
-                  t_symbol *   message,
-                  short        argc,
-                  t_atom *     argv)
+ANYTHING_HEADER(SenseXData)
 {
 #pragma unused(argv)
     if (xx)
@@ -58,7 +55,8 @@ void cmd_Anything(SenseXData * xx,
                     switch (argv[ii].a_type)
                     {
                         case A_LONG:
-                            LOG_POST_3(xx, "  argument %d is a long (%ld)", static_cast<int>(ii), argv[ii].a_w.w_long)
+                            LOG_POST_3(xx, "  argument %d is a long (" LONG_FORMAT ")",
+                                       static_cast<int>(ii), argv[ii].a_w.w_long)
                             break;
 
                         case A_SYM:
@@ -68,7 +66,7 @@ void cmd_Anything(SenseXData * xx,
 
                         case A_FLOAT:
                             LOG_POST_3(xx, "  argument %d is a float (%g)", static_cast<int>(ii),
-                                       static_cast<double>(argv[ii].a_w.w_float))
+                                       TO_DBL(argv[ii].a_w.w_float))
                             break;
 
                         case A_SEMI:
@@ -80,13 +78,15 @@ void cmd_Anything(SenseXData * xx,
                             break;
 
                         case A_DOLLAR:
+                        case A_DOLLSYM:
                             LOG_POST_2(xx, "  argument %d is a dollar sign", static_cast<int>(ii))
                             break;
 
                         default:
-                            LOG_POST_3(xx, "  argument %d is an unknown type (%d)", static_cast<int>(ii),
-                                       static_cast<int>(argv[ii].a_type))
+                            LOG_POST_3(xx, "  argument %d is an unknown type (%d)",
+                                       static_cast<int>(ii), static_cast<int>(argv[ii].a_type))
                             break;
+                            
                     }
                 }
                 break;
@@ -99,6 +99,7 @@ void cmd_Anything(SenseXData * xx,
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Anything

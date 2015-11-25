@@ -61,32 +61,36 @@ bool checkInput(VObjectData * xx,
 
             case A_FLOAT:
                 LOG_ERROR_3(xx, "%sfloating point value (%g) in input list", name,
-                            static_cast<double>(argv[ii].a_w.w_float))
+                            TO_DBL(argv[ii].a_w.w_float))
                 okSoFar = false;
                 break;
 
             default:
-                LOG_ERROR_3(xx, "%sinput of an unknown type (%d) seen", name, static_cast<int>(argv[ii].a_type))
+                LOG_ERROR_3(xx, "%sinput of an unknown type (%d) seen", name,
+                            static_cast<int>(argv[ii].a_type))
                 okSoFar = false;
                 break;
+                
         }
     }
     return okSoFar;
 } // checkInput
+
 /*------------------------------------ clearPrevious ---*/
 void clearPrevious(VObjectData * xx)
 {
-    FREEBYTES(xx->fPreviousList, xx->fPreviousLength);
+    FREE_BYTES(xx->fPreviousList);
     for (ChunkData * aChunk = xx->fChunkList; aChunk; )
     {
         ChunkData * bChunk = aChunk->fNext;
 
-        FREEBYTES(aChunk, 1);
+        FREE_BYTES(aChunk);
         aChunk = bChunk;
     }
-    xx->fChunkList = xx->fLastChunk = NULL_PTR;
+    xx->fChunkList = xx->fLastChunk = NULL;
     xx->fPreviousLength = 0;
 } // clearPrevious
+
 /*------------------------------------ isSeparator ---*/
 bool isSeparator(VObjectData * xx,
                  const long    value)
@@ -100,6 +104,7 @@ bool isSeparator(VObjectData * xx,
     }
     return false;
 } // isSeparator
+
 /*------------------------------------ setupSeparators ---*/
 bool setupSeparators(VObjectData * xx,
                      const long    separator1,
@@ -110,23 +115,23 @@ bool setupSeparators(VObjectData * xx,
 {
     short numSeps = -1;
 
-    if (separator5 > 0)
+    if (0 < separator5)
     {
         numSeps = 5;
     }
-    else if (separator4 > 0)
+    else if (0 < separator4)
     {
         numSeps = 4;
     }
-    else if (separator3 > 0)
+    else if (0 < separator3)
     {
         numSeps = 3;
     }
-    else if (separator2 > 0)
+    else if (0 < separator2)
     {
         numSeps = 2;
     }
-    else if (separator1 > 0)
+    else if (0 < separator1)
     {
         numSeps = 1;
     }
@@ -154,6 +159,7 @@ bool setupSeparators(VObjectData * xx,
 
         default:
             return false;
+            
     }
     for (short index = 0; index < numSeps; ++index)
     {
@@ -161,6 +167,7 @@ bool setupSeparators(VObjectData * xx,
         {
             return false;
         }
+        
     }
     xx->fHowMany = numSeps;
     return true;

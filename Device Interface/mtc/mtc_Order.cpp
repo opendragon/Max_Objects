@@ -62,6 +62,7 @@ void cmd_Order(MtcData *  xx,
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Order

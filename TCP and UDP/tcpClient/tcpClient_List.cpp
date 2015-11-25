@@ -40,10 +40,7 @@
 #include "tcpClient.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(TcpObjectData * xx,
-              t_symbol *      message,
-              short           argc,
-              t_atom *        argv)
+LIST_HEADER(TcpObjectData)
 {
 #pragma unused(message)
     bool okSoFar = true;
@@ -55,7 +52,7 @@ void cmd_List(TcpObjectData * xx,
         {
             clearDataBuffer(xx->fSendBuffer);
             xx->fSendBuffer->fDataType = getListKind(argc, argv);
-            okSoFar = (xx->fSendBuffer->fDataType != A_ERROR);
+            okSoFar = (A_ERROR != xx->fSendBuffer->fDataType);
             if (! okSoFar)
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "unrecognizable data")

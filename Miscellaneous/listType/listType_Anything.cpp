@@ -40,10 +40,7 @@
 #include "listType.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(ListTypeData * xx,
-                  t_symbol *     message,
-                  short          argc,
-                  t_atom *       argv)
+ANYTHING_HEADER(ListTypeData)
 {
 #pragma unused(message)
     if (xx)
@@ -70,27 +67,29 @@ void cmd_Anything(ListTypeData * xx,
                     case A_SEMI:
                     case A_COMMA:
                     case A_DOLLAR:
+                    case A_DOLLSYM:
                         /* OK, we're still only seeing symbols */
                         break;
 
                     default:
                         sawUnknown = true;
                         break;
+                        
                 }
             }
             if (sawUnknown)
             {
-                outlet_int(xx->fResultOut, static_cast<long>(TYPE_LIST_WITH_UNKNOWNS));
+                outlet_int(xx->fResultOut, TO_INT(TYPE_LIST_WITH_UNKNOWNS));
             }
             else
             {
-                outlet_int(xx->fResultOut, static_cast<long>((sawInteger || sawFloat) ? TYPE_MIXED_LIST :
-                                                             TYPE_SYMBOL_LIST));
+                outlet_int(xx->fResultOut, TO_INT((sawInteger || sawFloat) ? TYPE_MIXED_LIST :
+                                                  TYPE_SYMBOL_LIST));
             }
         }
         else
         {
-            outlet_int(xx->fResultOut, static_cast<long>(TYPE_NOT_A_LIST));
+            outlet_int(xx->fResultOut, TO_INT(TYPE_NOT_A_LIST));
         }
     }
 } // cmd_Anything

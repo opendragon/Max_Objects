@@ -40,10 +40,7 @@
 #include "map3d.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(Map3dData * xx,
-              t_symbol *  message,
-              short       argc,
-              t_atom *    argv)
+LIST_HEADER(Map3dData)
 {
 #pragma unused(message)
     bool okSoFar = true;

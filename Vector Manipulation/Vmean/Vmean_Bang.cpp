@@ -40,7 +40,7 @@
 #include "Vmean.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(VmeanData * xx)
+BANG_HEADER(VmeanData)
 {
     if (xx)
     {

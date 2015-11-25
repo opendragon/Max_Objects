@@ -89,6 +89,7 @@ const char * describeEndpointState(EndpointRef anEndpoint)
     return result;
 } // describeEndpointState
 #endif//0
+
 #if 0
 /*------------------------------------ mapEventToString ---*/
 const char * mapEventToString(const OTEventCode code)
@@ -298,6 +299,7 @@ const char * mapEventToString(const OTEventCode code)
     return result;
 } // mapEventToString
 #endif//0
+
 /*------------------------------------ mapStateToSymbol ---*/
 t_symbol * mapStateToSymbol(const TcpState aState)
 {
@@ -330,11 +332,13 @@ t_symbol * mapStateToSymbol(const TcpState aState)
             break;
 
         default:
-            return gUnknownSymbol;
+            result = gUnknownSymbol;
             break;
+            
     }
     return result;
 } // mapStateToSymbol
+
 /*------------------------------------ setUpStateSymbols ---*/
 void setUpStateSymbols(void)
 {

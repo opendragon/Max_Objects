@@ -40,13 +40,12 @@
 #include "notX.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(NotXData * xx,
-             long       num)
+INT_HEADER(NotXData)
 {
     if (xx)
     {
         clearPrevious(xx);
-        xx->fPreviousResult = (! num);
+        xx->fPreviousResult = (! msg);
         outlet_int(xx->fResultOut, xx->fPreviousResult);
     }
 } // cmd_Int

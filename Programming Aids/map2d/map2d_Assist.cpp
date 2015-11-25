@@ -40,11 +40,7 @@
 #include "map2d.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(Map2dData * xx,
-                void *      bb,
-                long        msg,
-                long        arg,
-                char *      dstString)
+ASSIST_HEADER(Map2dData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

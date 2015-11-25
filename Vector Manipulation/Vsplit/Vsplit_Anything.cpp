@@ -40,30 +40,27 @@
 #include "Vsplit.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(VObjectData * xx,
-                  t_symbol *    message,
-                  short         argc,
-                  t_atom *      argv)
+ANYTHING_HEADER(VObjectData)
 {
     if (xx)
     {
         short    leftCount = 0;
         short    rightCount = 0;
-        t_atom * leftAtoms = NULL_PTR;
-        t_atom * rightAtoms = NULL_PTR;
+        t_atom * leftAtoms = NULL;
+        t_atom * rightAtoms = NULL;
 
         clearPrevious(xx);
-        if (xx->fHowMany > 0)
+        if (0 < xx->fHowMany)
         {
             if (argc >= xx->fHowMany)
             {
                 // We have a split
                 leftCount = xx->fHowMany;
                 rightCount = static_cast<short>(argc + 1 - leftCount);
-                leftAtoms = GETBYTES(leftCount, t_atom);
-                rightAtoms = GETBYTES(rightCount, t_atom);
-                SETSYM(leftAtoms, message);
-                if (leftCount > 1)
+                leftAtoms = GET_BYTES(leftCount, t_atom);
+                rightAtoms = GET_BYTES(rightCount, t_atom);
+                A_SETSYM(leftAtoms, message);
+                if (1 < leftCount)
                 {
                     memcpy(leftAtoms + 1, argv, (leftCount - 1) * sizeof(t_atom));
                 }
@@ -73,22 +70,22 @@ void cmd_Anything(VObjectData * xx,
             {
                 // Everything goes to the left
                 leftCount = static_cast<short>(argc + 1);
-                leftAtoms = GETBYTES(leftCount, t_atom);
-                SETSYM(leftAtoms, message);
+                leftAtoms = GET_BYTES(leftCount, t_atom);
+                A_SETSYM(leftAtoms, message);
                 memcpy(leftAtoms + 1, argv, argc * sizeof(t_atom));
             }
         }
-        else if (xx->fHowMany < 0)
+        else if (0 > xx->fHowMany)
         {
             if (argc >= (-xx->fHowMany))
             {
                 // We have a split
                 rightCount = static_cast<short>(-xx->fHowMany);
                 leftCount = static_cast<short>(argc + 1 - rightCount);
-                leftAtoms = GETBYTES(leftCount, t_atom);
-                rightAtoms = GETBYTES(rightCount, t_atom);
-                SETSYM(leftAtoms, message);
-                if (leftCount > 1)
+                leftAtoms = GET_BYTES(leftCount, t_atom);
+                rightAtoms = GET_BYTES(rightCount, t_atom);
+                A_SETSYM(leftAtoms, message);
+                if (1 < leftCount)
                 {
                     memcpy(leftAtoms + 1, argv, (leftCount - 1) * sizeof(t_atom));
                 }
@@ -98,8 +95,8 @@ void cmd_Anything(VObjectData * xx,
             {
                 // Everything goes to the right
                 rightCount = static_cast<short>(argc + 1);
-                rightAtoms = GETBYTES(rightCount, t_atom);
-                SETSYM(rightAtoms, message);
+                rightAtoms = GET_BYTES(rightCount, t_atom);
+                A_SETSYM(rightAtoms, message);
                 memcpy(rightAtoms + 1, argv, argc * sizeof(t_atom));
             }
         }

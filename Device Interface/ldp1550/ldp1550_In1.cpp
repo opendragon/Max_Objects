@@ -68,12 +68,12 @@ static void checkResponse(LdpData *  xx,
         default:
             LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected input %02.2lx", rr)
             break;
+            
     }
 } /* checkResponse */
 
 /*------------------------------------ cmd_In1 ---*/
-void cmd_In1(LdpData * xx,
-             long      rr)
+IN1_HEADER(LdpData)
 {
     /* We've received a byte. Check if it matches what we are expecting. */
     if (xx)
@@ -89,127 +89,127 @@ void cmd_In1(LdpData * xx,
             switch (aPacket->fState)
             {
                 case kLdpStateAwaitingAck:
-                    if (kLdpReturnAck == rr)
+                    if (kLdpReturnAck == msg)
                     {
                         canAdvance = true;
                     }
                     else
                     {
-                        checkResponse(xx, rr);
+                        checkResponse(xx, msg);
                         inError = true;
                     }
                     break;
 
                 case kLdpStateAwaitingComplete:
-                    if (kLdpReturnComplete == rr)
+                    if (kLdpReturnComplete == msg)
                     {
                         canAdvance = true;
                         if (xx->fInterruptPoint == aPacket)
                         {
-                            xx->fInterruptPoint = NULL_PTR;
+                            xx->fInterruptPoint = NULL;
                         }
                     }
                     else
                     {
-                        checkResponse(xx, rr);
+                        checkResponse(xx, msg);
                         inError = true;
                     }
                     break;
 
                 case kLdpStateAwaitingChapterByte1:
-                    if ((rr >= '0') && (rr <= '9'))
+                    if (('0' <= msg) && ('9' >= msg))
                     {
                         aPacket->fState = kLdpStateAwaitingChapterByte2;
-                        xx->fChapterNumber = static_cast<short>(rr - '0');
+                        xx->fChapterNumber = TO_INT(msg - '0');
                     }
                     else
                     {
-                        checkResponse(xx, rr);
+                        checkResponse(xx, msg);
                         xx->fChapterNumber = 0;
                         inError = true;
                     }
                     break;
 
                 case kLdpStateAwaitingChapterByte2:
-                    if ((rr >= '0') && (rr <= '9'))
+                    if (('0' <= msg) && ('9' >= msg))
                     {
-                        xx->fChapterNumber = static_cast<short>(((xx->fChapterNumber) * 10) + rr - '0');
-                        outlet_int(xx->fChapterNumberOut, static_cast<long>(xx->fChapterNumber));
+                        xx->fChapterNumber = TO_INT(((xx->fChapterNumber) * 10) + msg - '0');
+                        outlet_int(xx->fChapterNumberOut, xx->fChapterNumber);
                         canAdvance = true;
                     }
                     else
                     {
-                        checkResponse(xx, rr);
+                        checkResponse(xx, msg);
                         inError = true;
                     }
                     break;
 
                 case kLdpStateAwaitingFrameByte1:
-                    if ((rr >= '0') && (rr <= '9'))
+                    if (('0' <= msg) && ('9' >= msg))
                     {
                         aPacket->fState = kLdpStateAwaitingFrameByte2;
-                        xx->fFrameNumber = rr - '0';
+                        xx->fFrameNumber = msg - '0';
                     }
                     else
                     {
-                        checkResponse(xx, rr);
+                        checkResponse(xx, msg);
                         xx->fFrameNumber = 0;
                         inError = true;
                     }
                     break;
 
                 case kLdpStateAwaitingFrameByte2:
-                    if ((rr >= '0') && (rr <= '9'))
+                    if (('0' <= msg) && ('9' >= msg))
                     {
                         aPacket->fState = kLdpStateAwaitingFrameByte3;
-                        xx->fFrameNumber = ((xx->fFrameNumber) * 10) + rr - '0';
+                        xx->fFrameNumber = ((xx->fFrameNumber) * 10) + msg - '0';
                     }
                     else
                     {
-                        checkResponse(xx, rr);
+                        checkResponse(xx, msg);
                         xx->fFrameNumber = 0;
                         inError = true;
                     }
                     break;
 
                 case kLdpStateAwaitingFrameByte3:
-                    if ((rr >= '0') && (rr <= '9'))
+                    if (('0' <= msg) && ('9' >= msg))
                     {
                         aPacket->fState = kLdpStateAwaitingFrameByte4;
-                        xx->fFrameNumber = ((xx->fFrameNumber) * 10) + rr - '0';
+                        xx->fFrameNumber = ((xx->fFrameNumber) * 10) + msg - '0';
                     }
                     else
                     {
-                        checkResponse(xx, rr);
+                        checkResponse(xx, msg);
                         xx->fFrameNumber = 0;
                         inError = true;
                     }
                     break;
 
                 case kLdpStateAwaitingFrameByte4:
-                    if ((rr >= '0') && (rr <= '9'))
+                    if (('0' <= msg) && ('9' >= msg))
                     {
                         aPacket->fState = kLdpStateAwaitingFrameByte5;
-                        xx->fFrameNumber = ((xx->fFrameNumber) * 10) + rr - '0';
+                        xx->fFrameNumber = ((xx->fFrameNumber) * 10) + msg - '0';
                     }
                     else
                     {
-                        checkResponse(xx, rr);
+                        checkResponse(xx, msg);
                         xx->fFrameNumber = 0;
                         inError = true;
                     }
                     break;
 
                 case kLdpStateAwaitingFrameByte5:
-                    if ((rr >= '0') && (rr <= '9'))
+                    if (('0' <= msg) && ('9' >= msg))
                     {
-                        xx->fFrameNumber = ((xx->fFrameNumber) * 10) + rr - '0';
+                        xx->fFrameNumber = ((xx->fFrameNumber) * 10) + msg - '0';
                         outlet_int(xx->fFrameNumberOut, xx->fFrameNumber);
                         canAdvance = true;
                     }
                     else
                     {
-                        checkResponse(xx, rr);
+                        checkResponse(xx, msg);
                         inError = true;
                     }
                     break;
@@ -228,15 +228,15 @@ void cmd_In1(LdpData * xx,
 
                 case kLdpStateAwaitingStatusByte4:
                     aPacket->fState = kLdpStateAwaitingStatusByte5;
-                    outlet_int(xx->fKeyModeStatus, rr);
-                    if (rr & 0x08)
+                    outlet_int(xx->fKeyModeStatus, msg);
+                    if (msg & 0x08)
                     {
                         outlet_bang(xx->fProgramStopCodeOut);
                     }
                     break;
 
                 case kLdpStateAwaitingStatusByte5:
-                    outlet_int(xx->fCommandStatus, rr);
+                    outlet_int(xx->fCommandStatus, msg);
                     canAdvance = true;
                     break;
 
@@ -246,7 +246,7 @@ void cmd_In1(LdpData * xx,
         }
         else
         {
-            checkResponse(xx, rr);
+            checkResponse(xx, msg);
             inError = true;
         }
         if (canAdvance)
@@ -257,9 +257,9 @@ void cmd_In1(LdpData * xx,
                 aPacket = ldpGetFirstPacket(xx);
                 ldpReleasePacket(xx, aPacket);
                 aPacket = xx->fFirst;
-                if ((! aPacket) || ((aPacket->fState != kLdpStateNotWaiting) &&
-                                    (aPacket->fCommand != kLdpCommandSignalAccepted) &&
-                                    (aPacket->fCommand != kLdpCommandSignalDone)))
+                if ((! aPacket) || ((kLdpStateNotWaiting != aPacket->fState) &&
+                                    (kLdpCommandSignalAccepted != aPacket->fCommand) &&
+                                    (kLdpCommandSignalDone != aPacket->fCommand)))
                 {
                     break;
                 }
@@ -289,7 +289,7 @@ void cmd_In1(LdpData * xx,
             }
             else if ((aCommand != kLdpNoCommand) && (aCommand != kLdpCommandSignalDone))
             {
-                outlet_int(xx->fCommandsOut, static_cast<long>(aCommand));
+                outlet_int(xx->fCommandsOut, TO_INT(aCommand));
             }
         }
         lockout_set(prevLock);

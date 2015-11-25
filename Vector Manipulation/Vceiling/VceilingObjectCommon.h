@@ -46,19 +46,19 @@
 
 struct VObjectData
 {
-    Object     fObject;
-    t_outlet * fResultOut;
-    double     fPreviousFloat;
-    long       fPreviousLong;
-    short      fPreviousLength;
-    t_atom *   fPreviousList;
-    short      fPreviousKind;
-    short      fOutputMode;
+    t_object    fObject;
+    t_outlet *  fResultOut;
+    double      fPreviousFloat;
+    t_atom_long fPreviousLong;
+    short       fPreviousLength;
+    t_atom *    fPreviousList;
+    short       fPreviousKind;
+    short       fOutputMode;
 }; // VObjectData
 
 void clearPrevious(VObjectData * xx);
 
-StandardRoutineDeclarations(VObjectData *);
+StandardRoutineDeclarations(VObjectData);
 
 mextern(t_symbol *) gEmptySymbol; /* Pointer to unique symbol for '' */
 mextern(t_symbol *) gFSymbol;     /* Pointer to unique symbol for 'f' */

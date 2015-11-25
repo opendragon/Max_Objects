@@ -40,8 +40,7 @@
 #include "map2d.h"
 
 /*------------------------------------ cmd_Verbose ---*/
-void cmd_Verbose(Map2dData * xx,
-                 t_symbol *  onOff)
+VERBOSE_HEADER(Map2dData)
 {
     if (xx)
     {

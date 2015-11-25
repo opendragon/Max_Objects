@@ -42,75 +42,74 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * MtcTrackCreate(long       howMany,
-                      t_symbol * optionOne,
-                      t_symbol * optionTwo);
-
-void MtcTrackFree(MtcTrackData * xx);
-
-static bool setUpMemory(MtcTrackData * xx);
-
-/*------------------------------------ main ---*/
-int main(void)
+/*------------------------------------ setUpMemory ---*/
+static bool setUpMemory(MtcTrackData * xx)
 {
-    /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(MtcTrackCreate),
-                               reinterpret_cast<method>(MtcTrackFree), sizeof(MtcTrackData),
-                               reinterpret_cast<method>(0L), A_LONG, A_DEFSYM, A_DEFSYM, 0);
-
-    if (temp)
+    long howMany2 = (xx->fHowMany * xx->fMaxSamples);
+    bool okSoFar = false;
+    
+    xx->fActDistances = GET_BYTES(howMany2, double);
+    xx->fRetainedData = GET_BYTES(xx->fHowMany, MtcRetainedData);
+    xx->fSamples = GET_BYTES(xx->fMaxSamples, MtcSampleData);
+    if (xx->fActDistances && xx->fRetainedData && xx->fSamples)
     {
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Batch), "batch", A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Clear), "clear", A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Index), "index", A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Threshold), "threshold", A_GIMME, 0);
-        class_register(CLASS_BOX, temp);
+        MtcRetainedData * retainedWalk = xx->fRetainedData;
+        MtcSampleData *   sampleWalk = xx->fSamples;
+        double *          actWalk = xx->fActDistances;
+        
+        for (short ii = 0; ii < xx->fHowMany; ++ii, ++retainedWalk)
+        {
+            retainedWalk->fLastP = retainedWalk->fLastX = retainedWalk->fLastY = 0;
+            retainedWalk->fDeltaX = retainedWalk->fDeltaY = retainedWalk->fNewP = 0;
+            retainedWalk->fNewX = retainedWalk->fNewY = 0;
+            retainedWalk->fVelocity = retainedWalk->fForce = 0;
+            retainedWalk->fValid = false;
+        }
+        for (short ii = 0; ii < xx->fMaxSamples; ++ii, ++sampleWalk)
+        {
+            sampleWalk->fThisP = sampleWalk->fThisX = sampleWalk->fThisY = 0;
+            sampleWalk->fActDistance = actWalk;
+            sampleWalk->fAvailable = false;
+            actWalk += xx->fHowMany;
+        }
+        memset(xx->fActDistances, 0, howMany2 * sizeof(double));
+        okSoFar = true;
     }
-    gClass = temp;
-    gBatchSymbol = gensym("batch");
-    gEmptySymbol = gensym("");
-    gIndexSymbol = gensym("index");
-    gOffSymbol = gensym("off");
-    gOnSymbol = gensym("on");
-    reportVersion(OUR_NAME);
-    return 0;
-} // main
+    return okSoFar;
+} // setUpMemory
+
 /*------------------------------------ MtcTrackCreate ---*/
-void * MtcTrackCreate(long       howMany,
-                      t_symbol * optionOne,
-                      t_symbol * optionTwo)
+static void * MtcTrackCreate(const long howMany,
+                             t_symbol * optionOne,
+                             t_symbol * optionTwo)
 {
     MtcTrackData * xx = static_cast<MtcTrackData *>(object_alloc(gClass));
-
+    
     if (xx)
     {
         xx->fHowMany = static_cast<short>(howMany);
         xx->fMaxSamples = static_cast<short>(((howMany * 3) + 1) / 2);
-        xx->fErrorBangOut = NULL_PTR;
-        xx->fResultOut = NULL_PTR;
-        xx->fPointCountOut = NULL_PTR;
-        xx->fLinesCompleteOut = NULL_PTR;
+        xx->fErrorBangOut = NULL;
+        xx->fResultOut = NULL;
+        xx->fPointCountOut = NULL;
+        xx->fLinesCompleteOut = NULL;
         xx->fRetainedCount = xx->fSampleCount = 0;
         xx->fBatchNumber = 0;
         xx->fAddBatchNumber = xx->fAddIndex = false;
         xx->fThreshold = -1; /* So we don't initially use a threshold */
-        xx->fActDistances = NULL_PTR;
-        xx->fRetainedData = NULL_PTR;
-        xx->fSamples = NULL_PTR;
+        xx->fActDistances = NULL;
+        xx->fRetainedData = NULL;
+        xx->fSamples = NULL;
         if ((howMany < 1) || (howMany > MAX_POINTS))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid number of points (%ld}", howMany)
             freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
+            xx = NULL;
         }
         else
         {
             bool okSoFar = true;
-
+            
             if (optionOne == gBatchSymbol)
             {
                 xx->fAddBatchNumber = true;
@@ -145,74 +144,71 @@ void * MtcTrackCreate(long       howMany,
                 xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
                 xx->fPointCountOut = static_cast<t_outlet *>(intout(xx));
                 xx->fLinesCompleteOut = static_cast<t_outlet *>(bangout(xx));
-                xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-                if (xx->fResultOut && xx->fPointCountOut && xx->fLinesCompleteOut && xx->fErrorBangOut)
+                xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+                if (xx->fResultOut && xx->fPointCountOut && xx->fLinesCompleteOut &&
+                    xx->fErrorBangOut)
                 {
                     if (! setUpMemory(xx))
                     {
                         freeobject(reinterpret_cast<t_object *>(xx));
-                        xx = NULL_PTR;
+                        xx = NULL;
                     }
                 }
                 else
                 {
                     LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
                     freeobject(reinterpret_cast<t_object *>(xx));
-                    xx = NULL_PTR;
+                    xx = NULL;
                 }
             }
             else
             {
                 freeobject(reinterpret_cast<t_object *>(xx));
-                xx = NULL_PTR;
+                xx = NULL;
             }
         }
     }
     return xx;
 } // MtcTrackCreate
+
 /*------------------------------------ MtcTrackFree ---*/
-void MtcTrackFree(MtcTrackData * xx)
+static void MtcTrackFree(MtcTrackData * xx)
 {
     if (xx)
     {
-        FREEBYTES(xx->fActDistances, xx->fHowMany * xx->fMaxSamples);
-        FREEBYTES(xx->fSamples, xx->fMaxSamples);
-        FREEBYTES(xx->fRetainedData, xx->fHowMany);
+        FREE_BYTES(xx->fActDistances);
+        FREE_BYTES(xx->fSamples);
+        FREE_BYTES(xx->fRetainedData);
     }
 } // MtcTrackFree
-/*------------------------------------ setUpMemory ---*/
-static bool setUpMemory(MtcTrackData * xx)
+
+/*------------------------------------ main ---*/
+int main(void)
 {
-    long howMany2 = (xx->fHowMany * xx->fMaxSamples);
-    bool okSoFar = false;
+    /* Allocate class memory and set up class. */
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(MtcTrackCreate),
+                               reinterpret_cast<method>(MtcTrackFree), sizeof(MtcTrackData),
+                               reinterpret_cast<method>(0L), A_LONG, A_DEFSYM, A_DEFSYM, 0);
 
-    xx->fActDistances = GETBYTES(howMany2, double);
-    xx->fRetainedData = GETBYTES(xx->fHowMany, MtcRetainedData);
-    xx->fSamples = GETBYTES(xx->fMaxSamples, MtcSampleData);
-    if (xx->fActDistances && xx->fRetainedData && xx->fSamples)
+    if (temp)
     {
-        MtcRetainedData * retainedWalk = xx->fRetainedData;
-        MtcSampleData *   sampleWalk = xx->fSamples;
-        double *          actWalk = xx->fActDistances;
-
-        for (short ii = 0; ii < xx->fHowMany; ++ii, ++retainedWalk)
-        {
-            retainedWalk->fLastP = retainedWalk->fLastX = retainedWalk->fLastY = 0;
-            retainedWalk->fDeltaX = retainedWalk->fDeltaY = retainedWalk->fNewP = 0;
-            retainedWalk->fNewX = retainedWalk->fNewY = 0;
-            retainedWalk->fVelocity = retainedWalk->fForce = 0;
-            retainedWalk->fValid = false;
-        }
-        for (short ii = 0; ii < xx->fMaxSamples; ++ii, ++sampleWalk)
-        {
-            sampleWalk->fThisP = sampleWalk->fThisX = sampleWalk->fThisY = 0;
-            sampleWalk->fActDistance = actWalk;
-            sampleWalk->fAvailable = false;
-            actWalk += xx->fHowMany;
-        }
-        memset(xx->fActDistances, 0, howMany2 * sizeof(double));
-        okSoFar = true;
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Batch), "batch", A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Clear), "clear", A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Index), "index", A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Threshold), "threshold", A_GIMME, 0);
+        class_register(CLASS_BOX, temp);
     }
-    return okSoFar;
-} // setUpMemory
-StandardAnythingRoutine(MtcTrackData *)
+    gClass = temp;
+    gBatchSymbol = gensym("batch");
+    gEmptySymbol = gensym("");
+    gIndexSymbol = gensym("index");
+    gOffSymbol = gensym("off");
+    gOnSymbol = gensym("on");
+    reportVersion(OUR_NAME);
+    return 0;
+} // main
+
+StandardAnythingRoutine(MtcTrackData)

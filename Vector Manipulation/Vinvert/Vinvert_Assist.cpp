@@ -40,11 +40,7 @@
 #include "Vinvert.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(VObjectData * xx,
-                void *        bb,
-                long          msg,
-                long          arg,
-                char *        dstString)
+ASSIST_HEADER(VObjectData)
 {
     if (ASSIST_INLET == msg)
     {

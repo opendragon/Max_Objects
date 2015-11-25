@@ -40,11 +40,7 @@
 #include "changes.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(ChangesData * xx,
-                void *        bb,
-                long          msg,
-                long          arg,
-                char *        dstString)
+ASSIST_HEADER(ChangesData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

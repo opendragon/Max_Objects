@@ -55,6 +55,7 @@ bool gvpCheckPoolSpace(GvpData *   xx,
     }
     return result;
 } // gvpCheckPoolSpace
+
 /*------------------------------------ gvpClearPackets ---*/
 void gvpClearPackets(GvpData * xx)
 {
@@ -68,6 +69,7 @@ void gvpClearPackets(GvpData * xx)
         }
     }
 } // gvpClearPackets
+
 /*------------------------------------ gvpGetFirstPacket ---*/
 GvpPacket * gvpGetFirstPacket(GvpData * xx)
 {
@@ -78,38 +80,40 @@ GvpPacket * gvpGetFirstPacket(GvpData * xx)
         if (aPacket)
         {
             xx->fFirst = aPacket->fNext;
-            aPacket->fNext = aPacket->fPrev = NULL_PTR;
+            aPacket->fNext = aPacket->fPrev = NULL;
             if (xx->fFirst)
             {
-                xx->fFirst->fPrev = NULL_PTR;
+                xx->fFirst->fPrev = NULL;
             }
             else
             {
-                xx->fLast = NULL_PTR;
+                xx->fLast = NULL;
             }
         }
         return aPacket;
     }
-    return NULL_PTR;
+    return NULL;
 } // gvpGetFirstPacket
+
 /*------------------------------------ gvpNewPacket ---*/
 GvpPacket * gvpNewPacket(GvpData * xx)
 {
     GvpPacket * newPacket = xx->fPool;
 
     xx->fPool = newPacket->fNext;
-    newPacket->fPrev = newPacket->fNext = NULL_PTR;
+    newPacket->fPrev = newPacket->fNext = NULL;
     xx->fSendCompletion = false;
     --xx->fPoolAvailable;
     return newPacket;
 } // gvpNewPacket
+
 /*------------------------------------ gvpReleasePacket ---*/
 void gvpReleasePacket(GvpData *   xx,
                       GvpPacket * pp)
 {
     if (xx && pp)
     {
-        pp->fPrev = NULL_PTR;
+        pp->fPrev = NULL;
         pp->fNext = xx->fPool;
         xx->fPool = pp;
         ++xx->fPoolAvailable;

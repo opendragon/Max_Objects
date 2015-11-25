@@ -40,12 +40,11 @@
 #include "listType.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(ListTypeData * xx,
-             long           num)
+INT_HEADER(ListTypeData)
 {
-#pragma unused(num)
+#pragma unused(msg)
     if (xx)
     {
-        outlet_int(xx->fResultOut, static_cast<long>(TYPE_NOT_A_LIST));
+        outlet_int(xx->fResultOut, TO_INT(TYPE_NOT_A_LIST));
     }
 } // cmd_Int

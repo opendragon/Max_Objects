@@ -53,13 +53,13 @@ void cmd_Pull(QueueData * xx)
         if (first)
         {
             genericListOutput(xx->fResultOut, first->fOutputCount, first->fOutput);
-            FREEBYTES(first->fOutput, first->fOutputCount);
+            FREE_BYTES(first->fOutput);
             if (first == xx->fLastInQueue)
             {
-                xx->fLastInQueue = NULL_PTR;
+                xx->fLastInQueue = NULL;
             }
             xx->fFirstInQueue = first->fNext;
-            FREEBYTES(first, 1);
+            FREE_BYTES(first);
         }
         else
         {

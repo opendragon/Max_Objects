@@ -53,6 +53,6 @@ struct ShotgunData
     short       fNumOutlets;
 }; // ShotgunData
 
-StandardRoutineDeclarations(ShotgunData *);
+StandardRoutineDeclarations(ShotgunData);
 
 #endif /* not SHOTGUN_H_ */

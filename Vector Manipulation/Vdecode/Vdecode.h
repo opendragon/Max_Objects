@@ -48,12 +48,12 @@
 
 struct VdecodeData
 {
-    t_object   fObject;
-    t_outlet * fResultOut;
-    long       fPreviousLong;
-    BaseData   fInfo;
+    t_object    fObject;
+    t_outlet *  fResultOut;
+    t_atom_long fPreviousLong;
+    BaseData    fInfo;
 }; // VdecodeData
 
-StandardRoutineDeclarations(VdecodeData *);
+StandardRoutineDeclarations(VdecodeData);
 
 #endif /* not VDECODE_H_ */

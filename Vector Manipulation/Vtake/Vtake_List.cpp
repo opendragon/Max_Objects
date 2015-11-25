@@ -40,24 +40,21 @@
 #include "Vtake.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VObjectData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VObjectData)
 {
 #pragma unused(message)
     if (xx)
     {
-        t_atom * newArg = NULL_PTR;
+        t_atom * newArg = NULL;
         short    elementCount = 0;
 
         clearPrevious(xx);
         /* Determine the size of the output: */
-        if (xx->fHowMany > 0)
+        if (0 < xx->fHowMany)
         {
             elementCount = xx->fHowMany;
         }
-        else if (xx->fHowMany < 0)
+        else if (0 > xx->fHowMany)
         {
             elementCount = static_cast<short>(-xx->fHowMany);
         }
@@ -68,10 +65,10 @@ void cmd_List(VObjectData * xx,
         /* Collect the pieces that we need: */
         if (elementCount)
         {
-            newArg = GETBYTES(elementCount, t_atom);
+            newArg = GET_BYTES(elementCount, t_atom);
             if (newArg)
             {
-                if (xx->fHowMany > 0)
+                if (0 < xx->fHowMany)
                 {
                     memcpy(newArg, argv, elementCount * sizeof(t_atom));
                 }
@@ -81,7 +78,7 @@ void cmd_List(VObjectData * xx,
                 }
                 else
                 {
-                    memcpy(newArg, argv, elementCount * sizeof(Atom));
+                    memcpy(newArg, argv, elementCount * sizeof(t_atom));
                 }
             }
             else

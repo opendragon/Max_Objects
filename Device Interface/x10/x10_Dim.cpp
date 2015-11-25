@@ -57,5 +57,6 @@ void cmd_Dim(X10ControlData * xx,
 
         default:
             break;
+            
     }
 } // cmd_Dim

@@ -124,8 +124,7 @@ void cmd_SendTo(UdpObjectData * xx,
 
 void cmd_Status(UdpObjectData * xx);
 
-void cmd_Verbose(UdpObjectData * xx,
-                 t_symbol *      onOff);
+VERBOSE_HEADER(UdpObjectData);
 
 bool initObject(UdpObjectData * xx,
                 const long      port,
@@ -152,7 +151,7 @@ void transmitBuffer(UdpObjectData * xx,
 bool udpPortSetPort(UdpObjectData * xx,
                     const bool      bangOnError);
 
-StandardRoutineDeclarations(UdpObjectData *);
+StandardRoutineDeclarations(UdpObjectData);
 
 # if (defined(TRACE_OT_CALLS) && defined(BE_VERBOSE))
 #  define WRAP_OT_CALL(xx, res, name, aCall) \
@@ -160,7 +159,8 @@ StandardRoutineDeclarations(UdpObjectData *);
         res = aCall; \
         if (xx->fVerbose)\
         { \
-            post(xx, OUTPUT_PREFIX name " --> (%ld = %s)", static_cast<long>(res), mapErrorCodeToString(res));\
+            post(xx, OUTPUT_PREFIX name " --> (%ld = %s)", static_cast<long>(res), \
+                 mapErrorCodeToString(res));\
         } \
     }
 # else /* not TRACE_OT_CALLS or not BE_VERBOSE */

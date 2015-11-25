@@ -40,10 +40,7 @@
 #include "Vdrop.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(VObjectData * xx,
-                  t_symbol *    message,
-                  short         argc,
-                  t_atom *      argv)
+ANYTHING_HEADER(VObjectData)
 {
     if (xx)
     {
@@ -51,11 +48,11 @@ void cmd_Anything(VObjectData * xx,
 
         clearPrevious(xx);
         /* Determine the size of the output: */
-        if (xx->fHowMany > 0)
+        if (0 < xx->fHowMany)
         {
             elementCount = xx->fHowMany;
         }
-        else if (xx->fHowMany < 0)
+        else if (0 > xx->fHowMany)
         {
             elementCount = static_cast<short>(-xx->fHowMany);
         }
@@ -63,17 +60,17 @@ void cmd_Anything(VObjectData * xx,
         {
             /* Collect the pieces that we need: */
             short    newCount = static_cast<short>(argc + 1 - elementCount);
-            t_atom * newArg = GETBYTES(newCount, t_atom);
+            t_atom * newArg = GET_BYTES(newCount, t_atom);
 
             if (newArg)
             {
-                if (xx->fHowMany > 0)
+                if (0 < xx->fHowMany)
                 {
                     memcpy(newArg, argv + elementCount - 1, newCount * sizeof(t_atom));
                 }
                 else
                 {
-                    SETSYM(newArg, message);
+                    A_SETSYM(newArg, message);
                     if (argc > elementCount)
                     {
                         memcpy(newArg + 1, argv, (newCount - 1) * sizeof(t_atom));

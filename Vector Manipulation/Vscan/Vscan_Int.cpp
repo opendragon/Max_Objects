@@ -40,18 +40,17 @@
 #include "Vscan.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VscanData * xx,
-             long        num)
+INT_HEADER(VscanData)
 {
     if (xx)
     {
         bool     okSoFar = true;
-        t_atom * newArg = NULL_PTR;
+        t_atom * newArg = NULL;
 
         clearPrevious(xx);
-        if ((xx->fCheck & IR_NONZERO) == IR_NONZERO)
+        if (IR_NONZERO == (xx->fCheck & IR_NONZERO))
         {
-            if (! num)
+            if (! msg)
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "zero in input list")
                 okSoFar = false;
@@ -71,24 +70,25 @@ void cmd_Int(VscanData * xx,
                 case OP_MODULUS:
                 case OP_MULTIPLY:
                 case OP_SUBTRACT:
-                    newArg = GETBYTES(1, t_atom);
+                    newArg = GET_BYTES(1, t_atom);
                     if (newArg)
                     {
-                        SETLONG(newArg, num);
+                        A_SETLONG(newArg, msg);
                     }
                     break;
 
                 case OP_AND:
                 case OP_OR:
-                    newArg = GETBYTES(1, t_atom);
+                    newArg = GET_BYTES(1, t_atom);
                     if (newArg)
                     {
-                        SETLONG(newArg, (num ? 1 : 0));
+                        A_SETLONG(newArg, (msg ? 1 : 0));
                     }
                     break;
 
                 default:
                     break;
+                    
             }
             xx->fPreviousList = newArg;
             xx->fPreviousLength = 1;

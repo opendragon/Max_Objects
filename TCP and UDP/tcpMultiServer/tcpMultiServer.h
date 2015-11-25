@@ -130,8 +130,7 @@ void cmd_Send(TcpMultiServerData * xx,
 void cmd_Status(TcpMultiServerData * xx,
                 long                 client);
 
-void cmd_Verbose(TcpMultiServerData * xx,
-                 t_symbol *           onOff);
+VERBOSE_HEADER(TcpMultiServerData);
 
 bool initObject(TcpMultiServerData * xx,
                 long                 port,
@@ -185,6 +184,6 @@ void transmitBuffer(TcpMultiServerData * xx,
                     const bool           rawMode);
 #endif//0
 
-StandardRoutineDeclarations(TcpMultiServerData *);
+StandardRoutineDeclarations(TcpMultiServerData);
 
 #endif /* not TCPMULTISERVER_H_ */

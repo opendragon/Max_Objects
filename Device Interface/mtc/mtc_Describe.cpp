@@ -56,7 +56,7 @@ void cmd_Describe(MtcData * xx)
                 else
                 {
                     REPORT_MAX_MESSAGE("UNIT DESCRIPTION")
-                    mtcPerformWriteCommand(xx, kMtcCommandSendUnitDesc, 0, NULL_PTR);
+                    mtcPerformWriteCommand(xx, kMtcCommandSendUnitDesc, 0, NULL);
                 }
                 break;
 
@@ -69,6 +69,7 @@ void cmd_Describe(MtcData * xx)
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Describe

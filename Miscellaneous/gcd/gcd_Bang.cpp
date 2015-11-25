@@ -40,7 +40,7 @@
 #include "gcd.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(GcdData * xx)
+BANG_HEADER(GcdData)
 {
-    outlet_int(xx->fResultOut, static_cast<long>(xx->fPreviousResult));
+    outlet_int(xx->fResultOut, xx->fPreviousResult);
 } // cmd_Bang

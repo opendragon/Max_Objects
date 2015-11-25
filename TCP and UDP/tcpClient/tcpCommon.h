@@ -90,8 +90,7 @@ void cmd_Send(TcpObjectData * xx,
 
 void cmd_Status(TcpObjectData * xx);
 
-void cmd_Verbose(TcpObjectData * xx,
-                 t_symbol *      onOff);
+VERBOSE_HEADER(TcpObjectData);
 
 bool initObject(const char *    name,
                 TcpObjectData * xx,
@@ -118,6 +117,6 @@ void setObjectState(TcpObjectData *      xx,
 void transmitBuffer(TcpObjectData *  xx,
                     DataBuffer *     aBuffer);
 
-StandardRoutineDeclarations(TcpObjectData *);
+StandardRoutineDeclarations(TcpObjectData);
 
 #endif /* not TCPCOMMON_H_ */

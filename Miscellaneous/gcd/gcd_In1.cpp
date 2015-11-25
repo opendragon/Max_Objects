@@ -40,12 +40,11 @@
 #include "gcd.h"
 
 /*------------------------------------ cmd_In1 ---*/
-void cmd_In1(GcdData * xx,
-             long      num)
+IN1_HEADER(GcdData)
 {
     /* We've received a number. */
     if (xx)
     {
-        xx->fRightInput = num;
+        xx->fRightInput = msg;
     }
 } // cmd_In1

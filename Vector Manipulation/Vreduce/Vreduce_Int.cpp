@@ -40,16 +40,15 @@
 #include "Vreduce.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VreduceData * xx,
-             long          num)
+INT_HEADER(VreduceData)
 {
     if (xx)
     {
         bool okSoFar = true;
 
-        if ((xx->fCheck & IR_NONZERO) == IR_NONZERO)
+        if (IR_NONZERO == (xx->fCheck & IR_NONZERO))
         {
-            if (! num)
+            if (! msg)
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "zero in input list")
                 okSoFar = false;
@@ -70,16 +69,17 @@ void cmd_Int(VreduceData * xx,
                 case OP_MODULUS:
                 case OP_MULTIPLY:
                 case OP_SUBTRACT:
-                    xx->fPreviousLong = num;
+                    xx->fPreviousLong = msg;
                     break;
 
                 case OP_AND:
                 case OP_OR:
-                    xx->fPreviousLong = (num ? 1 : 0);
+                    xx->fPreviousLong = (msg ? 1 : 0);
                     break;
 
                 default:
                     break;
+                    
             }
             outlet_int(xx->fResultOut, xx->fPreviousLong);
         }

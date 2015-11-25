@@ -58,8 +58,8 @@ void cmd_TopPop(StackData * xx)
             {
                 genericListOutput(xx->fResultOut, top->fOutputCount, top->fOutput);
                 descriptor->fTopOfStack = top->fNext;
-                FREEBYTES(top->fOutput, top->fOutputCount);
-                FREEBYTES(top, 1);
+                FREE_BYTES(top->fOutput);
+                FREE_BYTES(top);
                 --descriptor->fDepth;
             }
             else

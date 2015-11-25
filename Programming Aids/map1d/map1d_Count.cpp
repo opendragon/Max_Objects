@@ -40,13 +40,13 @@
 #include "map1d.h"
 
 /*------------------------------------ cmd_Count ---*/
-void cmd_Count(Map1dData * xx)
+COUNT_HEADER(Map1dData)
 {
     if (xx)
     {
         t_atom temp[1];
 
-        SETLONG(temp, static_cast<long>(xx->fRangeCount));
+        A_SETLONG(temp, TO_INT(xx->fRangeCount));
         outlet_anything(xx->fResultOut, gCountSymbol, 1, temp);
     }
 } // cmd_Count

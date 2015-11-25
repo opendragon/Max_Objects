@@ -42,46 +42,16 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VfloorCreate(t_symbol * mode);
-
-void VfloorFree(VObjectData * xx);
-
-/*------------------------------------ main ---*/
-int main(void)
-{
-    /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VfloorCreate), reinterpret_cast<method>(VfloorFree),
-                               sizeof(VObjectData), reinterpret_cast<method>(0L), A_DEFSYM, 0);
-
-    if (temp)
-    {
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Bang), MESSAGE_BANG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Float), MESSAGE_FLOAT, A_FLOAT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
-        class_register(CLASS_BOX, temp);
-    }
-    gClass = temp;
-    gEmptySymbol = gensym("");
-    gFSymbol = gensym("f");
-    gISymbol = gensym("i");
-    gMSymbol = gensym("m");
-    reportVersion(OUR_NAME);
-    return 0;
-} // main
 /*------------------------------------ VfloorCreate ---*/
-void * VfloorCreate(t_symbol * mode)
+static void * VfloorCreate(t_symbol * mode)
 {
     VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
-
+    
     if (xx)
     {
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
         xx->fPreviousKind = A_NOTHING;
-        xx->fPreviousList = NULL_PTR;
+        xx->fPreviousList = NULL;
         xx->fPreviousLength = 0;
         if (xx->fResultOut)
         {
@@ -105,29 +75,59 @@ void * VfloorCreate(t_symbol * mode)
             {
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unknown mode '%s'", mode->s_name)
                 freeobject(reinterpret_cast<t_object *>(xx));
-                xx = NULL_PTR;
+                xx = NULL;
             }
         }
         else
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
             freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
+            xx = NULL;
         }
     }
     return xx;
 } // VfloorCreate
+
 /*------------------------------------ VfloorFree ---*/
-void VfloorFree(VObjectData * xx)
+static void VfloorFree(VObjectData * xx)
 {
     if (xx)
     {
         clearPrevious(xx);
     }
 } // VfloorFree
+
+/*------------------------------------ main ---*/
+int main(void)
+{
+    /* Allocate class memory and set up class. */
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VfloorCreate),
+                               reinterpret_cast<method>(VfloorFree), sizeof(VObjectData),
+                               reinterpret_cast<method>(0L), A_DEFSYM, 0);
+
+    if (temp)
+    {
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Bang), MESSAGE_BANG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Float), MESSAGE_FLOAT, A_FLOAT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
+        class_register(CLASS_BOX, temp);
+    }
+    gClass = temp;
+    gEmptySymbol = gensym("");
+    gFSymbol = gensym("f");
+    gISymbol = gensym("i");
+    gMSymbol = gensym("m");
+    reportVersion(OUR_NAME);
+    return 0;
+} // main
+
 /*------------------------------------ clearPrevious ---*/
 void clearPrevious(VObjectData * xx)
 {
-    FREEBYTES(xx->fPreviousList, xx->fPreviousLength);
+    FREE_BYTES(xx->fPreviousList);
 } // clearPrevious
-StandardAnythingRoutine(VObjectData *)
+
+StandardAnythingRoutine(VObjectData)

@@ -57,8 +57,8 @@ void cmd_Pop(StackData * xx)
             if (top)
             {
                 descriptor->fTopOfStack = top->fNext;
-                FREEBYTES(top->fOutput, top->fOutputCount);
-                FREEBYTES(top, 1);
+                FREE_BYTES(top->fOutput);
+                FREE_BYTES(top);
                 --descriptor->fDepth;
             }
             else

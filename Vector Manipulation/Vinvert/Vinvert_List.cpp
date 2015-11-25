@@ -40,21 +40,18 @@
 #include "Vinvert.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VObjectData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VObjectData)
 {
 #pragma unused(message)
     if (xx)
     {
-        t_atom * newArg = NULL_PTR;
+        t_atom * newArg = NULL;
         bool     okSoFar = true;
 
         clearPrevious(xx);
         if (argc)
         {
-            newArg = GETBYTES(argc, t_atom);
+            newArg = GET_BYTES(argc, t_atom);
             if (newArg)
             {
                 t_atom * newWalk = newArg;
@@ -73,7 +70,7 @@ void cmd_List(VObjectData * xx,
                             }
                             else
                             {
-                                newWalk->a_w.w_float = static_cast<float>(1.0 / oldWalk->a_w.w_float);
+                                newWalk->a_w.w_float = TO_DBL(1.0 / oldWalk->a_w.w_float);
                             }
                             break;
 
@@ -86,14 +83,14 @@ void cmd_List(VObjectData * xx,
                             }
                             else
                             {
-                                newWalk->a_w.w_float = static_cast<float>(1.0 /
-                                                                          static_cast<float>(oldWalk->a_w.w_long));
+                                newWalk->a_w.w_float = TO_DBL(1.0 / TO_DBL(oldWalk->a_w.w_long));
                             }
                             break;
 
                         default:
                             okSoFar = false;
                             break;
+                            
                     }
                 }
             }
@@ -111,7 +108,7 @@ void cmd_List(VObjectData * xx,
         }
         else
         {
-            FREEBYTES(newArg, argc);
+            FREE_BYTES(newArg);
             xx->fPreviousKind = A_NOTHING;
             LOG_ERROR_1(xx, OUTPUT_PREFIX "Non-numeric or invalid elements in list")
         }

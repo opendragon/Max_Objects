@@ -40,21 +40,18 @@
 #include "Vceiling.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VObjectData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VObjectData)
 {
 #pragma unused(message)
     if (xx)
     {
-        t_atom * newArg = NULL_PTR;
+        t_atom * newArg = NULL;
         bool     okSoFar = true;
 
         clearPrevious(xx);
         if (argc)
         {
-            newArg = GETBYTES(argc, t_atom);
+            newArg = GET_BYTES(argc, t_atom);
             if (newArg)
             {
                 t_atom * newWalk = newArg;
@@ -69,16 +66,17 @@ void cmd_List(VObjectData * xx,
                             switch (oldWalk->a_type)
                             {
                                 case A_FLOAT:
-                                    newWalk->a_w.w_float = static_cast<float>(ceil(oldWalk->a_w.w_float));
+                                    newWalk->a_w.w_float = TO_DBL(ceil(oldWalk->a_w.w_float));
                                     break;
 
                                 case A_LONG:
-                                    newWalk->a_w.w_float = static_cast<float>(oldWalk->a_w.w_long);
+                                    newWalk->a_w.w_float = TO_DBL(oldWalk->a_w.w_long);
                                     break;
 
                                 default:
                                     okSoFar = false;
                                     break;
+                                    
                             }
                         }
                         break;
@@ -90,7 +88,7 @@ void cmd_List(VObjectData * xx,
                             switch (oldWalk->a_type)
                             {
                                 case A_FLOAT:
-                                    newWalk->a_w.w_long = static_cast<long>(ceil(oldWalk->a_w.w_float));
+                                    newWalk->a_w.w_long = TO_INT(ceil(oldWalk->a_w.w_float));
                                     break;
 
                                 case A_LONG:
@@ -100,6 +98,7 @@ void cmd_List(VObjectData * xx,
                                 default:
                                     okSoFar = false;
                                     break;
+                                    
                             }
                         }
                         break;
@@ -111,7 +110,7 @@ void cmd_List(VObjectData * xx,
                             switch (oldWalk->a_type)
                             {
                                 case A_FLOAT:
-                                    newWalk->a_w.w_float = static_cast<float>(ceil(oldWalk->a_w.w_float));
+                                    newWalk->a_w.w_float = TO_DBL(ceil(oldWalk->a_w.w_float));
                                     break;
 
                                 case A_LONG:
@@ -121,9 +120,15 @@ void cmd_List(VObjectData * xx,
                                 default:
                                     okSoFar = false;
                                     break;
+                                    
                             }
                         }
                         break;
+                        
+                    default:
+                        okSoFar = false;
+                        break;
+                        
                 }
             }
             else
@@ -140,7 +145,7 @@ void cmd_List(VObjectData * xx,
         }
         else
         {
-            FREEBYTES(newArg, argc);
+            FREE_BYTES(newArg);
             xx->fPreviousKind = A_NOTHING;
             LOG_ERROR_1(xx, OUTPUT_PREFIX "Non-numeric elements in list")
         }

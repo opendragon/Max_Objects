@@ -41,9 +41,9 @@
 
 /*------------------------------------ deferred_Store ---*/
 static void deferred_Store(MemoryData * xx,
-                          t_symbol *    fileName,
-                          short         argc,
-                          t_atom *      argv)
+                           t_symbol *   fileName,
+                           short        argc,
+                           t_atom *     argv)
 {
     bool               okSoFar = false;
     t_binbuf *         outBuffer = static_cast<t_binbuf *>(binbuf_new());
@@ -56,8 +56,8 @@ static void deferred_Store(MemoryData * xx,
         LOG_POST_1(xx, OUTPUT_PREFIX "writing out all symbols")
     }
     /* Output the number of symbols: */
-    SETLONG(tempAtom, xx->fSymbolCount);
-    binbuf_append(outBuffer, NULL_PTR, 1, tempAtom);
+    A_SETLONG(tempAtom, xx->fSymbolCount);
+    binbuf_append(outBuffer, NULL, 1, tempAtom);
     /* For each symbol, output it's value: */
     if (descriptor && descriptor->fSymbolTable)
     {
@@ -67,12 +67,12 @@ static void deferred_Store(MemoryData * xx,
         {
             for (slot = *(descriptor->fSymbolTable + ii); slot; slot = slot->fNext)
             {
-                SETSYM(tempAtom, slot->fSymbol);
-                SETLONG(tempAtom + 1, static_cast<long>(slot->fOutputCount));
-                binbuf_append(outBuffer, NULL_PTR, 2, tempAtom);
+                A_SETSYM(tempAtom, slot->fSymbol);
+                A_SETLONG(tempAtom + 1, TO_INT(slot->fOutputCount));
+                binbuf_append(outBuffer, NULL, 2, tempAtom);
                 if (slot->fOutput && slot->fOutputCount)
                 {
-                    binbuf_append(outBuffer, NULL_PTR, slot->fOutputCount, slot->fOutput);
+                    binbuf_append(outBuffer, NULL, slot->fOutputCount, slot->fOutput);
                 }
             }
         }
@@ -81,7 +81,8 @@ static void deferred_Store(MemoryData * xx,
     if (path_opensysfile(fileName->s_name, path_getdefault(), &fileRef, PATH_WRITE_PERM))
     {
         // If unsuccessful, attempt to create the file.
-        okSoFar = (! path_createsysfile(fileName->s_name, path_getdefault(), FILETYPE_TEXT, &fileRef));
+        okSoFar = (! path_createsysfile(fileName->s_name, path_getdefault(), FILETYPE_TEXT,
+                                        &fileRef));
     }
     else
     {
@@ -90,8 +91,8 @@ static void deferred_Store(MemoryData * xx,
     }
     if (okSoFar)
     {
-        t_handle contents = sysmem_newhandle(0);
-        long     outSize = 0;
+        t_handle   contents = sysmem_newhandle(0);
+        t_ptr_size outSize = 0;
 
         if (binbuf_totext(outBuffer, contents, &outSize))
         {

@@ -52,7 +52,7 @@ static void deferred_List(FileLoggerData * xx,
     {
         for (short ii = 0; okSoFar && (ii < argc); ++ii)
         {
-            const char * toAdd = NULL_PTR;
+            const char * toAdd = NULL;
 
             if (ii)
             {
@@ -63,7 +63,7 @@ static void deferred_List(FileLoggerData * xx,
                 switch (argv[ii].a_type)
                 {
                     case A_LONG:
-                        snprintf(numBuffer, sizeof(numBuffer), "%ld", (long) argv[ii].a_w.w_long);
+                        snprintf(numBuffer, sizeof(numBuffer), LONG_FORMAT, argv[ii].a_w.w_long);
                         toAdd = numBuffer;
                         break;
 
@@ -72,7 +72,7 @@ static void deferred_List(FileLoggerData * xx,
                         break;
 
                     case A_FLOAT:
-                        snprintf(numBuffer, sizeof(numBuffer), "%g", static_cast<double>(argv[ii].a_w.w_float));
+                        snprintf(numBuffer, sizeof(numBuffer), "%g", TO_DBL(argv[ii].a_w.w_float));
                         toAdd = numBuffer;
                         break;
 
@@ -85,6 +85,7 @@ static void deferred_List(FileLoggerData * xx,
                         break;
 
                     case A_DOLLAR:
+                    case A_DOLLSYM:
                         toAdd = "$";
                         break;
 
@@ -107,10 +108,7 @@ static void deferred_List(FileLoggerData * xx,
 } // deferred_List
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(FileLoggerData * xx,
-              t_symbol *       message,
-              short            argc,
-              t_atom *         argv)
+LIST_HEADER(FileLoggerData)
 {
 #pragma unused(message)
     if (xx)

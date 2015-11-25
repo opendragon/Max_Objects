@@ -41,130 +41,17 @@
 #include "tcpClient.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * tcpClientCreate(t_symbol * ipAddress,
-                       long       port,
-                       long       numBuffers);
-
-void tcpClientFree(TcpObjectData * xx);
-
-/*------------------------------------ main ---*/
-int main(void)
-{
-    /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(tcpClientCreate),
-                               reinterpret_cast<method>(tcpClientFree), sizeof(TcpObjectData),
-                               reinterpret_cast<method>(0L), A_DEFSYM, A_DEFLONG, A_DEFLONG, 0);
-
-    if (temp)
-    {
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Float), MESSAGE_FLOAT, A_FLOAT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Connect), "connect", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Disconnect), "disconnect", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Mode), "mode", A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Port), "port", A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Self), "self", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Send), "send", A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Server), "server", A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Status), MESSAGE_BANG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Status), "status", 0);
-#if defined(BE_VERBOSE)
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Verbose), "verbose", A_DEFSYM, 0);
-#endif /* BE_VERBOSE */
-        class_register(CLASS_BOX, temp);
-    }
-    gClass = temp;
-    gDollarSymbol = gensym("$");
-    gEmptySymbol = gensym("");
-    gMaxSymbol = gensym("max");
-    gOffSymbol = gensym("off");
-    gOnSymbol = gensym("on");
-    gRawSymbol = gensym("raw");
-    gReplySymbol = gensym("reply");
-    gSelfSymbol = gensym("self");
-    gStatusSymbol = gensym("status");
-    setUpStateSymbols();
-    reportVersion(OUR_NAME);
-    return 0;
-} // main
-#define CHECK_A_BYTE(endChar, sumPtr)    \
-    { \
-        for (accum = -1; okSoFar; ) \
-        { \
-            a_char = *nextChar++; \
-            if (a_char == endChar) \
-            { \
-                if (accum < 0)\
-                { \
-                    okSoFar = false;\
-                } \
-                break; \
-      \
-            } \
-            if ((a_char >= '0') && (a_char <= '9')) \
-            { \
-                if (accum < 0)\
-                { \
-                    accum = static_cast<short>(a_char - '0');\
-                } \
-                else \
-                { \
-                    accum *= 10; \
-                    accum += (a_char - '0'); \
-                    if (accum > 255)\
-                    { \
-                        okSoFar = false;\
-                    } \
-                } \
-            } \
-            else\
-            { \
-                okSoFar = false;\
-            } \
-        } \
-        if (okSoFar)\
-        { \
-            sumPtr = accum;\
-        } \
-    }
-
-/*------------------------------------ checkIpString ---*/
-bool checkIpString(t_symbol * ipAddress,
-                   short &    byte_0,
-                   short &    byte_1,
-                   short &    byte_2,
-                   short &    byte_3)
-{
-    bool okSoFar = true;
-
-    if (ipAddress != gEmptySymbol)
-    {
-        char * nextChar = ipAddress->s_name;
-        short  accum;
-        char   a_char;
-
-        /* Get first byte. */
-        CHECK_A_BYTE('.', byte_0)
-        CHECK_A_BYTE('.', byte_1)
-        CHECK_A_BYTE('.', byte_2)
-        CHECK_A_BYTE(0, byte_3)
-    }
-    return okSoFar;
-} // checkIpString
 /*------------------------------------ tcpClientCreate ---*/
-void * tcpClientCreate(t_symbol * ipAddress,
-                       long       port,
-                       long       numBuffers)
+static void * tcpClientCreate(t_symbol * ipAddress,
+                              const long port,
+                              const long numBuffers)
 {
     TcpObjectData * xx = static_cast<TcpObjectData *>(object_alloc(gClass));
-
+    
     if (xx)
     {
         bool               okSoFar = true;
+        long               actBuffCount;
         short              byte_0 = DEFAULT_IP_ADDR_0;
         short              byte_1 = DEFAULT_IP_ADDR_1;
         short              byte_2 = DEFAULT_IP_ADDR_2;
@@ -173,7 +60,7 @@ void * tcpClientCreate(t_symbol * ipAddress,
         OSStatus           result;
         OTConfigurationRef this_config;
 #endif//0
-
+        
 #if defined(BE_VERBOSE)
         xx->fVerbose = false;
 #endif /* BE_VERBOSE */
@@ -186,18 +73,23 @@ void * tcpClientCreate(t_symbol * ipAddress,
         }
         if (0 == numBuffers)
         {
-            numBuffers = NUM_RX_BUFFERS;
+            actBuffCount = NUM_RX_BUFFERS;
+        }
+        else
+        {
+            actBuffCount = numBuffers;
         }
         if (okSoFar)
         {
-            okSoFar = initObject(OUR_NAME, xx, port, numBuffers);
+            okSoFar = initObject(OUR_NAME, xx, port, actBuffCount);
         }
         /* Get the desired configuration */
         if (okSoFar)
         {
 #if 0
             this_config = OTCreateConfiguration(kTCPName);
-            if ((kOTInvalidConfigurationPtr == this_config) || (kOTNoMemoryConfigurationPtr == this_config))
+            if ((kOTInvalidConfigurationPtr == this_config) ||
+                (kOTNoMemoryConfigurationPtr == this_config))
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to obtain an OT configuration")
                 okSoFar = false;
@@ -209,8 +101,9 @@ void * tcpClientCreate(t_symbol * ipAddress,
         {
 #if 0
             TEndpointInfo info;
-
-            xx->fSocket = OTOpenEndpointInContext(this_config, 0, &info, &result, xx->fAccessControl->fContext);
+            
+            xx->fSocket = OTOpenEndpointInContext(this_config, 0, &info, &result,
+                                                  xx->fAccessControl->fContext);
             if (kOTNoError == result)
             {
                 xx->fServiceType = info.servtype;
@@ -268,7 +161,7 @@ void * tcpClientCreate(t_symbol * ipAddress,
         if (okSoFar)
         {
 #if 0
-            WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fSocket, NULL_PTR, NULL_PTR))
+            WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fSocket, NULL, NULL))
             if (result != kOTNoError)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
@@ -280,20 +173,21 @@ void * tcpClientCreate(t_symbol * ipAddress,
         if (! okSoFar)
         {
             freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
+            xx = NULL;
         }
     }
     return xx;
 } // tcpClientCreate
+
 /*------------------------------------ tcpClientFree ---*/
-void tcpClientFree(TcpObjectData * xx)
+static void tcpClientFree(TcpObjectData * xx)
 {
     if (xx)
     {
 #if 0
         OSStatus result;
 #endif//0
-
+        
         xx->fClosing = true;
         if (xx->fSocket)
         {
@@ -301,11 +195,11 @@ void tcpClientFree(TcpObjectData * xx)
             {
                 case kTcpStateConnected:
                     tcpClientDisconnect(xx, true);
-                /* Fall through */
-
+                    /* Fall through */
+                    
                 case kTcpStateConnecting:
-                /* Fall through */
-
+                    /* Fall through */
+                    
                 case kTcpStateBound:
 #if 0
                     WRAP_OT_CALL(xx, result, "OTUnbind", OTUnbind(xx->fSocket))
@@ -315,8 +209,8 @@ void tcpClientFree(TcpObjectData * xx)
                         reportEndpointState(OUR_NAME, xx);
                     }
 #endif//0
-                /* Fall through */
-
+                    /* Fall through */
+                    
                 case kTcpStateUnbound:
 #if 0
                     WRAP_OT_CALL(xx, result, "OTCloseProvider", OTCloseProvider(xx->fSocket))
@@ -327,14 +221,125 @@ void tcpClientFree(TcpObjectData * xx)
                     }
 #endif//0
                     break;
-
+                    
                 default:
                     break;
+                    
             }
         }
         releaseObjectMemory(OUR_NAME, xx);
     }
 } // tcpClientFree
+
+/*------------------------------------ main ---*/
+int main(void)
+{
+    /* Allocate class memory and set up class. */
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(tcpClientCreate),
+                               reinterpret_cast<method>(tcpClientFree), sizeof(TcpObjectData),
+                               reinterpret_cast<method>(0L), A_DEFSYM, A_DEFLONG, A_DEFLONG, 0);
+
+    if (temp)
+    {
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Float), MESSAGE_FLOAT, A_FLOAT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Connect), "connect", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Disconnect), "disconnect", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Mode), "mode", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Port), "port", A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Self), "self", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Send), "send", A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Server), "server", A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Status), MESSAGE_BANG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Status), "status", 0);
+#if defined(BE_VERBOSE)
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Verbose), "verbose", A_DEFSYM, 0);
+#endif /* BE_VERBOSE */
+        class_register(CLASS_BOX, temp);
+    }
+    gClass = temp;
+    gDollarSymbol = gensym("$");
+    gEmptySymbol = gensym("");
+    gMaxSymbol = gensym("max");
+    gOffSymbol = gensym("off");
+    gOnSymbol = gensym("on");
+    gRawSymbol = gensym("raw");
+    gReplySymbol = gensym("reply");
+    gSelfSymbol = gensym("self");
+    gStatusSymbol = gensym("status");
+    setUpStateSymbols();
+    reportVersion(OUR_NAME);
+    return 0;
+} // main
+
+#define CHECK_A_BYTE(endChar, sumPtr)    \
+    { \
+        for (accum = -1; okSoFar; ) \
+        { \
+            a_char = *nextChar++; \
+            if (a_char == endChar) \
+            { \
+                if (accum < 0)\
+                { \
+                    okSoFar = false;\
+                } \
+                break; \
+      \
+            } \
+            if (('0' <= a_char) && ('9' >= a_char)) \
+            { \
+                if (0 > accum)\
+                { \
+                    accum = static_cast<short>(a_char - '0');\
+                } \
+                else \
+                { \
+                    accum *= 10; \
+                    accum += (a_char - '0'); \
+                    if (255 > accum)\
+                    { \
+                        okSoFar = false;\
+                    } \
+                } \
+            } \
+            else\
+            { \
+                okSoFar = false;\
+            } \
+        } \
+        if (okSoFar)\
+        { \
+            sumPtr = accum;\
+        } \
+    }
+
+/*------------------------------------ checkIpString ---*/
+bool checkIpString(t_symbol * ipAddress,
+                   short &    byte_0,
+                   short &    byte_1,
+                   short &    byte_2,
+                   short &    byte_3)
+{
+    bool okSoFar = true;
+
+    if (ipAddress != gEmptySymbol)
+    {
+        char * nextChar = ipAddress->s_name;
+        short  accum;
+        char   a_char;
+
+        /* Get bytes. */
+        CHECK_A_BYTE('.', byte_0)
+        CHECK_A_BYTE('.', byte_1)
+        CHECK_A_BYTE('.', byte_2)
+        CHECK_A_BYTE(0, byte_3)
+    }
+    return okSoFar;
+} // checkIpString
+
 /*------------------------------------ tcpClientSetPort ---*/
 bool tcpClientSetPort(TcpObjectData * xx,
                       const bool      bangOnError)
@@ -363,6 +368,7 @@ bool tcpClientSetPort(TcpObjectData * xx,
 
             default:
                 break;
+                
         }
         if ((! okSoFar) && bangOnError)
         {
@@ -371,6 +377,7 @@ bool tcpClientSetPort(TcpObjectData * xx,
     }
     return true;
 } // tcpClientSetPort
+
 /*------------------------------------ tcpClientSetServer ---*/
 bool tcpClientSetServer(TcpObjectData * xx,
                         const short     byte_0,
@@ -403,11 +410,14 @@ bool tcpClientSetServer(TcpObjectData * xx,
 
             default:
                 break;
+                
         }
         if (okSoFar)
         {
-            xx->fServerAddress = static_cast<unsigned long>(((byte_0 & 0x0FF) << 24) | ((byte_1 & 0x0FF) << 16) |
-                                                            ((byte_2 & 0x0FF) << 8) | (byte_3 & 0x0FF));
+            xx->fServerAddress = static_cast<unsigned long>(((byte_0 & 0x0FF) << 24) |
+                                                            ((byte_1 & 0x0FF) << 16) |
+                                                            ((byte_2 & 0x0FF) << 8) |
+                                                            (byte_3 & 0x0FF));
         }
         if ((! okSoFar) && bangOnError)
         {
@@ -416,6 +426,7 @@ bool tcpClientSetServer(TcpObjectData * xx,
     }
     return okSoFar;
 } // tcpClientSetServer
+
 /*------------------------------------ tcpClientConnect ---*/
 bool tcpClientConnect(TcpObjectData * xx)
 {
@@ -445,6 +456,7 @@ bool tcpClientConnect(TcpObjectData * xx)
 
             default:
                 break;
+                
         }
         if (okSoFar)
         {
@@ -458,7 +470,7 @@ bool tcpClientConnect(TcpObjectData * xx)
             OTMemzero(&snd_call, sizeof(snd_call));
             snd_call.addr.len = sizeof(in_addr);
             snd_call.addr.buf = reinterpret_cast<unsigned char *>(&in_addr);
-            WRAP_OT_CALL(xx, result, "OTConnect", OTConnect(xx->fSocket, &snd_call, NULL_PTR))
+            WRAP_OT_CALL(xx, result, "OTConnect", OTConnect(xx->fSocket, &snd_call, NULL))
             if (result != kOTNoDataErr)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTConnect failed (%ld = %s)", result)
@@ -474,6 +486,7 @@ bool tcpClientConnect(TcpObjectData * xx)
     }
     return okSoFar;
 } // tcpClientConnect
+
 /*------------------------------------ tcpClientDisconnect ---*/
 bool tcpClientDisconnect(TcpObjectData * xx,
                          const bool      forced)
@@ -504,22 +517,26 @@ bool tcpClientDisconnect(TcpObjectData * xx,
 
             default:
                 break;
+                
         }
         if (okSoFar || forced)
         {
 #if 0
             OSStatus result;
 
-            if ((! forced) && ((T_COTS_ORD == xx->fServiceType) || (T_TRANS_ORD == xx->fServiceType)))
+            if ((! forced) && ((T_COTS_ORD == xx->fServiceType) ||
+                               (T_TRANS_ORD == xx->fServiceType)))
             {
-                WRAP_OT_CALL(xx, result, "OTSndOrderlyDisconnect", OTSndOrderlyDisconnect(xx->fSocket))
+                WRAP_OT_CALL(xx, result, "OTSndOrderlyDisconnect",
+                             OTSndOrderlyDisconnect(xx->fSocket))
                 if (kOTNoDataErr == result)
                 {
                     setObjectState(xx, kTcpStateDisconnecting);
                 }
                 else
                 {
-                    REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)", result)
+                    REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)",
+                                 result)
                     reportEndpointState(OUR_NAME, xx);
                     okSoFar = false;
                 }

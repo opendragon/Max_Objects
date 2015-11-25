@@ -40,10 +40,7 @@
 #include "caseShift.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(CaseShiftData * xx,
-              t_symbol *      message,
-              short           argc,
-              t_atom *        argv)
+LIST_HEADER(CaseShiftData)
 {
 #pragma unused(message)
     if (xx)
@@ -52,7 +49,7 @@ void cmd_List(CaseShiftData * xx,
         xx->fPreviousKind = A_GIMME;
         if (argc)
         {
-            t_atom * newArg = GETBYTES(argc, t_atom);
+            t_atom * newArg = GET_BYTES(argc, t_atom);
 
             if (newArg)
             {
@@ -67,12 +64,12 @@ void cmd_List(CaseShiftData * xx,
                     {
                         oldWord = newArg[ii].a_w.w_sym->s_name;
                         len = static_cast<short>(strlen(oldWord));
-                        newWord = GETBYTES(len + 1, char);
+                        newWord = GET_BYTES(len + 1, char);
                         if (newWord)
                         {
                             shiftAString(xx, newWord, oldWord);
                             newArg[ii].a_w.w_sym = gensym(newWord);
-                            FREEBYTES(newWord, len + 1);
+                            FREE_BYTES(newWord);
                         }
                     }
                 }

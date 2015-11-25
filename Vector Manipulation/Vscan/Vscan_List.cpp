@@ -40,15 +40,12 @@
 #include "Vscan.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VscanData * xx,
-              t_symbol *  message,
-              short       argc,
-              t_atom *    argv)
+LIST_HEADER(VscanData)
 {
 #pragma unused(message)
     if (xx)
     {
-        t_atom * newArg = NULL_PTR;
+        t_atom * newArg = NULL;
         t_atom * argWalk;
         short    newLength = argc;
 
@@ -66,7 +63,7 @@ void cmd_List(VscanData * xx,
             {
                 newLength = 1;
             }
-            argWalk = newArg = GETBYTES(newLength, t_atom);
+            argWalk = newArg = GET_BYTES(newLength, t_atom);
             switch (xx->fOperation)
             {
                 case OP_AND:
@@ -80,6 +77,7 @@ void cmd_List(VscanData * xx,
                     leftFloat = 0;
                     leftLong = 0;
                     break;
+                    
             }
             for (short ii = 0; newArg && (ii < argc); ++ii)
             {
@@ -136,17 +134,21 @@ void cmd_List(VscanData * xx,
                             leftFloat = argv[ii].a_w.w_float;
                         }
                         break;
+                        
+                    default:
+                        break;
+                        
                 }
                 if (ii)
                 {
                     /* Store the previous element */
                     if (wasFloat)
                     {
-                        SETFLOAT(argWalk, static_cast<float>(leftFloat));
+                        A_SETFLOAT(argWalk, TO_DBL(leftFloat));
                     }
                     else
                     {
-                        SETLONG(argWalk, leftLong);
+                        A_SETLONG(argWalk, leftLong);
                     }
                     ++argWalk;
                     switch (xx->fOperation)
@@ -329,6 +331,7 @@ void cmd_List(VscanData * xx,
 
                         default:
                             break;
+                            
                     }
                 }
             }
@@ -337,11 +340,11 @@ void cmd_List(VscanData * xx,
                 /* Store the previous element */
                 if (wasFloat)
                 {
-                    SETFLOAT(argWalk, static_cast<float>(leftFloat));
+                    A_SETFLOAT(argWalk, TO_DBL(leftFloat));
                 }
                 else
                 {
-                    SETLONG(argWalk, leftLong);
+                    A_SETLONG(argWalk, leftLong);
                 }
             }
             xx->fPreviousList = newArg;

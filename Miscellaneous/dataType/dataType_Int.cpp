@@ -40,12 +40,11 @@
 #include "dataType.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(DataTypeData * xx,
-             long           num)
+INT_HEADER(DataTypeData)
 {
-#pragma unused(num)
+#pragma unused(msg)
     if (xx)
     {
-        outlet_int(xx->fResultOut, static_cast<long>(TYPE_INT));
+        outlet_int(xx->fResultOut, TO_INT(TYPE_INT));
     }
 } // cmd_Int

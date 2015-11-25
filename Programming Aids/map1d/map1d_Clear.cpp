@@ -40,7 +40,7 @@
 #include "map1d.h"
 
 /*------------------------------------ cmd_Clear ---*/
-void cmd_Clear(Map1dData * xx)
+CLEAR_HEADER(Map1dData)
 {
     if (xx)
     {

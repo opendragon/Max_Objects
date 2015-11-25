@@ -59,6 +59,6 @@ struct VObjectData
 
 void clearPrevious(VObjectData * xx);
 
-StandardRoutineDeclarations(VObjectData *);
+StandardRoutineDeclarations(VObjectData);
 
 #endif /* not VDROPOBJECTCOMMON_H_ */

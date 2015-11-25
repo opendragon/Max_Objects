@@ -40,11 +40,7 @@
 #include "Vencode.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(VencodeData * xx,
-                void *        bb,
-                long          msg,
-                long          arg,
-                char *        dstString)
+ASSIST_HEADER(VencodeData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

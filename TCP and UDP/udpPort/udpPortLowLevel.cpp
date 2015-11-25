@@ -48,9 +48,11 @@ bool makeReceiveBufferAvailable(UdpObjectData * xx)
     {
         int       sock = CFSocketGetNative(xx->fSocket);
         socklen_t addrLen = sizeof(xx->fReceiveBuffer->fSender);
-        ssize_t   bytesRead = recvfrom(sock, reinterpret_cast<UInt8 *>(&xx->fReceiveBuffer->fNumElements),
+        ssize_t   bytesRead = recvfrom(sock,
+                                       reinterpret_cast<UInt8 *>(&xx->fReceiveBuffer->fNumElements),
                                        MAX_BUFFER_TO_RECEIVE, 0,
-                                       reinterpret_cast<sockaddr *>(&xx->fReceiveBuffer->fSender), &addrLen);
+                                       reinterpret_cast<sockaddr *>(&xx->fReceiveBuffer->fSender),
+                                       &addrLen);
 
         if (bytesRead < 0)
         {
@@ -76,14 +78,14 @@ bool makeReceiveBufferAvailable(UdpObjectData * xx)
 
                 if (temp->fNext)
                 {
-                    temp->fNext->fPrevious = NULL_PTR;
+                    temp->fNext->fPrevious = NULL;
                 }
                 xx->fPoolHead = temp->fNext;
                 if (! xx->fPoolHead)
                 {
-                    xx->fPoolTail = NULL_PTR;
+                    xx->fPoolTail = NULL;
                 }
-                temp->fNext = NULL_PTR;
+                temp->fNext = NULL;
                 /* Exchange the receive buffer and the pool buffer */
                 temp->fData = xx->fReceiveBuffer;
                 xx->fReceiveBuffer = swapper;
@@ -109,6 +111,7 @@ bool makeReceiveBufferAvailable(UdpObjectData * xx)
     }
     return okSoFar;
 } // makeReceiveBufferAvailable
+
 /*------------------------------------ processReceiveQueue ---*/
 void processReceiveQueue(UdpObjectData * xx)
 {
@@ -134,14 +137,14 @@ void processReceiveQueue(UdpObjectData * xx)
             /* Grab the head of the received list */
             if (temp->fNext)
             {
-                temp->fNext->fPrevious = NULL_PTR;
+                temp->fNext->fPrevious = NULL;
             }
             xx->fReceiveHead = temp->fNext;
             if (! xx->fReceiveHead)
             {
-                xx->fReceiveTail = NULL_PTR;
+                xx->fReceiveTail = NULL;
             }
-            temp->fNext = NULL_PTR;
+            temp->fNext = NULL;
             walker = reinterpret_cast<char *>(&temp->fData->fNumElements);
             numMessages = validateBuffer(xx, temp->fData, xx->fRawMode);
             for (short ii = 0; ii < numMessages; ++ii)
@@ -155,7 +158,7 @@ void processReceiveQueue(UdpObjectData * xx)
                 if (numAtoms > 0)
                 {
                     outlet_anything(xx->fResultOut, gFromSymbol, numAtoms, gotStuff);
-                    FREEBYTES(gotStuff, numAtoms);
+                    FREE_BYTES(gotStuff);
                 }
             }
             /* Add the temp link to the buffer pool */
@@ -171,9 +174,12 @@ void processReceiveQueue(UdpObjectData * xx)
             xx->fPoolTail = temp;
         }
         lockout_set(prev_lock);
+#if USE_EVNUM
         evnum_incr();
+#endif /* USE_EVNUM */
     }
 } // processReceiveQueue
+
 /*------------------------------------ setObjectState ---*/
 void setObjectState(UdpObjectData * xx,
                     const UdpState  newState)
@@ -189,6 +195,7 @@ void setObjectState(UdpObjectData * xx,
 #endif /* BE_VERBOSE */
     }
 } // setObjectState
+
 /*------------------------------------ transmitBuffer ---*/
 void transmitBuffer(UdpObjectData * xx,
                     DataBuffer *    aBuffer)
@@ -197,7 +204,7 @@ void transmitBuffer(UdpObjectData * xx,
     {
         int sock = CFSocketGetNative(xx->fSocket);
 
-        if (sock >= 0)
+        if (0 <= sock)
         {
             sockaddr_in outAddress;
             void *      outBuffer;
@@ -214,14 +221,17 @@ void transmitBuffer(UdpObjectData * xx,
             }
             else
             {
-                short num_bytes = static_cast<short>(aBuffer->fNumBytesInUse + SIZEOF_DATABUFFER_HDR);
+                short num_bytes = static_cast<short>(aBuffer->fNumBytesInUse +
+                                                     SIZEOF_DATABUFFER_HDR);
 
-                aBuffer->fSanityCheck = htons(static_cast<short>(-(num_bytes + aBuffer->fNumElements)));
+                aBuffer->fSanityCheck = htons(static_cast<short>(-(num_bytes +
+                                                                   aBuffer->fNumElements)));
                 aBuffer->fNumElements = htons(aBuffer->fNumElements);
                 outLength = num_bytes;
                 outBuffer = &aBuffer->fNumElements;
             }
-            ssize_t bytesWritten = sendto(sock, outBuffer, outLength, 0, reinterpret_cast<sockaddr *>(&outAddress),
+            ssize_t bytesWritten = sendto(sock, outBuffer, outLength, 0,
+                                          reinterpret_cast<sockaddr *>(&outAddress),
                                           static_cast<socklen_t>(sizeof(outAddress)));
 
             if (bytesWritten < 0)
@@ -237,7 +247,8 @@ void transmitBuffer(UdpObjectData * xx,
         }
         else
         {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "Could not get native socket (%ld)", static_cast<long>(errno))
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "Could not get native socket (%ld)",
+                        static_cast<long>(errno))
             signalError(xx);
         }
     }

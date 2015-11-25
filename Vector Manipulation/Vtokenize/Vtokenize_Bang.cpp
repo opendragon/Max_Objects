@@ -40,7 +40,7 @@
 #include "Vtokenize.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(VObjectData * xx)
+BANG_HEADER(VObjectData)
 {
     if (xx)
     {

@@ -40,7 +40,7 @@
 #include "queue.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(QueueData * xx)
+BANG_HEADER(QueueData)
 {
     if (xx)
     {

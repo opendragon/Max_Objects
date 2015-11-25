@@ -41,10 +41,23 @@
 #include "fileLogger.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * fileLoggerCreate(t_symbol * fileName);
+/*------------------------------------ fileLoggerCreate ---*/
+static void * fileLoggerCreate(t_symbol * fileName)
+{
+    FileLoggerData * xx = static_cast<FileLoggerData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fName = fileName;
+    }
+    return xx;
+} // fileLoggerCreate
 
-void fileLoggerFree(FileLoggerData * xx);
+/*------------------------------------ fileLoggerFree ---*/
+static void fileLoggerFree(FileLoggerData * xx)
+{
+    fileLoggerReleaseTheFile(xx);
+} // fileLoggerFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -67,22 +80,7 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ fileLoggerCreate ---*/
-void * fileLoggerCreate(t_symbol * fileName)
-{
-    FileLoggerData * xx = static_cast<FileLoggerData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fName = fileName;
-    }
-    return xx;
-} // fileLoggerCreate
-/*------------------------------------ fileLoggerFree ---*/
-void fileLoggerFree(FileLoggerData * xx)
-{
-    fileLoggerReleaseTheFile(xx);
-} // fileLoggerFree
 /*------------------------------------ fileLoggerGetTheFile ---*/
 bool fileLoggerGetTheFile(FileLoggerData * xx)
 {
@@ -92,7 +90,8 @@ bool fileLoggerGetTheFile(FileLoggerData * xx)
     if (path_opensysfile(xx->fName->s_name, path_getdefault(), &xx->fFileRef, PATH_RW_PERM))
     {
         // If unsuccessful, attempt to create the file.
-        result = (! path_createsysfile(xx->fName->s_name, path_getdefault(), FILETYPE_TEXT, &xx->fFileRef));
+        result = (! path_createsysfile(xx->fName->s_name, path_getdefault(), FILETYPE_TEXT,
+                                       &xx->fFileRef));
     }
     else
     {
@@ -101,6 +100,7 @@ bool fileLoggerGetTheFile(FileLoggerData * xx)
     }
     return result;
 } // fileLoggerGetTheFile
+
 /*------------------------------------ fileLoggerReleaseTheFile ---*/
 bool fileLoggerReleaseTheFile(FileLoggerData * xx)
 {
@@ -117,6 +117,7 @@ bool fileLoggerReleaseTheFile(FileLoggerData * xx)
     }
     return result;
 } // fileLoggerReleaseTheFile
+
 /*------------------------------------ fileLoggerWriteStringToTheFile ---*/
 bool fileLoggerWriteStringToTheFile(FileLoggerData * xx,
                                     const char *     value)
@@ -125,7 +126,7 @@ bool fileLoggerWriteStringToTheFile(FileLoggerData * xx,
 
     if (value)
     {
-        long count = static_cast<long>(strlen(value));
+        t_ptr_size count = static_cast<t_ptr_size>(strlen(value));
 
         if (count)
         {

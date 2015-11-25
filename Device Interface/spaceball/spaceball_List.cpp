@@ -40,10 +40,7 @@
 #include "spaceball.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(SpaceballData * xx,
-              t_symbol *      message,
-              short           argc,
-              t_atom *        argv)
+LIST_HEADER(SpaceballData)
 {
 #pragma unused(message)
     if (xx)
@@ -73,6 +70,7 @@ void cmd_List(SpaceballData * xx,
                             outlet_bang(xx->fErrorBangOut);
                             okSoFar = false;
                             break;
+                            
                     }
                 }
                 if (! okSoFar)
@@ -84,6 +82,7 @@ void cmd_List(SpaceballData * xx,
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_List

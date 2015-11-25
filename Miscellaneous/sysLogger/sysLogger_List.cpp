@@ -40,10 +40,7 @@
 #include "sysLogger.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(SysLoggerData * xx,
-              t_symbol *      message,
-              short           argc,
-              t_atom *        argv)
+LIST_HEADER(SysLoggerData)
 {
 #pragma unused(message)
     if (xx)
@@ -53,7 +50,7 @@ void cmd_List(SysLoggerData * xx,
         *xx->fBuffer = '\0';
         for (short ii = 0; ii < argc; ++ii)
         {
-            const char * toAdd = NULL_PTR;
+            const char * toAdd = NULL;
 
             if (ii)
             {
@@ -62,7 +59,7 @@ void cmd_List(SysLoggerData * xx,
             switch (argv[ii].a_type)
             {
                 case A_LONG:
-                    snprintf(numBuffer, sizeof(numBuffer), "%ld", argv[ii].a_w.w_long);
+                    snprintf(numBuffer, sizeof(numBuffer), LONG_FORMAT, argv[ii].a_w.w_long);
                     toAdd = numBuffer;
                     break;
 
@@ -71,7 +68,7 @@ void cmd_List(SysLoggerData * xx,
                     break;
 
                 case A_FLOAT:
-                    snprintf(numBuffer, sizeof(numBuffer), "%g", static_cast<double>(argv[ii].a_w.w_float));
+                    snprintf(numBuffer, sizeof(numBuffer), "%g", TO_DBL(argv[ii].a_w.w_float));
                     toAdd = numBuffer;
                     break;
 
@@ -84,12 +81,14 @@ void cmd_List(SysLoggerData * xx,
                     break;
 
                 case A_DOLLAR:
+                case A_DOLLSYM:
                     toAdd = "$";
                     break;
 
                 default:
                     toAdd = "<unknown type>";
                     break;
+                    
             }
             if ((strlen(xx->fBuffer) + strlen(toAdd)) < (MAX_BUFFER_SIZE - 3))
             {
@@ -99,6 +98,7 @@ void cmd_List(SysLoggerData * xx,
             {
                 break;
             }
+            
         }
         if (strlen(xx->fBuffer))
         {

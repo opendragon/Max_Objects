@@ -81,15 +81,20 @@ void cmd_Search(LdpData * xx,
                     /* Set the target position */
                     if (xx->fMode == kLdpModeFrame)
                     {
-                        ldpAddCommand(xx, static_cast<LdpCommandCode>(((position / 10000) % 10) + '0'),
+                        ldpAddCommand(xx,
+                                      static_cast<LdpCommandCode>(((position / 10000) % 10) + '0'),
                                       kLdpStateAwaitingAck);
-                        ldpAddCommand(xx, static_cast<LdpCommandCode>(((position / 1000) % 10) + '0'),
+                        ldpAddCommand(xx,
+                                      static_cast<LdpCommandCode>(((position / 1000) % 10) + '0'),
                                       kLdpStateAwaitingAck);
-                        ldpAddCommand(xx, static_cast<LdpCommandCode>(((position / 100) % 10) + '0'),
+                        ldpAddCommand(xx,
+                                      static_cast<LdpCommandCode>(((position / 100) % 10) + '0'),
                                       kLdpStateAwaitingAck);
                     }
-                    ldpAddCommand(xx, static_cast<LdpCommandCode>(((position / 10) % 10) + '0'), kLdpStateAwaitingAck);
-                    ldpAddCommand(xx, static_cast<LdpCommandCode>((position % 10) + '0'), kLdpStateAwaitingAck);
+                    ldpAddCommand(xx, static_cast<LdpCommandCode>(((position / 10) % 10) + '0'),
+                                  kLdpStateAwaitingAck);
+                    ldpAddCommand(xx, static_cast<LdpCommandCode>((position % 10) + '0'),
+                                  kLdpStateAwaitingAck);
                     ldpAddCommand(xx, kLdpCommandEnter, kLdpStateAwaitingAck);
                     ldpAddCommand(xx, kLdpCommandSignalAccepted, kLdpStateNotWaiting);
                     ldpAddCommand(xx, kLdpCommandCanInterrupt, kLdpStateAwaitingComplete);

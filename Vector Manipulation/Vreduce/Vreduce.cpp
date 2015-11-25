@@ -42,17 +42,50 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VreduceCreate(t_symbol * operation);
+/*------------------------------------ VreduceCreate ---*/
+static void * VreduceCreate(t_symbol * operation)
+{
+    VreduceData * xx = static_cast<VreduceData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fOperation = identifySymbol(operation, &xx->fCheck);
+        if (OP_unknown == xx->fOperation)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unknown operation")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+        else
+        {
+            xx->fPreviousFloat = 0;
+            xx->fPreviousLong = 0;
+            xx->fResultIsFloat = false;
+            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+            if (! xx->fResultOut)
+            {
+                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+                freeobject(reinterpret_cast<t_object *>(xx));
+                xx = NULL;
+            }
+        }
+    }
+    return xx;
+} // VreduceCreate
 
-void VreduceFree(VreduceData * xx);
+/*------------------------------------ VreduceFree ---*/
+static void VreduceFree(VreduceData * xx)
+{
+#pragma unused(xx)
+} // VreduceFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VreduceCreate), reinterpret_cast<method>(VreduceFree),
-                               sizeof(VreduceData), reinterpret_cast<method>(0L), A_SYM, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VreduceCreate),
+                               reinterpret_cast<method>(VreduceFree), sizeof(VreduceData),
+                               reinterpret_cast<method>(0L), A_SYM, 0);
 
     if (temp)
     {
@@ -69,39 +102,5 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VreduceCreate ---*/
-void * VreduceCreate(t_symbol * operation)
-{
-    VreduceData * xx = static_cast<VreduceData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fOperation = identifySymbol(operation, &xx->fCheck);
-        if (OP_unknown == xx->fOperation)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unknown operation")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-        else
-        {
-            xx->fPreviousFloat = 0;
-            xx->fPreviousLong = 0;
-            xx->fResultIsFloat = false;
-            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-            if (! xx->fResultOut)
-            {
-                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-                freeobject(reinterpret_cast<t_object *>(xx));
-                xx = NULL_PTR;
-            }
-        }
-    }
-    return xx;
-} // VreduceCreate
-/*------------------------------------ VreduceFree ---*/
-void VreduceFree(VreduceData * xx)
-{
-#pragma unused(xx)
-} // VreduceFree
-StandardAnythingRoutine(VreduceData *)
+StandardAnythingRoutine(VreduceData)

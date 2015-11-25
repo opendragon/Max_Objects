@@ -40,19 +40,18 @@
 #include "Vreduce.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(VreduceData * xx,
-               double        msg)
+FLOAT_HEADER(VreduceData)
 {
     if (xx)
     {
         bool okSoFar = true;
 
-        if ((xx->fCheck & IR_INTEGER) == IR_INTEGER)
+        if (IR_INTEGER == (xx->fCheck & IR_INTEGER))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "floating point value (%g) in input list", msg)
             okSoFar = false;
         }
-        else if ((xx->fCheck & IR_NONZERO) == IR_NONZERO)
+        else if (IR_NONZERO == (xx->fCheck & IR_NONZERO))
         {
             if (! msg)
             {
@@ -71,17 +70,18 @@ void cmd_Float(VreduceData * xx,
                 case OP_MULTIPLY:
                 case OP_SUBTRACT:
                     xx->fResultIsFloat = true;
-                    xx->fPreviousFloat = msg;
+                    xx->fPreviousFloat = TO_DBL(msg);
                     break;
 
                 case OP_AND:
                 case OP_OR:
                     xx->fResultIsFloat = false;
-                    xx->fPreviousLong = (msg ? 1 : 0);
+                    xx->fPreviousLong = TO_INT(msg ? 1 : 0);
                     break;
 
                 default:
                     break;
+                    
             }
             if (xx->fResultIsFloat)
             {

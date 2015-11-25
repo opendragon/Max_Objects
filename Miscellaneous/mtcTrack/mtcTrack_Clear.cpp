@@ -40,7 +40,7 @@
 #include "mtcTrack.h"
 
 /*------------------------------------ cmd_Clear ---*/
-void cmd_Clear(MtcTrackData * xx)
+CLEAR_HEADER(MtcTrackData)
 {
     if (xx)
     {

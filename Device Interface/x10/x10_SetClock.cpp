@@ -68,7 +68,8 @@ void cmd_SetClock(X10ControlData * xx)
                 *xx->fOutCmd = x10CP290SetClock;
                 *xx->fOutArea = static_cast<unsigned char>(now.minute);
                 *(xx->fOutArea + 1) = static_cast<unsigned char>(now.hour);
-                *(xx->fOutArea + 2) = static_cast<unsigned char>(kCP290DateTimeDayToBits[weekDay - 1]);
+                *(xx->fOutArea + 2) =
+                                static_cast<unsigned char>(kCP290DateTimeDayToBits[weekDay - 1]);
                 x10CP290CalcSum(xx, 0, 3);
                 x10CP290SendBuffer(xx, 4);
                 xx->fMajorState = x10CP290MajorIdle;
@@ -82,6 +83,7 @@ void cmd_SetClock(X10ControlData * xx)
 
         default:
             break;
+            
     }
     if (! okSoFar)
     {

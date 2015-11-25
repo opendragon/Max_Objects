@@ -40,10 +40,7 @@
 #include "map3d.h"
 
 /*------------------------------------ cmd_Set ---*/
-void cmd_Set(Map3dData * xx,
-             t_symbol *  message,
-             short       argc,
-             t_atom *    argv)
+SET_HEADER(Map3dData)
 {
 #pragma unused(message)
     if (xx)
@@ -54,8 +51,8 @@ void cmd_Set(Map3dData * xx,
             long           slot;
             bool           okSoFar = false;
             bool           infPositive = true;
-            t_symbol *     which = NULL_PTR;
-            RangeElement * data = NULL_PTR;
+            t_symbol *     which = NULL;
+            RangeElement * data = NULL;
 
             switch (next->a_type)
             {
@@ -65,7 +62,8 @@ void cmd_Set(Map3dData * xx,
                     break;
 
                 case A_FLOAT:
-                    LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected float (%g)", static_cast<double>(next->a_w.w_float))
+                    LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected float (%g)",
+                                TO_DBL(next->a_w.w_float))
                     break;
 
                 case A_SYM:
@@ -73,8 +71,10 @@ void cmd_Set(Map3dData * xx,
                     break;
 
                 default:
-                    LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen", static_cast<int>(next->a_type))
+                    LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen",
+                                static_cast<int>(next->a_type))
                     break;
+                    
             }
             if (okSoFar)
             {
@@ -82,12 +82,14 @@ void cmd_Set(Map3dData * xx,
                 switch (next->a_type)
                 {
                     case A_LONG:
-                        LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected long (%ld)", next->a_w.w_long)
+                        LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected long (" LONG_FORMAT ")",
+                                    next->a_w.w_long)
                         okSoFar = false;
                         break;
 
                     case A_FLOAT:
-                        LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected float (%g)", static_cast<double>(next->a_w.w_float))
+                        LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected float (%g)",
+                                    TO_DBL(next->a_w.w_float))
                         okSoFar = false;
                         break;
 
@@ -153,11 +155,12 @@ void cmd_Set(Map3dData * xx,
                         {
                             LOG_ERROR_2(xx, OUTPUT_PREFIX "unknown point (%s)", which->s_name)
                         }
-                        if ((leftRight && walker->fLeftRightDontCare) || (bottomTop && walker->fBottomTopDontCare) ||
+                        if ((leftRight && walker->fLeftRightDontCare) ||
+                            (bottomTop && walker->fBottomTopDontCare) ||
                             (forwardBack && walker->fForwardBackDontCare))
                         {
                             LOG_ERROR_1(xx, OUTPUT_PREFIX "can't change don't care entry")
-                            data = NULL_PTR;
+                            data = NULL;
                         }
                     }
                 }
@@ -186,7 +189,8 @@ void cmd_Set(Map3dData * xx,
                                 }
                                 else
                                 {
-                                    LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected symbol (%s)", which->s_name)
+                                    LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected symbol (%s)",
+                                                which->s_name)
                                 }
                             }
                             else if ((which == gNegInfSymbol1) || (which == gNegInfSymbol2))
@@ -195,7 +199,8 @@ void cmd_Set(Map3dData * xx,
                             }
                             else
                             {
-                                LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected symbol (%s)", which->s_name)
+                                LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected symbol (%s)",
+                                            which->s_name)
                             }
                             break;
 
@@ -203,6 +208,7 @@ void cmd_Set(Map3dData * xx,
                             LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen",
                                         static_cast<int>(next->a_type))
                             break;
+                            
                     }
                 }
             }

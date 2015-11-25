@@ -105,6 +105,7 @@ void cmd_Train(MtcData *  xx,
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Train

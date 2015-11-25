@@ -40,7 +40,7 @@
 #include "Vtruncate.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(VObjectData * xx)
+BANG_HEADER(VObjectData)
 {
     if (xx)
     {
@@ -57,6 +57,10 @@ void cmd_Bang(VObjectData * xx)
             case A_GIMME:
                 genericListOutput(xx->fResultOut, xx->fPreviousLength, xx->fPreviousList);
                 break;
+                
+            default:
+                break;
+                
         }
     }
 } // cmd_Bang

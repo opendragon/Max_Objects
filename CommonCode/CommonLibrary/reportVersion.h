@@ -42,6 +42,9 @@
 
 # include "missingAndExtra.h"
 
-void reportVersion(const char * name);
+# define REPORTVERSION_HEADER \
+void reportVersion(const char * name)
+
+REPORTVERSION_HEADER;
 
 #endif /* not REPORTVERSION_H_ */

@@ -40,10 +40,7 @@
 #include "Vrotate.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VObjectData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VObjectData)
 {
 #pragma unused(message)
     if (xx)
@@ -53,18 +50,18 @@ void cmd_List(VObjectData * xx,
         clearPrevious(xx);
         if (argc)
         {
-            t_atom * tempList = GETBYTES(argc, t_atom);
+            t_atom * tempList = GET_BYTES(argc, t_atom);
 
             if (tempList)
             {
-                if (elementCount > 0)
+                if (0 < elementCount)
                 {
                     if (elementCount >= argc)
                     {
                         elementCount %= argc;
                     }
                 }
-                else if (elementCount < 0)
+                else if (0 > elementCount)
                 {
                     elementCount = -elementCount;
                     if (elementCount >= argc)
@@ -76,14 +73,16 @@ void cmd_List(VObjectData * xx,
                 {
                     if (tempList)
                     {
-                        if (xx->fHowMany > 0)
+                        if (0 < xx->fHowMany)
                         {
                             /* Take last elementCount elements from the input: */
-                            memcpy(tempList, argv + argc - elementCount, elementCount * sizeof(t_atom));
+                            memcpy(tempList, argv + argc - elementCount,
+                                   elementCount * sizeof(t_atom));
                             /* Take first (argc - elementCount) elements from the input: */
-                            if (elementCount < argc)
+                            if (argc > elementCount)
                             {
-                                memcpy(tempList + elementCount, argv, (argc - elementCount) * sizeof(t_atom));
+                                memcpy(tempList + elementCount, argv,
+                                       (argc - elementCount) * sizeof(t_atom));
                             }
                         }
                         else
@@ -91,10 +90,12 @@ void cmd_List(VObjectData * xx,
                             /* Take last (argc - elementCount) elements from the input: */
                             if (argc > elementCount)
                             {
-                                memcpy(tempList, argv + elementCount, (argc - elementCount) * sizeof(t_atom));
+                                memcpy(tempList, argv + elementCount,
+                                       (argc - elementCount) * sizeof(t_atom));
                             }
                             /* Take first elementCount elements from the input: */
-                            memcpy(tempList + argc - elementCount, argv, elementCount * sizeof(t_atom));
+                            memcpy(tempList + argc - elementCount, argv,
+                                   elementCount * sizeof(t_atom));
                         }
                     }
                 }

@@ -42,18 +42,74 @@
 #include "reportVersion.h"
 #include <fcntl.h>
 
-/* Forward references: */
-void * udpPortCreate(long port,
-                     long numBuffers);
+/*------------------------------------ udpPortCreate ---*/
+static void * udpPortCreate(const long port,
+                            const long numBuffers)
+{
+    UdpObjectData * xx = static_cast<UdpObjectData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        bool okSoFar = true;
+        long actBuffCount;
+        
+#if defined(BE_VERBOSE)
+        xx->fVerbose = false;
+#endif /* BE_VERBOSE */
+        presetObjectPointers(xx);
+        if ((0 > port) || (MAX_PORT < port) || (0 > numBuffers))
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "invalid parameters for device")
+            okSoFar = false;
+        }
+        if (0 == numBuffers)
+        {
+            actBuffCount = NUM_RX_BUFFERS;
+        }
+        else
+        {
+            actBuffCount = numBuffers;
+        }
+        if (okSoFar)
+        {
+            okSoFar = initObject(xx, port, actBuffCount);
+        }
+        if (okSoFar)
+        {
+            udpPortSetPort(xx, false);
+        }
+        else
+        {
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // udpPortCreate
 
-void udpPortFree(UdpObjectData * xx);
+/*------------------------------------ udpPortFree ---*/
+static void udpPortFree(UdpObjectData * xx)
+{
+    if (xx)
+    {
+        xx->fClosing = true;
+        if (xx->fSocket)
+        {
+            CFSocketInvalidate(xx->fSocket);
+            CFRelease(xx->fSocket);
+            xx->fSocket = NULL;
+        }
+        releaseObjectMemory(xx);
+    }
+} // udpPortFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(udpPortCreate), reinterpret_cast<method>(udpPortFree),
-                               sizeof(UdpObjectData), reinterpret_cast<method>(0L), A_DEFLONG, A_DEFLONG, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(udpPortCreate),
+                               reinterpret_cast<method>(udpPortFree), sizeof(UdpObjectData),
+                               reinterpret_cast<method>(0L), A_DEFLONG, A_DEFLONG, 0);
 
     if (temp)
     {
@@ -98,9 +154,12 @@ static void processErrorQueue(UdpObjectData * xx)
 
         outlet_bang(xx->fErrorBangOut);
         lockout_set(prev_lock);
+#if USE_EVNUM
         evnum_incr();
+#endif /* USE_EVNUM */
     }
 } // processErrorQueue
+
 /*------------------------------------ initObject ---*/
 bool initObject(UdpObjectData * xx,
                 const long      port,
@@ -110,32 +169,34 @@ bool initObject(UdpObjectData * xx,
 
     if (xx)
     {
+        long buffSize = static_cast<long>(BUFF_MEMORY_TO_ALLOC * (numBuffers + 2));
+
         xx->fSelfPort = static_cast<unsigned short>(port ? port : DEFAULT_PORT);
         memset(&xx->fPartnerAddress, 0, sizeof(xx->fPartnerAddress));
         xx->fPartnerPort = 0;
         xx->fPartnerKnown = false;
         xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
         setObjectState(xx, kUdpStateUnbound);
-        xx->fSocket = NULL_PTR;
-        xx->fErrorQueue = static_cast<t_qelem *>(qelem_new(xx, reinterpret_cast<method>(processErrorQueue)));
-        xx->fReceiveQueue = static_cast<t_qelem *>(qelem_new(xx, reinterpret_cast<method>(processReceiveQueue)));
-        xx->fBufferBase = reinterpret_cast<DataBuffer **>(sysmem_newhandle(static_cast<long>(BUFF_MEMORY_TO_ALLOC *
-                                                                                             (numBuffers + 2))));
+        xx->fSocket = NULL;
+        xx->fErrorQueue = MAKE_QELEM(xx, processErrorQueue);
+        xx->fReceiveQueue = MAKE_QELEM(xx, processReceiveQueue);
+        xx->fBufferBase = reinterpret_cast<DataBuffer **>(sysmem_newhandle(buffSize));
         if (xx->fBufferBase)
         {
             sysmem_lockhandle(reinterpret_cast<t_handle>(xx->fBufferBase), 1);
             xx->fSendBuffer = *xx->fBufferBase;
-            xx->fReceiveBuffer = reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(xx->fSendBuffer, BUFF_MEMORY_TO_ALLOC));
+            xx->fReceiveBuffer = reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(xx->fSendBuffer,
+                                                                           BUFF_MEMORY_TO_ALLOC));
         }
-        xx->fLinkBase = reinterpret_cast<UdpBufferLink **>(sysmem_newhandle(static_cast<long>(sizeof(UdpBufferLink) *
-                                                                                              numBuffers)));
+        xx->fLinkBase = MAKE_TYPED_HANDLE(UdpBufferLink, numBuffers);
         if (xx->fLinkBase)
         {
-            DataBuffer *    this_buffer = reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(xx->fReceiveBuffer,
-                                                                                        BUFF_MEMORY_TO_ALLOC));
-            UdpBufferLink * prev_link = NULL_PTR;
-            UdpBufferLink * this_link = NULL_PTR;
+            DataBuffer *    this_buffer =
+                                reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(xx->fReceiveBuffer,
+                                                               BUFF_MEMORY_TO_ALLOC));
+            UdpBufferLink * prev_link = NULL;
+            UdpBufferLink * this_link = NULL;
 
             sysmem_lockhandle(reinterpret_cast<t_handle>(xx->fLinkBase), 1);
             xx->fPoolHead = *xx->fLinkBase;
@@ -144,20 +205,22 @@ bool initObject(UdpObjectData * xx,
             {
                 this_link->fPrevious = prev_link;
                 this_link->fData = this_buffer;
-                this_buffer = reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(this_buffer, BUFF_MEMORY_TO_ALLOC));
-                this_link->fNext = NULL_PTR;
+                this_buffer = reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(this_buffer,
+                                                                            BUFF_MEMORY_TO_ALLOC));
+                this_link->fNext = NULL;
                 if (prev_link)
                 {
                     prev_link->fNext = this_link;
                 }
                 prev_link = this_link;
-                this_link = reinterpret_cast<UdpBufferLink *>(ADD_TO_ADDRESS(this_link, sizeof(UdpBufferLink)));
+                this_link = reinterpret_cast<UdpBufferLink *>(ADD_TO_ADDRESS(this_link,
+                                                                             sizeof(UdpBufferLink)));
             }
             xx->fPoolTail = prev_link;
         }
         xx->fClosing = xx->fRawMode = false;
-        if (! (xx->fResultOut && xx->fErrorBangOut && xx->fErrorQueue && xx->fBufferBase && xx->fReceiveQueue &&
-               xx->fLinkBase))
+        if (! (xx->fResultOut && xx->fErrorBangOut && xx->fErrorQueue && xx->fBufferBase &&
+               xx->fReceiveQueue && xx->fLinkBase))
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port or buffer for object")
             okSoFar = false;
@@ -165,6 +228,7 @@ bool initObject(UdpObjectData * xx,
     }
     return okSoFar;
 } // initObject
+
 /*------------------------------------ mapStateToSymbol ---*/
 t_symbol * mapStateToSymbol(const UdpState aState)
 {
@@ -183,24 +247,27 @@ t_symbol * mapStateToSymbol(const UdpState aState)
         default:
             result = gUnknownSymbol;
             break;
+            
     }
     return result;
 } // mapStateToSymbol
+
 /*------------------------------------ presetObjectPointers ---*/
 void presetObjectPointers(UdpObjectData * xx)
 {
     if (xx)
     {
-        xx->fErrorBangOut = xx->fResultOut = NULL_PTR;
-        xx->fErrorQueue = xx->fReceiveQueue = NULL_PTR;
-        xx->fSendBuffer = xx->fReceiveBuffer = NULL_PTR;
-        xx->fBufferBase = NULL_HDL;
-        xx->fLinkBase = NULL_HDL;
-        xx->fSocket = NULL_PTR;
-        xx->fSelfName = NULL_PTR;
-        xx->fReceiveHead = xx->fReceiveTail = xx->fPoolHead = xx->fPoolTail = NULL_PTR;
+        xx->fErrorBangOut = xx->fResultOut = NULL;
+        xx->fErrorQueue = xx->fReceiveQueue = NULL;
+        xx->fSendBuffer = xx->fReceiveBuffer = NULL;
+        xx->fBufferBase = NULL;
+        xx->fLinkBase = NULL;
+        xx->fSocket = NULL;
+        xx->fSelfName = NULL;
+        xx->fReceiveHead = xx->fReceiveTail = xx->fPoolHead = xx->fPoolTail = NULL;
     }
 } // presetObjectPointers
+
 /*------------------------------------ releaseObjectMemory ---*/
 void releaseObjectMemory(UdpObjectData * xx)
 {
@@ -210,30 +277,31 @@ void releaseObjectMemory(UdpObjectData * xx)
         {
             qelem_unset(xx->fErrorQueue);
             qelem_free(xx->fErrorQueue);
-            xx->fErrorQueue = NULL_PTR;
+            xx->fErrorQueue = NULL;
         }
         if (xx->fReceiveQueue)
         {
             qelem_unset(xx->fReceiveQueue);
             qelem_free(xx->fReceiveQueue);
-            xx->fReceiveQueue = NULL_PTR;
+            xx->fReceiveQueue = NULL;
         }
-        xx->fReceiveBuffer = xx->fSendBuffer = NULL_PTR;
+        xx->fReceiveBuffer = xx->fSendBuffer = NULL;
         if (xx->fBufferBase)
         {
             sysmem_lockhandle(reinterpret_cast<t_handle>(xx->fBufferBase), 0);
             sysmem_freehandle(reinterpret_cast<t_handle>(xx->fBufferBase));
-            xx->fBufferBase = NULL_HDL;
+            xx->fBufferBase = NULL;
         }
-        xx->fReceiveHead = xx->fReceiveTail = xx->fPoolHead = xx->fPoolTail = NULL_PTR;
+        xx->fReceiveHead = xx->fReceiveTail = xx->fPoolHead = xx->fPoolTail = NULL;
         if (xx->fLinkBase)
         {
             sysmem_lockhandle(reinterpret_cast<t_handle>(xx->fLinkBase), 0);
             sysmem_freehandle(reinterpret_cast<t_handle>(xx->fLinkBase));
-            xx->fLinkBase = NULL_HDL;
+            xx->fLinkBase = NULL;
         }
     }
 } // releaseObjectMemory
+
 /*------------------------------------ setUpStateSymbols ---*/
 void setUpStateSymbols(void)
 {
@@ -241,60 +309,7 @@ void setUpStateSymbols(void)
     gUnboundSymbol = gensym("unbound");
     gUnknownSymbol = gensym("unknown");
 } // setUpStateSymbols
-/*------------------------------------ udpPortCreate ---*/
-void * udpPortCreate(long port,
-                     long numBuffers)
-{
-    UdpObjectData * xx = static_cast<UdpObjectData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        bool okSoFar = true;
-
-#if defined(BE_VERBOSE)
-        xx->fVerbose = false;
-#endif /* BE_VERBOSE */
-        presetObjectPointers(xx);
-        if ((port < 0) || (port > MAX_PORT) || (numBuffers < 0))
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "invalid parameters for device")
-            okSoFar = false;
-        }
-        if (0 == numBuffers)
-        {
-            numBuffers = NUM_RX_BUFFERS;
-        }
-        if (okSoFar)
-        {
-            okSoFar = initObject(xx, port, numBuffers);
-        }
-        if (okSoFar)
-        {
-            udpPortSetPort(xx, false);
-        }
-        else
-        {
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // udpPortCreate
-/*------------------------------------ udpPortFree ---*/
-void udpPortFree(UdpObjectData * xx)
-{
-    if (xx)
-    {
-        xx->fClosing = true;
-        if (xx->fSocket)
-        {
-            CFSocketInvalidate(xx->fSocket);
-            CFRelease(xx->fSocket);
-            xx->fSocket = NULL_PTR;
-        }
-        releaseObjectMemory(xx);
-    }
-} // udpPortFree
 /*------------------------------------ socketReadCallback ---*/
 static void socketReadCallback(CFSocketRef          sr,
                                CFSocketCallBackType type,
@@ -302,13 +317,14 @@ static void socketReadCallback(CFSocketRef          sr,
                                const void *         data,
                                void *               info)
 {
-    UdpObjectData * xx = (UdpObjectData *) info;
+    UdpObjectData * xx = reinterpret_cast<UdpObjectData *>(info);
 
     if (! makeReceiveBufferAvailable(xx))
     {
         signalError(xx);
     }
 } // socketReadCallback
+
 /*------------------------------------ udpPortSetPort ---*/
 bool udpPortSetPort(UdpObjectData * xx,
                     const bool      bangOnError)
@@ -321,7 +337,7 @@ bool udpPortSetPort(UdpObjectData * xx,
         {
             CFSocketInvalidate(xx->fSocket);
             CFRelease(xx->fSocket);
-            xx->fSocket = NULL_PTR;
+            xx->fSocket = NULL;
         }
         int err;
         int sock = socket(AF_INET, SOCK_DGRAM, 0);
@@ -369,7 +385,8 @@ bool udpPortSetPort(UdpObjectData * xx,
             xx->fSocket = CFSocketCreateWithNative(kCFAllocatorDefault, sock, kCFSocketReadCallBack,
                                                    socketReadCallback, &context);
             sock = -1;
-            CFRunLoopSourceRef rls = CFSocketCreateRunLoopSource(kCFAllocatorDefault, xx->fSocket, 0);
+            CFRunLoopSourceRef rls = CFSocketCreateRunLoopSource(kCFAllocatorDefault, xx->fSocket,
+                                                                 0);
 
             CFRunLoopAddSource(CFRunLoopGetCurrent(), rls, kCFRunLoopDefaultMode);
             CFRelease(rls);

@@ -42,17 +42,43 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VabsCreate(void);
+/*------------------------------------ VabsCreate ---*/
+static void * VabsCreate(void)
+{
+    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+        xx->fPreviousKind = A_NOTHING;
+        xx->fPreviousList = NULL;
+        xx->fPreviousLength = 0;
+        if (! xx->fResultOut)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // VabsCreate
 
-void VabsFree(VObjectData * xx);
+/*------------------------------------ VabsFree ---*/
+static void VabsFree(VObjectData * xx)
+{
+    if (xx)
+    {
+        clearPrevious(xx);
+    }
+} // VabsFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VabsCreate), reinterpret_cast<method>(VabsFree),
-                               sizeof(VObjectData), reinterpret_cast<method>(0L), 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VabsCreate),
+                               reinterpret_cast<method>(VabsFree), sizeof(VObjectData),
+                               reinterpret_cast<method>(0L), 0);
 
     if (temp)
     {
@@ -68,37 +94,11 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VabsCreate ---*/
-void * VabsCreate(void)
-{
-    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-        xx->fPreviousKind = A_NOTHING;
-        xx->fPreviousList = NULL_PTR;
-        xx->fPreviousLength = 0;
-        if (! xx->fResultOut)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // VabsCreate
-/*------------------------------------ VabsFree ---*/
-void VabsFree(VObjectData * xx)
-{
-    if (xx)
-    {
-        clearPrevious(xx);
-    }
-} // VabsFree
 /*------------------------------------ clearPrevious ---*/
 void clearPrevious(VObjectData * xx)
 {
-    FREEBYTES(xx->fPreviousList, xx->fPreviousLength);
+    FREE_BYTES(xx->fPreviousList);
 } // clearPrevious
-StandardAnythingRoutine(VObjectData *)
+
+StandardAnythingRoutine(VObjectData)

@@ -47,9 +47,9 @@ void queueClear(QueueData * xx)
     for (QueueEntry * next; first; first = next)
     {
         next = first->fNext;
-        FREEBYTES(first->fOutput, first->fOutputCount);
-        FREEBYTES(first, 1);
+        FREE_BYTES(first->fOutput);
+        FREE_BYTES(first);
     }
-    xx->fFirstInQueue = xx->fLastInQueue = NULL_PTR;
+    xx->fFirstInQueue = xx->fLastInQueue = NULL;
     xx->fDepth = 0;
 } // queueClear

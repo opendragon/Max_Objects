@@ -40,23 +40,20 @@
 #include "Vtake.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(VObjectData * xx,
-                  t_symbol *    message,
-                  short         argc,
-                  t_atom *      argv)
+ANYTHING_HEADER(VObjectData)
 {
     if (xx)
     {
-        t_atom * newArg = NULL_PTR;
+        t_atom * newArg = NULL;
         short    elementCount = 0;
 
         clearPrevious(xx);
         /* Determine the size of the output: */
-        if (xx->fHowMany > 0)
+        if (0 < xx->fHowMany)
         {
             elementCount = xx->fHowMany;
         }
-        else if (xx->fHowMany < 0)
+        else if (0 > xx->fHowMany)
         {
             elementCount = static_cast<short>(-xx->fHowMany);
         }
@@ -65,12 +62,12 @@ void cmd_Anything(VObjectData * xx,
             elementCount = static_cast<short>(argc + 1);
         }
         /* Collect the pieces that we need: */
-        newArg = GETBYTES(elementCount, t_atom);
+        newArg = GET_BYTES(elementCount, t_atom);
         if (newArg)
         {
-            if (xx->fHowMany > 0)
+            if (0 < xx->fHowMany)
             {
-                SETSYM(newArg, message);
+                A_SETSYM(newArg, message);
                 memcpy(newArg + 1, argv, (elementCount - 1) * sizeof(t_atom));
             }
             else if ((argc + 1) > (-xx->fHowMany))
@@ -79,7 +76,7 @@ void cmd_Anything(VObjectData * xx,
             }
             else
             {
-                SETSYM(newArg, message);
+                A_SETSYM(newArg, message);
                 memcpy(newArg + 1, argv, (elementCount - 1) * sizeof(t_atom));
             }
         }

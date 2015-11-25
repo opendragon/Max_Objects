@@ -56,7 +56,8 @@ void cmd_Chapter(LdpData * xx)
             {
                 if (xx->fInterruptPoint)
                 {
-                    ldpInsertCommand(xx, xx->fInterruptPoint, kLdpCommandChapterInquiry, kLdpStateAwaitingChapterByte1);
+                    ldpInsertCommand(xx, xx->fInterruptPoint, kLdpCommandChapterInquiry,
+                                     kLdpStateAwaitingChapterByte1);
                 }
                 else
                 {

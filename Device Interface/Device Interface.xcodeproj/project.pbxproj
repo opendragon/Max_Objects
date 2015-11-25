@@ -14,6 +14,8 @@
 			);
 			dependencies = (
 				F6A9D3EA1BFAF31B00518D80 /* PBXTargetDependency */,
+				F67C45371C03F4B600A15B25 /* PBXTargetDependency */,
+				F67C453B1C03F4C000A15B25 /* PBXTargetDependency */,
 				F6A9D3F51BFAF32E00518D80 /* PBXTargetDependency */,
 				F6A9D3F71BFAF33200518D80 /* PBXTargetDependency */,
 			);
@@ -56,6 +58,20 @@
 			containerPortal = F62621421BF9399500D27BE9 /* spaceball.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 2FBBEAE508F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F67C45361C03F4B600A15B25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621301BF9395A00D27BE9 /* ldp1550.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = "max-external";
+		};
+		F67C453A1C03F4C000A15B25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F62621361BF9397900D27BE9 /* mtc.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
 			remoteInfo = "max-external";
 		};
 		F6A9D3E91BFAF31B00518D80 /* PBXContainerItemProxy */ = {
@@ -226,6 +242,16 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXTargetDependency section */
+		F67C45371C03F4B600A15B25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F67C45361C03F4B600A15B25 /* PBXContainerItemProxy */;
+		};
+		F67C453B1C03F4C000A15B25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "max-external";
+			targetProxy = F67C453A1C03F4C000A15B25 /* PBXContainerItemProxy */;
+		};
 		F6A9D3EA1BFAF31B00518D80 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "max-external";

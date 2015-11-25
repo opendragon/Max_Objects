@@ -40,7 +40,7 @@
 #include "queue.h"
 
 /*------------------------------------ cmd_Clear ---*/
-void cmd_Clear(QueueData * xx)
+CLEAR_HEADER(QueueData)
 {
     if (xx)
     {

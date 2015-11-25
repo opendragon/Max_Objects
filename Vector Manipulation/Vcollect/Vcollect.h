@@ -70,9 +70,9 @@ struct VcollectData
     bool           fCollecting;
 }; // VcollectData
 
-void cmd_Clear(VcollectData * xx);
+CLEAR_HEADER(VcollectData);
 
-void cmd_Count(VcollectData * xx);
+COUNT_HEADER(VcollectData);
 
 void cmd_Start(VcollectData * xx);
 
@@ -82,7 +82,7 @@ void collectAddAtoms(VcollectData * xx,
                      t_atom *       atoms,
                      const short    count);
 
-StandardRoutineDeclarations(VcollectData *);
+StandardRoutineDeclarations(VcollectData);
 
 mextern(t_symbol *)  gClearSymbol; /* Pointer to unique symbol for 'clear' */
 mextern(t_symbol *)  gCountSymbol; /* Pointer to unique symbol for 'count' */

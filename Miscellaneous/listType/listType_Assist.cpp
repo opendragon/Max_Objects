@@ -40,11 +40,7 @@
 #include "listType.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(ListTypeData * xx,
-                void *         bb,
-                long           msg,
-                long           arg,
-                char *         dstString)
+ASSIST_HEADER(ListTypeData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

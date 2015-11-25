@@ -72,7 +72,7 @@ void cmd_Add(QueueData * xx,
              short       argc,
              t_atom *    argv);
 
-void cmd_Clear(QueueData * xx);
+CLEAR_HEADER(QueueData);
 
 void cmd_Depth(QueueData * xx);
 
@@ -88,7 +88,7 @@ void cmd_Trace(QueueData * xx,
 
 void queueClear(QueueData * xx);
 
-StandardRoutineDeclarations(QueueData *);
+StandardRoutineDeclarations(QueueData);
 
 mextern(t_symbol *) gEmptySymbol; /* Pointer to unique symbol for '' */
 mextern(t_symbol *) gOffSymbol;   /* Pointer to unique symbol for 'off' */

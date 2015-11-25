@@ -42,190 +42,51 @@
 #include "tcpMultiServer.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * tcpMultiServerCreate(long port,
-                            long clients,
-                            long numBuffers);
-
-void tcpMultiServerFree(TcpMultiServerData * xx);
-
-/*------------------------------------ main ---*/
-int main(void)
-{
-    /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(tcpMultiServerCreate),
-                               reinterpret_cast<method>(tcpMultiServerFree), sizeof(TcpMultiServerData),
-                               reinterpret_cast<method>(0L), A_DEFLONG, A_DEFLONG, A_DEFLONG, 0);
-
-    if (temp)
-    {
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Bang), MESSAGE_BANG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Disconnect), "disconnect", A_DEFLONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Listen), "listen", A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Mode), "mode", A_LONG, A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Port), "port", A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Self), "self", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Send), "send", A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Status), "status", A_DEFLONG, 0);
-#if defined(BE_VERBOSE)
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Verbose), "verbose", A_DEFSYM, 0);
-#endif /* BE_VERBOSE */
-        class_register(CLASS_BOX, temp);
-    }
-    gClass = temp;
-    gDollarSymbol = gensym("$");
-    gEmptySymbol = gensym("");
-    gMaxSymbol = gensym("max");
-    gOffSymbol = gensym("off");
-    gOnSymbol = gensym("on");
-    gRawSymbol = gensym("raw");
-    gReplySymbol = gensym("reply");
-    gSelfSymbol = gensym("self");
-    gStatusSymbol = gensym("status");
-    setUpStateSymbols();
-    reportVersion(OUR_NAME);
-    return 0;
-} // main
-/*------------------------------------ tcpMultiServerConstructConnections ---*/
-static bool tcpMultiServerConstructConnections(TcpMultiServerData * xx)
-{
-    TcpConnectionData ** ptr_walker = xx->fConnections;
-    TcpConnectionData *  a_connection;
-    DataBuffer *         next_buffer = *xx->fBufferBase;
-    bool                 okSoFar = true;
-    TEndpointInfo        info;
-    OSStatus             result;
-    OTConfigurationRef   data_config = NULL_PTR;
-    OTConfigurationRef   a_config;
-
-    data_config = OTCreateConfiguration(kTCPName);
-    if ((kOTInvalidConfigurationPtr == data_config) || (kOTNoMemoryConfigurationPtr == data_config))
-    {
-        LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to obtain an OT data configuration")
-        okSoFar = false;
-    }
-    sysmem_lockhandle(reinterpret_cast<t_handle>(xx->fConnectionBase), 1);
-    a_connection = *xx->fConnectionBase;
-    memset(xx->fConnections, 0, xx->fMaximumConnections * sizeof(TcpConnectionData *));
-    memset(*xx->fConnectionBase, 0, sizeof(TcpConnectionData) * xx->fMaximumConnections);
-    for (unsigned short ii = 0; okSoFar && (ii < xx->fMaximumConnections); ++ii)
-    {
-        *ptr_walker++ = a_connection;
-        a_connection->fDataEndpoint = kOTInvalidEndpointRef;
-        a_connection->fOwner = xx;
-        a_connection->fIdentifier = static_cast<unsigned short>(ii + 1);
-        a_connection->fActive = false;
-        a_connection->fSendBuffer = next_buffer;
-        a_connection->fClientAddress = 0L;
-        a_connection->fClientPort = 0;
-        a_connection->fPartnerName = NULL_PTR;
-        setConnectionState(a_connection, kTcpStateUnbound);
-        a_config = OTCloneConfiguration(data_config);
-        if (! a_config)
-        {
-            okSoFar = false;
-        }
-        if (okSoFar)
-        {
-            a_connection->fDataEndpoint = OTOpenEndpointInContext(a_config, 0, &info, &result,
-                                                                  xx->fAccessControl->fContext);
-            if (kOTNoError == result)
-            {
-                a_connection->fServiceType = info.servtype;
-            }
-            else
-            {
-                REPORT_ERROR(xx, OUTPUT_PREFIX "unable to obtain an endpoint (%ld = %s)", result)
-                okSoFar = false;
-            }
-        }
-        if (okSoFar)
-        {
-            WRAP_OT_CALL(xx, result, "OTSetAsynchronous",
-                         OTSetAsynchronous(a_connection->fDataEndpoint))
-            if (result != kOTNoError)
-            {
-                REPORT_ERROR(xx, OUTPUT_PREFIX "OTSetAsynchronous failed (%ld = %s)", result)
-                reportEndpointState(xx, a_connection->fDataEndpoint);
-                okSoFar = false;
-            }
-        }
-        if (okSoFar)
-        {
-            WRAP_OT_CALL(xx, result, "OTSetBlocking", OTSetBlocking(a_connection->fDataEndpoint))
-            if (result != kOTNoError)
-            {
-                REPORT_ERROR(xx, OUTPUT_PREFIX "OTSetBlocking failed (%ld = %s)", result)
-                reportEndpointState(xx, a_connection->fDataEndpoint);
-                okSoFar = false;
-            }
-        }
-        if (okSoFar)
-        {
-            WRAP_OT_CALL(xx, result, "OTInstallNotifier",
-                         OTInstallNotifier(a_connection->fDataEndpoint,
-                                           xx->fDataNotifier, a_connection))
-            if (result != kOTNoError)
-            {
-                REPORT_ERROR(xx, OUTPUT_PREFIX "OTInstallNotifier failed (%ld = %s)", result)
-                reportEndpointState(xx, a_connection->fDataEndpoint);
-                okSoFar = false;
-            }
-        }
-        a_connection->fReceiveBuffer = reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(a_connection->fSendBuffer,
-                                                                                     BUFF_MEMORY_TO_ALLOC));
-        next_buffer = reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(a_connection->fReceiveBuffer,
-                                                                    BUFF_MEMORY_TO_ALLOC));
-        a_connection = reinterpret_cast<TcpConnectionData *>(ADD_TO_ADDRESS(a_connection,
-                                                                            sizeof(TcpConnectionData)));
-    }
-    if ((data_config != kOTInvalidConfigurationPtr) && (data_config != kOTNoMemoryConfigurationPtr))
-    {
-        OTDestroyConfiguration(data_config);
-    }
-    return okSoFar;
-} // tcpMultiServerConstructConnections
 /*------------------------------------ tcpMultiServerCreate ---*/
-void * tcpMultiServerCreate(long port,
-                            long clients,
-                            long numBuffers)
+static void * tcpMultiServerCreate(const long port,
+                                   const long clients,
+                                   const long numBuffers)
 {
     TcpMultiServerData * xx = static_cast<TcpMultiServerData *>(object_alloc(gClass));
-
+    
     if (xx)
     {
+#if 0
         bool               okSoFar = true;
         OSStatus           result;
         OTConfigurationRef this_config;
-
+        
 #if defined(BE_VERBOSE)
         xx->fVerbose = false;
 #endif /* BE_VERBOSE */
         presetObjectPointers(xx);
-        if ((port < 0) || (port > MAX_PORT) || (clients < 0) || (clients > MAX_CLIENTS) || (numBuffers < 0))
+        if ((0 > port) || (MAX_PORT < port) || (0 > clients) || (MAX_CLIENTS < clients) ||
+            (0 > numBuffers))
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "invalid parameters for device")
             okSoFar = false;
         }
         if (okSoFar)
         {
+            long actBuffCount;
+
             xx->fServerAddress = 0L;
             xx->fMaximumConnections = static_cast<unsigned short>(clients ? clients : 5);
             if (0 == numBuffers)
             {
-                numBuffers = (NUM_RX_BUFFERS * clients);
+                actBuffCount = (NUM_RX_BUFFERS * clients);
+            }
+            else
+            {
+                actBuffCount = numBuffers;
             }
             xx->fActiveConnections = 0;
-            okSoFar = initObject(xx, port, numBuffers);
+            okSoFar = initObject(xx, port, actBuffCount);
             if (okSoFar)
             {
-                xx->fConnections = GETBYTES(xx->fMaximumConnections, TcpConnectionData *);
-                xx->fConnectionBase =
-                reinterpret_cast<TcpConnectionData **>(sysmem_newhandle(static_cast<long>(sizeof(TcpConnectionData) *
-                                                                                          xx->fMaximumConnections)));
-                if (! (xx->fConnections || xx->fConnectionBase))
+                xx->fConnections = GET_BYTES(xx->fMaximumConnections, TcpConnectionData *);
+                xx->fConnectionBase = MAKE_TYPED_HANDLE(TcpConnectionData, xx->fMaximumConnections);
+                if (! (xx->fConnections && xx->fConnectionBase))
                 {
                     okSoFar = false;
                 }
@@ -235,7 +96,8 @@ void * tcpMultiServerCreate(long port,
         xx->fListenNotifier = NewOTNotifyUPP(tcpMultiServerListenNotifier);
         if (okSoFar)
         {
-            xx->fAccessControl = acquireOpenTransport(OUR_NAME, static_cast<unsigned short>(port), true);
+            xx->fAccessControl = acquireOpenTransport(OUR_NAME, static_cast<unsigned short>(port),
+                                                      true);
             if (! xx->fAccessControl)
             {
                 okSoFar = false;
@@ -245,7 +107,8 @@ void * tcpMultiServerCreate(long port,
         if (okSoFar)
         {
             this_config = OTCreateConfiguration("tilisten,tcp");
-            if ((kOTInvalidConfigurationPtr == this_config) || (kOTNoMemoryConfigurationPtr == this_config))
+            if ((kOTInvalidConfigurationPtr == this_config) ||
+                (kOTNoMemoryConfigurationPtr == this_config))
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to obtain an OT listener configuration")
                 okSoFar = false;
@@ -255,7 +118,7 @@ void * tcpMultiServerCreate(long port,
         if (okSoFar)
         {
             TEndpointInfo info;
-
+            
             xx->fListenEndpoint = OTOpenEndpointInContext(this_config, 0, &info, &result,
                                                           xx->fAccessControl->fContext);
             if (kOTNoError == result)
@@ -272,7 +135,7 @@ void * tcpMultiServerCreate(long port,
         if (okSoFar)
         {
             InetInterfaceInfo interfaceInfo;
-
+            
             WRAP_OT_CALL(xx, result, "OTInetGetInterfaceInfo",
                          OTInetGetInterfaceInfo(&interfaceInfo, kDefaultInetInterface));
             if (kOTNoError == result)
@@ -328,25 +191,29 @@ void * tcpMultiServerCreate(long port,
         if (! okSoFar)
         {
             freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
+            xx = NULL;
         }
+#endif//0
     }
     return xx;
 } // tcpMultiServerCreate
+
 /*------------------------------------ tcpMultiServerFree ---*/
-void tcpMultiServerFree(TcpMultiServerData * xx)
+static void tcpMultiServerFree(TcpMultiServerData * xx)
 {
     if (xx)
     {
+#if 0
         OSStatus            result;
         TcpConnectionData * connection;
-
+        
         xx->fClosing = true;
         // Close off all other connections:
         for (unsigned short ii = 0; ii < xx->fMaximumConnections; ++ii)
         {
             connection = *(xx->fConnections + ii);
-            if (connection && (connection->fDataEndpoint != kOTInvalidEndpointRef) && connection->fActive)
+            if (connection && (connection->fDataEndpoint != kOTInvalidEndpointRef) &&
+                connection->fActive)
             {
                 tcpMultiServerDisconnect(xx, connection, true);
             }
@@ -356,12 +223,12 @@ void tcpMultiServerFree(TcpMultiServerData * xx)
             switch (xx->fState)
             {
                 case kTcpStateConnected:
-                    tcpMultiServerDisconnect(xx, NULL_PTR, true); /*!!*/
-                /* Fall through */
-
+                    tcpMultiServerDisconnect(xx, NULL, true); /*!!*/
+                    /* Fall through */
+                    
                 case kTcpStateListening:
-                /* Fall through */
-
+                    /* Fall through */
+                    
                 case kTcpStateBound:
                     WRAP_OT_CALL(xx, result, "OTUnbind", OTUnbind(xx->fListenEndpoint))
                     if (result != kOTNoError)
@@ -369,8 +236,8 @@ void tcpMultiServerFree(TcpMultiServerData * xx)
                         REPORT_ERROR(xx, OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
                         reportEndpointState(xx, xx->fListenEndpoint);
                     }
-                /* Fall through */
-
+                    /* Fall through */
+                    
                 case kTcpStateUnbound:
                     WRAP_OT_CALL(xx, result, "OTCloseProvider",
                                  OTCloseProvider(xx->fListenEndpoint))
@@ -384,13 +251,163 @@ void tcpMultiServerFree(TcpMultiServerData * xx)
                         reportEndpointState(xx, xx->fListenEndpoint);
                     }
                     break;
+                    
+                default:
+                    break;
+                    
             }
         }
         DisposeOTNotifyUPP(xx->fDataNotifier);
         DisposeOTNotifyUPP(xx->fListenNotifier);
         releaseObjectMemory(xx);
+#endif//0
     }
 } // tcpMultiServerFree
+
+/*------------------------------------ main ---*/
+int main(void)
+{
+    /* Allocate class memory and set up class. */
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(tcpMultiServerCreate),
+                               reinterpret_cast<method>(tcpMultiServerFree),
+                               sizeof(TcpMultiServerData), reinterpret_cast<method>(0L), A_DEFLONG,
+                               A_DEFLONG, A_DEFLONG, 0);
+
+    if (temp)
+    {
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Bang), MESSAGE_BANG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Disconnect), "disconnect", A_DEFLONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Listen), "listen", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Mode), "mode", A_LONG, A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Port), "port", A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Self), "self", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Send), "send", A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Status), "status", A_DEFLONG, 0);
+#if defined(BE_VERBOSE)
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Verbose), "verbose", A_DEFSYM, 0);
+#endif /* BE_VERBOSE */
+        class_register(CLASS_BOX, temp);
+    }
+    gClass = temp;
+    gDollarSymbol = gensym("$");
+    gEmptySymbol = gensym("");
+    gMaxSymbol = gensym("max");
+    gOffSymbol = gensym("off");
+    gOnSymbol = gensym("on");
+    gRawSymbol = gensym("raw");
+    gReplySymbol = gensym("reply");
+    gSelfSymbol = gensym("self");
+    gStatusSymbol = gensym("status");
+    setUpStateSymbols();
+    reportVersion(OUR_NAME);
+    return 0;
+} // main
+
+/*------------------------------------ tcpMultiServerConstructConnections ---*/
+static bool tcpMultiServerConstructConnections(TcpMultiServerData * xx)
+{
+    TcpConnectionData ** ptr_walker = xx->fConnections;
+    TcpConnectionData *  a_connection;
+    DataBuffer *         next_buffer = *xx->fBufferBase;
+    bool                 okSoFar = true;
+#if 0
+    TEndpointInfo        info;
+    OSStatus             result;
+    OTConfigurationRef   data_config = NULL;
+    OTConfigurationRef   a_config;
+
+    data_config = OTCreateConfiguration(kTCPName);
+    if ((kOTInvalidConfigurationPtr == data_config) || (kOTNoMemoryConfigurationPtr == data_config))
+    {
+        LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to obtain an OT data configuration")
+        okSoFar = false;
+    }
+    sysmem_lockhandle(reinterpret_cast<t_handle>(xx->fConnectionBase), 1);
+    a_connection = *xx->fConnectionBase;
+    memset(xx->fConnections, 0, xx->fMaximumConnections * sizeof(TcpConnectionData *));
+    memset(*xx->fConnectionBase, 0, sizeof(TcpConnectionData) * xx->fMaximumConnections);
+    for (unsigned short ii = 0; okSoFar && (ii < xx->fMaximumConnections); ++ii)
+    {
+        *ptr_walker++ = a_connection;
+        a_connection->fDataEndpoint = kOTInvalidEndpointRef;
+        a_connection->fOwner = xx;
+        a_connection->fIdentifier = static_cast<unsigned short>(ii + 1);
+        a_connection->fActive = false;
+        a_connection->fSendBuffer = next_buffer;
+        a_connection->fClientAddress = 0L;
+        a_connection->fClientPort = 0;
+        a_connection->fPartnerName = NULL;
+        setConnectionState(a_connection, kTcpStateUnbound);
+        a_config = OTCloneConfiguration(data_config);
+        if (! a_config)
+        {
+            okSoFar = false;
+        }
+        if (okSoFar)
+        {
+            a_connection->fDataEndpoint = OTOpenEndpointInContext(a_config, 0, &info, &result,
+                                                                  xx->fAccessControl->fContext);
+            if (kOTNoError == result)
+            {
+                a_connection->fServiceType = info.servtype;
+            }
+            else
+            {
+                REPORT_ERROR(xx, OUTPUT_PREFIX "unable to obtain an endpoint (%ld = %s)", result)
+                okSoFar = false;
+            }
+        }
+        if (okSoFar)
+        {
+            WRAP_OT_CALL(xx, result, "OTSetAsynchronous",
+                         OTSetAsynchronous(a_connection->fDataEndpoint))
+            if (result != kOTNoError)
+            {
+                REPORT_ERROR(xx, OUTPUT_PREFIX "OTSetAsynchronous failed (%ld = %s)", result)
+                reportEndpointState(xx, a_connection->fDataEndpoint);
+                okSoFar = false;
+            }
+        }
+        if (okSoFar)
+        {
+            WRAP_OT_CALL(xx, result, "OTSetBlocking", OTSetBlocking(a_connection->fDataEndpoint))
+            if (result != kOTNoError)
+            {
+                REPORT_ERROR(xx, OUTPUT_PREFIX "OTSetBlocking failed (%ld = %s)", result)
+                reportEndpointState(xx, a_connection->fDataEndpoint);
+                okSoFar = false;
+            }
+        }
+        if (okSoFar)
+        {
+            WRAP_OT_CALL(xx, result, "OTInstallNotifier",
+                         OTInstallNotifier(a_connection->fDataEndpoint,
+                                           xx->fDataNotifier, a_connection))
+            if (result != kOTNoError)
+            {
+                REPORT_ERROR(xx, OUTPUT_PREFIX "OTInstallNotifier failed (%ld = %s)", result)
+                reportEndpointState(xx, a_connection->fDataEndpoint);
+                okSoFar = false;
+            }
+        }
+        a_connection->fReceiveBuffer =
+                            reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(a_connection->fSendBuffer,
+                                                                          BUFF_MEMORY_TO_ALLOC));
+        next_buffer = reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(a_connection->fReceiveBuffer,
+                                                                    BUFF_MEMORY_TO_ALLOC));
+        a_connection = reinterpret_cast<TcpConnectionData *>(ADD_TO_ADDRESS(a_connection,
+                                                                        sizeof(TcpConnectionData)));
+    }
+    if ((data_config != kOTInvalidConfigurationPtr) && (data_config != kOTNoMemoryConfigurationPtr))
+    {
+        OTDestroyConfiguration(data_config);
+    }
+#endif//0
+    return okSoFar;
+} // tcpMultiServerConstructConnections
+
 /*------------------------------------ tcpMultiServerSetPort ---*/
 bool tcpMultiServerSetPort(TcpMultiServerData * xx,
                            const bool           bangOnError)
@@ -399,6 +416,7 @@ bool tcpMultiServerSetPort(TcpMultiServerData * xx,
 
     if (xx)
     {
+#if 0
         OSStatus result;
 
         switch (xx->fState)
@@ -424,10 +442,11 @@ bool tcpMultiServerSetPort(TcpMultiServerData * xx,
                 break;
 
             default:
-                LOG_ERROR_3(xx, OUTPUT_PREFIX "unexpected state (%ld = %s)", static_cast<long>(xx->fState),
-                            mapStateToSymbol(xx->fState)->s_name)
+                LOG_ERROR_3(xx, OUTPUT_PREFIX "unexpected state (%ld = %s)",
+                            static_cast<long>(xx->fState), mapStateToSymbol(xx->fState)->s_name)
                 okSoFar = false;
                 break;
+                
         }
         if (okSoFar)
         {
@@ -438,7 +457,7 @@ bool tcpMultiServerSetPort(TcpMultiServerData * xx,
             bind_request.addr.len = sizeof(in_address);
             bind_request.addr.buf = reinterpret_cast<unsigned char *>(&in_address);
             bind_request.qlen = 1;
-            WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fListenEndpoint, &bind_request, NULL_PTR))
+            WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fListenEndpoint, &bind_request, NULL))
             if (result != kOTNoError)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
@@ -450,9 +469,11 @@ bool tcpMultiServerSetPort(TcpMultiServerData * xx,
         {
             signalError(xx);
         }
+#endif//0
     }
     return okSoFar;
 } // tcpMultiServerSetPort
+
 /*------------------------------------ tcpMultiServerDisconnect ---*/
 bool tcpMultiServerDisconnect(TcpMultiServerData * xx,
                               TcpConnectionData *  connection,
@@ -462,6 +483,7 @@ bool tcpMultiServerDisconnect(TcpMultiServerData * xx,
 
     if (xx && connection)
     {
+#if 0
         switch (connection->fState)
         {
             case kTcpStateUnbound:
@@ -482,12 +504,17 @@ bool tcpMultiServerDisconnect(TcpMultiServerData * xx,
 
             case kTcpStateConnected:
                 break;
+                
+            default:
+                break;
+                
         }
         if (okSoFar || forced)
         {
             OSStatus result;
 
-            if ((! forced) && ((T_COTS_ORD == connection->fServiceType) || (T_TRANS_ORD == connection->fServiceType)))
+            if ((! forced) && ((T_COTS_ORD == connection->fServiceType) ||
+                               (T_TRANS_ORD == connection->fServiceType)))
             {
                 WRAP_OT_CALL(xx, result, "OTSndOrderlyDisconnect",
                              OTSndOrderlyDisconnect(connection->fDataEndpoint))
@@ -497,7 +524,8 @@ bool tcpMultiServerDisconnect(TcpMultiServerData * xx,
                 }
                 else
                 {
-                    REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)", result)
+                    REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)",
+                                 result)
                     reportEndpointState(xx, connection->fDataEndpoint);
                     okSoFar = false;
                 }
@@ -529,14 +557,16 @@ bool tcpMultiServerDisconnect(TcpMultiServerData * xx,
         {
             signalError(xx);
         }
+#endif//0
     }
     return okSoFar;
 } // tcpMultiServerDisconnect
+
 /*------------------------------------ tcpMultiServerValidateClient ---*/
 TcpConnectionData * tcpMultiServerValidateClient(TcpMultiServerData * xx,
                                                  const long           client)
 {
-    TcpConnectionData * candidate = NULL_PTR;
+    TcpConnectionData * candidate = NULL;
 
     if ((client > 0) && (client <= xx->fMaximumConnections))
     {

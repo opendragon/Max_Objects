@@ -42,79 +42,43 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * x10Create(t_symbol * kind,
-                 long       pollRate);
-
-void x10Free(X10ControlData * xx);
-
-void x10ProcessClock(X10ControlData * xx);
-
-void x10ProcessQueue(X10ControlData * xx);
-
 static char kHouseCodeNames[NUM_HOUSECODES][2] =
 {
     "A", "B", "C", "D", "E", "F", "G", "H",
     "I", "J", "K", "L", "M", "N", "O", "P"
 };
 
-/*------------------------------------ main ---*/
-int main(void)
+/*------------------------------------ x10ProcessClock ---*/
+static void x10ProcessClock(X10ControlData * xx)
 {
-    /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(x10Create), reinterpret_cast<method>(x10Free),
-                               sizeof(X10ControlData), reinterpret_cast<method>(0L), A_DEFSYM, A_DEFLONG, 0);
-    
-    if (temp)
+    if (xx && (! xx->fStopping))
     {
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_ClearTimerEvent), "clear!", A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Dim), "dim", A_SYM, A_LONG, A_DEFLONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_GetGraphicsData), "graphics?", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_GetHouseCode), "housecode?", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_GetTimerEvents), "events?", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_In1), MESSAGE_IN1, A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Kind), "kind", A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Off), "off", A_SYM, A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_On), "on", A_SYM, A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Reset), "reset", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetClock), "clock!", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetEveryDayEvent), "everyday!", A_SYM, A_LONG, A_LONG,
-                        A_LONG, A_SYM, A_DEFLONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetGraphicsData), "graphics!", A_LONG, A_DEFLONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetHouseCode), "housecode!", A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetNormalEvent), "normal!", A_SYM, A_LONG, A_LONG, A_LONG,
-                        A_LONG, A_SYM, A_DEFLONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetSecurityEvent), "security!", A_SYM, A_LONG, A_LONG,
-                        A_LONG, A_LONG, A_SYM, A_DEFLONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetTodayEvent), "today!", A_SYM, A_LONG, A_LONG, A_LONG,
-                        A_SYM, A_DEFLONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetTomorrowEvent), "tomorrow!", A_SYM, A_LONG, A_LONG,
-                        A_LONG, A_SYM,  A_DEFLONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_XReset), "xreset", 0);
-        class_register(CLASS_BOX, temp);
+        qelem_set(xx->fPollQueue);
     }
-    gClass = temp;
-    gCM11Symbol = gensym("cm11");
-    gCP290Symbol = gensym("cp290");
-    gDimSymbol = gensym("dim");
-    gEmptySymbol = gensym("");
-    gOffSymbol = gensym("off");
-    gOnSymbol = gensym("on");
-    for (unsigned short ii = 0; ii < NUM_HOUSECODES; ++ii)
+} // x10ProcessClock
+
+/*------------------------------------ x10ProcessQueue ---*/
+static void x10ProcessQueue(X10ControlData * xx)
+{
+    if (xx && (! xx->fStopping))
     {
-        gHouseCodes[ii] = gensym(kHouseCodeNames[ii]);
+        short prevLock = lockout_set(1);
+        
+        outlet_bang(xx->fPollerOut);
+        clock_delay(xx->fPollClock, xx->fPollRate);
+        lockout_set(prevLock);
+#if USE_EVNUM
+        evnum_incr();
+#endif /* USE_EVNUM */
     }
-    reportVersion(OUR_NAME);
-    return 0;
-} // main
+} // x10ProcessQueue
+
 /*------------------------------------ x10Create ---*/
-void * x10Create(t_symbol * kind,
-                 long       pollRate)
+static void * x10Create(t_symbol * kind,
+                        const long pollRate)
 {
     X10ControlData * xx = static_cast<X10ControlData *>(object_alloc(gClass));
-
+    
     if (xx)
     {
         xx->fHouseCodeChar = 0;
@@ -122,7 +86,7 @@ void * x10Create(t_symbol * kind,
         xx->fDimLevel = 0;
         xx->fDeviceMap = 0;
         xx->fCompletedWhenStatus = xx->fIgnoreChecksum = xx->fStopping = false;
-        xx->fOutCmd = xx->fOutArea = NULL_PTR;
+        xx->fOutCmd = xx->fOutArea = NULL;
         if ((kind == gCM11Symbol) || (kind == gEmptySymbol))
         {
             xx->fKind = X10KindCM11;
@@ -156,23 +120,24 @@ void * x10Create(t_symbol * kind,
         xx->fHouseCode = static_cast<t_outlet *>(intout(xx));
         xx->fPollerOut = static_cast<t_outlet *>(bangout(xx));
         xx->fCommandsOut = static_cast<t_outlet *>(intout(xx));
-        xx->fPollClock = static_cast<t_clock *>(clock_new(xx, reinterpret_cast<method>(x10ProcessClock)));
-        xx->fPollQueue = static_cast<t_qelem *>(qelem_new(xx, reinterpret_cast<method>(x10ProcessQueue)));
-        xx->fOutBuffer = GETBYTES(OUTBUFF_SIZE, unsigned char);
+        xx->fPollClock = MAKE_CLOCK(xx, x10ProcessClock);
+        xx->fPollQueue = MAKE_QELEM(xx, x10ProcessQueue);
+        xx->fOutBuffer = GET_BYTES(OUTBUFF_SIZE, unsigned char);
         switch (xx->fKind)
         {
             case X10KindCM11:
                 xx->fMinorState = x10CM11MinorIdle;
                 xx->fMajorState = x10CM11MajorIdle;
                 break;
-
+                
             case X10KindCP290:
                 xx->fMinorState = x10CP290MinorIdle;
                 xx->fMajorState = x10CP290MajorIdle;
                 break;
-
+                
             default:
                 break;
+                
         }
         xx->fAllOnCount = xx->fEntryCount = xx->fEventByteCount = 0;
         if (xx->fErrorBangOut && xx->fMinuteOut && xx->fHourOut && xx->fDayOut &&
@@ -192,13 +157,14 @@ void * x10Create(t_symbol * kind,
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port or clock for device")
             freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
+            xx = NULL;
         }
     }
     return xx;
 } // x10Create
+
 /*------------------------------------ x10Free ---*/
-void x10Free(X10ControlData * xx)
+static void x10Free(X10ControlData * xx)
 {
     if (xx)
     {
@@ -207,37 +173,71 @@ void x10Free(X10ControlData * xx)
         {
             clock_unset(xx->fPollClock);
             clock_free(reinterpret_cast<t_object *>(xx->fPollClock));
-            xx->fPollClock = NULL_PTR;
+            xx->fPollClock = NULL;
         }
         if (xx->fPollQueue)
         {
             qelem_unset(xx->fPollQueue);
             qelem_free(xx->fPollQueue);
-            xx->fPollQueue = NULL_PTR;
+            xx->fPollQueue = NULL;
         }
-        FREEBYTES(xx->fOutBuffer, OUTBUFF_SIZE);
+        FREE_BYTES(xx->fOutBuffer);
     }
 } // x10Free
-/*------------------------------------ x10ProcessClock ---*/
-void x10ProcessClock(X10ControlData * xx)
-{
-    if (xx && (! xx->fStopping))
-    {
-        qelem_set(xx->fPollQueue);
-    }
-} // x10ProcessClock
-/*------------------------------------ x10ProcessQueue ---*/
-void x10ProcessQueue(X10ControlData * xx)
-{
-    if (xx && (! xx->fStopping))
-    {
-        short prevLock = lockout_set(1);
 
-        outlet_bang(xx->fPollerOut);
-        clock_delay(xx->fPollClock, xx->fPollRate);
-        lockout_set(prevLock);
-        evnum_incr();
+/*------------------------------------ main ---*/
+int main(void)
+{
+    /* Allocate class memory and set up class. */
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(x10Create),
+                               reinterpret_cast<method>(x10Free), sizeof(X10ControlData),
+                               reinterpret_cast<method>(0L), A_DEFSYM, A_DEFLONG, 0);
+    
+    if (temp)
+    {
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_ClearTimerEvent), "clear!", A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Dim), "dim", A_SYM, A_LONG, A_DEFLONG,
+                        0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_GetGraphicsData), "graphics?", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_GetHouseCode), "housecode?", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_GetTimerEvents), "events?", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_In1), MESSAGE_IN1, A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Kind), "kind", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Off), "off", A_SYM, A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_On), "on", A_SYM, A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Reset), "reset", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetClock), "clock!", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetEveryDayEvent), "everyday!", A_SYM,
+                        A_LONG, A_LONG, A_LONG, A_SYM, A_DEFLONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetGraphicsData), "graphics!", A_LONG,
+                        A_DEFLONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetHouseCode), "housecode!", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetNormalEvent), "normal!", A_SYM,
+                        A_LONG, A_LONG, A_LONG, A_LONG, A_SYM, A_DEFLONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetSecurityEvent), "security!", A_SYM,
+                        A_LONG, A_LONG, A_LONG, A_LONG, A_SYM, A_DEFLONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetTodayEvent), "today!", A_SYM, A_LONG,
+                        A_LONG, A_LONG, A_SYM, A_DEFLONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetTomorrowEvent), "tomorrow!", A_SYM,
+                        A_LONG, A_LONG, A_LONG, A_SYM,  A_DEFLONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_XReset), "xreset", 0);
+        class_register(CLASS_BOX, temp);
     }
-} // x10ProcessQueue
+    gClass = temp;
+    gCM11Symbol = gensym("cm11");
+    gCP290Symbol = gensym("cp290");
+    gDimSymbol = gensym("dim");
+    gEmptySymbol = gensym("");
+    gOffSymbol = gensym("off");
+    gOnSymbol = gensym("on");
+    for (unsigned short ii = 0; ii < NUM_HOUSECODES; ++ii)
+    {
+        gHouseCodes[ii] = gensym(kHouseCodeNames[ii]);
+    }
+    reportVersion(OUR_NAME);
+    return 0;
+} // main
 
-StandardAnythingRoutine(X10ControlData *)
+StandardAnythingRoutine(X10ControlData)

@@ -118,8 +118,10 @@ void cmd_Play(LdpData *  xx,
                 ldpAddCommand(xx, aCommand, kLdpStateAwaitingAck);
                 if ((mode == gStepSymbol) || (mode == gRevStepSymbol))
                 {
-                    ldpAddCommand(xx, static_cast<LdpCommandCode>(((stepRate / 10) % 10) + '0'), kLdpStateAwaitingAck);
-                    ldpAddCommand(xx, static_cast<LdpCommandCode>((stepRate % 10) + '0'), kLdpStateAwaitingAck);
+                    ldpAddCommand(xx, static_cast<LdpCommandCode>(((stepRate / 10) % 10) + '0'),
+                                  kLdpStateAwaitingAck);
+                    ldpAddCommand(xx, static_cast<LdpCommandCode>((stepRate % 10) + '0'),
+                                  kLdpStateAwaitingAck);
                     ldpAddCommand(xx, kLdpCommandEnter, kLdpStateAwaitingAck);
                 }
                 ldpAddCommand(xx, kLdpCommandSignalAccepted, kLdpStateNotWaiting);

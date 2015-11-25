@@ -40,14 +40,13 @@
 #include "map1d.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(Map1dData * xx,
-                 double      num)
+FLOAT_HEADER(Map1dData)
 {
     if (xx)
     {
         FloatOrInteger temp;
 
-        setFOI2Float(temp, static_cast<float>(num));
+        setFOI2Float(temp, TO_DBL(msg));
         map1dProcessData(xx, temp);
     }
 } // cmd_Float

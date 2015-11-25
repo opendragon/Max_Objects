@@ -40,19 +40,18 @@
 #include "Vdecode.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VdecodeData * xx,
-             long          num)
+INT_HEADER(VdecodeData)
 {
     if (xx)
     {
-        if (num >= 0)
+        if (0 <= msg)
         {
-            xx->fPreviousLong = num;
+            xx->fPreviousLong = TO_INT(msg);
             outlet_int(xx->fResultOut, xx->fPreviousLong);
         }
         else
         {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "Negative value (%ld) in input list", num)
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "Negative value (%ld) in input list", msg)
         }
     }
 } // cmd_Int

@@ -40,7 +40,7 @@
 #include "Vcollect.h"
 
 /*------------------------------------ cmd_Clear ---*/
-void cmd_Clear(VcollectData * xx)
+CLEAR_HEADER(VcollectData)
 {
     if (xx)
     {
@@ -50,18 +50,18 @@ void cmd_Clear(VcollectData * xx)
         {
             case 0:
                 /* Left inlet */
-                SETSYM(dummy, gStopSymbol);
+                A_SETSYM(dummy, gStopSymbol);
                 collectAddAtoms(xx, dummy, 1);
                 break;
 
             case 1:
                 /* Right inlet */
-                if (xx->fTotalAtoms > 0)
+                if (0 < xx->fTotalAtoms)
                 {
                     /* Return the chunks to the free list: */
                     xx->fLastChunk->fNext = xx->fFreeChunks;
                     xx->fFreeChunks = xx->fFirstChunk;
-                    xx->fFirstChunk = xx->fLastChunk = NULL_PTR;
+                    xx->fFirstChunk = xx->fLastChunk = NULL;
                     xx->fTotalAtoms = xx->fAtomsInLastChunk = 0;
                 }
                 break;
@@ -69,6 +69,7 @@ void cmd_Clear(VcollectData * xx)
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Clear

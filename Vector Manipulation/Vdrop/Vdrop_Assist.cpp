@@ -40,11 +40,7 @@
 #include "Vdrop.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(VObjectData * xx,
-                void *        bb,
-                long          msg,
-                long          arg,
-                char *        dstString)
+ASSIST_HEADER(VObjectData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)
@@ -58,6 +54,10 @@ void cmd_Assist(VObjectData * xx,
             case 1:
                 strncpy_zero(dstString, "Number of elements to drop", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
     else if (ASSIST_OUTLET == msg)

@@ -44,6 +44,7 @@ static void processListenEvent(TcpObjectData * xx)
 {
     if (xx)
     {
+#if 0
         TCall       call;
         InetAddress caddr;
         OTResult    look_result;
@@ -54,9 +55,9 @@ static void processListenEvent(TcpObjectData * xx)
         call.addr.maxlen = sizeof(caddr);
         call.addr.buf = reinterpret_cast<unsigned char *>(&caddr);
         call.opt.maxlen = 0;
-        call.opt.buf = NULL_PTR;
+        call.opt.buf = NULL;
         call.udata.maxlen = 0;
-        call.udata.buf = NULL_PTR;
+        call.udata.buf = NULL;
         WRAP_OT_CALL(xx, result, "OTListen", OTListen(xx->fSocket, &call))
         if (result != kOTNoDataErr)
         {
@@ -68,12 +69,12 @@ static void processListenEvent(TcpObjectData * xx)
                     look_result = OTLook(xx->fSocket);
                     if ((kOTLookErr == result) && (T_DISCONNECT == look_result))
                     {
-                        //          DoRcvDisconnect(xx);
+            //          DoRcvDisconnect(xx);
                     }
                     else
                     {
-                        //          DBAlert2("Notifier: T_LISTEN - OTAccept error %d look_result %x",
-                        //                      result, look_result);
+            //          DBAlert2("Notifier: T_LISTEN - OTAccept error %d look_result %x",
+            //                      result, look_result);
                     }
                 }
             }
@@ -82,17 +83,20 @@ static void processListenEvent(TcpObjectData * xx)
                 look_result = OTLook(xx->fSocket);
                 if ((kOTLookErr == result) && (T_DISCONNECT == look_result))
                 {
-                    //          DoRcvDisconnect(xx);
+        //          DoRcvDisconnect(xx);
                 }
                 else
                 {
-                    //          DBAlert2("Notifier: T_LISTEN - OTListen error %d look_result %x",
-                    //                  result, look_result);
+        //          DBAlert2("Notifier: T_LISTEN - OTListen error %d look_result %x",
+        //                  result, look_result);
                 }
             }
         }
+#endif//0
     }
 } // processListenEvent
+
+#if 0
 /*------------------------------------ tcpServerNotifier ---*/
 pascal void tcpServerNotifier(void *      context,
                               OTEventCode code,
@@ -112,7 +116,8 @@ pascal void tcpServerNotifier(void *      context,
 #if defined(BE_VERBOSE)
         if (xx->fVerbose)
         {
-            LOG_POST_3(xx, OUTPUT_PREFIX "notifier code: 0x%lx = %s", static_cast<long>(code), mapEventToString(code))
+            LOG_POST_3(xx, OUTPUT_PREFIX "notifier code: 0x%lx = %s", static_cast<long>(code),
+                       mapEventToString(code))
         }
 #endif /* BE_VERBOSE */
         switch (code)
@@ -210,7 +215,8 @@ pascal void tcpServerNotifier(void *      context,
                                  OTSndOrderlyDisconnect(xx->fSocket))
                     if (err != kOTNoError)
                     {
-                        REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)", err)
+                        REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)",
+                                     err)
                         reportEndpointState(OUR_NAME, xx);
                         do_error_bang = true;
                     }
@@ -227,6 +233,7 @@ pascal void tcpServerNotifier(void *      context,
 
             default:
                 break;
+                
         }
         if (do_error_bang)
         {
@@ -234,3 +241,4 @@ pascal void tcpServerNotifier(void *      context,
         }
     }
 } // tcpServerNotifier
+#endif//0

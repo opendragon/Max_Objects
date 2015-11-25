@@ -40,10 +40,7 @@
 #include "Vdrop.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VObjectData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VObjectData)
 {
 #pragma unused(message)
     if (xx)
@@ -52,11 +49,11 @@ void cmd_List(VObjectData * xx,
 
         clearPrevious(xx);
         /* Determine the size of the output: */
-        if (xx->fHowMany > 0)
+        if (0 < xx->fHowMany)
         {
             elementCount = xx->fHowMany;
         }
-        else if (xx->fHowMany < 0)
+        else if (0 > xx->fHowMany)
         {
             elementCount = static_cast<short>(-xx->fHowMany);
         }
@@ -64,11 +61,11 @@ void cmd_List(VObjectData * xx,
         {
             /* Collect the pieces that we need: */
             short    newCount = static_cast<short>(argc - elementCount);
-            t_atom * newArg = GETBYTES(newCount, t_atom);
+            t_atom * newArg = GET_BYTES(newCount, t_atom);
 
             if (newArg)
             {
-                if (xx->fHowMany > 0)
+                if (0 < xx->fHowMany)
                 {
                     memcpy(newArg, argv + elementCount, newCount * sizeof(t_atom));
                 }

@@ -40,11 +40,7 @@
 #include "pfsm.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(PfsmData * xx,
-                void *     bb,
-                long       msg,
-                long       arg,
-                char *     dstString)
+ASSIST_HEADER(PfsmData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)
@@ -66,6 +62,10 @@ void cmd_Assist(PfsmData * xx,
             case 2:
                 strncpy_zero(dstString, "Error bang output", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+
         }
     }
 } // cmd_Assist

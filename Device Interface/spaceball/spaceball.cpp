@@ -41,15 +41,141 @@
 #include "spaceball.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * spaceballCreate(t_symbol * addOrDelta,
-                       long       pollRate);
+/*------------------------------------ spaceballProcessClock ---*/
+static void spaceballProcessClock(SpaceballData * xx)
+{
+    if (xx && (! xx->fStopping))
+    {
+        qelem_set(xx->fPollQueue);
+    }
+} // spaceballProcessClock
 
-void spaceballFree(SpaceballData * xx);
+/*------------------------------------ spaceballProcessQueue ---*/
+static void spaceballProcessQueue(SpaceballData * xx)
+{
+    if (xx && (! xx->fStopping))
+    {
+        short prevLock = lockout_set(1);
+        
+        if (! xx->fReset)
+        {
+            static unsigned char resetString[] = "@RESET\015\015";
+            
+            if (! xx->fDelayCounter)
+            {
+                spaceballPerformWriteCommand(xx, sizeof(resetString) - 1, resetString);
+                ++xx->fDelayCounter;
+            }
+            else if (xx->fDelayCounter++ >= xx->fResetDuration)
+            {
+                xx->fReset = true;
+                xx->fDelayCounter = 0;
+            }
+        }
+        else if (! xx->fInited)
+        {
+            static unsigned char initString[] =
+                                            "CB\015NT\015FR?\015P@r@r\015MSSV\015Z\015BcCcCc\015";
+            
+            if (! xx->fDelayCounter)
+            {
+                spaceballPerformWriteCommand(xx, sizeof(initString) - 1, initString);
+                spaceballZeroValues(xx);
+                ++xx->fDelayCounter;
+            }
+            else if (xx->fDelayCounter++ >= xx->fInitDuration)
+            {
+                xx->fInited = true;
+                xx->fDelayCounter = 0;
+            }
+        }
+        outlet_bang(xx->fSampleBangOut);
+        clock_delay(xx->fPollClock, xx->fPollRate);
+        lockout_set(prevLock);
+#if USE_EVNUM
+        evnum_incr();
+#endif /* USE_EVNUM */
+    }
+} // spaceballProcessQueue
 
-void spaceballProcessClock(SpaceballData * xx);
+/*------------------------------------ spaceballCreate ---*/
+static void * spaceballCreate(t_symbol * addOrDelta,
+                              const long pollRate)
+{
+    SpaceballData * xx = static_cast<SpaceballData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fPollClock = NULL;
+        xx->fPollQueue = NULL;
+        xx->fBufferPos = xx->fDelayCounter = 0;
+        xx->fButtons = 0;
+        xx->fChunkPulseSent = xx->fInited = xx->fNextCharEscaped = xx->fOutputBlocked = false;
+        xx->fReset = xx->fSkipping = xx->fModeDelta = xx->fStopping = false;
+        if ((pollRate < 0) || (pollRate > MAX_POLL_RATE))
+        {
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid polling rate (%ld) for device", pollRate)
+            xx->fPollRate = SER_SAMPLE_RATE;
+        }
+        else
+        {
+            xx->fPollRate = static_cast<short>(pollRate ? pollRate : SER_SAMPLE_RATE);
+        }
+        /* Set up our connections and private data */
+        xx->fProxy = proxy_new(xx, 1L, &xx->fInletNumber);
+        xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
+        xx->fChunkSendOut = static_cast<t_outlet *>(bangout(xx));
+        xx->fDataSendOut = static_cast<t_outlet *>(outlet_new(xx, 0L));  /* list, int */
+        xx->fSampleBangOut = static_cast<t_outlet *>(bangout(xx));
+        xx->fDataOut = static_cast<t_outlet *>(outlet_new(xx, 0L));   /* normally just a list */
+        xx->fPollClock = MAKE_CLOCK(xx, spaceballProcessClock);
+        xx->fPollQueue = MAKE_QELEM(xx, spaceballProcessQueue);
+        if (! (xx->fProxy && xx->fErrorBangOut && xx->fDataSendOut && xx->fChunkSendOut &&
+               xx->fSampleBangOut && xx->fDataOut && xx->fPollClock && xx->fPollQueue))
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port or clock for device")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+        else
+        {
+            xx->fResetDuration = static_cast<short>((2000 + xx->fPollRate - 1) / xx->fPollRate);
+            xx->fInitDuration = static_cast<short>((1000 + xx->fPollRate - 1) / xx->fPollRate);
+            if (addOrDelta != gEmptySymbol)
+            {
+                spaceballSetMode(xx, addOrDelta);
+            }
+            clock_delay(xx->fPollClock, xx->fPollRate);
+        }
+    }
+    return xx;
+} // spaceballCreate
 
-void spaceballProcessQueue(SpaceballData * xx);
+/*------------------------------------ spaceballFree ---*/
+static void spaceballFree(SpaceballData * xx)
+{
+    if (xx)
+    {
+        xx->fStopping = true;
+        if (xx->fPollClock)
+        {
+            clock_unset(xx->fPollClock);
+            clock_free(reinterpret_cast<t_object *>(xx->fPollClock));
+            xx->fPollClock = NULL;
+        }
+        if (xx->fPollQueue)
+        {
+            qelem_unset(xx->fPollQueue);
+            qelem_free(xx->fPollQueue);
+            xx->fPollQueue = NULL;
+        }
+        if (xx->fProxy)
+        {
+            freeobject(reinterpret_cast<t_object *>(xx->fProxy));
+            xx->fProxy = NULL;
+        }
+    }
+} // spaceballFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -85,83 +211,7 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ spaceballCreate ---*/
-void * spaceballCreate(t_symbol * addOrDelta,
-                       long       pollRate)
-{
-    SpaceballData * xx = static_cast<SpaceballData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fPollClock = NULL_PTR;
-        xx->fPollQueue = NULL_PTR;
-        xx->fBufferPos = xx->fDelayCounter = 0;
-        xx->fButtons = 0;
-        xx->fChunkPulseSent = xx->fInited = xx->fNextCharEscaped = xx->fOutputBlocked = false;
-        xx->fReset = xx->fSkipping = xx->fModeDelta = xx->fStopping = false;
-        if ((pollRate < 0) || (pollRate > MAX_POLL_RATE))
-        {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid polling rate (%ld) for device", pollRate)
-            xx->fPollRate = SER_SAMPLE_RATE;
-        }
-        else
-        {
-            xx->fPollRate = static_cast<short>(pollRate ? pollRate : SER_SAMPLE_RATE);
-        }
-        /* Set up our connections and private data */
-        xx->fProxy = proxy_new(xx, 1L, &xx->fInletNumber);
-        xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
-        xx->fChunkSendOut = static_cast<t_outlet *>(bangout(xx));
-        xx->fDataSendOut = static_cast<t_outlet *>(outlet_new(xx, 0L));  /* list, int */
-        xx->fSampleBangOut = static_cast<t_outlet *>(bangout(xx));
-        xx->fDataOut = static_cast<t_outlet *>(outlet_new(xx, 0L));   /* normally just a list */
-        xx->fPollClock = static_cast<t_clock *>(clock_new(xx, reinterpret_cast<method>(spaceballProcessClock)));
-        xx->fPollQueue = static_cast<t_qelem *>(qelem_new(xx, reinterpret_cast<method>(spaceballProcessQueue)));
-        if (! (xx->fProxy && xx->fErrorBangOut && xx->fDataSendOut && xx->fChunkSendOut && xx->fSampleBangOut &&
-               xx->fDataOut && xx->fPollClock && xx->fPollQueue))
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port or clock for device")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-        else
-        {
-            xx->fResetDuration = static_cast<short>((2000 + xx->fPollRate - 1) / xx->fPollRate);
-            xx->fInitDuration = static_cast<short>((1000 + xx->fPollRate - 1) / xx->fPollRate);
-            if (addOrDelta != gEmptySymbol)
-            {
-                spaceballSetMode(xx, addOrDelta);
-            }
-            clock_delay(xx->fPollClock, xx->fPollRate);
-        }
-    }
-    return xx;
-} // spaceballCreate
-/*------------------------------------ spaceballFree ---*/
-void spaceballFree(SpaceballData * xx)
-{
-    if (xx)
-    {
-        xx->fStopping = true;
-        if (xx->fPollClock)
-        {
-            clock_unset(xx->fPollClock);
-            clock_free(reinterpret_cast<t_object *>(xx->fPollClock));
-            xx->fPollClock = NULL_PTR;
-        }
-        if (xx->fPollQueue)
-        {
-            qelem_unset(xx->fPollQueue);
-            qelem_free(xx->fPollQueue);
-            xx->fPollQueue = NULL_PTR;
-        }
-        if (xx->fProxy)
-        {
-            freeobject(reinterpret_cast<t_object *>(xx->fProxy));
-            xx->fProxy = NULL_PTR;
-        }
-    }
-} // spaceballFree
 /*------------------------------------ spaceballPerformWriteCommand ---*/
 void spaceballPerformWriteCommand(SpaceballData * xx,
                                   const short     numBytesToSend,
@@ -184,64 +234,13 @@ void spaceballPerformWriteCommand(SpaceballData * xx,
         for (short ii = 0; ii < numBytesToSend; ++ii, ++bytesToFollow)
         {
             dataValue = *bytesToFollow;
-            SETLONG(dataList + ii, dataValue);
+            A_SETLONG(dataList + ii, dataValue);
         }
         outlet_list(xx->fDataSendOut, 0L, numBytesToSend, dataList);
         lockout_set(prevLock);
     }
 } // spaceballPerformWriteCommand
-/*------------------------------------ spaceballProcessClock ---*/
-void spaceballProcessClock(SpaceballData * xx)
-{
-    if (xx && (! xx->fStopping))
-    {
-        qelem_set(xx->fPollQueue);
-    }
-} // spaceballProcessClock
-/*------------------------------------ spaceballProcessQueue ---*/
-void spaceballProcessQueue(SpaceballData * xx)
-{
-    if (xx && (! xx->fStopping))
-    {
-        short prevLock = lockout_set(1);
 
-        if (! xx->fReset)
-        {
-            static unsigned char resetString[] = "@RESET\015\015";
-
-            if (! xx->fDelayCounter)
-            {
-                spaceballPerformWriteCommand(xx, sizeof(resetString) - 1, resetString);
-                ++xx->fDelayCounter;
-            }
-            else if (xx->fDelayCounter++ >= xx->fResetDuration)
-            {
-                xx->fReset = true;
-                xx->fDelayCounter = 0;
-            }
-        }
-        else if (! xx->fInited)
-        {
-            static unsigned char initString[] = "CB\015NT\015FR?\015P@r@r\015MSSV\015Z\015BcCcCc\015";
-
-            if (! xx->fDelayCounter)
-            {
-                spaceballPerformWriteCommand(xx, sizeof(initString) - 1, initString);
-                spaceballZeroValues(xx);
-                ++xx->fDelayCounter;
-            }
-            else if (xx->fDelayCounter++ >= xx->fInitDuration)
-            {
-                xx->fInited = true;
-                xx->fDelayCounter = 0;
-            }
-        }
-        outlet_bang(xx->fSampleBangOut);
-        clock_delay(xx->fPollClock, xx->fPollRate);
-        lockout_set(prevLock);
-        evnum_incr();
-    }
-} // spaceballProcessQueue
 /*------------------------------------ spaceballProcessResponse ---*/
 void spaceballProcessResponse(SpaceballData * xx,
                               long            rr)
@@ -332,6 +331,7 @@ void spaceballProcessResponse(SpaceballData * xx,
         lockout_set(prevLock);
     }
 } // spaceballProcessResponse
+
 /*------------------------------------ spaceballSetMode ---*/
 bool spaceballSetMode(SpaceballData * xx,
                       t_symbol *      addOrDelta)

@@ -42,17 +42,40 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * gcdCreate(void);
+/*------------------------------------ gcdCreate ---*/
+static void * gcdCreate(void)
+{
+    GcdData * xx = static_cast<GcdData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fPreviousResult = 0;
+        xx->fRightInput = 0;
+        intin(xx, 1);
+        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
+        if (! xx->fResultOut)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // gcdCreate
 
-void gcdFree(GcdData * xx);
+/*------------------------------------ gcdFree ---*/
+static void gcdFree(GcdData * xx)
+{
+#pragma unused(xx)
+} // gcdFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(gcdCreate), reinterpret_cast<method>(gcdFree),
-                               sizeof(GcdData), reinterpret_cast<method>(0L), 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(gcdCreate),
+                               reinterpret_cast<method>(gcdFree), sizeof(GcdData),
+                               reinterpret_cast<method>(0L), 0);
 
     if (temp)
     {
@@ -67,29 +90,5 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ gcdCreate ---*/
-void * gcdCreate(void)
-{
-    GcdData * xx = static_cast<GcdData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fPreviousResult = 0;
-        xx->fRightInput = 0;
-        intin(xx, 1);
-        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
-        if (! xx->fResultOut)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // gcdCreate
-/*------------------------------------ gcdFree ---*/
-void gcdFree(GcdData * xx)
-{
-#pragma unused(xx)
-} // gcdFree
-StandardAnythingRoutine(GcdData *)
+StandardAnythingRoutine(GcdData)

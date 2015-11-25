@@ -40,11 +40,7 @@
 #include "shotgun.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(ShotgunData * xx,
-                void *        bb,
-                long          msg,
-                long          arg,
-                char *        dstString)
+ASSIST_HEADER(ShotgunData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

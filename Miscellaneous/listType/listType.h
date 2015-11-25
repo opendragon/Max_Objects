@@ -65,6 +65,6 @@ struct ListTypeData
     t_outlet * fResultOut;
 }; // ListTypeData
 
-StandardRoutineDeclarations(ListTypeData *);
+StandardRoutineDeclarations(ListTypeData);
 
 #endif /* not LISTTYPE_H_ */

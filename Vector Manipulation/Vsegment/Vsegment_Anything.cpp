@@ -40,10 +40,7 @@
 #include "Vsegment.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(VsegmentData * xx,
-                  t_symbol *     message,
-                  short          argc,
-                  t_atom *       argv)
+ANYTHING_HEADER(VsegmentData)
 {
     if (xx)
     {
@@ -71,7 +68,7 @@ void cmd_Anything(VsegmentData * xx,
                 end = start;
                 start = temp;
             }
-            if (start < 0)
+            if (0 > start)
             {
                 start = 0;
             }
@@ -79,9 +76,9 @@ void cmd_Anything(VsegmentData * xx,
             {
                 end = static_cast<short>(actArgs - 1);
             }
-            if ((end >= 0) && (start < actArgs))
+            if ((0 <= end) && (start < actArgs))
             {
-                t_atom * newList = GETBYTES(end + 1 - start, t_atom);
+                t_atom * newList = GET_BYTES(end + 1 - start, t_atom);
 
                 if (newList)
                 {
@@ -91,7 +88,7 @@ void cmd_Anything(VsegmentData * xx,
                     }
                     else
                     {
-                        SETSYM(newList, message);
+                        A_SETSYM(newList, message);
                         memcpy(newList + 1, argv, (end - start) * sizeof(t_atom));
                     }
                     xx->fPreviousList = newList;

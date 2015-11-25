@@ -79,7 +79,7 @@ static void deferred_OutputAddresses(TcpLocateData * xx)
                     break;
                 }
 
-                outlet_anything(xx->fResultOut, gensym(addressString), 0, NULL_PTR);
+                outlet_anything(xx->fResultOut, gensym(addressString), 0, NULL);
             }
         }
     }
@@ -90,7 +90,7 @@ static void hostResolutionCallback(CFHostRef             theHost,
                                    const CFStreamError * error,
                                    void *                info)
 {
-    TcpLocateData * xx = (TcpLocateData *) info;
+    TcpLocateData * xx = reinterpret_cast<TcpLocateData *>(info);
 
     if (xx)
     {
@@ -112,7 +112,8 @@ void doNameLookup(TcpLocateData * xx,
 {
     if (xx)
     {
-        CFStringRef         asString = CFStringCreateWithCString(kCFAllocatorDefault, name, kCFStringEncodingASCII);
+        CFStringRef         asString = CFStringCreateWithCString(kCFAllocatorDefault, name,
+                                                                 kCFStringEncodingASCII);
         CFHostClientContext context = { 0, xx, NULL, NULL, NULL };
 
         if (xx->fHost)
@@ -141,6 +142,7 @@ void doNameLookup(TcpLocateData * xx,
         }
     }
 } // doNameLookup
+
 /*------------------------------------ initObject ---*/
 bool initObject(TcpLocateData * xx)
 {
@@ -149,7 +151,7 @@ bool initObject(TcpLocateData * xx)
     if (xx)
     {
         xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
 #if defined(BE_VERBOSE)
         xx->fVerbose = false;
 #endif /* BE_VERBOSE */

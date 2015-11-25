@@ -63,6 +63,6 @@ bool fileLoggerReleaseTheFile(FileLoggerData * xx);
 bool fileLoggerWriteStringToTheFile(FileLoggerData * xx,
                                     const char *     value);
 
-StandardRoutineDeclarations(FileLoggerData *);
+StandardRoutineDeclarations(FileLoggerData);
 
 #endif /* not FILELOGGER_H_ */

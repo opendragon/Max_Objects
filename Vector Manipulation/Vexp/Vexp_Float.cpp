@@ -41,8 +41,7 @@
 #include <cfloat>
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(VObjectData * xx,
-               double        msg)
+FLOAT_HEADER(VObjectData)
 {
     if (xx)
     {
@@ -61,9 +60,9 @@ void cmd_Float(VObjectData * xx,
         }
         else
         {
-            newValue = exp(msg);
+            newValue = exp(TO_DBL(msg));
         }
-        xx->fPreviousFloat = newValue;
+        xx->fPreviousFloat = TO_DBL(newValue);
         xx->fPreviousKind = A_FLOAT;
         outlet_float(xx->fResultOut, xx->fPreviousFloat);
     }

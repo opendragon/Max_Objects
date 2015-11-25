@@ -40,13 +40,13 @@
 #include "map2d.h"
 
 /*------------------------------------ cmd_Count ---*/
-void cmd_Count(Map2dData * xx)
+COUNT_HEADER(Map2dData)
 {
     if (xx)
     {
         t_atom temp[1];
 
-        SETLONG(temp, static_cast<long>(xx->fRangeCount));
+        A_SETLONG(temp, TO_INT(xx->fRangeCount));
         outlet_anything(xx->fResultOut, gCountSymbol, 1, temp);
     }
 } // cmd_Count

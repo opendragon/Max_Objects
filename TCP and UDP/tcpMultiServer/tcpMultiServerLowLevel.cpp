@@ -48,14 +48,18 @@ static void processErrorQueue(TcpMultiServerData * xx)
 
         outlet_bang(xx->fErrorBangOut);
         lockout_set(prev_lock);
+#if USE_EVNUM
         evnum_incr();
+#endif /* USE_EVNUM */
     }
 } // processErrorQueue
+
 /*------------------------------------ processRebindQueue ---*/
 static void processRebindQueue(TcpMultiServerData * xx)
 {
     if (xx)
     {
+#if 0
         short    prev_lock = lockout_set(1);
         OSStatus result = kOTNoError;
 
@@ -79,7 +83,7 @@ static void processRebindQueue(TcpMultiServerData * xx)
             bind_request.addr.buf = reinterpret_cast<unsigned char *>(&in_address);
             bind_request.qlen = 1;
             WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fListenEndpoint, &bind_request,
-                                                      NULL_PTR))
+                                                      NULL))
             if (result != kOTNoError)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
@@ -88,9 +92,13 @@ static void processRebindQueue(TcpMultiServerData * xx)
             }
         }
         lockout_set(prev_lock);
+#if USE_EVNUM
         evnum_incr();
+#endif /* USE_EVNUM */
+#endif//0
     }
 } // processRebindQueue
+
 /*------------------------------------ processReceiveQueue ---*/
 static void processReceiveQueue(TcpMultiServerData * xx)
 {
@@ -116,14 +124,14 @@ static void processReceiveQueue(TcpMultiServerData * xx)
             /* Grab the head of the received list */
             if (temp->fNext)
             {
-                temp->fNext->fPrevious = NULL_PTR;
+                temp->fNext->fPrevious = NULL;
             }
             xx->fReceiveHead = temp->fNext;
             if (! xx->fReceiveHead)
             {
-                xx->fReceiveTail = NULL_PTR;
+                xx->fReceiveTail = NULL;
             }
-            temp->fNext = NULL_PTR;
+            temp->fNext = NULL;
             walker = reinterpret_cast<char *>(&temp->fData->fNumElements);
             numMessages = validateBuffer(xx, OUR_NAME, temp->fData, temp->fRawMode);
             for (short ii = 0; ii < numMessages; ++ii)
@@ -137,7 +145,7 @@ static void processReceiveQueue(TcpMultiServerData * xx)
                 if (numAtoms > 0)
                 {
                     outlet_anything(xx->fResultOut, gReplySymbol, numAtoms, got_stuff);
-                    FREEBYTES(got_stuff, numAtoms)
+                    FREE_BYTES(got_stuff);
                 }
             }
             /* Add the temp link to the buffer pool */
@@ -153,9 +161,12 @@ static void processReceiveQueue(TcpMultiServerData * xx)
             xx->fPoolTail = temp;
         }
         lockout_set(prev_lock);
+#if USE_EVNUM
         evnum_incr();
+#endif /* USE_EVNUM */
     }
 } // processReceiveQueue
+
 /*------------------------------------ initObject ---*/
 bool initObject(TcpMultiServerData * xx,
                 const long           port,
@@ -165,31 +176,33 @@ bool initObject(TcpMultiServerData * xx,
 
     if (xx)
     {
+#if 0
+        long buffSize = static_cast<long>((numBuffers + (xx->fMaximumConnections * 2)) *
+                                          BUFF_MEMORY_TO_ALLOC);
+        
         xx->fServerPort = static_cast<unsigned short>(port ? port : DEFAULT_PORT);
         xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
         setObjectState(xx, kTcpStateUnbound);
         xx->fListenEndpoint = kOTInvalidEndpointRef;
-        xx->fErrorQueue = static_cast<t_qelem *>(qelem_new(xx, reinterpret_cast<method>(processErrorQueue)));
-        xx->fRebindQueue = static_cast<t_qelem *>(qelem_new(xx, reinterpret_cast<method>(processRebindQueue)));
-        xx->fReceiveQueue = static_cast<t_qelem *>(qelem_new(xx, reinterpret_cast<method>(processReceiveQueue)));
-        xx->fBufferBase = reinterpret_cast<DataBuffer **>(sysmem_newhandle(static_cast<long>((numBuffers +
-                                                                                      (xx->fMaximumConnections * 2)) *
-                                                                                             BUFF_MEMORY_TO_ALLOC)));
+        xx->fErrorQueue = MAKE_QELEM(xx, processErrorQueue);
+        xx->fRebindQueue = MAKE_QELEM(xx, processRebindQueue);
+        xx->fReceiveQueue = MAKE_QELEM(xx, processReceiveQueue);
+        xx->fBufferBase = reinterpret_cast<DataBuffer **>(sysmem_newhandle(buffSize));
         if (xx->fBufferBase)
         {
             sysmem_lockhandle(reinterpret_cast<t_handle>(xx->fBufferBase), 1);
         }
-        xx->fLinkBase = reinterpret_cast<TcpBufferLink **>(sysmem_newhandle(static_cast<long>(numBuffers *
-                                                                                              sizeof(TcpBufferLink))));
+        xx->fLinkBase = MAKE_TYPED_HANDLE(TcpBufferLink, numBuffers);
         if (xx->fLinkBase)
         {
             // Offset by the number of buffers needed for the receive/send buffers dedicated to each connection:
-            DataBuffer *    this_buffer = reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(*xx->fBufferBase,
-                                                                                        xx->fMaximumConnections * 2 *
-                                                                                        BUFF_MEMORY_TO_ALLOC));
-            TcpBufferLink * prev_link = NULL_PTR;
-            TcpBufferLink * this_link = NULL_PTR;
+            DataBuffer *    this_buffer =
+                                    reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(*xx->fBufferBase,
+                                                                    xx->fMaximumConnections * 2 *
+                                                                            BUFF_MEMORY_TO_ALLOC));
+            TcpBufferLink * prev_link = NULL;
+            TcpBufferLink * this_link = NULL;
 
             sysmem_lockhandle(reinterpret_cast<t_handle>(xx->fLinkBase), 1);
             xx->fPoolHead = *xx->fLinkBase;
@@ -198,14 +211,16 @@ bool initObject(TcpMultiServerData * xx,
             {
                 this_link->fPrevious = prev_link;
                 this_link->fData = this_buffer;
-                this_buffer = reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(this_buffer, BUFF_MEMORY_TO_ALLOC));
-                this_link->fNext = NULL_PTR;
+                this_buffer = reinterpret_cast<DataBuffer *>(ADD_TO_ADDRESS(this_buffer,
+                                                                            BUFF_MEMORY_TO_ALLOC));
+                this_link->fNext = NULL;
                 if (prev_link)
                 {
                     prev_link->fNext = this_link;
                 }
                 prev_link = this_link;
-                this_link = reinterpret_cast<TcpBufferLink *>(ADD_TO_ADDRESS(this_link, sizeof(TcpBufferLink)));
+                this_link = reinterpret_cast<TcpBufferLink *>(ADD_TO_ADDRESS(this_link,
+                                                                             sizeof(TcpBufferLink)));
             }
             xx->fPoolTail = prev_link;
         }
@@ -213,15 +228,17 @@ bool initObject(TcpMultiServerData * xx,
 #if defined(BE_VERBOSE)
         xx->fVerbose = false;
 #endif /* BE_VERBOSE */
-        if (! (xx->fResultOut &&  xx->fErrorBangOut && xx->fErrorQueue && xx->fRebindQueue && xx->fReceiveQueue &&
-               xx->fBufferBase && xx->fLinkBase))
+        if (! (xx->fResultOut &&  xx->fErrorBangOut && xx->fErrorQueue && xx->fRebindQueue &&
+               xx->fReceiveQueue && xx->fBufferBase && xx->fLinkBase))
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port or buffer for object")
             okSoFar = false;
         }
+#endif//0
     }
     return okSoFar;
 } // initObject
+
 /*------------------------------------ makeReceiveBufferAvailable ---*/
 bool makeReceiveBufferAvailable(TcpConnectionData * connection)
 {
@@ -229,14 +246,15 @@ bool makeReceiveBufferAvailable(TcpConnectionData * connection)
 
     if (connection)
     {
+#if 0
         TcpMultiServerData * xx = connection->fOwner;
         OSStatus             err;
         OTFlags              flags;
 
         WRAP_OT_CALL(connection->fOwner, err, "OTRcv", OTRcv(connection->fDataEndpoint,
-                                                             &connection->fReceiveBuffer->fNumElements,
+                                                         &connection->fReceiveBuffer->fNumElements,
                                                              MAX_BUFFER_TO_RECEIVE, &flags))
-        if (err < 0)
+        if (0 > err)
         {
             REPORT_ERROR(xx, OUTPUT_PREFIX "OTRcv failed (%ld = %s)", err)
             reportEndpointState(xx, connection->fDataEndpoint);
@@ -254,14 +272,14 @@ bool makeReceiveBufferAvailable(TcpConnectionData * connection)
 
                 if (temp->fNext)
                 {
-                    temp->fNext->fPrevious = NULL_PTR;
+                    temp->fNext->fPrevious = NULL;
                 }
                 xx->fPoolHead = temp->fNext;
                 if (! xx->fPoolHead)
                 {
-                    xx->fPoolTail = NULL_PTR;
+                    xx->fPoolTail = NULL;
                 }
-                temp->fNext = NULL_PTR;
+                temp->fNext = NULL;
                 /* Exchange the receive buffer and the pool buffer */
                 temp->fData = connection->fReceiveBuffer;
                 connection->fReceiveBuffer = swapper;
@@ -286,48 +304,54 @@ bool makeReceiveBufferAvailable(TcpConnectionData * connection)
             }
             signalReceive(xx);
         }
+#endif//0
     }
     return okSoFar;
 } // makeReceiveBufferAvailable
+
 /*------------------------------------ presetObjectPointers ---*/
 void presetObjectPointers(TcpMultiServerData * xx)
 {
     if (xx)
     {
-        xx->fErrorBangOut = xx->fResultOut = NULL_PTR;
-        xx->fErrorQueue = xx->fRebindQueue = xx->fReceiveQueue = NULL_PTR;
+#if 0
+        xx->fErrorBangOut = xx->fResultOut = NULL;
+        xx->fErrorQueue = xx->fRebindQueue = xx->fReceiveQueue = NULL;
         xx->fListenEndpoint = kOTInvalidEndpointRef;
-        xx->fAccessControl = NULL_PTR;
-        xx->fBufferBase = NULL_HDL;
-        xx->fLinkBase = NULL_HDL;
-        xx->fSelfName = NULL_PTR;
-        xx->fReceiveHead = xx->fReceiveTail = xx->fPoolHead = xx->fPoolTail = NULL_PTR;
-        xx->fConnections = NULL_HDL;
-        xx->fConnectionBase = NULL_HDL;
+        xx->fAccessControl = NULL;
+        xx->fBufferBase = NULL;
+        xx->fLinkBase = NULL;
+        xx->fSelfName = NULL;
+        xx->fReceiveHead = xx->fReceiveTail = xx->fPoolHead = xx->fPoolTail = NULL;
+        xx->fConnections = NULL;
+        xx->fConnectionBase = NULL;
+#endif//0
     }
 } // presetObjectPointers
+
 /*------------------------------------ releaseObjectMemory ---*/
 void releaseObjectMemory(TcpMultiServerData * xx)
 {
     if (xx)
     {
+#if 0
         if (xx->fErrorQueue)
         {
             qelem_unset(xx->fErrorQueue);
             qelem_free(xx->fErrorQueue);
-            xx->fErrorQueue = NULL_PTR;
+            xx->fErrorQueue = NULL;
         }
         if (xx->fReceiveQueue)
         {
             qelem_unset(xx->fReceiveQueue);
             qelem_free(xx->fReceiveQueue);
-            xx->fReceiveQueue = NULL_PTR;
+            xx->fReceiveQueue = NULL;
         }
         if (xx->fRebindQueue)
         {
             qelem_unset(xx->fRebindQueue);
             qelem_free(xx->fRebindQueue);
-            xx->fRebindQueue = NULL_PTR;
+            xx->fRebindQueue = NULL;
         }
         if (xx->fConnectionBase)
         {
@@ -354,24 +378,27 @@ void releaseObjectMemory(TcpMultiServerData * xx)
             }
             sysmem_lockhandle(reinterpret_cast<t_handle>(xx->fConnectionBase), 0);
             sysmem_freehandle(reinterpret_cast<t_handle>(xx->fConnectionBase));
-            xx->fConnectionBase = NULL_HDL;
+            xx->fConnectionBase = NULL;
         }
         if (xx->fBufferBase)
         {
             sysmem_lockhandle(reinterpret_cast<t_handle>(xx->fBufferBase), 0);
             sysmem_freehandle(reinterpret_cast<t_handle>(xx->fBufferBase));
-            xx->fBufferBase = NULL_HDL;
+            xx->fBufferBase = NULL;
         }
-        xx->fReceiveHead = xx->fReceiveTail = xx->fPoolHead = xx->fPoolTail = NULL_PTR;
+        xx->fReceiveHead = xx->fReceiveTail = xx->fPoolHead = xx->fPoolTail = NULL;
         if (xx->fLinkBase)
         {
             sysmem_lockhandle(reinterpret_cast<t_handle>(xx->fLinkBase), 0);
             sysmem_freehandle(reinterpret_cast<t_handle>(xx->fLinkBase));
-            xx->fLinkBase = NULL_HDL;
+            xx->fLinkBase = NULL;
         }
-        FREEBYTES(xx->fConnections, xx->fMaximumConnections)
+        FREE_BYTES(xx->fConnections);
+#endif//0
     }
 } // releaseObjectMemory
+
+#if 0
 /*------------------------------------ reportEndpointState ---*/
 void reportEndpointState(TcpMultiServerData * xx,
                          EndpointRef          endpoint)
@@ -381,6 +408,8 @@ void reportEndpointState(TcpMultiServerData * xx,
         LOG_ERROR_2(xx, OUTPUT_PREFIX "Endpoint state: %s", describeEndpointState(endpoint));
     }
 } // reportEndpointState
+#endif//0
+
 /*------------------------------------ setConnectionState ---*/
 void setConnectionState(TcpConnectionData * connection,
                         const TcpState      newState)
@@ -395,11 +424,13 @@ void setConnectionState(TcpConnectionData * connection,
 #if defined(BE_VERBOSE)
         if (xx && xx->fVerbose)
         {
-            LOG_POST_3(xx, OUTPUT_PREFIX "--> %s/%d", mapStateToSymbol(newState)->s_name, connection->fIdentifier)
+            LOG_POST_3(xx, OUTPUT_PREFIX "--> %s/%d", mapStateToSymbol(newState)->s_name,
+                       connection->fIdentifier)
         }
 #endif /* BE_VERBOSE */
     }
 } // setConnectionState
+
 /*------------------------------------ setObjectState ---*/
 void setObjectState(TcpMultiServerData * xx,
                     const TcpState       newState)
@@ -415,6 +446,8 @@ void setObjectState(TcpMultiServerData * xx,
 #endif /* BE_VERBOSE */
     }
 } // setObjectState
+
+#if 0
 /*------------------------------------ transmitBuffer ---*/
 void transmitBuffer(TcpMultiServerData * xx,
                     EndpointRef          out,
@@ -427,7 +460,8 @@ void transmitBuffer(TcpMultiServerData * xx,
 
         if (rawMode)
         {
-            WRAP_OT_CALL(xx, result, "OTSnd", OTSnd(out, &aBuffer->fElements, aBuffer->fNumBytesInUse, 0L))
+            WRAP_OT_CALL(xx, result, "OTSnd", OTSnd(out, &aBuffer->fElements,
+                                                    aBuffer->fNumBytesInUse, 0L))
         }
         else
         {
@@ -437,10 +471,11 @@ void transmitBuffer(TcpMultiServerData * xx,
             aBuffer->fNumElements = htons(aBuffer->fNumElements);
             WRAP_OT_CALL(xx, result, "OTSnd", OTSnd(out, &aBuffer->fNumElements, num_bytes, 0L))
         }
-        if (result < 0)
+        if (0 > result)
         {
             REPORT_ERROR(xx, OUTPUT_PREFIX "OTSnd failed (%ld = %s)", result)
             reportEndpointState(xx, out);
         }
     }
 } // transmitBuffer
+#endif//0

@@ -42,7 +42,7 @@
 /*------------------------------------ deferred_Load ---*/
 static void deferred_Load(MemoryData * xx,
                           t_symbol *   fileName,
-                          short        argc,
+                          const short  argc,
                           t_atom *     argv)
 {
     t_filehandle fileRef;
@@ -105,7 +105,7 @@ static void deferred_Load(MemoryData * xx,
                         theSymbol = memoryAddSymbol(xx, tempAtom.a_w.w_sym);
                         if (theSymbol)
                         {
-                            FREEBYTES(theSymbol->fOutput, theSymbol->fOutputCount);
+                            FREE_BYTES(theSymbol->fOutput);
                             theSymbol->fOutputCount = 0;
                         }
                         else
@@ -113,12 +113,14 @@ static void deferred_Load(MemoryData * xx,
                             LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create new symbol")
                             break;
                         }
+                        
                     }
                     else
                     {
                         LOG_ERROR_1(xx, OUTPUT_PREFIX "expected a symbol")
                         break;
                     }
+                    
                 }
                 okSoFar = (! binbuf_getatom(inBuffer, &typeOffset, &stuffOffset, &tempAtom));
                 if (okSoFar)
@@ -136,17 +138,18 @@ static void deferred_Load(MemoryData * xx,
                         LOG_ERROR_1(xx, OUTPUT_PREFIX "expected a number following the symbol")
                         break;
                     }
+                    
                 }
                 /* Collect the atoms */
                 if (numAtoms > 0)
                 {
-                    atomVector = GETBYTES(numAtoms, t_atom);
+                    atomVector = GET_BYTES(numAtoms, t_atom);
                     if (atomVector)
                     {
                         /* Prefill the atom vector, in case of early termination. */
                         for (short ii = 0; ii < numAtoms; ++ii)
                         {
-                            SETLONG(atomVector + ii, 0);
+                            A_SETLONG(atomVector + ii, 0);
                         }
                         for (short ii = 0; okSoFar && (ii < numAtoms); ++ii)
                         {
@@ -160,7 +163,7 @@ static void deferred_Load(MemoryData * xx,
                 }
                 else
                 {
-                    atomVector = NULL_PTR;
+                    atomVector = NULL;
                 }
                 theSymbol->fOutput = atomVector;
                 theSymbol->fOutputCount = numAtoms;
@@ -174,8 +177,7 @@ static void deferred_Load(MemoryData * xx,
 } // deferred_Load
 
 /*------------------------------------ cmd_Load ---*/
-void cmd_Load(MemoryData * xx,
-              t_symbol *   fileName)
+LOAD_HEADER(MemoryData)
 {
     if (xx)
     {

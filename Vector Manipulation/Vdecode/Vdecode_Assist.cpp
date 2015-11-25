@@ -40,11 +40,7 @@
 #include "Vdecode.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(VdecodeData * xx,
-                void *        bb,
-                long          msg,
-                long          arg,
-                char *        dstString)
+ASSIST_HEADER(VdecodeData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

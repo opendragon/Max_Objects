@@ -40,8 +40,7 @@
 #include "mtc.h"
 
 /*------------------------------------ cmd_Verbose ---*/
-void cmd_Verbose(MtcData *  xx,
-                 t_symbol * onOff)
+VERBOSE_HEADER(MtcData)
 {
     if (xx)
     {
@@ -72,6 +71,7 @@ void cmd_Verbose(MtcData *  xx,
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Verbose

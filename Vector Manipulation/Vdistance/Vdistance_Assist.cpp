@@ -40,11 +40,7 @@
 #include "Vdistance.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(VdistanceData * xx,
-                void *          bb,
-                long            msg,
-                long            arg,
-                char *          dstString)
+ASSIST_HEADER(VdistanceData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

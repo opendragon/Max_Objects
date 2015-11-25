@@ -51,23 +51,23 @@
 
 struct MtcSampleData
 {
-    float    fThisP;
-    float    fThisX;
-    float    fThisY;
+    double   fThisP;
+    double   fThisX;
+    double   fThisY;
     double * fActDistance;
     bool     fAvailable;
 }; // MtcSampleData
 
 struct MtcRetainedData
 {
-    float  fLastP;
-    float  fLastX;
-    float  fLastY;
-    float  fDeltaX;
-    float  fDeltaY;
-    float  fNewP;
-    float  fNewX;
-    float  fNewY;
+    double fLastP;
+    double fLastX;
+    double fLastY;
+    double fDeltaX;
+    double fDeltaY;
+    double fNewP;
+    double fNewX;
+    double fNewY;
     double fVelocity;
     double fForce;
     bool   fFresh;
@@ -85,7 +85,7 @@ struct MtcTrackData
     MtcSampleData *   fSamples;
     double *          fActDistances;
     double            fThreshold;
-    long              fBatchNumber;
+    t_atom_long       fBatchNumber;
     short             fHowMany;
     short             fMaxSamples;
     short             fRetainedCount;
@@ -97,7 +97,7 @@ struct MtcTrackData
 void cmd_Batch(MtcTrackData * xx,
                t_symbol *     onOff);
 
-void cmd_Clear(MtcTrackData * xx);
+CLEAR_HEADER(MtcTrackData);
 
 void cmd_Index(MtcTrackData * xx,
                t_symbol *     onOff);
@@ -105,7 +105,7 @@ void cmd_Index(MtcTrackData * xx,
 void cmd_Threshold(MtcTrackData * xx,
                    double         num);
 
-StandardRoutineDeclarations(MtcTrackData *);
+StandardRoutineDeclarations(MtcTrackData);
 
 mextern(t_symbol *) gBatchSymbol; /* Pointer to unique symbol for 'batch' */
 mextern(t_symbol *) gEmptySymbol; /* Pointer to unique symbol for '' */

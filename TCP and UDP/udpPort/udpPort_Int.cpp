@@ -40,8 +40,7 @@
 #include "udpPort.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(UdpObjectData * xx,
-             long            msg)
+INT_HEADER(UdpObjectData)
 {
     REPORT_MAX_MESSAGE("int")
     if (xx)

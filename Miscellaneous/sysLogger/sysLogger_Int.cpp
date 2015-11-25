@@ -40,8 +40,7 @@
 #include "sysLogger.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(SysLoggerData * xx,
-             long            msg)
+INT_HEADER(SysLoggerData)
 {
     if (xx)
     {

@@ -40,12 +40,11 @@
 #include "Vdrop.h"
 
 /*------------------------------------ cmd_In1 ---*/
-void cmd_In1(VObjectData * xx,
-             long          number)
+IN1_HEADER(VObjectData)
 {
     /* We've received a number. */
     if (xx)
     {
-        xx->fHowMany = static_cast<short>(number);
+        xx->fHowMany = static_cast<short>(msg);
     }
 } // cmd_In1

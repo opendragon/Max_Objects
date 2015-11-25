@@ -53,8 +53,10 @@ void cmd_Server(TcpObjectData * xx,
 
         if (checkIpString(ipAddress, byte_0, byte_1, byte_2, byte_3))
         {
-            unsigned long tempAddress = static_cast<unsigned long>(((byte_0 & 0x0FF) << 24) | ((byte_1 & 0x0FF) << 16) |
-                                                                   ((byte_2 & 0x0FF) << 8) | (byte_3 & 0x0FF));
+            unsigned long tempAddress = static_cast<unsigned long>(((byte_0 & 0x0FF) << 24) |
+                                                                   ((byte_1 & 0x0FF) << 16) |
+                                                                   ((byte_2 & 0x0FF) << 8) |
+                                                                   (byte_3 & 0x0FF));
 
             if (tempAddress != xx->fServerAddress)
             {
@@ -63,8 +65,9 @@ void cmd_Server(TcpObjectData * xx,
 #if defined(BE_VERBOSE)
                     if (xx->fVerbose)
                     {
-                        LOG_POST_5(xx, OUTPUT_PREFIX "server changed to %d.%d.%d.%d", static_cast<int>(byte_0),
-                                   static_cast<int>(byte_1), static_cast<int>(byte_2), static_cast<int>(byte_3))
+                        LOG_POST_5(xx, OUTPUT_PREFIX "server changed to %d.%d.%d.%d",
+                                   static_cast<int>(byte_0), static_cast<int>(byte_1),
+                                   static_cast<int>(byte_2), static_cast<int>(byte_3))
                     }
 #endif /* BE_VERBOSE */
                 }

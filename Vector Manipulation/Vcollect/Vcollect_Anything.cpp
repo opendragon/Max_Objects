@@ -40,10 +40,7 @@
 #include "Vcollect.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(VcollectData * xx,
-                  t_symbol *     message,
-                  short          argc,
-                  t_atom *       argv)
+ANYTHING_HEADER(VcollectData)
 {
     if (xx)
     {
@@ -54,9 +51,9 @@ void cmd_Anything(VcollectData * xx,
             case 0:
             case 1:
                 /* Left  and right inlet */
-                SETSYM(dummy, message);
+                A_SETSYM(dummy, message);
                 collectAddAtoms(xx, dummy, 1);
-                if (argc > 0)
+                if (0 < argc)
                 {
                     collectAddAtoms(xx, argv, argc);
                 }
@@ -65,6 +62,7 @@ void cmd_Anything(VcollectData * xx,
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Anything

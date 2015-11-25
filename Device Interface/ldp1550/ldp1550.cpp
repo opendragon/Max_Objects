@@ -42,83 +42,69 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * ldpCreate(long pollRate,
-                 long infoRate,
-                 long poolSize);
-
-void ldpFree(LdpData * xx);
-
-void ldpProcessClock(LdpData * xx);
-
-void ldpProcessQueue(LdpData * xx);
-
-/*------------------------------------ main ---*/
-int main(void)
+/*------------------------------------ ldpProcessClock ---*/
+static void ldpProcessClock(LdpData * xx)
 {
-    /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(ldpCreate), reinterpret_cast<method>(ldpFree),
-                               sizeof(LdpData), reinterpret_cast<method>(0L), A_DEFLONG, A_DEFLONG, A_DEFLONG, 0);
-
-    if (temp)
+    if (xx && (! xx->fStopping))
     {
-        class_addmethod(temp, reinterpret_cast<method>(cmd_AllInfo), "allinfo", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Chapter), "chapter", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Continue), "continue", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Frame), "frame", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_In1), MESSAGE_IN1, A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Memory), "memory", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Mode), "mode", A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_MSearch), "msearch", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Picture), "picture", A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Play), "play", A_DEFSYM, A_DEFLONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_PlayTill), "playtill", A_LONG, A_DEFSYM, A_DEFLONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_PSCEnable), "pscenable", A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Repeat), "repeat", A_LONG, A_DEFSYM, A_DEFLONG, A_DEFLONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Reset), "reset", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Search), "search", A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Show), "show", A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Sound), "sound", A_LONG, A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Status), "status", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_StepStill), "step&still", A_DEFSYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Still), "still", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Stop), "stop", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_XReset), "xreset", 0);
-        class_register(CLASS_BOX, temp);
+        qelem_set(xx->fPollQueue);
     }
-    gClass = temp;
-    gChapterSymbol = gensym("chapter");
-    gEmptySymbol = gensym("");
-    gFastSymbol = gensym("fast");
-    gFrameSymbol = gensym("frame");
-    gFwdSymbol = gensym("fwd");
-    gOffSymbol = gensym("off");
-    gOnSymbol = gensym("on");
-    gRevFastSymbol = gensym("rev-fast");
-    gRevScanSymbol = gensym("rev-scan");
-    gRevSlowSymbol = gensym("rev-slow");
-    gRevStepSymbol = gensym("rev-step");
-    gRevSymbol = gensym("rev");
-    gScanSymbol = gensym("scan");
-    gSlowSymbol = gensym("slow");
-    gStepSymbol = gensym("step");
-    reportVersion(OUR_NAME);
-    return 0;
-} // main
+} // ldpProcessClock
+
+/*------------------------------------ ldpProcessQueue ---*/
+static void ldpProcessQueue(LdpData * xx)
+{
+    if (xx && (! xx->fStopping))
+    {
+        short prevLock = lockout_set(1);
+        
+        outlet_bang(xx->fPollerOut);
+        clock_delay(xx->fPollClock, xx->fPollRate);
+        if (xx->fInfoSamplingEnabled && (xx->fInfoCount-- <= 0))
+        {
+            /* Process information request */
+            if (ldpCheckPoolSpace(xx, 3))
+            {
+                if (xx->fInterruptPoint)
+                {
+                    ldpInsertCommand(xx, xx->fInterruptPoint, kLdpCommandChapterInquiry,
+                                     kLdpStateAwaitingChapterByte1);
+                    ldpInsertCommand(xx, xx->fInterruptPoint, kLdpCommandAddressInquiry,
+                                     kLdpStateAwaitingFrameByte1);
+                    ldpInsertCommand(xx, xx->fInterruptPoint, kLdpCommandStatusInquiry,
+                                     kLdpStateAwaitingStatusByte1);
+                    ldpSendCommand(xx);
+                }
+                else if (! xx->fFirst)
+                {
+                    /*ldpInitCommands(xx);*/
+                    ldpAddCommand(xx, kLdpCommandChapterInquiry, kLdpStateAwaitingChapterByte1);
+                    ldpAddCommand(xx, kLdpCommandAddressInquiry, kLdpStateAwaitingFrameByte1);
+                    ldpAddCommand(xx, kLdpCommandStatusInquiry, kLdpStateAwaitingStatusByte1);
+                    ldpSendCommand(xx);
+                }
+            }
+            xx->fInfoCount = xx->fInfoRate;
+        }
+        lockout_set(prevLock);
+#if USE_EVNUM
+        evnum_incr();
+#endif /* USE_EVNUM */
+    }
+} // ldpProcessQueue
+
 /*------------------------------------ ldpCreate ---*/
-void * ldpCreate(long pollRate,
-                 long infoRate,
-                 long poolSize)
+static void * ldpCreate(const long pollRate,
+                        const long infoRate,
+                        const long poolSize)
 {
     LdpData * xx = static_cast<LdpData *>(object_alloc(gClass));
-
+    
     if (xx)
     {
-        xx->fPollClock = NULL_PTR;
-        xx->fPollQueue = NULL_PTR;
-        xx->fPool = NULL_PTR;
+        xx->fPollClock = NULL;
+        xx->fPollQueue = NULL;
+        xx->fPool = NULL;
         if ((pollRate < 0) || (pollRate > MAX_POLL_RATE))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid polling rate (%ld) for device", pollRate)
@@ -158,20 +144,21 @@ void * ldpCreate(long pollRate,
         xx->fKeyModeStatus = static_cast<t_outlet *>(intout(xx));
         xx->fPollerOut = static_cast<t_outlet *>(bangout(xx));
         xx->fCommandsOut = static_cast<t_outlet *>(intout(xx));
-        xx->fPollClock = static_cast<t_clock *>(clock_new(xx, reinterpret_cast<method>(ldpProcessClock)));
-        xx->fPollQueue = static_cast<t_qelem *>(qelem_new(xx, reinterpret_cast<method>(ldpProcessQueue)));
+        xx->fPollClock = MAKE_CLOCK(xx, ldpProcessClock);
+        xx->fPollQueue = MAKE_QELEM(xx, ldpProcessQueue);
         xx->fFrameNumber = xx->fInfoCount = 0;
         xx->fInfoSamplingEnabled = (infoRate > 0);
         xx->fStopping = false;
         xx->fMode = kLdpModeFrame;
-        xx->fFirst = xx->fLast = xx->fInterruptPoint = NULL_PTR;
-        xx->fPool = GETBYTES(xx->fPoolSize, LdpPacket);
-        if (xx->fFrameNumberOut && xx->fChapterNumberOut && xx->fCommandComplete && xx->fCommandStatus &&
-            xx->fKeyModeStatus && xx->fPollerOut && xx->fCommandsOut && xx->fPollClock && xx->fPollQueue && xx->fPool)
+        xx->fFirst = xx->fLast = xx->fInterruptPoint = NULL;
+        xx->fPool = GET_BYTES(xx->fPoolSize, LdpPacket);
+        if (xx->fFrameNumberOut && xx->fChapterNumberOut && xx->fCommandComplete &&
+            xx->fCommandStatus && xx->fKeyModeStatus && xx->fPollerOut && xx->fCommandsOut &&
+            xx->fPollClock && xx->fPollQueue && xx->fPool)
         {
-            LdpPacket * prev = NULL_PTR;
+            LdpPacket * prev = NULL;
             LdpPacket * curr = xx->fPool;
-
+            
             for (short index = 0; index < xx->fPoolSize; ++index)
             {
                 curr->fPrev = prev;
@@ -181,7 +168,7 @@ void * ldpCreate(long pollRate,
                 }
                 prev = curr++;
             }
-            prev->fNext = NULL_PTR;
+            prev->fNext = NULL;
             xx->fPoolAvailable = xx->fPoolSize;
             clock_delay(xx->fPollClock, xx->fPollRate);
         }
@@ -189,13 +176,14 @@ void * ldpCreate(long pollRate,
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port or clock for device")
             freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
+            xx = NULL;
         }
     }
     return xx;
 } // ldpCreate
+
 /*------------------------------------ ldpFree ---*/
-void ldpFree(LdpData * xx)
+static void ldpFree(LdpData * xx)
 {
     if (xx)
     {
@@ -204,60 +192,74 @@ void ldpFree(LdpData * xx)
         {
             clock_unset(xx->fPollClock);
             clock_free(reinterpret_cast<t_object *>(xx->fPollClock));
-            xx->fPollClock = NULL_PTR;
+            xx->fPollClock = NULL;
         }
         if (xx->fPollQueue)
         {
             qelem_unset(xx->fPollQueue);
             qelem_free(xx->fPollQueue);
-            xx->fPollQueue = NULL_PTR;
+            xx->fPollQueue = NULL;
         }
-        FREEBYTES(xx->fPool, xx->fPoolSize);
+        FREE_BYTES(xx->fPool);
     }
 } // ldpFree
-/*------------------------------------ ldpProcessClock ---*/
-void ldpProcessClock(LdpData * xx)
-{
-    if (xx && (! xx->fStopping))
-    {
-        qelem_set(xx->fPollQueue);
-    }
-} // ldpProcessClock
-/*------------------------------------ ldpProcessQueue ---*/
-void ldpProcessQueue(LdpData * xx)
-{
-    if (xx && (! xx->fStopping))
-    {
-        short prevLock = lockout_set(1);
 
-        outlet_bang(xx->fPollerOut);
-        clock_delay(xx->fPollClock, xx->fPollRate);
-        if (xx->fInfoSamplingEnabled && (xx->fInfoCount-- <= 0))
-        {
-            /* Process information request */
-            if (ldpCheckPoolSpace(xx, 3))
-            {
-                if (xx->fInterruptPoint)
-                {
-                    ldpInsertCommand(xx, xx->fInterruptPoint, kLdpCommandChapterInquiry, kLdpStateAwaitingChapterByte1);
-                    ldpInsertCommand(xx, xx->fInterruptPoint, kLdpCommandAddressInquiry, kLdpStateAwaitingFrameByte1);
-                    ldpInsertCommand(xx, xx->fInterruptPoint, kLdpCommandStatusInquiry, kLdpStateAwaitingStatusByte1);
-                    ldpSendCommand(xx);
-                }
-                else if (! xx->fFirst)
-                {
-                    /*ldpInitCommands(xx);*/
-                    ldpAddCommand(xx, kLdpCommandChapterInquiry, kLdpStateAwaitingChapterByte1);
-                    ldpAddCommand(xx, kLdpCommandAddressInquiry, kLdpStateAwaitingFrameByte1);
-                    ldpAddCommand(xx, kLdpCommandStatusInquiry, kLdpStateAwaitingStatusByte1);
-                    ldpSendCommand(xx);
-                }
-            }
-            xx->fInfoCount = xx->fInfoRate;
-        }
-        lockout_set(prevLock);
-        evnum_incr();
-    }
-} // ldpProcessQueue
+/*------------------------------------ main ---*/
+int main(void)
+{
+    /* Allocate class memory and set up class. */
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(ldpCreate),
+                               reinterpret_cast<method>(ldpFree), sizeof(LdpData),
+                               reinterpret_cast<method>(0L), A_DEFLONG, A_DEFLONG, A_DEFLONG, 0);
 
-StandardAnythingRoutine(LdpData *)
+    if (temp)
+    {
+        class_addmethod(temp, reinterpret_cast<method>(cmd_AllInfo), "allinfo", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Chapter), "chapter", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Continue), "continue", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Frame), "frame", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_In1), MESSAGE_IN1, A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Memory), "memory", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Mode), "mode", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_MSearch), "msearch", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Picture), "picture", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Play), "play", A_DEFSYM, A_DEFLONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_PlayTill), "playtill", A_LONG, A_DEFSYM,
+                        A_DEFLONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_PSCEnable), "pscenable", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Repeat), "repeat", A_LONG, A_DEFSYM,
+                        A_DEFLONG, A_DEFLONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Reset), "reset", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Search), "search", A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Show), "show", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Sound), "sound", A_LONG, A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Status), "status", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_StepStill), "step&still", A_DEFSYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Still), "still", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Stop), "stop", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_XReset), "xreset", 0);
+        class_register(CLASS_BOX, temp);
+    }
+    gClass = temp;
+    gChapterSymbol = gensym("chapter");
+    gEmptySymbol = gensym("");
+    gFastSymbol = gensym("fast");
+    gFrameSymbol = gensym("frame");
+    gFwdSymbol = gensym("fwd");
+    gOffSymbol = gensym("off");
+    gOnSymbol = gensym("on");
+    gRevFastSymbol = gensym("rev-fast");
+    gRevScanSymbol = gensym("rev-scan");
+    gRevSlowSymbol = gensym("rev-slow");
+    gRevStepSymbol = gensym("rev-step");
+    gRevSymbol = gensym("rev");
+    gScanSymbol = gensym("scan");
+    gSlowSymbol = gensym("slow");
+    gStepSymbol = gensym("step");
+    reportVersion(OUR_NAME);
+    return 0;
+} // main
+
+StandardAnythingRoutine(LdpData)

@@ -40,11 +40,7 @@
 #include "sysLogger.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(SysLoggerData * xx,
-                void *          bb,
-                long            msg,
-                long            arg,
-                char *          dstString)
+ASSIST_HEADER(SysLoggerData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

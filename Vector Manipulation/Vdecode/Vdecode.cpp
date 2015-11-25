@@ -42,21 +42,51 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VdecodeCreate(long whichBase1,
-                     long whichBase2,
-                     long whichBase3,
-                     long whichBase4,
-                     long whichBase5);
+/*------------------------------------ VdecodeCreate ---*/
+static void * VdecodeCreate(const long whichBase1,
+                            const long whichBase2,
+                            const long whichBase3,
+                            const long whichBase4,
+                            const long whichBase5)
+{
+    VdecodeData * xx = static_cast<VdecodeData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        if (checkBases(&xx->fInfo, whichBase1, whichBase2, whichBase3, whichBase4, whichBase5))
+        {
+            xx->fPreviousLong = 0;
+            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+            if (! xx->fResultOut)
+            {
+                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+                freeobject(reinterpret_cast<t_object *>(xx));
+                xx = NULL;
+            }
+        }
+        else
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "bad base list")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // VdecodeCreate
 
-void VdecodeFree(VdecodeData * xx);
+/*------------------------------------ VdecodeFree ---*/
+static void VdecodeFree(VdecodeData * xx)
+{
+#pragma unused(xx)
+} // VdecodeFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VdecodeCreate), reinterpret_cast<method>(VdecodeFree),
-                               sizeof(VdecodeData), reinterpret_cast<method>(0L), A_LONG, A_DEFLONG, A_DEFLONG,
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VdecodeCreate),
+                               reinterpret_cast<method>(VdecodeFree), sizeof(VdecodeData),
+                               reinterpret_cast<method>(0L), A_LONG, A_DEFLONG, A_DEFLONG,
                                A_DEFLONG, A_DEFLONG, 0);
 
     if (temp)
@@ -73,40 +103,5 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } /* main */
-/*------------------------------------ VdecodeCreate ---*/
-void * VdecodeCreate(long whichBase1,
-                     long whichBase2,
-                     long whichBase3,
-                     long whichBase4,
-                     long whichBase5)
-{
-    VdecodeData * xx = static_cast<VdecodeData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        if (checkBases(&xx->fInfo, whichBase1, whichBase2, whichBase3, whichBase4, whichBase5))
-        {
-            xx->fPreviousLong = 0;
-            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-            if (! xx->fResultOut)
-            {
-                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-                freeobject(reinterpret_cast<t_object *>(xx));
-                xx = NULL_PTR;
-            }
-        }
-        else
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "bad base list")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // VdecodeCreate
-/*------------------------------------ VdecodeFree ---*/
-void VdecodeFree(VdecodeData * xx)
-{
-#pragma unused(xx)
-} // VdecodeFree
-StandardAnythingRoutine(VdecodeData *)
+StandardAnythingRoutine(VdecodeData)

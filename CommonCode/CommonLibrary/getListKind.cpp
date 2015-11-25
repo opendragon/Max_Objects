@@ -39,11 +39,11 @@
 
 #include "getListKind.h"
 
-static t_symbol * lDollarSymbol = NULL_PTR; /* Pointer to unique symbol for '$' */
+/* Pointer to unique symbol for '$' */
+static t_symbol * lDollarSymbol = NULL;
 
 /*------------------------------------ getListKind ---*/
-unsigned char getListKind(const short argc,
-                          t_atom *    argv)
+GETLISTKIND_HEADER
 {
     short result = A_NOTHING;
 
@@ -55,12 +55,14 @@ unsigned char getListKind(const short argc,
     {
         short aType = argv[ii].a_type;
 
-        if ((aType != A_LONG) && (aType != A_FLOAT) && (aType != A_SYM) &&
-            (aType != A_SEMI) && (aType != A_COMMA) && (aType != A_DOLLAR))
+        if ((A_LONG != aType) && (A_FLOAT != aType) && (A_SYM != aType) &&
+            (A_SEMI != aType) && (A_COMMA != aType) && (A_DOLLAR != aType) &&
+            (A_DOLLSYM != aType))
         {
             result = A_ERROR; /* we can't work with this value! */
             break;
         }
+        
         if (A_NOTHING == result)
         {
             if ((A_SYM == aType) && (argv[ii].a_w.w_sym == lDollarSymbol))
@@ -80,10 +82,12 @@ unsigned char getListKind(const short argc,
                 {
                     continue;
                 }
+                
             }
             result = A_GIMME;
             break;
         }
+        
     }
     return static_cast<unsigned char>(result);
 } // getListKind

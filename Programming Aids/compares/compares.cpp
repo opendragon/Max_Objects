@@ -41,10 +41,38 @@
 #include "compares.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * comparesCreate(void);
+/*------------------------------------ comparesCreate ---*/
+static void * comparesCreate(void)
+{
+    ComparesData * xx = static_cast<ComparesData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fRightInput = gEmptySymbol;
+        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
+        xx->fProxy = proxy_new(xx, 1L, &xx->fInletNumber);
+        if (! (xx->fResultOut && xx->fProxy))
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // comparesCreate
 
-void comparesFree(ComparesData * xx);
+/*------------------------------------ comparesFree ---*/
+static void comparesFree(ComparesData * xx)
+{
+    if (xx)
+    {
+        if (xx->fProxy)
+        {
+            freeobject(reinterpret_cast<t_object *>(xx->fProxy));
+            xx->fProxy = NULL;
+        }
+    }
+} // comparesFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -65,34 +93,3 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ comparesCreate ---*/
-void * comparesCreate(void)
-{
-    ComparesData * xx = static_cast<ComparesData *>(object_alloc(gClass));
-
-    if (xx)
-    {
-        xx->fRightInput = gEmptySymbol;
-        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
-        xx->fProxy = proxy_new(xx, 1L, &xx->fInletNumber);
-        if (! (xx->fResultOut || xx->fProxy))
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // comparesCreate
-/*------------------------------------ comparesFree ---*/
-void comparesFree(ComparesData * xx)
-{
-    if (xx)
-    {
-        if (xx->fProxy)
-        {
-            freeobject(reinterpret_cast<t_object *>(xx->fProxy));
-            xx->fProxy = NULL_PTR;
-        }
-    }
-} // comparesFree

@@ -74,7 +74,7 @@ struct StackData
     bool              fVerbose;
 }; // StackData
 
-void cmd_Clear(StackData * xx);
+CLEAR_HEADER(StackData);
 
 void cmd_Depth(StackData * xx);
 
@@ -98,7 +98,7 @@ void cmd_Trace(StackData * xx,
 
 void stackClear(StackData * xx);
 
-StandardRoutineDeclarations(StackData *);
+StandardRoutineDeclarations(StackData);
 
 mextern(t_symbol *)        gEmptySymbol; /* Pointer to unique symbol for '' */
 mextern(t_symbol *)        gOffSymbol;   /* Pointer to unique symbol for 'off' */

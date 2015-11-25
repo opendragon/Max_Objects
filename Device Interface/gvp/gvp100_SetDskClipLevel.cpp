@@ -45,7 +45,7 @@ void cmd_SetDskClipLevel(GvpData * xx,
 {
     if (xx)
     {
-        if ((pos < 0) || (pos > 100.0))
+        if ((0 > pos) || (100.0 < pos))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid clip level (%g)", pos)
             outlet_bang(xx->fErrorBangOut);
@@ -58,7 +58,8 @@ void cmd_SetDskClipLevel(GvpData * xx,
             dummy[0] = 8;
             dummy[1] = static_cast<unsigned char>(temp & 0x00ff);
             dummy[2] = static_cast<unsigned char>((temp >> 8) & 0x00ff);
-            gvpPerformWriteCommand(xx, 0, kCommandWriteAnalogControl, 3, dummy, kStateAwaitingByteCount1, true);
+            gvpPerformWriteCommand(xx, 0, kCommandWriteAnalogControl, 3, dummy,
+                                   kStateAwaitingByteCount1, true);
         }
     }
 } // cmd_SetDskClipLevel

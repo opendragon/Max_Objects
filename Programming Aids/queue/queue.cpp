@@ -42,17 +42,55 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * queueCreate(long depth);
+/*------------------------------------ queueCreate ---*/
+static void * queueCreate(const long depth)
+{
+    QueueData * xx = static_cast<QueueData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        if (depth >= 0)
+        {
+            xx->fVerbose = false;
+            xx->fMaxDepth = depth;
+            xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
+            xx->fDepth = 0;
+            xx->fDepthOut = static_cast<t_outlet *>(intout(xx));
+            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+            xx->fFirstInQueue = xx->fLastInQueue = NULL;
+            if (! (xx->fResultOut && xx->fDepthOut && xx->fErrorBangOut))
+            {
+                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+                freeobject(reinterpret_cast<t_object *>(xx));
+                xx = NULL;
+            }
+        }
+        else
+        {
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "bad queue depth (%ld)", depth)
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // queueCreate
 
-void queueFree(QueueData * xx);
+/*------------------------------------ queueFree ---*/
+static void queueFree(QueueData * xx)
+{
+    if (xx)
+    {
+        queueClear(xx);
+    }
+} // queueFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(queueCreate), reinterpret_cast<method>(queueFree),
-                               sizeof(QueueData), reinterpret_cast<method>(0L), A_LONG, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(queueCreate),
+                               reinterpret_cast<method>(queueFree), sizeof(QueueData),
+                               reinterpret_cast<method>(0L), A_LONG, 0);
 
     if (temp)
     {
@@ -75,45 +113,5 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ queueCreate ---*/
-void * queueCreate(long depth)
-{
-    QueueData * xx = static_cast<QueueData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        if (depth >= 0)
-        {
-            xx->fVerbose = false;
-            xx->fMaxDepth = depth;
-            xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
-            xx->fDepth = 0;
-            xx->fDepthOut = static_cast<t_outlet *>(intout(xx));
-            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-            xx->fFirstInQueue = xx->fLastInQueue = NULL_PTR;
-            if (! (xx->fResultOut || xx->fDepthOut || xx->fErrorBangOut))
-            {
-                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-                freeobject(reinterpret_cast<t_object *>(xx));
-                xx = NULL_PTR;
-            }
-        }
-        else
-        {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "bad queue depth (%ld)", depth)
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // queueCreate
-/*------------------------------------ queueFree ---*/
-void queueFree(QueueData * xx)
-{
-    if (xx)
-    {
-        queueClear(xx);
-    }
-} // queueFree
-
-StandardAnythingRoutine(QueueData *)
+StandardAnythingRoutine(QueueData)

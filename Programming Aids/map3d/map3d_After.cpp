@@ -40,13 +40,10 @@
 #include "map3d.h"
 
 /*------------------------------------ cmd_After ---*/
-void cmd_After(Map3dData * xx,
-               t_symbol *  message,
-               short       argc,
-               t_atom *    argv)
+AFTER_HEADER(Map3dData)
 {
 #pragma unused(message)
-    if (xx && (argc > 1))
+    if (xx && (1 < argc))
     {
         short num;
         
@@ -54,7 +51,7 @@ void cmd_After(Map3dData * xx,
         {
             case A_LONG:
                 num = static_cast<short>(argv->a_w.w_long);
-                if ((num > 0) && (num <= xx->fRangeCount))
+                if ((0 < num) && (num <= xx->fRangeCount))
                 {
                     RangeData * newRange = map3dConvertListToRange(xx, 1, argc, argv);
 
@@ -78,16 +75,20 @@ void cmd_After(Map3dData * xx,
                 break;
 
             case A_FLOAT:
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected float (%g)", static_cast<double>(argv->a_w.w_float))
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected float (%g)",
+                            TO_DBL(argv->a_w.w_float))
                 break;
 
             case A_SYM:
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected symbol (%s)", argv->a_w.w_sym->s_name)
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected symbol (%s)",
+                            argv->a_w.w_sym->s_name)
                 break;
 
             default:
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen", static_cast<int>(argv->a_type))
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen",
+                            static_cast<int>(argv->a_type))
                 break;
+                
         }
     }
 } // cmd_After

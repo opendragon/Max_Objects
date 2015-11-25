@@ -40,13 +40,12 @@
 #include "Vnegate.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VObjectData * xx,
-             long          num)
+INT_HEADER(VObjectData)
 {
     if (xx)
     {
         clearPrevious(xx);
-        xx->fPreviousLong = -num;
+        xx->fPreviousLong = -TO_INT(msg);
         xx->fPreviousKind = A_LONG;
         outlet_int(xx->fResultOut, xx->fPreviousLong);
     }

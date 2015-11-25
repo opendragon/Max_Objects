@@ -40,11 +40,7 @@
 #include "Vcollect.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(VcollectData * xx,
-                void *         bb,
-                long           msg,
-                long           arg,
-                char *         dstString)
+ASSIST_HEADER(VcollectData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)
@@ -58,6 +54,10 @@ void cmd_Assist(VcollectData * xx,
             case 1:
                 strncpy_zero(dstString, "Command input", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
     else if (ASSIST_OUTLET == msg)
@@ -71,6 +71,10 @@ void cmd_Assist(VcollectData * xx,
             case 1:
                 strncpy_zero(dstString, "Length output", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
 } // cmd_Assist

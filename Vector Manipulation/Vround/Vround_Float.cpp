@@ -40,21 +40,20 @@
 #include "Vround.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(VObjectData * xx,
-               double        msg)
+FLOAT_HEADER(VObjectData)
 {
     if (xx)
     {
         clearPrevious(xx);
         if (A_LONG == xx->fOutputMode)
         {
-            xx->fPreviousLong = static_cast<long>(round(msg));
+            xx->fPreviousLong = TO_INT(round(TO_DBL(msg)));
             xx->fPreviousKind = A_LONG;
             outlet_int(xx->fResultOut, xx->fPreviousLong);
         }
         else
         {
-            xx->fPreviousFloat = round(msg);
+            xx->fPreviousFloat = TO_DBL(round(TO_DBL(msg)));
             xx->fPreviousKind = A_FLOAT;
             outlet_float(xx->fResultOut, xx->fPreviousFloat);
         }

@@ -50,7 +50,8 @@ void cmd_Start(PfsmData * xx)
             xx->fRunning = true;
             if (xx->fVerbose)
             {
-                LOG_POST_2(xx, OUTPUT_PREFIX "set to start state '%s'", xx->fCurrentState->fSymbol->s_name)
+                LOG_POST_2(xx, OUTPUT_PREFIX "set to start state '%s'",
+                           xx->fCurrentState->fSymbol->s_name)
             }
         }
         else

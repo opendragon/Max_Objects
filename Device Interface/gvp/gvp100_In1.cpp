@@ -40,15 +40,14 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_In1 ---*/
-void cmd_In1(GvpData * xx,
-             long      rr)
+IN1_HEADER(GvpData)
 {
     /* We've received a byte. Check if it matches what we are expecting. */
     if (xx && (! xx->fStopping))
     {
         short       prevLock = lockout_set(1);
         GvpPacket * aPacket;
-        long        incoming = (rr & 0x00ff);
+        long        incoming = (msg & 0x00ff);
 
 #if defined(BE_VERBOSE)
         if (xx->fVerbose)
@@ -152,7 +151,7 @@ void cmd_In1(GvpData * xx,
                         for (short ii = 0; ii < aPacket->fSize; ++ii)
                         {
                             dataValue = aPacket->fBuffer[ii];
-                            SETLONG(dataList + ii, dataValue);
+                            A_SETLONG(dataList + ii, dataValue);
                         }
                         outlet_list(xx->fDataSendOut, 0L, aPacket->fSize, dataList);
                         xx->fSendCompletion = aPacket->fSendCompletion;
@@ -175,6 +174,7 @@ void cmd_In1(GvpData * xx,
 
             default:
                 break;
+                
         }
         lockout_set(prevLock);
     }

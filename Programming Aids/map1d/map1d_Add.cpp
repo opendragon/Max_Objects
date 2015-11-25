@@ -40,10 +40,7 @@
 #include "map1d.h"
 
 /*------------------------------------ cmd_Add ---*/
-void cmd_Add(Map1dData * xx,
-             t_symbol *  message,
-             short       argc,
-             t_atom *    argv)
+ADD_HEADER(Map1dData)
 {
 #pragma unused(message)
     if (xx)

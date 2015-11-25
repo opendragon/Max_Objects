@@ -56,15 +56,15 @@ void cmd_Dup(StackData * xx)
 
             if (top)
             {
-                StackEntry * newTop = GETBYTES(1, StackEntry);
+                StackEntry * newTop = GET_BYTES(1, StackEntry);
 
                 if (newTop)
                 {
-                    t_atom * temp = NULL_PTR;
+                    t_atom * temp = NULL;
 
-                    if (top->fOutputCount > 0)
+                    if (0 < top->fOutputCount)
                     {
-                        temp = GETBYTES(top->fOutputCount, t_atom);
+                        temp = GET_BYTES(top->fOutputCount, t_atom);
                         if (temp)
                         {
                             t_atom * walker = top->fOutput;
@@ -77,13 +77,14 @@ void cmd_Dup(StackData * xx)
                         }
                         else
                         {
-                            newTop->fOutput = NULL_PTR;
-                            LOG_ERROR_1(xx, OUTPUT_PREFIX "problem allocating memory for stack element")
+                            newTop->fOutput = NULL;
+                            LOG_ERROR_1(xx, OUTPUT_PREFIX "problem allocating memory for stack "
+                                        "element")
                         }
                     }
                     else
                     {
-                        newTop->fOutput = NULL_PTR;
+                        newTop->fOutput = NULL;
                     }
                     newTop->fNext = top;
                     newTop->fOutputCount = top->fOutputCount;

@@ -43,17 +43,43 @@
 #include "reportVersion.h"
 #include <cfloat>
 
-/* Forward references: */
-void * VexpCreate(void);
+/*------------------------------------ VexpCreate ---*/
+static void * VexpCreate(void)
+{
+    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+        xx->fPreviousKind = A_NOTHING;
+        xx->fPreviousList = NULL;
+        xx->fPreviousLength = 0;
+        if (! xx->fResultOut)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // VexpCreate
 
-void VexpFree(VObjectData * xx);
+/*------------------------------------ VexpFree ---*/
+static void VexpFree(VObjectData * xx)
+{
+    if (xx)
+    {
+        clearPrevious(xx);
+    }
+} // VexpFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VexpCreate), reinterpret_cast<method>(VexpFree),
-                               sizeof(VObjectData), reinterpret_cast<method>(0L), 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VexpCreate),
+                               reinterpret_cast<method>(VexpFree), sizeof(VObjectData),
+                               reinterpret_cast<method>(0L), 0);
 
     if (temp)
     {
@@ -71,37 +97,11 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VexpCreate ---*/
-void * VexpCreate(void)
-{
-    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-        xx->fPreviousKind = A_NOTHING;
-        xx->fPreviousList = NULL_PTR;
-        xx->fPreviousLength = 0;
-        if (! xx->fResultOut)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // VexpCreate
-/*------------------------------------ VexpFree ---*/
-void VexpFree(VObjectData * xx)
-{
-    if (xx)
-    {
-        clearPrevious(xx);
-    }
-} // VexpFree
 /*------------------------------------ clearPrevious ---*/
 void clearPrevious(VObjectData * xx)
 {
-    FREEBYTES(xx->fPreviousList, xx->fPreviousLength);
+    FREE_BYTES(xx->fPreviousList);
 } // clearPrevious
-StandardAnythingRoutine(VObjectData *)
+
+StandardAnythingRoutine(VObjectData)

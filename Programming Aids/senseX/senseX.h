@@ -73,7 +73,7 @@ void cmd_Off(SenseXData * xx,
 void cmd_On(SenseXData * xx,
             long         duration);
 
-StandardRoutineDeclarations(SenseXData *);
+StandardRoutineDeclarations(SenseXData);
 
 void senseXDoMessage(SenseXData * xx);
 

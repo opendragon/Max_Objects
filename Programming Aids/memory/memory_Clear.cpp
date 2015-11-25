@@ -40,7 +40,7 @@
 #include "memory.h"
 
 /*------------------------------------ cmd_Clear ---*/
-void cmd_Clear(MemoryData * xx)
+CLEAR_HEADER(MemoryData)
 {
     if (xx)
     {

@@ -111,8 +111,7 @@ void cmd_Mode(SpaceballData * xx,
 
 void cmd_Reset(SpaceballData * xx);
 
-void cmd_Verbose(SpaceballData * xx,
-                 t_symbol *      onOff);
+VERBOSE_HEADER(SpaceballData);
 
 void cmd_Zero(SpaceballData * xx);
 
@@ -130,7 +129,7 @@ bool spaceballSetMode(SpaceballData * xx,
 
 void spaceballZeroValues(SpaceballData * xx);
 
-StandardRoutineDeclarations(SpaceballData *);
+StandardRoutineDeclarations(SpaceballData);
 
 mextern(t_symbol *) gAddSymbol;       /* Pointer to unique symbol for 'add' */
 mextern(t_symbol *) gButtonSymbol;    /* Pointer to unique symbol for 'button' */

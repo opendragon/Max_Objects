@@ -40,8 +40,7 @@
 #include "Vcollect.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VcollectData * xx,
-             long           num)
+INT_HEADER(VcollectData)
 {
     if (xx)
     {
@@ -52,13 +51,14 @@ void cmd_Int(VcollectData * xx,
             case 0:
             case 1:
                 /* Left or right inlet */
-                SETLONG(dummy, num);
+                A_SETLONG(dummy, msg);
                 collectAddAtoms(xx, dummy, 1);
                 break;
 
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Int

@@ -40,10 +40,7 @@
 #include "compares.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(ComparesData * xx,
-                  t_symbol *     message,
-                  short          argc,
-                  t_atom *       argv)
+ANYTHING_HEADER(ComparesData)
 {
 #pragma unused(argv)
     if (xx)
@@ -68,11 +65,11 @@ void cmd_Anything(ComparesData * xx,
                             {
                                 /* left and right are non-null: */
                                 result = strcmp(message->s_name, xx->fRightInput->s_name);
-                                if (result > 0)
+                                if (0 < result)
                                 {
                                     result = 1;
                                 }
-                                else if (result < 0)
+                                else if (0 > result)
                                 {
                                     result = -1;
                                 }
@@ -100,6 +97,7 @@ void cmd_Anything(ComparesData * xx,
                 default:
                     LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                     break;
+                    
             }
         }
     }

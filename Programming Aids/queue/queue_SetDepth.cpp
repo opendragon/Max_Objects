@@ -45,14 +45,14 @@ void cmd_SetDepth(QueueData * xx,
 {
     if (xx)
     {
-        if (number < 0)
+        if (0 > number)
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid depth (%ld)", number)
             outlet_bang(xx->fErrorBangOut);
         }
         else
         {
-            if ((number > 0) && (number < xx->fDepth))
+            if ((0 < number) && (number < xx->fDepth))
             {
                 queueClear(xx);
             }

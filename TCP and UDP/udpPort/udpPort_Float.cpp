@@ -40,8 +40,7 @@
 #include "udpPort.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(UdpObjectData * xx,
-               double          msg)
+FLOAT_HEADER(UdpObjectData)
 {
     REPORT_MAX_MESSAGE("float")
     if (xx)
@@ -50,7 +49,7 @@ void cmd_Float(UdpObjectData * xx,
         {
             clearDataBuffer(xx->fSendBuffer);
             xx->fSendBuffer->fDataType = A_FLOAT;
-            addFloatToBuffer(xx, xx->fSendBuffer, static_cast<float>(msg), xx->fRawMode);
+            addFloatToBuffer(xx, xx->fSendBuffer, TO_DBL(msg), xx->fRawMode);
             transmitBuffer(xx, xx->fSendBuffer);
         }
         else

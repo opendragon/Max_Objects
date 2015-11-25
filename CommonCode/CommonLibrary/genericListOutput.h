@@ -42,8 +42,11 @@
 
 # include "missingAndExtra.h"
 
-void genericListOutput(t_outlet *  port,
-                       const short length,
-                       t_atom *    vector);
+# define GENERICLISTOUTPUT_HEADER \
+void genericListOutput(t_outlet *  port,\
+                       const short length,\
+                       t_atom *    vector)
+
+GENERICLISTOUTPUT_HEADER;
 
 #endif /* not GENERICLISTOUTPUT_H_ */

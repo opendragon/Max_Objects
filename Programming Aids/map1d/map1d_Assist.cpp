@@ -40,11 +40,7 @@
 #include "map1d.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(Map1dData * xx,
-                  void *      bb,
-                  long        msg,
-                  long        arg,
-                  Ptr         dstString)
+ASSIST_HEADER(Map1dData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

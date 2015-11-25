@@ -40,8 +40,7 @@
 #include "udpPort.h"
 
 /*------------------------------------ cmd_Verbose ---*/
-void cmd_Verbose(UdpObjectData * xx,
-                 t_symbol *      onOff)
+VERBOSE_HEADER(UdpObjectData)
 {
     if (xx)
     {

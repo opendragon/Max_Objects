@@ -46,12 +46,12 @@ void cmd_SetJoystick(GvpData * xx,
 {
     if (xx)
     {
-        if ((horiz < 0) || (horiz > 100.0))
+        if ((0 > horiz) || (100.0 < horiz))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid horizontal value (%g)", horiz)
             outlet_bang(xx->fErrorBangOut);
         }
-        else if ((vert < 0) || (vert > 100.0))
+        else if ((0 > vert) || (100.0 < vert))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid vertical value (%g)", vert)
             outlet_bang(xx->fErrorBangOut);
@@ -64,12 +64,14 @@ void cmd_SetJoystick(GvpData * xx,
             dummy[0] = 18;
             dummy[1] = static_cast<unsigned char>(temp & 0x00ff);
             dummy[2] = static_cast<unsigned char>((temp >> 8) & 0x00ff);
-            gvpPerformWriteCommand(xx, 1, kCommandWriteAnalogControl, 3, dummy, kStateAwaitingByteCount1, false);
+            gvpPerformWriteCommand(xx, 1, kCommandWriteAnalogControl, 3, dummy,
+                                   kStateAwaitingByteCount1, false);
             temp = static_cast<long>(static_cast<long>(vert * 4095 / 100.0) << 4);
             dummy[0] = 17;
             dummy[1] = static_cast<unsigned char>(temp & 0x00ff);
             dummy[2] = static_cast<unsigned char>((temp >> 8) & 0x00ff);
-            gvpPerformWriteCommand(xx, 1, kCommandWriteAnalogControl, 3, dummy, kStateAwaitingByteCount1, true);
+            gvpPerformWriteCommand(xx, 1, kCommandWriteAnalogControl, 3, dummy,
+                                   kStateAwaitingByteCount1, true);
         }
     }
 } // cmd_SetJoystick

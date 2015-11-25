@@ -61,14 +61,13 @@ struct TcpLocateData
     bool               fVerbose;
 }; // TcpLocateData
 
-void cmd_Verbose(TcpLocateData * xx,
-                 t_symbol *      onOff);
+VERBOSE_HEADER(TcpLocateData);
 
 void doNameLookup(TcpLocateData * xx,
                   const char *    name);
 
 bool initObject(TcpLocateData * xx);
 
-StandardRoutineDeclarations(TcpLocateData *);
+StandardRoutineDeclarations(TcpLocateData);
 
 #endif /* not TCPLOCATE_H_ */

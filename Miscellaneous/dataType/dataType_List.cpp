@@ -40,14 +40,11 @@
 #include "dataType.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(DataTypeData * xx,
-              t_symbol *     message,
-              short          argc,
-              t_atom *       argv)
+LIST_HEADER(DataTypeData)
 {
 #pragma unused(message, argc, argv)
     if (xx)
     {
-        outlet_int(xx->fResultOut, static_cast<long>(TYPE_LIST));
+        outlet_int(xx->fResultOut, TO_INT(TYPE_LIST));
     }
 } // cmd_List

@@ -44,12 +44,6 @@
 # include "ext_obex.h" // required for new style Max object
 # include "ext_strings.h"
 
-# define NULL_HDL 0L
-# define NULL_PTR 0L /* There is a problem with NULL == 0, rather than == 0L */
-/* If NULL is passed to a routine that doesn't have a signature, such as via defer(), */
-/* the fact that sizeof(NULL) != sizeof(void *) results in argument alignment problems */
-/* that are almost impossible to detect. */
-
 # define MAX_ASSISTANCE 512 // The maximum length of an 'assistance' string
 # define NUM_BUFF_SIZE  32 // The size of a buffer used to format a number
 
@@ -72,6 +66,13 @@
 #  define minit(vv)  /* */
 # endif /* not ISMAIN */
 
+# undef USE_EVNUM
+# if (0x610 <= C74_MAX_SDK_VERSION)
+#  define USE_EVNUM FALSE
+# else /* 0x610 > C74_MAX_SDK_VERSION */
+#  define USE_EVNUM TRUE
+# endif /* 0x610 > C74_MAX_SDK_VERSION */
+
 typedef t_object t_outlet; // Missing declaration
 typedef void     t_binbuf; // Missing declaration
 
@@ -85,63 +86,108 @@ typedef void     t_binbuf; // Missing declaration
 # define MESSAGE_INT        "int"
 # define MESSAGE_LIST       "list"
 
-# define FILETYPE_TEXT	static_cast<long>('TEXT')
+# define FILETYPE_TEXT	static_cast<t_fourcc>('TEXT')
 
-# define FREEBYTES(ptr, ignoredValue) \
+# define FREE_BYTES(ptr) \
     { \
         if (ptr) \
         { \
             sysmem_freeptr(ptr); \
-            ptr = NULL_PTR; \
+            ptr = NULL; \
         } \
     }
-# define GETBYTES(numb, kind) \
+
+# define GET_BYTES(numb, kind) \
     reinterpret_cast<kind *>(sysmem_newptr(static_cast<long>((numb) * sizeof(kind))))
+
+# define MAKE_CLOCK(xx, ff) \
+    static_cast<t_clock *>(clock_new(xx, reinterpret_cast<method>(ff)))
+
+# define MAKE_QELEM(xx, ff) \
+    static_cast<t_qelem *>(qelem_new(xx, reinterpret_cast<method>(ff)))
+
+# define MAKE_TYPED_HANDLE(type, count) \
+    reinterpret_cast<type **>(sysmem_newhandle(static_cast<long>(sizeof(type) * (count))))
+
+# define TO_DBL(value) \
+    static_cast<t_atom_float>(value)
+
+# define TO_INT(value) \
+    static_cast<t_atom_long>(value)
+
+# define ANYTHING_HEADER(type) \
+    void cmd_Anything(type *      xx, \
+                      t_symbol *  message, \
+                      const short argc, \
+                      t_atom *    argv)
+
+# define ASSIST_HEADER(type) \
+    void cmd_Assist(type *     xx, \
+                    void *     bb, \
+                    const long msg, \
+                    const long arg, \
+                    char *     dstString)
+
+# define BANG_HEADER(type) \
+    void cmd_Bang(type * xx)
+
+# define CLEAR_HEADER(type) \
+    void cmd_Clear(type * xx)
+
+# define COUNT_HEADER(type) \
+    void cmd_Count(type * xx)
+
+# define FLOAT_HEADER(type) \
+    void cmd_Float(type *       xx, \
+                   const double msg)
+
+# define IN1_HEADER(type) \
+    void cmd_In1(type *     xx, \
+                 const long msg)
+
+# define IN2_HEADER(type) \
+    void cmd_In2(type *     xx, \
+                 const long msg)
+
+# define INT_HEADER(type) \
+    void cmd_Int(type *     xx, \
+                 const long msg)
+
+# define LIST_HEADER(type) \
+    void cmd_List(type *      xx, \
+                  t_symbol *  message, \
+                  const short argc, \
+                  t_atom *    argv)
+
+# define LOAD_HEADER(type) \
+    void cmd_Load(type *     xx, \
+                  t_symbol * fileName)
+
+# define VERBOSE_HEADER(type) \
+    void cmd_Verbose(type *     xx, \
+                     t_symbol * onOff)
 
 # define StandardRoutineDeclarations(type) \
 \
-    void cmd_Anything(type       xx, \
-                      t_symbol * message, \
-                      short      argc, \
-                      t_atom *   argv); \
-\
-    void cmd_Assist(type   xx, \
-                    void * bb, \
-                    long   msg, \
-                    long   arg, \
-                    char * dstString); \
-\
-    void cmd_Bang(type xx); \
-\
-    void cmd_Float(type   xx, \
-                   double msg); \
-\
-    void cmd_In1(type xx, \
-                 long num); \
-\
-    void cmd_In2(type xx, \
-                 long num); \
-\
-    void cmd_Int(type xx, \
-                 long num); \
-\
-    void cmd_List(type       xx, \
-                  t_symbol * message, \
-                  short      argc, \
-                  t_atom *   argv)
+    ANYTHING_HEADER(type); \
+    ASSIST_HEADER(type); \
+    BANG_HEADER(type); \
+    FLOAT_HEADER(type); \
+    IN1_HEADER(type); \
+    IN2_HEADER(type); \
+    INT_HEADER(type); \
+    LIST_HEADER(type)
 
 #define StandardAnythingRoutine(type) \
-    void cmd_Anything(type       xx, \
-                      t_symbol * message, \
-                      short      argc, \
-                      t_atom *   argv) \
+    ANYTHING_HEADER(type) \
     { \
         reportAnything(reinterpret_cast<t_object *>(xx), OUTPUT_PREFIX, message, argc, argv); \
     }
 
 /* really weird C code to count the number of bits in a word */
 # define BITCOUNT(xx)   (((BX_(xx) + (BX_(xx) >> 4)) & 0x0F0F0F0F) % 255)
-# define BX_(xx)        ((xx) - (((xx) >> 1) & 0x77777777) - (((xx) >> 2) & 0x33333333) - (((xx) >> 3) & 0x11111111))
+# define BX_(xx)        ((xx) - (((xx) >> 1) & 0x77777777) - (((xx) >> 2) & 0x33333333) - \
+                        (((xx) >> 3) & 0x11111111))
 
 # define LOG_ERROR_1(xx, ff) \
     cpost(ff); \
@@ -208,17 +254,11 @@ typedef void     t_binbuf; // Missing declaration
 #  define TRACE_POST_6(xx, ff, aa, bb, cc, dd, ee)  /* */
 # endif /* not ALLOW_TRACE */
 
-# if (! defined(SETFLOAT))
-#  define SETFLOAT(aa, bb) /* */
-# endif /* not SETFLOAT)) */
-
-# if (! defined(SETLONG))
-#  define SETLONG(aa, bb) /* */
-# endif /* not SETLONG)) */
-
-# if (! defined(SETSYM))
-#  define SETSYM(aa, bb) /* */
-# endif /* not SETSYM)) */
+# if defined(C74_X64)
+#  define LONG_FORMAT "%lld"
+# else /* ! defined(C74_X64) */
+#  define LONG_FORMAT "%ld"
+# endif /* ! defined(C74_X64) */
 
 mextern(t_class *) gClass; /* Pointer to class object */
 

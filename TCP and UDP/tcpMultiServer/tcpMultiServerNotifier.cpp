@@ -44,23 +44,24 @@ static void processListenEvent(TcpMultiServerData * xx)
 {
     if (xx)
     {
+#if 0
         TCall               call;
         InetAddress         caddr;
         OTResult            look_result;
         // OTLink *         acceptor_link;
         // EPInfo *         acceptor;
         OSStatus            result;
-        TcpConnectionData * candidate = NULL_PTR;
+        TcpConnectionData * candidate = NULL;
         bool                okSoFar = false;
 
         call.addr.maxlen = sizeof(caddr);
         call.addr.buf = reinterpret_cast<unsigned char *>(&caddr);
         call.opt.maxlen = 0;
-        call.opt.buf = NULL_PTR;
+        call.opt.buf = NULL;
         call.udata.maxlen = 0;
-        call.udata.buf = NULL_PTR;
+        call.udata.buf = NULL;
         WRAP_OT_CALL(xx, result, "OTListen", OTListen(xx->fListenEndpoint, &call))
-        if (result != kOTNoDataErr)
+        if (kOTNoDataErr != result)
         {
             if (kOTNoError == result)
             {
@@ -70,7 +71,8 @@ static void processListenEvent(TcpMultiServerData * xx)
                     for (unsigned short ii = 0; ii < xx->fMaximumConnections; ++ii)
                     {
                         candidate = *(xx->fConnections + ii);
-                        if (candidate && (candidate->fDataEndpoint != kOTInvalidEndpointRef) && (! candidate->fActive))
+                        if (candidate && (candidate->fDataEndpoint != kOTInvalidEndpointRef) &&
+                            (! candidate->fActive))
                         {
                             okSoFar = true;
                             break;
@@ -86,12 +88,12 @@ static void processListenEvent(TcpMultiServerData * xx)
                         look_result = OTLook(xx->fListenEndpoint);
                         if ((kOTLookErr == result) && (T_DISCONNECT == look_result))
                         {
-                            //          DoRcvDisconnect(xx);
+                //          DoRcvDisconnect(xx);
                         }
                         else
                         {
-                            //          DBAlert2("Notifier: T_LISTEN - OTAccept error %d look_result %x",
-                            //                      result, look_result);
+                //          DBAlert2("Notifier: T_LISTEN - OTAccept error %d look_result %x",
+                //                      result, look_result);
                         }
                     }
                 }
@@ -136,8 +138,11 @@ static void processListenEvent(TcpMultiServerData * xx)
                 }
             }
         }
+#endif//0
     }
 } // processListenEvent
+
+#if 0
 /*------------------------------------ tcpMultiServerDataNotifier ---*/
 pascal void tcpMultiServerDataNotifier(void *      context,
                                        OTEventCode code,
@@ -158,7 +163,8 @@ pascal void tcpMultiServerDataNotifier(void *      context,
 #if defined(BE_VERBOSE)
         if (xx->fVerbose)
         {
-            LOG_POST_3(xx, OUTPUT_PREFIX "notifier code: 0x%lx = %s", static_cast<long>(code), mapEventToString(code))
+            LOG_POST_3(xx, OUTPUT_PREFIX "notifier code: 0x%lx = %s", static_cast<long>(code),
+                       mapEventToString(code))
         }
 #endif /* BE_VERBOSE */
         switch (code)
@@ -275,6 +281,7 @@ pascal void tcpMultiServerDataNotifier(void *      context,
 
             default:
                 break;
+                
         }
         if (do_error_bang)
         {
@@ -282,6 +289,9 @@ pascal void tcpMultiServerDataNotifier(void *      context,
         }
     }
 } // tcpMultiServerDataNotifier
+#endif//0
+
+#if 0
 /*------------------------------------ tcpMultiServerListenNotifier ---*/
 pascal void tcpMultiServerListenNotifier(void *      context,
                                          OTEventCode code,
@@ -301,7 +311,8 @@ pascal void tcpMultiServerListenNotifier(void *      context,
 #if defined(BE_VERBOSE)
         if (xx->fVerbose)
         {
-            LOG_POST_3(xx, OUTPUT_PREFIX "notifier code: 0x%lx = %s", static_cast<long>(code), mapEventToString(code))
+            LOG_POST_3(xx, OUTPUT_PREFIX "notifier code: 0x%lx = %s", static_cast<long>(code),
+                       mapEventToString(code))
         }
 #endif /* BE_VERBOSE */
         switch (code)
@@ -314,7 +325,8 @@ pascal void tcpMultiServerListenNotifier(void *      context,
                 break;
 
             case T_DISCONNECT:
-                WRAP_OT_CALL(xx, err, "OTRcvDisconnect", OTRcvDisconnect(xx->fListenEndpoint, &discon))
+                WRAP_OT_CALL(xx, err, "OTRcvDisconnect", OTRcvDisconnect(xx->fListenEndpoint,
+                                                                         &discon))
                 if (kOTNoError == err)
                 {
 #if defined(BE_VERBOSE)
@@ -391,7 +403,8 @@ pascal void tcpMultiServerListenNotifier(void *      context,
                                  OTSndOrderlyDisconnect(xx->fListenEndpoint))
                     if (err != kOTNoError)
                     {
-                        REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)", err)
+                        REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)",
+                                     err)
                         reportEndpointState(xx, xx->fListenEndpoint);
                         do_error_bang = true;
                     }
@@ -408,6 +421,7 @@ pascal void tcpMultiServerListenNotifier(void *      context,
 
             default:
                 break;
+                
         }
         if (do_error_bang)
         {
@@ -415,3 +429,4 @@ pascal void tcpMultiServerListenNotifier(void *      context,
         }
     }
 } // tcpMultiServerListenNotifier
+#endif//0

@@ -56,11 +56,11 @@ void cmd_Add(QueueData * xx,
         {
             QueueEntry * last = xx->fLastInQueue;
             QueueEntry * first = xx->fFirstInQueue;
-            QueueEntry * newLast = GETBYTES(1, QueueEntry);
+            QueueEntry * newLast = GET_BYTES(1, QueueEntry);
 
             if (newLast)
             {
-                t_atom * temp = GETBYTES(argc, t_atom);
+                t_atom * temp = GET_BYTES(argc, t_atom);
 
                 /* Push out oldest, if we're full: */
                 if (first && xx->fMaxDepth && (xx->fDepth == xx->fMaxDepth))
@@ -72,11 +72,11 @@ void cmd_Add(QueueData * xx,
                         LOG_POST_1(xx, OUTPUT_PREFIX "oldest value being removed from queue")
                     }
                     genericListOutput(xx->fResultOut, first->fOutputCount, first->fOutput);
-                    FREEBYTES(first->fOutput, first->fOutputCount);
-                    FREEBYTES(first, 1);
+                    FREE_BYTES(first->fOutput);
+                    FREE_BYTES(first);
                     if (first == last)
                     {
-                        last = NULL_PTR;
+                        last = NULL;
                     }
                     xx->fFirstInQueue = first = next;
                 }
@@ -93,7 +93,7 @@ void cmd_Add(QueueData * xx,
                     xx->fFirstInQueue = newLast;
                 }
                 xx->fLastInQueue = newLast;
-                newLast->fNext = NULL_PTR;
+                newLast->fNext = NULL;
                 newLast->fOutputCount = argc;
                 if (temp)
                 {
@@ -105,7 +105,7 @@ void cmd_Add(QueueData * xx,
                 }
                 else
                 {
-                    newLast->fOutput = NULL_PTR;
+                    newLast->fOutput = NULL;
                     LOG_ERROR_1(xx, OUTPUT_PREFIX "problem allocating memory for queue element")
                 }
             }

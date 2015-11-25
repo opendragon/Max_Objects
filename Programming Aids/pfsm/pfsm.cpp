@@ -43,23 +43,67 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * pfsmCreate(t_symbol * initialFile);
+/*------------------------------------ pfsmCreate ---*/
+static void * pfsmCreate(t_symbol * initialFile)
+{
+    PfsmData * xx = static_cast<PfsmData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fAutoRestart = xx->fVerbose = xx->fRunning = false;
+        xx->fCurrentState = xx->fStartState = NULL;
+        xx->fStateSymbols = NULL;
+        xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
+        xx->fStopBangOut = static_cast<t_outlet *>(bangout(xx));
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+        xx->fBuffer = static_cast<t_binbuf *>(binbuf_new());
+        if (! (xx->fResultOut && xx->fErrorBangOut && xx->fStopBangOut && xx->fBuffer))
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+        else if (initialFile == gEmptySymbol)
+        {
+            LOG_POST_1(xx, OUTPUT_PREFIX "no initial state file")
+        }
+        else
+        {
+            LOG_POST_2(xx, OUTPUT_PREFIX "initial file: %s", initialFile->s_name)
+            pfsmLoadTables(xx, initialFile);
+        }
+    }
+    return xx;
+} // pfsmCreate
 
-void pfsmFree(PfsmData * xx);
+/*------------------------------------ pfsmFree ---*/
+static void pfsmFree(PfsmData * xx)
+{
+    if (xx)
+    {
+        if (xx->fBuffer)
+        {
+            freeobject(reinterpret_cast<t_object *>(xx->fBuffer));
+            xx->fBuffer = NULL;
+        }
+        pfsmClearHashTable(xx);
+    }
+} // pfsmFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(pfsmCreate), reinterpret_cast<method>(pfsmFree),
-                               sizeof(PfsmData), reinterpret_cast<method>(0L), A_DEFSYM, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(pfsmCreate),
+                               reinterpret_cast<method>(pfsmFree), sizeof(PfsmData),
+                               reinterpret_cast<method>(0L), A_DEFSYM, 0);
 
     if (temp)
     {
         class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Autorestart), "autorestart", A_DEFSYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Autorestart), "autorestart", A_DEFSYM,
+                        0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Clear), "clear", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Describe), "describe", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Do), "do", A_GIMME, 0);
@@ -93,50 +137,5 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ pfsmCreate ---*/
-void * pfsmCreate(t_symbol * initialFile)
-{
-    PfsmData * xx = static_cast<PfsmData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fAutoRestart = xx->fVerbose = xx->fRunning = false;
-        xx->fCurrentState = xx->fStartState = NULL_PTR;
-        xx->fStateSymbols = NULL_HDL;
-        xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
-        xx->fStopBangOut = static_cast<t_outlet *>(bangout(xx));
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-        xx->fBuffer = static_cast<t_binbuf *>(binbuf_new());
-        if (! (xx->fResultOut || xx->fErrorBangOut || xx->fStopBangOut || xx->fBuffer))
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-        else if (initialFile == gEmptySymbol)
-        {
-            LOG_POST_1(xx, OUTPUT_PREFIX "no initial state file")
-        }
-        else
-        {
-            LOG_POST_2(xx, OUTPUT_PREFIX "initial file: %s", initialFile->s_name)
-            pfsmLoadTables(xx, initialFile);
-        }
-    }
-    return xx;
-} // pfsmCreate
-/*------------------------------------ pfsmFree ---*/
-void pfsmFree(PfsmData * xx)
-{
-    if (xx)
-    {
-        if (xx->fBuffer)
-        {
-            freeobject(reinterpret_cast<t_object *>(xx->fBuffer));
-            xx->fBuffer = NULL_PTR;
-        }
-        pfsmClearHashTable(xx);
-    }
-} // pfsmFree
-
-StandardAnythingRoutine(PfsmData *)
+StandardAnythingRoutine(PfsmData)

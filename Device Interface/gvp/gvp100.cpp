@@ -42,23 +42,144 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * gvpCreate(long selectAddress,
-                 long pollRate,
-                 long poolSize);
+/*------------------------------------ gvpProcessClock ---*/
+static void gvpProcessClock(GvpData * xx)
+{
+    if (xx)
+    {
+        qelem_set(xx->fPollQueue);
+    }
+} // gvpProcessClock
 
-void gvpFree(GvpData * xx);
+/*------------------------------------ gvpProcessQueue ---*/
+static void gvpProcessQueue(GvpData * xx)
+{
+    if (xx && (! xx->fStopping))
+    {
+        short prevLock = lockout_set(1);
+        
+        outlet_bang(xx->fSampleBangOut);
+        clock_delay(xx->fPollClock, xx->fPollRate);
+        lockout_set(prevLock);
+#if USE_EVNUM
+        evnum_incr();
+#endif /* USE_EVNUM */
+    }
+} // gvpProcessQueue
 
-void gvpProcessClock(GvpData * xx);
+/*------------------------------------ gvpCreate ---*/
+static void * gvpCreate(const long selectAddress,
+                        const long pollRate,
+                        const long poolSize)
+{
+    GvpData * xx = static_cast<GvpData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fSendCompletion = xx->fStopping = false;
+        xx->fPollClock = NULL;
+        xx->fPollQueue = NULL;
+        xx->fPool = NULL;
+        if ((0 > selectAddress) || (254 < selectAddress) || (0 != (selectAddress & 1)))
+        {
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid select address (%ld) for device", selectAddress)
+            xx->fSelectAddress = 0;
+        }
+        else
+        {
+            xx->fSelectAddress = selectAddress;
+        }
+        if ((pollRate < 0) || (pollRate > MAX_POLL_RATE))
+        {
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid polling rate (%ld) for device", pollRate)
+            xx->fPollRate = SER_SAMPLE_RATE;
+        }
+        else
+        {
+            xx->fPollRate = static_cast<short>(pollRate ? pollRate : SER_SAMPLE_RATE);
+        }
+        if ((poolSize < 0) || (poolSize > MAX_POOL_SIZE))
+        {
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pool size (%ld) for device", poolSize)
+            xx->fPoolSize = POOL_SIZE;
+        }
+        else
+        {
+            xx->fPoolSize = static_cast<short>(poolSize ? poolSize : POOL_SIZE);
+        }
+        /* Set up our connections and private data */
+        intin(xx, 1);
+        xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
+        xx->fBreakSendOut = static_cast<t_outlet *>(bangout(xx));
+        xx->fDataSendOut = static_cast<t_outlet *>(outlet_new(xx, 0L));  /* list, int */
+        xx->fSampleBangOut = static_cast<t_outlet *>(bangout(xx));
+        xx->fCommandComplete = static_cast<t_outlet *>(bangout(xx));
+        xx->fSequenceComplete = static_cast<t_outlet *>(bangout(xx));
+        xx->fPollClock = MAKE_CLOCK(xx, gvpProcessClock);
+        xx->fPollQueue = MAKE_QELEM(xx, gvpProcessQueue);
+        xx->fFirst = xx->fLast = NULL;
+        xx->fPool = GET_BYTES(xx->fPoolSize, GvpPacket);
+        if (xx->fErrorBangOut && xx->fDataSendOut && xx->fBreakSendOut && xx->fSampleBangOut &&
+            xx->fSequenceComplete && xx->fPollClock && xx->fPollQueue && xx->fPool)
+        {
+            GvpPacket * prev = NULL;
+            GvpPacket * curr = xx->fPool;
+            
+            for (short index = 0; index < xx->fPoolSize; ++index)
+            {
+                curr->fPrev = prev;
+                if (prev)
+                {
+                    prev->fNext = curr;
+                }
+                prev = curr++;
+            }
+            clock_delay(xx->fPollClock, xx->fPollRate);
+#if defined(BE_VERBOSE)
+            xx->fVerbose = false;
+#endif /* BE_VERBOSE */
+            xx->fState = kStateIdle;
+            gvpReportStateChange(xx);
+        }
+        else
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port or clock for device")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // gvpCreate
 
-void gvpProcessQueue(GvpData * xx);
+/*------------------------------------ gvpFree ---*/
+static void gvpFree(GvpData * xx)
+{
+    if (xx)
+    {
+        xx->fStopping = true;
+        if (xx->fPollClock)
+        {
+            clock_unset(xx->fPollClock);
+            clock_free(reinterpret_cast<t_object *>(xx->fPollClock));
+            xx->fPollClock = NULL;
+        }
+        if (xx->fPollQueue)
+        {
+            qelem_unset(xx->fPollQueue);
+            qelem_free(xx->fPollQueue);
+            xx->fPollQueue = NULL;
+        }
+        FREE_BYTES(xx->fPool);
+    }
+} // gvpFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(gvpCreate), reinterpret_cast<method>(gvpFree),
-                               sizeof(GvpData), reinterpret_cast<method>(0L), A_LONG, A_DEFLONG, A_DEFLONG, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(gvpCreate),
+                               reinterpret_cast<method>(gvpFree), sizeof(GvpData),
+                               reinterpret_cast<method>(0L), A_LONG, A_DEFLONG, A_DEFLONG, 0);
 
     if (temp)
     {
@@ -69,33 +190,43 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_EndSequence), "endsequence", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_In1), MESSAGE_IN1, A_LONG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_LearnEmem), "learn-emem", A_DEFLONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_RecallEmem), "recall-emem", A_DEFLONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_RecallEmem), "recall-emem", A_DEFLONG,
+                        0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetCrosspoint), "c", A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetCrosspoint), "crosspoint", A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetCrosspoint), "crosspoint", A_GIMME,
+                        0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetDskAnalogControl), "d", A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetDskAnalogControl), "dskanalogcontrol", A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetDskAnalogControl), "dskanalogcontrol",
+                        A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetDskClipLevel), "!c", A_FLOAT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetDskClipLevel), "!clip", A_FLOAT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetEffectsAnalogControl), "e", A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetEffectsAnalogControl), "effectsanalogcontrol", A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetEffectsAnalogControl), "e", A_GIMME,
+                        0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetEffectsAnalogControl),
+                        "effectsanalogcontrol", A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetEffectsPosition), "!e", A_FLOAT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetEffectsPosition), "!effects", A_FLOAT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetEffectsPosition), "!effects", A_FLOAT,
+                        0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetJoystick), "!j", A_FLOAT, A_FLOAT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetJoystick), "!joystick", A_FLOAT, A_FLOAT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetJoystick), "!joystick", A_FLOAT,
+                        A_FLOAT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetPushbutton), "off", A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetPushbutton), "on", A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetPushbutton), "p", A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetPushbutton), "push", A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetTakePosition), "!t", A_FLOAT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetTakePosition), "!take", A_FLOAT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetTransitionMode), "m", A_SYM, A_DEFSYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetTransitionMode), "transitionmode", A_SYM, A_DEFSYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetTransitionRate), "r", A_SYM, A_DEFLONG, A_DEFSYM, A_DEFSYM,
-                        A_DEFSYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetTransitionRate), "transitionrate", A_SYM, A_DEFLONG, A_DEFSYM,
-                        A_DEFSYM, A_DEFSYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetTransitionMode), "m", A_SYM, A_DEFSYM,
+                        0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetTransitionMode), "transitionmode",
+                        A_SYM, A_DEFSYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetTransitionRate), "r", A_SYM,
+                        A_DEFLONG, A_DEFSYM, A_DEFSYM, A_DEFSYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetTransitionRate), "transitionrate",
+                        A_SYM, A_DEFLONG, A_DEFSYM, A_DEFSYM, A_DEFSYM, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetWipePattern), "w", A_DEFLONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_SetWipePattern), "wipepattern", A_DEFLONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_SetWipePattern), "wipepattern",
+                        A_DEFLONG, 0);
 #if defined(BE_VERBOSE)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Verbose), "v", A_DEFSYM, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Verbose), "verbose", A_DEFSYM, 0);
@@ -171,118 +302,13 @@ void gvpReportStateChange(GvpData * xx)
             default:
                 LOG_POST_2(xx, OUTPUT_PREFIX "-> unrecognized state (%ld)", xx->fState)
                 break;
+                
         }
     }
 #else /* not REPORT_STATE_CHANGES */
 # pragma unused(xx)
 #endif /* not REPORT_STATE_CHANGES */
 } // gvpReportStateChange
-
-/*------------------------------------ gvpCreate ---*/
-void * gvpCreate(long selectAddress,
-                 long pollRate,
-                 long poolSize)
-{
-    GvpData * xx = static_cast<GvpData *>(object_alloc(gClass));
-
-    if (xx)
-    {
-        xx->fSendCompletion = xx->fStopping = false;
-        xx->fPollClock = NULL_PTR;
-        xx->fPollQueue = NULL_PTR;
-        xx->fPool = NULL_PTR;
-        if ((selectAddress < 0) || (selectAddress > 254) || ((selectAddress & 1) != 0))
-        {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid select address (%ld) for device", selectAddress)
-            xx->fSelectAddress = 0;
-        }
-        else
-        {
-            xx->fSelectAddress = static_cast<short>(selectAddress);
-        }
-        if ((pollRate < 0) || (pollRate > MAX_POLL_RATE))
-        {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid polling rate (%ld) for device", pollRate)
-            xx->fPollRate = SER_SAMPLE_RATE;
-        }
-        else
-        {
-            xx->fPollRate = static_cast<short>(pollRate ? pollRate : SER_SAMPLE_RATE);
-        }
-        if ((poolSize < 0) || (poolSize > MAX_POOL_SIZE))
-        {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pool size (%ld) for device", poolSize)
-            xx->fPoolSize = POOL_SIZE;
-        }
-        else
-        {
-            xx->fPoolSize = static_cast<short>(poolSize ? poolSize : POOL_SIZE);
-        }
-        /* Set up our connections and private data */
-        intin(xx, 1);
-        xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
-        xx->fBreakSendOut = static_cast<t_outlet *>(bangout(xx));
-        xx->fDataSendOut = static_cast<t_outlet *>(outlet_new(xx, 0L));  /* list, int */
-        xx->fSampleBangOut = static_cast<t_outlet *>(bangout(xx));
-        xx->fCommandComplete = static_cast<t_outlet *>(bangout(xx));
-        xx->fSequenceComplete = static_cast<t_outlet *>(bangout(xx));
-        xx->fPollClock = static_cast<t_clock *>(clock_new(xx, reinterpret_cast<method>(gvpProcessClock)));
-        xx->fPollQueue = static_cast<t_qelem *>(qelem_new(xx, reinterpret_cast<method>(gvpProcessQueue)));
-        xx->fFirst = xx->fLast = NULL_PTR;
-        xx->fPool = GETBYTES(xx->fPoolSize, GvpPacket);
-        if (xx->fErrorBangOut && xx->fDataSendOut && xx->fBreakSendOut && xx->fSampleBangOut && xx->fSequenceComplete &&
-            xx->fPollClock && xx->fPollQueue && xx->fPool)
-        {
-            GvpPacket * prev = NULL_PTR;
-            GvpPacket * curr = xx->fPool;
-
-            for (short index = 0; index < xx->fPoolSize; ++index)
-            {
-                curr->fPrev = prev;
-                if (prev)
-                {
-                    prev->fNext = curr;
-                }
-                prev = curr++;
-            }
-            clock_delay(xx->fPollClock, xx->fPollRate);
-#if defined(BE_VERBOSE)
-            xx->fVerbose = false;
-#endif /* BE_VERBOSE */
-            xx->fState = kStateIdle;
-            gvpReportStateChange(xx);
-        }
-        else
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port or clock for device")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // gvpCreate
-
-/*------------------------------------ gvpFree ---*/
-void gvpFree(GvpData * xx)
-{
-    if (xx)
-    {
-        xx->fStopping = true;
-        if (xx->fPollClock)
-        {
-            clock_unset(xx->fPollClock);
-            clock_free(reinterpret_cast<t_object *>(xx->fPollClock));
-            xx->fPollClock = NULL_PTR;
-        }
-        if (xx->fPollQueue)
-        {
-            qelem_unset(xx->fPollQueue);
-            qelem_free(xx->fPollQueue);
-            xx->fPollQueue = NULL_PTR;
-        }
-        FREEBYTES(xx->fPool, xx->fPoolSize);
-    }
-} // gvpFree
 
 /*------------------------------------ gvpPerformWriteCommand ---*/
 void gvpPerformWriteCommand(GvpData *            xx,
@@ -309,15 +335,16 @@ void gvpPerformWriteCommand(GvpData *            xx,
             }
             else
             {
-                SETLONG(dataList, numBytesToFollow + 2);
-                SETLONG(dataList + 1, static_cast<long>(effectsAddress & 0x00FF));
-                SETLONG(dataList + 2, static_cast<long>(commandCode));
+                A_SETLONG(dataList, numBytesToFollow + 2);
+                A_SETLONG(dataList + 1, TO_INT(effectsAddress & 0x00FF));
+                A_SETLONG(dataList + 2, TO_INT(commandCode));
                 for (short ii = 0; ii < numBytesToFollow; ++ii)
                 {
                     dataValue = *bytesToFollow++;
-                    SETLONG(dataList + ii + 3, dataValue);
+                    A_SETLONG(dataList + ii + 3, dataValue);
                 }
-                outlet_list(xx->fDataSendOut, 0L, static_cast<short>(numBytesToFollow + 3), dataList);
+                outlet_list(xx->fDataSendOut, 0L, static_cast<short>(numBytesToFollow + 3),
+                            dataList);
             }
             xx->fSendCompletion = lastCommand;
             xx->fState = newState;
@@ -364,27 +391,4 @@ void gvpPerformWriteCommand(GvpData *            xx,
     }
 } // gvpPerformWriteCommand
 
-/*------------------------------------ gvpProcessClock ---*/
-void gvpProcessClock(GvpData * xx)
-{
-    if (xx)
-    {
-        qelem_set(xx->fPollQueue);
-    }
-} // gvpProcessClock
-
-/*------------------------------------ gvpProcessQueue ---*/
-void gvpProcessQueue(GvpData * xx)
-{
-    if (xx && (! xx->fStopping))
-    {
-        short prevLock = lockout_set(1);
-
-        outlet_bang(xx->fSampleBangOut);
-        clock_delay(xx->fPollClock, xx->fPollRate);
-        lockout_set(prevLock);
-        evnum_incr();
-    }
-} // gvpProcessQueue
-
-StandardAnythingRoutine(GvpData *)
+StandardAnythingRoutine(GvpData)

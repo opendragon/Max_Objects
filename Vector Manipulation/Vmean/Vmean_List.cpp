@@ -40,15 +40,12 @@
 #include "Vmean.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VmeanData * xx,
-              t_symbol *  message,
-              short    argc,
-              t_atom *    argv)
+LIST_HEADER(VmeanData)
 {
 #pragma unused(message)
     if (xx)
     {
-        bool   okSoFar = (argc > 0);
+        bool   okSoFar = (0 < argc);
         double result;
 
         if (OP_Arithmetic == xx->fOperation)
@@ -59,11 +56,12 @@ void cmd_List(VmeanData * xx,
                 switch (argv[ii].a_type)
                 {
                     case A_LONG:
-                        result += argv[ii].a_w.w_long;
+                        result += TO_DBL(argv[ii].a_w.w_long);
                         break;
 
                     case A_SYM:
-                        LOG_ERROR_2(xx, OUTPUT_PREFIX "symbol (%s) in input list", argv[ii].a_w.w_sym->s_name)
+                        LOG_ERROR_2(xx, OUTPUT_PREFIX "symbol (%s) in input list",
+                                    argv[ii].a_w.w_sym->s_name)
                         okSoFar = false;
                         break;
 
@@ -76,11 +74,12 @@ void cmd_List(VmeanData * xx,
                         LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen",
                                     static_cast<int>(argv[ii].a_type))
                         break;
+                        
                 }
             }
             if (okSoFar)
             {
-                xx->fPreviousFloat = (result / argc);
+                xx->fPreviousFloat = TO_DBL(result / argc);
             }
         }
         else if (OP_Geometric == xx->fOperation)
@@ -91,11 +90,12 @@ void cmd_List(VmeanData * xx,
                 switch (argv[ii].a_type)
                 {
                     case A_LONG:
-                        result *= argv[ii].a_w.w_long;
+                        result *= TO_DBL(argv[ii].a_w.w_long);
                         break;
 
                     case A_SYM:
-                        LOG_ERROR_2(xx, OUTPUT_PREFIX "symbol (%s) in input list", argv[ii].a_w.w_sym->s_name)
+                        LOG_ERROR_2(xx, OUTPUT_PREFIX "symbol (%s) in input list",
+                                    argv[ii].a_w.w_sym->s_name)
                         okSoFar = false;
                         break;
 
@@ -108,6 +108,7 @@ void cmd_List(VmeanData * xx,
                         LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen",
                                     static_cast<int>(argv[ii].a_type))
                         break;
+                        
                 }
             }
             if (okSoFar)
@@ -115,27 +116,28 @@ void cmd_List(VmeanData * xx,
                 if (argc & 1)
                 {
                     /* Odd root */
-                    if (result < 0)
+                    if (0 > result)
                     {
-                        xx->fPreviousFloat = exp(log(-result) / argc);
+                        xx->fPreviousFloat = TO_DBL(exp(log(-result) / argc));
                     }
-                    else if (result > 0)
+                    else if (0 < result)
                     {
-                        xx->fPreviousFloat = exp(log(result) / argc);
+                        xx->fPreviousFloat = TO_DBL(exp(log(result) / argc));
                     }
                     else
                     {
                         xx->fPreviousFloat = 0;
                     }
                 }
-                else if (result < 0) /* Even root */
+                else if (0 > result) /* Even root */
                 {
-                    LOG_ERROR_1(xx, OUTPUT_PREFIX "product of input list is negative with an even root")
+                    LOG_ERROR_1(xx, OUTPUT_PREFIX "product of input list is negative with an even "
+                                "root")
                     okSoFar = false;
                 }
-                else if (result > 0)
+                else if (0 < result)
                 {
-                    xx->fPreviousFloat = exp(log(result) / argc);
+                    xx->fPreviousFloat = TO_DBL(exp(log(result) / argc));
                 }
                 else
                 {
@@ -153,7 +155,7 @@ void cmd_List(VmeanData * xx,
                     case A_LONG:
                         if (argv[ii].a_w.w_long)
                         {
-                            result += (1.0 / static_cast<double>(argv[ii].a_w.w_long));
+                            result += TO_DBL(1.0 / TO_DBL(argv[ii].a_w.w_long));
                         }
                         else
                         {
@@ -163,14 +165,15 @@ void cmd_List(VmeanData * xx,
                         break;
 
                     case A_SYM:
-                        LOG_ERROR_2(xx, OUTPUT_PREFIX "symbol (%s) in input list", argv[ii].a_w.w_sym->s_name)
+                        LOG_ERROR_2(xx, OUTPUT_PREFIX "symbol (%s) in input list",
+                                    argv[ii].a_w.w_sym->s_name)
                         okSoFar = false;
                         break;
 
                     case A_FLOAT:
                         if (argv[ii].a_w.w_float)
                         {
-                            result += (1.0 / argv[ii].a_w.w_float);
+                            result += TO_DBL(1.0 / argv[ii].a_w.w_float);
                         }
                         else
                         {
@@ -184,13 +187,14 @@ void cmd_List(VmeanData * xx,
                         LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen",
                                     static_cast<int>(argv[ii].a_type))
                         break;
+                        
                 }
             }
             if (okSoFar)
             {
                 if (result)
                 {
-                    xx->fPreviousFloat = (static_cast<double>(argc) / result);
+                    xx->fPreviousFloat = (TO_DBL(argc) / result);
                 }
                 else
                 {

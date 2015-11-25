@@ -41,43 +41,15 @@
 #include "changes.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * changesCreate(long whichIndex1,
-                     long whichIndex2,
-                     long whichIndex3,
-                     long whichIndex4,
-                     long whichIndex5);
-
-void changesFree(ChangesData * xx);
-
-/*------------------------------------ main ---*/
-int main(void)
-{
-    /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(changesCreate), reinterpret_cast<method>(changesFree),
-                               sizeof(ChangesData), reinterpret_cast<method>(0L), A_LONG, A_DEFLONG, A_DEFLONG,
-                               A_DEFLONG, A_DEFLONG, 0);
-
-    if (temp)
-    {
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
-        class_register(CLASS_BOX, temp);
-    }
-    gClass = temp;
-    reportVersion(OUR_NAME);
-    return 0;
-} // main
 /*------------------------------------ changesCreate ---*/
-void * changesCreate(long whichIndex1,
-                     long whichIndex2,
-                     long whichIndex3,
-                     long whichIndex4,
-                     long whichIndex5)
+static void * changesCreate(const long whichIndex1,
+                            const long whichIndex2,
+                            const long whichIndex3,
+                            const long whichIndex4,
+                            const long whichIndex5)
 {
     ChangesData * xx = static_cast<ChangesData *>(object_alloc(gClass));
-
+    
     if (xx)
     {
         xx->fLastIndex = -1;
@@ -111,17 +83,39 @@ void * changesCreate(long whichIndex1,
         {
             xx->fLastIndex = 4;
         }
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
         if (! xx->fResultOut)
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
             freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
+            xx = NULL;
         }
     }
     return xx;
 } // changesCreate
+
 /*------------------------------------ changesFree ---*/
-void changesFree(ChangesData * xx)
+static void changesFree(ChangesData * xx)
 {
 } // changesFree
+
+/*------------------------------------ main ---*/
+int main(void)
+{
+    /* Allocate class memory and set up class. */
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(changesCreate),
+                               reinterpret_cast<method>(changesFree), sizeof(ChangesData),
+                               reinterpret_cast<method>(0L), A_LONG, A_DEFLONG, A_DEFLONG,
+                               A_DEFLONG, A_DEFLONG, 0);
+
+    if (temp)
+    {
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
+        class_register(CLASS_BOX, temp);
+    }
+    gClass = temp;
+    reportVersion(OUR_NAME);
+    return 0;
+} // main

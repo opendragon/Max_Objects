@@ -41,17 +41,37 @@
 #include "Vlength.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VlengthCreate(void);
+/*------------------------------------ VlengthCreate ---*/
+static void * VlengthCreate(void)
+{
+    VlengthData * xx = static_cast<VlengthData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
+        if (! xx->fResultOut)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // VlengthCreate
 
-void VlengthFree(VlengthData * xx);
+/*------------------------------------ VlengthFree ---*/
+static void VlengthFree(VlengthData * xx)
+{
+#pragma unused(xx)
+} // VlengthFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VlengthCreate), reinterpret_cast<method>(VlengthFree),
-                               sizeof(VlengthData), reinterpret_cast<method>(0L), 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VlengthCreate),
+                               reinterpret_cast<method>(VlengthFree), sizeof(VlengthData),
+                               reinterpret_cast<method>(0L), 0);
 
     if (temp)
     {
@@ -64,25 +84,3 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VlengthCreate ---*/
-void * VlengthCreate(void)
-{
-    VlengthData * xx = static_cast<VlengthData *>(object_alloc(gClass));
-
-    if (xx)
-    {
-        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
-        if (! xx->fResultOut)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // VlengthCreate
-/*------------------------------------ VlengthFree ---*/
-void VlengthFree(VlengthData * xx)
-{
-#pragma unused(xx)
-} // VlengthFree

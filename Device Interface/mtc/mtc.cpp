@@ -41,71 +41,15 @@
 #include "mtc.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void mtcChangeState(MtcData *      xx,
-                    const MtcState newState);
-
-void * mtcCreate(t_symbol * ss,
-                 short      argc,
-                 t_atom *   argv);
-
-void mtcFree(MtcData * xx);
-
-void mtcProcessClock(MtcData * xx);
-
-void mtcProcessQueue(MtcData * xx);
-
-/*------------------------------------ main ---*/
-int main(void)
-{
-    /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(mtcCreate), reinterpret_cast<method>(mtcFree),
-                               sizeof(MtcData), reinterpret_cast<method>(0L), A_GIMME, 0);
-
-    if (temp)
-    {
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Describe), "describe", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Mode), "mode", A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Order), "order", A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Ping), "ping", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Start), "start", A_DEFSYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Stop), "stop", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Threshold), "threshold", A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Train), "train", A_DEFSYM, 0);
-#if defined(BE_VERBOSE)
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Verbose), "verbose", A_DEFSYM, 0);
-#endif /* BE_VERBOSE */
-        class_register(CLASS_BOX, temp);
-    }
-    gClass = temp;
-    gCompressedSymbol = gensym("compressed");
-    gCookedSymbol = gensym("cooked");
-    gEmptySymbol = gensym("");
-    gNormalSymbol = gensym("normal");
-    gOffSymbol = gensym("off");
-    gOnSymbol = gensym("on");
-    gPSymbol = gensym("p");
-    gRawSymbol = gensym("raw");
-    gStartSymbol = gensym("start");
-    gStopSymbol = gensym("stop");
-    gXSymbol = gensym("x");
-    gYSymbol = gensym("y");
-    reportVersion(OUR_NAME);
-    return 0;
-} // main
 /*------------------------------------ mtcChangeState ---*/
-void mtcChangeState(MtcData *      xx,
-                    const MtcState newState)
+static void mtcChangeState(MtcData *      xx,
+                           const MtcState newState)
 {
 #if defined(REPORT_STATE_CHANGES)
     const char * oldString;
     static char  numBuffer[NUM_BUFF_SIZE];
 #endif /* REPORT_STATE_CHANGES */
-
+    
     if (xx)
     {
 #if defined(REPORT_STATE_CHANGES)
@@ -116,51 +60,53 @@ void mtcChangeState(MtcData *      xx,
                 case kMtcStateAwaitingEndOfCommand:
                     oldString = "kMtcStateAwaitingEndOfCommand";
                     break;
-
+                    
                 case kMtcStateAwaitingEndOfComp:
                     oldString = "kMtcStateAwaitingEndOfComp";
                     break;
-
+                    
                 case kMtcStateAwaitingEndOfData:
                     oldString = "kMtcStateAwaitingEndOfData";
                     break;
-
+                    
                 case kMtcStateAwaitingEndOfDesc:
                     oldString = "kMtcStateAwaitingEndOfDesc";
                     break;
-
+                    
                 case kMtcStateAwaitingNumBytes:
                     oldString = "kMtcStateAwaitingNumBytes";
                     break;
-
+                    
                 case kMtcStateAwaitingNumPackets:
                     oldString = "kMtcStateAwaitingNumPackets";
                     break;
-
+                    
                 case kMtcStateAwaitingSampleNumber:
                     oldString = "kMtcStateAwaitingSampleNumber";
                     break;
-
+                    
                 case kMtcStateIdle:
                     oldString = "kMtcStateIdle";
                     break;
-
+                    
                 case kMtcStateLookingForEnd:
                     oldString = "kMtcStateLookingForEnd";
                     break;
-
+                    
                 case kMtcStateSkipToAck:
                     oldString = "kMtcStateSkipToAck";
                     break;
-
+                    
                 case kMtcStateSkipToEnd:
                     oldString = "kMtcStateSkipToEnd";
                     break;
-
+                    
                 default:
-                    snprintf(numBuffer, sizeof(numBuffer), "unrecognized state %ld", static_cast<long>(xx->fState));
+                    snprintf(numBuffer, sizeof(numBuffer), "unrecognized state %ld",
+                             static_cast<long>(xx->fState));
                     oldString = numBuffer;
                     break;
+                    
             }
         }
 #endif /* REPORT_STATE_CHANGES */
@@ -173,78 +119,106 @@ void mtcChangeState(MtcData *      xx,
                 case kMtcStateAwaitingEndOfComp:
                     LOG_POST_2(xx, OUTPUT_PREFIX "%s -> kMtcStateAwaitingEndOfComp", oldString)
                     break;
-
+                    
                 case kMtcStateAwaitingEndOfData:
                     LOG_POST_2(xx, OUTPUT_PREFIX "%s -> kMtcStateAwaitingEndOfData", oldString)
                     break;
-
+                    
                 case kMtcStateAwaitingEndOfDesc:
                     LOG_POST_2(xx, OUTPUT_PREFIX "%s -> kMtcStateAwaitingEndOfDesc", oldString)
                     break;
-
+                    
                 case kMtcStateAwaitingEndOfCommand:
                     LOG_POST_2(xx, OUTPUT_PREFIX "%s -> kMtcStateAwaitingEndOfCommand", oldString)
                     break;
-
+                    
                 case kMtcStateAwaitingNumBytes:
                     LOG_POST_2(xx, OUTPUT_PREFIX "%s -> kMtcStateAwaitingNumBytes", oldString)
                     break;
-
+                    
                 case kMtcStateAwaitingNumPackets:
                     LOG_POST_2(xx, OUTPUT_PREFIX "%s -> kMtcStateAwaitingNumPackets", oldString)
                     break;
-
+                    
                 case kMtcStateAwaitingSampleNumber:
                     LOG_POST_2(xx, OUTPUT_PREFIX "%s -> kMtcStateAwaitingSampleNumber", oldString)
                     break;
-
+                    
                 case kMtcStateIdle:
                     LOG_POST_2(xx, OUTPUT_PREFIX "%s -> kMtcStateIdle", oldString)
                     break;
-
+                    
                 case kMtcStateLookingForEnd:
                     LOG_POST_2(xx, OUTPUT_PREFIX "%s -> kMtcStateLookingForEnd", oldString)
                     break;
-
+                    
                 case kMtcStateSkipToAck:
                     LOG_POST_2(xx, OUTPUT_PREFIX "%s -> kMtcStateSkipToAck", oldString)
                     break;
-
+                    
                 case kMtcStateSkipToEnd:
                     LOG_POST_2(xx, OUTPUT_PREFIX "%s -> kMtcStateSkipToEnd", oldString);
                     break;
-
+                    
                 default:
-                    LOG_POST_3(xx, OUTPUT_PREFIX "%s -> unrecognized state (%ld)", oldString, xx->fState)
+                    LOG_POST_3(xx, OUTPUT_PREFIX "%s -> unrecognized state (%ld)", oldString,
+                               xx->fState)
                     break;
+                    
             }
         }
 #endif /* REPORT_STATE_CHANGES */
     }
 } // mtcChangeState
+
+/*------------------------------------ mtcProcessClock ---*/
+static void mtcProcessClock(MtcData * xx)
+{
+    if (xx && (! xx->fStopping))
+    {
+        qelem_set(xx->fPollQueue);
+    }
+} // mtcProcessClock
+
+/*------------------------------------ mtcProcessQueue ---*/
+static void mtcProcessQueue(MtcData * xx)
+{
+    if (xx && (! xx->fStopping))
+    {
+        short prevLock = lockout_set(1);
+        
+        outlet_bang(xx->fSampleBangOut);
+        clock_delay(xx->fPollClock, xx->fPollRate);
+        lockout_set(prevLock);
+#if USE_EVNUM
+        evnum_incr();
+#endif /* USE_EVNUM */
+    }
+} // mtcProcessQueue
+
 /*------------------------------------ mtcCreate ---*/
-void * mtcCreate(t_symbol * ss,
-                 short      argc,
-                 t_atom *   argv)
+static void * mtcCreate(t_symbol *  ss,
+                        const short argc,
+                        t_atom *    argv)
 {
 #pragma unused(ss)
     MtcData * xx = static_cast<MtcData *>(object_alloc(gClass));
-
+    
     if (xx)
     {
         bool okSoFar = true;
-
-        xx->fProxy = NULL_PTR;
-        xx->fPollClock = NULL_PTR;
-        xx->fPollQueue = NULL_PTR;
-        xx->fMapFileName = NULL_PTR;
-        xx->fNormalFileName = NULL_PTR;
-        xx->fSpots = NULL_PTR;
-        xx->fRawRow = NULL_PTR;
-        xx->fDataRecovery = NULL_PTR;
-        xx->fDataBuffer = NULL_PTR;
-        xx->fSentinelTaxel = NULL_PTR;
-        xx->fTaxelMapHandle = xx->fTaxelMatrix = NULL_HDL;
+        
+        xx->fProxy = NULL;
+        xx->fPollClock = NULL;
+        xx->fPollQueue = NULL;
+        xx->fMapFileName = NULL;
+        xx->fNormalFileName = NULL;
+        xx->fSpots = NULL;
+        xx->fRawRow = NULL;
+        xx->fDataRecovery = NULL;
+        xx->fDataBuffer = NULL;
+        xx->fSentinelTaxel = NULL;
+        xx->fTaxelMapHandle = xx->fTaxelMatrix = NULL;
         xx->fChunkPulseSent = xx->fStarted = xx->fStopped = xx->fNormalizing = xx->fModeRaw = false;
         xx->fDataCompressed = xx->fIsPacketHeader = xx->fUseCompression = xx->fStopping = false;
         xx->fDescriptorLength = xx->fNumTaxels = xx->fExpectedPackets = 0;
@@ -258,8 +232,8 @@ void * mtcCreate(t_symbol * ss,
         }
         else
         {
-            long numSpots = DEFAULT_SPOTS;
-
+            t_atom_long numSpots = DEFAULT_SPOTS;
+            
             /* Check the number of spots */
             if (A_LONG == argv[0].a_type)
             {
@@ -267,7 +241,7 @@ void * mtcCreate(t_symbol * ss,
             }
             else if (A_FLOAT == argv[0].a_type)
             {
-                numSpots = static_cast<long>(argv[0].a_w.w_float);
+                numSpots = TO_INT(argv[0].a_w.w_float);
             }
             else
             {
@@ -275,9 +249,10 @@ void * mtcCreate(t_symbol * ss,
             }
             if (okSoFar)
             {
-                if ((numSpots <= 0) || (numSpots > MAX_SPOTS))
+                if ((0 >= numSpots) || (MAX_SPOTS < numSpots))
                 {
-                    LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid number of spots (%ld) for device", numSpots)
+                    LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid number of spots (" LONG_FORMAT
+                                ") for device", numSpots)
                     numSpots = DEFAULT_SPOTS;
                 }
                 xx->fNumSpots = static_cast<short>(numSpots);
@@ -287,7 +262,7 @@ void * mtcCreate(t_symbol * ss,
                 /* Check the mapping file */
                 if (A_SYM == argv[1].a_type)
                 {
-                    xx->fMapFileName = GETBYTES(strlen(argv[1].a_w.w_sym->s_name) + 1, char);
+                    xx->fMapFileName = GET_BYTES(strlen(argv[1].a_w.w_sym->s_name) + 1, char);
                     if (xx->fMapFileName)
                     {
                         strcpy(xx->fMapFileName, argv[1].a_w.w_sym->s_name);
@@ -304,7 +279,7 @@ void * mtcCreate(t_symbol * ss,
                 /* Check the normalization file */
                 if (A_SYM == argv[2].a_type)
                 {
-                    xx->fNormalFileName = GETBYTES(strlen(argv[2].a_w.w_sym->s_name) + 1, char);
+                    xx->fNormalFileName = GET_BYTES(strlen(argv[2].a_w.w_sym->s_name) + 1, char);
                     if (xx->fNormalFileName)
                     {
                         strcpy(xx->fNormalFileName, argv[2].a_w.w_sym->s_name);
@@ -346,15 +321,15 @@ void * mtcCreate(t_symbol * ss,
         if (okSoFar && (argc > 5))
         {
             /* Check the polling rate */
-            long pollRate = SER_SAMPLE_RATE;
-
+            t_atom_long pollRate = SER_SAMPLE_RATE;
+            
             if (A_LONG == argv[5].a_type)
             {
                 pollRate = argv[5].a_w.w_long;
             }
             else if (A_FLOAT == argv[5].a_type)
             {
-                pollRate = static_cast<long>(argv[5].a_w.w_float);
+                pollRate = TO_INT(argv[5].a_w.w_float);
             }
             else
             {
@@ -363,9 +338,10 @@ void * mtcCreate(t_symbol * ss,
             }
             if (okSoFar)
             {
-                if ((pollRate <= 0) || (pollRate > MAX_POLL_RATE))
+                if ((0 >= pollRate) || (MAX_POLL_RATE < pollRate))
                 {
-                    LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid polling rate (%ld) for device", pollRate)
+                    LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid polling rate (" LONG_FORMAT
+                                ") for device", pollRate)
                     okSoFar = false;
                 }
                 else
@@ -376,9 +352,9 @@ void * mtcCreate(t_symbol * ss,
         }
         if (okSoFar)
         {
-            xx->fSpots = GETBYTES(xx->fNumSpots, MtcSpot);
-            xx->fDataRecovery = GETBYTES(256, short);
-            xx->fDataBuffer = GETBYTES(MAX_MESSAGE_BYTES, unsigned char);
+            xx->fSpots = GET_BYTES(xx->fNumSpots, MtcSpot);
+            xx->fDataRecovery = GET_BYTES(256, short);
+            xx->fDataBuffer = GET_BYTES(MAX_MESSAGE_BYTES, unsigned char);
             /* Set up our connections and private data */
             xx->fProxy = proxy_new(xx, 1L, &xx->fInletNumber);
             xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
@@ -388,18 +364,19 @@ void * mtcCreate(t_symbol * ss,
             xx->fCommandComplete = static_cast<t_outlet *>(bangout(xx));
             xx->fDataStartStopOut = static_cast<t_outlet *>(intout(xx));
             xx->fDataOut = static_cast<t_outlet *>(outlet_new(xx, 0L));   /* normally just a list */
-            xx->fPollClock = static_cast<t_clock *>(clock_new(xx, reinterpret_cast<method>(mtcProcessClock)));
-            xx->fPollQueue = static_cast<t_qelem *>(qelem_new(xx, reinterpret_cast<method>(mtcProcessQueue)));
-            if (xx->fProxy && xx->fErrorBangOut && xx->fDataSendOut && xx->fChunkSendOut && xx->fSampleBangOut &&
-                xx->fDataOut && xx->fDataStartStopOut && xx->fCommandComplete && xx->fPollClock && xx->fPollQueue &&
-                xx->fMapFileName && xx->fNormalFileName && xx->fSpots && xx->fDataRecovery)
+            xx->fPollClock = MAKE_CLOCK(xx, mtcProcessClock);
+            xx->fPollQueue = MAKE_QELEM(xx, mtcProcessQueue);
+            if (xx->fProxy && xx->fErrorBangOut && xx->fDataSendOut && xx->fChunkSendOut &&
+                xx->fSampleBangOut && xx->fDataOut && xx->fDataStartStopOut &&
+                xx->fCommandComplete && xx->fPollClock && xx->fPollQueue && xx->fMapFileName &&
+                xx->fNormalFileName && xx->fSpots && xx->fDataRecovery)
             {
                 if (mtcReadMapFile(xx))
                 {
                     mtcSetupIndices(xx);
                     mtcResetNormalization(xx);
                     mtcReadNormalizationFile(xx);
-                    xx->fRawRow = GETBYTES(xx->fMaxCol * xx->fMaxRow, t_atom);
+                    xx->fRawRow = GET_BYTES(xx->fMaxCol * xx->fMaxRow, t_atom);
                     if (xx->fRawRow)
                     {
                         clock_delay(xx->fPollClock, xx->fPollRate);
@@ -429,30 +406,12 @@ void * mtcCreate(t_symbol * ss,
         if (! okSoFar)
         {
             freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
+            xx = NULL;
         }
     }
     return xx;
 } // mtcCreate
-/*------------------------------------ mtcDoStart ---*/
-void mtcDoStart(MtcData * xx)
-{
-    unsigned char compress = 't';
-    unsigned char no_compress = 'n';
 
-    if (! xx->fStarted)
-    {
-        mtcPerformWriteCommand(xx, kMtcCommandBeginSendData, 1, xx->fUseCompression ? &compress : &no_compress);
-        xx->fStarted = true;
-    }
-} // mtcDoStart
-/*------------------------------------ mtcDoStop ---*/
-void mtcDoStop(MtcData * xx)
-{
-    mtcPerformWriteCommand(xx, kMtcCommandStopSendData, 0, NULL_PTR);
-    xx->fStarted = false;
-    xx->fStopped = true;
-} // mtcDoStop
 /*------------------------------------ mtcFree ---*/
 void mtcFree(MtcData * xx)
 {
@@ -463,34 +422,101 @@ void mtcFree(MtcData * xx)
         {
             clock_unset(xx->fPollClock);
             clock_free(reinterpret_cast<t_object *>(xx->fPollClock));
-            xx->fPollClock = NULL_PTR;
+            xx->fPollClock = NULL;
         }
         if (xx->fPollQueue)
         {
             qelem_unset(xx->fPollQueue);
             qelem_free(xx->fPollQueue);
-            xx->fPollQueue = NULL_PTR;
+            xx->fPollQueue = NULL;
         }
         if (xx->fProxy)
         {
             freeobject(reinterpret_cast<t_object *>(xx->fProxy));
-            xx->fProxy = NULL_PTR;
+            xx->fProxy = NULL;
         }
-        FREEBYTES(xx->fMapFileName, strlen(xx->fMapFileName) + 1)
-        FREEBYTES(xx->fNormalFileName, strlen(xx->fNormalFileName) + 1)
-        FREEBYTES(xx->fSpots, xx->fNumBytes)
-        FREEBYTES(xx->fDataRecovery, 256)
-        FREEBYTES(xx->fDataBuffer, MAX_MESSAGE_BYTES)
-        FREEBYTES(xx->fRawRow, xx->fMaxCol * xx->fMaxRow)
-        FREEBYTES(xx->fTaxelMatrix, xx->fMaxCol * xx->fMaxRow)
+        FREE_BYTES(xx->fMapFileName);
+        FREE_BYTES(xx->fNormalFileName);
+        FREE_BYTES(xx->fSpots);
+        FREE_BYTES(xx->fDataRecovery);
+        FREE_BYTES(xx->fDataBuffer);
+        FREE_BYTES(xx->fRawRow);
+        FREE_BYTES(xx->fTaxelMatrix);
         if (xx->fTaxelMapHandle)
         {
             sysmem_lockhandle(reinterpret_cast<t_handle>(xx->fTaxelMapHandle), 0);
             sysmem_freehandle(reinterpret_cast<t_handle>(xx->fTaxelMapHandle));
-            xx->fTaxelMapHandle = NULL_HDL;
+            xx->fTaxelMapHandle = NULL;
         }
     }
 } // mtcFree
+
+/*------------------------------------ main ---*/
+int main(void)
+{
+    /* Allocate class memory and set up class. */
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(mtcCreate),
+                               reinterpret_cast<method>(mtcFree), sizeof(MtcData),
+                               reinterpret_cast<method>(0L), A_GIMME, 0);
+
+    if (temp)
+    {
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Describe), "describe", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Mode), "mode", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Order), "order", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Ping), "ping", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Start), "start", A_DEFSYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Stop), "stop", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Threshold), "threshold", A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Train), "train", A_DEFSYM, 0);
+#if defined(BE_VERBOSE)
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Verbose), "verbose", A_DEFSYM, 0);
+#endif /* BE_VERBOSE */
+        class_register(CLASS_BOX, temp);
+    }
+    gClass = temp;
+    gCompressedSymbol = gensym("compressed");
+    gCookedSymbol = gensym("cooked");
+    gEmptySymbol = gensym("");
+    gNormalSymbol = gensym("normal");
+    gOffSymbol = gensym("off");
+    gOnSymbol = gensym("on");
+    gPSymbol = gensym("p");
+    gRawSymbol = gensym("raw");
+    gStartSymbol = gensym("start");
+    gStopSymbol = gensym("stop");
+    gXSymbol = gensym("x");
+    gYSymbol = gensym("y");
+    reportVersion(OUR_NAME);
+    return 0;
+} // main
+
+/*------------------------------------ mtcDoStart ---*/
+void mtcDoStart(MtcData * xx)
+{
+    unsigned char compress = 't';
+    unsigned char no_compress = 'n';
+
+    if (! xx->fStarted)
+    {
+        mtcPerformWriteCommand(xx, kMtcCommandBeginSendData, 1, xx->fUseCompression ? &compress :
+                               &no_compress);
+        xx->fStarted = true;
+    }
+} // mtcDoStart
+
+/*------------------------------------ mtcDoStop ---*/
+void mtcDoStop(MtcData * xx)
+{
+    mtcPerformWriteCommand(xx, kMtcCommandStopSendData, 0, NULL);
+    xx->fStarted = false;
+    xx->fStopped = true;
+} // mtcDoStop
+
 /*------------------------------------ mtcPerformWriteCommand ---*/
 void mtcPerformWriteCommand(MtcData *            xx,
                             const MtcCommandCode commandCode,
@@ -511,38 +537,18 @@ void mtcPerformWriteCommand(MtcData *            xx,
             xx->fChunkPulseSent = true;
         }
         /* Send data. */
-        SETLONG(dataList, commandCode);
+        A_SETLONG(dataList, commandCode);
         for (short ii = 0; ii < numBytesToFollow; ++ii)
         {
             dataValue = *bytesToFollow++;
-            SETLONG(dataList + ii + 1, dataValue);
+            A_SETLONG(dataList + ii + 1, dataValue);
         }
-        SETLONG(dataList + numBytesToFollow + 1, kMtcCommandEnd);
+        A_SETLONG(dataList + numBytesToFollow + 1, kMtcCommandEnd);
         outlet_list(xx->fDataSendOut, 0L, static_cast<short>(numBytesToFollow + 2), dataList);
         lockout_set(prevLock);
     }
 } // mtcPerformWriteCommand
-/*------------------------------------ mtcProcessClock ---*/
-void mtcProcessClock(MtcData * xx)
-{
-    if (xx && (! xx->fStopping))
-    {
-        qelem_set(xx->fPollQueue);
-    }
-} // mtcProcessClock
-/*------------------------------------ mtcProcessQueue ---*/
-void mtcProcessQueue(MtcData * xx)
-{
-    if (xx && (! xx->fStopping))
-    {
-        short prevLock = lockout_set(1);
 
-        outlet_bang(xx->fSampleBangOut);
-        clock_delay(xx->fPollClock, xx->fPollRate);
-        lockout_set(prevLock);
-        evnum_incr();
-    }
-} // mtcProcessQueue
 /*------------------------------------ mtcProcessResponse ---*/
 void mtcProcessResponse(MtcData * xx,
                         long      rr)
@@ -556,7 +562,8 @@ void mtcProcessResponse(MtcData * xx,
 #if defined(BE_VERBOSE)
         if (xx->fVerbose)
         {
-            if ((xx->fState != kMtcStateAwaitingEndOfComp) && (xx->fState != kMtcStateAwaitingEndOfData) &&
+            if ((xx->fState != kMtcStateAwaitingEndOfComp) &&
+                (xx->fState != kMtcStateAwaitingEndOfData) &&
                 (xx->fState != kMtcStateAwaitingEndOfDesc))
             {
                 LOG_POST_2(xx, OUTPUT_PREFIX "saw byte: 0x%lx", incoming)
@@ -568,7 +575,8 @@ void mtcProcessResponse(MtcData * xx,
             case kMtcStateAwaitingEndOfCommand:
                 if (xx->fStopped)
                 {
-                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd : kMtcStateSkipToAck);
+                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd :
+                                   kMtcStateSkipToAck);
                 }
                 else if (kMtcResponseEndCommand == incoming)
                 {
@@ -577,14 +585,16 @@ void mtcProcessResponse(MtcData * xx,
                     {
                         outlet_bang(xx->fCommandComplete);
                     }
-                    else if ((kMtcResponseSendData == xx->fResponse) || (kMtcResponseSendComp == xx->fResponse))
+                    else if ((kMtcResponseSendData == xx->fResponse) ||
+                             (kMtcResponseSendComp == xx->fResponse))
                     {
                         mtcProcessTaxels(xx);
                     }
                 }
                 else
                 {
-                    LOG_ERROR_2(xx, OUTPUT_PREFIX "EOC/unexpected input character (0x%lx) seen", incoming)
+                    LOG_ERROR_2(xx, OUTPUT_PREFIX "EOC/unexpected input character (0x%lx) seen",
+                                incoming)
                     outlet_bang(xx->fErrorBangOut);
                     mtcChangeState(xx, kMtcStateSkipToEnd);
                 }
@@ -593,7 +603,8 @@ void mtcProcessResponse(MtcData * xx,
             case kMtcStateAwaitingEndOfComp:
                 if (xx->fStopped)
                 {
-                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd : kMtcStateSkipToAck);
+                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd :
+                                   kMtcStateSkipToAck);
                 }
                 else
                 {
@@ -643,7 +654,8 @@ void mtcProcessResponse(MtcData * xx,
             case kMtcStateAwaitingEndOfData:
                 if (xx->fStopped)
                 {
-                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd : kMtcStateSkipToAck);
+                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd :
+                                   kMtcStateSkipToAck);
                 }
                 else
                 {
@@ -659,7 +671,8 @@ void mtcProcessResponse(MtcData * xx,
             case kMtcStateAwaitingEndOfDesc:
                 if (xx->fStopped)
                 {
-                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd : kMtcStateSkipToAck);
+                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd :
+                                   kMtcStateSkipToAck);
                 }
                 else if (kMtcResponseEndCommand == incoming)
                 {
@@ -687,7 +700,8 @@ void mtcProcessResponse(MtcData * xx,
             case kMtcStateAwaitingNumBytes:
                 if (xx->fStopped)
                 {
-                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd : kMtcStateSkipToAck);
+                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd :
+                                   kMtcStateSkipToAck);
                 }
                 else
                 {
@@ -700,7 +714,8 @@ void mtcProcessResponse(MtcData * xx,
             case kMtcStateAwaitingNumPackets:
                 if (xx->fStopped)
                 {
-                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd : kMtcStateSkipToAck);
+                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd :
+                                   kMtcStateSkipToAck);
                 }
                 else if (xx->fExpectedPackets == incoming)
                 {
@@ -720,7 +735,8 @@ void mtcProcessResponse(MtcData * xx,
             case kMtcStateAwaitingSampleNumber:
                 if (xx->fStopped)
                 {
-                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd : kMtcStateSkipToAck);
+                    mtcChangeState(xx, (kMtcResponseAck == incoming) ? kMtcStateLookingForEnd :
+                                   kMtcStateSkipToAck);
                 }
                 else
                 {
@@ -729,7 +745,8 @@ void mtcProcessResponse(MtcData * xx,
                         xx->fSampleNumberBase += 256;   /* wraparound? */
                     }
                     xx->fSampleNumber = incoming + xx->fSampleNumberBase;
-                    mtcChangeState(xx, xx->fDataCompressed ? kMtcStateAwaitingNumPackets : kMtcStateAwaitingNumBytes);
+                    mtcChangeState(xx, xx->fDataCompressed ? kMtcStateAwaitingNumPackets :
+                                   kMtcStateAwaitingNumBytes);
                 }
                 break;
 
@@ -776,7 +793,8 @@ void mtcProcessResponse(MtcData * xx,
                 }
                 else
                 {
-                    LOG_ERROR_2(xx, OUTPUT_PREFIX "IDLE/unexpected input character (0x%lx) seen", incoming)
+                    LOG_ERROR_2(xx, OUTPUT_PREFIX "IDLE/unexpected input character (0x%lx) seen",
+                                incoming)
                     outlet_bang(xx->fErrorBangOut);
                     mtcChangeState(xx, kMtcStateSkipToEnd);
                 }
@@ -811,10 +829,12 @@ void mtcProcessResponse(MtcData * xx,
 
             default:
                 break;
+                
         }
         lockout_set(prevLock);
     }
 } // mtcProcessResponse
+
 /*------------------------------------ mtcSetKind ---*/
 bool mtcSetKind(MtcData *  xx,
                 t_symbol * kind)
@@ -836,6 +856,7 @@ bool mtcSetKind(MtcData *  xx,
     }
     return okSoFar;
 } // mtcSetKind
+
 /*------------------------------------ mtcSetMode ---*/
 bool mtcSetMode(MtcData *  xx,
                 t_symbol * rawOrCooked)
@@ -857,6 +878,7 @@ bool mtcSetMode(MtcData *  xx,
     }
     return okSoFar;
 } // mtcSetMode
+
 /*------------------------------------ mtcSetOrder ---*/
 bool mtcSetOrder(MtcData *  xx,
                  t_symbol * order)

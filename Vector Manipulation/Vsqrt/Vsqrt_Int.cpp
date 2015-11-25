@@ -40,19 +40,18 @@
 #include "Vsqrt.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VObjectData * xx,
-             long          num)
+INT_HEADER(VObjectData)
 {
     if (xx)
     {
         clearPrevious(xx);
-        if (num < 0)
+        if (0 > msg)
         {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "Negative value (%ld) in input", num)
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "Negative value (%ld) in input", msg)
         }
         else
         {
-            xx->fPreviousFloat = sqrt(static_cast<float>(num));
+            xx->fPreviousFloat = TO_DBL(sqrt(TO_DBL(msg)));
             xx->fPreviousKind = A_FLOAT;
             outlet_float(xx->fResultOut, xx->fPreviousFloat);
         }

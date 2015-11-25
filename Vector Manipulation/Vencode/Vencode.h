@@ -60,6 +60,6 @@ struct VencodeData
 void convertNumberToList(VencodeData * xx,
                          const long    number);
 
-StandardRoutineDeclarations(VencodeData *);
+StandardRoutineDeclarations(VencodeData);
 
 #endif /* not VENCODE_H_ */

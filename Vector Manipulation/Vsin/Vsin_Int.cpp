@@ -40,13 +40,12 @@
 #include "Vsin.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VObjectData * xx,
-             long          num)
+INT_HEADER(VObjectData)
 {
     if (xx)
     {
         clearPrevious(xx);
-        xx->fPreviousFloat = sin(static_cast<double>(num));
+        xx->fPreviousFloat = TO_DBL(sin(TO_DBL(msg)));
         xx->fPreviousKind = A_FLOAT;
         outlet_float(xx->fResultOut, xx->fPreviousFloat);
     }

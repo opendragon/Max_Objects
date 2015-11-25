@@ -40,10 +40,7 @@
 #include "Vsegment.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VsegmentData * xx,
-              t_symbol *     message,
-              short          argc,
-              t_atom *       argv)
+LIST_HEADER(VsegmentData)
 {
 #pragma unused(message)
     if (xx)
@@ -56,11 +53,11 @@ void cmd_List(VsegmentData * xx,
             short start = xx->fStart;
             short end;
 
-            if (start < 0)
+            if (0 > start)
             {
                 start = static_cast<short>(argc + start);
             }
-            if (elementCount > 0)
+            if (0 < elementCount)
             {
                 end = static_cast<short>(start + elementCount - 1);
             }
@@ -71,7 +68,7 @@ void cmd_List(VsegmentData * xx,
                 end = start;
                 start = temp;
             }
-            if (start < 0)
+            if (0 > start)
             {
                 start = 0;
             }
@@ -79,9 +76,9 @@ void cmd_List(VsegmentData * xx,
             {
                 end = static_cast<short>(argc - 1);
             }
-            if ((end >= 0) && (start < argc))
+            if ((0 <= end) && (start < argc))
             {
-                t_atom * newList = GETBYTES(end + 1 - start, t_atom);
+                t_atom * newList = GET_BYTES(end + 1 - start, t_atom);
 
                 if (newList)
                 {

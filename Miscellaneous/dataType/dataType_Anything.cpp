@@ -40,14 +40,11 @@
 #include "dataType.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(DataTypeData * xx,
-                  t_symbol *     message,
-                  short          argc,
-                  t_atom *       argv)
+ANYTHING_HEADER(DataTypeData)
 {
 #pragma unused(message, argv)
     if (xx)
     {
-        outlet_int(xx->fResultOut, static_cast<long>((argc > 0) ? TYPE_LIST : TYPE_SYM));
+        outlet_int(xx->fResultOut, TO_INT((0 < argc) ? TYPE_LIST : TYPE_SYM));
     }
 } // cmd_Anything

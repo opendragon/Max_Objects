@@ -40,10 +40,7 @@
 #include "Vencode.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VencodeData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VencodeData)
 {
 #pragma unused(message)
     if (xx)
@@ -54,7 +51,7 @@ void cmd_List(VencodeData * xx,
             for (short ii = 0; ii < argc; ++ii)
             {
                 convertNumberToList(xx, argv[ii].a_w.w_long);
-                if (xx->fWorkLength > 0)
+                if (0 < xx->fWorkLength)
                 {
                     genericListOutput(xx->fResultOut, xx->fWorkLength, xx->fWorkList);
                 }

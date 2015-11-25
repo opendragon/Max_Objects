@@ -58,6 +58,6 @@ struct VscanData
 
 void clearPrevious(VscanData * xx);
 
-StandardRoutineDeclarations(VscanData *);
+StandardRoutineDeclarations(VscanData);
 
 #endif /* not VSCAN_H_ */

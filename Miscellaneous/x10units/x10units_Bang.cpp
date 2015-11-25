@@ -40,7 +40,7 @@
 #include "x10units.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(X10UnitsData * xx)
+BANG_HEADER(X10UnitsData)
 {
-    outlet_int(xx->fResultOut, static_cast<long>(xx->fPreviousResult));
+    outlet_int(xx->fResultOut, xx->fPreviousResult);
 } // cmd_Bang

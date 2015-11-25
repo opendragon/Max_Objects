@@ -40,23 +40,22 @@
 #include "Vencode.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VencodeData * xx,
-             long          num)
+INT_HEADER(VencodeData)
 {
     if (xx)
     {
         xx->fWorkLength = 0;
-        if (num >= 0)
+        if (0 <= msg)
         {
-            convertNumberToList(xx, num);
-            if (xx->fWorkLength > 0)
+            convertNumberToList(xx, msg);
+            if (0 < xx->fWorkLength)
             {
                 genericListOutput(xx->fResultOut, xx->fWorkLength, xx->fWorkList);
             }
         }
         else
         {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "Negative value (%ld) in input list", num)
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "Negative value (%ld) in input list", msg)
         }
     }
 } /* cmd_Int */

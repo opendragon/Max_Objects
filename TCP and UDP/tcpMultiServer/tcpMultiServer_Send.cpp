@@ -46,8 +46,8 @@ void cmd_Send(TcpMultiServerData * xx,
               t_atom *             argv)
 {
 #pragma unused(message)
-    bool okSoFar = true;
-    long client = 0;
+    bool        okSoFar = true;
+    t_atom_long client = 0;
 
     REPORT_MAX_MESSAGE("send")
     if (xx)
@@ -59,7 +59,7 @@ void cmd_Send(TcpMultiServerData * xx,
                 break;
 
             case A_FLOAT:
-                client = static_cast<long>(argv->a_w.w_long);
+                client = TO_INT(argv->a_w.w_long);
                 break;
 
             case A_SYM:
@@ -78,14 +78,17 @@ void cmd_Send(TcpMultiServerData * xx,
                 break;
 
             case A_DOLLAR:
+            case A_DOLLSYM:
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "invalid client '$'")
                 okSoFar = false;
                 break;
 
             default:
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen", static_cast<int>(argv->a_type))
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen",
+                            static_cast<int>(argv->a_type))
                 okSoFar = false;
                 break;
+                
         }
         if (okSoFar)
         {
@@ -101,7 +104,7 @@ void cmd_Send(TcpMultiServerData * xx,
                 }
                 else
                 {
-                    LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid client (%ld)", client)
+                    LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid client (" LONG_FORMAT ")", client)
                     signalError(xx);
                     okSoFar = false;
                 }
@@ -113,8 +116,8 @@ void cmd_Send(TcpMultiServerData * xx,
                         connection->fSendBuffer->fDataType = listKind;
                         for (short ii = 1; okSoFar && (ii < argc); ++ii)
                         {
-                            okSoFar = addAtomToBuffer(xx, OUR_NAME, connection->fSendBuffer, &argv[ii],
-                                                      connection->fRawMode);
+                            okSoFar = addAtomToBuffer(xx, OUR_NAME, connection->fSendBuffer,
+                                                      &argv[ii], connection->fRawMode);
                         }
                     }
                     else
@@ -123,7 +126,10 @@ void cmd_Send(TcpMultiServerData * xx,
                     }
                     if (okSoFar)
                     {
-                        transmitBuffer(xx, connection->fDataEndpoint, connection->fSendBuffer, connection->fRawMode);
+#if 0
+                        transmitBuffer(xx, connection->fDataEndpoint, connection->fSendBuffer,
+                                       connection->fRawMode);
+#endif//0
                     }
                     else
                     {
@@ -139,7 +145,8 @@ void cmd_Send(TcpMultiServerData * xx,
             else
             {
                 /* create a temporary buffer */
-                DataBuffer ** temp_handle = reinterpret_cast<DataBuffer **>(sysmem_newhandle(BUFF_MEMORY_TO_ALLOC));
+                DataBuffer ** temp_handle =
+                            reinterpret_cast<DataBuffer **>(sysmem_newhandle(BUFF_MEMORY_TO_ALLOC));
                 DataBuffer *  a_buffer;
 
                 if (temp_handle)
@@ -154,19 +161,23 @@ void cmd_Send(TcpMultiServerData * xx,
                         for (short ii = 0; ii < xx->fMaximumConnections; ++ii)
                         {
                             connection = *(xx->fConnections + ii);
-                            if (connection && (connection->fState == kTcpStateConnected) && connection->fActive)
+                            if (connection && (connection->fState == kTcpStateConnected) &&
+                                connection->fActive)
                             {
                                 clearDataBuffer(a_buffer);
                                 a_buffer->fDataType = listKind;
                                 for (short ii = 1; okSoFar && (ii < argc); ++ii)
                                 {
-                                    okSoFar = addAtomToBuffer(xx, OUR_NAME, a_buffer, &argv[ii], connection->fRawMode);
+                                    okSoFar = addAtomToBuffer(xx, OUR_NAME, a_buffer, &argv[ii],
+                                                              connection->fRawMode);
                                 }
                                 if (okSoFar)
                                 {
                                     copyDataBuffer(connection->fSendBuffer, a_buffer);
-                                    transmitBuffer(xx, connection->fDataEndpoint, connection->fSendBuffer,
-                                                   connection->fRawMode);
+#if 0
+                                    transmitBuffer(xx, connection->fDataEndpoint,
+                                                   connection->fSendBuffer, connection->fRawMode);
+#endif//0
                                     saw_live_one = true;
                                 }
                             }

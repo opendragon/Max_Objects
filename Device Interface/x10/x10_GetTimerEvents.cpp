@@ -55,5 +55,6 @@ void cmd_GetTimerEvents(X10ControlData * xx)
 
         default:
             break;
+            
     }
 } // cmd_GetTimerEvents

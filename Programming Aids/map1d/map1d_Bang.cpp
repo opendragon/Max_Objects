@@ -40,7 +40,7 @@
 #include "map1d.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(Map1dData * xx)
+BANG_HEADER(Map1dData)
 {
     if (xx && xx->fPreviousResult)
     {

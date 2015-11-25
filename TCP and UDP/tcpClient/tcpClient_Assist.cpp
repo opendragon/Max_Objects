@@ -40,11 +40,7 @@
 #include "tcpClient.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(TcpObjectData * xx,
-                void *          bb,
-                long            msg,
-                long            arg,
-                char *          dstString)
+ASSIST_HEADER(TcpObjectData)
 {
 #pragma unused(xx, bb)
     REPORT_MAX_MESSAGE("assist")
@@ -63,6 +59,10 @@ void cmd_Assist(TcpObjectData * xx,
             case 1:
                 strncpy_zero(dstString, "Error output", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
 } // cmd_Assist

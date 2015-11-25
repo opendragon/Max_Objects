@@ -84,7 +84,8 @@ void cmd_SetTransitionMode(GvpData *  xx,
             {
                 unsigned char dummy = static_cast<unsigned char>(mode);
 
-                gvpPerformWriteCommand(xx, 0, kCommandSetTransitionMode, 1, &dummy, kStateAwaitingByteCount1, true);
+                gvpPerformWriteCommand(xx, 0, kCommandSetTransitionMode, 1, &dummy,
+                                       kStateAwaitingByteCount1, true);
             }
         }
         else

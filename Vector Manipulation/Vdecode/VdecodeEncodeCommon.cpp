@@ -52,28 +52,28 @@ bool checkBases(BaseData * info,
     short index = 0;
     long  workingBase1 = whichBase1;
 
-    if (workingBase1 < 0)
+    if (0 > workingBase1)
     {
         workingBase1 = -workingBase1;
         wasNegative = true;
     }
-    if (whichBase5 > 1)
+    if (1 < whichBase5)
     {
         numBases = 5;
     }
-    else if (whichBase4 > 1)
+    else if (1 < whichBase4)
     {
         numBases = 4;
     }
-    else if (whichBase3 > 1)
+    else if (1 < whichBase3)
     {
         numBases = 3;
     }
-    else if (whichBase2 > 1)
+    else if (1 < whichBase2)
     {
         numBases = 2;
     }
-    else if (workingBase1 > 1)
+    else if (1 < workingBase1)
     {
         numBases = 1;
     }
@@ -105,6 +105,7 @@ bool checkBases(BaseData * info,
 
         default:
             return false;
+            
     }
     for (index = 0; index < numBases; ++index)
     {
@@ -112,11 +113,13 @@ bool checkBases(BaseData * info,
         {
             return false;
         }
+        
     }
     info->fNumBases = numBases;
-    info->fFirstBaseIsNegative = (wasNegative || (numBases == 1));
+    info->fFirstBaseIsNegative = (wasNegative || (1 == numBases));
     return true;
 } // checkBases
+
 /*------------------------------------ checkInput ---*/
 bool checkInput(void *       xx,
                 const char * name,
@@ -130,7 +133,7 @@ bool checkInput(void *       xx,
         switch (argv[ii].a_type)
         {
             case A_LONG:
-                if (argv[ii].a_w.w_long < 0)
+                if (0 > argv[ii].a_w.w_long)
                 {
                     LOG_ERROR_2(xx, "%snegative value in input list", name)
                     okSoFar = false;
@@ -144,14 +147,16 @@ bool checkInput(void *       xx,
 
             case A_FLOAT:
                 LOG_ERROR_3(xx, "%sfloating point value (%g) in input list", name,
-                            static_cast<double>(argv[ii].a_w.w_float))
+                            TO_DBL(argv[ii].a_w.w_float))
                 okSoFar = false;
                 break;
 
             default:
-                LOG_ERROR_3(xx, "%sinput of an unknown type (%d) seen", name, static_cast<int>(argv[ii].a_type))
+                LOG_ERROR_3(xx, "%sinput of an unknown type (%d) seen", name,
+                            static_cast<int>(argv[ii].a_type))
                 okSoFar = false;
                 break;
+                
         }
     }
     return okSoFar;

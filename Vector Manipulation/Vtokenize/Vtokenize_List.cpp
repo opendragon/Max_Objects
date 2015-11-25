@@ -40,10 +40,7 @@
 #include "Vtokenize.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VObjectData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VObjectData)
 {
 #pragma unused(message)
     if (xx)
@@ -51,7 +48,7 @@ void cmd_List(VObjectData * xx,
         clearPrevious(xx);
         if (checkInput(xx, OUTPUT_PREFIX, argc, argv))
         {
-            t_atom * temp = GETBYTES(argc, t_atom);
+            t_atom * temp = GET_BYTES(argc, t_atom);
 
             if (temp)
             {
@@ -59,7 +56,7 @@ void cmd_List(VObjectData * xx,
                 xx->fPreviousList = temp;
                 for (short index = 0; index < argc; ++index)
                 {
-                    SETLONG(temp + index, argv[index].a_w.w_long);
+                    A_SETLONG(temp + index, argv[index].a_w.w_long);
                 }
                 doTokenize(xx);
             }

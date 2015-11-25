@@ -40,7 +40,7 @@
 #include "map2d.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(Map2dData * xx)
+BANG_HEADER(Map2dData)
 {
     if (xx && xx->fPreviousResult)
     {

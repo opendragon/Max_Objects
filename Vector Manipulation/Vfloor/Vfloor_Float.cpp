@@ -40,21 +40,20 @@
 #include "Vfloor.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(VObjectData * xx,
-               double        msg)
+FLOAT_HEADER(VObjectData)
 {
     if (xx)
     {
         clearPrevious(xx);
         if (A_LONG == xx->fOutputMode)
         {
-            xx->fPreviousLong = static_cast<long>(floor(msg));
+            xx->fPreviousLong = TO_INT(floor(TO_DBL(msg)));
             xx->fPreviousKind = A_LONG;
             outlet_int(xx->fResultOut, xx->fPreviousLong);
         }
         else
         {
-            xx->fPreviousFloat = floor(msg);
+            xx->fPreviousFloat = TO_DBL(floor(TO_DBL(msg)));
             xx->fPreviousKind = A_FLOAT;
             outlet_float(xx->fResultOut, xx->fPreviousFloat);
         }

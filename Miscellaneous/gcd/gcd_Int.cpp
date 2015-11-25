@@ -40,22 +40,21 @@
 #include "gcd.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(GcdData * xx,
-             long      num)
+INT_HEADER(GcdData)
 {
     if (xx)
     {
-        if (xx->fRightInput || num)
+        if (xx->fRightInput || msg)
         {
-            long mm = xx->fRightInput;
+            t_atom_long mm = xx->fRightInput;
 
-            for (long nn = num, tt; nn; nn = tt)
+            for (t_atom_long nn = msg, tt; nn; nn = tt)
             {
                 tt = (mm % nn);
                 mm = nn;
             }
             xx->fPreviousResult = mm;
-            outlet_int(xx->fResultOut, static_cast<long>(xx->fPreviousResult));
+            outlet_int(xx->fResultOut, xx->fPreviousResult);
         }
         else
         {

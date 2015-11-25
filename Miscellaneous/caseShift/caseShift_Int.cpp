@@ -40,13 +40,12 @@
 #include "caseShift.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(CaseShiftData * xx,
-             long            num)
+INT_HEADER(CaseShiftData)
 {
     if (xx)
     {
         clearPrevious(xx);
-        xx->fPreviousLong = num;
+        xx->fPreviousLong = TO_INT(msg);
         xx->fPreviousKind = A_LONG;
         outlet_int(xx->fResultOut, xx->fPreviousLong);
     }

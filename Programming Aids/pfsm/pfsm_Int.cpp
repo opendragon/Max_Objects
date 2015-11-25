@@ -40,14 +40,13 @@
 #include "pfsm.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(PfsmData * xx,
-             long       num)
+INT_HEADER(PfsmData)
 {
     if (xx)
     {
         t_atom doIt;
 
-        SETLONG(&doIt, num);
-        pfsmProcessData(xx, &doIt, 0, NULL_PTR);
+        A_SETLONG(&doIt, msg);
+        pfsmProcessData(xx, &doIt, 0, NULL);
     }
 } // cmd_Int

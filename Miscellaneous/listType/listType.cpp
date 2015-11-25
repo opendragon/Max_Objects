@@ -41,10 +41,29 @@
 #include "listType.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * listTypeCreate(void);
+/*------------------------------------ listTypeCreate ---*/
+static void * listTypeCreate(void)
+{
+    ListTypeData * xx = static_cast<ListTypeData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
+        if (! xx->fResultOut)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // listTypeCreate
 
-void listTypeFree(ListTypeData * xx);
+/*------------------------------------ listTypeFree ---*/
+static void listTypeFree(ListTypeData * xx)
+{
+#pragma unused(xx)
+} // listTypeFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -67,25 +86,3 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ listTypeCreate ---*/
-void * listTypeCreate(void)
-{
-    ListTypeData * xx = static_cast<ListTypeData *>(object_alloc(gClass));
-
-    if (xx)
-    {
-        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
-        if (! xx->fResultOut)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // listTypeCreate
-/*------------------------------------ listTypeFree ---*/
-void listTypeFree(ListTypeData * xx)
-{
-#pragma unused(xx)
-} // listTypeFree

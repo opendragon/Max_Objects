@@ -41,10 +41,46 @@
 #include "caseShift.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * caseShiftCreate(t_symbol * direction);
+/*------------------------------------ caseShiftCreate ---*/
+static void * caseShiftCreate(t_symbol * direction)
+{
+    CaseShiftData * xx = static_cast<CaseShiftData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+        xx->fDown = false;
+        xx->fPreviousKind = A_NOTHING;
+        xx->fPreviousList = NULL;
+        if (xx->fResultOut)
+        {
+            if (direction == gDownSymbol)
+            {
+                xx->fDown = true;
+            }
+            else if ((direction != gUPSymbol) && (direction != gEmptySymbol))
+            {
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "unknown direction (%s)", direction->s_name)
+            }
+        }
+        else
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // caseShiftCreate
 
-void caseShiftFree(CaseShiftData * xx);
+/*------------------------------------ caseShiftFree ---*/
+static void caseShiftFree(CaseShiftData * xx)
+{
+    if (xx)
+    {
+        clearPrevious(xx);
+    }
+} // caseShiftFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -71,50 +107,13 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ caseShiftCreate ---*/
-void * caseShiftCreate(t_symbol * direction)
-{
-    CaseShiftData * xx = static_cast<CaseShiftData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-        xx->fDown = false;
-        xx->fPreviousKind = A_NOTHING;
-        xx->fPreviousList = NULL_PTR;
-        if (xx->fResultOut)
-        {
-            if (direction == gDownSymbol)
-            {
-                xx->fDown = true;
-            }
-            else if ((direction != gUPSymbol) && (direction != gEmptySymbol))
-            {
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "unknown direction (%s)", direction->s_name)
-            }
-        }
-        else
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // caseShiftCreate
-/*------------------------------------ caseShiftFree ---*/
-void caseShiftFree(CaseShiftData * xx)
-{
-    if (xx)
-    {
-        clearPrevious(xx);
-    }
-} // caseShiftFree
 /*------------------------------------ clearPrevious ---*/
 void clearPrevious(CaseShiftData * xx)
 {
-    FREEBYTES(xx->fPreviousList, xx->fPreviousLength);
+    FREE_BYTES(xx->fPreviousList);
 } // clearPrevious
+
 /*------------------------------------ shiftAString ---*/
 void shiftAString(CaseShiftData * xx,
                   char *          newWord,

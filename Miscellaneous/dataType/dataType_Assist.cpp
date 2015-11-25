@@ -40,18 +40,14 @@
 #include "dataType.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(DataTypeData * xx,
-                void *         bb,
-                long           msg,
-                long           arg,
-                char *         dstString)
+ASSIST_HEADER(DataTypeData)
 {
 #pragma unused(xx, bb, arg)
-    if (msg == ASSIST_INLET)
+    if (ASSIST_INLET == msg)
     {
         strncpy_zero(dstString, "Any input", MAX_ASSISTANCE);
     }
-    else if (msg == ASSIST_OUTLET)
+    else if (ASSIST_OUTLET == msg)
     {
         strncpy_zero(dstString, "Code for input value", MAX_ASSISTANCE);
     }

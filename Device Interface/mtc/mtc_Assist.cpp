@@ -40,11 +40,7 @@
 #include "mtc.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(MtcData * xx,
-                void *    bb,
-                long      msg,
-                long      arg,
-                char *    dstString)
+ASSIST_HEADER(MtcData)
 {
 #pragma unused(xx, bb)
     if (ASSIST_INLET == msg)
@@ -58,6 +54,10 @@ void cmd_Assist(MtcData * xx,
             case 1:
                 strncpy_zero(dstString, "Serial device feedback", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
     else if (ASSIST_OUTLET == msg)
@@ -91,6 +91,10 @@ void cmd_Assist(MtcData * xx,
             case 6:
                 strncpy_zero(dstString, "Error detected", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
 } // cmd_Assist

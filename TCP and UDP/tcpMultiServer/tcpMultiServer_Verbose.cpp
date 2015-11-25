@@ -40,8 +40,7 @@
 #include "tcpMultiServer.h"
 
 /*------------------------------------ cmd_Verbose ---*/
-void cmd_Verbose(TcpMultiServerData * xx,
-                 t_symbol *           onOff)
+VERBOSE_HEADER(TcpMultiServerData)
 {
     if (xx)
     {

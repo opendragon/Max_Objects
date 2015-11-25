@@ -41,29 +41,28 @@
 #include <cfloat>
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VObjectData * xx,
-             long          num)
+INT_HEADER(VObjectData)
 {
     if (xx)
     {
         double newValue;
 
         clearPrevious(xx);
-        if (num < gMinInput)
+        if (msg < gMinInput)
         {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "Underflow due to small value (%ld) in input", num)
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "Underflow due to small value (%ld) in input", msg)
             newValue = 0;
         }
-        else if (num > gMaxInput)
+        else if (msg > gMaxInput)
         {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "Overflow due to large value (%ld) in input", num)
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "Overflow due to large value (%ld) in input", msg)
             newValue = INFINITY;
         }
         else
         {
-            newValue = exp(static_cast<double>(num));
+            newValue = exp(TO_DBL(msg));
         }
-        xx->fPreviousFloat = newValue;
+        xx->fPreviousFloat = TO_DBL(newValue);
         xx->fPreviousKind = A_FLOAT;
         outlet_float(xx->fResultOut, xx->fPreviousFloat);
     }

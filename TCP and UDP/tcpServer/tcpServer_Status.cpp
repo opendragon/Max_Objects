@@ -48,21 +48,22 @@ void cmd_Status(TcpObjectData * xx)
         t_atom     response[5];
         short      resp_length = 1;
 
-        SETSYM(response, sym_state);
+        A_SETSYM(response, sym_state);
         if (kTcpStateConnected == xx->fState)
         {
             if (! xx->fPartnerName)
             {
+#if 0
                 OSStatus result;
                 TBind    other_address;
-                char *   other_data = GETBYTES(xx->fAddressSize, char);
+                char *   other_data = GET_BYTES(xx->fAddressSize, char);
 
                 if (other_data)
                 {
                     other_address.addr.buf = reinterpret_cast<unsigned char *>(other_data);
                     other_address.addr.maxlen = xx->fAddressSize;
                     WRAP_OT_CALL(xx, result, "OTGetProtAddress",
-                                 OTGetProtAddress(xx->fSocket, NULL_PTR, &other_address))
+                                 OTGetProtAddress(xx->fSocket, NULL, &other_address))
                     if (kOTNoError == result)
                     {
                         InetAddress * other_inet_ptr = reinterpret_cast<InetAddress *>(other_data);
@@ -79,20 +80,21 @@ void cmd_Status(TcpObjectData * xx)
                         reportEndpointState(OUR_NAME, xx);
                     }
                 }
-                FREEBYTES(other_data, xx->fAddressSize)
+                FREE_BYTES(other_data);
+#endif//0
             }
             if (xx->fPartnerName)
             {
-                SETSYM(response + 1, xx->fPartnerName);
-                SETLONG(response + 2, xx->fClientPort);
-                SETLONG(response + 3, xx->fServerPort);
-                SETSYM(response + 4, xx->fRawMode ? gRawSymbol : gMaxSymbol);
+                A_SETSYM(response + 1, xx->fPartnerName);
+                A_SETLONG(response + 2, xx->fClientPort);
+                A_SETLONG(response + 3, xx->fServerPort);
+                A_SETSYM(response + 4, xx->fRawMode ? gRawSymbol : gMaxSymbol);
                 resp_length += 4;
             }
         }
         else
         {
-            SETLONG(response + 1, xx->fServerPort);
+            A_SETLONG(response + 1, xx->fServerPort);
             ++resp_length;
         }
         outlet_anything(xx->fResultOut, gStatusSymbol, resp_length, response);

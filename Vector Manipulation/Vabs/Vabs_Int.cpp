@@ -40,13 +40,12 @@
 #include "Vabs.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VObjectData * xx,
-             long          num)
+INT_HEADER(VObjectData)
 {
     if (xx)
     {
         clearPrevious(xx);
-        xx->fPreviousLong = ((num >= 0) ? num : (-num));
+        xx->fPreviousLong = TO_INT((0 <= msg) ? msg : (-msg));
         xx->fPreviousKind = A_LONG;
         outlet_int(xx->fResultOut, xx->fPreviousLong);
     }

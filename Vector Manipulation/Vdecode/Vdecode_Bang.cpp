@@ -40,7 +40,7 @@
 #include "Vdecode.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(VdecodeData * xx)
+BANG_HEADER(VdecodeData)
 {
     if (xx)
     {

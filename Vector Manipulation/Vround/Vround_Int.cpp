@@ -40,21 +40,20 @@
 #include "Vround.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VObjectData * xx,
-             long          num)
+INT_HEADER(VObjectData)
 {
     if (xx)
     {
         clearPrevious(xx);
         if (A_FLOAT == xx->fOutputMode)
         {
-            xx->fPreviousFloat = num;
+            xx->fPreviousFloat = TO_DBL(msg);
             xx->fPreviousKind = A_FLOAT;
             outlet_float(xx->fResultOut, xx->fPreviousFloat);
         }
         else
         {
-            xx->fPreviousLong = num;
+            xx->fPreviousLong = TO_INT(msg);
             xx->fPreviousKind = A_LONG;
             outlet_int(xx->fResultOut, xx->fPreviousLong);
         }

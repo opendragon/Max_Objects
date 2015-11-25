@@ -77,7 +77,8 @@ void mtcMoveRawDataFromBuffer(MtcData * xx)
                 }
                 if (numBits > 3)
                 {
-                    bits = (static_cast<unsigned long>(value1 << 16) | static_cast<unsigned long>(value2 << 8) |
+                    bits = (static_cast<unsigned long>(value1 << 16) |
+                            static_cast<unsigned long>(value2 << 8) |
                             static_cast<unsigned long>(value3));
                 }
                 switch (numBits)
@@ -126,6 +127,7 @@ void mtcMoveRawDataFromBuffer(MtcData * xx)
                         outValues[1] = static_cast<unsigned char>(((bits >> 18) & 0x03) << 5);
                         outValues[0] = static_cast<unsigned char>(((bits >> 21) & 0x03) << 5);
                         break;
+                        
                 }
             }
             // Set values from the outValues vector into the set of taxels starting at aTaxel,
@@ -176,7 +178,8 @@ void mtcProcessTaxels(MtcData * xx)
         bool  changed;
         short value;
 
-        for (taxelNum = 0, aTaxel = *xx->fTaxelMapHandle; taxelNum < xx->fNumTaxels; ++aTaxel, ++taxelNum)
+        for (taxelNum = 0, aTaxel = *xx->fTaxelMapHandle; taxelNum < xx->fNumTaxels;
+             ++aTaxel, ++taxelNum)
         {
             changed = false;
             value = aTaxel->fRawData;
@@ -211,7 +214,8 @@ void mtcProcessTaxels(MtcData * xx)
         double         maxPressure;
 
         /* Cook the raw data */
-        for (taxelNum = 0, aTaxel = *xx->fTaxelMapHandle; taxelNum < xx->fNumTaxels; ++aTaxel, ++taxelNum)
+        for (taxelNum = 0, aTaxel = *xx->fTaxelMapHandle; taxelNum < xx->fNumTaxels;
+             ++aTaxel, ++taxelNum)
         {
             pressure = aTaxel->fRawData - aTaxel->fRawMin;
             if (pressure <= 0)
@@ -236,10 +240,11 @@ void mtcProcessTaxels(MtcData * xx)
             {
                 for (short jj = 0; jj < xx->fMaxCol; ++jj, ++iWalker, ++oWalker)
                 {
-                    SETFLOAT(oWalker, static_cast<float>((*iWalker)->fPressure));
+                    A_SETFLOAT(oWalker, TO_DBL((*iWalker)->fPressure));
                 }
             }
-            outlet_list(xx->fDataOut, 0L, static_cast<short>(xx->fMaxCol * xx->fMaxRow), xx->fRawRow);
+            outlet_list(xx->fDataOut, 0L, static_cast<short>(xx->fMaxCol * xx->fMaxRow),
+                        xx->fRawRow);
             outlet_int(xx->fDataStartStopOut, 0);
         }
         else
@@ -247,9 +252,10 @@ void mtcProcessTaxels(MtcData * xx)
             for ( ; spotsSeen < xx->fNumSpots; )
             {
                 /* Determine if we have a candidate spot */
-                aSpot = NULL_PTR;
+                aSpot = NULL;
                 maxPressure = -1e6;
-                for (taxelNum = 0, aTaxel = *xx->fTaxelMapHandle; taxelNum < xx->fNumTaxels; ++aTaxel, ++taxelNum)
+                for (taxelNum = 0, aTaxel = *xx->fTaxelMapHandle; taxelNum < xx->fNumTaxels;
+                     ++aTaxel, ++taxelNum)
                 {
                     pressure = aTaxel->fPressure;
                     if (aTaxel->fBottomTaxel != sentinel)
@@ -302,35 +308,39 @@ void mtcProcessTaxels(MtcData * xx)
                     otherTaxel = aSpot->fBottomTaxel;
                     if (otherTaxel != sentinel)
                     {
-                        factor = fabs(otherTaxel->fPressure * NEIGHBOUR_REDUCTION * NEIGHBOUR_REDUCTION);
+                        factor = fabs(otherTaxel->fPressure * NEIGHBOUR_REDUCTION *
+                                      NEIGHBOUR_REDUCTION);
                         spotY -= (factor * otherTaxel->fYCoord);
                         divideY += factor;
                     }
                     otherTaxel = aSpot->fLeftTaxel;
                     if (otherTaxel != sentinel)
                     {
-                        factor = fabs(otherTaxel->fPressure * NEIGHBOUR_REDUCTION * NEIGHBOUR_REDUCTION);
+                        factor = fabs(otherTaxel->fPressure * NEIGHBOUR_REDUCTION *
+                                      NEIGHBOUR_REDUCTION);
                         spotX -= (factor * otherTaxel->fXCoord);
                         divideX += factor;
                     }
                     otherTaxel = aSpot->fRightTaxel;
                     if (otherTaxel != sentinel)
                     {
-                        factor = fabs(otherTaxel->fPressure * NEIGHBOUR_REDUCTION * NEIGHBOUR_REDUCTION);
+                        factor = fabs(otherTaxel->fPressure * NEIGHBOUR_REDUCTION *
+                                      NEIGHBOUR_REDUCTION);
                         spotX += (factor * otherTaxel->fXCoord);
                         divideX += factor;
                     }
                     otherTaxel = aSpot->fTopTaxel;
                     if (otherTaxel != sentinel)
                     {
-                        factor = fabs(otherTaxel->fPressure * NEIGHBOUR_REDUCTION * NEIGHBOUR_REDUCTION);
+                        factor = fabs(otherTaxel->fPressure * NEIGHBOUR_REDUCTION *
+                                      NEIGHBOUR_REDUCTION);
                         spotY += (factor * otherTaxel->fYCoord);
                         divideY += factor;
                     }
                     /* Remember the spot */
-                    SETFLOAT(&(xx->fSpots + spotsSeen)->fXCoord, static_cast<float>(spotX / divideX));
-                    SETFLOAT(&(xx->fSpots + spotsSeen)->fYCoord, static_cast<float>(spotY / divideY));
-                    SETFLOAT(&(xx->fSpots + spotsSeen)->fPressure, static_cast<float>(maxPressure));
+                    A_SETFLOAT(&(xx->fSpots + spotsSeen)->fXCoord, TO_DBL(spotX / divideX));
+                    A_SETFLOAT(&(xx->fSpots + spotsSeen)->fYCoord, TO_DBL(spotY / divideY));
+                    A_SETFLOAT(&(xx->fSpots + spotsSeen)->fPressure, TO_DBL(maxPressure));
                     ++spotsSeen;
 
                     /* Adjust values to hide the neighbourhood of the spot */
@@ -360,6 +370,7 @@ void mtcProcessTaxels(MtcData * xx)
         }
     }
 } // mtcProcessTaxels
+
 /*------------------------------------ mtcReadMapFile ---*/
 bool mtcReadMapFile(MtcData * xx)
 {
@@ -435,7 +446,8 @@ bool mtcReadMapFile(MtcData * xx)
                     }
                     strncpy(lineBuffer, bufferLineStart + 1, lineSize);
                     *(lineBuffer + lineSize) = 0;
-                    if (sscanf(lineBuffer, "%d%f%f%f", &numTaxels, &xx->fXMax, &xx->fYMax, &xx->fRateMax) != 4)
+                    if (4 != sscanf(lineBuffer, "%d%f%f%f", &numTaxels, &xx->fXMax, &xx->fYMax,
+                                    &xx->fRateMax))
                     {
                         LOG_ERROR_2(xx, OUTPUT_PREFIX "problem with mapping file, control line %d",
                                     static_cast<int>(lineCount))
@@ -465,8 +477,7 @@ bool mtcReadMapFile(MtcData * xx)
                 MtcTaxelDesc *  sentinel;
 
                 xx->fRateCurrent = xx->fRateMax;
-                anArray = reinterpret_cast<MtcTaxelDesc **>(sysmem_newhandle(static_cast<long>((xx->fNumTaxels + 1) *
-                                                                                               sizeof(MtcTaxelDesc))));
+                anArray = MAKE_TYPED_HANDLE(MtcTaxelDesc, xx->fNumTaxels + 1);
                 if (anArray)
                 {
                     sysmem_lockhandle(reinterpret_cast<t_handle>(anArray), 1);
@@ -474,15 +485,16 @@ bool mtcReadMapFile(MtcData * xx)
                     /* Initialize the sentinel taxel */
                     sentinel = *anArray + xx->fNumTaxels;
                     xx->fSentinelTaxel = sentinel;
-                    sentinel->fRawData = sentinel->fCookedData = sentinel->fRawMin = sentinel->fRawMax = 0;
+                    sentinel->fRawData = sentinel->fCookedData = 0;
+                    sentinel->fRawMin = sentinel->fRawMax = 0;
                     sentinel->fPressure = sentinel->fScale = 0;
                     sentinel->fXCoord = sentinel->fYCoord = 0;
                     sentinel->fXIndex = sentinel->fYIndex = sentinel->fTaxelNumber = -1;
-                    sentinel->fBottomTaxel = sentinel->fLeftTaxel = sentinel->fRightTaxel = sentinel;
-                    sentinel->fTopTaxel = sentinel;
+                    sentinel->fBottomTaxel = sentinel->fLeftTaxel = sentinel;
+                    sentinel->fRightTaxel = sentinel->fTopTaxel = sentinel;
 #if defined(MTC_USE_CORNERS)
-                    sentinel->fBottomLeftTaxel = sentinel->fBottomRightTaxel = sentinel->fTopLeftTaxel = sentinel;
-                    sentinel->fTopRightTaxel = sentinel;
+                    sentinel->fBottomLeftTaxel = sentinel->fBottomRightTaxel = sentinel;
+                    sentinel->fTopLeftTaxel = sentinel->fTopRightTaxel = sentinel;
 #endif /* MTC_USE_CORNERS */
                     bufferScan = *fileContents;
                     /* Load up the taxels, from the beginning of the buffer. */
@@ -510,7 +522,8 @@ bool mtcReadMapFile(MtcData * xx)
                             }
                             strncpy(lineBuffer, bufferLineStart + 1, lineSize);
                             *(lineBuffer + lineSize) = 0;
-                            if (sscanf(lineBuffer, "%d%d%f%f", &yIndex, &xIndex, &xCoord, &yCoord) != 4)
+                            if (4 != sscanf(lineBuffer, "%d%d%f%f", &yIndex, &xIndex, &xCoord,
+                                            &yCoord))
                             {
                                 LOG_ERROR_2(xx, OUTPUT_PREFIX "problem with mapping file, data line %d",
                                             static_cast<int>(lineCount))
@@ -529,7 +542,8 @@ bool mtcReadMapFile(MtcData * xx)
                             {
                                 if (controlLineSeen)
                                 {
-                                    LOG_ERROR_1(xx, OUTPUT_PREFIX "taxel with x coord greater than declared max seen")
+                                    LOG_ERROR_1(xx, OUTPUT_PREFIX "taxel with x coord greater than "
+                                                "declared max seen")
                                 }
                                 xx->fXMax = xCoord;
                             }
@@ -537,7 +551,8 @@ bool mtcReadMapFile(MtcData * xx)
                             {
                                 if (controlLineSeen)
                                 {
-                                    LOG_ERROR_1(xx, OUTPUT_PREFIX "taxel with y coord greater than declared max seen")
+                                    LOG_ERROR_1(xx, OUTPUT_PREFIX "taxel with y coord greater than "
+                                                "declared max seen")
                                 }
                                 xx->fYMax = yCoord;
                             }
@@ -562,11 +577,11 @@ bool mtcReadMapFile(MtcData * xx)
                             aTaxel->fXIndex = static_cast<short>(xIndex);
                             aTaxel->fYIndex = static_cast<short>(yIndex);
                             aTaxel->fTaxelNumber = taxelCount;
-                            aTaxel->fBottomTaxel = aTaxel->fLeftTaxel = aTaxel->fRightTaxel = sentinel;
-                            aTaxel->fTopTaxel = sentinel;
+                            aTaxel->fBottomTaxel = aTaxel->fLeftTaxel = sentinel;
+                            aTaxel->fRightTaxel = aTaxel->fTopTaxel = sentinel;
 #if defined(MTC_USE_CORNERS)
-                            aTaxel->fBottomLeftTaxel = aTaxel->fBottomRightTaxel = aTaxel->fTopLeftTaxel = sentinel;
-                            aTaxel->fTopRightTaxel = sentinel;
+                            aTaxel->fBottomLeftTaxel = aTaxel->fBottomRightTaxel = sentinel;
+                            aTaxel->fTopLeftTaxel = aTaxel->fTopRightTaxel = sentinel;
 #endif /* MTC_USE_CORNERS */
                             ++aTaxel;
                             ++taxelCount;
@@ -594,7 +609,7 @@ bool mtcReadMapFile(MtcData * xx)
     }
     if (okSoFar)
     {
-        MtcTaxelDesc ** aMatrix = GETBYTES(xx->fMaxCol * xx->fMaxRow, MtcTaxelDesc *);
+        MtcTaxelDesc ** aMatrix = GET_BYTES(xx->fMaxCol * xx->fMaxRow, MtcTaxelDesc *);
 
         if (aMatrix)
         {
@@ -613,6 +628,7 @@ bool mtcReadMapFile(MtcData * xx)
     }
     return okSoFar;
 } // mtcReadMapFile
+
 /*------------------------------------ mtcReadNormalizationFile ---*/
 bool mtcReadNormalizationFile(MtcData * xx)
 {
@@ -627,7 +643,8 @@ bool mtcReadNormalizationFile(MtcData * xx)
 
     if (path_opensysfile(xx->fNormalFileName, path_getdefault(), &fileRef, PATH_READ_PERM))
     {
-        LOG_ERROR_2(xx, OUTPUT_PREFIX "problem opening normalization file '%s'", xx->fNormalFileName)
+        LOG_ERROR_2(xx, OUTPUT_PREFIX "problem opening normalization file '%s'",
+                    xx->fNormalFileName)
     }
     else
     {
@@ -640,14 +657,15 @@ bool mtcReadNormalizationFile(MtcData * xx)
 
         if (sysfile_readtextfile(fileRef, fileContents, 0, TEXT_LB_NATIVE))
         {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "problem reading normalization file '%s'", xx->fNormalFileName)
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "problem reading normalization file '%s'",
+                        xx->fNormalFileName)
         }
         else
         {
             char           aChar;
             short          lineCount = 0;
             size_t         lineSize;
-            char           lineBuffer[LINEBUFFER_SIZE + 1];    /* Use for scan processing. */
+            char           lineBuffer[LINEBUFFER_SIZE + 1]; /* Use for scan processing. */
             MtcTaxelDesc * aTaxel;
 
             /* We now have the whole file in our buffer, to be read. */
@@ -685,8 +703,8 @@ bool mtcReadNormalizationFile(MtcData * xx)
                     *(lineBuffer + lineSize) = 0;
                     if (sscanf(lineBuffer, "%d%lf", &rawMin, &aTaxel->fScale) != 2)
                     {
-                        LOG_ERROR_2(xx, OUTPUT_PREFIX "problem with normalization file, data line %d",
-                                    static_cast<int>(lineCount))
+                        LOG_ERROR_2(xx, OUTPUT_PREFIX "problem with normalization file, data line "
+                                    "%d", static_cast<int>(lineCount))
                         okSoFar = false;
                         break;
                     }
@@ -710,6 +728,7 @@ bool mtcReadNormalizationFile(MtcData * xx)
     }
     return okSoFar;
 } // mtcReadNormalizationFile
+
 /*------------------------------------ mtcResetNormalization ---*/
 void mtcResetNormalization(MtcData * xx)
 {
@@ -722,6 +741,7 @@ void mtcResetNormalization(MtcData * xx)
         aTaxel->fScale = 0;
     }
 } // mtcResetNormalization
+
 /*------------------------------------ mtcSetupIndices ---*/
 void mtcSetupIndices(MtcData * xx)
 {
@@ -745,7 +765,8 @@ void mtcSetupIndices(MtcData * xx)
     /* Fill in the data recovery table */
     for (short ii = 0; ii < 256; ++ii)
     {
-        *(xx->fDataRecovery + ii) = static_cast<short>((ii < 200) ? ii : (200 + (((ii - 200) * 823) / 55)));
+        *(xx->fDataRecovery + ii) = static_cast<short>((ii < 200) ? ii :
+                                                       (200 + (((ii - 200) * 823) / 55)));
     }
     if (xx->fMaxCol > 1)
     {
@@ -767,13 +788,13 @@ void mtcSetupIndices(MtcData * xx)
          ++outerTaxelCount, ++outerTaxel)
     {
         /* Determine right neighbour */
-        candidate = NULL_PTR;
+        candidate = NULL;
         closest = 1e6;
         leftBracket = (deltaX * NEIGHBOUR_FUDGE / 2);
         rightBracket = (deltaX * NEIGHBOUR_FUDGE);
         fudge = (deltaY * NEIGHBOUR_FUDGE / 2);
-        for (innerTaxelCount = 0, innerTaxel = *xx->fTaxelMapHandle; innerTaxelCount < xx->fNumTaxels;
-             ++innerTaxelCount, ++innerTaxel)
+        for (innerTaxelCount = 0, innerTaxel = *xx->fTaxelMapHandle;
+             innerTaxelCount < xx->fNumTaxels; ++innerTaxelCount, ++innerTaxel)
         {
             if (innerTaxel != outerTaxel)
             {
@@ -806,12 +827,12 @@ void mtcSetupIndices(MtcData * xx)
             outerTaxel->fRightTaxel = candidate;
         }
         /* Determine left neighbour */
-        candidate = NULL_PTR;
+        candidate = NULL;
         closest = 1e6;
         leftBracket = (deltaX * NEIGHBOUR_FUDGE / 2);
         rightBracket = (deltaX * NEIGHBOUR_FUDGE);
-        for (innerTaxelCount = 0, innerTaxel = *xx->fTaxelMapHandle; innerTaxelCount < xx->fNumTaxels;
-             ++innerTaxelCount, ++innerTaxel)
+        for (innerTaxelCount = 0, innerTaxel = *xx->fTaxelMapHandle;
+             innerTaxelCount < xx->fNumTaxels; ++innerTaxelCount, ++innerTaxel)
         {
             if (innerTaxel != outerTaxel)
             {
@@ -844,13 +865,13 @@ void mtcSetupIndices(MtcData * xx)
             outerTaxel->fLeftTaxel = candidate;
         }
         /* Determine top neighbour */
-        candidate = NULL_PTR;
+        candidate = NULL;
         closest = 1e6;
         bottomBracket = (deltaY * NEIGHBOUR_FUDGE / 2);
         topBracket = (deltaY * NEIGHBOUR_FUDGE);
         fudge = (deltaX * NEIGHBOUR_FUDGE / 2);
-        for (innerTaxelCount = 0, innerTaxel = *xx->fTaxelMapHandle; innerTaxelCount < xx->fNumTaxels;
-             ++innerTaxelCount, ++innerTaxel)
+        for (innerTaxelCount = 0, innerTaxel = *xx->fTaxelMapHandle;
+             innerTaxelCount < xx->fNumTaxels; ++innerTaxelCount, ++innerTaxel)
         {
             if (innerTaxel != outerTaxel)
             {
@@ -883,13 +904,13 @@ void mtcSetupIndices(MtcData * xx)
             outerTaxel->fTopTaxel = candidate;
         }
         /* Determine bottom neighbour */
-        candidate = NULL_PTR;
+        candidate = NULL;
         closest = 1e6;
         bottomBracket = (deltaY * NEIGHBOUR_FUDGE / 2);
         topBracket = (deltaY * NEIGHBOUR_FUDGE);
         fudge = (deltaX * NEIGHBOUR_FUDGE / 2);
-        for (innerTaxelCount = 0, innerTaxel = *xx->fTaxelMapHandle; innerTaxelCount < xx->fNumTaxels;
-             ++innerTaxelCount, ++innerTaxel)
+        for (innerTaxelCount = 0, innerTaxel = *xx->fTaxelMapHandle;
+             innerTaxelCount < xx->fNumTaxels; ++innerTaxelCount, ++innerTaxel)
         {
             if (innerTaxel != outerTaxel)
             {
@@ -942,9 +963,11 @@ void mtcSetupIndices(MtcData * xx)
     for (outerTaxelCount = 0, outerTaxel = *xx->fTaxelMapHandle; outerTaxelCount < xx->fNumTaxels;
          ++outerTaxelCount, ++outerTaxel)
     {
-        *(xx->fTaxelMatrix + (((outerTaxel->fYIndex - 1) * xx->fMaxCol) + outerTaxel->fXIndex - 1)) = outerTaxel;
+        *(xx->fTaxelMatrix + (((outerTaxel->fYIndex - 1) * xx->fMaxCol) +
+                              outerTaxel->fXIndex - 1)) = outerTaxel;
     }
 } // mtcSetupIndices
+
 /*------------------------------------ mtcSortByPressure ---*/
 static void mtcSortByPressure(MtcSpot *   spots,
                               const short numSpots)
@@ -981,6 +1004,7 @@ static void mtcSortByPressure(MtcSpot *   spots,
         }
     }
 } // mtcSortByPressure
+
 /*------------------------------------ mtcSortByX ---*/
 static void mtcSortByX(MtcSpot *   spots,
                        const short numSpots)
@@ -1017,6 +1041,7 @@ static void mtcSortByX(MtcSpot *   spots,
         }
     }
 } // mtcSortByX
+
 /*------------------------------------ mtcSortByY ---*/
 static void mtcSortByY(MtcSpot *   spots,
                        const short numSpots)
@@ -1053,6 +1078,7 @@ static void mtcSortByY(MtcSpot *   spots,
         }
     }
 } // mtcSortByY
+
 /*------------------------------------ mtcSortTaxels ---*/
 void mtcSortTaxels(MtcData *   xx,
                    const short numSpots)
@@ -1076,6 +1102,7 @@ void mtcSortTaxels(MtcData *   xx,
             break;
     }
 } // mtcSortTaxels
+
 /*------------------------------------ mtcWriteNormalizationFile ---*/
 bool mtcWriteNormalizationFile(MtcData * xx)
 {
@@ -1085,7 +1112,8 @@ bool mtcWriteNormalizationFile(MtcData * xx)
     if (path_opensysfile(xx->fNormalFileName, path_getdefault(), &fileRef, PATH_WRITE_PERM))
     {
         // If unsuccessful, attempt to create the file.
-        okSoFar = (! path_createsysfile(xx->fNormalFileName, path_getdefault(), FILETYPE_TEXT, &fileRef));
+        okSoFar = (! path_createsysfile(xx->fNormalFileName, path_getdefault(), FILETYPE_TEXT,
+                                        &fileRef));
     }
     else
     {
@@ -1097,11 +1125,12 @@ bool mtcWriteNormalizationFile(MtcData * xx)
         OSErr          err;
         char           lineBuffer[LINEBUFFER_SIZE + 1];    /* Use for scan processing. */
         MtcTaxelDesc * aTaxel = *xx->fTaxelMapHandle;
-        long           count;
+        t_ptr_size     count;
 
         for (short taxelCount = 0; taxelCount < xx->fNumTaxels; ++taxelCount, ++aTaxel)
         {
-            snprintf(lineBuffer, sizeof(lineBuffer), " %d %lf\n", static_cast<int>(aTaxel->fRawMin), aTaxel->fScale);
+            snprintf(lineBuffer, sizeof(lineBuffer), " %d %lf\n", static_cast<int>(aTaxel->fRawMin),
+                     aTaxel->fScale);
             count = static_cast<long>(strlen(lineBuffer));
             err = sysfile_write(fileRef, &count, lineBuffer);
             if (err != noErr)

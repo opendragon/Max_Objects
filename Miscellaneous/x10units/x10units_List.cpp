@@ -40,15 +40,12 @@
 #include "x10units.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(X10UnitsData * xx,
-              t_symbol *     message,
-              short          argc,
-              t_atom *       argv)
+LIST_HEADER(X10UnitsData)
 {
 #pragma unused(message)
-    long           num;
-    unsigned short sum = 0;
-    bool           okSoFar = true;
+    t_atom_long num;
+    t_atom_long sum = 0;
+    bool        okSoFar = true;
 
     for (short ii = 0; okSoFar && (ii < argc); ++ii)
     {
@@ -56,13 +53,14 @@ void cmd_List(X10UnitsData * xx,
         {
             case A_LONG:
                 num = argv[ii].a_w.w_long;
-                if ((num > 0) && (num <= NUM_HOUSECODES))
+                if ((0 < num) && (NUM_HOUSECODES >= num))
                 {
                     sum |= kUnitCodeToBits[num - 1];
                 }
                 else
                 {
-                    LOG_ERROR_3(xx, OUTPUT_PREFIX "argument %d is out of range (%ld)", static_cast<int>(ii), num)
+                    LOG_ERROR_3(xx, OUTPUT_PREFIX "argument %d is out of range (" LONG_FORMAT ")",
+                                static_cast<int>(ii), num)
                     okSoFar = false;
                 }
                 break;
@@ -75,19 +73,21 @@ void cmd_List(X10UnitsData * xx,
 
             case A_FLOAT:
                 LOG_ERROR_3(xx, OUTPUT_PREFIX "argument %d is a float (%g)", static_cast<int>(ii),
-                            static_cast<double>(argv[ii].a_w.w_float))
+                            TO_DBL(argv[ii].a_w.w_float))
                 okSoFar = false;
                 break;
 
             default:
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen", static_cast<int>(argv[ii].a_type))
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen",
+                            static_cast<int>(argv[ii].a_type))
                 okSoFar = false;
                 break;
+                
         }
     }
     if (okSoFar)
     {
         xx->fPreviousResult = sum;
-        outlet_int(xx->fResultOut, static_cast<long>(xx->fPreviousResult));
+        outlet_int(xx->fResultOut, xx->fPreviousResult);
     }
 } // cmd_List

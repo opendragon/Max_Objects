@@ -84,6 +84,6 @@ bool setupSeparators(VObjectData * xx,
                      const long    separator4,
                      const long    separator5);
 
-StandardRoutineDeclarations(VObjectData *);
+StandardRoutineDeclarations(VObjectData);
 
 #endif /* not VASSEMBLEOBJECTCOMMON_H_ */

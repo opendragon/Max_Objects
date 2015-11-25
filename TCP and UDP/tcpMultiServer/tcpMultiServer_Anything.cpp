@@ -40,10 +40,7 @@
 #include "tcpMultiServer.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(TcpMultiServerData * xx,
-                  t_symbol *           message,
-                  short                argc,
-                  t_atom *             argv)
+ANYTHING_HEADER(TcpMultiServerData)
 {
 #pragma unused(xx)
     LOG_ERROR_2(xx, OUTPUT_PREFIX "unknown message '%s' seen", message->s_name)
@@ -52,16 +49,18 @@ void cmd_Anything(TcpMultiServerData * xx,
         switch (argv[ii].a_type)
         {
             case A_LONG:
-                LOG_POST_3(xx, "  argument %d is a long (%ld)", static_cast<int>(ii), argv[ii].a_w.w_long)
+                LOG_POST_3(xx, "  argument %d is a long (" LONG_FORMAT ")", static_cast<int>(ii),
+                           argv[ii].a_w.w_long)
                 break;
 
             case A_SYM:
-                LOG_POST_3(xx, "  argument %d is a symbol (%s)", static_cast<int>(ii), argv[ii].a_w.w_sym->s_name)
+                LOG_POST_3(xx, "  argument %d is a symbol (%s)", static_cast<int>(ii),
+                           argv[ii].a_w.w_sym->s_name)
                 break;
 
             case A_FLOAT:
                 LOG_POST_3(xx, "  argument %d is a float (%g)", static_cast<int>(ii),
-                           static_cast<double>(argv[ii].a_w.w_float))
+                           TO_DBL(argv[ii].a_w.w_float))
                 break;
 
             case A_SEMI:
@@ -73,8 +72,13 @@ void cmd_Anything(TcpMultiServerData * xx,
                 break;
 
             case A_DOLLAR:
+            case A_DOLLSYM:
                 LOG_POST_2(xx, "  argument %d is a dollar sign", static_cast<int>(ii))
                 break;
+                
+            default:
+                break;
+                
         }
     }
 } // cmd_Anything

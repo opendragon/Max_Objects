@@ -64,7 +64,7 @@ void processRebindQueue(TcpObjectData * xx)
         else
         {
 #if 0
-            WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fSocket, NULL_PTR, NULL_PTR))
+            WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fSocket, NULL, NULL))
             if (result != kOTNoError)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
@@ -74,9 +74,12 @@ void processRebindQueue(TcpObjectData * xx)
 #endif//0
         }
         lockout_set(prev_lock);
+#if USE_EVNUM
         evnum_incr();
+#endif /* USE_EVNUM */
     }
 } // processRebindQueue
+
 /*------------------------------------ processReceiveQueue ---*/
 void processReceiveQueue(TcpObjectData * xx)
 {
@@ -102,14 +105,14 @@ void processReceiveQueue(TcpObjectData * xx)
             /* Grab the head of the received list */
             if (temp->fNext)
             {
-                temp->fNext->fPrevious = NULL_PTR;
+                temp->fNext->fPrevious = NULL;
             }
             xx->fReceiveHead = temp->fNext;
             if (! xx->fReceiveHead)
             {
-                xx->fReceiveTail = NULL_PTR;
+                xx->fReceiveTail = NULL;
             }
-            temp->fNext = NULL_PTR;
+            temp->fNext = NULL;
             walker = reinterpret_cast<char *>(&temp->fData->fNumElements);
             numMessages = validateBuffer(xx, OUR_NAME, temp->fData, xx->fRawMode);
             for (short ii = 0; ii < numMessages; ++ii)
@@ -117,13 +120,13 @@ void processReceiveQueue(TcpObjectData * xx)
                 /* Allow interrupts while we process the buffer */
                 lockout_set(prev_lock);
                 numAtoms = 0;
-                gotStuff = convertBufferToAtoms(xx, OUR_NAME, &walker, numAtoms, 0, temp->fData->fNumBytesInUse,
-                                                xx->fRawMode);
+                gotStuff = convertBufferToAtoms(xx, OUR_NAME, &walker, numAtoms, 0,
+                                                temp->fData->fNumBytesInUse, xx->fRawMode);
                 prev_lock = lockout_set(1);
                 if (numAtoms > 0)
                 {
                     outlet_anything(xx->fResultOut, gReplySymbol, numAtoms, gotStuff);
-                    FREEBYTES(gotStuff, numAtoms);
+                    FREE_BYTES(gotStuff);
                 }
             }
             /* Add the temp link to the buffer pool */
@@ -139,77 +142,82 @@ void processReceiveQueue(TcpObjectData * xx)
             xx->fPoolTail = temp;
         }
         lockout_set(prev_lock);
+#if USE_EVNUM
         evnum_incr();
+#endif /* USE_EVNUM */
     }
 } // processReceiveQueue
+
 /*------------------------------------ makeReceiveBufferAvailable ---*/
 bool makeReceiveBufferAvailable(TcpObjectData * xx)
 {
-        bool okSoFar = true;
-
-        if (xx)
+    bool okSoFar = true;
+    
+    if (xx)
+    {
+        int     sock = CFSocketGetNative(xx->fSocket);
+        ssize_t bytesRead = recv(sock,
+                                 reinterpret_cast<UInt8 *>(&xx->fReceiveBuffer->fNumElements),
+                                 MAX_BUFFER_TO_RECEIVE, 0);
+        
+        if (0 > bytesRead)
         {
-            int       sock = CFSocketGetNative(xx->fSocket);
-            ssize_t   bytesRead = recv(sock, reinterpret_cast<UInt8 *>(&xx->fReceiveBuffer->fNumElements),
-                                       MAX_BUFFER_TO_RECEIVE, 0);
-
-            if (bytesRead < 0)
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "recv failed (%ld)", static_cast<long>(errno))
+            signalError(xx);
+            okSoFar = false;
+        }
+        else if (0 == bytesRead)
+        {
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "recv failed (%ld)", static_cast<long>(EPIPE))
+            signalError(xx);
+            okSoFar = false;
+        }
+        else
+        {
+            /* Get the next available buffer from the buffer pool */
+            TcpBufferLink * temp = xx->fPoolHead;
+            
+            xx->fReceiveBuffer->fNumBytesInUse = static_cast<short>(bytesRead);
+            if (temp)
             {
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "recv failed (%ld)", static_cast<long>(errno))
-                signalError(xx);
-                okSoFar = false;
-            }
-            else if (0 == bytesRead)
-            {
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "recv failed (%ld)", static_cast<long>(EPIPE))
-                signalError(xx);
-                okSoFar = false;
-            }
-            else
-            {
-                /* Get the next available buffer from the buffer pool */
-                TcpBufferLink * temp = xx->fPoolHead;
-
-                xx->fReceiveBuffer->fNumBytesInUse = static_cast<short>(bytesRead);
-                if (temp)
+                DataBuffer * swapper = temp->fData;
+                
+                if (temp->fNext)
                 {
-                    DataBuffer * swapper = temp->fData;
-
-                    if (temp->fNext)
-                    {
-                        temp->fNext->fPrevious = NULL_PTR;
-                    }
-                    xx->fPoolHead = temp->fNext;
-                    if (! xx->fPoolHead)
-                    {
-                        xx->fPoolTail = NULL_PTR;
-                    }
-                    temp->fNext = NULL_PTR;
-                    /* Exchange the receive buffer and the pool buffer */
-                    temp->fData = xx->fReceiveBuffer;
-                    xx->fReceiveBuffer = swapper;
-                    /* Add the pool buffer to the receive list */
-                    temp->fPrevious = xx->fReceiveTail;
-                    if (temp->fPrevious)
-                    {
-                        temp->fPrevious->fNext = temp;
-                    }
-                    else
-                    {
-                        xx->fReceiveHead = temp;
-                    }
-                    xx->fReceiveTail = temp;
+                    temp->fNext->fPrevious = NULL;
+                }
+                xx->fPoolHead = temp->fNext;
+                if (! xx->fPoolHead)
+                {
+                    xx->fPoolTail = NULL;
+                }
+                temp->fNext = NULL;
+                /* Exchange the receive buffer and the pool buffer */
+                temp->fData = xx->fReceiveBuffer;
+                xx->fReceiveBuffer = swapper;
+                /* Add the pool buffer to the receive list */
+                temp->fPrevious = xx->fReceiveTail;
+                if (temp->fPrevious)
+                {
+                    temp->fPrevious->fNext = temp;
                 }
                 else
                 {
-                    LOG_ERROR_1(xx, OUTPUT_PREFIX "receive buffer queue exhausted")
-                    okSoFar = false;
+                    xx->fReceiveHead = temp;
                 }
-                signalReceive(xx);
+                xx->fReceiveTail = temp;
             }
+            else
+            {
+                LOG_ERROR_1(xx, OUTPUT_PREFIX "receive buffer queue exhausted")
+                okSoFar = false;
+            }
+            signalReceive(xx);
         }
-        return okSoFar;
+    }
+    return okSoFar;
 } // makeReceiveBufferAvailable
+
 /*------------------------------------ setObjectState ---*/
 void setObjectState(TcpObjectData * xx,
                     const TcpState  newState)
@@ -225,6 +233,7 @@ void setObjectState(TcpObjectData * xx,
 #endif /* BE_VERBOSE */
     }
 } // setObjectState
+
 /*------------------------------------ transmitBuffer ---*/
 void transmitBuffer(TcpObjectData *  xx,
                     DataBuffer *     aBuffer)
@@ -233,7 +242,7 @@ void transmitBuffer(TcpObjectData *  xx,
     {
         int sock = CFSocketGetNative(xx->fSocket);
 
-        if (sock >= 0)
+        if (0 <= sock)
         {
             void * outBuffer;
             size_t outLength;
@@ -245,9 +254,11 @@ void transmitBuffer(TcpObjectData *  xx,
             }
             else
             {
-                short num_bytes = static_cast<short>(aBuffer->fNumBytesInUse + SIZEOF_DATABUFFER_HDR);
+                short num_bytes = static_cast<short>(aBuffer->fNumBytesInUse +
+                                                     SIZEOF_DATABUFFER_HDR);
 
-                aBuffer->fSanityCheck = htons(static_cast<short>(-(num_bytes + aBuffer->fNumElements)));
+                aBuffer->fSanityCheck = htons(static_cast<short>(-(num_bytes +
+                                                                   aBuffer->fNumElements)));
                 aBuffer->fNumElements = htons(aBuffer->fNumElements);
                 outLength = num_bytes;
                 outBuffer = &aBuffer->fNumElements;
@@ -267,7 +278,8 @@ void transmitBuffer(TcpObjectData *  xx,
         }
         else
         {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "could not get native socket (%ld)", static_cast<long>(errno))
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "could not get native socket (%ld)",
+                        static_cast<long>(errno))
             signalError(xx);
         }
     }

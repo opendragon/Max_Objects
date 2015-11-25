@@ -40,20 +40,22 @@
 #include "Vjet.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(VObjectData * xx)
+BANG_HEADER(VObjectData)
 {
     if (xx && xx->fPreviousList)
     {
         short elementCount = xx->fHowMany;
 
-        if (elementCount > 0)
+        if (0 < elementCount)
         {
             short argCount = xx->fPreviousLength;
 
             for (short offset = 0; offset < xx->fPreviousLength; offset += elementCount)
             {
-                genericListOutput(xx->fResultOut, static_cast<short>(((offset + elementCount) > argCount) ?
-                                                                     (argCount - offset) : elementCount),
+                genericListOutput(xx->fResultOut, static_cast<short>(((offset + elementCount) >
+                                                                      argCount) ?
+                                                                     (argCount - offset) :
+                                                                     elementCount),
                                   xx->fPreviousList + offset);
             }
         }

@@ -40,11 +40,7 @@
 #include "Vscan.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(VscanData * xx,
-                void *      bb,
-                long        msg,
-                long        arg,
-                char *      dstString)
+ASSIST_HEADER(VscanData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

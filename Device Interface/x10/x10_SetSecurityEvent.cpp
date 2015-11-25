@@ -57,10 +57,12 @@ void cmd_SetSecurityEvent(X10ControlData * xx,
             break;
 
         case X10KindCP290:
-            x10CP290DoTimerEvent(xx, x10CP290ModeSecurity, code, map, eventNumber, dayMap, hourMinute, function, level);
+            x10CP290DoTimerEvent(xx, x10CP290ModeSecurity, code, map, eventNumber, dayMap,
+                                 hourMinute, function, level);
             break;
 
         default:
             break;
+            
     }
 } // cmd_SetSecurityEvent

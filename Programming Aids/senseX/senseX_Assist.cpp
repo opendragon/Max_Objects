@@ -40,11 +40,7 @@
 #include "senseX.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(SenseXData * xx,
-                void *       bb,
-                long         msg,
-                long         arg,
-                char *       dstString)
+ASSIST_HEADER(SenseXData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)
@@ -58,6 +54,10 @@ void cmd_Assist(SenseXData * xx,
             case 1:
                 strncpy_zero(dstString, "Message stream", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
     else if (ASSIST_OUTLET == msg)

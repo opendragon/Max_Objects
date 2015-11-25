@@ -86,12 +86,12 @@ void spaceballProcessPacket(SpaceballData * xx)
                     }
                     for (short ii = 0; ii < 3; ++ii)
                     {
-                        SETFLOAT(report + ii, xx->fTrans[ii]);
+                        A_SETFLOAT(report + ii, xx->fTrans[ii]);
                     }
                     outlet_anything(xx->fDataOut, gTranslateSymbol, 3, report);
                     for (short ii = 0; ii < 3; ++ii)
                     {
-                        SETFLOAT(report + ii, xx->fRot[ii]);
+                        A_SETFLOAT(report + ii, xx->fRot[ii]);
                     }
                     outlet_anything(xx->fDataOut, gRotateSymbol, 3, report);
                 }
@@ -114,14 +114,14 @@ void spaceballProcessPacket(SpaceballData * xx)
                         {
                             t_atom report[2];
 
-                            SETLONG(report, ii + 1);
+                            A_SETLONG(report, ii + 1);
                             if (newButtons & mask)
                             {
-                                SETLONG(report + 1, 1);
+                                A_SETLONG(report + 1, 1);
                             }
                             else
                             {
-                                SETLONG(report + 1, 0);
+                                A_SETLONG(report + 1, 0);
                             }
                             outlet_anything(xx->fDataOut, gButtonSymbol, 2, report);
                             buttonChanges &= ~ mask;
@@ -157,9 +157,11 @@ void spaceballProcessPacket(SpaceballData * xx)
 
             default:
                 break;
+                
         }
     }
 } // spaceballProcessPacket
+
 /*------------------------------------ spaceballZeroValues ---*/
 void spaceballZeroValues(SpaceballData * xx)
 {

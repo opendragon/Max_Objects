@@ -56,7 +56,8 @@ void cmd_Frame(LdpData * xx)
             {
                 if (xx->fInterruptPoint)
                 {
-                    ldpInsertCommand(xx, xx->fInterruptPoint, kLdpCommandAddressInquiry, kLdpStateAwaitingFrameByte1);
+                    ldpInsertCommand(xx, xx->fInterruptPoint, kLdpCommandAddressInquiry,
+                                     kLdpStateAwaitingFrameByte1);
                 }
                 else
                 {

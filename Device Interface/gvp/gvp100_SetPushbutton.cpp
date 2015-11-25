@@ -49,7 +49,7 @@ void cmd_SetPushbutton(GvpData *  xx,
     {
         GvpCommandCode   aCommand = kNoCommand;
         bool             okSoFar = true;
-        long             number;
+        t_atom_long      number;
         unsigned char    dummy;
 #if (! defined(DONT_RANGE_CHECK))
         static long      validControlOnOff[] =
@@ -66,7 +66,8 @@ void cmd_SetPushbutton(GvpData *  xx,
             0x0048, 0x0049, 0x004A, 0x004B, 0x004C, 0x004D, 0x004E,
             0x0052
         };
-        static const int kNumValidOnOffControls = (sizeof(validControlOnOff) / sizeof(*validControlOnOff));
+        static const int kNumValidOnOffControls = (sizeof(validControlOnOff) /
+                                                   sizeof(*validControlOnOff));
         static long      validControlPush[] =
         {
             0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -80,7 +81,8 @@ void cmd_SetPushbutton(GvpData *  xx,
             0x0040, 0x0041, 0x0042, 0x0043, 0x0044, 0x0045, 0x0046, 0x0047,
             0x0048, 0x0049, 0x004A, 0x004B, 0x004C, 0x004D, 0x004E, 0x004F
         };
-        static const int kNumValidPushControls = (sizeof(validControlPush) / sizeof(*validControlPush));
+        static const int kNumValidPushControls = (sizeof(validControlPush) /
+                                                  sizeof(*validControlPush));
 #endif /* not DONT_RANGE_CHECK */
 
         if (onOffPush == gOffSymbol)
@@ -105,7 +107,7 @@ void cmd_SetPushbutton(GvpData *  xx,
             switch (argv[jj].a_type)
             {
                 case A_FLOAT:
-                    number = static_cast<long>(argv[jj].a_w.w_float);
+                    number = TO_INT(argv[jj].a_w.w_float);
 #if (! defined(DONT_RANGE_CHECK))
                     if ((onOffPush == gPushSymbol) || (onOffPush == gPSymbol))
                     {
@@ -117,11 +119,12 @@ void cmd_SetPushbutton(GvpData *  xx,
                             {
                                 break;
                             }
+                            
                         }
                         if (kNumValidPushControls == ii)
                         {
                             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pushbutton or lamp (%g)",
-                                        static_cast<double>(argv[jj].a_w.w_float))
+                                        TO_DBL(argv[jj].a_w.w_float))
                             okSoFar = false;
                         }
                     }
@@ -135,11 +138,12 @@ void cmd_SetPushbutton(GvpData *  xx,
                             {
                                 break;
                             }
+                            
                         }
                         if (kNumValidOnOffControls == ii)
                         {
                             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pushbutton or lamp (%g)",
-                                        static_cast<double>(argv[jj].a_w.w_float))
+                                        TO_DBL(argv[jj].a_w.w_float))
                             okSoFar = false;
                         }
                     }
@@ -147,7 +151,8 @@ void cmd_SetPushbutton(GvpData *  xx,
                     if (okSoFar)
                     {
                         dummy = static_cast<unsigned char>(number);
-                        gvpPerformWriteCommand(xx, 0, aCommand, 1, &dummy, kStateAwaitingByteCount1, jj == (argc - 1));
+                        gvpPerformWriteCommand(xx, 0, aCommand, 1, &dummy, kStateAwaitingByteCount1,
+                                               jj == (argc - 1));
                     }
                     break;
 
@@ -164,10 +169,12 @@ void cmd_SetPushbutton(GvpData *  xx,
                             {
                                 break;
                             }
+                            
                         }
                         if (ii == kNumValidPushControls)
                         {
-                            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pushbutton or lamp (%ld)", number)
+                            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pushbutton or lamp (" LONG_FORMAT
+                                        ")", number)
                             okSoFar = false;
                         }
                     }
@@ -181,10 +188,12 @@ void cmd_SetPushbutton(GvpData *  xx,
                             {
                                 break;
                             }
+                            
                         }
                         if (ii == kNumValidOnOffControls)
                         {
-                            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pushbutton or lamp (%ld)", number)
+                            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pushbutton or lamp (" LONG_FORMAT
+                                        ")", number)
                             okSoFar = false;
                         }
                     }
@@ -192,12 +201,14 @@ void cmd_SetPushbutton(GvpData *  xx,
                     if (okSoFar)
                     {
                         dummy = static_cast<unsigned char>(number);
-                        gvpPerformWriteCommand(xx, 0, aCommand, 1, &dummy, kStateAwaitingByteCount1, jj == (argc - 1));
+                        gvpPerformWriteCommand(xx, 0, aCommand, 1, &dummy, kStateAwaitingByteCount1,
+                                               jj == (argc - 1));
                     }
                     break;
 
                 case A_SYM:
-                    LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pushbutton or lamp '%s'", argv[jj].a_w.w_sym->s_name)
+                    LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pushbutton or lamp '%s'",
+                                argv[jj].a_w.w_sym->s_name)
                     okSoFar = false;
                     break;
 
@@ -206,6 +217,7 @@ void cmd_SetPushbutton(GvpData *  xx,
                                 static_cast<int>(argv[jj].a_type))
                     okSoFar = false;
                     break;
+                    
             }
         }
         if (! okSoFar)

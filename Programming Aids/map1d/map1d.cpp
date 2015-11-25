@@ -43,17 +43,59 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * map1dCreate(t_symbol * initialFile);
+/*------------------------------------ map1dCreate ---*/
+static void * map1dCreate(t_symbol * initialFile)
+{
+    Map1dData * xx = static_cast<Map1dData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fVerbose = false;
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+        xx->fFirstRange = xx->fLastRange = xx->fPreviousResult = NULL;
+        setFOI2Integer(xx->fPreviousInput, 0);
+        xx->fRangeCount = 0;
+        xx->fBuffer = static_cast<t_binbuf *>(binbuf_new());
+        if (! (xx->fResultOut && xx->fBuffer))
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+        else if (initialFile == gEmptySymbol)
+        {
+            LOG_POST_1(xx, OUTPUT_PREFIX "no initial map file")
+        }
+        else
+        {
+            LOG_POST_2(xx, OUTPUT_PREFIX "initial file: %s", initialFile->s_name)
+            map1dLoadRangeList(xx, initialFile);
+        }
+    }
+    return xx;
+} // map1dCreate
 
-void map1dFree(Map1dData * xx);
+/*------------------------------------ map1dFree ---*/
+static void map1dFree(Map1dData * xx)
+{
+    if (xx)
+    {
+        if (xx->fBuffer)
+        {
+            freeobject(reinterpret_cast<t_object *>(xx->fBuffer));
+            xx->fBuffer = NULL;
+        }
+        map1dClearRangeList(xx);
+    }
+} // map1dFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(map1dCreate), reinterpret_cast<method>(map1dFree),
-                               sizeof(Map1dData), reinterpret_cast<method>(0L), A_DEFSYM, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(map1dCreate),
+                               reinterpret_cast<method>(map1dFree), sizeof(Map1dData),
+                               reinterpret_cast<method>(0L), A_DEFSYM, 0);
 
     if (temp)
     {
@@ -111,49 +153,5 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ map1dCreate ---*/
-void * map1dCreate(t_symbol * initialFile)
-{
-    Map1dData * xx = static_cast<Map1dData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fVerbose = false;
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-        xx->fFirstRange = xx->fLastRange = xx->fPreviousResult = NULL_PTR;
-        setFOI2Integer(xx->fPreviousInput, 0);
-        xx->fRangeCount = 0;
-        xx->fBuffer = static_cast<t_binbuf *>(binbuf_new());
-        if (! (xx->fResultOut || xx->fBuffer))
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-        else if (initialFile == gEmptySymbol)
-        {
-            LOG_POST_1(xx, OUTPUT_PREFIX "no initial map file")
-        }
-        else
-        {
-            LOG_POST_2(xx, OUTPUT_PREFIX "initial file: %s", initialFile->s_name)
-            map1dLoadRangeList(xx, initialFile);
-        }
-    }
-    return xx;
-} // map1dCreate
-/*------------------------------------ map1dFree ---*/
-void map1dFree(Map1dData * xx)
-{
-    if (xx)
-    {
-        if (xx->fBuffer)
-        {
-            freeobject(reinterpret_cast<t_object *>(xx->fBuffer));
-            xx->fBuffer = NULL_PTR;
-        }
-        map1dClearRangeList(xx);
-    }
-} // map1dFree
-
-StandardAnythingRoutine(Map1dData *)
+StandardAnythingRoutine(Map1dData)

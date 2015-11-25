@@ -50,21 +50,20 @@ static void deferred_Int(FileLoggerData * xx,
 
     if (okSoFar)
     {
-        snprintf(numBuffer, sizeof(numBuffer), "%ld\n", (long) argv->a_w.w_long);
+        snprintf(numBuffer, sizeof(numBuffer), LONG_FORMAT "\n", argv->a_w.w_long);
         fileLoggerWriteStringToTheFile(xx, numBuffer);
         fileLoggerReleaseTheFile(xx);
     }
 } // deferred_Int
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(FileLoggerData * xx,
-             long             msg)
+INT_HEADER(FileLoggerData)
 {
     if (xx)
     {
         t_atom longArg;
 
-        SETLONG(&longArg, msg);
+        A_SETLONG(&longArg, msg);
         defer(xx, reinterpret_cast<method>(deferred_Int), NULL, 1, &longArg);
     }
 } // cmd_Int

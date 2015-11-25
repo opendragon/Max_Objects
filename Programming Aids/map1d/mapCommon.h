@@ -55,8 +55,8 @@ enum Category
 
 union ForI_
 {
-    float fFloat;
-    long  fInteger;
+    double      fFloat;
+    t_atom_long fInteger;
 }; // ForI_
 
 struct FloatOrInteger
@@ -72,77 +72,95 @@ struct RangeElement
     bool           fIsClosed;
 }; // RangeElement
 
-inline float getFOIFloat(const FloatOrInteger & value)
+inline double getFOIFloat(const FloatOrInteger & value)
 {
     return value.fValue.fFloat;
 } // getFOIFloat
-inline long getFOILong(const FloatOrInteger & value)
+
+inline t_atom_long getFOILong(const FloatOrInteger & value)
 {
     return value.fValue.fInteger;
 } // getFOILong
-inline float getFOIValue(const FloatOrInteger & value)
+
+inline double getFOIValue(const FloatOrInteger & value)
 {
-    return value.fIsFloat ? value.fValue.fFloat : value.fValue.fInteger;
+    return (value.fIsFloat ? value.fValue.fFloat : TO_DBL(value.fValue.fInteger));
 } // getFOIValue
+
 inline void setFOI2Float(FloatOrInteger & target,
-                         const float      value)
+                         const double     value)
 {
     target.fIsFloat = true;
     target.fValue.fFloat = value;
 } // setFOI2Float
-inline void setFOI2Integer(FloatOrInteger & target,
-                           const long       value)
+
+inline void setFOI2Integer(FloatOrInteger &  target,
+                           const t_atom_long value)
 {
     target.fIsFloat = false;
     target.fValue.fInteger = value;
 } // setFOI2Integer
- # define MapRoutineDeclarations(type) \
-    void cmd_Add(type       xx, \
-                 t_symbol * message, \
-                 short      argc, \
-                 t_atom *   argv); \
-\
-    void cmd_After(type       xx, \
-                   t_symbol * message, \
-                   short      argc, \
-                   t_atom *   argv); \
-\
-    void cmd_Before(type       xx, \
-                    t_symbol * message, \
-                    short      argc, \
-                    t_atom *   argv); \
-\
-    void cmd_Clear(type xx); \
-\
-    void cmd_Count(type xx); \
-\
-    void cmd_Delete(type xx, \
-                     long num); \
-\
-    void cmd_Dump(type xx); \
-\
-    void cmd_Get(type       xx, \
-                 long       num, \
-                 t_symbol * which); \
-\
-    void cmd_Load(type       xx, \
-                  t_symbol * fileName); \
-\
-    void cmd_Replace(type       xx, \
-                     t_symbol * message, \
-                     short      argc, \
-                     t_atom *   argv); \
-\
-    void cmd_Set(type       xx, \
-                 t_symbol * message, \
-                 short      argc, \
-                 t_atom *   argv); \
-\
-    void cmd_Show(type xx, \
-                  long num); \
-\
-    void cmd_Verbose(type       xx, \
-                     t_symbol * onOff)
+
+# define ADD_HEADER(type) \
+    void cmd_Add(type *      xx, \
+                 t_symbol *  message, \
+                 const short argc, \
+                 t_atom *    argv)
+
+# define AFTER_HEADER(type) \
+    void cmd_After(type *      xx, \
+                   t_symbol *  message, \
+                   const short argc, \
+                   t_atom *    argv)
+
+# define BEFORE_HEADER(type) \
+    void cmd_Before(type *      xx, \
+                    t_symbol *  message, \
+                    const short argc, \
+                    t_atom *    argv)
+
+# define DELETE_HEADER(type) \
+    void cmd_Delete(type *     xx, \
+                    const long num)
+
+# define DUMP_HEADER(type) \
+    void cmd_Dump(type * xx)
+
+# define GET_HEADER(type) \
+    void cmd_Get(type *     xx, \
+                 const long num, \
+                 t_symbol * which)
+
+# define REPLACE_HEADER(type) \
+    void cmd_Replace(type *      xx, \
+                     t_symbol *  message, \
+                     const short argc, \
+                     t_atom *    argv)
+
+# define SET_HEADER(type) \
+    void cmd_Set(type *      xx, \
+                 t_symbol *  message, \
+                 const short argc, \
+                 t_atom *    argv)
+
+# define SHOW_HEADER(type) \
+    void cmd_Show(type *     xx, \
+                  const long num)
+
+# define MapRoutineDeclarations(type) \
+    ADD_HEADER(type); \
+    AFTER_HEADER(type); \
+    BEFORE_HEADER(type); \
+    CLEAR_HEADER(type); \
+    COUNT_HEADER(type); \
+    DELETE_HEADER(type); \
+    DUMP_HEADER(type); \
+    GET_HEADER(type); \
+    LOAD_HEADER(type); \
+    REPLACE_HEADER(type); \
+    SET_HEADER(type); \
+    SHOW_HEADER(type); \
+    VERBOSE_HEADER(type)
 
 mextern(t_symbol *) gAsteriskSymbol;      /* Pointer to unique symbol for '*' */
 mextern(t_symbol *) gCloseRoundSymbol;    /* Pointer to unique symbol for ')' */

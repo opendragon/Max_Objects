@@ -41,10 +41,45 @@
 #include "tcpLocate.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * tcpLocateCreate(void);
+/*------------------------------------ tcpLocateCreate ---*/
+static void * tcpLocateCreate(void)
+{
+    TcpLocateData * xx = static_cast<TcpLocateData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        bool okSoFar = true;
+        
+#if defined(BE_VERBOSE)
+        xx->fVerbose = false;
+#endif /* BE_VERBOSE */
+        xx->fErrorBangOut = xx->fResultOut = NULL;
+        xx->fHost = NULL;
+        if (okSoFar)
+        {
+            okSoFar = initObject(xx);
+        }
+        if (! okSoFar)
+        {
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // tcpLocateCreate
 
-void tcpLocateFree(TcpLocateData * xx);
+/*------------------------------------ tcpLocateFree ---*/
+static void tcpLocateFree(TcpLocateData * xx)
+{
+    if (xx)
+    {
+        if (xx->fHost)
+        {
+            CFRelease(xx->fHost);
+            xx->fHost = NULL;
+        }
+    }
+} // tcpLocateFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -71,41 +106,3 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ tcpLocateCreate ---*/
-void * tcpLocateCreate(void)
-{
-    TcpLocateData * xx = static_cast<TcpLocateData *>(object_alloc(gClass));
-
-    if (xx)
-    {
-        bool okSoFar = true;
-
-#if defined(BE_VERBOSE)
-        xx->fVerbose = false;
-#endif /* BE_VERBOSE */
-        xx->fErrorBangOut = xx->fResultOut = NULL_PTR;
-        xx->fHost = NULL_PTR;
-        if (okSoFar)
-        {
-            okSoFar = initObject(xx);
-        }
-        if (! okSoFar)
-        {
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // tcpLocateCreate
-/*------------------------------------ tcpLocateFree ---*/
-void tcpLocateFree(TcpLocateData * xx)
-{
-    if (xx)
-    {
-        if (xx->fHost)
-        {
-            CFRelease(xx->fHost);
-            xx->fHost = NULL_PTR;
-        }
-    }
-} // tcpLocateFree

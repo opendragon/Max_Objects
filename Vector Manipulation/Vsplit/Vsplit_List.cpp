@@ -40,29 +40,26 @@
 #include "Vsplit.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VObjectData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VObjectData)
 {
 #pragma unused(message)
     if (xx)
     {
-        t_atom * leftAtoms = NULL_PTR;
-        t_atom * rightAtoms = NULL_PTR;
+        t_atom * leftAtoms = NULL;
+        t_atom * rightAtoms = NULL;
         short    leftCount = 0;
         short    rightCount = 0;
 
         clearPrevious(xx);
-        if (xx->fHowMany > 0)
+        if (0 < xx->fHowMany)
         {
             if (argc > xx->fHowMany)
             {
                 // We have a split
                 leftCount = xx->fHowMany;
                 rightCount = static_cast<short>(argc - leftCount);
-                leftAtoms = GETBYTES(leftCount, t_atom);
-                rightAtoms = GETBYTES(rightCount, t_atom);
+                leftAtoms = GET_BYTES(leftCount, t_atom);
+                rightAtoms = GET_BYTES(rightCount, t_atom);
                 memcpy(leftAtoms, argv, leftCount * sizeof(t_atom));
                 memcpy(rightAtoms, argv + leftCount, rightCount * sizeof(t_atom));
             }
@@ -70,19 +67,19 @@ void cmd_List(VObjectData * xx,
             {
                 // Everything goes to the left
                 leftCount = argc;
-                leftAtoms = GETBYTES(leftCount, t_atom);
+                leftAtoms = GET_BYTES(leftCount, t_atom);
                 memcpy(leftAtoms, argv, argc * sizeof(t_atom));
             }
         }
-        else if (xx->fHowMany < 0)
+        else if (0 > xx->fHowMany)
         {
             if (argc > (-xx->fHowMany))
             {
                 // We have a split
                 rightCount = static_cast<short>(-xx->fHowMany);
                 leftCount = static_cast<short>(argc - rightCount);
-                leftAtoms = GETBYTES(leftCount, t_atom);
-                rightAtoms = GETBYTES(rightCount, t_atom);
+                leftAtoms = GET_BYTES(leftCount, t_atom);
+                rightAtoms = GET_BYTES(rightCount, t_atom);
                 memcpy(leftAtoms, argv, leftCount * sizeof(t_atom));
                 memcpy(rightAtoms, argv + leftCount, rightCount * sizeof(t_atom));
             }
@@ -90,7 +87,7 @@ void cmd_List(VObjectData * xx,
             {
                 // Everything goes to the right
                 rightCount = argc;
-                rightAtoms = GETBYTES(rightCount, t_atom);
+                rightAtoms = GET_BYTES(rightCount, t_atom);
                 memcpy(rightAtoms, argv, argc * sizeof(t_atom));
             }
         }

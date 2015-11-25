@@ -81,7 +81,7 @@ struct Map3dData
     bool           fVerbose;
 }; // Map3dData
 
-MapRoutineDeclarations(Map3dData *);
+MapRoutineDeclarations(Map3dData);
 
 void map3dClearRangeList(Map3dData * xx);
 
@@ -101,7 +101,7 @@ void map3dProcessData(Map3dData *            xx,
                       const FloatOrInteger & yCoord,
                       const FloatOrInteger & zCoord);
 
-StandardRoutineDeclarations(Map3dData *);
+StandardRoutineDeclarations(Map3dData);
 
 mextern(t_symbol *) gBackSymbol;    /* Pointer to unique symbol for 'back' */
 mextern(t_symbol *) gBottomSymbol;  /* Pointer to unique symbol for 'bottom' */

@@ -40,28 +40,25 @@
 #include "Vrotate.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(VObjectData * xx,
-                  t_symbol *    message,
-                  short         argc,
-                  t_atom *      argv)
+ANYTHING_HEADER(VObjectData)
 {
     if (xx)
     {
         short    effective = static_cast<short>(argc + 1);
-        t_atom * tempList = GETBYTES(effective, t_atom);
+        t_atom * tempList = GET_BYTES(effective, t_atom);
         long     elementCount = xx->fHowMany;
 
         clearPrevious(xx);
         if (tempList)
         {
-            if (elementCount > 0)
+            if (0 < elementCount)
             {
                 if (elementCount >= effective)
                 {
                     elementCount %= effective;
                 }
             }
-            else if (elementCount < 0)
+            else if (0 > elementCount)
             {
                 elementCount = -elementCount;
                 if (elementCount >= effective)
@@ -71,16 +68,17 @@ void cmd_Anything(VObjectData * xx,
             }
             if (elementCount)
             {
-                if (xx->fHowMany > 0)
+                if (0 < xx->fHowMany)
                 {
                     /* Take last elementCount elements from the input: */
                     memcpy(tempList, argv + argc - elementCount, elementCount * sizeof(t_atom));
                     /* Copy message into output: */
-                    SETSYM(tempList + elementCount, message);
+                    A_SETSYM(tempList + elementCount, message);
                     /* Take first (argc - elementCount) elements from the input: */
                     if (argc > elementCount)
                     {
-                        memcpy(tempList + elementCount + 1, argv, (argc - elementCount) * sizeof(t_atom));
+                        memcpy(tempList + elementCount + 1, argv,
+                               (argc - elementCount) * sizeof(t_atom));
                     }
                 }
                 else
@@ -88,17 +86,19 @@ void cmd_Anything(VObjectData * xx,
                     /* Take last (effective - elementCount) elements from the input: */
                     if (effective > elementCount)
                     {
-                        memcpy(tempList, argv + elementCount - 1, (effective - elementCount) * sizeof(t_atom));
+                        memcpy(tempList, argv + elementCount - 1,
+                               (effective - elementCount) * sizeof(t_atom));
                     }
                     /* Copy message into output: */
-                    SETSYM(tempList + effective - elementCount, message);
+                    A_SETSYM(tempList + effective - elementCount, message);
                     /* Take first (elementCount - 1) elements from the input: */
-                    memcpy(tempList + effective + 1 - elementCount, argv, (elementCount - 1) * sizeof(t_atom));
+                    memcpy(tempList + effective + 1 - elementCount, argv,
+                           (elementCount - 1) * sizeof(t_atom));
                 }
             }
             else
             {
-                SETSYM(tempList, message);
+                A_SETSYM(tempList, message);
                 memcpy(tempList + 1, argv, argc * sizeof(t_atom));
             }
             xx->fPreviousList = tempList;

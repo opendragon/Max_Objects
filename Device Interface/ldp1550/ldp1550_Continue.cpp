@@ -57,7 +57,8 @@ void cmd_Continue(LdpData * xx)
             {
                 if (xx->fInterruptPoint)
                 {
-                    ldpInsertCommand(xx, xx->fInterruptPoint, kLdpCommandContinue, kLdpStateAwaitingAck);
+                    ldpInsertCommand(xx, xx->fInterruptPoint, kLdpCommandContinue,
+                                     kLdpStateAwaitingAck);
                 }
                 else
                 {

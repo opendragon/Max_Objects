@@ -40,14 +40,13 @@
 #include "map1d.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(Map1dData * xx,
-             long        num)
+INT_HEADER(Map1dData)
 {
     if (xx)
     {
         FloatOrInteger temp;
 
-        setFOI2Integer(temp, num);
+        setFOI2Integer(temp, msg);
         map1dProcessData(xx, temp);
     }
 } // cmd_Int

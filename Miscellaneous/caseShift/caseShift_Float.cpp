@@ -40,13 +40,12 @@
 #include "caseShift.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(CaseShiftData * xx,
-               double          msg)
+FLOAT_HEADER(CaseShiftData)
 {
     if (xx)
     {
         clearPrevious(xx);
-        xx->fPreviousFloat = msg;
+        xx->fPreviousFloat = TO_DBL(msg);
         xx->fPreviousKind = A_FLOAT;
         outlet_float(xx->fResultOut, xx->fPreviousFloat);
     }

@@ -87,7 +87,8 @@ struct TcpBufferLink
         res = aCall; \
         if (xx->fVerbose)\
         { \
-            post(xx, OUTPUT_PREFIX name " --> (%ld = %s)", static_cast<long>(res), mapErrorCodeToString(res));\
+            post(xx, OUTPUT_PREFIX name " --> (%ld = %s)", static_cast<long>(res), \
+                    mapErrorCodeToString(res));\
         } \
     }
 # else /* not TRACE_OT_CALLS or not BE_VERBOSE */

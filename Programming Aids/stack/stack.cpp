@@ -42,20 +42,117 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * stackCreate(t_symbol * commonName);
-
-void stackFree(StackData * xx);
-
+/*------------------------------------ stackResolveCommonName ---*/
 static void stackResolveCommonName(StackData * xx,
-                                   t_symbol *  name);
+                                   t_symbol *  name)
+{
+    StackDescriptor * descriptor = NULL;
+    
+    if (name != gEmptySymbol)
+    {
+        for (descriptor = gStackAnchor; descriptor; descriptor = descriptor->fNext)
+        {
+            if (descriptor->fTag == name)
+            {
+                break;
+            }
+            
+        }
+    }
+    if (descriptor)
+    {
+        ++descriptor->fReferenceCount;
+        xx->fStack = descriptor;
+    }
+    else
+    {
+        descriptor = GET_BYTES(1, StackDescriptor);
+        if (descriptor)
+        {
+            descriptor->fTopOfStack = NULL;
+            descriptor->fDepth = 0;
+            descriptor->fReferenceCount = 1;
+            xx->fStack = descriptor;
+            descriptor->fPrevious = NULL;
+            if (name == gEmptySymbol)
+            {
+                descriptor->fTag = NULL;
+                descriptor->fNext = NULL;
+            }
+            else
+            {
+                descriptor->fTag = name;
+                descriptor->fNext = gStackAnchor;
+                if (gStackAnchor)
+                {
+                    gStackAnchor->fPrevious = descriptor;
+                }
+                gStackAnchor = descriptor;
+            }
+        }
+    }
+} // stackResolveCommonName
+
+/*------------------------------------ stackCreate ---*/
+static void * stackCreate(t_symbol * commonName)
+{
+    StackData * xx = static_cast<StackData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fVerbose = false;
+        xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
+        xx->fDepthOut = static_cast<t_outlet *>(intout(xx));
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+        xx->fStack = NULL;
+        stackResolveCommonName(xx, commonName);
+        if (! (xx->fResultOut && xx->fErrorBangOut && xx->fDepthOut && xx->fStack))
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // stackCreate
+
+/*------------------------------------ stackFree ---*/
+static void stackFree(StackData * xx)
+{
+    if (xx)
+    {
+        StackDescriptor * descriptor = xx->fStack;
+        
+        if (descriptor)
+        {
+            if (! --descriptor->fReferenceCount)
+            {
+                if (descriptor->fNext)
+                {
+                    descriptor->fNext->fPrevious = descriptor->fPrevious;
+                }
+                if (descriptor->fPrevious)
+                {
+                    descriptor->fPrevious->fNext = descriptor->fNext;
+                }
+                if (gStackAnchor == descriptor)
+                {
+                    gStackAnchor = descriptor->fNext;
+                }
+                stackClear(xx);
+                FREE_BYTES(xx->fStack);
+            }
+        }
+    }
+} // stackFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(stackCreate), reinterpret_cast<method>(stackFree),
-                               sizeof(StackData), reinterpret_cast<method>(0L), A_DEFSYM, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(stackCreate),
+                               reinterpret_cast<method>(stackFree), sizeof(StackData),
+                               reinterpret_cast<method>(0L), A_DEFSYM, 0);
 
     if (temp)
     {
@@ -76,110 +173,9 @@ int main(void)
     gEmptySymbol = gensym("");
     gOffSymbol = gensym("off");
     gOnSymbol = gensym("on");
-    gStackAnchor = NULL_PTR;
+    gStackAnchor = NULL;
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ stackResolveCommonName ---*/
-static void stackResolveCommonName(StackData * xx,
-                                   t_symbol *  name)
-{
-    StackDescriptor * descriptor = NULL_PTR;
 
-    if (name != gEmptySymbol)
-    {
-        for (descriptor = gStackAnchor; descriptor; descriptor = descriptor->fNext)
-        {
-            if (descriptor->fTag == name)
-            {
-                break;
-            }
-        }
-    }
-    if (descriptor)
-    {
-        ++descriptor->fReferenceCount;
-        xx->fStack = descriptor;
-    }
-    else
-    {
-        descriptor = GETBYTES(1, StackDescriptor);
-        if (descriptor)
-        {
-            descriptor->fTopOfStack = NULL_PTR;
-            descriptor->fDepth = 0;
-            descriptor->fReferenceCount = 1;
-            xx->fStack = descriptor;
-            descriptor->fPrevious = NULL_PTR;
-            if (name == gEmptySymbol)
-            {
-                descriptor->fTag = NULL_PTR;
-                descriptor->fNext = NULL_PTR;
-            }
-            else
-            {
-                descriptor->fTag = name;
-                descriptor->fNext = gStackAnchor;
-                if (gStackAnchor)
-                {
-                    gStackAnchor->fPrevious = descriptor;
-                }
-                gStackAnchor = descriptor;
-            }
-        }
-    }
-} // stackResolveCommonName
-/*------------------------------------ stackCreate ---*/
-void * stackCreate(t_symbol * commonName)
-{
-    StackData * xx = static_cast<StackData *>(object_alloc(gClass));
-
-    if (xx)
-    {
-        xx->fVerbose = false;
-        xx->fErrorBangOut = static_cast<t_outlet *>(bangout(xx));
-        xx->fDepthOut = static_cast<t_outlet *>(intout(xx));
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-        xx->fStack = NULL_PTR;
-        stackResolveCommonName(xx, commonName);
-        if (! (xx->fResultOut || xx->fErrorBangOut || xx->fDepthOut ||
-               xx->fStack))
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // stackCreate
-/*------------------------------------ stackFree ---*/
-void stackFree(StackData * xx)
-{
-    if (xx)
-    {
-        StackDescriptor * descriptor = xx->fStack;
-
-        if (descriptor)
-        {
-            if (! --descriptor->fReferenceCount)
-            {
-                if (descriptor->fNext)
-                {
-                    descriptor->fNext->fPrevious = descriptor->fPrevious;
-                }
-                if (descriptor->fPrevious)
-                {
-                    descriptor->fPrevious->fNext = descriptor->fNext;
-                }
-                if (gStackAnchor == descriptor)
-                {
-                    gStackAnchor = descriptor->fNext;
-                }
-                stackClear(xx);
-                FREEBYTES(xx->fStack, 1);
-            }
-        }
-    }
-} // stackFree
-
-StandardAnythingRoutine(StackData *)
+StandardAnythingRoutine(StackData)

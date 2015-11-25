@@ -40,10 +40,7 @@
 #include "tcpLocate.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(TcpLocateData * xx,
-                  t_symbol *      message,
-                  short           argc,
-                  t_atom *        argv)
+ANYTHING_HEADER(TcpLocateData)
 {
 #pragma unused(argv)
     if (xx)

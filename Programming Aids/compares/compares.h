@@ -55,7 +55,7 @@ struct ComparesData
     t_symbol * fRightInput;
 }; // ComparesData
 
-StandardRoutineDeclarations(ComparesData *);
+StandardRoutineDeclarations(ComparesData);
 
 mextern(t_symbol *) gEmptySymbol; /* Pointer to unique symbol for '' */
 

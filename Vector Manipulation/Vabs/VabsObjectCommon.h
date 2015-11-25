@@ -46,17 +46,17 @@
 
 struct VObjectData
 {
-    t_object   fObject;
-    t_outlet * fResultOut;
-    double     fPreviousFloat;
-    long       fPreviousLong;
-    short      fPreviousLength;
-    t_atom *   fPreviousList;
-    short      fPreviousKind;
+    t_object    fObject;
+    t_outlet *  fResultOut;
+    double      fPreviousFloat;
+    t_atom_long fPreviousLong;
+    short       fPreviousLength;
+    t_atom *    fPreviousList;
+    short       fPreviousKind;
 }; // VObjectData
 
 void clearPrevious(VObjectData * xx);
 
-StandardRoutineDeclarations(VObjectData *);
+StandardRoutineDeclarations(VObjectData);
 
 #endif /* not VABSOBJECTCOMMON_H_ */

@@ -131,7 +131,7 @@ struct GvpData
     t_qelem *   fPollQueue;
     GvpState    fState;
     short       fPollRate;
-    short       fSelectAddress;
+    t_atom_long fSelectAddress;
     short       fPoolAvailable;
     short       fPoolSize;
     bool        fStopping;
@@ -200,8 +200,7 @@ void cmd_SetTransitionRate(GvpData *  xx,
 void cmd_SetWipePattern(GvpData * xx,
                         long      number);
 
-void cmd_Verbose(GvpData *  xx,
-                 t_symbol * onOff);
+VERBOSE_HEADER(GvpData);
 
 void cmd_XReset(GvpData * xx);
 
@@ -227,7 +226,7 @@ void gvpReleasePacket(GvpData *   xx,
 
 void gvpReportStateChange(GvpData * xx);
 
-StandardRoutineDeclarations(GvpData *);
+StandardRoutineDeclarations(GvpData);
 
 mextern(t_symbol *) gASymbol;          /* Pointer to unique symbol for 'a' */
 mextern(t_symbol *) gAutoSymbol;       /* Pointer to unique symbol for 'auto' */

@@ -40,20 +40,17 @@
 #include "Vreduce.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VreduceData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VreduceData)
 {
 #pragma unused(message)
     if (xx && checkInput(xx, OUTPUT_PREFIX, argc, argv, xx->fCheck))
     {
-        double leftFloat;
-        double rightFloat;
-        long   leftLong;
-        long   rightLong;
-        bool   wasFloat = false;
-        bool   isFloat = false;
+        double      leftFloat;
+        double      rightFloat;
+        t_atom_long leftLong;
+        t_atom_long rightLong;
+        bool        wasFloat = false;
+        bool        isFloat = false;
 
         switch (xx->fOperation)
         {
@@ -68,6 +65,7 @@ void cmd_List(VreduceData * xx,
                 leftFloat = 0;
                 leftLong = 0;
                 break;
+                
         }
         for (short ii = 0; ii < argc; ++ii)
         {
@@ -124,6 +122,10 @@ void cmd_List(VreduceData * xx,
                         leftFloat = argv[ii].a_w.w_float;
                     }
                     break;
+                    
+                default:
+                    break;
+                    
             }
             if (ii)
             {
@@ -307,6 +309,7 @@ void cmd_List(VreduceData * xx,
 
                     default:
                         break;
+                        
                 }
             }
         }

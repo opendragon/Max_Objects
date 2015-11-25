@@ -40,8 +40,7 @@
 #include "spaceball.h"
 
 /*------------------------------------ cmd_Verbose ---*/
-void cmd_Verbose(SpaceballData * xx,
-                 t_symbol *      onOff)
+VERBOSE_HEADER(SpaceballData)
 {
     if (xx)
     {
@@ -72,6 +71,7 @@ void cmd_Verbose(SpaceballData * xx,
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Verbose

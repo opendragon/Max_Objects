@@ -40,7 +40,7 @@
 #include "stack.h"
 
 /*------------------------------------ cmd_Clear ---*/
-void cmd_Clear(StackData * xx)
+CLEAR_HEADER(StackData)
 {
     if (xx)
     {

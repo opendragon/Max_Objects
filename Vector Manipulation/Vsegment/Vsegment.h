@@ -59,6 +59,6 @@ struct VsegmentData
 
 void clearPrevious(VsegmentData * xx);
 
-StandardRoutineDeclarations(VsegmentData *);
+StandardRoutineDeclarations(VsegmentData);
 
 #endif /* not VSEGMENT_H_ */

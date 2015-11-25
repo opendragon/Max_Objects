@@ -48,11 +48,11 @@
 
 struct X10UnitsData
 {
-    t_object       fObject;
-    t_outlet *     fResultOut;
-    unsigned short fPreviousResult;
+    t_object    fObject;
+    t_outlet *  fResultOut;
+    t_atom_long fPreviousResult;
 }; // X10UnitsData
 
-StandardRoutineDeclarations(X10UnitsData *);
+StandardRoutineDeclarations(X10UnitsData);
 
 #endif /* not X10UNITS_H_ */

@@ -40,24 +40,21 @@
 #include "Vjet.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(VObjectData * xx,
-                  t_symbol *    message,
-                  short         argc,
-                  t_atom *      argv)
+ANYTHING_HEADER(VObjectData)
 {
     if (xx)
     {
         short elementCount = xx->fHowMany;
 
         clearPrevious(xx);
-        if (elementCount > 0)
+        if (0 < elementCount)
         {
-            t_atom * tempList = GETBYTES(argc + 1, t_atom);
+            t_atom * tempList = GET_BYTES(argc + 1, t_atom);
 
             if (tempList)
             {
-                SETSYM(tempList, message);
-                if (argc > 0)
+                A_SETSYM(tempList, message);
+                if (0 < argc)
                 {
                     memcpy(tempList + 1, argv, argc * sizeof(t_atom));
                 }
@@ -65,8 +62,10 @@ void cmd_Anything(VObjectData * xx,
                 xx->fPreviousLength = static_cast<short>(argc + 1);
                 for (short offset = 0; offset < xx->fPreviousLength; offset += elementCount)
                 {
-                    genericListOutput(xx->fResultOut, static_cast<short>(((offset + elementCount) > (argc + 1)) ?
-                                                                         (argc + 1 - offset) : elementCount),
+                    genericListOutput(xx->fResultOut, static_cast<short>(((offset + elementCount) >
+                                                                          (argc + 1)) ?
+                                                                         (argc + 1 - offset) :
+                                                                         elementCount),
                                       xx->fPreviousList + offset);
                 }
             }

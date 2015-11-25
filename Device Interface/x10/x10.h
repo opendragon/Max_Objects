@@ -344,7 +344,7 @@ void x10CP290SendBuffer(X10ControlData *     xx,
 
 unsigned short x10IdentifyHouseCode(t_symbol * aSym);
 
-StandardRoutineDeclarations(X10ControlData *);
+StandardRoutineDeclarations(X10ControlData);
 
 mextern(t_symbol *) gCM11Symbol;                 /* Pointer to unique symbol for 'cm11' */
 mextern(t_symbol *) gCP290Symbol;                /* Pointer to unique symbol for 'cp290' */

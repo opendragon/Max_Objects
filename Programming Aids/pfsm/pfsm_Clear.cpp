@@ -40,12 +40,12 @@
 #include "pfsm.h"
 
 /*------------------------------------ cmd_Clear ---*/
-void cmd_Clear(PfsmData * xx)
+CLEAR_HEADER(PfsmData)
 {
     if (xx)
     {
         xx->fRunning = false;
-        xx->fCurrentState = NULL_PTR;
+        xx->fCurrentState = NULL;
         if (xx->fVerbose)
         {
             LOG_POST_1(xx, OUTPUT_PREFIX "state cleared")

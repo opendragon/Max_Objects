@@ -41,11 +41,39 @@
 #include "Vsegment.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VsegmentCreate(long start,
-                      long howMany);
+/*------------------------------------ VsegmentCreate ---*/
+static void * VsegmentCreate(const long start,
+                             const long howMany)
+{
+    VsegmentData * xx = static_cast<VsegmentData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fStart = static_cast<short>(start);
+        xx->fHowMany = static_cast<short>(howMany);
+        xx->fPreviousList = NULL;
+        xx->fPreviousLength = 0;
+        intin(xx, 2);   /* number of elements */
+        intin(xx, 1);   /* starting position */
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+        if (! xx->fResultOut)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // VsegmentCreate
 
-void VsegmentFree(VsegmentData * xx);
+/*------------------------------------ VsegmentFree ---*/
+static void VsegmentFree(VsegmentData * xx)
+{
+    if (xx)
+    {
+        clearPrevious(xx);
+    }
+} // VsegmentFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -69,40 +97,9 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VsegmentCreate ---*/
-void * VsegmentCreate(long start,
-                      long howMany)
-{
-    VsegmentData * xx = static_cast<VsegmentData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fStart = static_cast<short>(start);
-        xx->fHowMany = static_cast<short>(howMany);
-        xx->fPreviousList = NULL_PTR;
-        xx->fPreviousLength = 0;
-        intin(xx, 2);   /* number of elements */
-        intin(xx, 1);   /* starting position */
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-        if (! xx->fResultOut)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // VsegmentCreate
-/*------------------------------------ VsegmentFree ---*/
-void VsegmentFree(VsegmentData * xx)
-{
-    if (xx)
-    {
-        clearPrevious(xx);
-    }
-} // VsegmentFree
 /*------------------------------------ clearPrevious ---*/
 void clearPrevious(VsegmentData * xx)
 {
-    FREEBYTES(xx->fPreviousList, xx->fPreviousLength);
+    FREE_BYTES(xx->fPreviousList);
 } // clearPrevious

@@ -84,6 +84,7 @@ void cmd_SetGraphicsData(X10ControlData * xx,
 
             default:
                 break;
+                
         }
     }
     else

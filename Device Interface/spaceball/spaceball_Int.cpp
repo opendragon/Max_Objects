@@ -40,8 +40,7 @@
 #include "spaceball.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(SpaceballData * xx,
-             long            num)
+INT_HEADER(SpaceballData)
 {
     if (xx)
     {
@@ -49,18 +48,20 @@ void cmd_Int(SpaceballData * xx,
         {
             case 0:
                 /* Normal command, wrong inlet */
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected single integer (%ld) in the left inlet.", num)
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected single integer (%ld) in the left inlet.",
+                            msg)
                 outlet_bang(xx->fErrorBangOut);
                 break;
 
             case 1:
                 /* Normal command, normal inlet */
-                spaceballProcessResponse(xx, num);
+                spaceballProcessResponse(xx, msg);
                 break;
 
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Int

@@ -52,6 +52,6 @@ struct VlengthData
     t_outlet * fResultOut;
 }; // VlengthData
 
-StandardRoutineDeclarations(VlengthData *);
+StandardRoutineDeclarations(VlengthData);
 
 #endif /* not VLENGTH_H_ */

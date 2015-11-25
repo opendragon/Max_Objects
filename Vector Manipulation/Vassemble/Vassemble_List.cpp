@@ -40,10 +40,7 @@
 #include "Vassemble.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VObjectData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VObjectData)
 {
 #pragma unused(message)
     if (xx && checkInput(xx, OUTPUT_PREFIX, argc, argv))

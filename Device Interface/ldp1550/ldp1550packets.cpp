@@ -62,6 +62,7 @@ void ldpAddCommand(LdpData *            xx,
         xx->fLast = newPacket;
     }
 } // ldpAddCommand
+
 /*------------------------------------ ldpCheckPoolSpace ---*/
 bool ldpCheckPoolSpace(LdpData *   xx,
                        const short numCommands)
@@ -78,6 +79,7 @@ bool ldpCheckPoolSpace(LdpData *   xx,
     }
     return result;
 } // ldpCheckPoolSpace
+
 /*------------------------------------ ldpClearPackets ---*/
 void ldpClearPackets(LdpData * xx)
 {
@@ -89,6 +91,7 @@ void ldpClearPackets(LdpData * xx)
         }
     }
 } // ldpClearPackets
+
 /*------------------------------------ ldpGetFirstPacket ---*/
 LdpPacket * ldpGetFirstPacket(LdpData * xx)
 {
@@ -101,33 +104,35 @@ LdpPacket * ldpGetFirstPacket(LdpData * xx)
         if (aPacket)
         {
             xx->fFirst = aPacket->fNext;
-            aPacket->fNext = aPacket->fPrev = NULL_PTR;
+            aPacket->fNext = aPacket->fPrev = NULL;
             if (xx->fFirst)
             {
-                xx->fFirst->fPrev = NULL_PTR;
+                xx->fFirst->fPrev = NULL;
             }
             else
             {
-                xx->fLast = NULL_PTR;
+                xx->fLast = NULL;
             }
         }
         result = aPacket;
     }
     else
     {
-        result = NULL_PTR;
+        result = NULL;
     }
     return result;
 } // ldpGetFirstPacket
+
 /*------------------------------------ ldpInitCommands ---*/
 void ldpInitCommands(LdpData * xx)
 {
     if (xx)
     {
-        xx->fInterruptPoint = NULL_PTR;
+        xx->fInterruptPoint = NULL;
         ldpClearPackets(xx);
     }
 } // ldpInitCommands
+
 /*------------------------------------ ldpInsertCommand ---*/
 void ldpInsertCommand(LdpData *            xx,
                       LdpPacket *          before,
@@ -160,33 +165,36 @@ void ldpInsertCommand(LdpData *            xx,
         newPacket->fNext = before;
     }
 } // ldpInsertCommand
+
 /*------------------------------------ ldpNewPacket ---*/
 LdpPacket * ldpNewPacket(LdpData * xx)
 {
     LdpPacket * newPacket = xx->fPool;
 
     xx->fPool = newPacket->fNext;
-    newPacket->fPrev = newPacket->fNext = NULL_PTR;
+    newPacket->fPrev = newPacket->fNext = NULL;
     --xx->fPoolAvailable;
     return newPacket;
 } // ldpNewPacket
+
 /*------------------------------------ ldpReleasePacket ---*/
 void ldpReleasePacket(LdpData *   xx,
                       LdpPacket * pp)
 {
     if (xx && pp)
     {
-        pp->fPrev = NULL_PTR;
+        pp->fPrev = NULL;
         pp->fNext = xx->fPool;
         xx->fPool = pp;
         ++xx->fPoolAvailable;
     }
 } // ldpReleasePacket
+
 /*------------------------------------ ldpSendCommand ---*/
 void ldpSendCommand(LdpData * xx)
 {
     if (xx && xx->fFirst)
     {
-        outlet_int(xx->fCommandsOut, static_cast<long>(xx->fFirst->fCommand));
+        outlet_int(xx->fCommandsOut, TO_INT(xx->fFirst->fCommand));
     }
 } // ldpSendCommand

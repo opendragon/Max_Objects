@@ -40,10 +40,7 @@
 #include "Vtrim.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VObjectData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VObjectData)
 {
 #pragma unused(message)
     if (xx)
@@ -60,13 +57,15 @@ void cmd_List(VObjectData * xx,
                 {
                     break;
                 }
+                
             }
-            for ( ; right >= 0; --right)
+            for ( ; 0 <= right; --right)
             {
                 if (! isSeparator(xx, argv[right].a_w.w_long))
                 {
                     break;
                 }
+                
             }
             if (left > right)
             {
@@ -74,13 +73,13 @@ void cmd_List(VObjectData * xx,
             }
             else
             {
-                t_atom * result = GETBYTES(right + 1 - left, t_atom);
+                t_atom * result = GET_BYTES(right + 1 - left, t_atom);
 
                 if (result)
                 {
                     for (short index = left; index <= right; ++index)
                     {
-                        SETLONG(result + index - left, argv[index].a_w.w_long);
+                        A_SETLONG(result + index - left, argv[index].a_w.w_long);
                     }
                     xx->fPreviousList = result;
                     xx->fPreviousLength = static_cast<short>(right + 1 - left);

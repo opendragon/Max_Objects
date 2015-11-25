@@ -79,7 +79,7 @@ struct Map2dData
     bool           fVerbose;
 }; // Map2dData
 
-MapRoutineDeclarations(Map2dData *);
+MapRoutineDeclarations(Map2dData);
 
 void map2dClearRangeList(Map2dData * xx);
 
@@ -98,7 +98,7 @@ void map2dProcessData(Map2dData *            xx,
                       const FloatOrInteger & xCoord,
                       const FloatOrInteger & yCoord);
 
-StandardRoutineDeclarations(Map2dData *);
+StandardRoutineDeclarations(Map2dData);
 
 mextern(t_symbol *) gBottomSymbol; /* Pointer to unique symbol for 'bottom' */
 mextern(t_symbol *) gLeftSymbol;   /* Pointer to unique symbol for 'left' */

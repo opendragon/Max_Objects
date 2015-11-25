@@ -40,15 +40,14 @@
 #include "map1d.h"
 
 /*------------------------------------ cmd_Delete ---*/
-void cmd_Delete(Map1dData * xx,
-                  long        num)
+DELETE_HEADER(Map1dData)
 {
-    if (xx && (num > 0) && (num <= xx->fRangeCount))
+    if (xx && (0 < num) && (num <= xx->fRangeCount))
     {
-        RangeData * prev = NULL_PTR;
+        RangeData * prev = NULL;
         RangeData * walker = xx->fFirstRange;
 
-        for ( ; walker && (--num); )
+        for (long counter = num; walker && (--counter); )
         {
             prev = walker;
             walker = walker->fNext;
@@ -61,8 +60,8 @@ void cmd_Delete(Map1dData * xx,
         {
             xx->fFirstRange = walker->fNext;
         }
-        FREEBYTES(walker->fOutput, walker->fOutputCount);
-        FREEBYTES(walker, 1);
+        FREE_BYTES(walker->fOutput);
+        FREE_BYTES(walker);
         --xx->fRangeCount;
     }
 } // cmd_Delete

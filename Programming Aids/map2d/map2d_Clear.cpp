@@ -40,7 +40,7 @@
 #include "map2d.h"
 
 /*------------------------------------ cmd_Clear ---*/
-void cmd_Clear(Map2dData * xx)
+CLEAR_HEADER(Map2dData)
 {
     if (xx)
     {

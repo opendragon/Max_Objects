@@ -41,13 +41,13 @@
 #include <stdlib.h>
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(ShotgunData * xx)
+BANG_HEADER(ShotgunData)
 {
     if (xx)
     {
         short ii;
 
-        if (xx->fNumOutlets > 1)
+        if (1 < xx->fNumOutlets)
         {
             ii = static_cast<short>(rand() % xx->fNumOutlets);
         }

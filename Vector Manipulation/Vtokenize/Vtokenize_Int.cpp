@@ -40,23 +40,22 @@
 #include "Vtokenize.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VObjectData * xx,
-             long          num)
+INT_HEADER(VObjectData)
 {
     if (xx)
     {
         clearPrevious(xx);
-        if (isSeparator(xx, num))
+        if (isSeparator(xx, msg))
         {
             outlet_bang(xx->fBangOut);
         }
         else
         {
-            t_atom * result = GETBYTES(1, t_atom);
+            t_atom * result = GET_BYTES(1, t_atom);
 
             if (result)
             {
-                SETLONG(result, num);
+                A_SETLONG(result, msg);
                 xx->fPreviousList = result;
                 xx->fPreviousLength = 1;
                 genericListOutput(xx->fResultOut, xx->fPreviousLength, xx->fPreviousList);

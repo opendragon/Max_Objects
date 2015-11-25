@@ -40,10 +40,7 @@
 #include "Vjet.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VObjectData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VObjectData)
 {
 #pragma unused(message)
     if (xx)
@@ -51,9 +48,9 @@ void cmd_List(VObjectData * xx,
         short elementCount = xx->fHowMany;
 
         clearPrevious(xx);
-        if (argc && (elementCount > 0))
+        if (argc && (0 < elementCount))
         {
-            t_atom * tempList = GETBYTES(argc, t_atom);
+            t_atom * tempList = GET_BYTES(argc, t_atom);
 
             if (tempList)
             {
@@ -62,8 +59,9 @@ void cmd_List(VObjectData * xx,
                 xx->fPreviousLength = argc;
                 for (short offset = 0; offset < xx->fPreviousLength; offset += elementCount)
                 {
-                    genericListOutput(xx->fResultOut, static_cast<short>(((offset + elementCount) > argc) ?
-                                                                         (argc - offset) : elementCount),
+                    genericListOutput(xx->fResultOut, static_cast<short>(((offset + elementCount) >
+                                                                          argc) ? (argc - offset) :
+                                                                         elementCount),
                                       xx->fPreviousList + offset);
                 }
             }

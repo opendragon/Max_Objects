@@ -40,10 +40,7 @@
 #include "listType.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(ListTypeData * xx,
-              t_symbol *     message,
-              short          argc,
-              t_atom *       argv)
+LIST_HEADER(ListTypeData)
 {
 #pragma unused(message)
     if (xx)
@@ -74,35 +71,38 @@ void cmd_List(ListTypeData * xx,
                     case A_SEMI:
                     case A_COMMA:
                     case A_DOLLAR:
+                    case A_DOLLSYM:
                         sawSymbol = true;
                         break;
 
                     default:
                         sawUnknown = true;
                         break;
+                        
                 }
             }
             if (sawUnknown)
             {
-                outlet_int(xx->fResultOut, static_cast<long>(TYPE_LIST_WITH_UNKNOWNS));
+                outlet_int(xx->fResultOut, TO_INT(TYPE_LIST_WITH_UNKNOWNS));
             }
             else if (sawSymbol)
             {
-                outlet_int(xx->fResultOut, static_cast<long>((sawFloat || sawInteger) ? TYPE_MIXED_LIST :
-                                                             TYPE_SYMBOL_LIST));
+                outlet_int(xx->fResultOut, TO_INT((sawFloat || sawInteger) ? TYPE_MIXED_LIST :
+                                                  TYPE_SYMBOL_LIST));
             }
             else if (sawInteger)
             {
-                outlet_int(xx->fResultOut, static_cast<long>(sawFloat ? TYPE_NUMERIC_LIST : TYPE_INTEGER_LIST));
+                outlet_int(xx->fResultOut, TO_INT(sawFloat ? TYPE_NUMERIC_LIST :
+                                                  TYPE_INTEGER_LIST));
             }
             else
             {
-                outlet_int(xx->fResultOut, static_cast<long>(sawFloat ? TYPE_FLOAT_LIST : TYPE_unknown));
+                outlet_int(xx->fResultOut, TO_INT(sawFloat ? TYPE_FLOAT_LIST : TYPE_unknown));
             }
         }
         else
         {
-            outlet_int(xx->fResultOut, static_cast<long>(TYPE_EMPTY_LIST));
+            outlet_int(xx->fResultOut, TO_INT(TYPE_EMPTY_LIST));
         }
     }
 } // cmd_List

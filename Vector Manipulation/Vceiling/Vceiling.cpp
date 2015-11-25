@@ -42,10 +42,60 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VceilingCreate(t_symbol * mode);
+/*------------------------------------ VceilingCreate ---*/
+static void * VceilingCreate(t_symbol * mode)
+{
+    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+        xx->fPreviousKind = A_NOTHING;
+        xx->fPreviousList = NULL;
+        xx->fPreviousLength = 0;
+        if (xx->fResultOut)
+        {
+            if (mode == gEmptySymbol)
+            {
+                xx->fOutputMode = A_GIMME;
+            }
+            else if (mode == gFSymbol)
+            {
+                xx->fOutputMode = A_FLOAT;
+            }
+            else if (mode == gISymbol)
+            {
+                xx->fOutputMode = A_LONG;
+            }
+            else if (mode == gMSymbol)
+            {
+                xx->fOutputMode = A_GIMME;
+            }
+            else
+            {
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "unknown mode '%s'", mode->s_name)
+                freeobject(reinterpret_cast<t_object *>(xx));
+                xx = NULL;
+            }
+        }
+        else
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // VceilingCreate
 
-void VceilingFree(VObjectData * xx);
+/*------------------------------------ VceilingFree ---*/
+static void VceilingFree(VObjectData * xx)
+{
+    if (xx)
+    {
+        clearPrevious(xx);
+    }
+} // VceilingFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -73,62 +123,11 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VceilingCreate ---*/
-void * VceilingCreate(t_symbol * mode)
-{
-    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-        xx->fPreviousKind = A_NOTHING;
-        xx->fPreviousList = NULL_PTR;
-        xx->fPreviousLength = 0;
-        if (xx->fResultOut)
-        {
-            if (mode == gEmptySymbol)
-            {
-                xx->fOutputMode = A_GIMME;
-            }
-            else if (mode == gFSymbol)
-            {
-                xx->fOutputMode = A_FLOAT;
-            }
-            else if (mode == gISymbol)
-            {
-                xx->fOutputMode = A_LONG;
-            }
-            else if (mode == gMSymbol)
-            {
-                xx->fOutputMode = A_GIMME;
-            }
-            else
-            {
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "unknown mode '%s'", mode->s_name)
-                freeobject(reinterpret_cast<t_object *>(xx));
-                xx = NULL_PTR;
-            }
-        }
-        else
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // VceilingCreate
-/*------------------------------------ VceilingFree ---*/
-void VceilingFree(VObjectData * xx)
-{
-    if (xx)
-    {
-        clearPrevious(xx);
-    }
-} // VceilingFree
 /*------------------------------------ clearPrevious ---*/
 void clearPrevious(VObjectData * xx)
 {
-    FREEBYTES(xx->fPreviousList, xx->fPreviousLength);
+    FREE_BYTES(xx->fPreviousList);
 } // clearPrevious
-StandardAnythingRoutine(VObjectData *)
+
+StandardAnythingRoutine(VObjectData)

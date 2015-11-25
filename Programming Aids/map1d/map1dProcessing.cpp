@@ -48,7 +48,7 @@ void map1dOutputResult(Map1dData * xx,
     {
         short    outputCount = result->fOutputCount;
         t_atom * inWalker = result->fOutput;
-        t_atom * tempList = GETBYTES(outputCount, t_atom);
+        t_atom * tempList = GET_BYTES(outputCount, t_atom);
 
         if (tempList)
         {
@@ -58,16 +58,17 @@ void map1dOutputResult(Map1dData * xx,
             {
                 if (A_SYM == inWalker->a_type)
                 {
-                    if ((inWalker->a_w.w_sym == gDollarSymbol) || (inWalker->a_w.w_sym == gDollarXSymbol))
+                    if ((inWalker->a_w.w_sym == gDollarSymbol) ||
+                        (inWalker->a_w.w_sym == gDollarXSymbol))
                     {
                         /* Output previous input */
                         if (xx->fPreviousInput.fIsFloat)
                         {
-                            SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput));
+                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput));
                         }
                         else
                         {
-                            SETLONG(outWalker, getFOILong(xx->fPreviousInput));
+                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput));
                         }
                     }
                     else if ((inWalker->a_w.w_sym == gDoubleDollarSymbol) ||
@@ -78,38 +79,38 @@ void map1dOutputResult(Map1dData * xx,
                         {
                             if (xx->fPreviousInput.fIsFloat)
                             {
-                                SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput));
+                                A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput));
                             }
                             else
                             {
-                                SETLONG(outWalker, getFOILong(xx->fPreviousInput));
+                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput));
                             }
                         }
                         if (MatchFloat == result->fLower.fKind)
                         {
-                            SETFLOAT(outWalker, static_cast<float>(getFOIValue(xx->fPreviousInput) -
-                                                                   getFOIValue(result->fLower.fValue)));
+                            A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput) -
+                                       getFOIValue(result->fLower.fValue));
                         }
                         else if (MatchInteger == result->fLower.fKind)
                         {
                             if (xx->fPreviousInput.fIsFloat)
                             {
-                                SETFLOAT(outWalker, static_cast<float>(getFOIValue(xx->fPreviousInput) -
-                                                                       getFOIValue(result->fLower.fValue)));
+                                A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput) -
+                                           getFOIValue(result->fLower.fValue));
                             }
                             else
                             {
-                                SETLONG(outWalker, getFOILong(xx->fPreviousInput) -
-                                        getFOILong(result->fLower.fValue));
+                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput) -
+                                          getFOILong(result->fLower.fValue));
                             }
                         }
                         else if (xx->fPreviousInput.fIsFloat)
                         {
-                            SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput));
+                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput));
                         }
                         else
                         {
-                            SETLONG(outWalker, getFOILong(xx->fPreviousInput));
+                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput));
                         }
                     }
                     else
@@ -117,16 +118,16 @@ void map1dOutputResult(Map1dData * xx,
                         *outWalker = *inWalker;
                     }
                 }
-                else if (A_DOLLAR == inWalker->a_type)
+                else if ((A_DOLLAR == inWalker->a_type) || (A_DOLLSYM == inWalker->a_type))
                 {
                     /* Output previous input */
                     if (xx->fPreviousInput.fIsFloat)
                     {
-                        SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput));
+                        A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput));
                     }
                     else
                     {
-                        SETLONG(outWalker, getFOILong(xx->fPreviousInput));
+                        A_SETLONG(outWalker, getFOILong(xx->fPreviousInput));
                     }
                 }
                 else
@@ -137,7 +138,7 @@ void map1dOutputResult(Map1dData * xx,
                 ++inWalker;
             }
             outlet_anything(xx->fResultOut, gResultSymbol, outputCount, tempList);
-            FREEBYTES(tempList, outputCount);
+            FREE_BYTES(tempList);
         }
     }
     else
@@ -145,6 +146,7 @@ void map1dOutputResult(Map1dData * xx,
         outlet_anything(xx->fResultOut, gResultSymbol, result->fOutputCount, result->fOutput);
     }
 } // map1dOutputResult
+
 /*------------------------------------ map1dProcessData ---*/
 void map1dProcessData(Map1dData *            xx,
                       const FloatOrInteger & input)
@@ -153,7 +155,7 @@ void map1dProcessData(Map1dData *            xx,
 
     if (input.fIsFloat)
     {
-        float inValue = getFOIFloat(input);
+        double inValue = getFOIFloat(input);
 
         for ( ; walker; walker = walker->fNext)
         {
@@ -196,6 +198,7 @@ void map1dProcessData(Map1dData *            xx,
                 default:
                     okSoFar = false;
                     break;
+                    
             }
             if (okSoFar)
             {
@@ -231,6 +234,7 @@ void map1dProcessData(Map1dData *            xx,
                     default:
                         okSoFar = false;
                         break;
+                        
                 }
             }
             if (okSoFar)
@@ -284,6 +288,7 @@ void map1dProcessData(Map1dData *            xx,
                 default:
                     okSoFar = false;
                     break;
+                    
             }
             if (okSoFar)
             {
@@ -319,12 +324,14 @@ void map1dProcessData(Map1dData *            xx,
                     default:
                         okSoFar = false;
                         break;
+                        
                 }
             }
             if (okSoFar)
             {
                 break;
             }
+            
         }
     }
     xx->fPreviousResult = walker;

@@ -40,14 +40,13 @@
 #include "Vdecode.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(VdecodeData * xx,
-               double        msg)
+FLOAT_HEADER(VdecodeData)
 {
     if (xx)
     {
-        if (msg >= 0)
+        if (0 <= msg)
         {
-            xx->fPreviousLong = static_cast<long>(msg);
+            xx->fPreviousLong = TO_INT(msg);
             outlet_int(xx->fResultOut, xx->fPreviousLong);
         }
         else

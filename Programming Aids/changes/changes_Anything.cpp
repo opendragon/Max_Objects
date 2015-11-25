@@ -40,10 +40,7 @@
 #include "changes.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(ChangesData * xx,
-                  t_symbol *    message,
-                  short         argc,
-                  t_atom *      argv)
+ANYTHING_HEADER(ChangesData)
 {
     if (xx)
     {
@@ -58,7 +55,7 @@ void cmd_Anything(ChangesData * xx,
             if (anIndex)
             {
                 /* We are looking at something other than the message selector */
-                if ((thisIndex >= 0) && (thisIndex < argc))
+                if ((0 <= thisIndex) && (thisIndex < argc))
                 {
                     if (argv[thisIndex].a_type == xx->fPreviousValue[ii].a_type)
                     {
@@ -78,6 +75,7 @@ void cmd_Anything(ChangesData * xx,
                                 passThrough = (argv[thisIndex].a_w.w_sym !=
                                                xx->fPreviousValue[ii].a_w.w_sym);
                                 break;
+                                
                         }
                     }
                     else
@@ -88,7 +86,7 @@ void cmd_Anything(ChangesData * xx,
                 else
                 {
                     /* We are looking at a non-existent element of the input */
-                    passThrough = (xx->fPreviousValue[ii].a_type != A_NOTHING);
+                    passThrough = (A_NOTHING != xx->fPreviousValue[ii].a_type);
                 }
             }
             else
@@ -115,7 +113,7 @@ void cmd_Anything(ChangesData * xx,
                 if (anIndex)
                 {
                     /* We are looking at something other than the message selector */
-                    if ((thisIndex >= 0) && (thisIndex < argc))
+                    if ((0 <= thisIndex) && (thisIndex < argc))
                     {
                         xx->fPreviousValue[ii] = argv[thisIndex];
                     }
@@ -128,7 +126,7 @@ void cmd_Anything(ChangesData * xx,
                 else
                 {
                     /* We are looking at the message selector */
-                    SETSYM(xx->fPreviousValue + ii, message);
+                    A_SETSYM(xx->fPreviousValue + ii, message);
                 }
             }
         }

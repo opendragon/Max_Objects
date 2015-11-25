@@ -40,10 +40,7 @@
 #include "Vdistance.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VdistanceData * xx,
-              t_symbol *      message,
-              short           argc,
-              t_atom *        argv)
+LIST_HEADER(VdistanceData)
 {
 #pragma unused(message)
     if (xx)
@@ -57,12 +54,13 @@ void cmd_List(VdistanceData * xx,
             switch (argv[ii].a_type)
             {
                 case A_LONG:
-                    temp = argv[ii].a_w.w_long;
+                    temp = TO_DBL(argv[ii].a_w.w_long);
                     len += (temp * temp);
                     break;
 
                 case A_SYM:
-                    LOG_ERROR_2(xx, OUTPUT_PREFIX "symbol '%s' in input list", argv[ii].a_w.w_sym->s_name)
+                    LOG_ERROR_2(xx, OUTPUT_PREFIX "symbol '%s' in input list",
+                                argv[ii].a_w.w_sym->s_name)
                     okSoFar = false;
                     break;
 
@@ -76,6 +74,7 @@ void cmd_List(VdistanceData * xx,
                                 static_cast<int>(argv[ii].a_type))
                     okSoFar = false;
                     break;
+                    
             }
         }
         if (okSoFar)

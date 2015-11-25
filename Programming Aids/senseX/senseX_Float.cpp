@@ -40,8 +40,7 @@
 #include "senseX.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(SenseXData * xx,
-               double       msg)
+FLOAT_HEADER(SenseXData)
 {
 #pragma unused(msg)
     if (xx)
@@ -49,7 +48,8 @@ void cmd_Float(SenseXData * xx,
         switch (xx->fInletNumber)
         {
             case 0:
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "inlet %ld -> Unexpected 'float' seen", xx->fInletNumber)
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "inlet %ld -> Unexpected 'float' seen",
+                            xx->fInletNumber)
                 break;
 
             case 1:
@@ -60,6 +60,7 @@ void cmd_Float(SenseXData * xx,
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Float

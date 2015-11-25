@@ -40,11 +40,7 @@
 #include "Vlength.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(VlengthData * xx,
-                void *        bb,
-                long          msg,
-                long          arg,
-                char *        dstString)
+ASSIST_HEADER(VlengthData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

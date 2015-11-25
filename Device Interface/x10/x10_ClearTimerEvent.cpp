@@ -51,10 +51,12 @@ void cmd_ClearTimerEvent(X10ControlData * xx,
             break;
 
         case X10KindCP290:
-            x10CP290DoTimerEvent(xx, x10CP290ModeClear, *gHouseCodes, 0x00, eventNumber, 0x7F, 0, gOffSymbol, 0);
+            x10CP290DoTimerEvent(xx, x10CP290ModeClear, *gHouseCodes, 0x00, eventNumber, 0x7F, 0,
+                                 gOffSymbol, 0);
             break;
 
         default:
             break;
+            
     }
 } // cmd_ClearTimerEvent

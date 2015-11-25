@@ -49,6 +49,7 @@ void cmd_Self(TcpObjectData * xx)
 
         if (! xx->fSelfName)
         {
+#if 0
             OSStatus          result;
             InetInterfaceInfo info;
 
@@ -64,10 +65,11 @@ void cmd_Self(TcpObjectData * xx)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTInetGetInterfaceInfo failed (%ld = %s)", result)
             }
+#endif//0
         }
         if (xx->fSelfName)
         {
-            SETSYM(response, xx->fSelfName);
+            A_SETSYM(response, xx->fSelfName);
             outlet_anything(xx->fResultOut, gSelfSymbol, 1, response);
         }
     }

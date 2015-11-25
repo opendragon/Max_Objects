@@ -40,10 +40,7 @@
 #include "map3d.h"
 
 /*------------------------------------ cmd_Add ---*/
-void cmd_Add(Map3dData * xx,
-             t_symbol *  message,
-             short       argc,
-             t_atom *    argv)
+ADD_HEADER(Map3dData)
 {
 #pragma unused(message)
     if (xx)

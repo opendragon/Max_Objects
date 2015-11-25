@@ -40,11 +40,7 @@
 #include "Vmean.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(VmeanData * xx,
-                void *      bb,
-                long        msg,
-                long        arg,
-                char *      dstString)
+ASSIST_HEADER(VmeanData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

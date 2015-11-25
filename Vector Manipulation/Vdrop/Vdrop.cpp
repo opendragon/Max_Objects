@@ -41,17 +41,44 @@
 #include "Vdrop.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VdropCreate(long howMany);
+/*------------------------------------ VdropCreate ---*/
+static void * VdropCreate(const long howMany)
+{
+    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fHowMany = static_cast<short>(howMany);
+        xx->fPreviousList = NULL;
+        xx->fPreviousLength = 0;
+        intin(xx, 1);
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+        if (! xx->fResultOut)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // VdropCreate
 
-void VdropFree(VObjectData * xx);
+/*------------------------------------ VdropFree ---*/
+static void VdropFree(VObjectData * xx)
+{
+    if (xx)
+    {
+        clearPrevious(xx);
+    }
+} // VdropFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VdropCreate), reinterpret_cast<method>(VdropFree),
-                               sizeof(VObjectData), reinterpret_cast<method>(0L), A_LONG, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VdropCreate),
+                               reinterpret_cast<method>(VdropFree), sizeof(VObjectData),
+                               reinterpret_cast<method>(0L), A_LONG, 0);
 
     if (temp)
     {
@@ -66,37 +93,9 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VdropCreate ---*/
-void * VdropCreate(long howMany)
-{
-    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fHowMany = static_cast<short>(howMany);
-        xx->fPreviousList = NULL_PTR;
-        xx->fPreviousLength = 0;
-        intin(xx, 1);
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-        if (! xx->fResultOut)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // VdropCreate
-/*------------------------------------ VdropFree ---*/
-void VdropFree(VObjectData * xx)
-{
-    if (xx)
-    {
-        clearPrevious(xx);
-    }
-} // VdropFree
 /*------------------------------------ clearPrevious ---*/
 void clearPrevious(VObjectData * xx)
 {
-    FREEBYTES(xx->fPreviousList, xx->fPreviousLength);
+    FREE_BYTES(xx->fPreviousList);
 } // clearPrevious

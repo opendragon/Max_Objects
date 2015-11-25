@@ -53,6 +53,6 @@ struct VdistanceData
     t_outlet * fResultOut;
 }; // VdistanceData
 
-StandardRoutineDeclarations(VdistanceData *);
+StandardRoutineDeclarations(VdistanceData);
 
 #endif /* not VLENGTH_H_ */

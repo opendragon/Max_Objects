@@ -56,15 +56,16 @@ void pfsmClearHashTable(PfsmData * xx)
                 for (TransitionData * trans; walker; walker = trans)
                 {
                     trans = walker->fNext;
-                    FREEBYTES(walker->fOutput, walker->fOutputCount);
-                    FREEBYTES(walker, 1);
+                    FREE_BYTES(walker->fOutput);
+                    FREE_BYTES(walker);
                 }
-                FREEBYTES(slot, 1);
+                FREE_BYTES(slot);
             }
         }
-        FREEBYTES(xx->fStateSymbols, HASH_TABLE_SIZE);
+        FREE_BYTES(xx->fStateSymbols);
     }
 } // pfsmClearHashTable
+
 /*------------------------------------ pfsmReportHashTable ---*/
 void pfsmReportHashTable(PfsmData * xx)
 {
@@ -102,15 +103,18 @@ void pfsmReportHashTable(PfsmData * xx)
                     switch (trans->fKind)
                     {
                         case MatchAnyNumber:
-                            LOG_POST_3(xx, OUTPUT_PREFIX "  any_number -> %s %s", nextName, outputTag)
+                            LOG_POST_3(xx, OUTPUT_PREFIX "  any_number -> %s %s", nextName,
+                                       outputTag)
                             break;
 
                         case MatchAnySymbol:
-                            LOG_POST_3(xx, OUTPUT_PREFIX "  any_string -> %s %s", nextName, outputTag)
+                            LOG_POST_3(xx, OUTPUT_PREFIX "  any_string -> %s %s", nextName,
+                                       outputTag)
                             break;
 
                         case MatchNumber:
-                            LOG_POST_4(xx, OUTPUT_PREFIX "  %ld -> %s %s", trans->fMatch.fAsNumber, nextName, outputTag)
+                            LOG_POST_4(xx, OUTPUT_PREFIX "  %ld -> %s %s", trans->fMatch.fAsNumber,
+                                       nextName, outputTag)
                             break;
 
                         case MatchNumberRange:
@@ -118,13 +122,14 @@ void pfsmReportHashTable(PfsmData * xx)
                             {
                                 if (trans->fMatch.fAsRange.fUpperIsOpen)
                                 {
-                                    LOG_POST_3(xx, OUTPUT_PREFIX "  range any_number ... any_number -> %s %s", nextName,
-                                               outputTag)
+                                    LOG_POST_3(xx, OUTPUT_PREFIX "  range any_number ... "
+                                               "any_number -> %s %s", nextName, outputTag)
                                 }
                                 else
                                 {
-                                    LOG_POST_4(xx, OUTPUT_PREFIX "  range any_number ... %ld -> %s %s",
-                                               trans->fMatch.fAsRange.fUpper, nextName, outputTag)
+                                    LOG_POST_4(xx, OUTPUT_PREFIX "  range any_number ... %ld -> %s "
+                                               "%s", trans->fMatch.fAsRange.fUpper, nextName,
+                                               outputTag)
                                 }
                             }
                             else if (trans->fMatch.fAsRange.fUpperIsOpen)
@@ -135,22 +140,24 @@ void pfsmReportHashTable(PfsmData * xx)
                             else
                             {
                                 LOG_POST_5(xx, OUTPUT_PREFIX "  range %ld ... %ld -> %s %s",
-                                           trans->fMatch.fAsRange.fLower, trans->fMatch.fAsRange.fUpper,
-                                           nextName, outputTag)
+                                           trans->fMatch.fAsRange.fLower,
+                                           trans->fMatch.fAsRange.fUpper, nextName, outputTag)
                             }
                             break;
 
                         case MatchSymbol:
-                            LOG_POST_4(xx, OUTPUT_PREFIX "  %s -> %s %s", trans->fMatch.fAsSymbol->s_name, nextName,
-                                       outputTag)
+                            LOG_POST_4(xx, OUTPUT_PREFIX "  %s -> %s %s",
+                                       trans->fMatch.fAsSymbol->s_name, nextName, outputTag)
                             break;
 
                         case MatchSpecial:
-                            LOG_POST_4(xx, OUTPUT_PREFIX "  %c -> %s %s", trans->fMatch.fAsSpecial, nextName, outputTag)
+                            LOG_POST_4(xx, OUTPUT_PREFIX "  %c -> %s %s", trans->fMatch.fAsSpecial,
+                                       nextName, outputTag)
                             break;
 
                         default:
                             break;
+                            
                     }
                     if (trans->fOutputCount)
                     {
@@ -168,25 +175,27 @@ void pfsmReportHashTable(PfsmData * xx)
         }
     }
 } // pfsmReportHashTable
+
 /*------------------------------------ pfsmInitializeHashTable ---*/
 static void pfsmInitializeHashTable(PfsmData * xx)
 {
     pfsmClearHashTable(xx);
-    xx->fStateSymbols = GETBYTES(HASH_TABLE_SIZE, SymbolLink *);
+    xx->fStateSymbols = GET_BYTES(HASH_TABLE_SIZE, SymbolLink *);
     if (xx->fStateSymbols)
     {
         for (short ii = 0; ii < HASH_TABLE_SIZE; ++ii)
         {
-            *(xx->fStateSymbols + ii) = NULL_PTR;
+            *(xx->fStateSymbols + ii) = NULL;
         }
     }
 } // pfsmInitializeHashTable
+
 /*------------------------------------ pfsmAddStateSymbol ---*/
 static SymbolLink * pfsmAddStateSymbol(PfsmData * xx,
                                        t_symbol * name)
 {
     short        ii = static_cast<short>(reinterpret_cast<long>(name) % HASH_TABLE_SIZE);
-    SymbolLink * prev = NULL_PTR;
+    SymbolLink * prev = NULL;
     SymbolLink * slot = *(xx->fStateSymbols + ii);
 
     for ( ; slot; slot = slot->fNext)
@@ -202,10 +211,10 @@ static SymbolLink * pfsmAddStateSymbol(PfsmData * xx,
     /* a safety valve */
     if (! slot)
     {
-        slot = GETBYTES(1, SymbolLink);
-        slot->fNext = NULL_PTR;
+        slot = GET_BYTES(1, SymbolLink);
+        slot->fNext = NULL;
         slot->fSymbol = name;
-        slot->fTransitions = NULL_PTR;
+        slot->fTransitions = NULL;
         slot->fIsError = false;
         slot->fIsStop = false;
         if (prev)
@@ -219,6 +228,7 @@ static SymbolLink * pfsmAddStateSymbol(PfsmData * xx,
     }
     return slot;
 } // pfsmAddStateSymbol
+
 /*------------------------------------ pfsmLookupStateSymbol ---*/
 SymbolLink * pfsmLookupStateSymbol(PfsmData * xx,
                                    t_symbol * name)
@@ -235,6 +245,7 @@ SymbolLink * pfsmLookupStateSymbol(PfsmData * xx,
     }
     return slot;
 } // pfsmLookupStateSymbol
+
 /*------------------------------------ pfsmGetNextAtom ---*/
 static bool pfsmGetNextAtom(PfsmData * xx,
                             t_atom &   value)
@@ -244,7 +255,8 @@ static bool pfsmGetNextAtom(PfsmData * xx,
 
     for ( ; result; )
     {
-        result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset, &xx->fBufferStuffOffset, &value));
+        result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset, &xx->fBufferStuffOffset,
+                                   &value));
         if (result && (A_SYM == value.a_type))
         {
             if (kCommentCharacter == value.a_w.w_sym->s_name[0])
@@ -252,28 +264,34 @@ static bool pfsmGetNextAtom(PfsmData * xx,
                 /* skip a comment */
                 for ( ; result; )
                 {
-                    result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset, &xx->fBufferStuffOffset, &skipper));
+                    result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset,
+                                               &xx->fBufferStuffOffset, &skipper));
                     if (A_SEMI == skipper.a_type)
                     {
                         break;
                     }
+                    
                 }
-                /* At this point, we've read the trailing semicolon, so we need to get the next atom. */
+                /* At this point, we've read the trailing semicolon, so we need to get the next
+                 atom. */
             }
             else
             {
                 /* We've seen a symbol other than '#' */
                 break;
             }
+            
         }
         else
         {
             /* We've seen something other than a symbol, so we can leave... */
             break;
         }
+        
     }
     return result;
 } // pfsmGetNextAtom
+
 /*------------------------------------ pfsmReportUnexpected ---*/
 static void pfsmReportUnexpected(PfsmData * xx,
                                  t_atom &   what)
@@ -281,11 +299,12 @@ static void pfsmReportUnexpected(PfsmData * xx,
     switch (what.a_type)
     {
         case A_FLOAT:
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected floating point (%g)", static_cast<double>(what.a_w.w_float))
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected floating point (%g)",
+                        TO_DBL(what.a_w.w_float))
             break;
 
         case A_LONG:
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected long (%ld)", what.a_w.w_long)
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected long (" LONG_FORMAT ")", what.a_w.w_long)
             break;
 
         case A_SYM:
@@ -301,14 +320,17 @@ static void pfsmReportUnexpected(PfsmData * xx,
             break;
 
         case A_DOLLAR:
+        case A_DOLLSYM:
             LOG_ERROR_1(xx, OUTPUT_PREFIX "unexpected dollar")
             break;
 
         default:
             LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected atom, type=%d", static_cast<int>(what.a_type))
             break;
+            
     }
 } // pfsmReportUnexpected
+
 /*------------------------------------ pfsmGetStateSymbols ---*/
 static bool pfsmGetStateSymbols(PfsmData * xx)
 {
@@ -340,10 +362,12 @@ static bool pfsmGetStateSymbols(PfsmData * xx)
                 }
                 break;
             }
+            
             /* Add this symbol to the set of known symbols. */
             if (pfsmLookupStateSymbol(xx, holder.a_w.w_sym))
             {
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "state symbol '%s' already present", holder.a_w.w_sym->s_name)
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "state symbol '%s' already present",
+                            holder.a_w.w_sym->s_name)
                 result = false;
             }
             else
@@ -360,6 +384,7 @@ static bool pfsmGetStateSymbols(PfsmData * xx)
     }
     return result;
 } // pfsmGetStateSymbols
+
 /*------------------------------------ pfsmGetErrorSymbols ---*/
 static bool pfsmGetErrorSymbols(PfsmData * xx)
 {
@@ -401,7 +426,8 @@ static bool pfsmGetErrorSymbols(PfsmData * xx)
             }
             else
             {
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "unknown error state symbol '%s'", holder.a_w.w_sym->s_name)
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "unknown error state symbol '%s'",
+                            holder.a_w.w_sym->s_name)
                 result = false;
             }
         }
@@ -413,6 +439,7 @@ static bool pfsmGetErrorSymbols(PfsmData * xx)
     }
     return result;
 } // pfsmGetErrorSymbols
+
 /*------------------------------------ pfsmGetStartSymbol ---*/
 static bool pfsmGetStartSymbol(PfsmData * xx)
 {
@@ -435,7 +462,8 @@ static bool pfsmGetStartSymbol(PfsmData * xx)
             }
             else
             {
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "start state symbol '%s' not known", holder.a_w.w_sym->s_name)
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "start state symbol '%s' not known",
+                            holder.a_w.w_sym->s_name)
                 result = false;
             }
         }
@@ -447,6 +475,7 @@ static bool pfsmGetStartSymbol(PfsmData * xx)
     }
     return result;
 } // pfsmGetStartSymbol
+
 /*------------------------------------ pfsmGetStopSymbols ---*/
 static bool pfsmGetStopSymbols(PfsmData * xx)
 {
@@ -479,6 +508,7 @@ static bool pfsmGetStopSymbols(PfsmData * xx)
                 }
                 break;
             }
+            
             /* Locate the symbol and update it's information. */
             symbol = pfsmLookupStateSymbol(xx, holder.a_w.w_sym);
             if (symbol)
@@ -488,7 +518,8 @@ static bool pfsmGetStopSymbols(PfsmData * xx)
             }
             else
             {
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "unknown stop state symbol '%s'", holder.a_w.w_sym->s_name)
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "unknown stop state symbol '%s'",
+                            holder.a_w.w_sym->s_name)
                 result = false;
             }
         }
@@ -500,6 +531,7 @@ static bool pfsmGetStopSymbols(PfsmData * xx)
     }
     return result;
 } // pfsmGetStopSymbols
+
 /*------------------------------------ pfsmGetNextNumber ---*/
 static bool pfsmGetNextNumber(PfsmData * xx,
                               long &     value,
@@ -557,18 +589,19 @@ static bool pfsmGetNextNumber(PfsmData * xx,
     }
     return result;
 } // pfsmGetNextNumber
+
 /*------------------------------------ pfsmCollectATransition ---*/
 static bool pfsmCollectATransition(PfsmData * xx)
 {
     t_atom       holder;
-    SymbolLink * inputSymbol = NULL_PTR;
-    SymbolLink * outputSymbol = NULL_PTR;
+    SymbolLink * inputSymbol = NULL;
+    SymbolLink * outputSymbol = NULL;
     float        probability;
     bool         isRandom = false;
     bool         openLow;
     bool         openHigh;
     Criteria     whatKind = MatchUnknown;
-    t_symbol *   whatSymbol = NULL_PTR;
+    t_symbol *   whatSymbol = NULL;
     char         whatChar = '\0';
     long         whatValue = 0;
     long         lowValue;
@@ -586,7 +619,8 @@ static bool pfsmCollectATransition(PfsmData * xx)
             }
             else
             {
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "input state symbol '%s' not known", holder.a_w.w_sym->s_name)
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "input state symbol '%s' not known",
+                            holder.a_w.w_sym->s_name)
                 result = false;
             }
         }
@@ -630,7 +664,8 @@ static bool pfsmCollectATransition(PfsmData * xx)
                 }
                 else
                 {
-                    /* Check for syntactic sugar: 'x is the same as the ASCII for the given character. */
+                    /* Check for syntactic sugar: 'x is the same as the ASCII for the given
+                     character. */
                     const char * matcher = holder.a_w.w_sym->s_name;
 
                     whatKind = MatchSymbol;
@@ -662,6 +697,7 @@ static bool pfsmCollectATransition(PfsmData * xx)
                 break;
 
             case A_DOLLAR:
+            case A_DOLLSYM:
                 whatKind = MatchSpecial;
                 whatChar = '$';
                 break;
@@ -670,6 +706,7 @@ static bool pfsmCollectATransition(PfsmData * xx)
                 pfsmReportUnexpected(xx, holder);
                 result = false;
                 break;
+                
         }
         if (result)
         {
@@ -726,7 +763,8 @@ static bool pfsmCollectATransition(PfsmData * xx)
             }
             else
             {
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "output state symbol '%s' not known", holder.a_w.w_sym->s_name)
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "output state symbol '%s' not known",
+                            holder.a_w.w_sym->s_name)
                 result = false;
             }
         }
@@ -748,12 +786,12 @@ static bool pfsmCollectATransition(PfsmData * xx)
                 prevTrans = newTrans;
             }
         }
-        newTrans = GETBYTES(1, TransitionData);
+        newTrans = GET_BYTES(1, TransitionData);
         if (newTrans)
         {
             t_binbuf * collector = static_cast<t_binbuf *>(binbuf_new());
 
-            newTrans->fNext = NULL_PTR;
+            newTrans->fNext = NULL;
             newTrans->fNextState = outputSymbol;
             newTrans->fIsRandom = isRandom;
             newTrans->fKind = whatKind;
@@ -788,7 +826,7 @@ static bool pfsmCollectATransition(PfsmData * xx)
             for ( ; holder.a_type != A_SEMI; )
             {
                 /* We have a value; attach it. */
-                binbuf_append(collector, NULL_PTR, 1, &holder);
+                binbuf_append(collector, NULL, 1, &holder);
                 ++newTrans->fOutputCount;
                 /* Note that the '$' symbols are handled in the transition engine. */
                 result = pfsmGetNextAtom(xx, holder);
@@ -796,13 +834,14 @@ static bool pfsmCollectATransition(PfsmData * xx)
                 {
                     break;
                 }
+                
             }
             /* Assemble the pieces into a rule to be added to the transition tables. */
             if (newTrans->fOutputCount)
             {
                 long     tyOffset = 0;
                 long     stOffset = 0;
-                t_atom * vector = GETBYTES(newTrans->fOutputCount, t_atom);
+                t_atom * vector = GET_BYTES(newTrans->fOutputCount, t_atom);
 
                 newTrans->fOutput = vector;
                 for (short ii = 0; ii < newTrans->fOutputCount; ++ii, ++vector)
@@ -827,7 +866,7 @@ static bool pfsmCollectATransition(PfsmData * xx)
                             ++newTrans->fDollarStarCount;
                         }
                     }
-                    else if (A_DOLLAR == vector->a_type)
+                    else if ((A_DOLLAR == vector->a_type) || (A_DOLLSYM == vector->a_type))
                     {
                         ++newTrans->fDollarCount;
                     }
@@ -835,7 +874,7 @@ static bool pfsmCollectATransition(PfsmData * xx)
             }
             else
             {
-                newTrans->fOutput = NULL_PTR;
+                newTrans->fOutput = NULL;
             }
             freeobject(reinterpret_cast<t_object *>(collector));
             /* Add the new transition to the input symbol. */
@@ -851,6 +890,7 @@ static bool pfsmCollectATransition(PfsmData * xx)
     }
     return result;
 } // pfsmCollectATransition
+
 /*------------------------------------ pfsmLoadTables ---*/
 bool pfsmLoadTables(PfsmData * xx,
                     t_symbol * fileName)
@@ -880,7 +920,8 @@ bool pfsmLoadTables(PfsmData * xx,
             pfsmInitializeHashTable(xx);
             xx->fBufferTypeOffset = 0;
             xx->fBufferStuffOffset = 0;
-            if (pfsmGetStateSymbols(xx) && pfsmGetStartSymbol(xx) && pfsmGetStopSymbols(xx) && pfsmGetErrorSymbols(xx))
+            if (pfsmGetStateSymbols(xx) && pfsmGetStartSymbol(xx) && pfsmGetStopSymbols(xx) &&
+                pfsmGetErrorSymbols(xx))
             {
                 for ( ; pfsmCollectATransition(xx); )
                 {

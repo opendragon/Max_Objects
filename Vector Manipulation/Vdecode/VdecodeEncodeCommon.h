@@ -47,9 +47,9 @@
 
 struct BaseData
 {
-    long  fBases[NUM_BASES];
-    short fNumBases;
-    bool  fFirstBaseIsNegative;
+    t_atom_long fBases[NUM_BASES];
+    short       fNumBases;
+    bool        fFirstBaseIsNegative;
 }; // BaseData
 
 bool checkBases(BaseData * info,

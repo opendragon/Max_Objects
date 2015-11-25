@@ -40,11 +40,7 @@
 #include "Vsegment.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(VsegmentData * xx,
-                void *         bb,
-                long           msg,
-                long           arg,
-                char *         dstString)
+ASSIST_HEADER(VsegmentData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)
@@ -62,6 +58,10 @@ void cmd_Assist(VsegmentData * xx,
             case 2:
                 strncpy_zero(dstString, "Number of elements to select", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
     else if (ASSIST_OUTLET == msg)

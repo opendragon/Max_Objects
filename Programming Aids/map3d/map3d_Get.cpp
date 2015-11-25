@@ -40,11 +40,9 @@
 #include "map3d.h"
 
 /*------------------------------------ cmd_Get ---*/
-void cmd_Get(Map3dData * xx,
-             long        num,
-             t_symbol *  which)
+GET_HEADER(Map3dData)
 {
-    if (xx && (num > 0) && (num <= xx->fRangeCount))
+    if (xx && (0 < num) && (num <= xx->fRangeCount))
     {
         RangeData * walker = xx->fFirstRange;
 
@@ -54,7 +52,7 @@ void cmd_Get(Map3dData * xx,
         }
         if (walker)
         {
-            RangeElement * data = NULL_PTR;
+            RangeElement * data = NULL;
             bool           infPositive = true;
             bool           leftRight = false;
             bool           bottomTop = false;
@@ -101,22 +99,23 @@ void cmd_Get(Map3dData * xx,
             {
                 t_atom result[1];
 
-                if ((leftRight && walker->fLeftRightDontCare) || (bottomTop && walker->fBottomTopDontCare) ||
+                if ((leftRight && walker->fLeftRightDontCare) ||
+                    (bottomTop && walker->fBottomTopDontCare) ||
                     (forwardBack && walker->fForwardBackDontCare))
                 {
-                    SETSYM(result, gAsteriskSymbol);
+                    A_SETSYM(result, gAsteriskSymbol);
                 }
                 else if (MatchInfinity == data->fKind)
                 {
-                    SETSYM(result, infPositive ? gPosInfSymbol1 : gNegInfSymbol1);
+                    A_SETSYM(result, infPositive ? gPosInfSymbol1 : gNegInfSymbol1);
                 }
                 else if (MatchFloat == data->fKind)
                 {
-                    SETFLOAT(result, getFOIFloat(data->fValue));
+                    A_SETFLOAT(result, getFOIFloat(data->fValue));
                 }
                 else
                 {
-                    SETLONG(result, getFOILong(data->fValue));
+                    A_SETLONG(result, getFOILong(data->fValue));
                 }
                 outlet_anything(xx->fResultOut, gValueSymbol, 1, result);
             }

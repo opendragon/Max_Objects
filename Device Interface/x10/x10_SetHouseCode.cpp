@@ -66,6 +66,7 @@ void cmd_SetHouseCode(X10ControlData * xx,
 
         default:
             break;
+            
     }
     if (! aCode)
     {

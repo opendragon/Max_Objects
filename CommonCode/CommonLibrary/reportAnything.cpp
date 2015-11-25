@@ -40,11 +40,7 @@
 #include "reportAnything.h"
 
 /*------------------------------------ reportAnything ---*/
-void reportAnything(t_object *   xx,
-                    const char * routineName,
-                    t_symbol *   message,
-                    const short  argc,
-                    t_atom *     argv)
+REPORTANYTHING_HEADER
 {
     object_error(xx, "%s unknown message '%s' seen", routineName, message->s_name);
     for (short ii = 0; ii < argc; ++ii)
@@ -52,16 +48,18 @@ void reportAnything(t_object *   xx,
         switch (argv[ii].a_type)
         {
             case A_LONG:
-                object_post(xx, "  argument %d is a long (%ld)", static_cast<int>(ii), argv[ii].a_w.w_long);
+                object_post(xx, "  argument %d is a long (" LONG_FORMAT ")", static_cast<int>(ii),
+                            argv[ii].a_w.w_long);
                 break;
 
             case A_SYM:
-                object_post(xx, "  argument %d is a symbol (%s)", static_cast<int>(ii), argv[ii].a_w.w_sym->s_name);
+                object_post(xx, "  argument %d is a symbol (%s)", static_cast<int>(ii),
+                            argv[ii].a_w.w_sym->s_name);
                 break;
 
             case A_FLOAT:
                 object_post(xx, "  argument %d is a float (%g)", static_cast<int>(ii),
-                            static_cast<double>(argv[ii].a_w.w_float));
+                            TO_DBL(argv[ii].a_w.w_float));
                 break;
 
             case A_SEMI:
@@ -73,6 +71,7 @@ void reportAnything(t_object *   xx,
                 break;
 
             case A_DOLLAR:
+            case A_DOLLSYM:
                 object_post(xx, "  argument %d is a dollar sign", static_cast<int>(ii));
                 break;
 
@@ -80,6 +79,7 @@ void reportAnything(t_object *   xx,
                 object_post(xx, "  argument %d is an unknown type (%d)", static_cast<int>(ii),
                             static_cast<int>(argv[ii].a_type));
                 break;
+                
         }
     }
 } // reportAnything

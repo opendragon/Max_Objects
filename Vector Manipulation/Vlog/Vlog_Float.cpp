@@ -40,19 +40,18 @@
 #include "Vlog.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(VObjectData * xx,
-               double        msg)
+FLOAT_HEADER(VObjectData)
 {
     if (xx)
     {
         clearPrevious(xx);
-        if (msg <= 0)
+        if (0 >= msg)
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "Negative or zero value (%g) in input", msg)
         }
         else
         {
-            xx->fPreviousFloat = log(msg);
+            xx->fPreviousFloat = TO_DBL(log(TO_DBL(msg)));
             xx->fPreviousKind = A_FLOAT;
             outlet_float(xx->fResultOut, xx->fPreviousFloat);
         }

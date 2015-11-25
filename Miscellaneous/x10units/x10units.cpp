@@ -42,10 +42,30 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * x10unitsCreate(void);
+/*------------------------------------ x10unitsCreate ---*/
+static void * x10unitsCreate(void)
+{
+    X10UnitsData * xx = static_cast<X10UnitsData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fPreviousResult = 0;
+        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
+        if (! xx->fResultOut)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // x10unitsCreate
 
-void x10unitsFree(X10UnitsData * xx);
+/*------------------------------------ x10unitsFree ---*/
+static void x10unitsFree(X10UnitsData * xx)
+{
+#pragma unused(xx)
+} // x10unitsFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -68,27 +88,5 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ x10unitsCreate ---*/
-void * x10unitsCreate(void)
-{
-    X10UnitsData * xx = static_cast<X10UnitsData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fPreviousResult = 0;
-        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
-        if (! xx->fResultOut)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // x10unitsCreate
-/*------------------------------------ x10unitsFree ---*/
-void x10unitsFree(X10UnitsData * xx)
-{
-#pragma unused(xx)
-} // x10unitsFree
-StandardAnythingRoutine(X10UnitsData *)
+StandardAnythingRoutine(X10UnitsData)

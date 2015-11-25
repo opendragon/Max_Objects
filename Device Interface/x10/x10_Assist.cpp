@@ -40,11 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(X10ControlData * xx,
-                void *           bb,
-                long             msg,
-                long             arg,
-                char *           dstString)
+ASSIST_HEADER(X10ControlData)
 {
 #pragma unused(xx, bb)
     if (ASSIST_INLET == msg)
@@ -58,6 +54,10 @@ void cmd_Assist(X10ControlData * xx,
             case 1:
                 strncpy_zero(dstString, "Serial device feedback", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
     else if (ASSIST_OUTLET == msg)
@@ -99,6 +99,10 @@ void cmd_Assist(X10ControlData * xx,
             case 8:
                 strncpy_zero(dstString, "Error detected output", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
 } // cmd_Assist

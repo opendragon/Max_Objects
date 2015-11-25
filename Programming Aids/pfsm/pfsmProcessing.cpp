@@ -51,16 +51,17 @@ static void pfsmPerformTransition(PfsmData *       xx,
     {
         short    newSize;
         t_atom * element = trans->fOutput;
-        t_atom * pile = NULL_PTR;
-        t_atom * target = NULL_PTR;
+        t_atom * pile = NULL;
+        t_atom * target = NULL;
 
         /* We have a string of Atoms with one or more extras. */
         /* For each '$$', we add the number of additional elements, but remove one */
-        /* Atom for the '$$' itself. '$' entries don't affect the count. */
-        newSize = static_cast<short>(trans->fOutputCount + (trans->fDoubleDollarCount * (argc - 1)));
+        /* t_atom for the '$$' itself. '$' entries don't affect the count. */
+        newSize = static_cast<short>(trans->fOutputCount + (trans->fDoubleDollarCount *
+                                                            (argc - 1)));
         if (newSize)
         {
-            target = pile = GETBYTES(newSize, t_atom);
+            target = pile = GET_BYTES(newSize, t_atom);
         }
         for (short ii = 0; ii < trans->fOutputCount; ++ii, ++element)
         {
@@ -76,7 +77,7 @@ static void pfsmPerformTransition(PfsmData *       xx,
                 }
                 else if (element->a_w.w_sym == gDollarStarSymbol)
                 {
-                    SETSYM(target, trans->fNextState->fSymbol);
+                    A_SETSYM(target, trans->fNextState->fSymbol);
                     ++target;
                 }
                 else if (element->a_w.w_sym == gDoubleDollarSymbol)
@@ -93,7 +94,7 @@ static void pfsmPerformTransition(PfsmData *       xx,
                     *target++ = *element;
                 }
             }
-            else if (A_DOLLAR == element->a_type)
+            else if ((A_DOLLAR == element->a_type) || (A_DOLLSYM == element->a_type))
             {
                 *target++ = *input;
             }
@@ -105,7 +106,7 @@ static void pfsmPerformTransition(PfsmData *       xx,
         if (newSize && pile)
         {
             genericListOutput(xx->fResultOut, newSize, pile);
-            FREEBYTES(pile, newSize);
+            FREE_BYTES(pile);
         }
     }
     else if (trans->fOutputCount && trans->fOutput)
@@ -135,6 +136,7 @@ static void pfsmPerformTransition(PfsmData *       xx,
         LOG_POST_2(xx, OUTPUT_PREFIX "transition to state '%s'", xx->fCurrentState->fSymbol->s_name)
     }
 } // pfsmPerformTransition
+
 /*------------------------------------ pfsmCollectATransition ---*/
 static bool pfsmCheckProbability(const bool  isRandom,
                                  const float probability)
@@ -149,6 +151,7 @@ static bool pfsmCheckProbability(const bool  isRandom,
     test = fabs(random() / 32767.0);
     return (test < probability);
 } // pfsmCheckProbability
+
 /*------------------------------------ pfsmProcessData ---*/
 void pfsmProcessData(PfsmData *  xx,
                      t_atom *    input,
@@ -174,13 +177,13 @@ void pfsmProcessData(PfsmData *  xx,
             {
                 case A_FLOAT:
                     LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid data of type 'float' seen (%g)",
-                                static_cast<double>(input->a_w.w_float))
+                                TO_DBL(input->a_w.w_float))
                     break;
 
                 case A_LONG:
                     if (xx->fVerbose)
                     {
-                        LOG_POST_2(xx, OUTPUT_PREFIX "long data=%ld", input->a_w.w_long)
+                        LOG_POST_2(xx, OUTPUT_PREFIX "long data=" LONG_FORMAT, input->a_w.w_long)
                     }
                     for ( ; trans && (! matched); trans = trans->fNext)
                     {
@@ -206,6 +209,7 @@ void pfsmProcessData(PfsmData *  xx,
 
                             default:
                                 break;
+                                
                         }
                         if (matched)
                         {
@@ -214,6 +218,7 @@ void pfsmProcessData(PfsmData *  xx,
                                 pfsmPerformTransition(xx, trans, input, argc, argv);
                                 break;
                             }
+                            
                             matched = false;
                         }
                     }
@@ -244,6 +249,7 @@ void pfsmProcessData(PfsmData *  xx,
 
                             default:
                                 break;
+                                
                         }
                         if (matched)
                         {
@@ -252,6 +258,7 @@ void pfsmProcessData(PfsmData *  xx,
                                 pfsmPerformTransition(xx, trans, input, argc, argv);
                                 break;
                             }
+                            
                             matched = false;
                         }
                     }
@@ -264,6 +271,7 @@ void pfsmProcessData(PfsmData *  xx,
                 case A_SEMI:
                 case A_COMMA:
                 case A_DOLLAR:
+                case A_DOLLSYM:
                     switch (aType)
                     {
                         case A_SEMI:
@@ -275,8 +283,13 @@ void pfsmProcessData(PfsmData *  xx,
                             break;
 
                         case A_DOLLAR:
+                        case A_DOLLSYM:
                             specialChar = '$';
                             break;
+                            
+                        default:
+                            break;
+                            
                     }
                     if (xx->fVerbose)
                     {
@@ -295,6 +308,7 @@ void pfsmProcessData(PfsmData *  xx,
                                 pfsmPerformTransition(xx, trans, input, argc, argv);
                                 break;
                             }
+                            
                             matched = false;
                         }
                     }
@@ -307,6 +321,7 @@ void pfsmProcessData(PfsmData *  xx,
                 default:
                     LOG_ERROR_2(xx, OUTPUT_PREFIX "input of an unknown type (%d) seen", static_cast<int>(aType))
                     break;
+                    
             }
         }
         else
@@ -322,6 +337,6 @@ void pfsmProcessData(PfsmData *  xx,
     if (! matched)
     {
         outlet_bang(xx->fErrorBangOut);
-        xx->fCurrentState = NULL_PTR;
+        xx->fCurrentState = NULL;
     }
 } // pfsmProcessData

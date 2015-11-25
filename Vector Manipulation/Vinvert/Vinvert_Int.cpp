@@ -40,19 +40,18 @@
 #include "Vinvert.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VObjectData * xx,
-             long          num)
+INT_HEADER(VObjectData)
 {
     if (xx)
     {
         clearPrevious(xx);
-        if (0 == num)
+        if (0 == msg)
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "Zero value in input")
         }
         else
         {
-            xx->fPreviousFloat = (1.0 / static_cast<float>(num));
+            xx->fPreviousFloat = TO_DBL(1.0 / TO_DBL(msg));
             xx->fPreviousKind = A_FLOAT;
             outlet_float(xx->fResultOut, xx->fPreviousFloat);
         }

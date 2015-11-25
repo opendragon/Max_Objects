@@ -46,13 +46,14 @@ void cmd_Port(TcpObjectData * xx,
     REPORT_MAX_MESSAGE("port")
     if (xx)
     {
-        if ((number < 0) || (number > MAX_PORT))
+        if ((0 > number) || (MAX_PORT < number))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid port (%ld)", number)
             signalError(xx);
         }
         else if (xx->fServerPort != number)
         {
+#if 0
             if (isPortInUse(static_cast<unsigned short>(number)))
             {
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "port %ld already in use", number)
@@ -70,6 +71,7 @@ void cmd_Port(TcpObjectData * xx,
 #endif /* BE_VERBOSE */
                 }
             }
+#endif//0
         }
     }
 } // cmd_Port

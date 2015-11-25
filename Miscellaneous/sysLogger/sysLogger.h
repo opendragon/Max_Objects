@@ -64,7 +64,7 @@ struct SysLoggerData
     int       fLevel;
 }; // SysLoggerData
 
-StandardRoutineDeclarations(SysLoggerData *);
+StandardRoutineDeclarations(SysLoggerData);
 
 mextern(t_symbol *) gAlertSymbol;     /* Pointer to unique symbol for 'alert' */
 mextern(t_symbol *) gCriticalSymbol;  /* Pointer to unique symbol for 'critical' */

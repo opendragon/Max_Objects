@@ -49,14 +49,14 @@
 
 struct CaseShiftData
 {
-    t_object   fObject;
-    t_outlet * fResultOut;
-    double     fPreviousFloat;
-    long       fPreviousLong;
-    short      fPreviousLength;
-    t_atom *   fPreviousList;
-    bool       fDown;
-    short      fPreviousKind;
+    t_object    fObject;
+    t_outlet *  fResultOut;
+    double      fPreviousFloat;
+    t_atom_long fPreviousLong;
+    short       fPreviousLength;
+    t_atom *    fPreviousList;
+    bool        fDown;
+    short       fPreviousKind;
 }; // CaseShiftData
 
 void clearPrevious(CaseShiftData * xx);
@@ -65,7 +65,7 @@ void shiftAString(CaseShiftData * xx,
                   char *          newWord,
                   const char *    oldWord);
 
-StandardRoutineDeclarations(CaseShiftData *);
+StandardRoutineDeclarations(CaseShiftData);
 
 mextern(t_symbol *) gDownSymbol;  /* Pointer to unique symbol for 'up' */
 mextern(t_symbol *) gEmptySymbol; /* Pointer to unique symbol for '' */

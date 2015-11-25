@@ -41,17 +41,53 @@
 #include "Vjet.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VjetCreate(long howMany);
+/*------------------------------------ VjetCreate ---*/
+static void * VjetCreate(const long howMany)
+{
+    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fPreviousList = NULL;
+        xx->fPreviousLength = 0;
+        if (0 < howMany)
+        {
+            xx->fHowMany = static_cast<short>(howMany);
+            intin(xx, 1);
+            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+            if (! xx->fResultOut)
+            {
+                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+                freeobject(reinterpret_cast<t_object *>(xx));
+                xx = NULL;
+            }
+        }
+        else
+        {
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid segment size (%ld)", howMany)
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // VjetCreate
 
-void VjetFree(VObjectData * xx);
+/*------------------------------------ VjetFree ---*/
+static void VjetFree(VObjectData * xx)
+{
+    if (xx)
+    {
+        clearPrevious(xx);
+    }
+} // VjetFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VjetCreate), reinterpret_cast<method>(VjetFree),
-                               sizeof(VObjectData), reinterpret_cast<method>(0L), A_LONG, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VjetCreate),
+                               reinterpret_cast<method>(VjetFree), sizeof(VObjectData),
+                               reinterpret_cast<method>(0L), A_LONG, 0);
 
     if (temp)
     {
@@ -66,46 +102,9 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VjetCreate ---*/
-void * VjetCreate(long howMany)
-{
-    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fPreviousList = NULL_PTR;
-        xx->fPreviousLength = 0;
-        if (howMany > 0)
-        {
-            xx->fHowMany = static_cast<short>(howMany);
-            intin(xx, 1);
-            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-            if (! xx->fResultOut)
-            {
-                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-                freeobject(reinterpret_cast<t_object *>(xx));
-                xx = NULL_PTR;
-            }
-        }
-        else
-        {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid segment size (%ld)", howMany)
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // VjetCreate
-/*------------------------------------ VjetFree ---*/
-void VjetFree(VObjectData * xx)
-{
-    if (xx)
-    {
-        clearPrevious(xx);
-    }
-} // VjetFree
 /*------------------------------------ clearPrevious ---*/
 void clearPrevious(VObjectData * xx)
 {
-    FREEBYTES(xx->fPreviousList, xx->fPreviousLength);
+    FREE_BYTES(xx->fPreviousList);
 } // clearPrevious

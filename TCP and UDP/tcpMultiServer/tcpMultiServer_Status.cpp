@@ -54,26 +54,28 @@ void cmd_Status(TcpMultiServerData * xx,
 
             if (connection)
             {
-                SETLONG(response, client);
-                SETSYM(response + 1, mapStateToSymbol(connection->fState));
+#if 0
+                A_SETLONG(response, client);
+                A_SETSYM(response + 1, mapStateToSymbol(connection->fState));
                 if (kTcpStateConnected == connection->fState)
                 {
                     if (! connection->fPartnerName)
                     {
                         OSStatus result;
                         TBind    other_address;
-                        char *   other_data = GETBYTES(xx->fAddressSize, char);
+                        char *   other_data = GET_BYTES(xx->fAddressSize, char);
 
                         if (other_data)
                         {
                             other_address.addr.buf = reinterpret_cast<unsigned char *>(other_data);
                             other_address.addr.maxlen = xx->fAddressSize;
                             WRAP_OT_CALL(xx, result, "OTGetProtAddress",
-                                         OTGetProtAddress(connection->fDataEndpoint, NULL_PTR,
+                                         OTGetProtAddress(connection->fDataEndpoint, NULL,
                                                           &other_address))
                             if (kOTNoError == result)
                             {
-                                InetAddress * other_inet_ptr = reinterpret_cast<InetAddress *>(other_data);
+                                InetAddress * other_inet_ptr =
+                                                        reinterpret_cast<InetAddress *>(other_data);
                                 char          temp_name[32];
 
                                 OTInetHostToString(other_inet_ptr->fHost, temp_name);
@@ -83,21 +85,23 @@ void cmd_Status(TcpMultiServerData * xx,
                             }
                             else
                             {
-                                REPORT_ERROR(xx, OUTPUT_PREFIX "OTGetProtAddress failed (%ld = %s)", result)
+                                REPORT_ERROR(xx, OUTPUT_PREFIX "OTGetProtAddress failed (%ld = %s)",
+                                             result)
                                 reportEndpointState(xx, connection->fDataEndpoint);
                             }
                         }
-                        FREEBYTES(other_data, xx->fAddressSize)
+                        FREE_BYTES(other_data);
                     }
                     if (connection->fPartnerName)
                     {
-                        SETSYM(response + 2, connection->fPartnerName);
-                        SETLONG(response + 3, static_cast<long>(connection->fClientPort));
-                        SETSYM(response + 4, connection->fRawMode ? gRawSymbol : gMaxSymbol);
+                        A_SETSYM(response + 2, connection->fPartnerName);
+                        A_SETLONG(response + 3, TO_INT(connection->fClientPort));
+                        A_SETSYM(response + 4, connection->fRawMode ? gRawSymbol : gMaxSymbol);
                         resp_length += 3;
                     }
                 }
                 outlet_anything(xx->fResultOut, gStatusSymbol, resp_length, response);
+#endif//0
             }
             else
             {
@@ -107,10 +111,10 @@ void cmd_Status(TcpMultiServerData * xx,
         }
         else
         {
-            SETLONG(response, 0L);
-            SETSYM(response + 1, mapStateToSymbol(xx->fState));
-            SETLONG(response + 2, xx->fActiveConnections);
-            SETLONG(response + 3, xx->fServerPort);
+            A_SETLONG(response, 0L);
+            A_SETSYM(response + 1, mapStateToSymbol(xx->fState));
+            A_SETLONG(response + 2, xx->fActiveConnections);
+            A_SETLONG(response + 3, xx->fServerPort);
             outlet_anything(xx->fResultOut, gStatusSymbol, 4, response);
         }
     }

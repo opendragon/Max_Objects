@@ -62,7 +62,8 @@ void cmd_Mode(TcpMultiServerData * xx,
                 }
                 else
                 {
-                    LOG_ERROR_2(xx, OUTPUT_PREFIX "unrecognized processing mode (%s)", rawOrCooked->s_name)
+                    LOG_ERROR_2(xx, OUTPUT_PREFIX "unrecognized processing mode (%s)",
+                                rawOrCooked->s_name)
                     signalError(xx);
                 }
             }

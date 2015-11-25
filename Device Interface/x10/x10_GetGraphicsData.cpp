@@ -55,5 +55,6 @@ void cmd_GetGraphicsData(X10ControlData * xx)
 
         default:
             break;
+            
     }
 } // cmd_GetGraphicsData

@@ -76,13 +76,12 @@ struct MemoryData
     bool               fVerbose;
 }; // MemoryData
 
-void cmd_Clear(MemoryData * xx);
+CLEAR_HEADER(MemoryData);
 
 void cmd_Forget(MemoryData * xx,
                 t_symbol *   name);
 
-void cmd_Load(MemoryData * xx,
-              t_symbol *   fileName);
+LOAD_HEADER(MemoryData);
 
 void cmd_Recall(MemoryData * xx,
                 t_symbol *   name);
@@ -111,7 +110,7 @@ SymbolLink * memoryLookupSymbol(MemoryData * xx,
 void memoryRemoveSymbol(MemoryData * xx,
                         t_symbol *   name);
 
-StandardRoutineDeclarations(MemoryData *);
+StandardRoutineDeclarations(MemoryData);
 
 mextern(t_symbol *)         gEmptySymbol;  /* Pointer to unique symbol for '' */
 mextern(t_symbol *)         gOffSymbol;    /* Pointer to unique symbol for 'off' */

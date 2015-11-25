@@ -51,10 +51,10 @@ void stackClear(StackData * xx)
         for (StackEntry * next; top; top = next)
         {
             next = top->fNext;
-            FREEBYTES(top->fOutput, top->fOutputCount);
-            FREEBYTES(top, 1);
+            FREE_BYTES(top->fOutput);
+            FREE_BYTES(top);
         }
-        descriptor->fTopOfStack = NULL_PTR;
+        descriptor->fTopOfStack = NULL;
         descriptor->fDepth = 0;
     }
 } // stackClear

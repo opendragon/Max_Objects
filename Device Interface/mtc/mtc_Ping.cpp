@@ -49,7 +49,7 @@ void cmd_Ping(MtcData * xx)
             case 0:
                 /* Normal command, normal inlet */
                 REPORT_MAX_MESSAGE("PING")
-                mtcPerformWriteCommand(xx, kMtcCommandPingUnit, 0, NULL_PTR);
+                mtcPerformWriteCommand(xx, kMtcCommandPingUnit, 0, NULL);
                 break;
 
             case 1:
@@ -61,6 +61,7 @@ void cmd_Ping(MtcData * xx)
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Ping

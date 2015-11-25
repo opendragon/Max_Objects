@@ -40,27 +40,28 @@
 #include "spaceball.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(SpaceballData * xx,
-                  t_symbol *      message,
-                  short           argc,
-                  t_atom *        argv)
+ANYTHING_HEADER(SpaceballData)
 {
-    LOG_ERROR_3(xx, OUTPUT_PREFIX "inlet %ld -> Unknown message '%s' seen", xx->fInletNumber, message->s_name)
+    LOG_ERROR_3(xx, OUTPUT_PREFIX "inlet %ld -> Unknown message '%s' seen", xx->fInletNumber,
+                message->s_name)
     outlet_bang(xx->fErrorBangOut);
     for (short ii = 0; ii < argc; ++ii)
     {
         switch (argv[ii].a_type)
         {
             case A_LONG:
-                LOG_POST_3(xx, "  argument %d is a long (%ld)", static_cast<int>(ii), argv[ii].a_w.w_long)
+                LOG_POST_3(xx, "  argument %d is a long (" LONG_FORMAT ")", static_cast<int>(ii),
+                           argv[ii].a_w.w_long)
                 break;
 
             case A_SYM:
-                LOG_POST_3(xx, "  argument %d is a symbol (%s)", static_cast<int>(ii), argv[ii].a_w.w_sym->s_name)
+                LOG_POST_3(xx, "  argument %d is a symbol (%s)", static_cast<int>(ii),
+                           argv[ii].a_w.w_sym->s_name)
                 break;
 
             case A_FLOAT:
-                LOG_POST_3(xx, "  argument %d is a float (%g)", static_cast<int>(ii), double(argv[ii].a_w.w_float))
+                LOG_POST_3(xx, "  argument %d is a float (%g)", static_cast<int>(ii),
+                           TO_DBL(argv[ii].a_w.w_float))
                 break;
 
             case A_SEMI:
@@ -72,6 +73,7 @@ void cmd_Anything(SpaceballData * xx,
                 break;
 
             case A_DOLLAR:
+            case A_DOLLSYM:
                 LOG_POST_2(xx, "  argument %d is a dollar sign", static_cast<int>(ii))
                 break;
 
@@ -79,6 +81,7 @@ void cmd_Anything(SpaceballData * xx,
                 LOG_POST_3(xx, "  argument %d is an unknown type (%d)", static_cast<int>(ii),
                            static_cast<int>(argv[ii].a_type))
                 break;
+                
         }
     }
 } // cmd_Anything

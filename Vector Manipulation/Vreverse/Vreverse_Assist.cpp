@@ -40,11 +40,7 @@
 #include "Vreverse.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(VObjectData * xx,
-                void *        bb,
-                long          msg,
-                long          arg,
-                char *        dstString)
+ASSIST_HEADER(VObjectData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

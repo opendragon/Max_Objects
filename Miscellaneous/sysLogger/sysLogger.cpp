@@ -41,46 +41,11 @@
 #include "sysLogger.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * sysLoggerCreate(t_symbol * level);
-
-void sysLoggerFree(SysLoggerData * xx);
-
-/*------------------------------------ main ---*/
-int main(void)
-{
-    /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(sysLoggerCreate),
-                               reinterpret_cast<method>(sysLoggerFree), sizeof(SysLoggerData),
-                               reinterpret_cast<method>(0L), A_DEFSYM, 0);
-
-    if (temp)
-    {
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Float), MESSAGE_FLOAT, A_FLOAT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
-        class_register(CLASS_BOX, temp);
-    }
-    gClass = temp;
-    gAlertSymbol = gensym("alert");
-    gCriticalSymbol = gensym("critical");
-    gDebugSymbol = gensym("debug");
-    gEmergencySymbol = gensym("emergency");
-    gEmptySymbol = gensym("");
-    gErrorSymbol = gensym("error");
-    gInfoSymbol = gensym("info");
-    gNoticeSymbol = gensym("notice");
-    gWarningSymbol = gensym("warning");
-    reportVersion(OUR_NAME);
-    return 0;
-} // main
 /*------------------------------------ sysLoggerCreate ---*/
-void * sysLoggerCreate(t_symbol * level)
+static void * sysLoggerCreate(t_symbol * level)
 {
     SysLoggerData * xx = static_cast<SysLoggerData *>(object_alloc(gClass));
-
+    
     if (xx)
     {
         if (level == gAlertSymbol)
@@ -156,7 +121,7 @@ void * sysLoggerCreate(t_symbol * level)
             xx->fLevel = LOG_INFO;
 #endif // not USE_ASL_INSTEAD_OF_SYSLOG
         }
-        xx->fBuffer = GETBYTES(MAX_BUFFER_SIZE, char);
+        xx->fBuffer = GET_BYTES(MAX_BUFFER_SIZE, char);
         if (xx->fBuffer)
         {
 #if USE_ASL_INSTEAD_OF_SYSLOG
@@ -165,7 +130,7 @@ void * sysLoggerCreate(t_symbol * level)
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to open logging facility for object")
                 freeobject(reinterpret_cast<t_object *>(xx));
-                xx = NULL_PTR;
+                xx = NULL;
             }
 #else // not USE_ASL_INSTEAD_OF_SYSLOG
             openlog(OUR_NAME, LOG_CONS | LOG_PERROR, LOG_LOCAL0);
@@ -175,13 +140,14 @@ void * sysLoggerCreate(t_symbol * level)
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to allocate memory for object")
             freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
+            xx = NULL;
         }
     }
     return xx;
 } // sysLoggerCreate
+
 /*------------------------------------ sysLoggerFree ---*/
-void sysLoggerFree(SysLoggerData * xx)
+static void sysLoggerFree(SysLoggerData * xx)
 {
     if (xx)
     {
@@ -191,6 +157,37 @@ void sysLoggerFree(SysLoggerData * xx)
 #else // not USE_ASL_INSTEAD_OF_SYSLOG
         closelog();
 #endif // not USE_ASL_INSTEAD_OF_SYSLOG
-        FREEBYTES(xx->fBuffer, MAX_BUFFER_SIZE);
+        FREE_BYTES(xx->fBuffer);
     }
 } // sysLoggerFree
+
+/*------------------------------------ main ---*/
+int main(void)
+{
+    /* Allocate class memory and set up class. */
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(sysLoggerCreate),
+                               reinterpret_cast<method>(sysLoggerFree), sizeof(SysLoggerData),
+                               reinterpret_cast<method>(0L), A_DEFSYM, 0);
+
+    if (temp)
+    {
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Float), MESSAGE_FLOAT, A_FLOAT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
+        class_register(CLASS_BOX, temp);
+    }
+    gClass = temp;
+    gAlertSymbol = gensym("alert");
+    gCriticalSymbol = gensym("critical");
+    gDebugSymbol = gensym("debug");
+    gEmergencySymbol = gensym("emergency");
+    gEmptySymbol = gensym("");
+    gErrorSymbol = gensym("error");
+    gInfoSymbol = gensym("info");
+    gNoticeSymbol = gensym("notice");
+    gWarningSymbol = gensym("warning");
+    reportVersion(OUR_NAME);
+    return 0;
+} // main

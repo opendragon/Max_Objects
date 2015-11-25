@@ -11,6 +11,7 @@
 		F62623871BF950DC00D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623861BF950DC00D27BE9 /* MaxAPI.framework */; };
 		F6546C211BFC28EE005BBE4B /* maxmspsdk.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F6546C201BFC28EE005BBE4B /* maxmspsdk.xcconfig */; };
 		F6A9D4F61BFAF76F00518D80 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A9D4F51BFAF76F00518D80 /* libCommonLibrary.a */; };
+		F6AE79F21C0171DD007F140B /* VabsObjectCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = F6AE79F11C0171DD007F140B /* VabsObjectCommon.h */; };
 		F6DF139618025F32005103D6 /* Vexp_Assist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6DF138F18025F32005103D6 /* Vexp_Assist.cpp */; };
 		F6DF139718025F32005103D6 /* Vexp_Bang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6DF139018025F32005103D6 /* Vexp_Bang.cpp */; };
 		F6DF139818025F32005103D6 /* Vexp_Float.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6DF139118025F32005103D6 /* Vexp_Float.cpp */; };
@@ -26,6 +27,7 @@
 		F62623861BF950DC00D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F6546C201BFC28EE005BBE4B /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
 		F6A9D4F51BFAF76F00518D80 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "/Users/njaffe/Library/Developer/Xcode/DerivedData/NJObjects-cfvosuyivjfhivdvtnowssnhdiht/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<absolute>"; };
+		F6AE79F11C0171DD007F140B /* VabsObjectCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VabsObjectCommon.h; path = ../Vabs/VabsObjectCommon.h; sourceTree = SOURCE_ROOT; };
 		F6DF138F18025F32005103D6 /* Vexp_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vexp_Assist.cpp; sourceTree = SOURCE_ROOT; };
 		F6DF139018025F32005103D6 /* Vexp_Bang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vexp_Bang.cpp; sourceTree = SOURCE_ROOT; };
 		F6DF139118025F32005103D6 /* Vexp_Float.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vexp_Float.cpp; sourceTree = SOURCE_ROOT; };
@@ -73,6 +75,7 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				F6AE79F11C0171DD007F140B /* VabsObjectCommon.h */,
 				F6DF138F18025F32005103D6 /* Vexp_Assist.cpp */,
 				F6DF139018025F32005103D6 /* Vexp_Bang.cpp */,
 				F6DF139118025F32005103D6 /* Vexp_Float.cpp */,
@@ -99,6 +102,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6AE79F21C0171DD007F140B /* VabsObjectCommon.h in Headers */,
 				F6DF139C18025F32005103D6 /* Vexp.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

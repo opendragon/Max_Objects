@@ -40,7 +40,7 @@
 #include "Vscan.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(VscanData * xx)
+BANG_HEADER(VscanData)
 {
     if (xx && xx->fPreviousList)
     {

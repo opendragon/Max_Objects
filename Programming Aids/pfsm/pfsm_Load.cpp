@@ -40,10 +40,10 @@
 #include "pfsm.h"
 
 /*------------------------------------ deferred_Load ---*/
-static void deferred_Load(PfsmData * xx,
-                          t_symbol * fileName,
-                          short      argc,
-                          t_atom *   argv)
+static void deferred_Load(PfsmData *  xx,
+                          t_symbol *  fileName,
+                          const short argc,
+                          t_atom *    argv)
 {
     if (pfsmLoadTables(xx, fileName) && xx->fVerbose)
     {
@@ -52,8 +52,7 @@ static void deferred_Load(PfsmData * xx,
 } // deferred_Load
 
 /*------------------------------------ cmd_Load ---*/
-void cmd_Load(PfsmData * xx,
-              t_symbol * fileName)
+LOAD_HEADER(PfsmData)
 {
     if (xx)
     {

@@ -40,21 +40,18 @@
 #include "Vlog.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VObjectData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VObjectData)
 {
 #pragma unused(message)
     if (xx)
     {
-        t_atom * newArg = NULL_PTR;
+        t_atom * newArg = NULL;
         bool     okSoFar = true;
 
         clearPrevious(xx);
         if (argc)
         {
-            newArg = GETBYTES(argc, t_atom);
+            newArg = GET_BYTES(argc, t_atom);
             if (newArg)
             {
                 t_atom * newWalk = newArg;
@@ -66,35 +63,36 @@ void cmd_List(VObjectData * xx,
                     switch (oldWalk->a_type)
                     {
                         case A_FLOAT:
-                            if (oldWalk->a_w.w_float <= 0)
+                            if (0 >= oldWalk->a_w.w_float)
                             {
                                 LOG_ERROR_2(xx, OUTPUT_PREFIX "Negative or zero value (%g) in list",
-                                            static_cast<double>(oldWalk->a_w.w_float))
+                                            TO_DBL(oldWalk->a_w.w_float))
                                 okSoFar = false;
                             }
                             else
                             {
-                                newWalk->a_w.w_float = static_cast<float>(log(oldWalk->a_w.w_float));
+                                newWalk->a_w.w_float = TO_DBL(log(oldWalk->a_w.w_float));
                             }
                             break;
 
                         case A_LONG:
                             newWalk->a_type = A_FLOAT;
-                            if (oldWalk->a_w.w_long <= 0)
+                            if (0 >= oldWalk->a_w.w_long)
                             {
-                                LOG_ERROR_2(xx, OUTPUT_PREFIX "Negative or zero value (%ld) in list",
-                                            oldWalk->a_w.w_long)
+                                LOG_ERROR_2(xx, OUTPUT_PREFIX "Negative or zero value (" LONG_FORMAT
+                                            ") in list", oldWalk->a_w.w_long)
                                 okSoFar = false;
                             }
                             else
                             {
-                                newWalk->a_w.w_float = static_cast<float>(log(static_cast<double>(oldWalk->a_w.w_long)));
+                                newWalk->a_w.w_float = TO_DBL(log(TO_DBL(oldWalk->a_w.w_long)));
                             }
                             break;
 
                         default:
                             okSoFar = false;
                             break;
+                            
                     }
                 }
             }
@@ -112,7 +110,7 @@ void cmd_List(VObjectData * xx,
         }
         else
         {
-            FREEBYTES(newArg, argc);
+            FREE_BYTES(newArg);
             xx->fPreviousKind = A_NOTHING;
             LOG_ERROR_1(xx, OUTPUT_PREFIX "Non-numeric or invalid elements in list")
         }

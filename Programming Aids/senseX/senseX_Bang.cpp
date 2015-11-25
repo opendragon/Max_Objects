@@ -40,14 +40,15 @@
 #include "senseX.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(SenseXData * xx)
+BANG_HEADER(SenseXData)
 {
     if (xx)
     {
         switch (xx->fInletNumber)
         {
             case 0:
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "inlet %ld -> Unexpected 'bang' seen", xx->fInletNumber)
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "inlet %ld -> Unexpected 'bang' seen",
+                            xx->fInletNumber)
                 break;
 
             case 1:
@@ -58,6 +59,7 @@ void cmd_Bang(SenseXData * xx)
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Bang

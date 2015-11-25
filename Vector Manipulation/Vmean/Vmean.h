@@ -63,7 +63,7 @@ struct VmeanData
     double     fPreviousFloat;
 }; // VmeanData
 
-StandardRoutineDeclarations(VmeanData *);
+StandardRoutineDeclarations(VmeanData);
 
 mextern(t_symbol *) gASymbol;     /* Pointer to unique symbol for 'a' */
 mextern(t_symbol *) gArithSymbol; /* Pointer to unique symbol for 'arith' */

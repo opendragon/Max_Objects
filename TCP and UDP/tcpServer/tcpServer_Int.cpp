@@ -40,8 +40,7 @@
 #include "tcpServer.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(TcpObjectData * xx,
-             long            msg)
+INT_HEADER(TcpObjectData)
 {
     REPORT_MAX_MESSAGE("int")
     if (xx)

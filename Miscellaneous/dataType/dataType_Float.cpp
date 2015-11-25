@@ -40,12 +40,11 @@
 #include "dataType.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(DataTypeData * xx,
-               double         num)
+FLOAT_HEADER(DataTypeData)
 {
-#pragma unused(num)
+#pragma unused(msg)
     if (xx)
     {
-        outlet_int(xx->fResultOut, static_cast<long>(TYPE_FLOAT));
+        outlet_int(xx->fResultOut, TO_INT(TYPE_FLOAT));
     }
 } // cmd_Float

@@ -40,9 +40,7 @@
 #include "genericListOutput.h"
 
 /*------------------------------------ genericListOutput ---*/
-void genericListOutput(t_outlet *  port,
-                       const short length,
-                       t_atom *    vector)
+GENERICLISTOUTPUT_HEADER
 {
     if ((length > 0) && vector)
     {
@@ -51,15 +49,16 @@ void genericListOutput(t_outlet *  port,
             short workingLength = static_cast<short>(length - 1);
 
             /* If we have only one element, make sure that we send a NULL list: */
-            outlet_anything(port, vector->a_w.w_sym, workingLength, workingLength ? (vector + 1) : NULL_PTR);
+            outlet_anything(port, vector->a_w.w_sym, workingLength, workingLength ? (vector + 1) :
+                            NULL);
         }
-        else if (length > 1)
+        else if (1 < length)
         {
-            outlet_list(port, NULL_PTR, length, vector);
+            outlet_list(port, NULL, length, vector);
         }
         else if (A_FLOAT == vector->a_type)
         {
-            outlet_float(port, double(vector->a_w.w_float));
+            outlet_float(port, TO_DBL(vector->a_w.w_float));
         }
         else if (A_LONG == vector->a_type)
         {

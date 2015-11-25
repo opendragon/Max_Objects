@@ -40,9 +40,9 @@
 #include "Vencode.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(VencodeData * xx)
+BANG_HEADER(VencodeData)
 {
-    if (xx && (xx->fWorkLength > 0))
+    if (xx && (0 < xx->fWorkLength))
     {
         genericListOutput(xx->fResultOut, xx->fWorkLength, xx->fWorkList);
     }

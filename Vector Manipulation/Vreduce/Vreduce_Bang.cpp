@@ -40,7 +40,7 @@
 #include "Vreduce.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(VreduceData * xx)
+BANG_HEADER(VreduceData)
 {
     if (xx)
     {

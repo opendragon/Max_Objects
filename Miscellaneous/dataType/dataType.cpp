@@ -41,10 +41,29 @@
 #include "dataType.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * dataTypeCreate(void);
+/*------------------------------------ dataTypeCreate ---*/
+static void * dataTypeCreate(void)
+{
+    DataTypeData * xx = static_cast<DataTypeData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
+        if (! xx->fResultOut)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // dataTypeCreate
 
-void dataTypeFree(DataTypeData * xx);
+/*------------------------------------ dataTypeFree ---*/
+static void dataTypeFree(DataTypeData * xx)
+{
+#pragma unused(xx)
+} // dataTypeFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -68,25 +87,3 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ dataTypeCreate ---*/
-void * dataTypeCreate(void)
-{
-    DataTypeData * xx = static_cast<DataTypeData *>(object_alloc(gClass));
-
-    if (xx)
-    {
-        xx->fResultOut = static_cast<t_outlet *>(intout(xx));
-        if (! xx->fResultOut)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // dataTypeCreate
-/*------------------------------------ dataTypeFree ---*/
-void dataTypeFree(DataTypeData * xx)
-{
-#pragma unused(xx)
-} // dataTypeFree

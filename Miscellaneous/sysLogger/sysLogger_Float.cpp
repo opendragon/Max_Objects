@@ -40,15 +40,14 @@
 #include "sysLogger.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(SysLoggerData * xx,
-               double          msg)
+FLOAT_HEADER(SysLoggerData)
 {
     if (xx)
     {
 #if USE_ASL_INSTEAD_OF_SYSLOG
-        asl_log(xx->fAslClient, NULL, xx->fLevel, "%g", msg);
+        asl_log(xx->fAslClient, NULL, xx->fLevel, "%g", TO_DBL(msg));
 #else // not USE_ASL_INSTEAD_OF_SYSLOG
-        syslog(xx->fLevel, "%g", msg);
+        syslog(xx->fLevel, "%g", TO_DBL(msg));
 #endif // not USE_ASL_INSTEAD_OF_SYSLOG
     }
 } // cmd_Float

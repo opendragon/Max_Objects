@@ -42,14 +42,49 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VtokenizeCreate(long separator1,
-                       long separator2,
-                       long separator3,
-                       long separator4,
-                       long separator5);
+/*------------------------------------ VtokenizeCreate ---*/
+static void * VtokenizeCreate(const long separator1,
+                              const long separator2,
+                              const long separator3,
+                              const long separator4,
+                              const long separator5)
+{
+    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        if (setupSeparators(xx, separator1, separator2, separator3, separator4, separator5))
+        {
+            xx->fPreviousList = NULL;
+            xx->fPreviousLength = 0;
+            xx->fChunkList = xx->fLastChunk = NULL;
+            xx->fBangOut = static_cast<t_outlet *>(bangout(xx));
+            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+            if (! (xx->fBangOut && xx->fResultOut))
+            {
+                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+                freeobject(reinterpret_cast<t_object *>(xx));
+                xx = NULL;
+            }
+        }
+        else
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "bad separator list")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // VtokenizeCreate
 
-void VtokenizeFree(VObjectData * xx);
+/*------------------------------------ VtokenizeFree ---*/
+static void VtokenizeFree(VObjectData * xx)
+{
+    if (xx)
+    {
+        clearPrevious(xx);
+    }
+} // VtokenizeFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -57,7 +92,8 @@ int main(void)
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VtokenizeCreate),
                                reinterpret_cast<method>(VtokenizeFree), sizeof(VObjectData),
-                               reinterpret_cast<method>(0L), A_LONG, A_DEFLONG, A_DEFLONG, A_DEFLONG, A_DEFLONG, 0);
+                               reinterpret_cast<method>(0L), A_LONG, A_DEFLONG, A_DEFLONG,
+                               A_DEFLONG, A_DEFLONG, 0);
 
     if (temp)
     {
@@ -72,48 +108,7 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VtokenizeCreate ---*/
-void * VtokenizeCreate(long separator1,
-                       long separator2,
-                       long separator3,
-                       long separator4,
-                       long separator5)
-{
-    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        if (setupSeparators(xx, separator1, separator2, separator3, separator4, separator5))
-        {
-            xx->fPreviousList = NULL_PTR;
-            xx->fPreviousLength = 0;
-            xx->fChunkList = xx->fLastChunk = NULL_PTR;
-            xx->fBangOut = static_cast<t_outlet *>(bangout(xx));
-            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-            if (! (xx->fBangOut && xx->fResultOut))
-            {
-                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-                freeobject(reinterpret_cast<t_object *>(xx));
-                xx = NULL_PTR;
-            }
-        }
-        else
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "bad separator list")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // VtokenizeCreate
-/*------------------------------------ VtokenizeFree ---*/
-void VtokenizeFree(VObjectData * xx)
-{
-    if (xx)
-    {
-        clearPrevious(xx);
-    }
-} // VtokenizeFree
 /*------------------------------------ doTokenize ---*/
 void doTokenize(VObjectData * xx)
 {
@@ -132,7 +127,8 @@ void doTokenize(VObjectData * xx)
                 {
                     if (isSeparator(xx, (temp + right)->a_w.w_long))
                     {
-                        genericListOutput(xx->fResultOut, static_cast<short>(right - left), temp + left);
+                        genericListOutput(xx->fResultOut, static_cast<short>(right - left),
+                                          temp + left);
                         left = right;
                         break;
                     }
@@ -141,4 +137,5 @@ void doTokenize(VObjectData * xx)
         }
     }
 } // doTokenize
-StandardAnythingRoutine(VObjectData *)
+
+StandardAnythingRoutine(VObjectData)

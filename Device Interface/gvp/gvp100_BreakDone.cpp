@@ -48,7 +48,7 @@ void cmd_BreakDone(GvpData * xx)
         {
             xx->fState = kStateAwaitingAck;
             gvpReportStateChange(xx);
-            outlet_int(xx->fDataSendOut, static_cast<long>(xx->fSelectAddress));
+            outlet_int(xx->fDataSendOut, xx->fSelectAddress);
         }
     }
 } // cmd_BreakDone

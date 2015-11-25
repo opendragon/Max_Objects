@@ -131,6 +131,7 @@ void x10CM11DoDirect(X10ControlData *      xx,
         outlet_bang(xx->fErrorBangOut);
     }
 } // x10CM11DoDirect
+
 /*------------------------------------ x10CM11ResendBuffer ---*/
 void x10CM11ResendBuffer(X10ControlData * xx)
 {
@@ -138,7 +139,7 @@ void x10CM11ResendBuffer(X10ControlData * xx)
     {
         for (unsigned short ii = 0; ii < xx->fOutCount; ++ii)
         {
-            outlet_int(xx->fCommandsOut, static_cast<long>(*(xx->fOutBuffer + ii)));
+            outlet_int(xx->fCommandsOut, TO_INT(*(xx->fOutBuffer + ii)));
         }
         xx->fIndex = 0;
         xx->fMinorState = x10CM11MinorAwaitingChecksum;
@@ -151,6 +152,7 @@ void x10CM11ResendBuffer(X10ControlData * xx)
         outlet_bang(xx->fErrorBangOut);
     }
 } // x10CM11ResendBuffer
+
 /*------------------------------------ x10CM11SendBuffer ---*/
 void x10CM11SendBuffer(X10ControlData *     xx,
                        const unsigned short howMany)
@@ -161,7 +163,7 @@ void x10CM11SendBuffer(X10ControlData *     xx,
     for (unsigned short ii = 0; ii < howMany; ++ii)
     {
         checker += *(xx->fOutBuffer + ii);
-        outlet_int(xx->fCommandsOut, static_cast<long>(*(xx->fOutBuffer + ii)));
+        outlet_int(xx->fCommandsOut, TO_INT(*(xx->fOutBuffer + ii)));
     }
     xx->fIndex = 0;
     xx->fOutCount = howMany;
@@ -169,6 +171,7 @@ void x10CM11SendBuffer(X10ControlData *     xx,
     xx->fMinorState = x10CM11MinorAwaitingChecksum;
     // post("count %d checksum %x", xx->fOutCount, xx->fChecksum);//!!
 } // x10CM11SendBuffer
+
 /*------------------------------------ x10CM11SendClockInfo ---*/
 void x10CM11SendClockInfo(X10ControlData * xx,
                           const bool       doReset,
@@ -189,12 +192,15 @@ void x10CM11SendClockInfo(X10ControlData * xx,
     *(xx->fOutBuffer + 2) = static_cast<unsigned char>(hoursAndMinutes % 120);
     *(xx->fOutBuffer + 3) = static_cast<unsigned char>(now.hour >> 1);
     *(xx->fOutBuffer + 4) = static_cast<unsigned char>(yearDay);
-    *(xx->fOutBuffer + 5) = static_cast<unsigned char>((0x0080 >> weekDay) | ((yearDay & 0x0100) >> 1));
-    *(xx->fOutBuffer + 6) = static_cast<unsigned char>((xx->fHouseCodeChar << 4) | (doReset ? 1 : 0));
+    *(xx->fOutBuffer + 5) = static_cast<unsigned char>((0x0080 >> weekDay) |
+                                                       ((yearDay & 0x0100) >> 1));
+    *(xx->fOutBuffer + 6) = static_cast<unsigned char>((xx->fHouseCodeChar << 4) |
+                                                       (doReset ? 1 : 0));
     xx->fIgnoreChecksum = true;
     xx->fCompletedWhenStatus = reportCompletion;
     x10CM11SendBuffer(xx, 7);
 } // x10CM11SendClockInfo
+
 /*------------------------------------ x10CM11SendDeviceAddress ---*/
 void x10CM11SendDeviceAddress(X10ControlData * xx)
 {
@@ -214,6 +220,7 @@ void x10CM11SendDeviceAddress(X10ControlData * xx)
                                                        kHouseCodeToBits[deviceCode]);
     x10CM11SendBuffer(xx, 2);
 } // x10CM11SendDeviceAddress
+
 /*------------------------------------ x10CM11SendFunctionCode ---*/
 void x10CM11SendFunctionCode(X10ControlData * xx)
 {
@@ -222,6 +229,7 @@ void x10CM11SendFunctionCode(X10ControlData * xx)
                                                        (xx->fFunctionChar & 0x0f));
     x10CM11SendBuffer(xx, 2);
 } // x10SendFunctionCode
+
 /*------------------------------------ x10CP290CalcSum ---*/
 void x10CP290CalcSum(X10ControlData *     xx,
                      const unsigned short offset,
@@ -235,6 +243,7 @@ void x10CP290CalcSum(X10ControlData *     xx,
     }
     *(xx->fOutArea + offset + howMany) = static_cast<unsigned char>(sum & 0xFF);
 } // x10CP290CalcSum
+
 /*------------------------------------ x10CP290DoDirect ---*/
 void x10CP290DoDirect(X10ControlData *      xx,
                       const X10FunctionCode funcCode,
@@ -281,6 +290,7 @@ void x10CP290DoDirect(X10ControlData *      xx,
         outlet_bang(xx->fErrorBangOut);
     }
 } // x10CP290DoDirect
+
 /*------------------------------------ x10CP290DoSingleton ---*/
 void x10CP290DoSingleton(X10ControlData *     xx,
                          const X10CommandCode cmd,
@@ -304,6 +314,7 @@ void x10CP290DoSingleton(X10ControlData *     xx,
         outlet_bang(xx->fErrorBangOut);
     }
 } // x10CP290DoSingleton
+
 /*------------------------------------ x10CP290DoTimerEvent ---*/
 void x10CP290DoTimerEvent(X10ControlData *  xx,
                           const X10ModeCode mode,
@@ -390,7 +401,8 @@ void x10CP290DoTimerEvent(X10ControlData *  xx,
                 *(xx->fOutArea + 6) = static_cast<unsigned char>(map & 0xFF);
                 *(xx->fOutArea + 7) = static_cast<unsigned char>(map >> 8);
                 *(xx->fOutArea + 8) = static_cast<unsigned char>(kHouseCodeToBits[aCode - 1] << 4);
-                *(xx->fOutArea + 9) = static_cast<unsigned char>((((15 - level) & 0x0F) << 4) | funcCode);
+                *(xx->fOutArea + 9) = static_cast<unsigned char>((((15 - level) & 0x0F) << 4) |
+                                                                 funcCode);
                 x10CP290CalcSum(xx, 2, 8);
                 x10CP290SendBuffer(xx, 11);
                 xx->fMajorState = x10CP290MajorIdle;
@@ -399,6 +411,7 @@ void x10CP290DoTimerEvent(X10ControlData *  xx,
 
             default:
                 break;
+                
         }
     }
     else
@@ -406,15 +419,17 @@ void x10CP290DoTimerEvent(X10ControlData *  xx,
         outlet_bang(xx->fErrorBangOut);
     }
 } // x10CP290DoTimerEvent
+
 /*------------------------------------ x10CP290SendBuffer ---*/
 void x10CP290SendBuffer(X10ControlData *     xx,
                         const unsigned short howMany)
 {
     for (unsigned short ii = 0; ii < (howMany + COMMAND_PREFIX_SIZE + 1); ++ii)
     {
-        outlet_int(xx->fCommandsOut, static_cast<long>(*(xx->fOutBuffer + ii)));
+        outlet_int(xx->fCommandsOut, TO_INT(*(xx->fOutBuffer + ii)));
     }
 } // x10CP290SendBuffer
+
 /*------------------------------------ x10IdentifyHouseCode ---*/
 unsigned short x10IdentifyHouseCode(t_symbol * aSym)
 {

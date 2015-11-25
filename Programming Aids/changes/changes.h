@@ -58,6 +58,6 @@ struct ChangesData
     short      fLastIndex;
 }; // ChangesData
 
-StandardRoutineDeclarations(ChangesData *);
+StandardRoutineDeclarations(ChangesData);
 
 #endif /* not CHANGES_H_ */

@@ -56,10 +56,12 @@ void cmd_SetTomorrowEvent(X10ControlData * xx,
             break;
 
         case X10KindCP290:
-            x10CP290DoTimerEvent(xx, x10CP290ModeTomorrow, code, map, eventNumber, 0x00, hourMinute, function, level);
+            x10CP290DoTimerEvent(xx, x10CP290ModeTomorrow, code, map, eventNumber, 0x00, hourMinute,
+                                 function, level);
             break;
 
         default:
             break;
+            
     }
 } // cmd_SetTomorrowEvent

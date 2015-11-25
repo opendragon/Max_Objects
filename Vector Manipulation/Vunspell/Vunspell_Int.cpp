@@ -40,11 +40,10 @@
 #include "Vunspell.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(VObjectData * xx,
-             long          num)
+INT_HEADER(VObjectData)
 {
     if (xx)
     {
-        processInput(xx, num);
+        processInput(xx, msg);
     }
 } // cmd_Int

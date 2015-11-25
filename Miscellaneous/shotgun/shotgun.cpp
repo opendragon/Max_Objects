@@ -42,17 +42,73 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * ShotgunCreate(long numOutlets);
+/*------------------------------------ ShotgunCreate ---*/
+static void * ShotgunCreate(const long numOutlets)
+{
+    ShotgunData * xx = static_cast<ShotgunData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fNumOutlets = 0;
+        xx->fResultsOut = NULL;
+        if (numOutlets < 0)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "invalid parameter for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+        else
+        {
+            xx->fNumOutlets = static_cast<short>(numOutlets ? numOutlets : 2);
+            t_outlet ** outletWalker = GET_BYTES(xx->fNumOutlets, t_outlet *);
+            
+            if (outletWalker)
+            {
+                xx->fResultsOut = outletWalker;
+                for (short ii = 0; ii < xx->fNumOutlets; ++ii, ++outletWalker)
+                {
+                    *outletWalker = static_cast<t_outlet *>(bangout(xx));
+                    if (! *outletWalker)
+                    {
+                        LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to allocate port for object")
+                        freeobject(reinterpret_cast<t_object *>(xx));
+                        xx = NULL;
+                        break;
+                    }
+                    
+                }
+            }
+            else
+            {
+                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to allocate memory for object")
+                freeobject(reinterpret_cast<t_object *>(xx));
+                xx = NULL;
+            }
+        }
+    }
+    return xx;
+} // ShotgunCreate
 
-void ShotgunFree(ShotgunData * xx);
+/*------------------------------------ ShotgunFree ---*/
+static void ShotgunFree(ShotgunData * xx)
+{
+    if (xx)
+    {
+        if (xx->fNumOutlets && xx->fResultsOut)
+        {
+            FREE_BYTES(xx->fResultsOut);
+            xx->fResultsOut = NULL;
+        }
+    }
+} // ShotgunFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(ShotgunCreate), reinterpret_cast<method>(ShotgunFree),
-                               sizeof(ShotgunData), reinterpret_cast<method>(0L), A_DEFLONG, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(ShotgunCreate),
+                               reinterpret_cast<method>(ShotgunFree), sizeof(ShotgunData),
+                               reinterpret_cast<method>(0L), A_DEFLONG, 0);
 
     if (temp)
     {
@@ -65,61 +121,5 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ ShotgunCreate ---*/
-void * ShotgunCreate(long numOutlets)
-{
-    ShotgunData * xx = static_cast<ShotgunData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fNumOutlets = 0;
-        xx->fResultsOut = NULL_HDL;
-        if (numOutlets < 0)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "invalid parameter for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-        else
-        {
-            xx->fNumOutlets = static_cast<short>(numOutlets ? numOutlets : 2);
-            t_outlet ** outletWalker = GETBYTES(xx->fNumOutlets, t_outlet *);
-
-            if (outletWalker)
-            {
-                xx->fResultsOut = outletWalker;
-                for (short ii = 0; ii < xx->fNumOutlets; ++ii, ++outletWalker)
-                {
-                    *outletWalker = static_cast<t_outlet *>(bangout(xx));
-                    if (! *outletWalker)
-                    {
-                        LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to allocate port for object")
-                        freeobject(reinterpret_cast<t_object *>(xx));
-                        xx = NULL_PTR;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to allocate memory for object")
-                freeobject(reinterpret_cast<t_object *>(xx));
-                xx = NULL_PTR;
-            }
-        }
-    }
-    return xx;
-} // ShotgunCreate
-/*------------------------------------ ShotgunFree ---*/
-void ShotgunFree(ShotgunData * xx)
-{
-    if (xx)
-    {
-        if (xx->fNumOutlets && xx->fResultsOut)
-        {
-            FREEBYTES(xx->fResultsOut, xx->fNumOutlets);
-            xx->fResultsOut = NULL_PTR;
-        }
-    }
-} // ShotgunFree
-StandardAnythingRoutine(ShotgunData *)
+StandardAnythingRoutine(ShotgunData)

@@ -40,10 +40,7 @@
 #include "Vdecode.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VdecodeData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VdecodeData)
 {
 #pragma unused(message)
     if (xx && checkInput(xx, OUTPUT_PREFIX, argc, argv))
@@ -57,10 +54,10 @@ void cmd_List(VdecodeData * xx,
         }
         else
         {
-            long base = 1;
-            long sum = 0;
+            t_atom_long base = 1;
+            t_atom_long sum = 0;
 
-            for (int ii = argc - 1, jj = 0; ii >= 0; --ii)
+            for (int ii = argc - 1, jj = 0; 0 <= ii; --ii)
             {
                 sum += (argv[ii].a_w.w_long * base);
                 base *= xx->fInfo.fBases[jj];

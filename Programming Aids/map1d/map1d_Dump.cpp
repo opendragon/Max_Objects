@@ -40,60 +40,62 @@
 #include "map1d.h"
 
 /*------------------------------------ cmd_Dump ---*/
-void cmd_Dump(Map1dData * xx)
+DUMP_HEADER(Map1dData)
 {
     if (xx)
     {
         RangeData * walker = xx->fFirstRange;
 
-        for (long ii = 1; walker; walker = walker->fNext, ++ii)
+        for (t_atom_long ii = 1; walker; walker = walker->fNext, ++ii)
         {
             short    lowerUpper = static_cast<short>(walker->fLowerUpperDontCare ? 1 : 4);
             short    outSize = static_cast<short>(walker->fOutputCount + lowerUpper + 1);
-            t_atom * newList = GETBYTES(outSize, t_atom);
+            t_atom * newList = GET_BYTES(outSize, t_atom);
 
             if (newList)
             {
-                SETLONG(newList, ii);
+                A_SETLONG(newList, ii);
                 if (walker->fLowerUpperDontCare)
                 {
-                    SETSYM(newList + 1, gAsteriskSymbol);
+                    A_SETSYM(newList + 1, gAsteriskSymbol);
                 }
                 else
                 {
-                    SETSYM(newList + 1, walker->fLower.fIsClosed ? gOpenSquareSymbol : gOpenRoundSymbol);
+                    A_SETSYM(newList + 1, walker->fLower.fIsClosed ? gOpenSquareSymbol :
+                             gOpenRoundSymbol);
                     if (MatchInfinity == walker->fLower.fKind)
                     {
-                        SETSYM(newList + 2, gNegInfSymbol1);
+                        A_SETSYM(newList + 2, gNegInfSymbol1);
                     }
                     else if (MatchFloat == walker->fLower.fKind)
                     {
-                        SETFLOAT(newList + 2, getFOIFloat(walker->fLower.fValue));
+                        A_SETFLOAT(newList + 2, getFOIFloat(walker->fLower.fValue));
                     }
                     else
                     {
-                        SETLONG(newList + 2, getFOILong(walker->fLower.fValue));
+                        A_SETLONG(newList + 2, getFOILong(walker->fLower.fValue));
                     }
                     if (MatchInfinity == walker->fUpper.fKind)
                     {
-                        SETSYM(newList + 3, gPosInfSymbol1);
+                        A_SETSYM(newList + 3, gPosInfSymbol1);
                     }
                     else if (MatchFloat == walker->fUpper.fKind)
                     {
-                        SETFLOAT(newList + 3, getFOIFloat(walker->fUpper.fValue));
+                        A_SETFLOAT(newList + 3, getFOIFloat(walker->fUpper.fValue));
                     }
                     else
                     {
-                        SETLONG(newList + 3, getFOILong(walker->fUpper.fValue));
+                        A_SETLONG(newList + 3, getFOILong(walker->fUpper.fValue));
                     }
-                    SETSYM(newList + 4, walker->fUpper.fIsClosed ? gCloseSquareSymbol : gCloseRoundSymbol);
+                    A_SETSYM(newList + 4, walker->fUpper.fIsClosed ? gCloseSquareSymbol :
+                             gCloseRoundSymbol);
                 }
                 for (short jj = 0; jj < walker->fOutputCount; ++jj)
                 {
                     *(newList + jj + lowerUpper + 1) = *(walker->fOutput + jj);
                 }
                 outlet_anything(xx->fResultOut, gRangeSymbol, outSize, newList);
-                FREEBYTES(newList, outSize);
+                FREE_BYTES(newList);
             }
         }
     }

@@ -40,14 +40,13 @@
 #include "map3d.h"
 
 /*------------------------------------ cmd_Show ---*/
-void cmd_Show(Map3dData * xx,
-              long        num)
+SHOW_HEADER(Map3dData)
 {
     if (xx)
     {
-        if ((num > 0) && (num <= xx->fRangeCount))
+        if ((0 < num) && (num <= xx->fRangeCount))
         {
-            long        ii = 1;
+            t_atom_long ii = 1;
             RangeData * walker = xx->fFirstRange;
 
             for ( ; walker && (ii < num); ++ii)
@@ -59,114 +58,121 @@ void cmd_Show(Map3dData * xx,
                 short    leftRight = static_cast<short>(walker->fLeftRightDontCare ? 1 : 4);
                 short    bottomTop = static_cast<short>(walker->fBottomTopDontCare ? 1 : 4);
                 short    forwardBack = static_cast<short>(walker->fForwardBackDontCare ? 1 : 4);
-                short    outSize = static_cast<short>(walker->fOutputCount + leftRight + bottomTop + forwardBack + 1);
-                t_atom * newList = GETBYTES(outSize, t_atom);
+                short    outSize = static_cast<short>(walker->fOutputCount + leftRight + bottomTop +
+                                                      forwardBack + 1);
+                t_atom * newList = GET_BYTES(outSize, t_atom);
                 t_atom * nextPos;
 
                 if (newList)
                 {
-                    SETLONG(newList, ii);
+                    A_SETLONG(newList, ii);
                     nextPos = newList + 1;
                     if (walker->fLeftRightDontCare)
                     {
-                        SETSYM(nextPos, gAsteriskSymbol);
+                        A_SETSYM(nextPos, gAsteriskSymbol);
                     }
                     else
                     {
-                        SETSYM(nextPos, walker->fLeft.fIsClosed ? gOpenSquareSymbol : gOpenRoundSymbol);
+                        A_SETSYM(nextPos, walker->fLeft.fIsClosed ? gOpenSquareSymbol :
+                                 gOpenRoundSymbol);
                         if (MatchInfinity == walker->fLeft.fKind)
                         {
-                            SETSYM(nextPos + 1, gNegInfSymbol1);
+                            A_SETSYM(nextPos + 1, gNegInfSymbol1);
                         }
                         else if (MatchFloat == walker->fLeft.fKind)
                         {
-                            SETFLOAT(nextPos + 1, getFOIFloat(walker->fLeft.fValue));
+                            A_SETFLOAT(nextPos + 1, getFOIFloat(walker->fLeft.fValue));
                         }
                         else
                         {
-                            SETLONG(nextPos + 1, getFOILong(walker->fLeft.fValue));
+                            A_SETLONG(nextPos + 1, getFOILong(walker->fLeft.fValue));
                         }
                         if (MatchInfinity == walker->fRight.fKind)
                         {
-                            SETSYM(nextPos + 2, gPosInfSymbol1);
+                            A_SETSYM(nextPos + 2, gPosInfSymbol1);
                         }
                         else if (MatchFloat == walker->fRight.fKind)
                         {
-                            SETFLOAT(nextPos + 2, getFOIFloat(walker->fRight.fValue));
+                            A_SETFLOAT(nextPos + 2, getFOIFloat(walker->fRight.fValue));
                         }
                         else
                         {
-                            SETLONG(nextPos + 2, getFOILong(walker->fRight.fValue));
+                            A_SETLONG(nextPos + 2, getFOILong(walker->fRight.fValue));
                         }
-                        SETSYM(nextPos + 3, walker->fRight.fIsClosed ? gCloseSquareSymbol : gCloseRoundSymbol);
+                        A_SETSYM(nextPos + 3, walker->fRight.fIsClosed ? gCloseSquareSymbol :
+                                 gCloseRoundSymbol);
                     }
                     nextPos += leftRight;
                     if (walker->fBottomTopDontCare)
                     {
-                        SETSYM(nextPos, gAsteriskSymbol);
+                        A_SETSYM(nextPos, gAsteriskSymbol);
                     }
                     else
                     {
-                        SETSYM(nextPos, walker->fBottom.fIsClosed ? gOpenSquareSymbol : gOpenRoundSymbol);
+                        A_SETSYM(nextPos, walker->fBottom.fIsClosed ? gOpenSquareSymbol :
+                                 gOpenRoundSymbol);
                         if (MatchInfinity == walker->fBottom.fKind)
                         {
-                            SETSYM(nextPos + 1, gNegInfSymbol1);
+                            A_SETSYM(nextPos + 1, gNegInfSymbol1);
                         }
                         else if (MatchFloat == walker->fBottom.fKind)
                         {
-                            SETFLOAT(nextPos + 1, getFOIFloat(walker->fBottom.fValue));
+                            A_SETFLOAT(nextPos + 1, getFOIFloat(walker->fBottom.fValue));
                         }
                         else
                         {
-                            SETLONG(nextPos + 1, getFOILong(walker->fBottom.fValue));
+                            A_SETLONG(nextPos + 1, getFOILong(walker->fBottom.fValue));
                         }
                         if (MatchInfinity == walker->fTop.fKind)
                         {
-                            SETSYM(nextPos + 2, gPosInfSymbol1);
+                            A_SETSYM(nextPos + 2, gPosInfSymbol1);
                         }
                         else if (MatchFloat == walker->fTop.fKind)
                         {
-                            SETFLOAT(nextPos + 2, getFOIFloat(walker->fTop.fValue));
+                            A_SETFLOAT(nextPos + 2, getFOIFloat(walker->fTop.fValue));
                         }
                         else
                         {
-                            SETLONG(nextPos + 2, getFOILong(walker->fTop.fValue));
+                            A_SETLONG(nextPos + 2, getFOILong(walker->fTop.fValue));
                         }
-                        SETSYM(nextPos + 3, walker->fTop.fIsClosed ? gCloseSquareSymbol : gCloseRoundSymbol);
+                        A_SETSYM(nextPos + 3, walker->fTop.fIsClosed ? gCloseSquareSymbol :
+                                 gCloseRoundSymbol);
                     }
                     nextPos += bottomTop;
                     if (walker->fForwardBackDontCare)
                     {
-                        SETSYM(nextPos, gAsteriskSymbol);
+                        A_SETSYM(nextPos, gAsteriskSymbol);
                     }
                     else
                     {
-                        SETSYM(nextPos, walker->fForward.fIsClosed ? gOpenSquareSymbol : gOpenRoundSymbol);
+                        A_SETSYM(nextPos, walker->fForward.fIsClosed ? gOpenSquareSymbol :
+                                 gOpenRoundSymbol);
                         if (MatchInfinity == walker->fForward.fKind)
                         {
-                            SETSYM(nextPos + 1, gNegInfSymbol1);
+                            A_SETSYM(nextPos + 1, gNegInfSymbol1);
                         }
                         else if (MatchFloat == walker->fForward.fKind)
                         {
-                            SETFLOAT(nextPos + 1, getFOIFloat(walker->fForward.fValue));
+                            A_SETFLOAT(nextPos + 1, getFOIFloat(walker->fForward.fValue));
                         }
                         else
                         {
-                            SETLONG(nextPos + 1, getFOILong(walker->fForward.fValue));
+                            A_SETLONG(nextPos + 1, getFOILong(walker->fForward.fValue));
                         }
                         if (MatchInfinity == walker->fBack.fKind)
                         {
-                            SETSYM(nextPos + 2, gPosInfSymbol1);
+                            A_SETSYM(nextPos + 2, gPosInfSymbol1);
                         }
                         else if (MatchFloat == walker->fBack.fKind)
                         {
-                            SETFLOAT(nextPos + 2, getFOIFloat(walker->fBack.fValue));
+                            A_SETFLOAT(nextPos + 2, getFOIFloat(walker->fBack.fValue));
                         }
                         else
                         {
-                            SETLONG(nextPos + 2, getFOILong(walker->fBack.fValue));
+                            A_SETLONG(nextPos + 2, getFOILong(walker->fBack.fValue));
                         }
-                        SETSYM(nextPos + 3, walker->fBack.fIsClosed ? gCloseSquareSymbol : gCloseRoundSymbol);
+                        A_SETSYM(nextPos + 3, walker->fBack.fIsClosed ? gCloseSquareSymbol :
+                                 gCloseRoundSymbol);
                     }
                     nextPos += forwardBack;
                     for (short jj = 0; jj < walker->fOutputCount; ++jj)
@@ -174,7 +180,7 @@ void cmd_Show(Map3dData * xx,
                         *(nextPos + jj) = *(walker->fOutput + jj);
                     }
                     outlet_anything(xx->fResultOut, gRangeSymbol, outSize, newList);
-                    FREEBYTES(newList, outSize);
+                    FREE_BYTES(newList);
                 }
             }
         }

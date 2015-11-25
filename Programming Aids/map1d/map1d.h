@@ -74,7 +74,7 @@ struct Map1dData
     bool           fVerbose;
 }; // Map1dData
 
-MapRoutineDeclarations(Map1dData *);
+MapRoutineDeclarations(Map1dData);
 
 void map1dClearRangeList(Map1dData * xx);
 
@@ -92,7 +92,7 @@ void map1dOutputResult(Map1dData * xx,
 void map1dProcessData(Map1dData *            xx,
                       const FloatOrInteger & input);
 
-StandardRoutineDeclarations(Map1dData *);
+StandardRoutineDeclarations(Map1dData);
 
 mextern(t_symbol *) gLowerSymbol; /* Pointer to unique symbol for 'lower' */
 mextern(t_symbol *) gUpperSymbol; /* Pointer to unique symbol for 'upper' */

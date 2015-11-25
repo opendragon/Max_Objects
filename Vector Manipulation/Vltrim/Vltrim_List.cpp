@@ -40,10 +40,7 @@
 #include "Vltrim.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VObjectData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VObjectData)
 {
 #pragma unused(message)
     if (xx)
@@ -60,19 +57,19 @@ void cmd_List(VObjectData * xx,
                     break;
                 }
             }
-            if (left == argc)
+            if (argc == left)
             {
                 outlet_bang(xx->fBangOut);
             }
             else
             {
-                t_atom * result = GETBYTES(argc - left, t_atom);
+                t_atom * result = GET_BYTES(argc - left, t_atom);
 
                 if (result)
                 {
                     for (short index = left; index < argc; ++index)
                     {
-                        SETLONG(result + index - left, argv[index].a_w.w_long);
+                        A_SETLONG(result + index - left, argv[index].a_w.w_long);
                     }
                     xx->fPreviousList = result;
                     xx->fPreviousLength = static_cast<short>(argc - left);

@@ -40,7 +40,7 @@
 #include "notX.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(NotXData * xx)
+BANG_HEADER(NotXData)
 {
     if (xx)
     {

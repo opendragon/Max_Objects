@@ -44,6 +44,6 @@ void cmd_EndSequence(GvpData * xx)
 {
     if (xx)
     {
-        gvpPerformWriteCommand(xx, 0L, kCommandEndSequence, 0, NULL_PTR, kStateSelected, true);
+        gvpPerformWriteCommand(xx, 0L, kCommandEndSequence, 0, NULL, kStateSelected, true);
     }
 } // cmd_EndSequence

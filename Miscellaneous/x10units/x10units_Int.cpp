@@ -40,16 +40,15 @@
 #include "x10units.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(X10UnitsData * xx,
-             long           num)
+INT_HEADER(X10UnitsData)
 {
-    if ((num > 0) && (num <= NUM_HOUSECODES))
+    if ((0 < msg) && (NUM_HOUSECODES >= msg))
     {
-        xx->fPreviousResult = kUnitCodeToBits[num - 1];
-        outlet_int(xx->fResultOut, static_cast<long>(xx->fPreviousResult));
+        xx->fPreviousResult = kUnitCodeToBits[msg - 1];
+        outlet_int(xx->fResultOut, xx->fPreviousResult);
     }
     else
     {
-        LOG_ERROR_2(xx, OUTPUT_PREFIX "  argument (%ld) is out of range.", num)
+        LOG_ERROR_2(xx, OUTPUT_PREFIX "  argument (%ld) is out of range.", msg)
     }
 } // cmd_Int

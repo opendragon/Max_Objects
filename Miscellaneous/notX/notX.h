@@ -49,15 +49,15 @@
 
 struct NotXData
 {
-    t_object   fObject;
-    t_outlet * fResultOut;
-    long       fPreviousResult;
-    short      fPreviousLength;
-    t_atom *   fPreviousList;
+    t_object    fObject;
+    t_outlet *  fResultOut;
+    t_atom_long fPreviousResult;
+    short       fPreviousLength;
+    t_atom *    fPreviousList;
 }; // NotXData
 
 void clearPrevious(NotXData * xx);
 
-StandardRoutineDeclarations(NotXData *);
+StandardRoutineDeclarations(NotXData);
 
 #endif /* not NOTX_H_ */

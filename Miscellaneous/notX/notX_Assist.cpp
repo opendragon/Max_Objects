@@ -40,11 +40,7 @@
 #include "notX.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(NotXData * xx,
-                void *     bb,
-                long       msg,
-                long       arg,
-                char *     dstString)
+ASSIST_HEADER(NotXData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

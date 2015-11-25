@@ -40,7 +40,7 @@
 #include "map3d.h"
 
 /*------------------------------------ cmd_Clear ---*/
-void cmd_Clear(Map3dData * xx)
+CLEAR_HEADER(Map3dData)
 {
     if (xx)
     {

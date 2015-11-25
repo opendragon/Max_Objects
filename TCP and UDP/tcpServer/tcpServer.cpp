@@ -41,88 +41,47 @@
 #include "tcpServer.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * tcpServerCreate(long port,
-                       long numbBuffers);
-
-void tcpServerFree(TcpObjectData * xx);
-
-/*------------------------------------ main ---*/
-int main(void)
-{
-    /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(tcpServerCreate),
-                               reinterpret_cast<method>(tcpServerFree), sizeof(TcpObjectData),
-                               reinterpret_cast<method>(0L), A_DEFLONG, A_DEFLONG, 0);
-
-    if (temp)
-    {
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Disconnect), "disconnect", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Float), MESSAGE_FLOAT, A_FLOAT, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Listen), "listen", A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Mode), "mode", A_SYM, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Port), "port", A_LONG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Self), "self", 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Send), "send", A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Status), MESSAGE_BANG, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Status), "status", 0);
-#if defined(BE_VERBOSE)
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Verbose), "verbose", A_DEFSYM, 0);
-#endif /* BE_VERBOSE */
-        class_register(CLASS_BOX, temp);
-    }
-    gClass = temp;
-    gDollarSymbol = gensym("$");
-    gEmptySymbol = gensym("");
-    gMaxSymbol = gensym("max");
-    gOffSymbol = gensym("off");
-    gOnSymbol = gensym("on");
-    gRawSymbol = gensym("raw");
-    gReplySymbol = gensym("reply");
-    gSelfSymbol = gensym("self");
-    gStatusSymbol = gensym("status");
-    setUpStateSymbols();
-    reportVersion(OUR_NAME);
-    return 0;
-} // main
 /*------------------------------------ tcpServerCreate ---*/
-void * tcpServerCreate(long port,
-                       long numBuffers)
+static void * tcpServerCreate(const long port,
+                              const long numBuffers)
 {
     TcpObjectData * xx = static_cast<TcpObjectData *>(object_alloc(gClass));
-
+    
     if (xx)
     {
+#if 0
         bool               okSoFar = true;
+        long               actBuffers;
         OSStatus           result;
         OTConfigurationRef this_config;
-
+        
 #if defined(BE_VERBOSE)
         xx->fVerbose = false;
 #endif /* BE_VERBOSE */
         presetObjectPointers(xx);
-        if ((port < 0) || (port > MAX_PORT) || (numBuffers < 0))
+        if ((0 > port) || (MAX_PORT < port) || (0 > numBuffers))
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "invalid parameters for device")
             okSoFar = false;
         }
         if (0 == numBuffers)
         {
-            numBuffers = NUM_RX_BUFFERS;
+            actBuffers = NUM_RX_BUFFERS;
+        }
+        else
+        {
+            actBuffers = numBuffers;
         }
         if (okSoFar)
         {
             xx->fServerAddress = 0L;
-            okSoFar = initObject(OUR_NAME, xx, port, numBuffers);
+            okSoFar = initObject(OUR_NAME, xx, port, actBuffers);
         }
         xx->fDataNotifier = NewOTNotifyUPP(tcpServerNotifier);
         if (okSoFar)
         {
-            xx->fAccessControl = acquireOpenTransport(OUR_NAME, static_cast<unsigned short>(port), true);
+            xx->fAccessControl = acquireOpenTransport(OUR_NAME, static_cast<unsigned short>(port),
+                                                      true);
             if (! xx->fAccessControl)
             {
                 okSoFar = false;
@@ -132,7 +91,8 @@ void * tcpServerCreate(long port,
         if (okSoFar)
         {
             this_config = OTCreateConfiguration(kTCPName);
-            if ((kOTInvalidConfigurationPtr == this_config) || (kOTNoMemoryConfigurationPtr == this_config))
+            if ((kOTInvalidConfigurationPtr == this_config) ||
+                (kOTNoMemoryConfigurationPtr == this_config))
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to obtain an OT configuration")
                 okSoFar = false;
@@ -142,9 +102,9 @@ void * tcpServerCreate(long port,
         if (okSoFar)
         {
             TEndpointInfo info;
-
+            
             xx->fSocket = OTOpenEndpointInContext(this_config, 0, &info, &result,
-                                                    xx->fAccessControl->fContext);
+                                                  xx->fAccessControl->fContext);
             if (kOTNoError == result)
             {
                 xx->fServiceType = info.servtype;
@@ -159,7 +119,7 @@ void * tcpServerCreate(long port,
         if (okSoFar)
         {
             InetInterfaceInfo interfaceInfo;
-
+            
             WRAP_OT_CALL(xx, result, "OTInetGetInterfaceInfo",
                          OTInetGetInterfaceInfo(&interfaceInfo, kDefaultInetInterface));
             if (kOTNoError == result)
@@ -211,18 +171,21 @@ void * tcpServerCreate(long port,
         if (! okSoFar)
         {
             freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
+            xx = NULL;
         }
+#endif//0
     }
     return xx;
 } // tcpServerCreate
+
 /*------------------------------------ tcpServerFree ---*/
-void tcpServerFree(TcpObjectData * xx)
+static void tcpServerFree(TcpObjectData * xx)
 {
     if (xx)
     {
+#if 0
         OSStatus result;
-
+        
         xx->fClosing = true;
         if (xx->fSocket != kOTInvalidEndpointRef)
         {
@@ -230,11 +193,11 @@ void tcpServerFree(TcpObjectData * xx)
             {
                 case kTcpStateConnected:
                     tcpServerDisconnect(xx, true);
-                /* Fall through */
-
+                    /* Fall through */
+                    
                 case kTcpStateListening:
-                /* Fall through */
-
+                    /* Fall through */
+                    
                 case kTcpStateBound:
                     WRAP_OT_CALL(xx, result, "OTUnbind", OTUnbind(xx->fSocket))
                     if (result != kOTNoError)
@@ -242,8 +205,8 @@ void tcpServerFree(TcpObjectData * xx)
                         REPORT_ERROR(xx, OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
                         reportEndpointState(OUR_NAME, xx);
                     }
-                /* Fall through */
-
+                    /* Fall through */
+                    
                 case kTcpStateUnbound:
                     WRAP_OT_CALL(xx, result, "OTCloseProvider", OTCloseProvider(xx->fSocket))
                     if (result != kOTNoError)
@@ -252,12 +215,61 @@ void tcpServerFree(TcpObjectData * xx)
                         reportEndpointState(OUR_NAME, xx);
                     }
                     break;
+                    
+                default:
+                    break;
+                    
             }
         }
         DisposeOTNotifyUPP(xx->fDataNotifier);
         releaseObjectMemory(OUR_NAME, xx);
+#endif//0
     }
 } // tcpServerFree
+
+/*------------------------------------ main ---*/
+int main(void)
+{
+    /* Allocate class memory and set up class. */
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(tcpServerCreate),
+                               reinterpret_cast<method>(tcpServerFree), sizeof(TcpObjectData),
+                               reinterpret_cast<method>(0L), A_DEFLONG, A_DEFLONG, 0);
+
+    if (temp)
+    {
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Disconnect), "disconnect", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Float), MESSAGE_FLOAT, A_FLOAT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Listen), "listen", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Mode), "mode", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Port), "port", A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Self), "self", 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Send), "send", A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Status), MESSAGE_BANG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Status), "status", 0);
+#if defined(BE_VERBOSE)
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Verbose), "verbose", A_DEFSYM, 0);
+#endif /* BE_VERBOSE */
+        class_register(CLASS_BOX, temp);
+    }
+    gClass = temp;
+    gDollarSymbol = gensym("$");
+    gEmptySymbol = gensym("");
+    gMaxSymbol = gensym("max");
+    gOffSymbol = gensym("off");
+    gOnSymbol = gensym("on");
+    gRawSymbol = gensym("raw");
+    gReplySymbol = gensym("reply");
+    gSelfSymbol = gensym("self");
+    gStatusSymbol = gensym("status");
+    setUpStateSymbols();
+    reportVersion(OUR_NAME);
+    return 0;
+} // main
+
 /*------------------------------------ tcpServerSetPort ---*/
 bool tcpServerSetPort(TcpObjectData * xx,
                       const bool      bangOnError)
@@ -266,6 +278,7 @@ bool tcpServerSetPort(TcpObjectData * xx,
 
     if (xx)
     {
+#if 0
         OSStatus result;
 
         switch (xx->fState)
@@ -297,10 +310,11 @@ bool tcpServerSetPort(TcpObjectData * xx,
                 break;
 
             default:
-                LOG_ERROR_3(xx, OUTPUT_PREFIX "unexpected state (%ld = %s)", static_cast<long>(xx->fState),
-                            mapStateToSymbol(xx->fState)->s_name)
+                LOG_ERROR_3(xx, OUTPUT_PREFIX "unexpected state (%ld = %s)",
+                            static_cast<long>(xx->fState), mapStateToSymbol(xx->fState)->s_name)
                 okSoFar = false;
                 break;
+                
         }
         if (okSoFar)
         {
@@ -311,7 +325,7 @@ bool tcpServerSetPort(TcpObjectData * xx,
             bind_request.addr.len = sizeof(in_address);
             bind_request.addr.buf = reinterpret_cast<unsigned char *>(&in_address);
             bind_request.qlen = 1;
-            WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fSocket, &bind_request, NULL_PTR))
+            WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fSocket, &bind_request, NULL))
             if (result != kOTNoError)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
@@ -323,9 +337,11 @@ bool tcpServerSetPort(TcpObjectData * xx,
         {
             signalError(xx);
         }
+#endif//0
     }
     return okSoFar;
 } // tcpServerSetPort
+
 /*------------------------------------ tcpServerDisconnect ---*/
 bool tcpServerDisconnect(TcpObjectData * xx,
                          const bool      forced)
@@ -334,6 +350,7 @@ bool tcpServerDisconnect(TcpObjectData * xx,
 
     if (xx)
     {
+#if 0
         switch (xx->fState)
         {
             case kTcpStateUnbound:
@@ -353,12 +370,17 @@ bool tcpServerDisconnect(TcpObjectData * xx,
 
             case kTcpStateConnected:
                 break;
+                
+            default:
+                break;
+                
         }
         if (okSoFar || forced)
         {
             OSStatus result;
 
-            if ((! forced) && ((T_COTS_ORD == xx->fServiceType) || (T_TRANS_ORD == xx->fServiceType)))
+            if ((! forced) && ((T_COTS_ORD == xx->fServiceType) ||
+                               (T_TRANS_ORD == xx->fServiceType)))
             {
                 WRAP_OT_CALL(xx, result, "OTSndOrderlyDisconnect",
                              OTSndOrderlyDisconnect(xx->fSocket))
@@ -368,7 +390,8 @@ bool tcpServerDisconnect(TcpObjectData * xx,
                 }
                 else
                 {
-                    REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)", result)
+                    REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)",
+                                 result)
                     reportEndpointState(OUR_NAME, xx);
                     okSoFar = false;
                 }
@@ -400,6 +423,7 @@ bool tcpServerDisconnect(TcpObjectData * xx,
         {
             signalError(xx);
         }
+#endif//0
     }
     return okSoFar;
 } // tcpServerDisconnect

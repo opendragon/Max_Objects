@@ -43,17 +43,61 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * map3dCreate(t_symbol * initialFile);
+/*------------------------------------ map3dCreate ---*/
+static void * map3dCreate(t_symbol * initialFile)
+{
+    Map3dData * xx = static_cast<Map3dData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fVerbose = false;
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+        xx->fFirstRange = xx->fLastRange = xx->fPreviousResult = NULL;
+        setFOI2Integer(xx->fPreviousInput[0], 0);
+        setFOI2Integer(xx->fPreviousInput[1], 0);
+        setFOI2Integer(xx->fPreviousInput[2], 0);
+        xx->fRangeCount = 0;
+        xx->fBuffer = static_cast<t_binbuf *>(binbuf_new());
+        if (! (xx->fResultOut && xx->fBuffer))
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+        else if (initialFile == gEmptySymbol)
+        {
+            LOG_POST_1(xx, OUTPUT_PREFIX "no initial map file")
+        }
+        else
+        {
+            LOG_POST_2(xx, OUTPUT_PREFIX "initial file: %s", initialFile->s_name)
+            map3dLoadRangeList(xx, initialFile);
+        }
+    }
+    return xx;
+} // map3dCreate
 
-void map3dFree(Map3dData * xx);
+/*------------------------------------ map3dFree ---*/
+static void map3dFree(Map3dData * xx)
+{
+    if (xx)
+    {
+        if (xx->fBuffer)
+        {
+            freeobject(reinterpret_cast<t_object *>(xx->fBuffer));
+            xx->fBuffer = NULL;
+        }
+        map3dClearRangeList(xx);
+    }
+} // map3dFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(map3dCreate), reinterpret_cast<method>(map3dFree),
-                               sizeof(Map3dData), reinterpret_cast<method>(0L), A_DEFSYM, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(map3dCreate),
+                               reinterpret_cast<method>(map3dFree), sizeof(Map3dData),
+                               reinterpret_cast<method>(0L), A_DEFSYM, 0);
 
     if (temp)
     {
@@ -114,51 +158,5 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ map3dCreate ---*/
-void * map3dCreate(t_symbol * initialFile)
-{
-    Map3dData * xx = static_cast<Map3dData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fVerbose = false;
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-        xx->fFirstRange = xx->fLastRange = xx->fPreviousResult = NULL_PTR;
-        setFOI2Integer(xx->fPreviousInput[0], 0);
-        setFOI2Integer(xx->fPreviousInput[1], 0);
-        setFOI2Integer(xx->fPreviousInput[2], 0);
-        xx->fRangeCount = 0;
-        xx->fBuffer = static_cast<t_binbuf *>(binbuf_new());
-        if (! (xx->fResultOut || xx->fBuffer))
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-        else if (initialFile == gEmptySymbol)
-        {
-            LOG_POST_1(xx, OUTPUT_PREFIX "no initial map file")
-        }
-        else
-        {
-            LOG_POST_2(xx, OUTPUT_PREFIX "initial file: %s", initialFile->s_name)
-            map3dLoadRangeList(xx, initialFile);
-        }
-    }
-    return xx;
-} // map3dCreate
-/*------------------------------------ map3dFree ---*/
-void map3dFree(Map3dData * xx)
-{
-    if (xx)
-    {
-        if (xx->fBuffer)
-        {
-            freeobject(reinterpret_cast<t_object *>(xx->fBuffer));
-            xx->fBuffer = NULL_PTR;
-        }
-        map3dClearRangeList(xx);
-    }
-} // map3dFree
-
-StandardAnythingRoutine(Map3dData *)
+StandardAnythingRoutine(Map3dData)

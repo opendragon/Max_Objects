@@ -40,7 +40,7 @@
 #include "Vcollect.h"
 
 /*------------------------------------ cmd_Count ---*/
-void cmd_Count(VcollectData * xx)
+COUNT_HEADER(VcollectData)
 {
     if (xx)
     {
@@ -50,7 +50,7 @@ void cmd_Count(VcollectData * xx)
         {
             case 0:
                 /* Left inlet */
-                SETSYM(dummy, gStopSymbol);
+                A_SETSYM(dummy, gStopSymbol);
                 collectAddAtoms(xx, dummy, 1);
                 break;
 
@@ -62,6 +62,7 @@ void cmd_Count(VcollectData * xx)
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Count

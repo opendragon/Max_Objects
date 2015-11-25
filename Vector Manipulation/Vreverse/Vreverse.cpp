@@ -41,10 +41,34 @@
 #include "Vreverse.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VreverseCreate(void);
+/*------------------------------------ VreverseCreate ---*/
+static void * VreverseCreate(void)
+{
+    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+        xx->fPreviousList = NULL;
+        xx->fPreviousLength = 0;
+        if (! xx->fResultOut)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // VreverseCreate
 
-void VreverseFree(VObjectData * xx);
+/*------------------------------------ VreverseFree ---*/
+static void VreverseFree(VObjectData * xx)
+{
+    if (xx)
+    {
+        clearPrevious(xx);
+    }
+} // VreverseFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -66,35 +90,9 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VreverseCreate ---*/
-void * VreverseCreate(void)
-{
-    VObjectData * xx = static_cast<VObjectData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-        xx->fPreviousList = NULL_PTR;
-        xx->fPreviousLength = 0;
-        if (! xx->fResultOut)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // VreverseCreate
-/*------------------------------------ VreverseFree ---*/
-void VreverseFree(VObjectData * xx)
-{
-    if (xx)
-    {
-        clearPrevious(xx);
-    }
-} // VreverseFree
 /*------------------------------------ clearPrevious ---*/
 void clearPrevious(VObjectData * xx)
 {
-    FREEBYTES(xx->fPreviousList, xx->fPreviousLength);
+    FREE_BYTES(xx->fPreviousList);
 } // clearPrevious

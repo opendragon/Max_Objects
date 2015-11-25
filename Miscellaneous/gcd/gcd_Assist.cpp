@@ -40,11 +40,7 @@
 #include "gcd.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(GcdData * xx,
-                void *    bb,
-                long      msg,
-                long      arg,
-                char *    dstString)
+ASSIST_HEADER(GcdData)
 {
 #pragma unused(xx, bb)
     if (ASSIST_INLET == msg)
@@ -58,6 +54,10 @@ void cmd_Assist(GcdData * xx,
             case 1:
                 strncpy_zero(dstString, "Number input", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
     else if (ASSIST_OUTLET == msg)

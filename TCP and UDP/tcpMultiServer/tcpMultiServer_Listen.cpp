@@ -79,10 +79,11 @@ void cmd_Listen(TcpMultiServerData * xx,
                     break;
 
                 default:
-                    LOG_ERROR_3(xx, OUTPUT_PREFIX "unexpected state (%ld = %s)", static_cast<long>(xx->fState),
-                                mapStateToSymbol(xx->fState)->s_name)
+                    LOG_ERROR_3(xx, OUTPUT_PREFIX "unexpected state (%ld = %s)",
+                                static_cast<long>(xx->fState), mapStateToSymbol(xx->fState)->s_name)
                     okSoFar = false;
                     break;
+                    
             }
         }
         if (okSoFar)

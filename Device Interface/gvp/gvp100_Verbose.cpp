@@ -40,8 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_Verbose ---*/
-void cmd_Verbose(GvpData *  xx,
-                 t_symbol * onOff)
+VERBOSE_HEADER(GvpData)
 {
     if (xx)
     {

@@ -40,14 +40,11 @@
 #include "caseShift.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(CaseShiftData * xx,
-                  t_symbol *      message,
-                  short           argc,
-                  t_atom *        argv)
+ANYTHING_HEADER(CaseShiftData)
 {
     if (xx)
     {
-        t_atom * newArg = GETBYTES(argc + 1, t_atom);
+        t_atom * newArg = GET_BYTES(argc + 1, t_atom);
 
         clearPrevious(xx);
         xx->fPreviousKind = A_GIMME;
@@ -57,7 +54,7 @@ void cmd_Anything(CaseShiftData * xx,
             char * oldWord;
             char * newWord;
 
-            SETSYM(newArg, message);
+            A_SETSYM(newArg, message);
             memcpy(newArg + 1, argv, argc * sizeof(t_atom));
             for (short ii = 0; ii <= argc; ++ii)
             {
@@ -65,12 +62,12 @@ void cmd_Anything(CaseShiftData * xx,
                 {
                     oldWord = newArg[ii].a_w.w_sym->s_name;
                     len = static_cast<short>(strlen(oldWord));
-                    newWord = GETBYTES(len + 1, char);
+                    newWord = GET_BYTES(len + 1, char);
                     if (newWord)
                     {
                         shiftAString(xx, newWord, oldWord);
                         newArg[ii].a_w.w_sym = gensym(newWord);
-                        FREEBYTES(newWord, len + 1);
+                        FREE_BYTES(newWord);
                     }
                 }
             }

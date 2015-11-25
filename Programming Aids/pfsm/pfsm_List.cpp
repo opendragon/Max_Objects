@@ -40,10 +40,7 @@
 #include "pfsm.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(PfsmData * xx,
-              t_symbol * message,
-              short      argc,
-              t_atom *   argv)
+LIST_HEADER(PfsmData)
 {
 #pragma unused(message)
     if (xx)

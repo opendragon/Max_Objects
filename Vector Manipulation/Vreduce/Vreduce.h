@@ -53,10 +53,10 @@ struct VreduceData
     OpCode           fOperation;
     InputRestriction fCheck;
     double           fPreviousFloat;
-    long             fPreviousLong;
+    t_atom_long      fPreviousLong;
     bool             fResultIsFloat;
 }; // VreduceData
 
-StandardRoutineDeclarations(VreduceData *);
+StandardRoutineDeclarations(VreduceData);
 
 #endif /* not VREDUCE_H_ */

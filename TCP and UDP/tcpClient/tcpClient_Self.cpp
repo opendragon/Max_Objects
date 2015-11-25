@@ -62,19 +62,21 @@ void cmd_Self(TcpObjectData * xx)
 
                 for (ifaddrs * ifa = myaddrs; ifa; ifa = ifa->ifa_next)
                 {
-                    if (ifa->ifa_addr && (ifa->ifa_flags & IFF_UP) && (! (ifa->ifa_flags & IFF_LOOPBACK)) &&
+                    if (ifa->ifa_addr && (ifa->ifa_flags & IFF_UP) &&
+                        (! (ifa->ifa_flags & IFF_LOOPBACK)) &&
                         (AF_INET == ifa->ifa_addr->sa_family))
                     {
                         err = getnameinfo(reinterpret_cast<const sockaddr *>(ifa->ifa_addr),
-                                          static_cast<socklen_t>(sizeof(sockaddr_in)), hostStr, sizeof(hostStr), NULL,
-                                          0, NI_NUMERICHOST);
+                                          static_cast<socklen_t>(sizeof(sockaddr_in)), hostStr,
+                                          sizeof(hostStr), NULL, 0, NI_NUMERICHOST);
                         if (0 == err)
                         {
                             xx->fSelfName = gensym(hostStr);
                             break;
                         }
 
-                        LOG_ERROR_2(xx, OUTPUT_PREFIX "getnameinfo failed (%ld)", static_cast<long>(errno))
+                        LOG_ERROR_2(xx, OUTPUT_PREFIX "getnameinfo failed (%ld)",
+                                    static_cast<long>(errno))
                     }
                 }
                 freeifaddrs(myaddrs);
@@ -82,7 +84,7 @@ void cmd_Self(TcpObjectData * xx)
         }
         if (xx->fSelfName)
         {
-            SETSYM(response, xx->fSelfName);
+            A_SETSYM(response, xx->fSelfName);
             outlet_anything(xx->fResultOut, gSelfSymbol, 1, response);
         }
     }

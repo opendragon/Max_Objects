@@ -40,11 +40,7 @@
 #include "queue.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(QueueData * xx,
-                void *      bb,
-                long        msg,
-                long        arg,
-                char *      dstString)
+ASSIST_HEADER(QueueData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)
@@ -54,6 +50,10 @@ void cmd_Assist(QueueData * xx,
             case 0:
                 strncpy_zero(dstString, "Command input", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
     else if (ASSIST_OUTLET == msg)
@@ -71,6 +71,10 @@ void cmd_Assist(QueueData * xx,
             case 2:
                 strncpy_zero(dstString, "Error bang output", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
 } // cmd_Assist

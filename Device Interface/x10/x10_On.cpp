@@ -56,5 +56,6 @@ void cmd_On(X10ControlData * xx,
 
         default:
             break;
+            
     }
 } // cmd_On

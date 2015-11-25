@@ -48,18 +48,18 @@ void cmd_SetDskAnalogControl(GvpData *  xx,
 #pragma unused(ss)
     if (xx)
     {
-        bool             okSoFar = true;
-        long             number;
-        long             temp;
-        long             value;
-        short            ii = 0;
-        unsigned char    dummy[3];
-        static long      validControl[] =
+        bool               okSoFar = true;
+        t_atom_long        number;
+        t_atom_long        temp;
+        t_atom_long        value;
+        short              ii = 0;
+        unsigned char      dummy[3];
+        static t_atom_long validControl[] =
         {
             0x0008, 0x000A, 0x000B, 0x000C
         };
-        static const int kNumValidDskControls = (sizeof(validControl) / sizeof(*validControl));
-        static int       shiftAmount[] =
+        static const int   kNumValidDskControls = (sizeof(validControl) / sizeof(*validControl));
+        static int         shiftAmount[] =
         {
             4, 8, 8, 8
         };
@@ -72,18 +72,18 @@ void cmd_SetDskAnalogControl(GvpData *  xx,
                     if (jj & 1)
                     {
                         /* odd index - do it! */
-                        value = static_cast<long>(argv[jj].a_w.w_float);
+                        value = TO_INT(argv[jj].a_w.w_float);
                         temp = (value << shiftAmount[ii]); // from previous element
                         dummy[0] = static_cast<unsigned char>(number);
                         dummy[1] = static_cast<unsigned char>(temp & 0x00ff);
                         dummy[2] = static_cast<unsigned char>((temp >> 8) & 0x00ff);
-                        gvpPerformWriteCommand(xx, 0, kCommandWriteAnalogControl, 3, dummy, kStateAwaitingByteCount1,
-                                               jj == (argc - 1));
+                        gvpPerformWriteCommand(xx, 0, kCommandWriteAnalogControl, 3, dummy,
+                                               kStateAwaitingByteCount1, jj == (argc - 1));
                     }
                     else
                     {
                         /* even index - validate and remember it! */
-                        number = static_cast<long>(argv[jj].a_w.w_float);
+                        number = TO_INT(argv[jj].a_w.w_float);
                         value = 0;
                         for (ii = 0; ii < kNumValidDskControls; ++ii)
                         {
@@ -91,11 +91,12 @@ void cmd_SetDskAnalogControl(GvpData *  xx,
                             {
                                 break;
                             }
+                            
                         }
                         if (ii == kNumValidDskControls)
                         {
                             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid analog control (%g)",
-                                        static_cast<double>(argv[jj].a_w.w_float))
+                                        TO_DBL(argv[jj].a_w.w_float))
                             okSoFar = false;
                         }
                     }
@@ -110,8 +111,8 @@ void cmd_SetDskAnalogControl(GvpData *  xx,
                         dummy[0] = static_cast<unsigned char>(number);
                         dummy[1] = static_cast<unsigned char>(temp & 0x00ff);
                         dummy[2] = static_cast<unsigned char>((temp >> 8) & 0x00ff);
-                        gvpPerformWriteCommand(xx, 0, kCommandWriteAnalogControl, 3, dummy, kStateAwaitingByteCount1,
-                                               jj == (argc - 1));
+                        gvpPerformWriteCommand(xx, 0, kCommandWriteAnalogControl, 3, dummy,
+                                               kStateAwaitingByteCount1, jj == (argc - 1));
                     }
                     else
                     {
@@ -124,17 +125,20 @@ void cmd_SetDskAnalogControl(GvpData *  xx,
                             {
                                 break;
                             }
+                            
                         }
                         if (ii == kNumValidDskControls)
                         {
-                            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid analog control (%ld)", number)
+                            LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid analog control (" LONG_FORMAT
+                                        ")", number)
                             okSoFar = false;
                         }
                     }
                     break;
 
                 case A_SYM:
-                    LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid analog control '%s'", argv[jj].a_w.w_sym->s_name)
+                    LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid analog control '%s'",
+                                argv[jj].a_w.w_sym->s_name)
                     okSoFar = false;
                     break;
 
@@ -143,6 +147,7 @@ void cmd_SetDskAnalogControl(GvpData *  xx,
                                 static_cast<int>(argv[jj].a_type))
                     okSoFar = false;
                     break;
+                    
             }
         }
         if (okSoFar)
@@ -154,7 +159,8 @@ void cmd_SetDskAnalogControl(GvpData *  xx,
                 dummy[0] = static_cast<unsigned char>(number);
                 dummy[1] = static_cast<unsigned char>(temp & 0x00ff);
                 dummy[2] = static_cast<unsigned char>((temp >> 8) & 0x00ff);
-                gvpPerformWriteCommand(xx, 0, kCommandWriteAnalogControl, 3, dummy, kStateAwaitingByteCount1, true);
+                gvpPerformWriteCommand(xx, 0, kCommandWriteAnalogControl, 3, dummy,
+                                       kStateAwaitingByteCount1, true);
             }
         }
         else

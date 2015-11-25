@@ -40,8 +40,7 @@
 #include "Vcollect.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(VcollectData * xx,
-               double         num)
+FLOAT_HEADER(VcollectData)
 {
     if (xx)
     {
@@ -52,13 +51,14 @@ void cmd_Float(VcollectData * xx,
             case 0:
             case 1:
                 /* Left or right inlet */
-                SETFLOAT(dummy, static_cast<float>(num));
+                A_SETFLOAT(dummy, TO_DBL(msg));
                 collectAddAtoms(xx, dummy, 1);
                 break;
 
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Float

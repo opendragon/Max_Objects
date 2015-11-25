@@ -76,11 +76,12 @@ static bool collectSamples(MtcTrackData * xx,
                     break;
 
                 case A_LONG:
-                    sWalk->fThisX = aWalk->a_w.w_long;
+                    sWalk->fThisX = TO_DBL(aWalk->a_w.w_long);
                     break;
 
                 case A_SYM:
-                    LOG_ERROR_2(xx, OUTPUT_PREFIX "non-numeric in list (%s)", aWalk->a_w.w_sym->s_name)
+                    LOG_ERROR_2(xx, OUTPUT_PREFIX "non-numeric in list (%s)",
+                                aWalk->a_w.w_sym->s_name)
                     okSoFar = false;
                     break;
 
@@ -88,6 +89,7 @@ static bool collectSamples(MtcTrackData * xx,
                     LOG_ERROR_1(xx, OUTPUT_PREFIX "unknown value in list")
                     okSoFar = false;
                     break;
+                    
             }
             if (okSoFar)
             {
@@ -99,11 +101,12 @@ static bool collectSamples(MtcTrackData * xx,
                         break;
 
                     case A_LONG:
-                        sWalk->fThisY = aWalk->a_w.w_long;
+                        sWalk->fThisY = TO_DBL(aWalk->a_w.w_long);
                         break;
 
                     case A_SYM:
-                        LOG_ERROR_2(xx, OUTPUT_PREFIX "non-numeric in list (%s)", aWalk->a_w.w_sym->s_name)
+                        LOG_ERROR_2(xx, OUTPUT_PREFIX "non-numeric in list (%s)",
+                                    aWalk->a_w.w_sym->s_name)
                         okSoFar = false;
                         break;
 
@@ -111,6 +114,7 @@ static bool collectSamples(MtcTrackData * xx,
                         LOG_ERROR_1(xx, OUTPUT_PREFIX "unknown value in list")
                         okSoFar = false;
                         break;
+                        
                 }
             }
             if (okSoFar)
@@ -123,11 +127,12 @@ static bool collectSamples(MtcTrackData * xx,
                         break;
 
                     case A_LONG:
-                        sWalk->fThisP = aWalk->a_w.w_long;
+                        sWalk->fThisP = TO_DBL(aWalk->a_w.w_long);
                         break;
 
                     case A_SYM:
-                        LOG_ERROR_2(xx, OUTPUT_PREFIX "non-numeric in list (%s)", aWalk->a_w.w_sym->s_name)
+                        LOG_ERROR_2(xx, OUTPUT_PREFIX "non-numeric in list (%s)",
+                                    aWalk->a_w.w_sym->s_name)
                         okSoFar = false;
                         break;
 
@@ -135,6 +140,7 @@ static bool collectSamples(MtcTrackData * xx,
                         LOG_ERROR_1(xx, OUTPUT_PREFIX "unknown value in list")
                         okSoFar = false;
                         break;
+                        
                 }
             }
             if (okSoFar)
@@ -155,6 +161,7 @@ static bool collectSamples(MtcTrackData * xx,
     }
     return okSoFar;
 } // collectSamples
+
 /*------------------------------------ calculateDistances ---*/
 static void calculateDistances(MtcTrackData * xx)
 {
@@ -181,6 +188,7 @@ static void calculateDistances(MtcTrackData * xx)
         }
     }
 } // calculateDistances
+
 /*------------------------------------ assignSamples ---*/
 static void assignSamples(MtcTrackData * xx)
 {
@@ -284,6 +292,7 @@ static void assignSamples(MtcTrackData * xx)
     }
     xx->fRetainedCount = newCount;
 } // assignSamples
+
 /*------------------------------------ generateOutput ---*/
 static void generateOutput(MtcTrackData * xx)
 {
@@ -309,37 +318,35 @@ static void generateOutput(MtcTrackData * xx)
     {
         --resultSize;
     }
-    outlet_int(xx->fPointCountOut, static_cast<long>(outCount));
+    outlet_int(xx->fPointCountOut, TO_INT(outCount));
     for (short ii = 0; ii < outCount; ++ii, ++rWalk)
     {
         if (xx->fAddBatchNumber)
         {
-            SETLONG(resultVector, xx->fBatchNumber);
+            A_SETLONG(resultVector, xx->fBatchNumber);
             if (xx->fAddIndex)
             {
-                SETLONG(resultVector + 1, static_cast<long>(ii));
+                A_SETLONG(resultVector + 1, TO_INT(ii));
             }
         }
         else if (xx->fAddIndex)
         {
-            SETLONG(resultVector, static_cast<long>(ii));
+            A_SETLONG(resultVector, TO_INT(ii));
         }
-        SETFLOAT(resultVector + offset, rWalk->fLastX);
-        SETFLOAT(resultVector + offset + 1, rWalk->fLastY);
-        SETFLOAT(resultVector + offset + 2, rWalk->fNewX);
-        SETFLOAT(resultVector + offset + 3, rWalk->fNewY);
-        SETFLOAT(resultVector + offset + 4, static_cast<float>(rWalk->fVelocity));
-        SETFLOAT(resultVector + offset + 5, static_cast<float>(rWalk->fForce));
-        outlet_list(xx->fResultOut, NULL_PTR, resultSize, resultVector);
+        A_SETFLOAT(resultVector + offset, TO_DBL(rWalk->fLastX));
+        A_SETFLOAT(resultVector + offset + 1, TO_DBL(rWalk->fLastY));
+        A_SETFLOAT(resultVector + offset + 2, TO_DBL(rWalk->fNewX));
+        A_SETFLOAT(resultVector + offset + 3, TO_DBL(rWalk->fNewY));
+        A_SETFLOAT(resultVector + offset + 4, TO_DBL(rWalk->fVelocity));
+        A_SETFLOAT(resultVector + offset + 5, TO_DBL(rWalk->fForce));
+        outlet_list(xx->fResultOut, NULL, resultSize, resultVector);
     }
     ++xx->fBatchNumber;
     outlet_bang(xx->fLinesCompleteOut);
 } // generateOutput
+
 /*------------------------------------ cmd_List ---*/
-void cmd_List(MtcTrackData * xx,
-              t_symbol *     message,
-              short          argc,
-              t_atom *       argv)
+LIST_HEADER(MtcTrackData)
 {
 #pragma unused(message)
     if (xx)

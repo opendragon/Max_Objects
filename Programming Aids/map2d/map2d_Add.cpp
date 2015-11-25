@@ -40,10 +40,7 @@
 #include "map2d.h"
 
 /*------------------------------------ cmd_Add ---*/
-void cmd_Add(Map2dData * xx,
-             t_symbol *  message,
-             short    argc,
-             t_atom *    argv)
+ADD_HEADER(Map2dData)
 {
 #pragma unused(message)
     if (xx)

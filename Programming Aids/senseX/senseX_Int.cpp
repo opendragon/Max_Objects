@@ -40,16 +40,16 @@
 #include "senseX.h"
 
 /*------------------------------------ cmd_Int ---*/
-void cmd_Int(SenseXData * xx,
-             long         num)
+INT_HEADER(SenseXData)
 {
-#pragma unused(num)
+#pragma unused(msg)
     if (xx)
     {
         switch (xx->fInletNumber)
         {
             case 0:
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "inlet %ld -> Unexpected 'int' seen", xx->fInletNumber)
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "inlet %ld -> Unexpected 'int' seen",
+                            xx->fInletNumber)
                 break;
 
             case 1:
@@ -60,6 +60,7 @@ void cmd_Int(SenseXData * xx,
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Int

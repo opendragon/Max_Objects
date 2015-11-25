@@ -125,7 +125,7 @@ struct PfsmData
 void cmd_Autorestart(PfsmData * xx,
                      t_symbol * onOff);
 
-void cmd_Clear(PfsmData * xx);
+CLEAR_HEADER(PfsmData);
 
 void cmd_Describe(PfsmData * xx);
 
@@ -137,8 +137,7 @@ void cmd_Do(PfsmData * xx,
 void cmd_Goto(PfsmData * xx,
               t_symbol * stateName);
 
-void cmd_Load(PfsmData * xx,
-              t_symbol * fileName);
+LOAD_HEADER(PfsmData);
 
 void cmd_Start(PfsmData * xx);
 
@@ -169,7 +168,7 @@ void pfsmProcessData(PfsmData *  xx,
 
 void pfsmReportHashTable(PfsmData * xx);
 
-StandardRoutineDeclarations(PfsmData *);
+StandardRoutineDeclarations(PfsmData);
 
 mextern(t_symbol *) gAnyNumberSymbol;    /* Pointer to unique symbol for '@n' */
 mextern(t_symbol *) gAnySymbolSymbol;    /* Pointer to unique symbol for '@s' */

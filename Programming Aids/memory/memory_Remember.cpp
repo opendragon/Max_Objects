@@ -61,11 +61,11 @@ void cmd_Remember(MemoryData * xx,
                 which = memoryAddSymbol(xx, argv[0].a_w.w_sym);
                 if (which)
                 {
-                    FREEBYTES(which->fOutput, which->fOutputCount);
+                    FREE_BYTES(which->fOutput);
                     which->fOutputCount = static_cast<short>(argc - 1);
-                    if (argc > 1)
+                    if (1 < argc)
                     {
-                        t_atom * temp = GETBYTES(argc - 1, t_atom);
+                        t_atom * temp = GET_BYTES(argc - 1, t_atom);
 
                         if (temp)
                         {

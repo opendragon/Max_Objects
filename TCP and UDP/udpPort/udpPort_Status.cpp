@@ -48,8 +48,8 @@ void cmd_Status(UdpObjectData * xx)
         t_symbol * sym_state = mapStateToSymbol(xx->fState);
         t_atom     response[2];
 
-        SETSYM(response, sym_state);
-        SETSYM(response + 1, xx->fRawMode ? gRawSymbol : gMaxSymbol);
+        A_SETSYM(response, sym_state);
+        A_SETSYM(response + 1, xx->fRawMode ? gRawSymbol : gMaxSymbol);
         outlet_anything(xx->fResultOut, gStatusSymbol, 2, response);
     }
 } // cmd_Status

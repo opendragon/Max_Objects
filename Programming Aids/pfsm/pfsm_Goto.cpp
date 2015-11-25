@@ -57,7 +57,8 @@ void cmd_Goto(PfsmData * xx,
         }
         else
         {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "state symbol '%s' not recognized for 'goto' command", stateName->s_name)
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "state symbol '%s' not recognized for 'goto' command",
+                        stateName->s_name)
         }
     }
 } // cmd_Goto

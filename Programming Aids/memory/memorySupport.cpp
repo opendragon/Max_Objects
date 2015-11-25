@@ -44,12 +44,12 @@ SymbolLink * memoryAddSymbol(MemoryData * xx,
                              t_symbol *   name)
 {
     MemoryDescriptor * descriptor = xx->fSymbols;
-    SymbolLink *       slot = NULL_PTR;
+    SymbolLink *       slot = NULL;
 
     if (descriptor)
     {
         short        ii = static_cast<short>(reinterpret_cast<long>(name) % HASH_TABLE_SIZE);
-        SymbolLink * prev = NULL_PTR;
+        SymbolLink * prev = NULL;
 
         for (slot = *(descriptor->fSymbolTable + ii); slot; slot = slot->fNext)
         {
@@ -63,10 +63,10 @@ SymbolLink * memoryAddSymbol(MemoryData * xx,
         if (! slot)
         {
             /* If this is a new Symbol, link it in. */
-            slot = GETBYTES(1, SymbolLink);
-            slot->fNext = NULL_PTR;
+            slot = GET_BYTES(1, SymbolLink);
+            slot->fNext = NULL;
             slot->fSymbol = name;
-            slot->fOutput = NULL_PTR;
+            slot->fOutput = NULL;
             slot->fOutputCount = 0;
             if (prev)
             {
@@ -81,6 +81,7 @@ SymbolLink * memoryAddSymbol(MemoryData * xx,
     }
     return slot;
 } // memoryAddSymbol
+
 /*------------------------------------ memoryClearHashTable ---*/
 void memoryClearHashTable(MemoryData * xx)
 {
@@ -98,15 +99,16 @@ void memoryClearHashTable(MemoryData * xx)
                 for (slot = *(descriptor->fSymbolTable + ii); slot; slot = next)
                 {
                     next = slot->fNext;
-                    FREEBYTES(slot->fOutput, slot->fOutputCount);
-                    FREEBYTES(slot, 1);
+                    FREE_BYTES(slot->fOutput);
+                    FREE_BYTES(slot);
                 }
             }
-            FREEBYTES(descriptor->fSymbolTable, HASH_TABLE_SIZE);
+            FREE_BYTES(descriptor->fSymbolTable);
         }
     }
     xx->fSymbolCount = 0;
 } // memoryClearHashTable
+
 /*------------------------------------ memoryInitializeHashTable ---*/
 void memoryInitializeHashTable(MemoryData * xx)
 {
@@ -115,22 +117,23 @@ void memoryInitializeHashTable(MemoryData * xx)
     memoryClearHashTable(xx);
     if (descriptor)
     {
-        descriptor->fSymbolTable = GETBYTES(HASH_TABLE_SIZE, SymbolLink *);
+        descriptor->fSymbolTable = GET_BYTES(HASH_TABLE_SIZE, SymbolLink *);
         if (descriptor->fSymbolTable)
         {
             for (short ii = 0; ii < HASH_TABLE_SIZE; ++ii)
             {
-                *(descriptor->fSymbolTable + ii) = NULL_PTR;
+                *(descriptor->fSymbolTable + ii) = NULL;
             }
         }
     }
 } // memoryInitializeHashTable
+
 /*------------------------------------ memoryLookupSymbol ---*/
 SymbolLink * memoryLookupSymbol(MemoryData * xx,
                                 t_symbol *   name)
 {
     MemoryDescriptor * descriptor = xx->fSymbols;
-    SymbolLink *       slot = NULL_PTR;
+    SymbolLink *       slot = NULL;
 
     if (descriptor)
     {
@@ -142,10 +145,12 @@ SymbolLink * memoryLookupSymbol(MemoryData * xx,
             {
                 break;
             }
+            
         }
     }
     return slot;
 } // memoryLookupSymbol
+
 /*------------------------------------ memoryRemoveSymbol ---*/
 void memoryRemoveSymbol(MemoryData * xx,
                         t_symbol *   name)
@@ -155,7 +160,7 @@ void memoryRemoveSymbol(MemoryData * xx,
     if (descriptor)
     {
         short        ii = static_cast<short>(reinterpret_cast<long>(name) % HASH_TABLE_SIZE);
-        SymbolLink * prev = NULL_PTR;
+        SymbolLink * prev = NULL;
         SymbolLink * slot = *(descriptor->fSymbolTable + ii);
 
         for ( ; slot; slot = slot->fNext)
@@ -177,8 +182,8 @@ void memoryRemoveSymbol(MemoryData * xx,
             {
                 *(descriptor->fSymbolTable + ii) = slot->fNext;
             }
-            FREEBYTES(slot->fOutput, slot->fOutputCount);
-            FREEBYTES(slot, 1);
+            FREE_BYTES(slot->fOutput);
+            FREE_BYTES(slot);
             --xx->fSymbolCount;
         }
     }

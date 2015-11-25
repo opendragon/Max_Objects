@@ -48,12 +48,12 @@
 
 struct GcdData
 {
-    t_object   fObject;
-    t_outlet * fResultOut;
-    long       fRightInput;
-    long       fPreviousResult;
+    t_object    fObject;
+    t_outlet *  fResultOut;
+    t_atom_long fRightInput;
+    t_atom_long fPreviousResult;
 }; // GcdData
 
-StandardRoutineDeclarations(GcdData *);
+StandardRoutineDeclarations(GcdData);
 
 #endif /* not GCD_H_ */

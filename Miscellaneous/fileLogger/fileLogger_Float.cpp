@@ -41,30 +41,29 @@
 
 /*------------------------------------ deferred_Float ---*/
 static void deferred_Float(FileLoggerData * xx,
-                     t_symbol *       message,
-                     short            argc,
-                     t_atom *         argv)
+                           t_symbol *       message,
+                           const short      argc,
+                           t_atom *         argv)
 {
     bool        okSoFar = fileLoggerGetTheFile(xx);
     static char numBuffer[NUM_BUFF_SIZE];
 
     if (okSoFar)
     {
-        snprintf(numBuffer, sizeof(numBuffer), "%g\n", static_cast<double>(argv->a_w.w_float));
+        snprintf(numBuffer, sizeof(numBuffer), "%g\n", TO_DBL(argv->a_w.w_float));
         fileLoggerWriteStringToTheFile(xx, numBuffer);
         fileLoggerReleaseTheFile(xx);
     }
 } // deferred_Float
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(FileLoggerData * xx,
-               double           msg)
+FLOAT_HEADER(FileLoggerData)
 {
     if (xx)
     {
         t_atom floatArg;
 
-        SETFLOAT(&floatArg, msg);
+        A_SETFLOAT(&floatArg, msg);
         defer(xx, reinterpret_cast<method>(deferred_Float), NULL, 1, &floatArg);
     }
 } // cmd_Float

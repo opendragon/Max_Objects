@@ -41,21 +41,18 @@
 #include <cfloat>
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(VObjectData * xx,
-              t_symbol *    message,
-              short         argc,
-              t_atom *      argv)
+LIST_HEADER(VObjectData)
 {
 #pragma unused(message)
     if (xx)
     {
-        t_atom * newArg = NULL_PTR;
+        t_atom * newArg = NULL;
         bool     okSoFar = true;
 
         clearPrevious(xx);
         if (argc)
         {
-            newArg = GETBYTES(argc, t_atom);
+            newArg = GET_BYTES(argc, t_atom);
             if (newArg)
             {
                 t_atom * newWalk = newArg;
@@ -70,14 +67,14 @@ void cmd_List(VObjectData * xx,
                         case A_FLOAT:
                             if (oldWalk->a_w.w_float < gMinInput)
                             {
-                                LOG_ERROR_2(xx, OUTPUT_PREFIX "Underflow due to small value (%g) in input",
-                                            static_cast<double>(oldWalk->a_w.w_float))
+                                LOG_ERROR_2(xx, OUTPUT_PREFIX "Underflow due to small value (%g) "
+                                            "in input", TO_DBL(oldWalk->a_w.w_float))
                                 newValue = 0;
                             }
                             else if (oldWalk->a_w.w_float > gMaxInput)
                             {
-                                LOG_ERROR_2(xx, OUTPUT_PREFIX "Overflow due to large value (%g) in input",
-                                            static_cast<double>(oldWalk->a_w.w_float))
+                                LOG_ERROR_2(xx, OUTPUT_PREFIX "Overflow due to large value (%g) in "
+                                            "input", TO_DBL(oldWalk->a_w.w_float))
                                 newValue = INFINITY;
                             }
                             else
@@ -89,30 +86,31 @@ void cmd_List(VObjectData * xx,
                         case A_LONG:
                             if (oldWalk->a_w.w_long < gMinInput)
                             {
-                                LOG_ERROR_2(xx, OUTPUT_PREFIX "Underflow due to small value (%ld) in input",
-                                            oldWalk->a_w.w_long)
+                                LOG_ERROR_2(xx, OUTPUT_PREFIX "Underflow due to small value ("
+                                            LONG_FORMAT ") in input", oldWalk->a_w.w_long)
                                 newValue = 0;
                             }
                             else if (oldWalk->a_w.w_long > gMaxInput)
                             {
-                                LOG_ERROR_2(xx, OUTPUT_PREFIX "Overflow due to large value (%ld) in input",
-                                            oldWalk->a_w.w_long)
+                                LOG_ERROR_2(xx, OUTPUT_PREFIX "Overflow due to large value ("
+                                            LONG_FORMAT ") in input", oldWalk->a_w.w_long)
                                 newValue = INFINITY;
                             }
                             else
                             {
-                                newValue = exp(static_cast<double>(oldWalk->a_w.w_long));
+                                newValue = exp(TO_DBL(oldWalk->a_w.w_long));
                             }
                             break;
 
                         default:
                             okSoFar = false;
                             break;
+                            
                     }
                     if (okSoFar)
                     {
                         newWalk->a_type = A_FLOAT;
-                        newWalk->a_w.w_float = static_cast<float>(newValue);
+                        newWalk->a_w.w_float = TO_DBL(newValue);
                     }
                 }
             }
@@ -130,7 +128,7 @@ void cmd_List(VObjectData * xx,
         }
         else
         {
-            FREEBYTES(newArg, argc);
+            FREE_BYTES(newArg);
             xx->fPreviousKind = A_NOTHING;
             LOG_ERROR_1(xx, OUTPUT_PREFIX "Non-numeric or invalid elements in list")
         }

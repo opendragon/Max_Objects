@@ -42,10 +42,13 @@
 
 # include "missingAndExtra.h"
 
-void reportAnything(t_object *   xx,
-                    const char * routineName,
-                    t_symbol *   message,
-                    const short  argc,
-                    t_atom *     argv);
+# define REPORTANYTHING_HEADER \
+void reportAnything(t_object *   xx,\
+                    const char * routineName,\
+                    t_symbol *   message,\
+                    const short  argc,\
+                    t_atom *     argv)
+
+REPORTANYTHING_HEADER;
 
 #endif /* not REPORTANYTHING_H_ */

@@ -59,11 +59,11 @@ void cmd_Push(StackData * xx,
             if (descriptor)
             {
                 StackEntry * top = descriptor->fTopOfStack;
-                StackEntry * newTop = GETBYTES(1, StackEntry);
+                StackEntry * newTop = GET_BYTES(1, StackEntry);
 
                 if (newTop)
                 {
-                    t_atom * temp = GETBYTES(argc, t_atom);
+                    t_atom * temp = GET_BYTES(argc, t_atom);
 
                     newTop->fNext = top;
                     newTop->fOutputCount = argc;
@@ -77,7 +77,7 @@ void cmd_Push(StackData * xx,
                     }
                     else
                     {
-                        newTop->fOutput = NULL_PTR;
+                        newTop->fOutput = NULL;
                         LOG_ERROR_1(xx, OUTPUT_PREFIX "problem allocating memory for stack element")
                     }
                     ++descriptor->fDepth;

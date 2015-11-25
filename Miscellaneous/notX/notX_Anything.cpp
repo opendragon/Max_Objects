@@ -40,21 +40,18 @@
 #include "notX.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(NotXData * xx,
-                  t_symbol * message,
-                  short      argc,
-                  t_atom *   argv)
+ANYTHING_HEADER(NotXData)
 {
     if (xx)
     {
-        t_atom * newArg = GETBYTES(argc + 1, t_atom);
+        t_atom * newArg = GET_BYTES(argc + 1, t_atom);
 
         clearPrevious(xx);
         if (newArg)
         {
             short badArgs = 0;
 
-            SETSYM(newArg, message);
+            A_SETSYM(newArg, message);
             memcpy(newArg + 1, argv, argc * sizeof(t_atom));
             for (short ii = 0; ii <= argc; ++ii)
             {
@@ -69,12 +66,13 @@ void cmd_Anything(NotXData * xx,
                         break;
 
                     case A_FLOAT:
-                        SETLONG(newArg + ii, static_cast<long>(newArg[ii].a_w.w_float));
+                        A_SETLONG(newArg + ii, ! TO_INT(newArg[ii].a_w.w_float));
                         break;
 
                     default:
                         ++badArgs;
                         break;
+                        
                 }
             }
             if (badArgs)
@@ -83,7 +81,8 @@ void cmd_Anything(NotXData * xx,
             }
             else
             {
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "Leading element of list (%s) is non-numeric", message->s_name)
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "Leading element of list (%s) is non-numeric",
+                            message->s_name)
             }
             xx->fPreviousList = newArg;
             xx->fPreviousLength = static_cast<short>(argc + 1);

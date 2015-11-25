@@ -40,13 +40,14 @@
 #include "Vsplit.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(VObjectData * xx)
+BANG_HEADER(VObjectData)
 {
     if (xx)
     {
         if (xx->fPreviousRightList)
         {
-            genericListOutput(xx->fRightResultOut, xx->fPreviousRightLength, xx->fPreviousRightList);
+            genericListOutput(xx->fRightResultOut, xx->fPreviousRightLength,
+                              xx->fPreviousRightList);
         }
         if (xx->fPreviousList)
         {

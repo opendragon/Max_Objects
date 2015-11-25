@@ -46,7 +46,7 @@ void cmd_Port(TcpObjectData * xx,
     REPORT_MAX_MESSAGE("port")
     if (xx)
     {
-        if ((number < 0) || (number > MAX_PORT))
+        if ((0 > number) || (MAX_PORT < number))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid port (%ld)", number)
             signalError(xx);

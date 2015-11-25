@@ -43,7 +43,7 @@
 // char gCopyrightString[256];
 
 /*------------------------------------ reportVersion ---*/
-void reportVersion(const char * name)
+REPORTVERSION_HEADER
 {
     char maxExternalIdentifier[256];
 
@@ -55,13 +55,15 @@ void reportVersion(const char * name)
 
     if (ourBundle)
     {
-        CFTypeRef versionValue = CFBundleGetValueForInfoDictionaryKey(ourBundle, CFSTR("CFBundleLongVersionString"));
+        CFTypeRef versionValue = CFBundleGetValueForInfoDictionaryKey(ourBundle,
+                                                              CFSTR("CFBundleLongVersionString"));
 
         if (versionValue && (CFGetTypeID(versionValue) == CFStringGetTypeID()))
         {
             CFStringRef asString = (CFStringRef) versionValue;
             CFIndex     numChars = CFStringGetLength(asString);
-            CFIndex     maxLen = CFStringGetMaximumSizeForEncoding(numChars, kCFStringEncodingASCII);
+            CFIndex     maxLen = CFStringGetMaximumSizeForEncoding(numChars,
+                                                                   kCFStringEncodingASCII);
             char *      buffer = sysmem_newptr(maxLen + 10);
 
             if (CFStringGetCString(asString, buffer, maxLen + 8, kCFStringEncodingASCII))

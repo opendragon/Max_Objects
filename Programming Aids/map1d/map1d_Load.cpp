@@ -42,7 +42,7 @@
 /*------------------------------------ deferred_Load ---*/
 static void deferred_Load(Map1dData * xx,
                           t_symbol *  fileName,
-                          short       argc,
+                          const short argc,
                           t_atom *    argv)
 {
     if (map1dLoadRangeList(xx, fileName) && xx->fVerbose)
@@ -52,8 +52,7 @@ static void deferred_Load(Map1dData * xx,
 } // deferred_Load
 
 /*------------------------------------ cmd_Load ---*/
-void cmd_Load(Map1dData * xx,
-              t_symbol *  fileName)
+LOAD_HEADER(Map1dData)
 {
     if (xx)
     {

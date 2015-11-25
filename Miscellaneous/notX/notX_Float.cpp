@@ -40,13 +40,12 @@
 #include "notX.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(NotXData * xx,
-               double     msg)
+FLOAT_HEADER(NotXData)
 {
     if (xx)
     {
         clearPrevious(xx);
-        xx->fPreviousResult = (! static_cast<long>(msg));
+        xx->fPreviousResult = (! TO_INT(msg));
         outlet_int(xx->fResultOut, xx->fPreviousResult);
     }
 } // cmd_Float

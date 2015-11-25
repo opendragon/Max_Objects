@@ -40,7 +40,7 @@
 #include "Vsegment.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(VsegmentData * xx)
+BANG_HEADER(VsegmentData)
 {
     if (xx && xx->fPreviousList)
     {

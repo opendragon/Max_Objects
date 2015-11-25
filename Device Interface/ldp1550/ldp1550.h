@@ -170,7 +170,7 @@ struct LdpData
     t_outlet *  fPollerOut;
     t_outlet *  fProgramStopCodeOut;
     t_qelem *   fPollQueue;
-    short       fChapterNumber;
+    t_atom_long fChapterNumber;
     short       fInfoCount;
     short       fInfoRate;
     short       fPollRate;
@@ -262,7 +262,7 @@ void ldpReleasePacket(LdpData *   xx,
 
 void ldpSendCommand(LdpData * xx);
 
-StandardRoutineDeclarations(LdpData *);
+StandardRoutineDeclarations(LdpData);
 
 mextern(t_symbol *) gChapterSymbol; /* Pointer to unique symbol for 'chapter' */
 mextern(t_symbol *) gEmptySymbol;   /* Pointer to unique symbol for '' */

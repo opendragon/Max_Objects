@@ -40,11 +40,7 @@
 #include "mtcTrack.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(MtcTrackData * xx,
-                void *         bb,
-                long           msg,
-                long           arg,
-                char *         dstString)
+ASSIST_HEADER(MtcTrackData)
 {
 #pragma unused(xx, bb)
     if (ASSIST_INLET == msg)
@@ -70,6 +66,10 @@ void cmd_Assist(MtcTrackData * xx,
             case 3:
                 strncpy_zero(dstString, "Error detected", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+
         }
     }
 } // cmd_Assist

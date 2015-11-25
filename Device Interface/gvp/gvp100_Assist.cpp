@@ -40,11 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(GvpData * xx,
-                void *    bb,
-                long      msg,
-                long      arg,
-                char *    dstString)
+ASSIST_HEADER(GvpData)
 {
 #pragma unused(xx, bb)
     if (ASSIST_INLET == msg)
@@ -58,6 +54,10 @@ void cmd_Assist(GvpData * xx,
             case 1:
                 strncpy_zero(dstString, "Serial device feedback", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
     else if (ASSIST_OUTLET == msg)
@@ -87,6 +87,10 @@ void cmd_Assist(GvpData * xx,
             case 5:
                 strncpy_zero(dstString, "Error detected", MAX_ASSISTANCE);
                 break;
+                
+            default:
+                break;
+                
         }
     }
 } // cmd_Assist

@@ -239,8 +239,7 @@ void cmd_Threshold(MtcData * xx,
 void cmd_Train(MtcData *  xx,
                t_symbol * startStop);
 
-void cmd_Verbose(MtcData *  xx,
-                 t_symbol * onOff);
+VERBOSE_HEADER(MtcData);
 
 void mtcPerformWriteCommand(MtcData *            xx,
                             const MtcCommandCode commandCode,
@@ -280,7 +279,7 @@ void mtcSortTaxels(MtcData *   xx,
 
 bool mtcWriteNormalizationFile(MtcData * xx);
 
-StandardRoutineDeclarations(MtcData *);
+StandardRoutineDeclarations(MtcData);
 
 mextern(t_symbol *) gCompressedSymbol; /* Pointer to unique symbol for 'compressed' */
 mextern(t_symbol *) gCookedSymbol;     /* Pointer to unique symbol for 'cooked' */

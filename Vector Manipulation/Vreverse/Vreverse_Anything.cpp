@@ -40,14 +40,11 @@
 #include "Vreverse.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(VObjectData * xx,
-                  t_symbol *    message,
-                  short         argc,
-                  t_atom *      argv)
+ANYTHING_HEADER(VObjectData)
 {
     if (xx)
     {
-        t_atom * newList = GETBYTES(argc + 1, t_atom);
+        t_atom * newList = GET_BYTES(argc + 1, t_atom);
 
         clearPrevious(xx);
         if (newList)
@@ -56,7 +53,7 @@ void cmd_Anything(VObjectData * xx,
             {
                 *(newList + ii) = *(argv + argc - (ii + 1));
             }
-            SETSYM(newList + argc, message);
+            A_SETSYM(newList + argc, message);
             xx->fPreviousList = newList;
             xx->fPreviousLength = static_cast<short>(argc + 1);
             if (xx->fPreviousList)

@@ -40,10 +40,7 @@
 #include "notX.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(NotXData * xx,
-              t_symbol * message,
-              short      argc,
-              t_atom *   argv)
+LIST_HEADER(NotXData)
 {
 #pragma unused(message)
     if (xx)
@@ -51,7 +48,7 @@ void cmd_List(NotXData * xx,
         clearPrevious(xx);
         if (argc)
         {
-            t_atom * newArg = GETBYTES(argc, t_atom);
+            t_atom * newArg = GET_BYTES(argc, t_atom);
 
             if (newArg)
             {
@@ -71,12 +68,13 @@ void cmd_List(NotXData * xx,
                             break;
 
                         case A_FLOAT:
-                            SETLONG(newArg + ii, ! static_cast<long>(argv[ii].a_w.w_float));
+                            A_SETLONG(newArg + ii, ! TO_INT(argv[ii].a_w.w_float));
                             break;
 
                         default:
                             ++badArgs;
                             break;
+                            
                     }
                 }
                 if (badArgs)

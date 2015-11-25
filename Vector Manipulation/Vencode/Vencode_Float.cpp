@@ -40,16 +40,15 @@
 #include "Vencode.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(VencodeData * xx,
-               double        msg)
+FLOAT_HEADER(VencodeData)
 {
     if (xx)
     {
         xx->fWorkLength = 0;
-        if (msg >= 0)
+        if (0 <= msg)
         {
             convertNumberToList(xx, static_cast<long>(msg));
-            if (xx->fWorkLength > 0)
+            if (0 < xx->fWorkLength)
             {
                 genericListOutput(xx->fResultOut, xx->fWorkLength, xx->fWorkList);
             }

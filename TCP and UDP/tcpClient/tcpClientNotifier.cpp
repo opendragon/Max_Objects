@@ -81,9 +81,9 @@ pascal void tcpClientNotifier(void *      context,
                     call.addr.maxlen = sizeof(caddr);
                     call.addr.buf =  reinterpret_cast<unsigned char *>(&caddr);
                     call.opt.maxlen = 0;
-                    call.opt.buf = NULL_PTR;
+                    call.opt.buf = NULL;
                     call.udata.maxlen = 0;
-                    call.udata.buf = NULL_PTR;
+                    call.udata.buf = NULL;
                     WRAP_OT_CALL(xx, err, "OTRcvConnect", OTRcvConnect(xx->fSocket, &call))
                     if (kOTNoError == err)
                     {

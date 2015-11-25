@@ -54,5 +54,6 @@ void cmd_Reset(X10ControlData * xx)
 
         default:
             break;
+            
     }
 } // cmd_Reset

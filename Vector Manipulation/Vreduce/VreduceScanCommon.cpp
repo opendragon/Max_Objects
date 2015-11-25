@@ -53,7 +53,7 @@ bool checkInput(void *                 xx,
         switch (argv[ii].a_type)
         {
             case A_LONG:
-                if ((check & IR_NONZERO) == IR_NONZERO)
+                if (IR_NONZERO == (check & IR_NONZERO))
                 {
                     if (! argv[ii].a_w.w_long)
                     {
@@ -69,13 +69,13 @@ bool checkInput(void *                 xx,
                 break;
 
             case A_FLOAT:
-                if ((check & IR_INTEGER) == IR_INTEGER)
+                if (IR_INTEGER == (check & IR_INTEGER))
                 {
                     LOG_ERROR_3(xx, "%sfloating point value (%g) in input list", name,
-                                static_cast<double>(argv[ii].a_w.w_float))
+                                TO_DBL(argv[ii].a_w.w_float))
                     okSoFar = false;
                 }
-                else if ((check & IR_NONZERO) == IR_NONZERO)
+                else if (IR_NONZERO == (check & IR_NONZERO))
                 {
                     if (! argv[ii].a_w.w_float)
                     {
@@ -86,13 +86,15 @@ bool checkInput(void *                 xx,
                 break;
 
             default:
-                LOG_ERROR_3(xx, "%sinput of an unknown type (%d) seen", name, static_cast<int>(argv[ii].a_type))
+                LOG_ERROR_3(xx, "%sinput of an unknown type (%d) seen", name,
+                            static_cast<int>(argv[ii].a_type))
                 okSoFar = false;
                 break;
         }
     }
     return okSoFar;
 } // checkInput
+
 /*------------------------------------ IdentifySymbol ---*/
 OpCode identifySymbol(t_symbol *         name,
                       InputRestriction * check)
@@ -159,6 +161,7 @@ OpCode identifySymbol(t_symbol *         name,
     }
     return result;
 } // identifySymbol
+
 /*------------------------------------ SetUpCommonSymbols ---*/
 void setUpCommonSymbols(void)
 {

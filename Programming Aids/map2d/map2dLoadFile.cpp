@@ -49,13 +49,14 @@ void map2dClearRangeList(Map2dData * xx)
             RangeData * walker = xx->fFirstRange;
 
             xx->fFirstRange = walker->fNext;
-            FREEBYTES(walker->fOutput, walker->fOutputCount);
-            FREEBYTES(walker, 1);
+            FREE_BYTES(walker->fOutput);
+            FREE_BYTES(walker);
         }
-        xx->fPreviousResult = xx->fLastRange = NULL_PTR;
+        xx->fPreviousResult = xx->fLastRange = NULL;
         xx->fRangeCount = 0;
     }
 } // map2dClearRangeList
+
 /*------------------------------------ map2dGetNextAtomInBuffer ---*/
 static bool map2dGetNextAtomInBuffer(Map2dData * xx,
                                      t_atom &    value)
@@ -65,7 +66,8 @@ static bool map2dGetNextAtomInBuffer(Map2dData * xx,
 
     for ( ; result; )
     {
-        result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset, &xx->fBufferStuffOffset, &value));
+        result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset, &xx->fBufferStuffOffset,
+                                   &value));
         if (result && (A_SYM == value.a_type))
         {
             if (kCommentCharacter == value.a_w.w_sym->s_name[0])
@@ -73,11 +75,13 @@ static bool map2dGetNextAtomInBuffer(Map2dData * xx,
                 /* skip a comment */
                 for ( ; result; )
                 {
-                    result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset, &xx->fBufferStuffOffset, &skipper));
+                    result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset,
+                                               &xx->fBufferStuffOffset, &skipper));
                     if (A_SEMI == skipper.a_type)
                     {
                         break;
                     }
+                    
                 }
                 /* At this point, we've read the trailing semicolon, so we need to get the next atom. */
             }
@@ -86,15 +90,18 @@ static bool map2dGetNextAtomInBuffer(Map2dData * xx,
                 /* We've seen a symbol other than '#' */
                 break;
             }
+            
         }
         else
         {
             /* We've seen something other than a symbol, so we can leave... */
             break;
         }
+        
     }
     return result;
 } // map2dGetNextAtomInBuffer
+
 /*------------------------------------ map2dReportUnexpected ---*/
 static void map2dReportUnexpected(Map2dData * xx,
                                   t_atom &    what)
@@ -102,11 +109,12 @@ static void map2dReportUnexpected(Map2dData * xx,
     switch (what.a_type)
     {
         case A_FLOAT:
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected floating point (%g)", static_cast<double>(what.a_w.w_float))
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected floating point (%g)",
+                        TO_DBL(what.a_w.w_float))
             break;
 
         case A_LONG:
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected long (%ld)", what.a_w.w_long)
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected long (" LONG_FORMAT ")", what.a_w.w_long)
             break;
 
         case A_SYM:
@@ -122,42 +130,45 @@ static void map2dReportUnexpected(Map2dData * xx,
             break;
 
         case A_DOLLAR:
+        case A_DOLLSYM:
             LOG_ERROR_1(xx, OUTPUT_PREFIX "unexpected dollar")
             break;
 
         default:
             LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected atom, type=%d", static_cast<int>(what.a_type))
             break;
+            
     }
 } // map2dReportUnexpected
+
 /*------------------------------------ map2dCollectARange ---*/
 static bool map2dCollectARange(Map2dData * xx)
 {
-    t_atom     holder;
-    bool       result = map2dGetNextAtomInBuffer(xx, holder);
-    bool       bottomClosed = false;
-    bool       leftClosed = false;
-    bool       rightClosed = false;
-    bool       topClosed = false;
-    bool       bottomTopDontCare = false;
-    bool       leftRightDontCare = false;
-    float      bottomFloatValue;
-    float      leftFloatValue;
-    float      rightFloatValue;
-    float      topFloatValue;
-    long       bottomIntValue;
-    long       leftIntValue;
-    long       rightIntValue;
-    long       topIntValue;
-    Category   bottomMatch = MatchUnknown;
-    Category   leftMatch = MatchUnknown;
-    Category   rightMatch = MatchUnknown;
-    Category   topMatch = MatchUnknown;
-    short      outputCount = 0;
-    t_binbuf * collector = NULL_PTR;
-    short      dollarsPresent = 0;
-    short      doubleDollarsPresent = 0;
-    short      singleDollarsPresent = 0;
+    t_atom      holder;
+    bool        result = map2dGetNextAtomInBuffer(xx, holder);
+    bool        bottomClosed = false;
+    bool        leftClosed = false;
+    bool        rightClosed = false;
+    bool        topClosed = false;
+    bool        bottomTopDontCare = false;
+    bool        leftRightDontCare = false;
+    double      bottomFloatValue;
+    double      leftFloatValue;
+    double      rightFloatValue;
+    double      topFloatValue;
+    t_atom_long bottomIntValue;
+    t_atom_long leftIntValue;
+    t_atom_long rightIntValue;
+    t_atom_long topIntValue;
+    Category    bottomMatch = MatchUnknown;
+    Category    leftMatch = MatchUnknown;
+    Category    rightMatch = MatchUnknown;
+    Category    topMatch = MatchUnknown;
+    short       outputCount = 0;
+    t_binbuf *  collector = NULL;
+    short       dollarsPresent = 0;
+    short       doubleDollarsPresent = 0;
+    short       singleDollarsPresent = 0;
 
     if (result)
     {
@@ -192,7 +203,8 @@ static bool map2dCollectARange(Map2dData * xx)
             switch (holder.a_type)
             {
                 case A_SYM:
-                    if ((holder.a_w.w_sym == gNegInfSymbol1) || (holder.a_w.w_sym == gNegInfSymbol2))
+                    if ((holder.a_w.w_sym == gNegInfSymbol1) ||
+                        (holder.a_w.w_sym == gNegInfSymbol2))
                     {
                         leftMatch = MatchInfinity;
                     }
@@ -217,6 +229,7 @@ static bool map2dCollectARange(Map2dData * xx)
                     map2dReportUnexpected(xx, holder);
                     result = false;
                     break;
+                    
             }
         }
     }
@@ -229,8 +242,10 @@ static bool map2dCollectARange(Map2dData * xx)
             switch (holder.a_type)
             {
                 case A_SYM:
-                    if ((holder.a_w.w_sym == gPosInfSymbol1) || (holder.a_w.w_sym == gPosInfSymbol2) ||
-                        (holder.a_w.w_sym == gPosInfSymbol3) || (holder.a_w.w_sym == gPosInfSymbol4))
+                    if ((holder.a_w.w_sym == gPosInfSymbol1) ||
+                        (holder.a_w.w_sym == gPosInfSymbol2) ||
+                        (holder.a_w.w_sym == gPosInfSymbol3) ||
+                        (holder.a_w.w_sym == gPosInfSymbol4))
                     {
                         rightMatch = MatchInfinity;
                     }
@@ -255,6 +270,7 @@ static bool map2dCollectARange(Map2dData * xx)
                     map2dReportUnexpected(xx, holder);
                     result = false;
                     break;
+                    
             }
         }
     }
@@ -314,7 +330,8 @@ static bool map2dCollectARange(Map2dData * xx)
             switch (holder.a_type)
             {
                 case A_SYM:
-                    if ((holder.a_w.w_sym == gNegInfSymbol1) || (holder.a_w.w_sym == gNegInfSymbol2))
+                    if ((holder.a_w.w_sym == gNegInfSymbol1) ||
+                        (holder.a_w.w_sym == gNegInfSymbol2))
                     {
                         bottomMatch = MatchInfinity;
                     }
@@ -339,6 +356,7 @@ static bool map2dCollectARange(Map2dData * xx)
                     map2dReportUnexpected(xx, holder);
                     result = false;
                     break;
+                    
             }
         }
     }
@@ -351,8 +369,10 @@ static bool map2dCollectARange(Map2dData * xx)
             switch (holder.a_type)
             {
                 case A_SYM:
-                    if ((holder.a_w.w_sym == gPosInfSymbol1) || (holder.a_w.w_sym == gPosInfSymbol2) ||
-                        (holder.a_w.w_sym == gPosInfSymbol3) || (holder.a_w.w_sym == gPosInfSymbol4))
+                    if ((holder.a_w.w_sym == gPosInfSymbol1) ||
+                        (holder.a_w.w_sym == gPosInfSymbol2) ||
+                        (holder.a_w.w_sym == gPosInfSymbol3) ||
+                        (holder.a_w.w_sym == gPosInfSymbol4))
                     {
                         topMatch = MatchInfinity;
                     }
@@ -377,6 +397,7 @@ static bool map2dCollectARange(Map2dData * xx)
                     map2dReportUnexpected(xx, holder);
                     result = false;
                     break;
+                    
             }
         }
     }
@@ -414,7 +435,7 @@ static bool map2dCollectARange(Map2dData * xx)
             for ( ; holder.a_type != A_SEMI; )
             {
                 /* We have a value; attach it. */
-                binbuf_append(collector, NULL_PTR, 1, &holder);
+                binbuf_append(collector, NULL, 1, &holder);
                 ++outputCount;
                 if (A_SYM == holder.a_type)
                 {
@@ -426,13 +447,15 @@ static bool map2dCollectARange(Map2dData * xx)
                     {
                         ++doubleDollarsPresent;
                     }
-                    else if ((holder.a_w.w_sym == gDollarXSymbol) || (holder.a_w.w_sym == gDollarYSymbol) ||
-                             (holder.a_w.w_sym == gDoubleDollarXSymbol) || (holder.a_w.w_sym == gDoubleDollarYSymbol))
+                    else if ((holder.a_w.w_sym == gDollarXSymbol) ||
+                             (holder.a_w.w_sym == gDollarYSymbol) ||
+                             (holder.a_w.w_sym == gDoubleDollarXSymbol) ||
+                             (holder.a_w.w_sym == gDoubleDollarYSymbol))
                     {
                         ++singleDollarsPresent;
                     }
                 }
-                else if (A_DOLLAR == holder.a_type)
+                else if ((A_DOLLAR == holder.a_type) || (A_DOLLSYM == holder.a_type))
                 {
                     ++dollarsPresent;
                 }
@@ -441,17 +464,18 @@ static bool map2dCollectARange(Map2dData * xx)
                 {
                     break;
                 }
+                
             }
         }
     }
     // Assemble the information and attach to the list
     if (result)
     {
-        RangeData * newData = GETBYTES(1, RangeData);
+        RangeData * newData = GET_BYTES(1, RangeData);
 
         if (newData)
         {
-            newData->fNext = NULL_PTR;
+            newData->fNext = NULL;
             newData->fOutputCount = outputCount;
             newData->fDollarsPresent = dollarsPresent;
             newData->fDoubleDollarsPresent = doubleDollarsPresent;
@@ -508,7 +532,7 @@ static bool map2dCollectARange(Map2dData * xx)
             {
                 long     tyOffset = 0;
                 long     stOffset = 0;
-                t_atom * vector = GETBYTES(newData->fOutputCount, t_atom);
+                t_atom * vector = GET_BYTES(newData->fOutputCount, t_atom);
 
                 newData->fOutput = vector;
                 for (short ii = 0; ii < newData->fOutputCount; ++ii, ++vector)
@@ -517,11 +541,12 @@ static bool map2dCollectARange(Map2dData * xx)
                     {
                         break;
                     }
+                    
                 }
             }
             else
             {
-                newData->fOutput = NULL_PTR;
+                newData->fOutput = NULL;
             }
             if (xx->fLastRange)
             {
@@ -540,6 +565,7 @@ static bool map2dCollectARange(Map2dData * xx)
     }
     return result;
 } // map2dCollectARange
+
 /*------------------------------------ map2dLoadRangeList ---*/
 bool map2dLoadRangeList(Map2dData * xx,
                         t_symbol *  fileName)
@@ -584,6 +610,7 @@ bool map2dLoadRangeList(Map2dData * xx,
     }
     return result;
 } // map2dLoadRangeList
+
 /*------------------------------------ map2dGetNextAtomInList ---*/
 static bool map2dGetNextAtomInList(short &     offset,
                                    const short numAtoms,
@@ -605,6 +632,7 @@ static bool map2dGetNextAtomInList(short &     offset,
     ++offset;
     return okSoFar;
 } // map2dGetNextAtomInList
+
 /*------------------------------------ map2dConvertListToRange ---*/
 RangeData * map2dConvertListToRange(Map2dData * xx,
                                     const short offset,
@@ -633,11 +661,11 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
     Category    rightMatch = MatchUnknown;
     Category    topMatch = MatchUnknown;
     short       outputCount = 0;
-    t_binbuf *  collector = NULL_PTR;
+    t_binbuf *  collector = NULL;
     short       dollarsPresent = 0;
     short       doubleDollarsPresent = 0;
     short       singleDollarsPresent = 0;
-    RangeData * newData = NULL_PTR;
+    RangeData * newData = NULL;
 
     if (result)
     {
@@ -672,7 +700,8 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
             switch (holder.a_type)
             {
                 case A_SYM:
-                    if ((holder.a_w.w_sym == gNegInfSymbol1) || (holder.a_w.w_sym == gNegInfSymbol2))
+                    if ((holder.a_w.w_sym == gNegInfSymbol1) ||
+                        (holder.a_w.w_sym == gNegInfSymbol2))
                     {
                         leftMatch = MatchInfinity;
                     }
@@ -697,6 +726,7 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
                     map2dReportUnexpected(xx, holder);
                     result = false;
                     break;
+                    
             }
         }
     }
@@ -709,8 +739,10 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
             switch (holder.a_type)
             {
                 case A_SYM:
-                    if ((holder.a_w.w_sym == gPosInfSymbol1) || (holder.a_w.w_sym == gPosInfSymbol2) ||
-                        (holder.a_w.w_sym == gPosInfSymbol3) || (holder.a_w.w_sym == gPosInfSymbol4))
+                    if ((holder.a_w.w_sym == gPosInfSymbol1) ||
+                        (holder.a_w.w_sym == gPosInfSymbol2) ||
+                        (holder.a_w.w_sym == gPosInfSymbol3) ||
+                        (holder.a_w.w_sym == gPosInfSymbol4))
                     {
                         rightMatch = MatchInfinity;
                     }
@@ -735,6 +767,7 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
                     map2dReportUnexpected(xx, holder);
                     result = false;
                     break;
+                    
             }
         }
     }
@@ -794,7 +827,8 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
             switch (holder.a_type)
             {
                 case A_SYM:
-                    if ((holder.a_w.w_sym == gNegInfSymbol1) || (holder.a_w.w_sym == gNegInfSymbol2))
+                    if ((holder.a_w.w_sym == gNegInfSymbol1) ||
+                        (holder.a_w.w_sym == gNegInfSymbol2))
                     {
                         bottomMatch = MatchInfinity;
                     }
@@ -819,6 +853,7 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
                     map2dReportUnexpected(xx, holder);
                     result = false;
                     break;
+                    
             }
         }
     }
@@ -831,8 +866,10 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
             switch (holder.a_type)
             {
                 case A_SYM:
-                    if ((holder.a_w.w_sym == gPosInfSymbol1) || (holder.a_w.w_sym == gPosInfSymbol2) ||
-                        (holder.a_w.w_sym == gPosInfSymbol3) || (holder.a_w.w_sym == gPosInfSymbol4))
+                    if ((holder.a_w.w_sym == gPosInfSymbol1) ||
+                        (holder.a_w.w_sym == gPosInfSymbol2) ||
+                        (holder.a_w.w_sym == gPosInfSymbol3) ||
+                        (holder.a_w.w_sym == gPosInfSymbol4))
                     {
                         topMatch = MatchInfinity;
                     }
@@ -857,6 +894,7 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
                     map2dReportUnexpected(xx, holder);
                     result = false;
                     break;
+                    
             }
         }
     }
@@ -894,7 +932,7 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
             for ( ; holder.a_type != A_SEMI; )
             {
                 /* We have a value; attach it. */
-                binbuf_append(collector, NULL_PTR, 1, &holder);
+                binbuf_append(collector, NULL, 1, &holder);
                 ++outputCount;
                 if (A_SYM == holder.a_type)
                 {
@@ -906,13 +944,15 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
                     {
                         ++doubleDollarsPresent;
                     }
-                    else if ((holder.a_w.w_sym == gDollarXSymbol) || (holder.a_w.w_sym == gDollarYSymbol) ||
-                             (holder.a_w.w_sym == gDoubleDollarXSymbol) || (holder.a_w.w_sym == gDoubleDollarYSymbol))
+                    else if ((holder.a_w.w_sym == gDollarXSymbol) ||
+                             (holder.a_w.w_sym == gDollarYSymbol) ||
+                             (holder.a_w.w_sym == gDoubleDollarXSymbol) ||
+                             (holder.a_w.w_sym == gDoubleDollarYSymbol))
                     {
                         ++singleDollarsPresent;
                     }
                 }
-                else if (A_DOLLAR == holder.a_type)
+                else if ((A_DOLLAR == holder.a_type) || (A_DOLLSYM == holder.a_type))
                 {
                     ++dollarsPresent;
                 }
@@ -921,16 +961,17 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
                 {
                     break;
                 }
+                
             }
         }
     }
     // Assemble the information and attach to the list
     if (result)
     {
-        newData = GETBYTES(1, RangeData);
+        newData = GET_BYTES(1, RangeData);
         if (newData)
         {
-            newData->fNext = NULL_PTR;
+            newData->fNext = NULL;
             newData->fOutputCount = outputCount;
             newData->fDollarsPresent = dollarsPresent;
             newData->fDoubleDollarsPresent = doubleDollarsPresent;
@@ -987,7 +1028,7 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
             {
                 long     tyOffset = 0;
                 long     stOffset = 0;
-                t_atom * vector = GETBYTES(newData->fOutputCount, t_atom);
+                t_atom * vector = GET_BYTES(newData->fOutputCount, t_atom);
 
                 newData->fOutput = vector;
                 for (short ii = 0; ii < newData->fOutputCount; ++ii, ++vector)
@@ -996,11 +1037,12 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
                     {
                         break;
                     }
+                    
                 }
             }
             else
             {
-                newData->fOutput = NULL_PTR;
+                newData->fOutput = NULL;
             }
         }
     }

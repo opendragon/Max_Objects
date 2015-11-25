@@ -40,10 +40,7 @@
 #include "map2d.h"
 
 /*------------------------------------ cmd_List ---*/
-void cmd_List(Map2dData * xx,
-              t_symbol *  message,
-              short       argc,
-              t_atom *    argv)
+LIST_HEADER(Map2dData)
 {
 #pragma unused(message)
     bool okSoFar = true;

@@ -42,17 +42,52 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VscanCreate(t_symbol * operation);
+/*------------------------------------ VscanCreate ---*/
+static void * VscanCreate(t_symbol * operation)
+{
+    VscanData * xx = static_cast<VscanData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fPreviousList = NULL;
+        xx->fPreviousLength = 0;
+        xx->fOperation = identifySymbol(operation, &xx->fCheck);
+        if (OP_unknown == xx->fOperation)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unknown operation")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+        else
+        {
+            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
+            if (! xx->fResultOut)
+            {
+                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+                freeobject(reinterpret_cast<t_object *>(xx));
+                xx = NULL;
+            }
+        }
+    }
+    return xx;
+} // VscanCreate
 
-void VscanFree(VscanData * xx);
+/*------------------------------------ VscanFree ---*/
+static void VscanFree(VscanData * xx)
+{
+    if (xx)
+    {
+        clearPrevious(xx);
+    }
+} // VscanFree
 
 /*------------------------------------ main ---*/
 int main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VscanCreate), reinterpret_cast<method>(VscanFree),
-                               sizeof(VscanData), reinterpret_cast<method>(0L), A_SYM, 0);
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VscanCreate),
+                               reinterpret_cast<method>(VscanFree), sizeof(VscanData),
+                               reinterpret_cast<method>(0L), A_SYM, 0);
 
     if (temp)
     {
@@ -69,46 +104,11 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VscanCreate ---*/
-void * VscanCreate(t_symbol * operation)
-{
-    VscanData * xx = static_cast<VscanData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fPreviousList = NULL_PTR;
-        xx->fPreviousLength = 0;
-        xx->fOperation = identifySymbol(operation, &xx->fCheck);
-        if (OP_unknown == xx->fOperation)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unknown operation")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-        else
-        {
-            xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL_PTR));
-            if (! xx->fResultOut)
-            {
-                LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-                freeobject(reinterpret_cast<t_object *>(xx));
-                xx = NULL_PTR;
-            }
-        }
-    }
-    return xx;
-} // VscanCreate
-/*------------------------------------ VscanFree ---*/
-void VscanFree(VscanData * xx)
-{
-    if (xx)
-    {
-        clearPrevious(xx);
-    }
-} // VscanFree
 /*------------------------------------ clearPrevious ---*/
 void clearPrevious(VscanData * xx)
 {
-    FREEBYTES(xx->fPreviousList, xx->fPreviousLength);
+    FREE_BYTES(xx->fPreviousList);
 } // clearPrevious
-StandardAnythingRoutine(VscanData *)
+
+StandardAnythingRoutine(VscanData)

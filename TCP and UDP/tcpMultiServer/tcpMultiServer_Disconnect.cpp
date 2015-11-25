@@ -74,10 +74,13 @@ void cmd_Disconnect(TcpMultiServerData * xx,
             for (short ii = 0; ii < xx->fMaximumConnections; ++ii)
             {
                 connection = *(xx->fConnections + ii);
-                if (connection && (connection->fDataEndpoint != kOTInvalidEndpointRef) && connection->fActive)
+#if 0
+                if (connection && (connection->fDataEndpoint != kOTInvalidEndpointRef) &&
+                    connection->fActive)
                 {
                     tcpMultiServerDisconnect(xx, connection, true);
                 }
+#endif//0
             }
         }
     }

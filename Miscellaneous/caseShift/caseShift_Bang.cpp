@@ -40,7 +40,7 @@
 #include "caseShift.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(CaseShiftData * xx)
+BANG_HEADER(CaseShiftData)
 {
     if (xx)
     {
@@ -57,6 +57,10 @@ void cmd_Bang(CaseShiftData * xx)
             case A_GIMME:
                 genericListOutput(xx->fResultOut, xx->fPreviousLength, xx->fPreviousList);
                 break;
+                
+            default:
+                break;
+                
         }
     }
 } // cmd_Bang

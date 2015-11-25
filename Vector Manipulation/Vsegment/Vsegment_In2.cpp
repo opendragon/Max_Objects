@@ -40,12 +40,11 @@
 #include "Vsegment.h"
 
 /*------------------------------------ cmd_In2 ---*/
-void cmd_In2(VsegmentData * xx,
-             long           number)
+IN2_HEADER(VsegmentData)
 {
     /* We've received a number. */
     if (xx)
     {
-        xx->fHowMany = static_cast<short>(number);
+        xx->fHowMany = static_cast<short>(msg);
     }
 } // cmd_In2

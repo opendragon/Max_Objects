@@ -40,11 +40,7 @@
 #include "x10units.h"
 
 /*------------------------------------ cmd_Assist ---*/
-void cmd_Assist(X10UnitsData * xx,
-                void *         bb,
-                long           msg,
-                long           arg,
-                char *         dstString)
+ASSIST_HEADER(X10UnitsData)
 {
 #pragma unused(xx, bb, arg)
     if (ASSIST_INLET == msg)

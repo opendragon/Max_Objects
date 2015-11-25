@@ -42,10 +42,29 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/* Forward references: */
-void * VdistanceCreate(void);
+/*------------------------------------ VdistanceCreate ---*/
+static void * VdistanceCreate(void)
+{
+    VdistanceData * xx = static_cast<VdistanceData *>(object_alloc(gClass));
+    
+    if (xx)
+    {
+        xx->fResultOut = static_cast<t_outlet *>(floatout(xx));
+        if (! xx->fResultOut)
+        {
+            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
+            freeobject(reinterpret_cast<t_object *>(xx));
+            xx = NULL;
+        }
+    }
+    return xx;
+} // VdistanceCreate
 
-void VdistanceFree(VdistanceData * xx);
+/*------------------------------------ VdistanceFree ---*/
+static void VdistanceFree(VdistanceData * xx)
+{
+#pragma unused(xx)
+} // VdistanceFree
 
 /*------------------------------------ main ---*/
 int main(void)
@@ -66,26 +85,5 @@ int main(void)
     reportVersion(OUR_NAME);
     return 0;
 } // main
-/*------------------------------------ VdistanceCreate ---*/
-void * VdistanceCreate(void)
-{
-    VdistanceData * xx = static_cast<VdistanceData *>(object_alloc(gClass));
 
-    if (xx)
-    {
-        xx->fResultOut = static_cast<t_outlet *>(floatout(xx));
-        if (! xx->fResultOut)
-        {
-            LOG_ERROR_1(xx, OUTPUT_PREFIX "unable to create port for object")
-            freeobject(reinterpret_cast<t_object *>(xx));
-            xx = NULL_PTR;
-        }
-    }
-    return xx;
-} // VdistanceCreate
-/*------------------------------------ VdistanceFree ---*/
-void VdistanceFree(VdistanceData * xx)
-{
-#pragma unused(xx)
-} // VdistanceFree
-StandardAnythingRoutine(VdistanceData *)
+StandardAnythingRoutine(VdistanceData)

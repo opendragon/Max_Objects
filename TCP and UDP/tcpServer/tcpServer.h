@@ -47,7 +47,7 @@
 # define OUTPUT_PREFIX "tcpServer: "
 
 void cmd_Listen(TcpObjectData * xx,
-                t_symbol        onOff);
+                t_symbol *      onOff);
 
 bool tcpServerDisconnect(TcpObjectData * xx,
                          const bool      forced);

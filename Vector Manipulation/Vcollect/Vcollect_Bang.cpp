@@ -40,7 +40,7 @@
 #include "Vcollect.h"
 
 /*------------------------------------ cmd_Bang ---*/
-void cmd_Bang(VcollectData * xx)
+BANG_HEADER(VcollectData)
 {
     if (xx)
     {
@@ -49,10 +49,10 @@ void cmd_Bang(VcollectData * xx)
             case 0:
             case 1:
                 /* Left  and right inlet */
-                if (xx->fTotalAtoms > 0)
+                if (0 < xx->fTotalAtoms)
                 {
                     /* Build up a new list */
-                    t_atom * pile = GETBYTES(xx->fTotalAtoms, t_atom);
+                    t_atom * pile = GET_BYTES(xx->fTotalAtoms, t_atom);
 
                     if (pile)
                     {
@@ -60,10 +60,10 @@ void cmd_Bang(VcollectData * xx)
                         short    toGo = xx->fTotalAtoms;
                         short    thisMove = CHUNK_SIZE;
 
-                        for (CollectChunk * inWalker = xx->fFirstChunk; inWalker && (toGo > 0);
+                        for (CollectChunk * inWalker = xx->fFirstChunk; inWalker && (0 < toGo);
                              inWalker = inWalker->fNext)
                         {
-                            if (toGo < CHUNK_SIZE)
+                            if (CHUNK_SIZE > toGo)
                             {
                                 thisMove = toGo;
                             }
@@ -72,7 +72,7 @@ void cmd_Bang(VcollectData * xx)
                             toGo -= CHUNK_SIZE;
                         }
                         genericListOutput(xx->fResultOut, xx->fTotalAtoms, pile);
-                        FREEBYTES(pile, xx->fTotalAtoms);
+                        FREE_BYTES(pile);
                     }
                 }
                 break;
@@ -80,6 +80,7 @@ void cmd_Bang(VcollectData * xx)
             default:
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected port (%ld) seen", xx->fInletNumber)
                 break;
+                
         }
     }
 } // cmd_Bang

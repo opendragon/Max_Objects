@@ -40,10 +40,7 @@
 #include "sysLogger.h"
 
 /*------------------------------------ cmd_Anything ---*/
-void cmd_Anything(SysLoggerData * xx,
-                  t_symbol *      message,
-                  short           argc,
-                  t_atom *        argv)
+ANYTHING_HEADER(SysLoggerData)
 {
     if (xx)
     {
@@ -52,13 +49,13 @@ void cmd_Anything(SysLoggerData * xx,
         *xx->fBuffer = '\0';
         for (short ii = 0; ii < argc; ++ii)
         {
-            const char * toAdd = NULL_PTR;
+            const char * toAdd = NULL;
 
             strcat(xx->fBuffer, " ");
             switch (argv[ii].a_type)
             {
                 case A_LONG:
-                    snprintf(numBuffer, sizeof(numBuffer), "%ld", argv[ii].a_w.w_long);
+                    snprintf(numBuffer, sizeof(numBuffer), LONG_FORMAT, argv[ii].a_w.w_long);
                     toAdd = numBuffer;
                     break;
 
@@ -67,7 +64,7 @@ void cmd_Anything(SysLoggerData * xx,
                     break;
 
                 case A_FLOAT:
-                    snprintf(numBuffer, sizeof(numBuffer), "%g", static_cast<double>(argv[ii].a_w.w_float));
+                    snprintf(numBuffer, sizeof(numBuffer), "%g", TO_DBL(argv[ii].a_w.w_float));
                     toAdd = numBuffer;
                     break;
 
@@ -80,12 +77,14 @@ void cmd_Anything(SysLoggerData * xx,
                     break;
 
                 case A_DOLLAR:
+                case A_DOLLSYM:
                     toAdd = "$";
                     break;
 
                 default:
                     toAdd = "<unknown type>";
                     break;
+                    
             }
             if (toAdd)
             {
@@ -97,6 +96,7 @@ void cmd_Anything(SysLoggerData * xx,
                 {
                     break;
                 }
+                
             }
         }
         if (strlen(xx->fBuffer))

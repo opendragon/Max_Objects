@@ -40,21 +40,20 @@
 #include "Vscan.h"
 
 /*------------------------------------ cmd_Float ---*/
-void cmd_Float(VscanData * xx,
-               double      msg)
+FLOAT_HEADER(VscanData)
 {
     if (xx)
     {
         bool     okSoFar = true;
-        t_atom * newArg = NULL_PTR;
+        t_atom * newArg = NULL;
 
         clearPrevious(xx);
-        if ((xx->fCheck & IR_INTEGER) == IR_INTEGER)
+        if (IR_INTEGER == (xx->fCheck & IR_INTEGER))
         {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "floating point value (%g) in input list", msg)
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "floating point value (%g) in input list", TO_DBL(msg))
             okSoFar = false;
         }
-        else if ((xx->fCheck & IR_NONZERO) == IR_NONZERO)
+        else if (IR_NONZERO == (xx->fCheck & IR_NONZERO))
         {
             if (! msg)
             {
@@ -72,24 +71,25 @@ void cmd_Float(VscanData * xx,
                 case OP_MIN:
                 case OP_MULTIPLY:
                 case OP_SUBTRACT:
-                    newArg = GETBYTES(1, t_atom);
+                    newArg = GET_BYTES(1, t_atom);
                     if (newArg)
                     {
-                        SETFLOAT(newArg, static_cast<float>(msg));
+                        A_SETFLOAT(newArg, TO_DBL(msg));
                     }
                     break;
 
                 case OP_AND:
                 case OP_OR:
-                    newArg = GETBYTES(1, t_atom);
+                    newArg = GET_BYTES(1, t_atom);
                     if (newArg)
                     {
-                        SETLONG(newArg, (msg ? 1 : 0));
+                        A_SETLONG(newArg, (msg ? 1 : 0));
                     }
                     break;
 
                 default:
                     break;
+                    
             }
             xx->fPreviousList = newArg;
             xx->fPreviousLength = 1;
