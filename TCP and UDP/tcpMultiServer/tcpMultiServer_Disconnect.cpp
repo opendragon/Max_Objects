@@ -40,8 +40,7 @@
 #include "tcpMultiServer.h"
 
 /*------------------------------------ cmd_Disconnect ---*/
-void cmd_Disconnect(TcpMultiServerData * xx,
-                    long                 client)
+DISCONNECT_HEADER(TcpMultiServerData)
 {
     REPORT_MAX_MESSAGE("disconnect")
     if (xx)
@@ -75,7 +74,7 @@ void cmd_Disconnect(TcpMultiServerData * xx,
             {
                 connection = *(xx->fConnections + ii);
 #if 0
-                if (connection && (connection->fDataEndpoint != kOTInvalidEndpointRef) &&
+                if (connection && (kOTInvalidEndpointRef != connection->fDataEndpoint) &&
                     connection->fActive)
                 {
                     tcpMultiServerDisconnect(xx, connection, true);

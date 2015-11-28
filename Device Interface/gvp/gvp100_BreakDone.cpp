@@ -40,7 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_BreakDone ---*/
-void cmd_BreakDone(GvpData * xx)
+BREAKDONE_HEADER(GvpData)
 {
     if (xx)
     {

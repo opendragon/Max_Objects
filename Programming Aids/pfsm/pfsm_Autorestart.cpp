@@ -40,8 +40,7 @@
 #include "pfsm.h"
 
 /*------------------------------------ cmd_Autorestart ---*/
-void cmd_Autorestart(PfsmData * xx,
-                     t_symbol * onOff)
+AUTORESTART_HEADER(PfsmData)
 {
     if (xx)
     {

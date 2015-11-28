@@ -49,11 +49,11 @@ ANYTHING_HEADER(NotXData)
         clearPrevious(xx);
         if (newArg)
         {
-            short badArgs = 0;
+            long badArgs = 0;
 
-            A_SETSYM(newArg, message);
+            atom_setsym(newArg, message);
             memcpy(newArg + 1, argv, argc * sizeof(t_atom));
-            for (short ii = 0; ii <= argc; ++ii)
+            for (long ii = 0; ii <= argc; ++ii)
             {
                 switch (newArg[ii].a_type)
                 {
@@ -66,7 +66,7 @@ ANYTHING_HEADER(NotXData)
                         break;
 
                     case A_FLOAT:
-                        A_SETLONG(newArg + ii, ! TO_INT(newArg[ii].a_w.w_float));
+                        atom_setlong(newArg + ii, ! TO_INT(newArg[ii].a_w.w_float));
                         break;
 
                     default:
@@ -85,7 +85,7 @@ ANYTHING_HEADER(NotXData)
                             message->s_name)
             }
             xx->fPreviousList = newArg;
-            xx->fPreviousLength = static_cast<short>(argc + 1);
+            xx->fPreviousLength = argc + 1;
             genericListOutput(xx->fResultOut, xx->fPreviousLength, xx->fPreviousList);
         }
     }

@@ -40,8 +40,7 @@
 #include "memory.h"
 
 /*------------------------------------ cmd_Trace ---*/
-void cmd_Trace(MemoryData * xx,
-               t_symbol *   onOff)
+TRACE_HEADER(MemoryData)
 {
     if (xx)
     {

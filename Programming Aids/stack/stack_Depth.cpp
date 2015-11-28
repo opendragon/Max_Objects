@@ -40,7 +40,7 @@
 #include "stack.h"
 
 /*------------------------------------ cmd_Depth ---*/
-void cmd_Depth(StackData * xx)
+DEPTH_HEADER(StackData)
 {
     if (xx)
     {

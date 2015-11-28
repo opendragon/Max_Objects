@@ -40,7 +40,7 @@
 #include "mtc.h"
 
 /*------------------------------------ cmd_Describe ---*/
-void cmd_Describe(MtcData * xx)
+DESCRIBE_HEADER(MtcData)
 {
     if (xx)
     {

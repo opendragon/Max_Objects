@@ -47,7 +47,7 @@ LIST_HEADER(PfsmData)
     {
         if (argc)
         {
-            pfsmProcessData(xx, argv, static_cast<short>(argc - 1), argv + 1);
+            pfsmProcessData(xx, argv, argc - 1, argv + 1);
         }
         else
         {

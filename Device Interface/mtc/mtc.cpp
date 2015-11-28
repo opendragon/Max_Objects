@@ -225,7 +225,7 @@ static void * mtcCreate(t_symbol *  ss,
         xx->fThreshold = MTC_DEFAULT_THRESHOLD;
         xx->fLastSampleNumber = xx->fSampleNumber = xx->fSampleNumberBase = 0;
         xx->fSortOrder = kMtcOrderUnordered;
-        if (argc < 3)
+        if (3 > argc)
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "missing argments")
             okSoFar = false;
@@ -255,7 +255,7 @@ static void * mtcCreate(t_symbol *  ss,
                                 ") for device", numSpots)
                     numSpots = DEFAULT_SPOTS;
                 }
-                xx->fNumSpots = static_cast<short>(numSpots);
+                xx->fNumSpots = numSpots;
             }
             if (okSoFar)
             {
@@ -292,7 +292,7 @@ static void * mtcCreate(t_symbol *  ss,
                 }
             }
         }
-        if (okSoFar && (argc > 3))
+        if (okSoFar && (3 < argc))
         {
             /* Check the mode */
             if (A_SYM == argv[3].a_type)
@@ -305,7 +305,7 @@ static void * mtcCreate(t_symbol *  ss,
                 okSoFar = false;
             }
         }
-        if (okSoFar && (argc > 4))
+        if (okSoFar && (4 < argc))
         {
             /* Check the sort order */
             if (A_SYM == argv[4].a_type)
@@ -318,7 +318,7 @@ static void * mtcCreate(t_symbol *  ss,
                 okSoFar = false;
             }
         }
-        if (okSoFar && (argc > 5))
+        if (okSoFar && (5 < argc))
         {
             /* Check the polling rate */
             t_atom_long pollRate = SER_SAMPLE_RATE;
@@ -346,7 +346,7 @@ static void * mtcCreate(t_symbol *  ss,
                 }
                 else
                 {
-                    xx->fPollRate = static_cast<short>(pollRate);
+                    xx->fPollRate = pollRate;
                 }
             }
         }
@@ -537,14 +537,14 @@ void mtcPerformWriteCommand(MtcData *            xx,
             xx->fChunkPulseSent = true;
         }
         /* Send data. */
-        A_SETLONG(dataList, commandCode);
-        for (short ii = 0; ii < numBytesToFollow; ++ii)
+        atom_setlong(dataList, commandCode);
+        for (long ii = 0; ii < numBytesToFollow; ++ii)
         {
             dataValue = *bytesToFollow++;
-            A_SETLONG(dataList + ii + 1, dataValue);
+            atom_setlong(dataList + ii + 1, dataValue);
         }
-        A_SETLONG(dataList + numBytesToFollow + 1, kMtcCommandEnd);
-        outlet_list(xx->fDataSendOut, 0L, static_cast<short>(numBytesToFollow + 2), dataList);
+        atom_setlong(dataList + numBytesToFollow + 1, kMtcCommandEnd);
+        outlet_list(xx->fDataSendOut, 0L, numBytesToFollow + 2, dataList);
         lockout_set(prevLock);
     }
 } // mtcPerformWriteCommand
@@ -562,9 +562,9 @@ void mtcProcessResponse(MtcData * xx,
 #if defined(BE_VERBOSE)
         if (xx->fVerbose)
         {
-            if ((xx->fState != kMtcStateAwaitingEndOfComp) &&
-                (xx->fState != kMtcStateAwaitingEndOfData) &&
-                (xx->fState != kMtcStateAwaitingEndOfDesc))
+            if ((kMtcStateAwaitingEndOfComp != xx->fState) &&
+                (kMtcStateAwaitingEndOfData != xx->fState) &&
+                (kMtcStateAwaitingEndOfDesc != xx->fState))
             {
                 LOG_POST_2(xx, OUTPUT_PREFIX "saw byte: 0x%lx", incoming)
             }
@@ -614,9 +614,9 @@ void mtcProcessResponse(MtcData * xx,
                     if (xx->fIsPacketHeader)
                     {
                         /* Analyze the map byte */
-                        short count = static_cast<short>(BITCOUNT(incoming));
+                        long count = BITCOUNT(incoming);
 
-                        if (count > 3)
+                        if (3 < count)
                         {
                             count = 3;
                         }
@@ -684,7 +684,7 @@ void mtcProcessResponse(MtcData * xx,
                 else
                 {
                     xx->fDescriptor[xx->fDescriptorLength] = static_cast<char>(incoming);
-                    if (xx->fDescriptorLength < MAX_DESCRIPTOR_LENGTH)
+                    if (MAX_DESCRIPTOR_LENGTH > xx->fDescriptorLength)
                     {
                         ++xx->fDescriptorLength;
                     }
@@ -705,7 +705,7 @@ void mtcProcessResponse(MtcData * xx,
                 }
                 else
                 {
-                    xx->fNumBytes = static_cast<short>(incoming);
+                    xx->fNumBytes = incoming;
                     xx->fNextTaxel = 0;
                     mtcChangeState(xx, kMtcStateAwaitingEndOfData);
                 }
@@ -719,7 +719,7 @@ void mtcProcessResponse(MtcData * xx,
                 }
                 else if (xx->fExpectedPackets == incoming)
                 {
-                    xx->fNumPackets = static_cast<short>(incoming);
+                    xx->fNumPackets = incoming;
                     xx->fNextByte = xx->fLastByte = 0;
                     xx->fIsPacketHeader = true;
                     mtcChangeState(xx, kMtcStateAwaitingEndOfComp);
@@ -806,7 +806,7 @@ void mtcProcessResponse(MtcData * xx,
                     outlet_bang(xx->fCommandComplete);
                     mtcChangeState(xx, kMtcStateIdle);
                 }
-                else if (incoming != kMtcResponseAck)
+                else if (kMtcResponseAck != incoming)
                 {
                     mtcChangeState(xx, kMtcStateSkipToAck);
                 }

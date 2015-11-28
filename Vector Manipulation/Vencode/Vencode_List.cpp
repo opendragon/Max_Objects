@@ -48,7 +48,7 @@ LIST_HEADER(VencodeData)
         xx->fWorkLength = 0;
         if (checkInput(xx, OUTPUT_PREFIX, argc, argv))
         {
-            for (short ii = 0; ii < argc; ++ii)
+            for (long ii = 0; ii < argc; ++ii)
             {
                 convertNumberToList(xx, argv[ii].a_w.w_long);
                 if (0 < xx->fWorkLength)

@@ -57,7 +57,7 @@ static bool setUpMemory(MtcTrackData * xx)
         MtcSampleData *   sampleWalk = xx->fSamples;
         double *          actWalk = xx->fActDistances;
         
-        for (short ii = 0; ii < xx->fHowMany; ++ii, ++retainedWalk)
+        for (long ii = 0; ii < xx->fHowMany; ++ii, ++retainedWalk)
         {
             retainedWalk->fLastP = retainedWalk->fLastX = retainedWalk->fLastY = 0;
             retainedWalk->fDeltaX = retainedWalk->fDeltaY = retainedWalk->fNewP = 0;
@@ -65,7 +65,7 @@ static bool setUpMemory(MtcTrackData * xx)
             retainedWalk->fVelocity = retainedWalk->fForce = 0;
             retainedWalk->fValid = false;
         }
-        for (short ii = 0; ii < xx->fMaxSamples; ++ii, ++sampleWalk)
+        for (long ii = 0; ii < xx->fMaxSamples; ++ii, ++sampleWalk)
         {
             sampleWalk->fThisP = sampleWalk->fThisX = sampleWalk->fThisY = 0;
             sampleWalk->fActDistance = actWalk;
@@ -87,8 +87,8 @@ static void * MtcTrackCreate(const long howMany,
     
     if (xx)
     {
-        xx->fHowMany = static_cast<short>(howMany);
-        xx->fMaxSamples = static_cast<short>(((howMany * 3) + 1) / 2);
+        xx->fHowMany = howMany;
+        xx->fMaxSamples = (((howMany * 3) + 1) / 2);
         xx->fErrorBangOut = NULL;
         xx->fResultOut = NULL;
         xx->fPointCountOut = NULL;
@@ -100,7 +100,7 @@ static void * MtcTrackCreate(const long howMany,
         xx->fActDistances = NULL;
         xx->fRetainedData = NULL;
         xx->fSamples = NULL;
-        if ((howMany < 1) || (howMany > MAX_POINTS))
+        if ((1 > howMany) || (MAX_POINTS < howMany))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid number of points (%ld}", howMany)
             freeobject(reinterpret_cast<t_object *>(xx));
@@ -198,7 +198,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Clear), "clear", A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Index), "index", A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Threshold), "threshold", A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Threshold), "threshold", A_FLOAT, 0);
         class_register(CLASS_BOX, temp);
     }
     gClass = temp;

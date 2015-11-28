@@ -42,12 +42,12 @@
 /*------------------------------------ checkInput ---*/
 bool checkInput(VObjectData * xx,
                 const char *  name,
-                const short   argc,
+                const long    argc,
                 t_atom *      argv)
 {
     bool okSoFar = true;
 
-    for (short ii = 0; okSoFar && (ii < argc); ++ii)
+    for (long ii = 0; okSoFar && (ii < argc); ++ii)
     {
         switch (argv[ii].a_type)
         {
@@ -95,14 +95,18 @@ void clearPrevious(VObjectData * xx)
 bool isSeparator(VObjectData * xx,
                  const long    value)
 {
-    for (short index = 0; index < xx->fHowMany; ++index)
+    bool result = false;
+    
+    for (long index = 0; index < xx->fHowMany; ++index)
     {
         if (xx->fSeparators[index] == value)
         {
-            return true;
+            result = true;
+            break;
         }
+        
     }
-    return false;
+    return result;
 } // isSeparator
 
 /*------------------------------------ setupSeparators ---*/

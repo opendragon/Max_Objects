@@ -40,12 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_SetTransitionRate ---*/
-void cmd_SetTransitionRate(GvpData *  xx,
-                           t_symbol * kind,
-                           long       rate,
-                           t_symbol * keyOrBkgdOrDoIt1,
-                           t_symbol * keyOrBkgdOrDoIt2,
-                           t_symbol * keyOrBkgdOrDoIt3)
+SETTRANSITIONRATE_HEADER(GvpData)
 {
     if (xx)
     {
@@ -69,7 +64,7 @@ void cmd_SetTransitionRate(GvpData *  xx,
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid transition '%s'", kind->s_name)
         }
-        if (aCommand != kNoCommand)
+        if (kNoCommand != aCommand)
         {
             if ((keyOrBkgdOrDoIt1 == gKeySymbol) || (keyOrBkgdOrDoIt1 == gKSymbol))
             {
@@ -89,7 +84,7 @@ void cmd_SetTransitionRate(GvpData *  xx,
                 aCommand = kNoCommand;
             }
         }
-        if (aCommand != kNoCommand)
+        if (kNoCommand != aCommand)
         {
             if ((keyOrBkgdOrDoIt2 == gKeySymbol) || (keyOrBkgdOrDoIt2 == gKSymbol))
             {
@@ -109,7 +104,7 @@ void cmd_SetTransitionRate(GvpData *  xx,
                 aCommand = kNoCommand;
             }
         }
-        if (aCommand != kNoCommand)
+        if (kNoCommand != aCommand)
         {
             if ((keyOrBkgdOrDoIt3 == gKeySymbol) || (keyOrBkgdOrDoIt3 == gKSymbol))
             {
@@ -129,15 +124,15 @@ void cmd_SetTransitionRate(GvpData *  xx,
                 aCommand = kNoCommand;
             }
         }
-        if (aCommand != kNoCommand)
+        if (kNoCommand != aCommand)
         {
-            if ((rate < 0) || (rate >= 1000))
+            if ((0 > rate) || (1000 <= rate))
             {
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid rate (%ld)", rate)
                 aCommand = kNoCommand;
             }
         }
-        if (aCommand == kNoCommand)
+        if (kNoCommand == aCommand)
         {
             outlet_bang(xx->fErrorBangOut);
         }

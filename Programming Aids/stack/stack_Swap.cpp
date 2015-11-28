@@ -40,7 +40,7 @@
 #include "stack.h"
 
 /*------------------------------------ cmd_Swap ---*/
-void cmd_Swap(StackData * xx)
+SWAP_HEADER(StackData)
 {
     if (xx)
     {

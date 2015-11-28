@@ -40,7 +40,7 @@
 #include "stack.h"
 
 /*------------------------------------ cmd_Dup ---*/
-void cmd_Dup(StackData * xx)
+DUP_HEADER(StackData)
 {
     if (xx)
     {
@@ -70,7 +70,7 @@ void cmd_Dup(StackData * xx)
                             t_atom * walker = top->fOutput;
 
                             newTop->fOutput = temp;
-                            for (short ii = 0; ii < top->fOutputCount; ++ii, ++temp, ++walker)
+                            for (long ii = 0; ii < top->fOutputCount; ++ii, ++temp, ++walker)
                             {
                                 *temp = *walker;
                             }

@@ -47,12 +47,12 @@ struct VObjectData
 {
     t_object   fObject;
     t_outlet * fResultOut;
-    short      fHowMany;
-    short      fPreviousLength;
+    long       fHowMany;
+    long       fPreviousLength;
     t_atom *   fPreviousList;
 # if defined(VSPLIT_H_)
     t_outlet * fRightResultOut;
-    short      fPreviousRightLength;
+    long       fPreviousRightLength;
     t_atom *   fPreviousRightList;
 # endif /* VSPLIT_H_ */
 }; // VObjectData

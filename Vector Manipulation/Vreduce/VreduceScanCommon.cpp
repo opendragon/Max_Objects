@@ -42,13 +42,13 @@
 /*------------------------------------ CheckInput ---*/
 bool checkInput(void *                 xx,
                 const char *           name,
-                const short            argc,
+                const long             argc,
                 t_atom *               argv,
                 const InputRestriction check)
 {
     bool okSoFar = true;
 
-    for (short ii = 0; okSoFar && (ii < argc); ++ii)
+    for (long ii = 0; okSoFar && (ii < argc); ++ii)
     {
         switch (argv[ii].a_type)
         {

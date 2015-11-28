@@ -73,23 +73,28 @@ struct TcpObjectData
     bool               fVerbose;
 }; // TcpObjectData
 
-void cmd_Disconnect(TcpObjectData * xx);
+# define DISCONNECT_HEADER(type) \
+    void cmd_Disconnect(type * xx)
 
-void cmd_Mode(TcpObjectData * xx,
-              t_symbol *      rawOrCooked);
+# define MODE_HEADER(type) \
+    void cmd_Mode(type *     xx,\
+                  t_symbol * rawOrCooked)
 
-void cmd_Port(TcpObjectData * xx,
-              long            number);
+# define SEND_HEADER(type) \
+    void cmd_Send(type *     xx,\
+                  t_symbol * message,\
+                  const long argc,\
+                  t_atom *   argv)
 
-void cmd_Self(TcpObjectData * xx);
+# define STATUS_HEADER(type) \
+    void cmd_Status(type * xx)
 
-void cmd_Send(TcpObjectData * xx,
-              t_symbol *      message,
-              short           argc,
-              t_atom *        argv);
-
-void cmd_Status(TcpObjectData * xx);
-
+DISCONNECT_HEADER(TcpObjectData);
+MODE_HEADER(TcpObjectData);
+PORT_HEADER(TcpObjectData);
+SELF_HEADER(TcpObjectData);
+SEND_HEADER(TcpObjectData);
+STATUS_HEADER(TcpObjectData);
 VERBOSE_HEADER(TcpObjectData);
 
 bool initObject(const char *    name,

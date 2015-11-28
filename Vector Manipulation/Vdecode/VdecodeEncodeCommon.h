@@ -48,7 +48,7 @@
 struct BaseData
 {
     t_atom_long fBases[NUM_BASES];
-    short       fNumBases;
+    long        fNumBases;
     bool        fFirstBaseIsNegative;
 }; // BaseData
 
@@ -61,7 +61,7 @@ bool checkBases(BaseData * info,
 
 bool checkInput(void *       xx,
                 const char * name,
-                const short  argc,
+                const long   argc,
                 t_atom *     argv);
 
 #endif /* not VDECODEENCODECOMMON_H_ */

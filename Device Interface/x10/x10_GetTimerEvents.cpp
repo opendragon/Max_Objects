@@ -40,7 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_GetTimerEvents ---*/
-void cmd_GetTimerEvents(X10ControlData * xx)
+GETTIMEREVENTS_HEADER(X10ControlData)
 {
     switch (xx->fKind)
     {

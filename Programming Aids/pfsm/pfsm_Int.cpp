@@ -46,7 +46,7 @@ INT_HEADER(PfsmData)
     {
         t_atom doIt;
 
-        A_SETLONG(&doIt, msg);
+        atom_setlong(&doIt, msg);
         pfsmProcessData(xx, &doIt, 0, NULL);
     }
 } // cmd_Int

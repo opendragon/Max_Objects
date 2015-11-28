@@ -40,7 +40,7 @@
 #include "udpPort.h"
 
 /*------------------------------------ cmd_Status ---*/
-void cmd_Status(UdpObjectData * xx)
+STATUS_HEADER(UdpObjectData)
 {
     REPORT_MAX_MESSAGE("status")
     if (xx)
@@ -48,8 +48,8 @@ void cmd_Status(UdpObjectData * xx)
         t_symbol * sym_state = mapStateToSymbol(xx->fState);
         t_atom     response[2];
 
-        A_SETSYM(response, sym_state);
-        A_SETSYM(response + 1, xx->fRawMode ? gRawSymbol : gMaxSymbol);
+        atom_setsym(response, sym_state);
+        atom_setsym(response + 1, xx->fRawMode ? gRawSymbol : gMaxSymbol);
         outlet_anything(xx->fResultOut, gStatusSymbol, 2, response);
     }
 } // cmd_Status

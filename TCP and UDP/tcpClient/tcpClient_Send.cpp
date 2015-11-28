@@ -40,10 +40,7 @@
 #include "tcpClient.h"
 
 /*------------------------------------ cmd_Send ---*/
-void cmd_Send(TcpObjectData * xx,
-              t_symbol *      message,
-              short           argc,
-              t_atom *        argv)
+SEND_HEADER(TcpObjectData)
 {
 #pragma unused(message)
     bool okSoFar = true;

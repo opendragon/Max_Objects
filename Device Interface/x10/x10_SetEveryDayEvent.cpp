@@ -40,13 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_SetEveryDayEvent ---*/
-void cmd_SetEveryDayEvent(X10ControlData * xx,
-                          t_symbol *       code,
-                          long             map,
-                          long             eventNumber,
-                          long             hourMinute,
-                          t_symbol *       function,
-                          long             level)
+SETEVERYDAYEVENT_HEADER(X10ControlData)
 {
     switch (xx->fKind)
     {

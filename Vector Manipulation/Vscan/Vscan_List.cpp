@@ -79,7 +79,7 @@ LIST_HEADER(VscanData)
                     break;
                     
             }
-            for (short ii = 0; newArg && (ii < argc); ++ii)
+            for (long ii = 0; newArg && (ii < argc); ++ii)
             {
                 switch (argv[ii].a_type)
                 {
@@ -144,11 +144,11 @@ LIST_HEADER(VscanData)
                     /* Store the previous element */
                     if (wasFloat)
                     {
-                        A_SETFLOAT(argWalk, TO_DBL(leftFloat));
+                        atom_setfloat(argWalk, TO_DBL(leftFloat));
                     }
                     else
                     {
-                        A_SETLONG(argWalk, leftLong);
+                        atom_setlong(argWalk, leftLong);
                     }
                     ++argWalk;
                     switch (xx->fOperation)
@@ -340,11 +340,11 @@ LIST_HEADER(VscanData)
                 /* Store the previous element */
                 if (wasFloat)
                 {
-                    A_SETFLOAT(argWalk, TO_DBL(leftFloat));
+                    atom_setfloat(argWalk, TO_DBL(leftFloat));
                 }
                 else
                 {
-                    A_SETLONG(argWalk, leftLong);
+                    atom_setlong(argWalk, leftLong);
                 }
             }
             xx->fPreviousList = newArg;

@@ -55,7 +55,7 @@ INT_HEADER(VObjectData)
 
             if (result)
             {
-                A_SETLONG(result, msg);
+                atom_setlong(result, msg);
                 xx->fPreviousList = result;
                 xx->fPreviousLength = 1;
                 genericListOutput(xx->fResultOut, xx->fPreviousLength, xx->fPreviousList);

@@ -76,7 +76,7 @@ pascal void tcpClientNotifier(void *      context,
                 break;
 
             case T_CONNECT:
-                if (result == kOTNoError)
+                if (kOTNoError == result)
                 {
                     call.addr.maxlen = sizeof(caddr);
                     call.addr.buf =  reinterpret_cast<unsigned char *>(&caddr);
@@ -150,7 +150,7 @@ pascal void tcpClientNotifier(void *      context,
             case T_ORDREL:
                 WRAP_OT_CALL(xx, err, "OTRcvOrderlyDisconnect",
                              OTRcvOrderlyDisconnect(xx->fSocket))
-                if (err != kOTNoError)
+                if (kOTNoError != result)
                 {
                     if (kOTNoDisconnectErr == err)
                     {
@@ -161,13 +161,14 @@ pascal void tcpClientNotifier(void *      context,
                     reportEndpointState(OUR_NAME, xx);
                     do_error_bang = true;
                 }
-                if (xx->fState != kTcpStateDisconnecting)
+                if (kTcpStateDisconnecting != xx->fState)
                 {
                     WRAP_OT_CALL(xx, err, "OTSndOrderlyDisconnect",
                                  OTSndOrderlyDisconnect(xx->fSocket))
-                    if (err != kOTNoError)
+                    if (kOTNoError != result)
                     {
-                        REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)", err)
+                        REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)",
+                                     err)
                         reportEndpointState(OUR_NAME, xx);
                         do_error_bang = true;
                     }
@@ -184,6 +185,7 @@ pascal void tcpClientNotifier(void *      context,
 
             default:
                 break;
+                
         }
         if (do_error_bang)
         {

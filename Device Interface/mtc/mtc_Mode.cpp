@@ -40,8 +40,7 @@
 #include "mtc.h"
 
 /*------------------------------------ cmd_Mode ---*/
-void cmd_Mode(MtcData *  xx,
-              t_symbol * rawOrCooked)
+MODE_HEADER(MtcData)
 {
     if (xx)
     {

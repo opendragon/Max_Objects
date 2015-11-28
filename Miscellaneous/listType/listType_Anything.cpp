@@ -45,13 +45,13 @@ ANYTHING_HEADER(ListTypeData)
 #pragma unused(message)
     if (xx)
     {
-        if (argc > 0)
+        if (0 < argc)
         {
             bool sawUnknown = false;
             bool sawInteger = false;
             bool sawFloat = false;
 
-            for (short ii = 0; (ii < argc) && (! sawUnknown); ++ii)
+            for (long ii = 0; (ii < argc) && (! sawUnknown); ++ii)
             {
                 switch (argv[ii].a_type)
                 {

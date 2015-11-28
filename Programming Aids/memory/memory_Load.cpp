@@ -42,7 +42,7 @@
 /*------------------------------------ deferred_Load ---*/
 static void deferred_Load(MemoryData * xx,
                           t_symbol *   fileName,
-                          const short  argc,
+                          const long   argc,
                           t_atom *     argv)
 {
     t_filehandle fileRef;
@@ -79,7 +79,7 @@ static void deferred_Load(MemoryData * xx,
             t_atom *     atomVector;
             bool         okSoFar;
             long         numSymbols;
-            short        numAtoms;
+            long         numAtoms;
 
             /* Get the number of symbols: */
             okSoFar = (! binbuf_getatom(inBuffer, &typeOffset, &stuffOffset, &tempAtom));
@@ -95,7 +95,7 @@ static void deferred_Load(MemoryData * xx,
                     okSoFar = false;
                 }
             }
-            for ( ; okSoFar && (numSymbols > 0); )
+            for ( ; okSoFar && (0 < numSymbols); )
             {
                 okSoFar = (! binbuf_getatom(inBuffer, &typeOffset, &stuffOffset, &tempAtom));
                 if (okSoFar)
@@ -127,8 +127,8 @@ static void deferred_Load(MemoryData * xx,
                 {
                     if (A_LONG == tempAtom.a_type)
                     {
-                        numAtoms = static_cast<short>(tempAtom.a_w.w_long);
-                        if (numAtoms < 0)
+                        numAtoms = tempAtom.a_w.w_long;
+                        if (0 > numAtoms)
                         {
                             numAtoms = 0;
                         }
@@ -141,19 +141,20 @@ static void deferred_Load(MemoryData * xx,
                     
                 }
                 /* Collect the atoms */
-                if (numAtoms > 0)
+                if (0 < numAtoms)
                 {
                     atomVector = GET_BYTES(numAtoms, t_atom);
                     if (atomVector)
                     {
                         /* Prefill the atom vector, in case of early termination. */
-                        for (short ii = 0; ii < numAtoms; ++ii)
+                        for (long ii = 0; ii < numAtoms; ++ii)
                         {
-                            A_SETLONG(atomVector + ii, 0);
+                            atom_setlong(atomVector + ii, 0);
                         }
-                        for (short ii = 0; okSoFar && (ii < numAtoms); ++ii)
+                        for (long ii = 0; okSoFar && (ii < numAtoms); ++ii)
                         {
-                            okSoFar = (! binbuf_getatom(inBuffer, &typeOffset, &stuffOffset, &tempAtom));
+                            okSoFar = (! binbuf_getatom(inBuffer, &typeOffset, &stuffOffset,
+                                                        &tempAtom));
                             if (okSoFar)
                             {
                                 atomVector[ii] = tempAtom;

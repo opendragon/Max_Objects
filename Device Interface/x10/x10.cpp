@@ -100,14 +100,14 @@ static void * x10Create(t_symbol * kind,
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid kind '%s' for device", kind->s_name)
             xx->fKind = X10KindCM11;
         }
-        if ((pollRate < 0) || (pollRate > MAX_POLL_RATE))
+        if ((0 > pollRate) || (MAX_POLL_RATE < pollRate))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid polling rate (%ld) for device", pollRate)
             xx->fPollRate = SER_SAMPLE_RATE;
         }
         else
         {
-            xx->fPollRate = static_cast<short>(pollRate ? pollRate : SER_SAMPLE_RATE);
+            xx->fPollRate = (pollRate ? pollRate : SER_SAMPLE_RATE);
         }
         /* Set up our connections and private data */
         intin(xx, 1);

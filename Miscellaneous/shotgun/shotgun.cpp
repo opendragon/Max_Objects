@@ -51,7 +51,7 @@ static void * ShotgunCreate(const long numOutlets)
     {
         xx->fNumOutlets = 0;
         xx->fResultsOut = NULL;
-        if (numOutlets < 0)
+        if (0 > numOutlets)
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "invalid parameter for object")
             freeobject(reinterpret_cast<t_object *>(xx));
@@ -59,7 +59,7 @@ static void * ShotgunCreate(const long numOutlets)
         }
         else
         {
-            xx->fNumOutlets = static_cast<short>(numOutlets ? numOutlets : 2);
+            xx->fNumOutlets = (numOutlets ? numOutlets : 2);
             t_outlet ** outletWalker = GET_BYTES(xx->fNumOutlets, t_outlet *);
             
             if (outletWalker)

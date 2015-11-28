@@ -40,10 +40,7 @@
 #include "tcpMultiServer.h"
 
 /*------------------------------------ cmd_Send ---*/
-void cmd_Send(TcpMultiServerData * xx,
-              t_symbol *           message,
-              short                argc,
-              t_atom *             argv)
+SEND_HEADER(TcpMultiServerData)
 {
 #pragma unused(message)
     bool        okSoFar = true;
@@ -93,7 +90,7 @@ void cmd_Send(TcpMultiServerData * xx,
         if (okSoFar)
         {
             TcpConnectionData * connection;
-            unsigned char       listKind = getListKind(static_cast<short>(argc - 1), argv + 1);
+            unsigned char       listKind = getListKind(argc - 1, argv + 1);
 
             if (client)
             {
@@ -161,7 +158,7 @@ void cmd_Send(TcpMultiServerData * xx,
                         for (short ii = 0; ii < xx->fMaximumConnections; ++ii)
                         {
                             connection = *(xx->fConnections + ii);
-                            if (connection && (connection->fState == kTcpStateConnected) &&
+                            if (connection && (kTcpStateConnected == connection->fState) &&
                                 connection->fActive)
                             {
                                 clearDataBuffer(a_buffer);

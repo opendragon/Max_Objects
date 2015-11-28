@@ -67,15 +67,15 @@ void mtcMoveRawDataFromBuffer(MtcData * xx)
                 unsigned char value2 = 0;
                 unsigned char value3 = 0;
 
-                if (numBits > 1)
+                if (1 < numBits)
                 {
                     value2 = *inWalker++;
                 }
-                if (numBits > 2)
+                if (2 < numBits)
                 {
                     value3 = *inWalker++;
                 }
-                if (numBits > 3)
+                if (3 < numBits)
                 {
                     bits = (static_cast<unsigned long>(value1 << 16) |
                             static_cast<unsigned long>(value2 << 8) |
@@ -132,7 +132,7 @@ void mtcMoveRawDataFromBuffer(MtcData * xx)
             }
             // Set values from the outValues vector into the set of taxels starting at aTaxel,
             // using the bit fields of inValue.
-            for (short ii = 0, jj = 0; ii < 8; ++ii)
+            for (short ii = 0, jj = 0; 8 > ii; ++ii)
             {
                 if (inMap & (0x0080 >> ii))
                 {
@@ -197,7 +197,7 @@ void mtcProcessTaxels(MtcData * xx)
             if (changed)
             {
                 range = aTaxel->fRawMax - aTaxel->fRawMin;
-                if (range > 0)
+                if (0 < range)
                 {
                     aTaxel->fScale = (MTC_MAX_COOKED_PRESSURE / range);
                 }
@@ -218,7 +218,7 @@ void mtcProcessTaxels(MtcData * xx)
              ++aTaxel, ++taxelNum)
         {
             pressure = aTaxel->fRawData - aTaxel->fRawMin;
-            if (pressure <= 0)
+            if (0 >= pressure)
             {
                 pressure = 0;
             }
@@ -227,7 +227,7 @@ void mtcProcessTaxels(MtcData * xx)
                 pressure *= aTaxel->fScale;
             }
             aTaxel->fPressure = pressure;
-            aTaxel->fCookedData = static_cast<short>(pressure);
+            aTaxel->fCookedData = pressure;
         }
         if (xx->fModeRaw)
         {
@@ -240,11 +240,10 @@ void mtcProcessTaxels(MtcData * xx)
             {
                 for (short jj = 0; jj < xx->fMaxCol; ++jj, ++iWalker, ++oWalker)
                 {
-                    A_SETFLOAT(oWalker, TO_DBL((*iWalker)->fPressure));
+                    atom_setfloat(oWalker, TO_DBL((*iWalker)->fPressure));
                 }
             }
-            outlet_list(xx->fDataOut, 0L, static_cast<short>(xx->fMaxCol * xx->fMaxRow),
-                        xx->fRawRow);
+            outlet_list(xx->fDataOut, 0L, xx->fMaxCol * xx->fMaxRow, xx->fRawRow);
             outlet_int(xx->fDataStartStopOut, 0);
         }
         else
@@ -338,9 +337,9 @@ void mtcProcessTaxels(MtcData * xx)
                         divideY += factor;
                     }
                     /* Remember the spot */
-                    A_SETFLOAT(&(xx->fSpots + spotsSeen)->fXCoord, TO_DBL(spotX / divideX));
-                    A_SETFLOAT(&(xx->fSpots + spotsSeen)->fYCoord, TO_DBL(spotY / divideY));
-                    A_SETFLOAT(&(xx->fSpots + spotsSeen)->fPressure, TO_DBL(maxPressure));
+                    atom_setfloat(&(xx->fSpots + spotsSeen)->fXCoord, TO_DBL(spotX / divideX));
+                    atom_setfloat(&(xx->fSpots + spotsSeen)->fYCoord, TO_DBL(spotY / divideY));
+                    atom_setfloat(&(xx->fSpots + spotsSeen)->fPressure, TO_DBL(maxPressure));
                     ++spotsSeen;
 
                     /* Adjust values to hide the neighbourhood of the spot */
@@ -358,12 +357,12 @@ void mtcProcessTaxels(MtcData * xx)
             }
             if (spotsSeen)
             {
-                if ((spotsSeen > 1) && (xx->fSortOrder != kMtcOrderUnordered))
+                if ((1 < spotsSeen) && (kMtcOrderUnordered != xx->fSortOrder))
                 {
                     mtcSortTaxels(xx, spotsSeen);
                 }
                 outlet_int(xx->fDataStartStopOut, 1);
-                outlet_list(xx->fDataOut, 0L, static_cast<short>(spotsSeen * AtomsPerSpot),
+                outlet_list(xx->fDataOut, 0L, spotsSeen * AtomsPerSpot,
                             reinterpret_cast<t_atom *>(xx->fSpots));
                 outlet_int(xx->fDataStartStopOut, 0);
             }
@@ -432,11 +431,12 @@ bool mtcReadMapFile(MtcData * xx)
                     {
                         break;
                     }
+                    
                 }
-                if (*bufferLineStart == '$')
+                if ('$' == *bufferLineStart)
                 {
                     /* Analyze the control line. */
-                    int numTaxels;
+                    long numTaxels;
 
                     controlLineSeen = true;
                     lineSize = static_cast<size_t>(bufferLineEnd - (bufferLineStart + 1));
@@ -446,16 +446,17 @@ bool mtcReadMapFile(MtcData * xx)
                     }
                     strncpy(lineBuffer, bufferLineStart + 1, lineSize);
                     *(lineBuffer + lineSize) = 0;
-                    if (4 != sscanf(lineBuffer, "%d%f%f%f", &numTaxels, &xx->fXMax, &xx->fYMax,
+                    if (4 != sscanf(lineBuffer, "%ld%f%f%f", &numTaxels, &xx->fXMax, &xx->fYMax,
                                     &xx->fRateMax))
                     {
                         LOG_ERROR_2(xx, OUTPUT_PREFIX "problem with mapping file, control line %d",
                                     static_cast<int>(lineCount))
                         okSoFar = false;
                     }
-                    xx->fNumTaxels = static_cast<short>(numTaxels);
+                    xx->fNumTaxels = numTaxels;
                     break;
                 }
+                
                 if (bufferLineEnd == bufferEnd)
                 {
                     /* No control line seen. */
@@ -512,7 +513,7 @@ bool mtcReadMapFile(MtcData * xx)
                                 break;
                             }
                         }
-                        if ((*bufferLineStart != '$') && (*bufferLineStart != '#'))
+                        if (('$' != *bufferLineStart) && ('#' != *bufferLineStart))
                         {
                             /* Ignore comments and control lines. Process a data line. */
                             lineSize = static_cast<size_t>(bufferLineEnd - (bufferLineStart + 1));
@@ -574,8 +575,8 @@ bool mtcReadMapFile(MtcData * xx)
                             }
                             aTaxel->fXCoord = xCoord;
                             aTaxel->fYCoord = yCoord;
-                            aTaxel->fXIndex = static_cast<short>(xIndex);
-                            aTaxel->fYIndex = static_cast<short>(yIndex);
+                            aTaxel->fXIndex = xIndex;
+                            aTaxel->fYIndex = yIndex;
                             aTaxel->fTaxelNumber = taxelCount;
                             aTaxel->fBottomTaxel = aTaxel->fLeftTaxel = sentinel;
                             aTaxel->fRightTaxel = aTaxel->fTopTaxel = sentinel;
@@ -614,7 +615,7 @@ bool mtcReadMapFile(MtcData * xx)
         if (aMatrix)
         {
             xx->fTaxelMatrix = aMatrix;
-            xx->fExpectedPackets = static_cast<short>(((xx->fMaxCol * xx->fMaxRow) + 7) / 8);
+            xx->fExpectedPackets = (((xx->fMaxCol * xx->fMaxRow) + 7) / 8);
             for (long ii = 0; ii < (xx->fMaxRow * xx->fMaxCol); ++ii, ++aMatrix)
             {
                 *aMatrix = xx->fSentinelTaxel;
@@ -689,7 +690,7 @@ bool mtcReadNormalizationFile(MtcData * xx)
                         break;
                     }
                 }
-                if (*bufferLineStart != '#')
+                if ('#' != *bufferLineStart)
                 {
                     /* Ignore comments. Process a data line. */
                     int rawMin;
@@ -701,7 +702,7 @@ bool mtcReadNormalizationFile(MtcData * xx)
                     }
                     strncpy(lineBuffer, bufferLineStart + 1, lineSize);
                     *(lineBuffer + lineSize) = 0;
-                    if (sscanf(lineBuffer, "%d%lf", &rawMin, &aTaxel->fScale) != 2)
+                    if (2 != sscanf(lineBuffer, "%d%lf", &rawMin, &aTaxel->fScale))
                     {
                         LOG_ERROR_2(xx, OUTPUT_PREFIX "problem with normalization file, data line "
                                     "%d", static_cast<int>(lineCount))
@@ -763,12 +764,11 @@ void mtcSetupIndices(MtcData * xx)
 //    MtcTaxelDesc * sentinel = xx->fSentinelTaxel;
 
     /* Fill in the data recovery table */
-    for (short ii = 0; ii < 256; ++ii)
+    for (short ii = 0; 256 > ii; ++ii)
     {
-        *(xx->fDataRecovery + ii) = static_cast<short>((ii < 200) ? ii :
-                                                       (200 + (((ii - 200) * 823) / 55)));
+        *(xx->fDataRecovery + ii) = ((200 > ii) ? ii : (200 + (((ii - 200) * 823) / 55)));
     }
-    if (xx->fMaxCol > 1)
+    if (1 < xx->fMaxCol)
     {
         deltaX = (xx->fXMaxActual - xx->fXMinActual) / (xx->fMaxCol - 1);
     }
@@ -776,7 +776,7 @@ void mtcSetupIndices(MtcData * xx)
     {
         deltaX = 1; /* for the lack of any better value! */
     }
-    if (xx->fMaxRow > 1)
+    if (1 < xx->fMaxRow)
     {
         deltaY = (xx->fYMaxActual - xx->fYMinActual) / (xx->fMaxRow - 1);
     }
@@ -969,20 +969,20 @@ void mtcSetupIndices(MtcData * xx)
 } // mtcSetupIndices
 
 /*------------------------------------ mtcSortByPressure ---*/
-static void mtcSortByPressure(MtcSpot *   spots,
-                              const short numSpots)
+static void mtcSortByPressure(MtcSpot *  spots,
+                              const long numSpots)
 {
     /* Note that we are guaranteed that the Atoms are all float values. */
     for (bool didSwap = true; didSwap; )
     {
         didSwap = false;
-        for (short ii = 0; ii < numSpots; ++ii)
+        for (long ii = 0; ii < numSpots; ++ii)
         {
             bool      swappedII = false;
             MtcSpot * atomII = spots + ii;
             float     iiValue = atomII->fPressure.a_w.w_float;
 
-            for (short jj = static_cast<short>(ii + 1); jj < numSpots; ++jj)
+            for (long jj = ii + 1; jj < numSpots; ++jj)
             {
                 MtcSpot * atomJJ = spots + jj;
 
@@ -1006,20 +1006,20 @@ static void mtcSortByPressure(MtcSpot *   spots,
 } // mtcSortByPressure
 
 /*------------------------------------ mtcSortByX ---*/
-static void mtcSortByX(MtcSpot *   spots,
-                       const short numSpots)
+static void mtcSortByX(MtcSpot *  spots,
+                       const long numSpots)
 {
     /* Note that we are guaranteed that the Atoms are all float values. */
     for (bool didSwap = true; didSwap; )
     {
         didSwap = false;
-        for (short ii = 0; ii < numSpots; ++ii)
+        for (long ii = 0; ii < numSpots; ++ii)
         {
             bool      swappedII = false;
             MtcSpot * atomII = spots + ii;
             float     iiValue = atomII->fXCoord.a_w.w_float;
 
-            for (short jj = static_cast<short>(ii + 1); jj < numSpots; ++jj)
+            for (long jj = ii + 1; jj < numSpots; ++jj)
             {
                 MtcSpot * atomJJ = spots + jj;
 
@@ -1043,20 +1043,20 @@ static void mtcSortByX(MtcSpot *   spots,
 } // mtcSortByX
 
 /*------------------------------------ mtcSortByY ---*/
-static void mtcSortByY(MtcSpot *   spots,
-                       const short numSpots)
+static void mtcSortByY(MtcSpot *  spots,
+                       const long numSpots)
 {
     /* Note that we are guaranteed that the Atoms are all float values. */
     for (bool didSwap = true; didSwap; )
     {
         didSwap = false;
-        for (short ii = 0; ii < numSpots; ++ii)
+        for (long ii = 0; ii < numSpots; ++ii)
         {
             bool      swappedII = false;
             MtcSpot * atomII = spots + ii;
             float     iiValue = atomII->fYCoord.a_w.w_float;
 
-            for (short jj = static_cast<short>(ii + 1); jj < numSpots; ++jj)
+            for (long jj = ii + 1; jj < numSpots; ++jj)
             {
                 MtcSpot * atomJJ = spots + jj;
 

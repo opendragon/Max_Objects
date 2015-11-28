@@ -40,8 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_Search ---*/
-void cmd_Search(LdpData * xx,
-                long      position)
+SEARCH_HEADER(LdpData)
 {
     if (xx)
     {
@@ -55,8 +54,8 @@ void cmd_Search(LdpData * xx,
         }
         else
         {
-            maxPosition = ((xx->fMode == kLdpModeChapter) ? MAX_CHAPTER_NUMBER : MAX_FRAME_NUMBER);
-            if ((position <= 0) || (position >= maxPosition))
+            maxPosition = ((kLdpModeChapter == xx->fMode) ? MAX_CHAPTER_NUMBER : MAX_FRAME_NUMBER);
+            if ((0 >= position) || (position >= maxPosition))
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "bad argument to command 'search'")
                 outlet_bang(xx->fErrorBangOut);
@@ -65,7 +64,7 @@ void cmd_Search(LdpData * xx,
             {
                 aCommand = kLdpCommandSearch;
             }
-            if (aCommand != kLdpNoCommand)
+            if (kLdpNoCommand != aCommand)
             {
                 short prevLock = lockout_set(1);
                 short numCommands = 8;
@@ -79,7 +78,7 @@ void cmd_Search(LdpData * xx,
                     ldpInitCommands(xx);
                     ldpAddCommand(xx, aCommand, kLdpStateAwaitingAck);
                     /* Set the target position */
-                    if (xx->fMode == kLdpModeFrame)
+                    if (kLdpModeFrame == xx->fMode)
                     {
                         ldpAddCommand(xx,
                                       static_cast<LdpCommandCode>(((position / 10000) % 10) + '0'),

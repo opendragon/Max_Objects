@@ -40,7 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_Still ---*/
-void cmd_Still(LdpData * xx)
+STILL_HEADER(LdpData)
 {
     if (xx)
     {

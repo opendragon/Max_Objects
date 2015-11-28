@@ -49,7 +49,7 @@ static void pfsmPerformTransition(PfsmData *       xx,
 {
     if (trans->fDollarCount || trans->fDoubleDollarCount || trans->fDollarStarCount)
     {
-        short    newSize;
+        long     newSize;
         t_atom * element = trans->fOutput;
         t_atom * pile = NULL;
         t_atom * target = NULL;
@@ -57,13 +57,12 @@ static void pfsmPerformTransition(PfsmData *       xx,
         /* We have a string of Atoms with one or more extras. */
         /* For each '$$', we add the number of additional elements, but remove one */
         /* t_atom for the '$$' itself. '$' entries don't affect the count. */
-        newSize = static_cast<short>(trans->fOutputCount + (trans->fDoubleDollarCount *
-                                                            (argc - 1)));
+        newSize = trans->fOutputCount + (trans->fDoubleDollarCount * (argc - 1));
         if (newSize)
         {
             target = pile = GET_BYTES(newSize, t_atom);
         }
-        for (short ii = 0; ii < trans->fOutputCount; ++ii, ++element)
+        for (long ii = 0; ii < trans->fOutputCount; ++ii, ++element)
         {
             if ((A_LONG == element->a_type) || (A_FLOAT == element->a_type))
             {
@@ -77,14 +76,14 @@ static void pfsmPerformTransition(PfsmData *       xx,
                 }
                 else if (element->a_w.w_sym == gDollarStarSymbol)
                 {
-                    A_SETSYM(target, trans->fNextState->fSymbol);
+                    atom_setsym(target, trans->fNextState->fSymbol);
                     ++target;
                 }
                 else if (element->a_w.w_sym == gDoubleDollarSymbol)
                 {
                     t_atom * walker = argv;
 
-                    for (short jj = 0; jj < argc; ++jj, ++target, ++walker)
+                    for (long jj = 0; jj < argc; ++jj, ++target, ++walker)
                     {
                         *target = *walker;
                     }

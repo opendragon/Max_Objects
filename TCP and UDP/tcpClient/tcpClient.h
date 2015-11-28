@@ -57,10 +57,15 @@ bool checkIpString(t_symbol * ipAddress,
                    short &    byte_2,
                    short &    byte_3);
 
-void cmd_Connect(TcpObjectData * xx);
+# define CONNECT_HEADER(type) \
+    void cmd_Connect(type * xx)
 
-void cmd_Server(TcpObjectData * xx,
-                t_symbol *      ipAddress);
+# define SERVER_HEADER(type) \
+    void cmd_Server(type *     xx,\
+                    t_symbol * ipAddress)
+
+CONNECT_HEADER(TcpObjectData);
+SERVER_HEADER(TcpObjectData);
 
 #if 0
 pascal void tcpClientNotifier(void *      context,

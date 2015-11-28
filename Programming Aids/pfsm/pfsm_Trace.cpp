@@ -40,8 +40,7 @@
 #include "pfsm.h"
 
 /*------------------------------------ cmd_Trace ---*/
-void cmd_Trace(PfsmData * xx,
-               t_symbol * onOff)
+TRACE_HEADER(PfsmData)
 {
     if (xx)
     {

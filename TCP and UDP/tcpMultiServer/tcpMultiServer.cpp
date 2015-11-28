@@ -124,7 +124,7 @@ static void * tcpMultiServerCreate(const long port,
             if (kOTNoError == result)
             {
                 xx->fServiceType = info.servtype;
-                xx->fAddressSize = static_cast<short>(info.addr);
+                xx->fAddressSize = info.addr;
             }
             else
             {
@@ -151,7 +151,7 @@ static void * tcpMultiServerCreate(const long port,
         if (okSoFar)
         {
             WRAP_OT_CALL(xx, result, "OTSetAsynchronous", OTSetAsynchronous(xx->fListenEndpoint))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTSetAsynchronous failed (%ld = %s)", result)
                 reportEndpointState(xx, xx->fListenEndpoint);
@@ -161,7 +161,7 @@ static void * tcpMultiServerCreate(const long port,
         if (okSoFar)
         {
             WRAP_OT_CALL(xx, result, "OTSetBlocking", OTSetBlocking(xx->fListenEndpoint))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTSetBlocking failed (%ld = %s)", result)
                 reportEndpointState(xx, xx->fListenEndpoint);
@@ -173,7 +173,7 @@ static void * tcpMultiServerCreate(const long port,
             WRAP_OT_CALL(xx, result, "OTInstallNotifier",
                          OTInstallNotifier(xx->fListenEndpoint, xx->fListenNotifier,
                                            xx))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTInstallNotifier failed (%ld = %s)", result)
                 reportEndpointState(xx, xx->fListenEndpoint);
@@ -212,13 +212,13 @@ static void tcpMultiServerFree(TcpMultiServerData * xx)
         for (unsigned short ii = 0; ii < xx->fMaximumConnections; ++ii)
         {
             connection = *(xx->fConnections + ii);
-            if (connection && (connection->fDataEndpoint != kOTInvalidEndpointRef) &&
+            if (connection && (kOTInvalidEndpointRef != connection->fDataEndpoint) &&
                 connection->fActive)
             {
                 tcpMultiServerDisconnect(xx, connection, true);
             }
         }
-        if (xx->fListenEndpoint != kOTInvalidEndpointRef)
+        if (kOTInvalidEndpointRef != xx->fListenEndpoint)
         {
             switch (xx->fState)
             {
@@ -231,7 +231,7 @@ static void tcpMultiServerFree(TcpMultiServerData * xx)
                     
                 case kTcpStateBound:
                     WRAP_OT_CALL(xx, result, "OTUnbind", OTUnbind(xx->fListenEndpoint))
-                    if (result != kOTNoError)
+                    if (kOTNoError != result)
                     {
                         REPORT_ERROR(xx, OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
                         reportEndpointState(xx, xx->fListenEndpoint);
@@ -363,7 +363,7 @@ static bool tcpMultiServerConstructConnections(TcpMultiServerData * xx)
         {
             WRAP_OT_CALL(xx, result, "OTSetAsynchronous",
                          OTSetAsynchronous(a_connection->fDataEndpoint))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTSetAsynchronous failed (%ld = %s)", result)
                 reportEndpointState(xx, a_connection->fDataEndpoint);
@@ -373,7 +373,7 @@ static bool tcpMultiServerConstructConnections(TcpMultiServerData * xx)
         if (okSoFar)
         {
             WRAP_OT_CALL(xx, result, "OTSetBlocking", OTSetBlocking(a_connection->fDataEndpoint))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTSetBlocking failed (%ld = %s)", result)
                 reportEndpointState(xx, a_connection->fDataEndpoint);
@@ -385,7 +385,7 @@ static bool tcpMultiServerConstructConnections(TcpMultiServerData * xx)
             WRAP_OT_CALL(xx, result, "OTInstallNotifier",
                          OTInstallNotifier(a_connection->fDataEndpoint,
                                            xx->fDataNotifier, a_connection))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTInstallNotifier failed (%ld = %s)", result)
                 reportEndpointState(xx, a_connection->fDataEndpoint);
@@ -400,7 +400,7 @@ static bool tcpMultiServerConstructConnections(TcpMultiServerData * xx)
         a_connection = reinterpret_cast<TcpConnectionData *>(ADD_TO_ADDRESS(a_connection,
                                                                         sizeof(TcpConnectionData)));
     }
-    if ((data_config != kOTInvalidConfigurationPtr) && (data_config != kOTNoMemoryConfigurationPtr))
+    if ((kOTInvalidConfigurationPtr != data_config) && (kOTNoMemoryConfigurationPtr != data_config))
     {
         OTDestroyConfiguration(data_config);
     }
@@ -429,7 +429,7 @@ bool tcpMultiServerSetPort(TcpMultiServerData * xx,
 
             case kTcpStateBound:
                 WRAP_OT_CALL(xx, result, "OTUnbind", OTUnbind(xx->fListenEndpoint))
-                if (result != kOTNoError)
+                if (kOTNoError != result)
                 {
                     REPORT_ERROR(xx, OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
                     reportEndpointState(xx, xx->fListenEndpoint);
@@ -458,7 +458,7 @@ bool tcpMultiServerSetPort(TcpMultiServerData * xx,
             bind_request.addr.buf = reinterpret_cast<unsigned char *>(&in_address);
             bind_request.qlen = 1;
             WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fListenEndpoint, &bind_request, NULL))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
                 reportEndpointState(xx, xx->fListenEndpoint);
@@ -568,7 +568,7 @@ TcpConnectionData * tcpMultiServerValidateClient(TcpMultiServerData * xx,
 {
     TcpConnectionData * candidate = NULL;
 
-    if ((client > 0) && (client <= xx->fMaximumConnections))
+    if ((0 < client) && (client <= xx->fMaximumConnections))
     {
         candidate = *(xx->fConnections + client - 1);
     }

@@ -40,7 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_Continue ---*/
-void cmd_Continue(LdpData * xx)
+CONTINUE_HEADER(LdpData)
 {
     if (xx)
     {

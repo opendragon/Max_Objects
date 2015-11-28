@@ -40,8 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_Show ---*/
-void cmd_Show(LdpData *  xx,
-              t_symbol * onOff)
+SHOW_HEADER(LdpData)
 {
     if (xx)
     {
@@ -65,7 +64,7 @@ void cmd_Show(LdpData *  xx,
             LOG_ERROR_1(xx, OUTPUT_PREFIX "bad argument to command 'show'")
             outlet_bang(xx->fErrorBangOut);
         }
-        if (aCommand != kLdpNoCommand)
+        if (kLdpNoCommand != aCommand)
         {
             short prevLock = lockout_set(1);
 

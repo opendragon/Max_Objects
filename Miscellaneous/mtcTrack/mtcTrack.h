@@ -86,24 +86,30 @@ struct MtcTrackData
     double *          fActDistances;
     double            fThreshold;
     t_atom_long       fBatchNumber;
-    short             fHowMany;
-    short             fMaxSamples;
-    short             fRetainedCount;
-    short             fSampleCount;
+    long              fHowMany;
+    long              fMaxSamples;
+    long              fRetainedCount;
+    long              fSampleCount;
     bool              fAddBatchNumber;
     bool              fAddIndex;
 }; // MtcTrackData
 
-void cmd_Batch(MtcTrackData * xx,
-               t_symbol *     onOff);
+# define BATCH_HEADER(type) \
+    void cmd_Batch(type *     xx,\
+                   t_symbol * onOff)
 
+# define INDEX_HEADER(type) \
+    void cmd_Index(type *     xx,\
+                   t_symbol * onOff)
+
+# define THRESHOLD_HEADER(type) \
+    void cmd_Threshold(type *       xx,\
+                       const double num)
+
+BATCH_HEADER(MtcTrackData);
 CLEAR_HEADER(MtcTrackData);
-
-void cmd_Index(MtcTrackData * xx,
-               t_symbol *     onOff);
-
-void cmd_Threshold(MtcTrackData * xx,
-                   double         num);
+INDEX_HEADER(MtcTrackData);
+THRESHOLD_HEADER(MtcTrackData);
 
 StandardRoutineDeclarations(MtcTrackData);
 

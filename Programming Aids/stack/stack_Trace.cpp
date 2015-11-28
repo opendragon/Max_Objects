@@ -40,8 +40,7 @@
 #include "stack.h"
 
 /*------------------------------------ cmd_Trace ---*/
-void cmd_Trace(StackData * xx,
-               t_symbol *  onOff)
+TRACE_HEADER(StackData)
 {
     if (xx)
     {

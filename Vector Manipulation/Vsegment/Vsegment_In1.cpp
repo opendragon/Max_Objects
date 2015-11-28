@@ -45,6 +45,6 @@ IN1_HEADER(VsegmentData)
     /* We've received a number. */
     if (xx)
     {
-        xx->fStart = static_cast<short>(msg);
+        xx->fStart = msg;
     }
 } // cmd_In1

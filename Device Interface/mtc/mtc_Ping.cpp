@@ -40,7 +40,7 @@
 #include "mtc.h"
 
 /*------------------------------------ cmd_Ping ---*/
-void cmd_Ping(MtcData * xx)
+PING_HEADER(MtcData)
 {
     if (xx)
     {

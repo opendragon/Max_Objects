@@ -40,8 +40,7 @@
 #include "pfsm.h"
 
 /*------------------------------------ cmd_Goto ---*/
-void cmd_Goto(PfsmData * xx,
-              t_symbol * stateName)
+GOTO_HEADER(PfsmData)
 {
     if (xx)
     {

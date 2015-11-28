@@ -40,8 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_Mode ---*/
-void cmd_Mode(LdpData *  xx,
-              t_symbol * mode)
+MODE_HEADER(LdpData)
 {
     if (xx)
     {
@@ -67,7 +66,7 @@ void cmd_Mode(LdpData *  xx,
             LOG_ERROR_1(xx, OUTPUT_PREFIX "bad argument to command 'mode'")
             outlet_bang(xx->fErrorBangOut);
         }
-        if (aCommand != kLdpNoCommand)
+        if (kLdpNoCommand != aCommand)
         {
             short prevLock = lockout_set(1);
 

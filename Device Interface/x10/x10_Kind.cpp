@@ -40,8 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_Kind ---*/
-void cmd_Kind(X10ControlData * xx,
-              t_symbol *       kind)
+KIND_HEADER(X10ControlData)
 {
     if (kind == gCM11Symbol)
     {

@@ -45,12 +45,12 @@ REPLACE_HEADER(Map1dData)
 #pragma unused(message)
     if (xx && (1 < argc))
     {
-        short num;
+        t_atom_long num;
         
         switch (argv->a_type)
         {
             case A_LONG:
-                num = static_cast<short>(argv->a_w.w_long);
+                num = argv->a_w.w_long;
                 if ((0 < num) && (num <= xx->fRangeCount))
                 {
                     RangeData * newRange = map1dConvertListToRange(xx, 1, argc, argv);

@@ -84,14 +84,14 @@ void spaceballProcessPacket(SpaceballData * xx)
                         xx->fRot[1] += SIGN_EXTEND(ry);
                         xx->fRot[2] += SIGN_EXTEND(rz);
                     }
-                    for (short ii = 0; ii < 3; ++ii)
+                    for (short ii = 0; 3 > ii; ++ii)
                     {
-                        A_SETFLOAT(report + ii, xx->fTrans[ii]);
+                        atom_setfloat(report + ii, xx->fTrans[ii]);
                     }
                     outlet_anything(xx->fDataOut, gTranslateSymbol, 3, report);
-                    for (short ii = 0; ii < 3; ++ii)
+                    for (short ii = 0; 3 > ii; ++ii)
                     {
-                        A_SETFLOAT(report + ii, xx->fRot[ii]);
+                        atom_setfloat(report + ii, xx->fRot[ii]);
                     }
                     outlet_anything(xx->fDataOut, gRotateSymbol, 3, report);
                 }
@@ -114,14 +114,14 @@ void spaceballProcessPacket(SpaceballData * xx)
                         {
                             t_atom report[2];
 
-                            A_SETLONG(report, ii + 1);
+                            atom_setlong(report, ii + 1);
                             if (newButtons & mask)
                             {
-                                A_SETLONG(report + 1, 1);
+                                atom_setlong(report + 1, 1);
                             }
                             else
                             {
-                                A_SETLONG(report + 1, 0);
+                                atom_setlong(report + 1, 0);
                             }
                             outlet_anything(xx->fDataOut, gButtonSymbol, 2, report);
                             buttonChanges &= ~ mask;

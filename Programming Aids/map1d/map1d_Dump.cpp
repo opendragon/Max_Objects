@@ -48,49 +48,49 @@ DUMP_HEADER(Map1dData)
 
         for (t_atom_long ii = 1; walker; walker = walker->fNext, ++ii)
         {
-            short    lowerUpper = static_cast<short>(walker->fLowerUpperDontCare ? 1 : 4);
-            short    outSize = static_cast<short>(walker->fOutputCount + lowerUpper + 1);
+            long     lowerUpper = (walker->fLowerUpperDontCare ? 1 : 4);
+            long     outSize = walker->fOutputCount + lowerUpper + 1;
             t_atom * newList = GET_BYTES(outSize, t_atom);
 
             if (newList)
             {
-                A_SETLONG(newList, ii);
+                atom_setlong(newList, ii);
                 if (walker->fLowerUpperDontCare)
                 {
-                    A_SETSYM(newList + 1, gAsteriskSymbol);
+                    atom_setsym(newList + 1, gAsteriskSymbol);
                 }
                 else
                 {
-                    A_SETSYM(newList + 1, walker->fLower.fIsClosed ? gOpenSquareSymbol :
+                    atom_setsym(newList + 1, walker->fLower.fIsClosed ? gOpenSquareSymbol :
                              gOpenRoundSymbol);
                     if (MatchInfinity == walker->fLower.fKind)
                     {
-                        A_SETSYM(newList + 2, gNegInfSymbol1);
+                        atom_setsym(newList + 2, gNegInfSymbol1);
                     }
                     else if (MatchFloat == walker->fLower.fKind)
                     {
-                        A_SETFLOAT(newList + 2, getFOIFloat(walker->fLower.fValue));
+                        atom_setfloat(newList + 2, getFOIFloat(walker->fLower.fValue));
                     }
                     else
                     {
-                        A_SETLONG(newList + 2, getFOILong(walker->fLower.fValue));
+                        atom_setlong(newList + 2, getFOILong(walker->fLower.fValue));
                     }
                     if (MatchInfinity == walker->fUpper.fKind)
                     {
-                        A_SETSYM(newList + 3, gPosInfSymbol1);
+                        atom_setsym(newList + 3, gPosInfSymbol1);
                     }
                     else if (MatchFloat == walker->fUpper.fKind)
                     {
-                        A_SETFLOAT(newList + 3, getFOIFloat(walker->fUpper.fValue));
+                        atom_setfloat(newList + 3, getFOIFloat(walker->fUpper.fValue));
                     }
                     else
                     {
-                        A_SETLONG(newList + 3, getFOILong(walker->fUpper.fValue));
+                        atom_setlong(newList + 3, getFOILong(walker->fUpper.fValue));
                     }
-                    A_SETSYM(newList + 4, walker->fUpper.fIsClosed ? gCloseSquareSymbol :
+                    atom_setsym(newList + 4, walker->fUpper.fIsClosed ? gCloseSquareSymbol :
                              gCloseRoundSymbol);
                 }
-                for (short jj = 0; jj < walker->fOutputCount; ++jj)
+                for (long jj = 0; jj < walker->fOutputCount; ++jj)
                 {
                     *(newList + jj + lowerUpper + 1) = *(walker->fOutput + jj);
                 }

@@ -40,8 +40,7 @@
 #include "udpPort.h"
 
 /*------------------------------------ cmd_Port ---*/
-void cmd_Port(UdpObjectData * xx,
-              long            number)
+PORT_HEADER(UdpObjectData)
 {
     REPORT_MAX_MESSAGE("port")
     if (xx)

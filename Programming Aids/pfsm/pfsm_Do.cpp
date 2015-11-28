@@ -40,17 +40,14 @@
 #include "pfsm.h"
 
 /*------------------------------------ cmd_Do ---*/
-void cmd_Do(PfsmData * xx,
-            t_symbol * message,
-            short      argc,
-            t_atom *   argv)
+DO_HEADER(PfsmData)
 {
 #pragma unused(message)
     if (xx)
     {
         if (argc)
         {
-            pfsmProcessData(xx, argv, static_cast<short>(argc - 1), argv + 1);
+            pfsmProcessData(xx, argv, argc - 1, argv + 1);
         }
         else
         {

@@ -48,7 +48,7 @@ SET_HEADER(Map1dData)
         if (3 == argc)
         {
             t_atom *       next = argv;
-            long           slot;
+            t_atom_long    slot;
             bool           okSoFar = false;
             bool           infPositive = true;
             t_symbol *     which = NULL;
@@ -105,11 +105,11 @@ SET_HEADER(Map1dData)
                         
                 }
                 ++next;
-                if (which && (slot > 0) && (slot <= xx->fRangeCount))
+                if (which && (0 < slot) && (slot <= xx->fRangeCount))
                 {
                     RangeData * walker = xx->fFirstRange;
 
-                    for (long ii = 1; walker && (ii < slot); ++ii)
+                    for (t_atom_long ii = 1; walker && (ii < slot); ++ii)
                     {
                         walker = walker->fNext;
                     }

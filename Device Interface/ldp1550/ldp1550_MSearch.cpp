@@ -40,7 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_MSearch ---*/
-void cmd_MSearch(LdpData * xx)
+MSEARCH_HEADER(LdpData)
 {
     if (xx)
     {

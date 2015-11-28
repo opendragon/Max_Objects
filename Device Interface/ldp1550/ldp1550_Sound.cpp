@@ -40,9 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_Sound ---*/
-void cmd_Sound(LdpData *  xx,
-               long       chan,
-               t_symbol * onOff)
+SOUND_HEADER(LdpData)
 {
     if (xx)
     {
@@ -53,7 +51,7 @@ void cmd_Sound(LdpData *  xx,
             LOG_ERROR_1(xx, OUTPUT_PREFIX "attempt to send 'sound' command while busy")
             outlet_bang(xx->fErrorBangOut);
         }
-        else if ((chan != 1) && (chan != 2))
+        else if ((1 != chan) && (2 != chan))
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "bad argument to command 'sound'")
             outlet_bang(xx->fErrorBangOut);
@@ -71,7 +69,7 @@ void cmd_Sound(LdpData *  xx,
             LOG_ERROR_1(xx, OUTPUT_PREFIX "bad argument to command 'sound'")
             outlet_bang(xx->fErrorBangOut);
         }
-        if (aCommand != kLdpNoCommand)
+        if (kLdpNoCommand != aCommand)
         {
             short prevLock = lockout_set(1);
 

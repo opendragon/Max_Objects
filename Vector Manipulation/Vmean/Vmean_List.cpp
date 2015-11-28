@@ -51,7 +51,7 @@ LIST_HEADER(VmeanData)
         if (OP_Arithmetic == xx->fOperation)
         {
             result = 0;
-            for (short ii = 0; okSoFar && (ii < argc); ++ii)
+            for (long ii = 0; okSoFar && (ii < argc); ++ii)
             {
                 switch (argv[ii].a_type)
                 {
@@ -85,7 +85,7 @@ LIST_HEADER(VmeanData)
         else if (OP_Geometric == xx->fOperation)
         {
             result = 1;
-            for (short ii = 0; okSoFar && (ii < argc); ++ii)
+            for (long ii = 0; okSoFar && (ii < argc); ++ii)
             {
                 switch (argv[ii].a_type)
                 {
@@ -148,7 +148,7 @@ LIST_HEADER(VmeanData)
         else if (OP_Harmonic == xx->fOperation)
         {
             result = 0;
-            for (short ii = 0; okSoFar && (ii < argc); ++ii)
+            for (long ii = 0; okSoFar && (ii < argc); ++ii)
             {
                 switch (argv[ii].a_type)
                 {

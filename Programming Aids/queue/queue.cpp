@@ -49,7 +49,7 @@ static void * queueCreate(const long depth)
     
     if (xx)
     {
-        if (depth >= 0)
+        if (0 >= depth)
         {
             xx->fVerbose = false;
             xx->fMaxDepth = depth;

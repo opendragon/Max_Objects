@@ -40,7 +40,7 @@
 #include "queue.h"
 
 /*------------------------------------ cmd_Pull ---*/
-void cmd_Pull(QueueData * xx)
+PULL_HEADER(QueueData)
 {
     if (xx)
     {

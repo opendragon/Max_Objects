@@ -127,7 +127,7 @@ int main(void)
 /*------------------------------------ collectAddAtoms ---*/
 void collectAddAtoms(VcollectData * xx,
                      t_atom *       atoms,
-                     const short    count)
+                     const long     count)
 {
     if (xx->fCollecting && (0 < count))
     {
@@ -149,9 +149,9 @@ void collectAddAtoms(VcollectData * xx,
         }
         if (xx->fLastChunk)
         {
-            short          offset = 0;
-            short          thisMove;
-            short          workingCount = count;
+            long           offset = 0;
+            long           thisMove;
+            long           workingCount = count;
             CollectChunk * outWalk = xx->fLastChunk;
 
             for ( ; 0 < workingCount; )
@@ -167,7 +167,7 @@ void collectAddAtoms(VcollectData * xx,
                 }
 
                 /* There will be an overflow */
-                thisMove = static_cast<short>(CHUNK_SIZE - lastCount);
+                thisMove = CHUNK_SIZE - lastCount;
                 memcpy(&outWalk->fAtoms[lastCount], atoms + offset, thisMove * sizeof(t_atom));
                 workingCount -= thisMove;
                 offset += thisMove;

@@ -40,8 +40,7 @@
 #include "mtc.h"
 
 /*------------------------------------ cmd_Train ---*/
-void cmd_Train(MtcData *  xx,
-               t_symbol * startStop)
+TRAIN_HEADER(MtcData)
 {
     if (xx)
     {

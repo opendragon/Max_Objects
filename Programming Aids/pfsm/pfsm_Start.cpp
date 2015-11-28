@@ -40,7 +40,7 @@
 #include "pfsm.h"
 
 /*------------------------------------ cmd_Start ---*/
-void cmd_Start(PfsmData * xx)
+START_HEADER(PfsmData)
 {
     if (xx)
     {

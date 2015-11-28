@@ -40,8 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_PSCEnable ---*/
-void cmd_PSCEnable(LdpData *  xx,
-                   t_symbol * onOff)
+PSCENABLE_HEADER(LdpData)
 {
     if (xx)
     {
@@ -65,7 +64,7 @@ void cmd_PSCEnable(LdpData *  xx,
             LOG_ERROR_1(xx, OUTPUT_PREFIX "bad argument to command 'pscenable'")
             outlet_bang(xx->fErrorBangOut);
         }
-        if (aCommand != kLdpNoCommand)
+        if (kLdpNoCommand != aCommand)
         {
             short prevLock = lockout_set(1);
 

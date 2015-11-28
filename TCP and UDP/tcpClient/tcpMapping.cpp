@@ -45,7 +45,7 @@ const char * describeEndpointState(EndpointRef anEndpoint)
 {
     const char * result = "Invalid";
 
-    if (anEndpoint != kOTInvalidEndpointRef)
+    if (kOTInvalidEndpointRef != anEndpoint)
     {
         switch (OTGetEndpointState(anEndpoint))
         {

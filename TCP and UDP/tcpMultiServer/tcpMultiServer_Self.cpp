@@ -40,7 +40,7 @@
 #include "tcpMultiServer.h"
 
 /*------------------------------------ cmd_Self ---*/
-void cmd_Self(TcpMultiServerData * xx)
+SELF_HEADER(TcpMultiServerData)
 {
     REPORT_MAX_MESSAGE("self");
     if (xx)
@@ -69,7 +69,7 @@ void cmd_Self(TcpMultiServerData * xx)
         }
         if (xx->fSelfName)
         {
-            A_SETSYM(response, xx->fSelfName);
+            atom_setsym(response, xx->fSelfName);
             outlet_anything(xx->fResultOut, gSelfSymbol, 1, response);
         }
     }

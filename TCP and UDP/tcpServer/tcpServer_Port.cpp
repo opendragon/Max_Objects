@@ -40,8 +40,7 @@
 #include "tcpServer.h"
 
 /*------------------------------------ cmd_Port ---*/
-void cmd_Port(TcpObjectData * xx,
-              long            number)
+PORT_HEADER(TcpObjectData)
 {
     REPORT_MAX_MESSAGE("port")
     if (xx)

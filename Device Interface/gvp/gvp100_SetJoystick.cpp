@@ -40,9 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_SetJoystick ---*/
-void cmd_SetJoystick(GvpData * xx,
-                     double    horiz,
-                     double    vert)
+SETJOYSTICK_HEADER(GvpData)
 {
     if (xx)
     {

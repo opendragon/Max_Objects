@@ -87,18 +87,18 @@ void clearDataBuffer(DataBuffer * aBuffer);
 t_atom * convertBufferToAtoms(void *               xx,
                               const char *         name,
                               t_handle             aBuffer,
-                              short &              numAtoms,
+                              long &               numAtoms,
                               const unsigned short indexToAdd,
-                              const short          numBytes,
+                              const long           numBytes,
                               const bool           rawMode);
 
 void copyDataBuffer(DataBuffer *       outBuffer,
                     const DataBuffer * inBuffer);
 
-short validateBuffer(void *       xx,
-                     const char * name,
-                     DataBuffer * aBuffer,
-                     const bool   rawMode);
+long validateBuffer(void *       xx,
+                    const char * name,
+                    DataBuffer * aBuffer,
+                    const bool   rawMode);
 
 mextern(t_symbol *) gDollarSymbol; /* Pointer to unique symbol for '$' */
 

@@ -40,7 +40,7 @@
 #include "tcpServer.h"
 
 /*------------------------------------ cmd_Status ---*/
-void cmd_Status(TcpObjectData * xx)
+STATUS_HEADER(TcpObjectData)
 {
     if (xx)
     {
@@ -48,7 +48,7 @@ void cmd_Status(TcpObjectData * xx)
         t_atom     response[5];
         short      resp_length = 1;
 
-        A_SETSYM(response, sym_state);
+        atom_setsym(response, sym_state);
         if (kTcpStateConnected == xx->fState)
         {
             if (! xx->fPartnerName)
@@ -85,16 +85,16 @@ void cmd_Status(TcpObjectData * xx)
             }
             if (xx->fPartnerName)
             {
-                A_SETSYM(response + 1, xx->fPartnerName);
-                A_SETLONG(response + 2, xx->fClientPort);
-                A_SETLONG(response + 3, xx->fServerPort);
-                A_SETSYM(response + 4, xx->fRawMode ? gRawSymbol : gMaxSymbol);
+                atom_setsym(response + 1, xx->fPartnerName);
+                atom_setlong(response + 2, xx->fClientPort);
+                atom_setlong(response + 3, xx->fServerPort);
+                atom_setsym(response + 4, xx->fRawMode ? gRawSymbol : gMaxSymbol);
                 resp_length += 4;
             }
         }
         else
         {
-            A_SETLONG(response + 1, xx->fServerPort);
+            atom_setlong(response + 1, xx->fServerPort);
             ++resp_length;
         }
         outlet_anything(xx->fResultOut, gStatusSymbol, resp_length, response);

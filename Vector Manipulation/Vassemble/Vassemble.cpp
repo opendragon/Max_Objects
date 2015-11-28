@@ -130,13 +130,13 @@ void processInput(VObjectData * xx,
 
             if (result)
             {
-                short offset = 0;
+                long offset = 0;
 
                 for (ChunkData * walker = xx->fChunkList; walker; walker = walker->fNext)
                 {
-                    for (short index = 0; index < walker->fLastEntry; ++index, ++offset)
+                    for (long index = 0; index < walker->fLastEntry; ++index, ++offset)
                     {
-                        A_SETLONG(result + offset, walker->fData[index]);
+                        atom_setlong(result + offset, walker->fData[index]);
                     }
                 }
                 genericListOutput(xx->fResultOut, xx->fPreviousLength, result);
@@ -153,7 +153,7 @@ void processInput(VObjectData * xx,
     else if (xx->fLastChunk)
     {
         workChunk = xx->fLastChunk;
-        short index = workChunk->fLastEntry;
+        long index = workChunk->fLastEntry;
 
         if (CHUNK_SIZE == index)
         {
@@ -170,7 +170,7 @@ void processInput(VObjectData * xx,
         else
         {
             workChunk->fData[index] = value;
-            workChunk->fLastEntry = static_cast<short>(index + 1);
+            workChunk->fLastEntry = index + 1;
         }
         ++xx->fPreviousLength;
     }

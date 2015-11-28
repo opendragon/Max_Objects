@@ -40,7 +40,7 @@
 #include "tcpClient.h"
 
 /*------------------------------------ cmd_Self ---*/
-void cmd_Self(TcpObjectData * xx)
+SELF_HEADER(TcpObjectData)
 {
     REPORT_MAX_MESSAGE("self");
     if (xx)
@@ -69,7 +69,7 @@ void cmd_Self(TcpObjectData * xx)
         }
         if (xx->fSelfName)
         {
-            A_SETSYM(response, xx->fSelfName);
+            atom_setsym(response, xx->fSelfName);
             outlet_anything(xx->fResultOut, gSelfSymbol, 1, response);
         }
     }

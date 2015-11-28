@@ -74,7 +74,7 @@ FLOAT_HEADER(VscanData)
                     newArg = GET_BYTES(1, t_atom);
                     if (newArg)
                     {
-                        A_SETFLOAT(newArg, TO_DBL(msg));
+                        atom_setfloat(newArg, TO_DBL(msg));
                     }
                     break;
 
@@ -83,7 +83,7 @@ FLOAT_HEADER(VscanData)
                     newArg = GET_BYTES(1, t_atom);
                     if (newArg)
                     {
-                        A_SETLONG(newArg, (msg ? 1 : 0));
+                        atom_setlong(newArg, (msg ? 1 : 0));
                     }
                     break;
 

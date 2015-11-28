@@ -55,11 +55,11 @@ static bool collectSamples(MtcTrackData * xx,
     }
     if (okSoFar)
     {
-        short           count = static_cast<short>(argc / 3);
+        long            count = (argc / 3);
         MtcSampleData * sWalk = xx->fSamples;
         t_atom *        aWalk = argv;
 
-        for (short ii = 0; ii < xx->fMaxSamples; ++ii)
+        for (long ii = 0; ii < xx->fMaxSamples; ++ii)
         {
             xx->fSamples[ii].fAvailable = false;
         }
@@ -67,7 +67,7 @@ static bool collectSamples(MtcTrackData * xx,
         {
             count = xx->fMaxSamples;
         }
-        for (short ii = 0; okSoFar && (ii < count); ++ii)
+        for (long ii = 0; okSoFar && (ii < count); ++ii)
         {
             switch (aWalk->a_type)
             {
@@ -167,14 +167,14 @@ static void calculateDistances(MtcTrackData * xx)
 {
     MtcSampleData * sWalk = xx->fSamples;
 
-    for (short ii = 0; ii < xx->fSampleCount; ++ii, ++sWalk)
+    for (long ii = 0; ii < xx->fSampleCount; ++ii, ++sWalk)
     {
         double *          actPtr = sWalk->fActDistance;
         double            thisX = sWalk->fThisX;
         double            thisY = sWalk->fThisY;
         MtcRetainedData * rWalk = xx->fRetainedData;
 
-        for (short jj = 0; jj < xx->fRetainedCount; ++jj, ++rWalk, ++actPtr)
+        for (long jj = 0; jj < xx->fRetainedCount; ++jj, ++rWalk, ++actPtr)
         {
             if (rWalk->fValid)
             {
@@ -194,25 +194,25 @@ static void assignSamples(MtcTrackData * xx)
 {
     MtcRetainedData * rWalk = xx->fRetainedData;
     MtcSampleData *   sWalk;
-    short             rest = xx->fSampleCount;
-    short             oldCount = xx->fRetainedCount;
-    short             newCount = 0;
+    long              rest = xx->fSampleCount;
+    long              oldCount = xx->fRetainedCount;
+    long              newCount = 0;
 
-    for (short ii = 0; ii < oldCount; ++ii, ++rWalk)
+    for (long ii = 0; ii < oldCount; ++ii, ++rWalk)
     {
         /* Match the current set of retained points */
         double currBest = -1;
-        short  currMatch = -1;
+        long   currMatch = -1;
 
         sWalk = xx->fSamples;
-        for (short jj = 0; jj < xx->fSampleCount; ++jj, ++sWalk)
+        for (long jj = 0; jj < xx->fSampleCount; ++jj, ++sWalk)
         {
             if (sWalk->fAvailable)
             {
                 /* Note that the distances are always positive */
                 double thisDistance = *(sWalk->fActDistance + ii);
 
-                if (currBest >= 0)
+                if (0 <= currBest)
                 {
                     if (thisDistance < currBest)
                     {
@@ -220,7 +220,7 @@ static void assignSamples(MtcTrackData * xx)
                         currMatch = jj;
                     }
                 }
-                else if ((xx->fThreshold <= 0) || (thisDistance <= xx->fThreshold))
+                else if ((0 >= xx->fThreshold) || (thisDistance <= xx->fThreshold))
                 {
                     /* Only select this candidate if it's within the threshold, or */
                     /* we're not using a threshold. */
@@ -229,7 +229,7 @@ static void assignSamples(MtcTrackData * xx)
                 }
             }
         }
-        if (currBest >= 0)
+        if (0 <= currBest)
         {
             sWalk = xx->fSamples + currMatch;
             sWalk->fAvailable = false;
@@ -256,7 +256,7 @@ static void assignSamples(MtcTrackData * xx)
         MtcRetainedData * outRetPtr = xx->fRetainedData;
 
         rWalk = xx->fRetainedData;
-        for (short ii = 0; ii < newCount; ++ii, ++rWalk)
+        for (long ii = 0; ii < newCount; ++ii, ++rWalk)
         {
             if (rWalk->fValid)
             {
@@ -269,11 +269,11 @@ static void assignSamples(MtcTrackData * xx)
         }
     }
     /* Check if we have samples left over: */
-    if (rest > 0)
+    if (0 < rest)
     {
         rWalk = xx->fRetainedData + newCount;
         sWalk = xx->fSamples;
-        for (short jj = 0; rest && (jj < xx->fSampleCount); ++jj, ++sWalk)
+        for (long jj = 0; rest && (jj < xx->fSampleCount); ++jj, ++sWalk)
         {
             if (sWalk->fAvailable)
             {
@@ -297,9 +297,9 @@ static void assignSamples(MtcTrackData * xx)
 static void generateOutput(MtcTrackData * xx)
 {
     t_atom            resultVector[8];
-    short             outCount = xx->fRetainedCount;
-    short             offset = 0;
-    short             resultSize = (sizeof(resultVector) / sizeof(*resultVector));
+    long              outCount = xx->fRetainedCount;
+    long              offset = 0;
+    long              resultSize = (sizeof(resultVector) / sizeof(*resultVector));
     MtcRetainedData * rWalk = xx->fRetainedData;
 
     if (xx->fAddBatchNumber)
@@ -319,26 +319,26 @@ static void generateOutput(MtcTrackData * xx)
         --resultSize;
     }
     outlet_int(xx->fPointCountOut, TO_INT(outCount));
-    for (short ii = 0; ii < outCount; ++ii, ++rWalk)
+    for (long ii = 0; ii < outCount; ++ii, ++rWalk)
     {
         if (xx->fAddBatchNumber)
         {
-            A_SETLONG(resultVector, xx->fBatchNumber);
+            atom_setlong(resultVector, xx->fBatchNumber);
             if (xx->fAddIndex)
             {
-                A_SETLONG(resultVector + 1, TO_INT(ii));
+                atom_setlong(resultVector + 1, TO_INT(ii));
             }
         }
         else if (xx->fAddIndex)
         {
-            A_SETLONG(resultVector, TO_INT(ii));
+            atom_setlong(resultVector, TO_INT(ii));
         }
-        A_SETFLOAT(resultVector + offset, TO_DBL(rWalk->fLastX));
-        A_SETFLOAT(resultVector + offset + 1, TO_DBL(rWalk->fLastY));
-        A_SETFLOAT(resultVector + offset + 2, TO_DBL(rWalk->fNewX));
-        A_SETFLOAT(resultVector + offset + 3, TO_DBL(rWalk->fNewY));
-        A_SETFLOAT(resultVector + offset + 4, TO_DBL(rWalk->fVelocity));
-        A_SETFLOAT(resultVector + offset + 5, TO_DBL(rWalk->fForce));
+        atom_setfloat(resultVector + offset, TO_DBL(rWalk->fLastX));
+        atom_setfloat(resultVector + offset + 1, TO_DBL(rWalk->fLastY));
+        atom_setfloat(resultVector + offset + 2, TO_DBL(rWalk->fNewX));
+        atom_setfloat(resultVector + offset + 3, TO_DBL(rWalk->fNewY));
+        atom_setfloat(resultVector + offset + 4, TO_DBL(rWalk->fVelocity));
+        atom_setfloat(resultVector + offset + 5, TO_DBL(rWalk->fForce));
         outlet_list(xx->fResultOut, NULL, resultSize, resultVector);
     }
     ++xx->fBatchNumber;
@@ -356,7 +356,7 @@ LIST_HEADER(MtcTrackData)
             MtcRetainedData * rWalk = xx->fRetainedData;
 
             /* Previous new values should become the old values: */
-            for (short ii = 0; ii < xx->fRetainedCount; ++ii, ++rWalk)
+            for (long ii = 0; ii < xx->fRetainedCount; ++ii, ++rWalk)
             {
                 rWalk->fLastX = rWalk->fNewX;
                 rWalk->fLastY = rWalk->fNewY;

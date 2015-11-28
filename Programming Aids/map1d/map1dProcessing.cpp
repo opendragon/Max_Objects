@@ -46,7 +46,7 @@ void map1dOutputResult(Map1dData * xx,
 {
     if (result->fDollarsPresent || result->fDoubleDollarsPresent)
     {
-        short    outputCount = result->fOutputCount;
+        long     outputCount = result->fOutputCount;
         t_atom * inWalker = result->fOutput;
         t_atom * tempList = GET_BYTES(outputCount, t_atom);
 
@@ -54,7 +54,7 @@ void map1dOutputResult(Map1dData * xx,
         {
             t_atom * outWalker = tempList;
 
-            for (short ii = 0; ii < result->fOutputCount; ++ii)
+            for (long ii = 0; ii < result->fOutputCount; ++ii)
             {
                 if (A_SYM == inWalker->a_type)
                 {
@@ -64,11 +64,11 @@ void map1dOutputResult(Map1dData * xx,
                         /* Output previous input */
                         if (xx->fPreviousInput.fIsFloat)
                         {
-                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput));
+                            atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput));
                         }
                         else
                         {
-                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput));
+                            atom_setlong(outWalker, getFOILong(xx->fPreviousInput));
                         }
                     }
                     else if ((inWalker->a_w.w_sym == gDoubleDollarSymbol) ||
@@ -79,38 +79,38 @@ void map1dOutputResult(Map1dData * xx,
                         {
                             if (xx->fPreviousInput.fIsFloat)
                             {
-                                A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput));
+                                atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput));
                             }
                             else
                             {
-                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput));
+                                atom_setlong(outWalker, getFOILong(xx->fPreviousInput));
                             }
                         }
                         if (MatchFloat == result->fLower.fKind)
                         {
-                            A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput) -
+                            atom_setfloat(outWalker, getFOIValue(xx->fPreviousInput) -
                                        getFOIValue(result->fLower.fValue));
                         }
                         else if (MatchInteger == result->fLower.fKind)
                         {
                             if (xx->fPreviousInput.fIsFloat)
                             {
-                                A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput) -
+                                atom_setfloat(outWalker, getFOIValue(xx->fPreviousInput) -
                                            getFOIValue(result->fLower.fValue));
                             }
                             else
                             {
-                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput) -
+                                atom_setlong(outWalker, getFOILong(xx->fPreviousInput) -
                                           getFOILong(result->fLower.fValue));
                             }
                         }
                         else if (xx->fPreviousInput.fIsFloat)
                         {
-                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput));
+                            atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput));
                         }
                         else
                         {
-                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput));
+                            atom_setlong(outWalker, getFOILong(xx->fPreviousInput));
                         }
                     }
                     else
@@ -123,11 +123,11 @@ void map1dOutputResult(Map1dData * xx,
                     /* Output previous input */
                     if (xx->fPreviousInput.fIsFloat)
                     {
-                        A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput));
+                        atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput));
                     }
                     else
                     {
-                        A_SETLONG(outWalker, getFOILong(xx->fPreviousInput));
+                        atom_setlong(outWalker, getFOILong(xx->fPreviousInput));
                     }
                 }
                 else

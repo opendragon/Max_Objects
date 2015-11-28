@@ -40,7 +40,7 @@
 #include "pfsm.h"
 
 /*------------------------------------ cmd_Describe ---*/
-void cmd_Describe(PfsmData * xx)
+DESCRIBE_HEADER(PfsmData)
 {
     if (xx)
     {

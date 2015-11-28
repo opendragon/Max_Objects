@@ -95,11 +95,11 @@ struct TransitionData
     TransitionData * fNext;
     Criteria         fKind;
     SymbolLink *     fNextState;
-    t_atom *            fOutput;
-    short            fOutputCount;
-    short            fDollarCount;
-    short            fDoubleDollarCount;
-    short            fDollarStarCount;
+    t_atom *         fOutput;
+    long             fOutputCount;
+    long             fDollarCount;
+    long             fDoubleDollarCount;
+    long             fDollarStarCount;
     float            fProbability;
     MatchData        fMatch;
     bool             fIsRandom;
@@ -122,31 +122,39 @@ struct PfsmData
     bool          fVerbose;
 }; // PfsmData
 
-void cmd_Autorestart(PfsmData * xx,
-                     t_symbol * onOff);
+# define AUTORESTART_HEADER(type) \
+    void cmd_Autorestart(type *     xx,\
+                         t_symbol * onOff)
 
+# define DESCRIBE_HEADER(type) \
+    void cmd_Describe(type * xx)
+
+# define DO_HEADER(type) \
+    void cmd_Do(type *     xx,\
+                t_symbol * message,\
+                const long argc,\
+                t_atom *   argv)
+
+# define GOTO_HEADER(type) \
+    void cmd_Goto(type *     xx,\
+                  t_symbol * stateName)
+
+# define START_HEADER(type) \
+    void cmd_Start(type * xx)
+
+# define STATUS_HEADER(type) \
+    void cmd_Status(type * xx)
+
+AUTORESTART_HEADER(PfsmData);
 CLEAR_HEADER(PfsmData);
-
-void cmd_Describe(PfsmData * xx);
-
-void cmd_Do(PfsmData * xx,
-            t_symbol * message,
-            short      argc,
-            t_atom *   argv);
-
-void cmd_Goto(PfsmData * xx,
-              t_symbol * stateName);
-
+DESCRIBE_HEADER(PfsmData);
+DO_HEADER(PfsmData);
+GOTO_HEADER(PfsmData);
 LOAD_HEADER(PfsmData);
-
-void cmd_Start(PfsmData * xx);
-
-void cmd_Status(PfsmData * xx);
-
-void cmd_Stop(PfsmData * xx);
-
-void cmd_Trace(PfsmData * xx,
-               t_symbol * onOff);
+START_HEADER(PfsmData);
+STATUS_HEADER(PfsmData);
+STOP_HEADER(PfsmData);
+TRACE_HEADER(PfsmData);
 
 void pfsmClearHashTable(PfsmData * xx);
 

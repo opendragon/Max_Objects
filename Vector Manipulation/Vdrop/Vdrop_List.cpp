@@ -45,7 +45,7 @@ LIST_HEADER(VObjectData)
 #pragma unused(message)
     if (xx)
     {
-        short elementCount = 0;
+        long elementCount = 0;
 
         clearPrevious(xx);
         /* Determine the size of the output: */
@@ -55,12 +55,12 @@ LIST_HEADER(VObjectData)
         }
         else if (0 > xx->fHowMany)
         {
-            elementCount = static_cast<short>(-xx->fHowMany);
+            elementCount = -xx->fHowMany;
         }
         if (argc > elementCount)
         {
             /* Collect the pieces that we need: */
-            short    newCount = static_cast<short>(argc - elementCount);
+            long     newCount = argc - elementCount;
             t_atom * newArg = GET_BYTES(newCount, t_atom);
 
             if (newArg)

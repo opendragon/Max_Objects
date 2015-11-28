@@ -42,7 +42,7 @@
 /*------------------------------------ deferred_Anything ---*/
 static void deferred_Anything(FileLoggerData * xx,
                               t_symbol *       message,
-                              short            argc,
+                              const long       argc,
                               t_atom *         argv)
 {
     bool        okSoFar = fileLoggerGetTheFile(xx);
@@ -51,7 +51,7 @@ static void deferred_Anything(FileLoggerData * xx,
     if (okSoFar)
     {
         okSoFar = fileLoggerWriteStringToTheFile(xx, message->s_name);
-        for (short ii = 0; okSoFar && (ii < argc); ++ii)
+        for (long ii = 0; okSoFar && (ii < argc); ++ii)
         {
             const char * toAdd = NULL;
 

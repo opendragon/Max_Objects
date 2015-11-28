@@ -342,7 +342,7 @@ bool udpPortSetPort(UdpObjectData * xx,
         int err;
         int sock = socket(AF_INET, SOCK_DGRAM, 0);
 
-        if (sock < 0)
+        if (0 > sock)
         {
             err = errno;
             okSoFar = false;
@@ -361,7 +361,7 @@ bool udpPortSetPort(UdpObjectData * xx,
             addr.sin_port = htons(xx->fSelfPort);
             addr.sin_addr.s_addr = INADDR_ANY;
             err = bind(sock, reinterpret_cast<sockaddr *>(&addr), sizeof(addr));
-            if (err < 0)
+            if (0 > err)
             {
                 err = errno;
                 okSoFar = false;
@@ -372,7 +372,7 @@ bool udpPortSetPort(UdpObjectData * xx,
             int flags = fcntl(sock, F_GETFL);
 
             err = fcntl(sock, F_SETFL, flags | O_NONBLOCK);
-            if (err < 0)
+            if (0 > err)
             {
                 err = errno;
                 okSoFar = false;

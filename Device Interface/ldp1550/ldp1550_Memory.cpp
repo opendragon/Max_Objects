@@ -40,7 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_Memory ---*/
-void cmd_Memory(LdpData * xx)
+MEMORY_HEADER(LdpData)
 {
     if (xx)
     {

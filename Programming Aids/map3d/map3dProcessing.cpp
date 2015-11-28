@@ -46,9 +46,8 @@ void map3dOutputResult(Map3dData * xx,
 {
     if (result->fDollarsPresent || result->fDoubleDollarsPresent || result->fSingleDollarsPresent)
     {
-        short    outputCount = static_cast<short>(result->fOutputCount +
-                                                  (2 * result->fDollarsPresent) +
-                                                  (2 * result->fDoubleDollarsPresent));
+        long     outputCount = result->fOutputCount + (2 * result->fDollarsPresent) +
+                               (2 * result->fDoubleDollarsPresent);
         t_atom * inWalker = result->fOutput;
         t_atom * tempList = GET_BYTES(outputCount, t_atom);
 
@@ -56,7 +55,7 @@ void map3dOutputResult(Map3dData * xx,
         {
             t_atom * outWalker = tempList;
 
-            for (short ii = 0; ii < result->fOutputCount; ++ii)
+            for (long ii = 0; ii < result->fOutputCount; ++ii)
             {
                 if (A_SYM == inWalker->a_type)
                 {
@@ -65,27 +64,27 @@ void map3dOutputResult(Map3dData * xx,
                         /* Output previous input */
                         if (xx->fPreviousInput[0].fIsFloat)
                         {
-                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                            atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                         }
                         else
                         {
-                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                            atom_setlong(outWalker, getFOILong(xx->fPreviousInput[0]));
                         }
                         if (xx->fPreviousInput[1].fIsFloat)
                         {
-                            A_SETFLOAT(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
+                            atom_setfloat(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
                         }
                         else
                         {
-                            A_SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
+                            atom_setlong(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
                         }
                         if (xx->fPreviousInput[2].fIsFloat)
                         {
-                            A_SETFLOAT(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
+                            atom_setfloat(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
                         }
                         else
                         {
-                            A_SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
+                            atom_setlong(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
                         }
                         outWalker += 3;
                     }
@@ -96,112 +95,112 @@ void map3dOutputResult(Map3dData * xx,
                         {
                             if (xx->fPreviousInput[0].fIsFloat)
                             {
-                                A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                                atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                             }
                             else
                             {
-                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                                atom_setlong(outWalker, getFOILong(xx->fPreviousInput[0]));
                             }
                         }
                         else if (MatchFloat == result->fLeft.fKind)
                         {
-                            A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[0]) -
+                            atom_setfloat(outWalker, getFOIValue(xx->fPreviousInput[0]) -
                                        getFOIValue(result->fLeft.fValue));
                         }
                         else if (MatchInteger == result->fLeft.fKind)
                         {
                             if (xx->fPreviousInput[0].fIsFloat)
                             {
-                                A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[0]) -
+                                atom_setfloat(outWalker, getFOIValue(xx->fPreviousInput[0]) -
                                            getFOIValue(result->fLeft.fValue));
                             }
                             else
                             {
-                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]) -
+                                atom_setlong(outWalker, getFOILong(xx->fPreviousInput[0]) -
                                           getFOILong(result->fLeft.fValue));
                             }
                         }
                         else if (xx->fPreviousInput[0].fIsFloat)
                         {
-                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                            atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                         }
                         else
                         {
-                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                            atom_setlong(outWalker, getFOILong(xx->fPreviousInput[0]));
                         }
                         if (result->fBottomTopDontCare)
                         {
                             if (xx->fPreviousInput[1].fIsFloat)
                             {
-                                A_SETFLOAT(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
+                                atom_setfloat(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
                             }
                             else
                             {
-                                A_SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
+                                atom_setlong(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
                             }
                         }
                         else if (MatchFloat == result->fBottom.fKind)
                         {
-                            A_SETFLOAT(outWalker + 1, getFOIValue(xx->fPreviousInput[1]) -
+                            atom_setfloat(outWalker + 1, getFOIValue(xx->fPreviousInput[1]) -
                                        getFOIValue(result->fBottom.fValue));
                         }
                         else if (MatchInteger == result->fBottom.fKind)
                         {
                             if (xx->fPreviousInput[1].fIsFloat)
                             {
-                                A_SETFLOAT(outWalker + 1, getFOIValue(xx->fPreviousInput[1]) -
+                                atom_setfloat(outWalker + 1, getFOIValue(xx->fPreviousInput[1]) -
                                            getFOIValue(result->fBottom.fValue));
                             }
                             else
                             {
-                                A_SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]) -
+                                atom_setlong(outWalker + 1, getFOILong(xx->fPreviousInput[1]) -
                                           getFOILong(result->fBottom.fValue));
                             }
                         }
                         else if (xx->fPreviousInput[1].fIsFloat)
                         {
-                            A_SETFLOAT(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
+                            atom_setfloat(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
                         }
                         else
                         {
-                            A_SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
+                            atom_setlong(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
                         }
                         if (result->fForwardBackDontCare)
                         {
                             if (xx->fPreviousInput[2].fIsFloat)
                             {
-                                A_SETFLOAT(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
+                                atom_setfloat(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
                             }
                             else
                             {
-                                A_SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
+                                atom_setlong(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
                             }
                         }
                         else if (MatchFloat == result->fForward.fKind)
                         {
-                            A_SETFLOAT(outWalker + 2, getFOIValue(xx->fPreviousInput[2]) -
+                            atom_setfloat(outWalker + 2, getFOIValue(xx->fPreviousInput[2]) -
                                        getFOIValue(result->fForward.fValue));
                         }
                         else if (MatchInteger == result->fForward.fKind)
                         {
                             if (xx->fPreviousInput[2].fIsFloat)
                             {
-                                A_SETFLOAT(outWalker + 2, getFOIValue(xx->fPreviousInput[2]) -
+                                atom_setfloat(outWalker + 2, getFOIValue(xx->fPreviousInput[2]) -
                                            getFOIValue(result->fForward.fValue));
                             }
                             else
                             {
-                                A_SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]) -
+                                atom_setlong(outWalker + 2, getFOILong(xx->fPreviousInput[2]) -
                                           getFOILong(result->fBottom.fValue));
                             }
                         }
                         else if (xx->fPreviousInput[2].fIsFloat)
                         {
-                            A_SETFLOAT(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
+                            atom_setfloat(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
                         }
                         else
                         {
-                            A_SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
+                            atom_setlong(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
                         }
                         outWalker += 3;
                     }
@@ -210,11 +209,11 @@ void map3dOutputResult(Map3dData * xx,
                         /* Output previous input */
                         if (xx->fPreviousInput[0].fIsFloat)
                         {
-                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                            atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                         }
                         else
                         {
-                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                            atom_setlong(outWalker, getFOILong(xx->fPreviousInput[0]));
                         }
                         ++outWalker;
                     }
@@ -223,11 +222,11 @@ void map3dOutputResult(Map3dData * xx,
                         /* Output previous input */
                         if (xx->fPreviousInput[1].fIsFloat)
                         {
-                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[1]));
+                            atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput[1]));
                         }
                         else
                         {
-                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]));
+                            atom_setlong(outWalker, getFOILong(xx->fPreviousInput[1]));
                         }
                         ++outWalker;
                     }
@@ -236,11 +235,11 @@ void map3dOutputResult(Map3dData * xx,
                         /* Output previous input */
                         if (xx->fPreviousInput[2].fIsFloat)
                         {
-                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[2]));
+                            atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput[2]));
                         }
                         else
                         {
-                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]));
+                            atom_setlong(outWalker, getFOILong(xx->fPreviousInput[2]));
                         }
                         ++outWalker;
                     }
@@ -251,38 +250,38 @@ void map3dOutputResult(Map3dData * xx,
                         {
                             if (xx->fPreviousInput[0].fIsFloat)
                             {
-                                A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                                atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                             }
                             else
                             {
-                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                                atom_setlong(outWalker, getFOILong(xx->fPreviousInput[0]));
                             }
                         }
                         else if (MatchFloat == result->fLeft.fKind)
                         {
-                            A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[0]) -
+                            atom_setfloat(outWalker, getFOIValue(xx->fPreviousInput[0]) -
                                        getFOIValue(result->fLeft.fValue));
                         }
                         else if (MatchInteger == result->fLeft.fKind)
                         {
                             if (xx->fPreviousInput[0].fIsFloat)
                             {
-                                A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[0]) -
+                                atom_setfloat(outWalker, getFOIValue(xx->fPreviousInput[0]) -
                                            getFOIValue(result->fLeft.fValue));
                             }
                             else
                             {
-                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]) -
+                                atom_setlong(outWalker, getFOILong(xx->fPreviousInput[0]) -
                                           getFOILong(result->fLeft.fValue));
                             }
                         }
                         else if (xx->fPreviousInput[0].fIsFloat)
                         {
-                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                            atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                         }
                         else
                         {
-                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                            atom_setlong(outWalker, getFOILong(xx->fPreviousInput[0]));
                         }
                         ++outWalker;
                     }
@@ -293,38 +292,38 @@ void map3dOutputResult(Map3dData * xx,
                         {
                             if (xx->fPreviousInput[1].fIsFloat)
                             {
-                                A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[1]));
+                                atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput[1]));
                             }
                             else
                             {
-                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]));
+                                atom_setlong(outWalker, getFOILong(xx->fPreviousInput[1]));
                             }
                         }
                         else if (MatchFloat == result->fBottom.fKind)
                         {
-                            A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[1]) -
+                            atom_setfloat(outWalker, getFOIValue(xx->fPreviousInput[1]) -
                                        getFOIValue(result->fBottom.fValue));
                         }
                         else if (MatchInteger == result->fBottom.fKind)
                         {
                             if (xx->fPreviousInput[1].fIsFloat)
                             {
-                                A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[1]) -
+                                atom_setfloat(outWalker, getFOIValue(xx->fPreviousInput[1]) -
                                            getFOIValue(result->fBottom.fValue));
                             }
                             else
                             {
-                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]) -
+                                atom_setlong(outWalker, getFOILong(xx->fPreviousInput[1]) -
                                           getFOILong(result->fBottom.fValue));
                             }
                         }
                         else if (xx->fPreviousInput[1].fIsFloat)
                         {
-                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[1]));
+                            atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput[1]));
                         }
                         else
                         {
-                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[1]));
+                            atom_setlong(outWalker, getFOILong(xx->fPreviousInput[1]));
                         }
                         ++outWalker;
                     }
@@ -335,38 +334,38 @@ void map3dOutputResult(Map3dData * xx,
                         {
                             if (xx->fPreviousInput[2].fIsFloat)
                             {
-                                A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[2]));
+                                atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput[2]));
                             }
                             else
                             {
-                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]));
+                                atom_setlong(outWalker, getFOILong(xx->fPreviousInput[2]));
                             }
                         }
                         else if (MatchFloat == result->fForward.fKind)
                         {
-                            A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[2]) -
+                            atom_setfloat(outWalker, getFOIValue(xx->fPreviousInput[2]) -
                                        getFOIValue(result->fForward.fValue));
                         }
                         else if (MatchInteger == result->fForward.fKind)
                         {
                             if (xx->fPreviousInput[2].fIsFloat)
                             {
-                                A_SETFLOAT(outWalker, getFOIValue(xx->fPreviousInput[2]) -
+                                atom_setfloat(outWalker, getFOIValue(xx->fPreviousInput[2]) -
                                            getFOIValue(result->fForward.fValue));
                             }
                             else
                             {
-                                A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]) -
+                                atom_setlong(outWalker, getFOILong(xx->fPreviousInput[2]) -
                                           getFOILong(result->fBottom.fValue));
                             }
                         }
                         else if (xx->fPreviousInput[2].fIsFloat)
                         {
-                            A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[2]));
+                            atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput[2]));
                         }
                         else
                         {
-                            A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[2]));
+                            atom_setlong(outWalker, getFOILong(xx->fPreviousInput[2]));
                         }
                         ++outWalker;
                     }
@@ -381,27 +380,27 @@ void map3dOutputResult(Map3dData * xx,
                     /* Output previous input */
                     if (xx->fPreviousInput[0].fIsFloat)
                     {
-                        A_SETFLOAT(outWalker, getFOIFloat(xx->fPreviousInput[0]));
+                        atom_setfloat(outWalker, getFOIFloat(xx->fPreviousInput[0]));
                     }
                     else
                     {
-                        A_SETLONG(outWalker, getFOILong(xx->fPreviousInput[0]));
+                        atom_setlong(outWalker, getFOILong(xx->fPreviousInput[0]));
                     }
                     if (xx->fPreviousInput[1].fIsFloat)
                     {
-                        A_SETFLOAT(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
+                        atom_setfloat(outWalker + 1, getFOIFloat(xx->fPreviousInput[1]));
                     }
                     else
                     {
-                        A_SETLONG(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
+                        atom_setlong(outWalker + 1, getFOILong(xx->fPreviousInput[1]));
                     }
                     if (xx->fPreviousInput[2].fIsFloat)
                     {
-                        A_SETFLOAT(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
+                        atom_setfloat(outWalker + 2, getFOIFloat(xx->fPreviousInput[2]));
                     }
                     else
                     {
-                        A_SETLONG(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
+                        atom_setlong(outWalker + 2, getFOILong(xx->fPreviousInput[2]));
                     }
                     outWalker += 3;
                 }

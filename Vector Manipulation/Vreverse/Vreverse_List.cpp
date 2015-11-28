@@ -50,7 +50,7 @@ LIST_HEADER(VObjectData)
         clearPrevious(xx);
         if (newList)
         {
-            for (short ii = 0; ii < argc; ++ii)
+            for (long ii = 0; ii < argc; ++ii)
             {
                 *(newList + ii) = *(argv + argc - (ii + 1));
             }

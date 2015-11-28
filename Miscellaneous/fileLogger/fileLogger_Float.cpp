@@ -42,7 +42,7 @@
 /*------------------------------------ deferred_Float ---*/
 static void deferred_Float(FileLoggerData * xx,
                            t_symbol *       message,
-                           const short      argc,
+                           const long       argc,
                            t_atom *         argv)
 {
     bool        okSoFar = fileLoggerGetTheFile(xx);
@@ -63,7 +63,7 @@ FLOAT_HEADER(FileLoggerData)
     {
         t_atom floatArg;
 
-        A_SETFLOAT(&floatArg, msg);
+        atom_setfloat(&floatArg, msg);
         defer(xx, reinterpret_cast<method>(deferred_Float), NULL, 1, &floatArg);
     }
 } // cmd_Float

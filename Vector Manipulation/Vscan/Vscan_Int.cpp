@@ -73,7 +73,7 @@ INT_HEADER(VscanData)
                     newArg = GET_BYTES(1, t_atom);
                     if (newArg)
                     {
-                        A_SETLONG(newArg, msg);
+                        atom_setlong(newArg, msg);
                     }
                     break;
 
@@ -82,7 +82,7 @@ INT_HEADER(VscanData)
                     newArg = GET_BYTES(1, t_atom);
                     if (newArg)
                     {
-                        A_SETLONG(newArg, (msg ? 1 : 0));
+                        atom_setlong(newArg, (msg ? 1 : 0));
                     }
                     break;
 

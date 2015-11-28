@@ -52,7 +52,7 @@ static void * VjetCreate(const long howMany)
         xx->fPreviousLength = 0;
         if (0 < howMany)
         {
-            xx->fHowMany = static_cast<short>(howMany);
+            xx->fHowMany = howMany;
             intin(xx, 1);
             xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
             if (! xx->fResultOut)

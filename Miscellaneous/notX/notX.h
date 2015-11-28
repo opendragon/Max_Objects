@@ -52,7 +52,7 @@ struct NotXData
     t_object    fObject;
     t_outlet *  fResultOut;
     t_atom_long fPreviousResult;
-    short       fPreviousLength;
+    long        fPreviousLength;
     t_atom *    fPreviousList;
 }; // NotXData
 

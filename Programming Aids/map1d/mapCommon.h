@@ -102,22 +102,22 @@ inline void setFOI2Integer(FloatOrInteger &  target,
 } // setFOI2Integer
 
 # define ADD_HEADER(type) \
-    void cmd_Add(type *      xx, \
-                 t_symbol *  message, \
-                 const short argc, \
-                 t_atom *    argv)
+    void cmd_Add(type *     xx, \
+                 t_symbol * message, \
+                 const long argc, \
+                 t_atom *   argv)
 
 # define AFTER_HEADER(type) \
-    void cmd_After(type *      xx, \
-                   t_symbol *  message, \
-                   const short argc, \
-                   t_atom *    argv)
+    void cmd_After(type *     xx, \
+                   t_symbol * message, \
+                   const long argc, \
+                   t_atom *   argv)
 
 # define BEFORE_HEADER(type) \
-    void cmd_Before(type *      xx, \
-                    t_symbol *  message, \
-                    const short argc, \
-                    t_atom *    argv)
+    void cmd_Before(type *     xx, \
+                    t_symbol * message, \
+                    const long argc, \
+                    t_atom *   argv)
 
 # define DELETE_HEADER(type) \
     void cmd_Delete(type *     xx, \
@@ -132,16 +132,16 @@ inline void setFOI2Integer(FloatOrInteger &  target,
                  t_symbol * which)
 
 # define REPLACE_HEADER(type) \
-    void cmd_Replace(type *      xx, \
-                     t_symbol *  message, \
-                     const short argc, \
-                     t_atom *    argv)
+    void cmd_Replace(type *     xx, \
+                     t_symbol * message, \
+                     const long argc, \
+                     t_atom *   argv)
 
 # define SET_HEADER(type) \
-    void cmd_Set(type *      xx, \
-                 t_symbol *  message, \
-                 const short argc, \
-                 t_atom *    argv)
+    void cmd_Set(type *     xx, \
+                 t_symbol * message, \
+                 const long argc, \
+                 t_atom *   argv)
 
 # define SHOW_HEADER(type) \
     void cmd_Show(type *     xx, \

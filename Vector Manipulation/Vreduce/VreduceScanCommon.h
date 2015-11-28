@@ -70,7 +70,7 @@ enum InputRestriction
 
 bool checkInput(void *                 xx,
                 const char *           name,
-                const short            argc,
+                const long             argc,
                 t_atom *               argv,
                 const InputRestriction check);
 

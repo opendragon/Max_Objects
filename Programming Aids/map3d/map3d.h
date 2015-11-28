@@ -51,16 +51,16 @@ struct RangeData
 {
     RangeData *  fNext;
     t_atom *     fOutput;
-    short        fOutputCount;
+    long         fOutputCount;
     RangeElement fBottom;
     RangeElement fLeft;
     RangeElement fForward;
     RangeElement fRight;
     RangeElement fTop;
     RangeElement fBack;
-    short        fDollarsPresent;
-    short        fDoubleDollarsPresent;
-    short        fSingleDollarsPresent;
+    long         fDollarsPresent;
+    long         fDoubleDollarsPresent;
+    long         fSingleDollarsPresent;
     bool         fBottomTopDontCare;
     bool         fLeftRightDontCare;
     bool         fForwardBackDontCare;
@@ -86,8 +86,8 @@ MapRoutineDeclarations(Map3dData);
 void map3dClearRangeList(Map3dData * xx);
 
 RangeData * map3dConvertListToRange(Map3dData * xx,
-                                    const short offset,
-                                    const short numAtoms,
+                                    const long  offset,
+                                    const long  numAtoms,
                                     t_atom *    inList);
 
 bool map3dLoadRangeList(Map3dData * xx,

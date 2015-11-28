@@ -40,8 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_SetDskClipLevel ---*/
-void cmd_SetDskClipLevel(GvpData * xx,
-                         double    pos)
+SETDSKCLIPLEVEL_HEADER(GvpData)
 {
     if (xx)
     {

@@ -45,6 +45,6 @@ IN2_HEADER(VsegmentData)
     /* We've received a number. */
     if (xx)
     {
-        xx->fHowMany = static_cast<short>(msg);
+        xx->fHowMany = msg;
     }
 } // cmd_In2

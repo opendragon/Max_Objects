@@ -48,7 +48,7 @@ LIST_HEADER(VObjectData)
         clearPrevious(xx);
         if (checkInput(xx, OUTPUT_PREFIX, argc, argv))
         {
-            short left = 0;
+            long left = 0;
 
             for ( ; left < argc; ++left)
             {
@@ -56,6 +56,7 @@ LIST_HEADER(VObjectData)
                 {
                     break;
                 }
+                
             }
             if (argc == left)
             {
@@ -67,12 +68,12 @@ LIST_HEADER(VObjectData)
 
                 if (result)
                 {
-                    for (short index = left; index < argc; ++index)
+                    for (long index = left; index < argc; ++index)
                     {
-                        A_SETLONG(result + index - left, argv[index].a_w.w_long);
+                        atom_setlong(result + index - left, argv[index].a_w.w_long);
                     }
                     xx->fPreviousList = result;
-                    xx->fPreviousLength = static_cast<short>(argc - left);
+                    xx->fPreviousLength = argc - left;
                     genericListOutput(xx->fResultOut, xx->fPreviousLength, xx->fPreviousList);
                 }
             }

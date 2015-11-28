@@ -50,9 +50,9 @@ static bool addSymToBuffer(void *       xx,
 
     if (rawMode)
     {
-        short actLength = static_cast<short>(strlen(aValue->s_name));
+        long actLength = strlen(aValue->s_name);
 
-        if ((aBuffer->fNumBytesInUse + actLength) > MAX_BUFFER_TO_SEND)
+        if (MAX_BUFFER_TO_SEND < (aBuffer->fNumBytesInUse + actLength))
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "send buffer is full and cannot be added to")
             result = false;
@@ -68,8 +68,7 @@ static bool addSymToBuffer(void *       xx,
     else
     {
         unsigned char tag = A_SYM;
-        short         actLength = static_cast<short>(strlen(aValue->s_name) + 1);
-                        /* actual length, with null */
+        long          actLength = strlen(aValue->s_name) + 1; /* actual length, with null */
         short         dummy = htons(actLength);
 
         /* Check if there's room for the string plus the type tag: */
@@ -91,7 +90,7 @@ static bool addSymToBuffer(void *       xx,
             memcpy(aBuffer->fNextByteToUse, &dummy, sizeof(dummy));
             memcpy(aBuffer->fNextByteToUse + sizeof(dummy), aValue->s_name, actLength);
             aBuffer->fNextByteToUse += sizeof(dummy) + actLength;
-            aBuffer->fNumBytesInUse += static_cast<short>(sizeof(dummy) + actLength);
+            aBuffer->fNumBytesInUse += sizeof(dummy) + actLength;
             ++aBuffer->fNumElements;
             result = true;
         }
@@ -193,7 +192,7 @@ bool addFloatToBuffer(void *       xx,
 
     if (rawMode)
     {
-        if ((aBuffer->fNumBytesInUse + 1) > MAX_BUFFER_TO_SEND)
+        if (MAX_BUFFER_TO_SEND < (aBuffer->fNumBytesInUse + 1))
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "send buffer is full and cannot be added to")
             result = false;
@@ -214,7 +213,7 @@ bool addFloatToBuffer(void *       xx,
         long          dummy;
 
         /* Check if there's room for the float plus the type tag: */
-        if ((aBuffer->fNumBytesInUse + sizeof(tag) + sizeof(dummy)) > MAX_BUFFER_TO_SEND)
+        if (MAX_BUFFER_TO_SEND < (aBuffer->fNumBytesInUse + sizeof(tag) + sizeof(dummy)))
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "send buffer is full and cannot be added to")
             result = false;
@@ -304,17 +303,17 @@ void clearDataBuffer(DataBuffer * aBuffer)
 t_atom * convertBufferToAtoms(void *        xx,
                               t_handle      aBuffer,
                               sockaddr_in & sender,
-                              short &       numAtoms,
-                              const short   numBytes,
+                              long &        numAtoms,
+                              const long    numBytes,
                               const bool    rawMode)
 {
-    short           outputSize;
+    long            outputSize;
     t_atom *        result = NULL;
     unsigned char * walker = reinterpret_cast<unsigned char *>(*aBuffer);
 
     if (rawMode)
     {
-        outputSize = static_cast<short>(numBytes + 2);
+        outputSize = numBytes + 2;
         result = GET_BYTES(outputSize, t_atom);
         if (result)
         {
@@ -323,13 +322,13 @@ t_atom * convertBufferToAtoms(void *        xx,
 
             getnameinfo(reinterpret_cast<sockaddr *>(&sender), sizeof(sender), hostAddr,
                         sizeof(hostAddr), NULL, 0, NI_NUMERICHOST);
-            A_SETSYM(thisAtom, gensym(hostAddr));
+            atom_setsym(thisAtom, gensym(hostAddr));
             ++thisAtom;
-            A_SETLONG(thisAtom, TO_INT(sender.sin_port));
+            atom_setlong(thisAtom, TO_INT(sender.sin_port));
             ++thisAtom;
             for (short ii = 0; ii < numBytes; ++ii, ++thisAtom, ++walker)
             {
-                A_SETLONG(thisAtom, TO_INT(*walker));
+                atom_setlong(thisAtom, TO_INT(*walker));
             }
         }
     }
@@ -337,16 +336,16 @@ t_atom * convertBufferToAtoms(void *        xx,
     {
         short numElements;
         short sanityCheck;
-        short calcBytes;
+        long  calcBytes;
         bool  okSoFar = true;
 
         memcpy(&numElements, walker, sizeof(numElements));
         numElements = ntohs(numElements);
         memcpy(&sanityCheck, walker + sizeof(numElements), sizeof(sanityCheck));
         sanityCheck = ntohs(sanityCheck);
-        calcBytes = static_cast<short>(-(numElements + sanityCheck));
+        calcBytes = -(numElements + sanityCheck);
         walker += (sizeof(numElements) + sizeof(sanityCheck));
-        outputSize = static_cast<short>(numElements + 2);
+        outputSize = numElements + 2;
         result = GET_BYTES(outputSize, t_atom);
         if (result)
         {
@@ -360,12 +359,12 @@ t_atom * convertBufferToAtoms(void *        xx,
 
             getnameinfo(reinterpret_cast<sockaddr *>(&sender), sizeof(sender), hostAddr,
                         sizeof(hostAddr), NULL, 0, NI_NUMERICHOST);
-            A_SETSYM(thisAtom, gensym(hostAddr));
+            atom_setsym(thisAtom, gensym(hostAddr));
             ++thisAtom;
-            A_SETLONG(thisAtom, TO_INT(sender.sin_port));
+            atom_setlong(thisAtom, TO_INT(sender.sin_port));
             ++thisAtom;
             ++walker;
-            for (short element_index = 0; okSoFar && (element_index < numElements);
+            for (long element_index = 0; okSoFar && (element_index < numElements);
                  ++element_index, ++thisAtom)
             {
                 if (walker > lastByteInBuffer)
@@ -391,7 +390,7 @@ t_atom * convertBufferToAtoms(void *        xx,
                         else
                         {
                             memcpy(&dummy, walker, sizeof(dummy));
-                            A_SETFLOAT(thisAtom, ntohl(*reinterpret_cast<float *>(&dummy)));
+                            atom_setfloat(thisAtom, ntohl(*reinterpret_cast<float *>(&dummy)));
                             walker += sizeof(float);
                         }
                         break;
@@ -405,7 +404,7 @@ t_atom * convertBufferToAtoms(void *        xx,
                         else
                         {
                             memcpy(&dummy, walker, sizeof(long));
-                            A_SETLONG(thisAtom, ntohl(dummy));
+                            atom_setlong(thisAtom, ntohl(dummy));
                             walker += sizeof(long);
                         }
                         break;
@@ -428,7 +427,7 @@ t_atom * convertBufferToAtoms(void *        xx,
                             }
                             else
                             {
-                                A_SETSYM(thisAtom, gensym(reinterpret_cast<char *>(walker)));
+                                atom_setsym(thisAtom, gensym(reinterpret_cast<char *>(walker)));
                                 walker += chunkSize;
                             }
                         }
@@ -485,11 +484,11 @@ void copyDataBuffer(DataBuffer *       outBuffer,
 } // copyDataBuffer
 
 /*------------------------------------ validateBuffer ---*/
-short validateBuffer(void *       xx,
-                     DataBuffer * aBuffer,
-                     const bool   rawMode)
+long validateBuffer(void *       xx,
+                    DataBuffer * aBuffer,
+                    const bool   rawMode)
 {
-    short countMessages;
+    long countMessages;
 
     if (rawMode)
     {
@@ -497,12 +496,12 @@ short validateBuffer(void *       xx,
     }
     else
     {
-        short           totalBytes = aBuffer->fNumBytesInUse;
+        long            totalBytes = aBuffer->fNumBytesInUse;
         unsigned char * walker = reinterpret_cast<unsigned char *>(&aBuffer->fNumElements);
         short           sanityCheck;
         short           numElements;
-        short           calcBytes;
-        short           countBytes = 0;
+        long            calcBytes;
+        long            countBytes = 0;
 
         if (SIZEOF_DATABUFFER_HDR > totalBytes)
         {
@@ -519,7 +518,7 @@ short validateBuffer(void *       xx,
                 numElements = ntohs(numElements);
                 memcpy(&sanityCheck, walker + sizeof(numElements), sizeof(sanityCheck));
                 sanityCheck = ntohs(sanityCheck);
-                calcBytes = static_cast<short>(-(numElements + sanityCheck));
+                calcBytes = -(numElements + sanityCheck);
                 if ((0 > numElements) || (MAX_ATOMS_EXPECTED < numElements))
                 {
                     LOG_ERROR_2(xx, OUTPUT_PREFIX "bad number of Atoms received (%d)",

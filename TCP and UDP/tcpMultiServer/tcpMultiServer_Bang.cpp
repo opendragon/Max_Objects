@@ -46,10 +46,10 @@ BANG_HEADER(TcpMultiServerData)
     {
         t_atom response[4];
 
-        A_SETLONG(response, 0L);
-        A_SETSYM(response + 1, mapStateToSymbol(xx->fState));
-        A_SETLONG(response + 2, xx->fActiveConnections);
-        A_SETLONG(response + 3, xx->fServerPort);
+        atom_setlong(response, 0L);
+        atom_setsym(response + 1, mapStateToSymbol(xx->fState));
+        atom_setlong(response + 2, xx->fActiveConnections);
+        atom_setlong(response + 3, xx->fServerPort);
         outlet_anything(xx->fResultOut, gStatusSymbol, 4, response);
     }
 } // cmd_Bang

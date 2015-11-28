@@ -46,7 +46,7 @@ COUNT_HEADER(Map3dData)
     {
         t_atom temp[1];
 
-        A_SETLONG(temp, TO_INT(xx->fRangeCount));
+        atom_setlong(temp, TO_INT(xx->fRangeCount));
         outlet_anything(xx->fResultOut, gCountSymbol, 1, temp);
     }
 } // cmd_Count

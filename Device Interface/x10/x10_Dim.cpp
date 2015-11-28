@@ -40,10 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_Dim ---*/
-void cmd_Dim(X10ControlData * xx,
-             t_symbol *       code,
-             long             map,
-             long             level)
+DIM_HEADER(X10ControlData)
 {
     switch (xx->fKind)
     {

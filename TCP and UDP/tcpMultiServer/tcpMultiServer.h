@@ -107,29 +107,36 @@ struct TcpMultiServerData
 #endif//0
 }; // TcpMultiServerData
 
-void cmd_Disconnect(TcpMultiServerData * xx,
-                    long                 client);
+# define DISCONNECT_HEADER(type) \
+    void cmd_Disconnect(type *     xx,\
+                        const long client)
 
-void cmd_Listen(TcpMultiServerData * xx,
-                t_symbol *           onOff);
+# define LISTEN_HEADER(type) \
+    void cmd_Listen(type *     xx,\
+                    t_symbol * onOff)
 
-void cmd_Mode(TcpMultiServerData * xx,
-              long                 client,
-              t_symbol *           rawOrCooked);
+# define MODE_HEADER(type) \
+    void cmd_Mode(type *     xx,\
+                  const long client,\
+                  t_symbol * rawOrCooked)
 
-void cmd_Port(TcpMultiServerData * xx,
-              long                 number);
+# define SEND_HEADER(type) \
+    void cmd_Send(type *     xx,\
+                  t_symbol * message,\
+                  const long argc,\
+                  t_atom *   argv)
 
-void cmd_Self(TcpMultiServerData * xx);
+# define STATUS_HEADER(type) \
+    void cmd_Status(type *     xx,\
+                    const long client)
 
-void cmd_Send(TcpMultiServerData * xx,
-              t_symbol *           message,
-              short                argc,
-              t_atom *             argv);
-
-void cmd_Status(TcpMultiServerData * xx,
-                long                 client);
-
+DISCONNECT_HEADER(TcpMultiServerData);
+LISTEN_HEADER(TcpMultiServerData);
+MODE_HEADER(TcpMultiServerData);
+PORT_HEADER(TcpMultiServerData);
+SELF_HEADER(TcpMultiServerData);
+SEND_HEADER(TcpMultiServerData);
+STATUS_HEADER(TcpMultiServerData);
 VERBOSE_HEADER(TcpMultiServerData);
 
 bool initObject(TcpMultiServerData * xx,

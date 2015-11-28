@@ -60,7 +60,7 @@ static void ldpProcessQueue(LdpData * xx)
         
         outlet_bang(xx->fPollerOut);
         clock_delay(xx->fPollClock, xx->fPollRate);
-        if (xx->fInfoSamplingEnabled && (xx->fInfoCount-- <= 0))
+        if (xx->fInfoSamplingEnabled && (0 >= xx->fInfoCount--))
         {
             /* Process information request */
             if (ldpCheckPoolSpace(xx, 3))
@@ -105,32 +105,32 @@ static void * ldpCreate(const long pollRate,
         xx->fPollClock = NULL;
         xx->fPollQueue = NULL;
         xx->fPool = NULL;
-        if ((pollRate < 0) || (pollRate > MAX_POLL_RATE))
+        if ((0 > pollRate) || (MAX_POLL_RATE < pollRate))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid polling rate (%ld) for device", pollRate)
             xx->fPollRate = SER_SAMPLE_RATE;
         }
         else
         {
-            xx->fPollRate = static_cast<short>(pollRate ? pollRate : SER_SAMPLE_RATE);
+            xx->fPollRate = (pollRate ? pollRate : SER_SAMPLE_RATE);
         }
-        if (infoRate < 0)
+        if (0 > infoRate)
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid info rate (%ld) for device", infoRate)
             xx->fInfoRate = INFO_SAMPLE_RATE;
         }
         else
         {
-            xx->fInfoRate = static_cast<short>(infoRate ? infoRate : INFO_SAMPLE_RATE);
+            xx->fInfoRate = (infoRate ? infoRate : INFO_SAMPLE_RATE);
         }
-        if ((poolSize < 0) || (poolSize > MAX_POOL_SIZE))
+        if ((0 > poolSize) || (MAX_POOL_SIZE < poolSize))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pool size (%ld) for device", poolSize)
             xx->fPoolSize = POOL_SIZE;
         }
         else
         {
-            xx->fPoolSize = static_cast<short>(poolSize ? poolSize : POOL_SIZE);
+            xx->fPoolSize = (poolSize ? poolSize : POOL_SIZE);
         }
         /* Set up our connections and private data */
         intin(xx, 1);
@@ -147,7 +147,7 @@ static void * ldpCreate(const long pollRate,
         xx->fPollClock = MAKE_CLOCK(xx, ldpProcessClock);
         xx->fPollQueue = MAKE_QELEM(xx, ldpProcessQueue);
         xx->fFrameNumber = xx->fInfoCount = 0;
-        xx->fInfoSamplingEnabled = (infoRate > 0);
+        xx->fInfoSamplingEnabled = (0 < infoRate);
         xx->fStopping = false;
         xx->fMode = kLdpModeFrame;
         xx->fFirst = xx->fLast = xx->fInterruptPoint = NULL;

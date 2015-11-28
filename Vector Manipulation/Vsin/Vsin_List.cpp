@@ -57,7 +57,7 @@ LIST_HEADER(VObjectData)
                 t_atom * newWalk = newArg;
                 t_atom * oldWalk = argv;
 
-                for (short ii = 0; (ii < argc) && okSoFar; ++ii, ++newWalk, ++oldWalk)
+                for (long ii = 0; (ii < argc) && okSoFar; ++ii, ++newWalk, ++oldWalk)
                 {
                     newWalk->a_type = oldWalk->a_type;
                     switch (oldWalk->a_type)

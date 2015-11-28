@@ -40,7 +40,7 @@
 #include "tcpServer.h"
 
 /*------------------------------------ cmd_Disconnect ---*/
-void cmd_Disconnect(TcpObjectData * xx)
+DISCONNECT_HEADER(TcpObjectData)
 {
     REPORT_MAX_MESSAGE("disconnect")
     if (xx && tcpServerDisconnect(xx, USE_FORCED_DISCONNECTS))

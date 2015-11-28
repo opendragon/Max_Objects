@@ -42,11 +42,11 @@
 /*------------------------------------ genericListOutput ---*/
 GENERICLISTOUTPUT_HEADER
 {
-    if ((length > 0) && vector)
+    if ((0 < length) && vector)
     {
         if (A_SYM == vector->a_type)
         {
-            short workingLength = static_cast<short>(length - 1);
+            long workingLength = length - 1;
 
             /* If we have only one element, make sure that we send a NULL list: */
             outlet_anything(port, vector->a_w.w_sym, workingLength, workingLength ? (vector + 1) :

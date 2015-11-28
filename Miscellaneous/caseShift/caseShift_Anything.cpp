@@ -50,18 +50,18 @@ ANYTHING_HEADER(CaseShiftData)
         xx->fPreviousKind = A_GIMME;
         if (newArg)
         {
-            short  len;
+            long   len;
             char * oldWord;
             char * newWord;
 
-            A_SETSYM(newArg, message);
+            atom_setsym(newArg, message);
             memcpy(newArg + 1, argv, argc * sizeof(t_atom));
-            for (short ii = 0; ii <= argc; ++ii)
+            for (long ii = 0; ii <= argc; ++ii)
             {
                 if (newArg[ii].a_type == A_SYM)
                 {
                     oldWord = newArg[ii].a_w.w_sym->s_name;
-                    len = static_cast<short>(strlen(oldWord));
+                    len = strlen(oldWord);
                     newWord = GET_BYTES(len + 1, char);
                     if (newWord)
                     {
@@ -72,7 +72,7 @@ ANYTHING_HEADER(CaseShiftData)
                 }
             }
             xx->fPreviousList = newArg;
-            xx->fPreviousLength = static_cast<short>(argc + 1);
+            xx->fPreviousLength = argc + 1;
             genericListOutput(xx->fResultOut, xx->fPreviousLength, xx->fPreviousList);
         }
     }

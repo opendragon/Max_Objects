@@ -287,7 +287,7 @@ IN1_HEADER(LdpData)
             {
                 xx->fInterruptPoint = aPacket;
             }
-            else if ((aCommand != kLdpNoCommand) && (aCommand != kLdpCommandSignalDone))
+            else if ((kLdpNoCommand != aCommand) && (kLdpCommandSignalDone != aCommand))
             {
                 outlet_int(xx->fCommandsOut, TO_INT(aCommand));
             }

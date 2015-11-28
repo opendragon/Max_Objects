@@ -53,7 +53,7 @@ void x10CM11DoDirect(X10ControlData *      xx,
     X10FunctionCode workingCode = funcCode;
     long            workingLevel = level;
 
-    if ((xx->fMinorState != x10CM11MinorIdle) || (xx->fMajorState != x10CM11MajorIdle))
+    if ((x10CM11MinorIdle != xx->fMinorState) || (x10CM11MajorIdle != xx->fMajorState))
     {
         LOG_ERROR_1(xx, OUTPUT_PREFIX "attempt to send command while awaiting response.")
         okSoFar = false;
@@ -63,24 +63,24 @@ void x10CM11DoDirect(X10ControlData *      xx,
         LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid housecode (%s)", code->s_name)
         okSoFar = false;
     }
-    if ((map <= 0) || (map > 0x0FFFF))
+    if ((0 >= map) || (0x0FFFF < map))
     {
         LOG_ERROR_3(xx, OUTPUT_PREFIX "invalid map (0x%lx = %ld)", map, map)
         okSoFar = false;
     }
     if (x10CM11FunctionDim == workingCode)
     {
-        if (workingLevel < 0)
+        if (0 > workingLevel)
         {
             workingCode = x10CM11FunctionBright;
             workingLevel = -workingLevel;
-            if (workingLevel > 22)
+            if (22 < workingLevel)
             {
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid dim level (%ld)", level)
                 okSoFar = false;
             }
         }
-        else if ((! workingLevel) || (workingLevel > 22))
+        else if ((! workingLevel) || (22 < workingLevel))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid dim level (%ld)", level)
             okSoFar = false;
@@ -111,9 +111,9 @@ void x10CM11DoDirect(X10ControlData *      xx,
             isDimOrBright = true;
         }
         xx->fCompletedWhenStatus = true;
-        xx->fDimLevel = static_cast<short>(isDimOrBright ? workingLevel : 0);
+        xx->fDimLevel = (isDimOrBright ? workingLevel : 0);
         xx->fDeviceMap = static_cast<unsigned short>(doSingle ? 0 : map);
-        xx->fHouseCodeChar = static_cast<short>(aCode - 1);
+        xx->fHouseCodeChar = (aCode - 1);
         xx->fFunctionChar = workingCode;
         if (doSingle)
         {
@@ -254,7 +254,7 @@ void x10CP290DoDirect(X10ControlData *      xx,
     bool           okSoFar = true;
     unsigned short aCode = x10IdentifyHouseCode(code);
 
-    if (xx->fMinorState != x10CP290MinorIdle)
+    if (x10CP290MinorIdle != xx->fMinorState)
     {
         LOG_ERROR_1(xx, OUTPUT_PREFIX "attempt to send command while awaiting response.")
         okSoFar = false;
@@ -264,12 +264,12 @@ void x10CP290DoDirect(X10ControlData *      xx,
         LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid housecode (%s)", code->s_name)
         okSoFar = false;
     }
-    if ((map <= 0) || (map > 0x0FFFF))
+    if ((0 >= map) || (0x0FFFF < map))
     {
         LOG_ERROR_3(xx, OUTPUT_PREFIX "invalid map (0x%lx = %ld)", map, map)
         okSoFar = false;
     }
-    if ((level < 0) || (level > 15))
+    if ((0 > level) || (15 < level))
     {
         LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid dim level (%ld)", level)
         okSoFar = false;
@@ -298,7 +298,7 @@ void x10CP290DoSingleton(X10ControlData *     xx,
 {
     bool okSoFar = true;
 
-    if (xx->fMinorState != x10CP290MinorIdle)
+    if (x10CP290MinorIdle != xx->fMinorState)
     {
         LOG_ERROR_1(xx, OUTPUT_PREFIX "attempt to send command while awaiting response.")
         okSoFar = false;
@@ -330,7 +330,7 @@ void x10CP290DoTimerEvent(X10ControlData *  xx,
     X10FunctionCode funcCode = x10FunctionUnknown;
     unsigned short  aCode = x10IdentifyHouseCode(code);
 
-    if (xx->fMinorState != x10CP290MinorIdle)
+    if (x10CP290MinorIdle != xx->fMinorState)
     {
         LOG_ERROR_1(xx, OUTPUT_PREFIX "attempt to send command while awaiting response.")
         okSoFar = false;
@@ -340,22 +340,22 @@ void x10CP290DoTimerEvent(X10ControlData *  xx,
         LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid housecode (%s)", code->s_name)
         okSoFar = false;
     }
-    if ((map < 0) || (map > 0x0FFFF))
+    if ((0 > map) || (0x0FFFF < map))
     {
         LOG_ERROR_3(xx, OUTPUT_PREFIX "invalid map (0x%lx = %ld)", map, map)
         okSoFar = false;
     }
-    if ((eventNumber < 0) || (eventNumber > 127))
+    if ((0 > eventNumber) || (127 < eventNumber))
     {
         LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid event number (%ld)", eventNumber)
         okSoFar = false;
     }
-    if ((dayMap < 0) || (dayMap > 0x7F))
+    if ((0 > dayMap) || (0x7F < dayMap))
     {
         LOG_ERROR_3(xx, OUTPUT_PREFIX "invalid day map (0x%lx = %ld)", dayMap, dayMap)
         okSoFar = false;
     }
-    if ((hourMinute < 0) || (hourMinute > (60 * 24)))
+    if ((0 > hourMinute) || ((60 * 24) < hourMinute))
     {
         LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid hours and minutes (%ld)", hourMinute)
         okSoFar = false;
@@ -377,7 +377,7 @@ void x10CP290DoTimerEvent(X10ControlData *  xx,
         LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid function (%s)", function->s_name)
         okSoFar = false;
     }
-    if ((level < 0) || (level > 15))
+    if ((0 > level) || (15 < level))
     {
         LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid dim level (%ld)", level)
         okSoFar = false;

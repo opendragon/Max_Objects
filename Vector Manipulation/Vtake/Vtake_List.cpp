@@ -46,7 +46,7 @@ LIST_HEADER(VObjectData)
     if (xx)
     {
         t_atom * newArg = NULL;
-        short    elementCount = 0;
+        long     elementCount = 0;
 
         clearPrevious(xx);
         /* Determine the size of the output: */
@@ -56,7 +56,7 @@ LIST_HEADER(VObjectData)
         }
         else if (0 > xx->fHowMany)
         {
-            elementCount = static_cast<short>(-xx->fHowMany);
+            elementCount = -xx->fHowMany;
         }
         if (argc < elementCount)
         {

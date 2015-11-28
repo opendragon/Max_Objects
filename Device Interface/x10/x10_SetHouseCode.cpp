@@ -40,8 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_SetHouseCode ---*/
-void cmd_SetHouseCode(X10ControlData * xx,
-                      t_symbol *       code)
+SETHOUSECODE_HEADER(X10ControlData)
 {
     bool           okSoFar = true;
     unsigned short aCode = x10IdentifyHouseCode(code);
@@ -49,7 +48,7 @@ void cmd_SetHouseCode(X10ControlData * xx,
     switch (xx->fKind)
     {
         case X10KindCM11:
-            if (xx->fMinorState != x10CM11MinorIdle)
+            if (x10CM11MinorIdle != xx->fMinorState)
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "attempt to send command while awaiting response.")
                 okSoFar = false;
@@ -57,7 +56,7 @@ void cmd_SetHouseCode(X10ControlData * xx,
             break;
 
         case X10KindCP290:
-            if (xx->fMinorState != x10CP290MinorIdle)
+            if (x10CP290MinorIdle != xx->fMinorState)
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "attempt to send command while awaiting response.")
                 okSoFar = false;
@@ -78,7 +77,7 @@ void cmd_SetHouseCode(X10ControlData * xx,
         switch (xx->fKind)
         {
             case X10KindCM11:
-                xx->fHouseCodeChar = static_cast<short>(aCode - 1);
+                xx->fHouseCodeChar = (aCode - 1);
                 x10CM11SendClockInfo(xx, false, true);
                 break;
 

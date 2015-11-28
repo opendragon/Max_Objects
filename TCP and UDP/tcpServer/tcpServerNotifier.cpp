@@ -59,12 +59,12 @@ static void processListenEvent(TcpObjectData * xx)
         call.udata.maxlen = 0;
         call.udata.buf = NULL;
         WRAP_OT_CALL(xx, result, "OTListen", OTListen(xx->fSocket, &call))
-        if (result != kOTNoDataErr)
+        if (kOTNoDataErr == result)
         {
             if (result == kOTNoError)
             {
                 WRAP_OT_CALL(xx, result, "OTAccept", OTAccept(xx->fSocket, xx->fSocket, &call))
-                if (result != kOTNoError)
+                if (kOTNoError != result)
                 {
                     look_result = OTLook(xx->fSocket);
                     if ((kOTLookErr == result) && (T_DISCONNECT == look_result))
@@ -209,11 +209,11 @@ pascal void tcpServerNotifier(void *      context,
                     reportEndpointState(OUR_NAME, xx);
                     do_error_bang = true;
                 }
-                if (xx->fState != kTcpStateDisconnecting)
+                if (kTcpStateDisconnecting != xx->fState)
                 {
                     WRAP_OT_CALL(xx, err, "OTSndOrderlyDisconnect",
                                  OTSndOrderlyDisconnect(xx->fSocket))
-                    if (err != kOTNoError)
+                    if (kOTNoError != err)
                     {
                         REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)",
                                      err)

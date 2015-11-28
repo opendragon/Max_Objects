@@ -65,7 +65,7 @@ static void * tcpClientCreate(t_symbol * ipAddress,
         xx->fVerbose = false;
 #endif /* BE_VERBOSE */
         presetObjectPointers(xx);
-        if ((port < 0) || (port > MAX_PORT) || (numBuffers < 0) ||
+        if ((0 > port) || (MAX_PORT < port) || (0 > numBuffers) ||
             (! checkIpString(ipAddress, byte_0, byte_1, byte_2, byte_3)))
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "invalid parameters for device")
@@ -107,7 +107,7 @@ static void * tcpClientCreate(t_symbol * ipAddress,
             if (kOTNoError == result)
             {
                 xx->fServiceType = info.servtype;
-                xx->fAddressSize = static_cast<short>(info.addr);
+                xx->fAddressSize = info.addr;
             }
             else
             {
@@ -120,7 +120,7 @@ static void * tcpClientCreate(t_symbol * ipAddress,
         {
 #if 0
             WRAP_OT_CALL(xx, result, "OTSetAsynchronous", OTSetAsynchronous(xx->fSocket))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTSetAsynchronous failed (%ld = %s)", result)
                 reportEndpointState(OUR_NAME, xx);
@@ -132,7 +132,7 @@ static void * tcpClientCreate(t_symbol * ipAddress,
         {
 #if 0
             WRAP_OT_CALL(xx, result, "OTSetBlocking", OTSetBlocking(xx->fSocket))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTSetBlocking failed (%ld = %s)", result)
                 reportEndpointState(OUR_NAME, xx);
@@ -146,7 +146,7 @@ static void * tcpClientCreate(t_symbol * ipAddress,
             WRAP_OT_CALL(xx, result, "OTInstallNotifier", OTInstallNotifier(xx->fSocket,
                                                                             xx->fDataNotifier,
                                                                             xx))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTInstallNotifier failed (%ld = %s)", result)
                 reportEndpointState(OUR_NAME, xx);
@@ -162,7 +162,7 @@ static void * tcpClientCreate(t_symbol * ipAddress,
         {
 #if 0
             WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fSocket, NULL, NULL))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
                 reportEndpointState(OUR_NAME, xx);
@@ -203,7 +203,7 @@ static void tcpClientFree(TcpObjectData * xx)
                 case kTcpStateBound:
 #if 0
                     WRAP_OT_CALL(xx, result, "OTUnbind", OTUnbind(xx->fSocket))
-                    if (result != kOTNoError)
+                    if (kOTNoError != result)
                     {
                         REPORT_ERROR(xx, OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
                         reportEndpointState(OUR_NAME, xx);
@@ -214,7 +214,7 @@ static void tcpClientFree(TcpObjectData * xx)
                 case kTcpStateUnbound:
 #if 0
                     WRAP_OT_CALL(xx, result, "OTCloseProvider", OTCloseProvider(xx->fSocket))
-                    if (result != kOTNoError)
+                    if (kOTNoError != result)
                     {
                         REPORT_ERROR(xx, OUTPUT_PREFIX "OTCloseProvider failed (%ld = %s)", result)
                         reportEndpointState(OUR_NAME, xx);
@@ -252,7 +252,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Port), "port", A_LONG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Self), "self", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Send), "send", A_GIMME, 0);
-        class_addmethod(temp, reinterpret_cast<method>(cmd_Server), "server", A_GIMME, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_Server), "server", A_SYM, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Status), MESSAGE_BANG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Status), "status", 0);
 #if defined(BE_VERBOSE)
@@ -282,7 +282,7 @@ int main(void)
             a_char = *nextChar++; \
             if (a_char == endChar) \
             { \
-                if (accum < 0)\
+                if (0 > accum)\
                 { \
                     okSoFar = false;\
                 } \
@@ -293,7 +293,7 @@ int main(void)
             { \
                 if (0 > accum)\
                 { \
-                    accum = static_cast<short>(a_char - '0');\
+                    accum = (a_char - '0');\
                 } \
                 else \
                 { \
@@ -471,7 +471,7 @@ bool tcpClientConnect(TcpObjectData * xx)
             snd_call.addr.len = sizeof(in_addr);
             snd_call.addr.buf = reinterpret_cast<unsigned char *>(&in_addr);
             WRAP_OT_CALL(xx, result, "OTConnect", OTConnect(xx->fSocket, &snd_call, NULL))
-            if (result != kOTNoDataErr)
+            if (kOTNoDataError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTConnect failed (%ld = %s)", result)
                 reportEndpointState(OUR_NAME, xx);

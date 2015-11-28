@@ -90,19 +90,19 @@ GET_HEADER(Map2dData)
                 if ((leftRight && walker->fLeftRightDontCare) ||
                     (bottomTop && walker->fBottomTopDontCare))
                 {
-                    A_SETSYM(result, gAsteriskSymbol);
+                    atom_setsym(result, gAsteriskSymbol);
                 }
                 else if (MatchInfinity == data->fKind)
                 {
-                    A_SETSYM(result, infPositive ? gPosInfSymbol1 : gNegInfSymbol1);
+                    atom_setsym(result, infPositive ? gPosInfSymbol1 : gNegInfSymbol1);
                 }
                 else if (MatchFloat == data->fKind)
                 {
-                    A_SETFLOAT(result, getFOIFloat(data->fValue));
+                    atom_setfloat(result, getFOIFloat(data->fValue));
                 }
                 else
                 {
-                    A_SETLONG(result, getFOILong(data->fValue));
+                    atom_setlong(result, getFOILong(data->fValue));
                 }
                 outlet_anything(xx->fResultOut, gValueSymbol, 1, result);
             }

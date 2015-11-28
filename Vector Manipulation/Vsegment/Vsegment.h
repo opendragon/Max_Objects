@@ -51,10 +51,10 @@ struct VsegmentData
 {
     t_object   fObject;
     t_outlet * fResultOut;
-    short      fPreviousLength;
+    long       fPreviousLength;
     t_atom *   fPreviousList;
-    short      fHowMany;
-    short      fStart;
+    long       fHowMany;
+    long       fStart;
 }; /* VsegmentData */
 
 void clearPrevious(VsegmentData * xx);

@@ -40,9 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_SetTransitionMode ---*/
-void cmd_SetTransitionMode(GvpData *  xx,
-                           t_symbol * keyOrBkgd1,
-                           t_symbol * keyOrBkgd2)
+SETTRANSITIONMODE_HEADER(GvpData)
 {
     if (xx)
     {

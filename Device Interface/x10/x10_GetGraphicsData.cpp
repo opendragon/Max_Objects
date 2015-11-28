@@ -40,7 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_GetGraphicsData ---*/
-void cmd_GetGraphicsData(X10ControlData * xx)
+GETGRAPHICSDATA_HEADER(X10ControlData)
 {
     switch (xx->fKind)
     {

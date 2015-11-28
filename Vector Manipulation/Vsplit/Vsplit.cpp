@@ -48,7 +48,7 @@ static void * VsplitCreate(const long howMany)
     
     if (xx)
     {
-        xx->fHowMany = static_cast<short>(howMany);
+        xx->fHowMany = howMany;
         xx->fPreviousList = xx->fPreviousRightList = NULL;
         xx->fPreviousLength = xx->fPreviousRightLength = 0;
         intin(xx, 1);

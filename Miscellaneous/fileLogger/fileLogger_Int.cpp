@@ -42,7 +42,7 @@
 /*------------------------------------ deferred_Int ---*/
 static void deferred_Int(FileLoggerData * xx,
                          t_symbol *       message,
-                         short            argc,
+                         const long       argc,
                          t_atom *         argv)
 {
     bool        okSoFar = fileLoggerGetTheFile(xx);
@@ -63,7 +63,7 @@ INT_HEADER(FileLoggerData)
     {
         t_atom longArg;
 
-        A_SETLONG(&longArg, msg);
+        atom_setlong(&longArg, msg);
         defer(xx, reinterpret_cast<method>(deferred_Int), NULL, 1, &longArg);
     }
 } // cmd_Int

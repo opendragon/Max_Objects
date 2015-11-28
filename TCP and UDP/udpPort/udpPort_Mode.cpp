@@ -40,8 +40,7 @@
 #include "udpPort.h"
 
 /*------------------------------------ cmd_Mode ---*/
-void cmd_Mode(UdpObjectData * xx,
-              t_symbol *      rawOrCooked)
+MODE_HEADER(UdpObjectData)
 {
     REPORT_MAX_MESSAGE("mode")
     if (xx)

@@ -44,26 +44,26 @@ ANYTHING_HEADER(VsegmentData)
 {
     if (xx)
     {
-        short elementCount = xx->fHowMany;
-        short actArgs = static_cast<short>(argc + 1);
+        long elementCount = xx->fHowMany;
+        long actArgs = argc + 1;
 
         clearPrevious(xx);
         if (elementCount)
         {
-            short start = xx->fStart;
-            short end;
+            long start = xx->fStart;
+            long end;
 
-            if (start < 0)
+            if (0 > start)
             {
-                start = static_cast<short>(actArgs + start);
+                start = actArgs + start;
             }
-            if (elementCount > 0)
+            if (0 < elementCount)
             {
-                end = static_cast<short>(start + elementCount - 1);
+                end = start + elementCount - 1;
             }
             else
             {
-                short temp = static_cast<short>(start + elementCount + 1);
+                short temp = start + elementCount + 1;
 
                 end = start;
                 start = temp;
@@ -74,7 +74,7 @@ ANYTHING_HEADER(VsegmentData)
             }
             if (end >= actArgs)
             {
-                end = static_cast<short>(actArgs - 1);
+                end = actArgs - 1;
             }
             if ((0 <= end) && (start < actArgs))
             {
@@ -88,11 +88,11 @@ ANYTHING_HEADER(VsegmentData)
                     }
                     else
                     {
-                        A_SETSYM(newList, message);
+                        atom_setsym(newList, message);
                         memcpy(newList + 1, argv, (end - start) * sizeof(t_atom));
                     }
                     xx->fPreviousList = newList;
-                    xx->fPreviousLength = static_cast<short>(end + 1 - start);
+                    xx->fPreviousLength = end + 1 - start;
                     genericListOutput(xx->fResultOut, xx->fPreviousLength, xx->fPreviousList);
                 }
             }

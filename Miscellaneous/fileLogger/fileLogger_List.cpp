@@ -42,7 +42,7 @@
 /*------------------------------------ deferred_List ---*/
 static void deferred_List(FileLoggerData * xx,
                           t_symbol *       message,
-                          short            argc,
+                          const long       argc,
                           t_atom *         argv)
 {
     bool        okSoFar = fileLoggerGetTheFile(xx);
@@ -50,7 +50,7 @@ static void deferred_List(FileLoggerData * xx,
 
     if (okSoFar)
     {
-        for (short ii = 0; okSoFar && (ii < argc); ++ii)
+        for (long ii = 0; okSoFar && (ii < argc); ++ii)
         {
             const char * toAdd = NULL;
 

@@ -45,7 +45,7 @@ LIST_HEADER(VObjectData)
 #pragma unused(message)
     if (xx)
     {
-        short elementCount = xx->fHowMany;
+        long elementCount = xx->fHowMany;
 
         clearPrevious(xx);
         if (argc && (0 < elementCount))
@@ -57,12 +57,10 @@ LIST_HEADER(VObjectData)
                 memcpy(tempList, argv, argc * sizeof(t_atom));
                 xx->fPreviousList = tempList;
                 xx->fPreviousLength = argc;
-                for (short offset = 0; offset < xx->fPreviousLength; offset += elementCount)
+                for (long offset = 0; offset < xx->fPreviousLength; offset += elementCount)
                 {
-                    genericListOutput(xx->fResultOut, static_cast<short>(((offset + elementCount) >
-                                                                          argc) ? (argc - offset) :
-                                                                         elementCount),
-                                      xx->fPreviousList + offset);
+                    genericListOutput(xx->fResultOut, ((offset + elementCount) > argc) ?
+                                      (argc - offset) : elementCount, xx->fPreviousList + offset);
                 }
             }
         }

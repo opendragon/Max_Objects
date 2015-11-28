@@ -40,9 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_On ---*/
-void cmd_On(X10ControlData * xx,
-            t_symbol *       code,
-            long             map)
+ON_HEADER(X10ControlData)
 {
     switch (xx->fKind)
     {

@@ -45,11 +45,11 @@ BANG_HEADER(ShotgunData)
 {
     if (xx)
     {
-        short ii;
+        long ii;
 
         if (1 < xx->fNumOutlets)
         {
-            ii = static_cast<short>(rand() % xx->fNumOutlets);
+            ii = (rand() % xx->fNumOutlets);
         }
         else
         {

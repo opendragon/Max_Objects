@@ -51,7 +51,7 @@ ANYTHING_HEADER(VcollectData)
             case 0:
             case 1:
                 /* Left  and right inlet */
-                A_SETSYM(dummy, message);
+                atom_setsym(dummy, message);
                 collectAddAtoms(xx, dummy, 1);
                 if (0 < argc)
                 {

@@ -40,7 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_XReset ---*/
-void cmd_XReset(X10ControlData * xx)
+XRESET_HEADER(X10ControlData)
 {
     switch (xx->fKind)
     {

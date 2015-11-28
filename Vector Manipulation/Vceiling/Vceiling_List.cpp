@@ -60,7 +60,7 @@ LIST_HEADER(VObjectData)
                 switch (xx->fOutputMode)
                 {
                     case A_FLOAT:
-                        for (short ii = 0; (ii < argc) && okSoFar; ++ii, ++newWalk, ++oldWalk)
+                        for (long ii = 0; (ii < argc) && okSoFar; ++ii, ++newWalk, ++oldWalk)
                         {
                             newWalk->a_type = A_FLOAT;
                             switch (oldWalk->a_type)
@@ -82,7 +82,7 @@ LIST_HEADER(VObjectData)
                         break;
 
                     case A_LONG:
-                        for (short ii = 0; (ii < argc) && okSoFar; ++ii, ++newWalk, ++oldWalk)
+                        for (long ii = 0; (ii < argc) && okSoFar; ++ii, ++newWalk, ++oldWalk)
                         {
                             newWalk->a_type = A_LONG;
                             switch (oldWalk->a_type)
@@ -104,7 +104,7 @@ LIST_HEADER(VObjectData)
                         break;
 
                     case A_GIMME:
-                        for (short ii = 0; (ii < argc) && okSoFar; ++ii, ++newWalk, ++oldWalk)
+                        for (long ii = 0; (ii < argc) && okSoFar; ++ii, ++newWalk, ++oldWalk)
                         {
                             newWalk->a_type = oldWalk->a_type;
                             switch (oldWalk->a_type)

@@ -55,7 +55,7 @@ LIST_HEADER(NotXData)
                 short badArgs = 0;
 
                 memcpy(newArg, argv, argc * sizeof(t_atom));
-                for (short ii = 0; ii < argc; ++ii)
+                for (long ii = 0; ii < argc; ++ii)
                 {
                     switch (argv[ii].a_type)
                     {
@@ -68,7 +68,7 @@ LIST_HEADER(NotXData)
                             break;
 
                         case A_FLOAT:
-                            A_SETLONG(newArg + ii, ! TO_INT(argv[ii].a_w.w_float));
+                            atom_setlong(newArg + ii, ! TO_INT(argv[ii].a_w.w_float));
                             break;
 
                         default:
@@ -79,7 +79,7 @@ LIST_HEADER(NotXData)
                 }
                 if (badArgs)
                 {
-                    if (badArgs == 1)
+                    if (1 == badArgs)
                     {
                         LOG_ERROR_1(xx, OUTPUT_PREFIX "Non-numeric element in list")
                     }

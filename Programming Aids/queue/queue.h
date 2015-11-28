@@ -51,7 +51,7 @@ struct QueueEntry
 {
     QueueEntry * fNext;
     t_atom *     fOutput;
-    short        fOutputCount;
+    long         fOutputCount;
 }; /* QueueEntry */
 
 struct QueueData
@@ -67,24 +67,32 @@ struct QueueData
     bool         fVerbose;
 }; // QueueData
 
-void cmd_Add(QueueData * xx,
-             t_symbol *  message,
-             short       argc,
-             t_atom *    argv);
+# define ADD_HEADER(type) \
+    void cmd_Add(type *     xx,\
+                 t_symbol * message,\
+                 const long argc,\
+                 t_atom *   argv)
 
+# define DEPTH_HEADER(type) \
+    void cmd_Depth(type * xx)
+
+# define FETCH_HEADER(type) \
+    void cmd_Fetch(type * xx)
+
+# define PULL_HEADER(type) \
+    void cmd_Pull(type * xx)
+
+# define SETDEPTH_HEADER(type) \
+    void cmd_SetDepth(type *     xx,\
+                      const long number)
+
+ADD_HEADER(QueueData);
 CLEAR_HEADER(QueueData);
-
-void cmd_Depth(QueueData * xx);
-
-void cmd_Fetch(QueueData * xx);
-
-void cmd_Pull(QueueData * xx);
-
-void cmd_SetDepth(QueueData * xx,
-                  long        number);
-
-void cmd_Trace(QueueData * xx,
-               t_symbol *  onOff);
+DEPTH_HEADER(QueueData);
+FETCH_HEADER(QueueData);
+PULL_HEADER(QueueData);
+SETDEPTH_HEADER(QueueData);
+TRACE_HEADER(QueueData);
 
 void queueClear(QueueData * xx);
 

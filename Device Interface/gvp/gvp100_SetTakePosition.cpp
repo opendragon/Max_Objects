@@ -40,8 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_SetTakePosition ---*/
-void cmd_SetTakePosition(GvpData * xx,
-                         double    pos)
+SETTAKEPOSITION_HEADER(GvpData)
 {
     if (xx)
     {

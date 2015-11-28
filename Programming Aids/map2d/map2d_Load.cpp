@@ -42,7 +42,7 @@
 /*------------------------------------ deferred_Load ---*/
 static void deferred_Load(Map2dData * xx,
                           t_symbol *  fileName,
-                          const short argc,
+                          const long  argc,
                           t_atom *    argv)
 {
     if (map2dLoadRangeList(xx, fileName) && xx->fVerbose)

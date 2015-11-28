@@ -47,7 +47,7 @@ IN1_HEADER(VObjectData)
     {
         if (0 < msg)
         {
-            xx->fHowMany = static_cast<short>(msg);
+            xx->fHowMany = msg;
         }
         else
         {

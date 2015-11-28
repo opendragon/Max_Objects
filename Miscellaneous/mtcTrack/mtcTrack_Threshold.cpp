@@ -40,12 +40,11 @@
 #include "mtcTrack.h"
 
 /*------------------------------------ cmd_Threshold ---*/
-void cmd_Threshold(MtcTrackData * xx,
-                   double         num)
+THRESHOLD_HEADER(MtcTrackData)
 {
     if (xx)
     {
-        if (num >= 0)
+        if (0 <= num)
         {
             xx->fThreshold = (num * num);
         }

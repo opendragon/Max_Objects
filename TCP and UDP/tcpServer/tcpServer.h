@@ -46,8 +46,11 @@
 // # define OUR_RES_NUMB  17128
 # define OUTPUT_PREFIX "tcpServer: "
 
-void cmd_Listen(TcpObjectData * xx,
-                t_symbol *      onOff);
+# define LISTEN_HEADER(type) \
+    void cmd_Listen(type *     xx,\
+                    t_symbol * onOff)
+
+LISTEN_HEADER(TcpObjectData);
 
 bool tcpServerDisconnect(TcpObjectData * xx,
                          const bool      forced);

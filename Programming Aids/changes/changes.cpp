@@ -53,31 +53,31 @@ static void * changesCreate(const long whichIndex1,
     if (xx)
     {
         xx->fLastIndex = -1;
-        xx->fWhichIndex[0] = static_cast<short>(whichIndex1);
+        xx->fWhichIndex[0] = whichIndex1;
         xx->fPreviousValue[0].a_type = A_NOTHING;
         if (whichIndex1)
         {
             xx->fLastIndex = 0;
         }
-        xx->fWhichIndex[1] = static_cast<short>(whichIndex2);
+        xx->fWhichIndex[1] = whichIndex2;
         xx->fPreviousValue[1].a_type = A_NOTHING;
         if (whichIndex2)
         {
             xx->fLastIndex = 1;
         }
-        xx->fWhichIndex[2] = static_cast<short>(whichIndex3);
+        xx->fWhichIndex[2] = whichIndex3;
         xx->fPreviousValue[2].a_type = A_NOTHING;
         if (whichIndex3)
         {
             xx->fLastIndex = 2;
         }
-        xx->fWhichIndex[3] = static_cast<short>(whichIndex4);
+        xx->fWhichIndex[3] = whichIndex4;
         xx->fPreviousValue[3].a_type = A_NOTHING;
         if (whichIndex4)
         {
             xx->fLastIndex = 3;
         }
-        xx->fWhichIndex[4] = static_cast<short>(whichIndex5);
+        xx->fWhichIndex[4] = whichIndex5;
         xx->fPreviousValue[4].a_type = A_NOTHING;
         if (whichIndex5)
         {

@@ -47,7 +47,7 @@ LIST_HEADER(X10UnitsData)
     t_atom_long sum = 0;
     bool        okSoFar = true;
 
-    for (short ii = 0; okSoFar && (ii < argc); ++ii)
+    for (long ii = 0; okSoFar && (ii < argc); ++ii)
     {
         switch (argv[ii].a_type)
         {
@@ -59,20 +59,20 @@ LIST_HEADER(X10UnitsData)
                 }
                 else
                 {
-                    LOG_ERROR_3(xx, OUTPUT_PREFIX "argument %d is out of range (" LONG_FORMAT ")",
-                                static_cast<int>(ii), num)
+                    LOG_ERROR_3(xx, OUTPUT_PREFIX "argument %ld is out of range (" LONG_FORMAT ")",
+                                ii, num)
                     okSoFar = false;
                 }
                 break;
 
             case A_SYM:
-                LOG_ERROR_3(xx, OUTPUT_PREFIX "argument %d is a symbol (%s)", static_cast<int>(ii),
+                LOG_ERROR_3(xx, OUTPUT_PREFIX "argument %ld is a symbol (%s)", ii,
                             argv[ii].a_w.w_sym->s_name)
                 okSoFar = false;
                 break;
 
             case A_FLOAT:
-                LOG_ERROR_3(xx, OUTPUT_PREFIX "argument %d is a float (%g)", static_cast<int>(ii),
+                LOG_ERROR_3(xx, OUTPUT_PREFIX "argument %ld is a float (%g)", ii,
                             TO_DBL(argv[ii].a_w.w_float))
                 okSoFar = false;
                 break;

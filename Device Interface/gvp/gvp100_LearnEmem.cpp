@@ -40,12 +40,11 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_LearnEmem ---*/
-void cmd_LearnEmem(GvpData * xx,
-                   long      number)
+LEARNEMEM_HEADER(GvpData)
 {
     if (xx)
     {
-        if ((number < 0) || (number > 15))
+        if ((0 > number) || (15 < number))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid register number (%ld)", number)
             outlet_bang(xx->fErrorBangOut);

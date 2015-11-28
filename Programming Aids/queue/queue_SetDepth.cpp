@@ -40,8 +40,7 @@
 #include "queue.h"
 
 /*------------------------------------ cmd_SetDepth ---*/
-void cmd_SetDepth(QueueData * xx,
-                  long        number)
+SETDEPTH_HEADER(QueueData)
 {
     if (xx)
     {

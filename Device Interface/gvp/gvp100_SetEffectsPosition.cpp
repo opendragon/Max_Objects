@@ -40,8 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_SetEffectsPosition ---*/
-void cmd_SetEffectsPosition(GvpData * xx,
-                            double    pos)
+SETEFFECTSPOSITION_HEADER(GvpData)
 {
     if (xx)
     {

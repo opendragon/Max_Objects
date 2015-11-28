@@ -108,13 +108,13 @@ int main(void)
 void convertNumberToList(VencodeData * xx,
                          const long    number)
 {
-    bool  wasNegative = xx->fInfo.fFirstBaseIsNegative;
-    short numBases = xx->fInfo.fNumBases;
-    short count = 0;
-    long  workingNumber = number;
+    bool wasNegative = xx->fInfo.fFirstBaseIsNegative;
+    long numBases = xx->fInfo.fNumBases;
+    long count = 0;
+    long workingNumber = number;
 
     // First, 'factor' the number:
-    for (int ii = NUM_ATOMS - 1, jj = 0; ii >= 0; --ii)
+    for (long ii = NUM_ATOMS - 1, jj = 0; 0 <= ii; --ii)
     {
         long base = xx->fInfo.fBases[jj];
 
@@ -138,12 +138,13 @@ void convertNumberToList(VencodeData * xx,
                 ++count;
                 break;
             }
+            
         }
     }
     // Now, move it into the right location:
-    for (int ii = 0; ii < count; ++ii)
+    for (long ii = 0; ii < count; ++ii)
     {
-        A_SETLONG(xx->fWorkList + ii, xx->fWorkList[NUM_ATOMS + ii - count].a_w.w_long);
+        atom_setlong(xx->fWorkList + ii, xx->fWorkList[NUM_ATOMS + ii - count].a_w.w_long);
     }
     xx->fWorkLength = count;
 } // convertNumberToList

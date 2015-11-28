@@ -40,7 +40,7 @@
 #include "Vcollect.h"
 
 /*------------------------------------ cmd_Stop ---*/
-void cmd_Stop(VcollectData * xx)
+STOP_HEADER(VcollectData)
 {
     if (xx)
     {
@@ -50,7 +50,7 @@ void cmd_Stop(VcollectData * xx)
         {
             case 0:
                 /* Left inlet */
-                A_SETSYM(dummy, gStopSymbol);
+                atom_setsym(dummy, gStopSymbol);
                 collectAddAtoms(xx, dummy, 1);
                 break;
 

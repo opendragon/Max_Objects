@@ -44,19 +44,16 @@ BANG_HEADER(VObjectData)
 {
     if (xx && xx->fPreviousList)
     {
-        short elementCount = xx->fHowMany;
+        long elementCount = xx->fHowMany;
 
         if (0 < elementCount)
         {
-            short argCount = xx->fPreviousLength;
+            long argCount = xx->fPreviousLength;
 
-            for (short offset = 0; offset < xx->fPreviousLength; offset += elementCount)
+            for (long offset = 0; offset < xx->fPreviousLength; offset += elementCount)
             {
-                genericListOutput(xx->fResultOut, static_cast<short>(((offset + elementCount) >
-                                                                      argCount) ?
-                                                                     (argCount - offset) :
-                                                                     elementCount),
-                                  xx->fPreviousList + offset);
+                genericListOutput(xx->fResultOut, ((offset + elementCount) > argCount) ?
+                                  (argCount - offset) : elementCount, xx->fPreviousList + offset);
             }
         }
     }

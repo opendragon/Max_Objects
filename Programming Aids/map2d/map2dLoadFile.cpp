@@ -164,11 +164,11 @@ static bool map2dCollectARange(Map2dData * xx)
     Category    leftMatch = MatchUnknown;
     Category    rightMatch = MatchUnknown;
     Category    topMatch = MatchUnknown;
-    short       outputCount = 0;
+    long        outputCount = 0;
     t_binbuf *  collector = NULL;
-    short       dollarsPresent = 0;
-    short       doubleDollarsPresent = 0;
-    short       singleDollarsPresent = 0;
+    long        dollarsPresent = 0;
+    long        doubleDollarsPresent = 0;
+    long        singleDollarsPresent = 0;
 
     if (result)
     {
@@ -535,7 +535,7 @@ static bool map2dCollectARange(Map2dData * xx)
                 t_atom * vector = GET_BYTES(newData->fOutputCount, t_atom);
 
                 newData->fOutput = vector;
-                for (short ii = 0; ii < newData->fOutputCount; ++ii, ++vector)
+                for (long ii = 0; ii < newData->fOutputCount; ++ii, ++vector)
                 {
                     if (binbuf_getatom(collector, &tyOffset, &stOffset, vector))
                     {
@@ -612,19 +612,19 @@ bool map2dLoadRangeList(Map2dData * xx,
 } // map2dLoadRangeList
 
 /*------------------------------------ map2dGetNextAtomInList ---*/
-static bool map2dGetNextAtomInList(short &     offset,
-                                   const short numAtoms,
-                                   t_atom *    inList,
-                                   t_atom &    result)
+static bool map2dGetNextAtomInList(long &     offset,
+                                   const long numAtoms,
+                                   t_atom *   inList,
+                                   t_atom &   result)
 {
     bool okSoFar = false;
 
-    if (offset < numAtoms)
+    if (numAtoms > offset)
     {
         okSoFar = true;
         result = *(inList + offset);
     }
-    else if (offset == numAtoms)
+    else if (numAtoms == offset)
     {
         okSoFar = true;
         result.a_type = A_SEMI;
@@ -635,11 +635,11 @@ static bool map2dGetNextAtomInList(short &     offset,
 
 /*------------------------------------ map2dConvertListToRange ---*/
 RangeData * map2dConvertListToRange(Map2dData * xx,
-                                    const short offset,
-                                    const short numAtoms,
+                                    const long  offset,
+                                    const long  numAtoms,
                                     t_atom *    inList)
 {
-    short       nextAtom = offset;
+    long        nextAtom = offset;
     t_atom      holder;
     bool        result = map2dGetNextAtomInList(nextAtom, numAtoms, inList, holder);
     bool        bottomClosed = false;
@@ -662,9 +662,9 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
     Category    topMatch = MatchUnknown;
     short       outputCount = 0;
     t_binbuf *  collector = NULL;
-    short       dollarsPresent = 0;
-    short       doubleDollarsPresent = 0;
-    short       singleDollarsPresent = 0;
+    long        dollarsPresent = 0;
+    long        doubleDollarsPresent = 0;
+    long        singleDollarsPresent = 0;
     RangeData * newData = NULL;
 
     if (result)
@@ -1031,7 +1031,7 @@ RangeData * map2dConvertListToRange(Map2dData * xx,
                 t_atom * vector = GET_BYTES(newData->fOutputCount, t_atom);
 
                 newData->fOutput = vector;
-                for (short ii = 0; ii < newData->fOutputCount; ++ii, ++vector)
+                for (long ii = 0; ii < newData->fOutputCount; ++ii, ++vector)
                 {
                     if (binbuf_getatom(collector, &tyOffset, &stOffset, vector))
                     {

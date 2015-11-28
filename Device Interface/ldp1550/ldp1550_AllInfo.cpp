@@ -40,7 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_AllInfo ---*/
-void cmd_AllInfo(LdpData * xx)
+ALLINFO_HEADER(LdpData)
 {
     if (xx)
     {

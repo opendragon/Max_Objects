@@ -40,8 +40,7 @@
 #include "mtc.h"
 
 /*------------------------------------ cmd_Start ---*/
-void cmd_Start(MtcData *  xx,
-               t_symbol * kind)
+START_HEADER(MtcData)
 {
     if (xx)
     {

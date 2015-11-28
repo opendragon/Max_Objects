@@ -40,9 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_Play ---*/
-void cmd_Play(LdpData *  xx,
-              t_symbol * mode,
-              long       stepRate)
+PLAY_HEADER(LdpData)
 {
     if (xx)
     {
@@ -53,7 +51,7 @@ void cmd_Play(LdpData *  xx,
             LOG_ERROR_1(xx, OUTPUT_PREFIX "attempt to send 'play' command while busy")
             outlet_bang(xx->fErrorBangOut);
         }
-        else if ((stepRate < 0) || (stepRate > MAX_STEP_FACTOR))
+        else if ((0 > stepRate) || (MAX_STEP_FACTOR < stepRate))
         {
             LOG_ERROR_1(xx, OUTPUT_PREFIX "bad argument to command 'play'")
             outlet_bang(xx->fErrorBangOut);
@@ -103,7 +101,7 @@ void cmd_Play(LdpData *  xx,
             LOG_ERROR_1(xx, OUTPUT_PREFIX "bad argument to command 'play'")
             outlet_bang(xx->fErrorBangOut);
         }
-        if (aCommand != kLdpNoCommand)
+        if (kLdpNoCommand != aCommand)
         {
             short prevLock = lockout_set(1);
             short numCommands = 3;

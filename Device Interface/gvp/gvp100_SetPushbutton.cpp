@@ -40,10 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_SetPushbutton ---*/
-void cmd_SetPushbutton(GvpData *  xx,
-                       t_symbol * onOffPush,
-                       short      argc,
-                       t_atom *   argv)
+SETPUSHBUTTON_HEADER(GvpData)
 {
     if (xx)
     {
@@ -102,7 +99,7 @@ void cmd_SetPushbutton(GvpData *  xx,
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid request '%s'", onOffPush->s_name)
             okSoFar = false;
         }
-        for (short jj = 0; okSoFar && (jj  < argc); ++jj)
+        for (long jj = 0; okSoFar && (jj  < argc); ++jj)
         {
             switch (argv[jj].a_type)
             {
@@ -111,9 +108,9 @@ void cmd_SetPushbutton(GvpData *  xx,
 #if (! defined(DONT_RANGE_CHECK))
                     if ((onOffPush == gPushSymbol) || (onOffPush == gPSymbol))
                     {
-                        short ii = 0;
+                        int ii = 0;
 
-                        for ( ; ii < kNumValidPushControls; ++ii)
+                        for ( ; kNumValidPushControls > ii; ++ii)
                         {
                             if (number == validControlPush[ii])
                             {
@@ -130,9 +127,9 @@ void cmd_SetPushbutton(GvpData *  xx,
                     }
                     else if ((onOffPush == gOffSymbol) || (onOffPush == gOnSymbol))
                     {
-                        short ii = 0;
+                        int ii = 0;
 
-                        for ( ; ii < kNumValidOnOffControls; ++ii)
+                        for ( ; kNumValidOnOffControls > ii; ++ii)
                         {
                             if (number == validControlOnOff[ii])
                             {
@@ -161,9 +158,9 @@ void cmd_SetPushbutton(GvpData *  xx,
 #if (! defined(DONT_RANGE_CHECK))
                     if ((onOffPush == gPushSymbol) || (onOffPush == gPSymbol))
                     {
-                        short ii = 0;
+                        int ii = 0;
 
-                        for ( ; ii < kNumValidPushControls; ++ii)
+                        for ( ; kNumValidPushControls > ii; ++ii)
                         {
                             if (number == validControlPush[ii])
                             {
@@ -171,7 +168,7 @@ void cmd_SetPushbutton(GvpData *  xx,
                             }
                             
                         }
-                        if (ii == kNumValidPushControls)
+                        if (kNumValidPushControls == ii)
                         {
                             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pushbutton or lamp (" LONG_FORMAT
                                         ")", number)
@@ -180,9 +177,9 @@ void cmd_SetPushbutton(GvpData *  xx,
                     }
                     else if ((onOffPush == gOffSymbol) || (onOffPush == gOnSymbol))
                     {
-                        short ii = 0;
+                        int ii = 0;
 
-                        for ( ; ii < kNumValidOnOffControls; ++ii)
+                        for ( ; kNumValidOnOffControls > ii; ++ii)
                         {
                             if (number == validControlOnOff[ii])
                             {
@@ -190,7 +187,7 @@ void cmd_SetPushbutton(GvpData *  xx,
                             }
                             
                         }
-                        if (ii == kNumValidOnOffControls)
+                        if (kNumValidOnOffControls == ii)
                         {
                             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pushbutton or lamp (" LONG_FORMAT
                                         ")", number)

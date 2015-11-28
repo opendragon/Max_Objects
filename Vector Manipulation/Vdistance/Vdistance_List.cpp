@@ -49,7 +49,7 @@ LIST_HEADER(VdistanceData)
         double len = 0;
         double temp;
 
-        for (short ii = 0; okSoFar && (ii < argc); ++ii)
+        for (long ii = 0; okSoFar && (ii < argc); ++ii)
         {
             switch (argv[ii].a_type)
             {

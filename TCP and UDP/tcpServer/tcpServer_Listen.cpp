@@ -40,8 +40,7 @@
 #include "tcpServer.h"
 
 /*------------------------------------ cmd_Listen ---*/
-void cmd_Listen(TcpObjectData * xx,
-                t_symbol *      onOff)
+LISTEN_HEADER(TcpObjectData)
 {
     bool okSoFar = true;
 

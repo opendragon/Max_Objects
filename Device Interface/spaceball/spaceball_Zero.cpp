@@ -40,21 +40,21 @@
 #include "spaceball.h"
 
 /*------------------------------------ cmd_Zero ---*/
-void cmd_Zero(SpaceballData * xx)
+ZERO_HEADER(SpaceballData)
 {
     if (xx)
     {
         t_atom report[3];
 
         spaceballZeroValues(xx);
-        for (short ii = 0; ii < 3; ++ii)
+        for (short ii = 0; 3 > ii; ++ii)
         {
-            A_SETFLOAT(report + ii, xx->fTrans[ii]);
+            atom_setfloat(report + ii, xx->fTrans[ii]);
         }
         outlet_anything(xx->fDataOut, gTranslateSymbol, 3, report);
-        for (short ii = 0; ii < 3; ++ii)
+        for (short ii = 0; 3 > ii; ++ii)
         {
-            A_SETFLOAT(report + ii, xx->fRot[ii]);
+            atom_setfloat(report + ii, xx->fRot[ii]);
         }
         outlet_anything(xx->fDataOut, gRotateSymbol, 3, report);
     }

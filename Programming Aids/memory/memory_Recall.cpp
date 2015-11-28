@@ -40,8 +40,7 @@
 #include "memory.h"
 
 /*------------------------------------ cmd_Recall ---*/
-void cmd_Recall(MemoryData * xx,
-                t_symbol *   name)
+RECALL_HEADER(MemoryData)
 {
     if (xx)
     {

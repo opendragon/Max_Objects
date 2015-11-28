@@ -40,7 +40,7 @@
 #include "tcpClient.h"
 
 /*------------------------------------ cmd_Connect ---*/
-void cmd_Connect(TcpObjectData * xx)
+CONNECT_HEADER(TcpObjectData)
 {
     REPORT_MAX_MESSAGE("connect")
     if (xx && tcpClientConnect(xx))

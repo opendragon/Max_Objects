@@ -51,14 +51,14 @@ struct RangeData
 {
     RangeData *  fNext;
     t_atom *     fOutput;
-    short        fOutputCount;
+    long         fOutputCount;
     RangeElement fBottom;
     RangeElement fLeft;
     RangeElement fRight;
     RangeElement fTop;
-    short        fDollarsPresent;
-    short        fDoubleDollarsPresent;
-    short        fSingleDollarsPresent;
+    long         fDollarsPresent;
+    long         fDoubleDollarsPresent;
+    long         fSingleDollarsPresent;
     bool         fBottomTopDontCare;
     bool         fLeftRightDontCare;
 }; // RangeData
@@ -75,7 +75,7 @@ struct Map2dData
     long           fBufferTypeOffset;
     long           fBufferStuffOffset;
     FloatOrInteger fPreviousInput[2];
-    short          fRangeCount;
+    long           fRangeCount;
     bool           fVerbose;
 }; // Map2dData
 
@@ -84,8 +84,8 @@ MapRoutineDeclarations(Map2dData);
 void map2dClearRangeList(Map2dData * xx);
 
 RangeData * map2dConvertListToRange(Map2dData * xx,
-                                    const short offset,
-                                    const short numAtoms,
+                                    const long  offset,
+                                    const long  numAtoms,
                                     t_atom *    inList);
 
 bool map2dLoadRangeList(Map2dData * xx,

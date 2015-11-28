@@ -52,7 +52,7 @@ LIST_HEADER(ListTypeData)
             bool sawSymbol = false;
             bool sawUnknown = false;
 
-            for (short ii = 0; (ii < argc) && (! sawUnknown); ++ii)
+            for (long ii = 0; (ii < argc) && (! sawUnknown); ++ii)
             {
                 switch (argv[ii].a_type)
                 {

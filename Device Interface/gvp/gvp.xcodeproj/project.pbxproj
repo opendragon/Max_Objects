@@ -17,8 +17,8 @@
 		F6972938180C82970082C8CD /* gvp100_RecallEmem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972922180C82970082C8CD /* gvp100_RecallEmem.cpp */; };
 		F6972939180C82970082C8CD /* gvp100_SetCrosspoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972923180C82970082C8CD /* gvp100_SetCrosspoint.cpp */; };
 		F697293A180C82970082C8CD /* gvp100_SetDskClipLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972924180C82970082C8CD /* gvp100_SetDskClipLevel.cpp */; };
-		F697293B180C82970082C8CD /* gvp100_SetDskControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972925180C82970082C8CD /* gvp100_SetDskControl.cpp */; };
-		F697293C180C82970082C8CD /* gvp100_SetEffectsControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972926180C82970082C8CD /* gvp100_SetEffectsControl.cpp */; };
+		F697293B180C82970082C8CD /* gvp100_SetDskAnalogControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972925180C82970082C8CD /* gvp100_SetDskAnalogControl.cpp */; };
+		F697293C180C82970082C8CD /* gvp100_SetEffectsAnalogControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972926180C82970082C8CD /* gvp100_SetEffectsAnalogControl.cpp */; };
 		F697293D180C82970082C8CD /* gvp100_SetEffectsPosition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972927180C82970082C8CD /* gvp100_SetEffectsPosition.cpp */; };
 		F697293E180C82970082C8CD /* gvp100_SetJoystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972928180C82970082C8CD /* gvp100_SetJoystick.cpp */; };
 		F697293F180C82970082C8CD /* gvp100_SetPushbutton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6972929180C82970082C8CD /* gvp100_SetPushbutton.cpp */; };
@@ -48,8 +48,8 @@
 		F6972922180C82970082C8CD /* gvp100_RecallEmem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_RecallEmem.cpp; sourceTree = SOURCE_ROOT; };
 		F6972923180C82970082C8CD /* gvp100_SetCrosspoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetCrosspoint.cpp; sourceTree = SOURCE_ROOT; };
 		F6972924180C82970082C8CD /* gvp100_SetDskClipLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetDskClipLevel.cpp; sourceTree = SOURCE_ROOT; };
-		F6972925180C82970082C8CD /* gvp100_SetDskControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetDskControl.cpp; sourceTree = SOURCE_ROOT; };
-		F6972926180C82970082C8CD /* gvp100_SetEffectsControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetEffectsControl.cpp; sourceTree = SOURCE_ROOT; };
+		F6972925180C82970082C8CD /* gvp100_SetDskAnalogControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetDskAnalogControl.cpp; sourceTree = SOURCE_ROOT; };
+		F6972926180C82970082C8CD /* gvp100_SetEffectsAnalogControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetEffectsAnalogControl.cpp; sourceTree = SOURCE_ROOT; };
 		F6972927180C82970082C8CD /* gvp100_SetEffectsPosition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetEffectsPosition.cpp; sourceTree = SOURCE_ROOT; };
 		F6972928180C82970082C8CD /* gvp100_SetJoystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetJoystick.cpp; sourceTree = SOURCE_ROOT; };
 		F6972929180C82970082C8CD /* gvp100_SetPushbutton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gvp100_SetPushbutton.cpp; sourceTree = SOURCE_ROOT; };
@@ -112,9 +112,9 @@
 				F6972921180C82970082C8CD /* gvp100_LearnEmem.cpp */,
 				F6972922180C82970082C8CD /* gvp100_RecallEmem.cpp */,
 				F6972923180C82970082C8CD /* gvp100_SetCrosspoint.cpp */,
+				F6972925180C82970082C8CD /* gvp100_SetDskAnalogControl.cpp */,
 				F6972924180C82970082C8CD /* gvp100_SetDskClipLevel.cpp */,
-				F6972925180C82970082C8CD /* gvp100_SetDskControl.cpp */,
-				F6972926180C82970082C8CD /* gvp100_SetEffectsControl.cpp */,
+				F6972926180C82970082C8CD /* gvp100_SetEffectsAnalogControl.cpp */,
 				F6972927180C82970082C8CD /* gvp100_SetEffectsPosition.cpp */,
 				F6972928180C82970082C8CD /* gvp100_SetJoystick.cpp */,
 				F6972929180C82970082C8CD /* gvp100_SetPushbutton.cpp */,
@@ -223,8 +223,8 @@
 			files = (
 				F697293D180C82970082C8CD /* gvp100_SetEffectsPosition.cpp in Sources */,
 				F697293A180C82970082C8CD /* gvp100_SetDskClipLevel.cpp in Sources */,
-				F697293C180C82970082C8CD /* gvp100_SetEffectsControl.cpp in Sources */,
-				F697293B180C82970082C8CD /* gvp100_SetDskControl.cpp in Sources */,
+				F697293C180C82970082C8CD /* gvp100_SetEffectsAnalogControl.cpp in Sources */,
+				F697293B180C82970082C8CD /* gvp100_SetDskAnalogControl.cpp in Sources */,
 				F6972945180C82970082C8CD /* gvp100_XReset.cpp in Sources */,
 				F6972941180C82970082C8CD /* gvp100_SetTransitionMode.cpp in Sources */,
 				F6972940180C82970082C8CD /* gvp100_SetTakePosition.cpp in Sources */,

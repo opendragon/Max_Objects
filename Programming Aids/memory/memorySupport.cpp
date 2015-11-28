@@ -48,7 +48,7 @@ SymbolLink * memoryAddSymbol(MemoryData * xx,
 
     if (descriptor)
     {
-        short        ii = static_cast<short>(reinterpret_cast<long>(name) % HASH_TABLE_SIZE);
+        long         ii = (reinterpret_cast<long>(name) % HASH_TABLE_SIZE);
         SymbolLink * prev = NULL;
 
         for (slot = *(descriptor->fSymbolTable + ii); slot; slot = slot->fNext)
@@ -137,7 +137,7 @@ SymbolLink * memoryLookupSymbol(MemoryData * xx,
 
     if (descriptor)
     {
-        short ii = static_cast<short>(reinterpret_cast<long>(name) % HASH_TABLE_SIZE);
+        long ii = (reinterpret_cast<long>(name) % HASH_TABLE_SIZE);
 
         for (slot = *(descriptor->fSymbolTable + ii); slot; slot = slot->fNext)
         {
@@ -159,7 +159,7 @@ void memoryRemoveSymbol(MemoryData * xx,
 
     if (descriptor)
     {
-        short        ii = static_cast<short>(reinterpret_cast<long>(name) % HASH_TABLE_SIZE);
+        long         ii = (reinterpret_cast<long>(name) % HASH_TABLE_SIZE);
         SymbolLink * prev = NULL;
         SymbolLink * slot = *(descriptor->fSymbolTable + ii);
 

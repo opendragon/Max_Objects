@@ -54,7 +54,7 @@ bool makeReceiveBufferAvailable(UdpObjectData * xx)
                                        reinterpret_cast<sockaddr *>(&xx->fReceiveBuffer->fSender),
                                        &addrLen);
 
-        if (bytesRead < 0)
+        if (0 > bytesRead)
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "recvfrom failed (%ld)", static_cast<long>(errno))
             signalError(xx);
@@ -71,7 +71,7 @@ bool makeReceiveBufferAvailable(UdpObjectData * xx)
             /* Get the next available buffer from the buffer pool */
             UdpBufferLink * temp = xx->fPoolHead;
 
-            xx->fReceiveBuffer->fNumBytesInUse = static_cast<short>(bytesRead);
+            xx->fReceiveBuffer->fNumBytesInUse = bytesRead;
             if (temp)
             {
                 DataBuffer * swapper = temp->fData;
@@ -120,8 +120,8 @@ void processReceiveQueue(UdpObjectData * xx)
         short           prev_lock = lockout_set(1);
         UdpBufferLink * temp;
         t_atom *        gotStuff;
-        short           numAtoms;
-        short           numMessages;
+        long            numAtoms;
+        long            numMessages;
 
         for ( ; ; )
         {
@@ -147,7 +147,7 @@ void processReceiveQueue(UdpObjectData * xx)
             temp->fNext = NULL;
             walker = reinterpret_cast<char *>(&temp->fData->fNumElements);
             numMessages = validateBuffer(xx, temp->fData, xx->fRawMode);
-            for (short ii = 0; ii < numMessages; ++ii)
+            for (long ii = 0; ii < numMessages; ++ii)
             {
                 /* Allow interrupts while we process the buffer */
                 lockout_set(prev_lock);
@@ -155,7 +155,7 @@ void processReceiveQueue(UdpObjectData * xx)
                 gotStuff = convertBufferToAtoms(xx, &walker, temp->fData->fSender, numAtoms,
                                                 temp->fData->fNumBytesInUse, xx->fRawMode);
                 prev_lock = lockout_set(1);
-                if (numAtoms > 0)
+                if (0 < numAtoms)
                 {
                     outlet_anything(xx->fResultOut, gFromSymbol, numAtoms, gotStuff);
                     FREE_BYTES(gotStuff);
@@ -221,20 +221,19 @@ void transmitBuffer(UdpObjectData * xx,
             }
             else
             {
-                short num_bytes = static_cast<short>(aBuffer->fNumBytesInUse +
-                                                     SIZEOF_DATABUFFER_HDR);
+                long numBytes = aBuffer->fNumBytesInUse + SIZEOF_DATABUFFER_HDR;
 
-                aBuffer->fSanityCheck = htons(static_cast<short>(-(num_bytes +
+                aBuffer->fSanityCheck = htons(static_cast<short>(-(numBytes +
                                                                    aBuffer->fNumElements)));
                 aBuffer->fNumElements = htons(aBuffer->fNumElements);
-                outLength = num_bytes;
+                outLength = numBytes;
                 outBuffer = &aBuffer->fNumElements;
             }
             ssize_t bytesWritten = sendto(sock, outBuffer, outLength, 0,
                                           reinterpret_cast<sockaddr *>(&outAddress),
                                           static_cast<socklen_t>(sizeof(outAddress)));
 
-            if (bytesWritten < 0)
+            if (0 > bytesWritten)
             {
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "sendto failed (%ld)", static_cast<long>(errno))
                 signalError(xx);

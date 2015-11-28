@@ -128,7 +128,7 @@ void shiftAString(CaseShiftData * xx,
         for ( ; *inWalker; ++inWalker, ++outWalker)
         {
             aChar = *inWalker;
-            if ((aChar >= 'A') && (aChar <= 'Z'))
+            if (('A' <= aChar) && ('Z' >= aChar))
             {
                 aChar -= ('A' - 'a');
             }
@@ -140,7 +140,7 @@ void shiftAString(CaseShiftData * xx,
         for ( ; *inWalker; ++inWalker, ++outWalker)
         {
             aChar = *inWalker;
-            if ((aChar >= 'a') && (aChar <= 'z'))
+            if (('a' <= aChar) && ('z' >= aChar))
             {
                 aChar += ('A' - 'a');
             }

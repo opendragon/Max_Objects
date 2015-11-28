@@ -52,7 +52,7 @@ struct VscanData
     t_outlet *       fResultOut;
     OpCode           fOperation;
     InputRestriction fCheck;
-    short            fPreviousLength;
+    long             fPreviousLength;
     t_atom *         fPreviousList;
 }; // VscanData
 

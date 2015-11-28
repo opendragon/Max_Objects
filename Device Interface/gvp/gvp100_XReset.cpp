@@ -40,7 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_XReset ---*/
-void cmd_XReset(GvpData * xx)
+XRESET_HEADER(GvpData)
 {
     if (xx)
     {

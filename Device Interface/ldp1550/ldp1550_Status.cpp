@@ -40,7 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_Status ---*/
-void cmd_Status(LdpData * xx)
+STATUS_HEADER(LdpData)
 {
     if (xx)
     {

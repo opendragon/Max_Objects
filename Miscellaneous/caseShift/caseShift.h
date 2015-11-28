@@ -53,7 +53,7 @@ struct CaseShiftData
     t_outlet *  fResultOut;
     double      fPreviousFloat;
     t_atom_long fPreviousLong;
-    short       fPreviousLength;
+    long        fPreviousLength;
     t_atom *    fPreviousList;
     bool        fDown;
     short       fPreviousKind;

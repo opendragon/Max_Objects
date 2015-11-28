@@ -40,8 +40,7 @@
 #include "memory.h"
 
 /*------------------------------------ cmd_Forget ---*/
-void cmd_Forget(MemoryData * xx,
-                t_symbol *   name)
+FORGET_HEADER(MemoryData)
 {
     if (xx)
     {

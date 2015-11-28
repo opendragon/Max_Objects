@@ -48,7 +48,7 @@ static void * VrotateCreate(const long howMany)
     
     if (xx)
     {
-        xx->fHowMany = static_cast<short>(howMany);
+        xx->fHowMany = howMany;
         xx->fPreviousList = NULL;
         xx->fPreviousLength = 0;
         intin(xx, 1);

@@ -135,7 +135,7 @@ static void * tcpServerCreate(const long port,
         if (okSoFar)
         {
             WRAP_OT_CALL(xx, result, "OTSetAsynchronous", OTSetAsynchronous(xx->fSocket))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTSetAsynchronous failed (%ld = %s)", result)
                 reportEndpointState(OUR_NAME, xx);
@@ -145,7 +145,7 @@ static void * tcpServerCreate(const long port,
         if (okSoFar)
         {
             WRAP_OT_CALL(xx, result, "OTSetBlocking", OTSetBlocking(xx->fSocket))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTSetBlocking failed (%ld = %s)", result)
                 reportEndpointState(OUR_NAME, xx);
@@ -157,7 +157,7 @@ static void * tcpServerCreate(const long port,
             WRAP_OT_CALL(xx, result, "OTInstallNotifier", OTInstallNotifier(xx->fSocket,
                                                                             xx->fDataNotifier,
                                                                             xx))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTInstallNotifier failed (%ld = %s)", result)
                 reportEndpointState(OUR_NAME, xx);
@@ -187,7 +187,7 @@ static void tcpServerFree(TcpObjectData * xx)
         OSStatus result;
         
         xx->fClosing = true;
-        if (xx->fSocket != kOTInvalidEndpointRef)
+        if (kOTInvalidEndpointRef != xx->fSocket)
         {
             switch (xx->fState)
             {
@@ -200,7 +200,7 @@ static void tcpServerFree(TcpObjectData * xx)
                     
                 case kTcpStateBound:
                     WRAP_OT_CALL(xx, result, "OTUnbind", OTUnbind(xx->fSocket))
-                    if (result != kOTNoError)
+                    if (kOTNoError != result)
                     {
                         REPORT_ERROR(xx, OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
                         reportEndpointState(OUR_NAME, xx);
@@ -209,7 +209,7 @@ static void tcpServerFree(TcpObjectData * xx)
                     
                 case kTcpStateUnbound:
                     WRAP_OT_CALL(xx, result, "OTCloseProvider", OTCloseProvider(xx->fSocket))
-                    if (result != kOTNoError)
+                    if (kOTNoError != result)
                     {
                         REPORT_ERROR(xx, OUTPUT_PREFIX "OTCloseProvider failed (%ld = %s)", result)
                         reportEndpointState(OUR_NAME, xx);
@@ -297,7 +297,7 @@ bool tcpServerSetPort(TcpObjectData * xx,
 
             case kTcpStateBound:
                 WRAP_OT_CALL(xx, result, "OTUnbind", OTUnbind(xx->fSocket))
-                if (result != kOTNoError)
+                if (kOTNoError != result)
                 {
                     REPORT_ERROR(xx, OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
                     reportEndpointState(OUR_NAME, xx);
@@ -326,7 +326,7 @@ bool tcpServerSetPort(TcpObjectData * xx,
             bind_request.addr.buf = reinterpret_cast<unsigned char *>(&in_address);
             bind_request.qlen = 1;
             WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fSocket, &bind_request, NULL))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
                 reportEndpointState(OUR_NAME, xx);

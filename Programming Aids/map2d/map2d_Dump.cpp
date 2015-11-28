@@ -48,89 +48,89 @@ DUMP_HEADER(Map2dData)
 
         for (t_atom_long ii = 1; walker; walker = walker->fNext, ++ii)
         {
-            short    leftRight = static_cast<short>(walker->fLeftRightDontCare ? 1 : 4);
-            short    bottomTop = static_cast<short>(walker->fBottomTopDontCare ? 1 : 4);
-            short    outSize = static_cast<short>(walker->fOutputCount + leftRight + bottomTop + 1);
+            long     leftRight = (walker->fLeftRightDontCare ? 1 : 4);
+            long     bottomTop = (walker->fBottomTopDontCare ? 1 : 4);
+            long     outSize = walker->fOutputCount + leftRight + bottomTop + 1;
             t_atom * newList = GET_BYTES(outSize, t_atom);
             t_atom * nextPos;
 
             if (newList)
             {
-                A_SETLONG(newList, ii);
+                atom_setlong(newList, ii);
                 nextPos = newList + 1;
                 if (walker->fLeftRightDontCare)
                 {
-                    A_SETSYM(nextPos, gAsteriskSymbol);
+                    atom_setsym(nextPos, gAsteriskSymbol);
                 }
                 else
                 {
-                    A_SETSYM(nextPos, walker->fLeft.fIsClosed ? gOpenSquareSymbol :
+                    atom_setsym(nextPos, walker->fLeft.fIsClosed ? gOpenSquareSymbol :
                              gOpenRoundSymbol);
                     if (MatchInfinity == walker->fLeft.fKind)
                     {
-                        A_SETSYM(nextPos + 1, gNegInfSymbol1);
+                        atom_setsym(nextPos + 1, gNegInfSymbol1);
                     }
                     else if (MatchFloat == walker->fLeft.fKind)
                     {
-                        A_SETFLOAT(nextPos + 1, getFOIFloat(walker->fLeft.fValue));
+                        atom_setfloat(nextPos + 1, getFOIFloat(walker->fLeft.fValue));
                     }
                     else
                     {
-                        A_SETLONG(nextPos + 1, getFOILong(walker->fLeft.fValue));
+                        atom_setlong(nextPos + 1, getFOILong(walker->fLeft.fValue));
                     }
                     if (MatchInfinity == walker->fRight.fKind)
                     {
-                        A_SETSYM(nextPos + 2, gPosInfSymbol1);
+                        atom_setsym(nextPos + 2, gPosInfSymbol1);
                     }
                     else if (MatchFloat == walker->fRight.fKind)
                     {
-                        A_SETFLOAT(nextPos + 2, getFOIFloat(walker->fRight.fValue));
+                        atom_setfloat(nextPos + 2, getFOIFloat(walker->fRight.fValue));
                     }
                     else
                     {
-                        A_SETLONG(nextPos + 2, getFOILong(walker->fRight.fValue));
+                        atom_setlong(nextPos + 2, getFOILong(walker->fRight.fValue));
                     }
-                    A_SETSYM(nextPos + 3, walker->fRight.fIsClosed ? gCloseSquareSymbol :
+                    atom_setsym(nextPos + 3, walker->fRight.fIsClosed ? gCloseSquareSymbol :
                              gCloseRoundSymbol);
                 }
                 nextPos += leftRight;
                 if (walker->fBottomTopDontCare)
                 {
-                    A_SETSYM(nextPos, gAsteriskSymbol);
+                    atom_setsym(nextPos, gAsteriskSymbol);
                 }
                 else
                 {
-                    A_SETSYM(nextPos, walker->fBottom.fIsClosed ? gOpenSquareSymbol :
+                    atom_setsym(nextPos, walker->fBottom.fIsClosed ? gOpenSquareSymbol :
                              gOpenRoundSymbol);
                     if (MatchInfinity == walker->fBottom.fKind)
                     {
-                        A_SETSYM(nextPos + 1, gNegInfSymbol1);
+                        atom_setsym(nextPos + 1, gNegInfSymbol1);
                     }
                     else if (MatchFloat == walker->fBottom.fKind)
                     {
-                        A_SETFLOAT(nextPos + 1, getFOIFloat(walker->fBottom.fValue));
+                        atom_setfloat(nextPos + 1, getFOIFloat(walker->fBottom.fValue));
                     }
                     else
                     {
-                        A_SETLONG(nextPos + 1, getFOILong(walker->fBottom.fValue));
+                        atom_setlong(nextPos + 1, getFOILong(walker->fBottom.fValue));
                     }
                     if (MatchInfinity == walker->fTop.fKind)
                     {
-                        A_SETSYM(nextPos + 2, gPosInfSymbol1);
+                        atom_setsym(nextPos + 2, gPosInfSymbol1);
                     }
                     else if (MatchFloat == walker->fTop.fKind)
                     {
-                        A_SETFLOAT(nextPos + 2, getFOIFloat(walker->fTop.fValue));
+                        atom_setfloat(nextPos + 2, getFOIFloat(walker->fTop.fValue));
                     }
                     else
                     {
-                        A_SETLONG(nextPos + 2, getFOILong(walker->fTop.fValue));
+                        atom_setlong(nextPos + 2, getFOILong(walker->fTop.fValue));
                     }
-                    A_SETSYM(nextPos + 3, walker->fTop.fIsClosed ? gCloseSquareSymbol :
+                    atom_setsym(nextPos + 3, walker->fTop.fIsClosed ? gCloseSquareSymbol :
                              gCloseRoundSymbol);
                 }
                 nextPos += bottomTop;
-                for (short jj = 0; jj < walker->fOutputCount; ++jj)
+                for (long jj = 0; jj < walker->fOutputCount; ++jj)
                 {
                     *(nextPos + jj) = *(walker->fOutput + jj);
                 }

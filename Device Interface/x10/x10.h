@@ -216,85 +216,116 @@ mextern(unsigned char) kCP290DateTimeDayToBits[8] minit(CP290_DATETIMEDAYTOBITS_
 
 mextern(unsigned char) kHouseCodeToBits[NUM_HOUSECODES] minit(HOUSECODETOBITS_DATA);
 
-void cmd_ClearTimerEvent(X10ControlData * xx,
-                         long             eventNumber);
+# define CLEARTIMEREVENT_HEADER(type) \
+    void cmd_ClearTimerEvent(type *     xx,\
+                             const long eventNumber)
 
-void cmd_Dim(X10ControlData * xx,
-             t_symbol *       code,
-             long             map,
-             long             level);
+# define DIM_HEADER(type) \
+    void cmd_Dim(type *     xx,\
+                 t_symbol * code,\
+                 const long map,\
+                 const long level)
 
-void cmd_GetHouseCode(X10ControlData * xx);
+# define GETGRAPHICSDATA_HEADER(type) \
+    void cmd_GetGraphicsData(type * xx)
 
-void cmd_GetGraphicsData(X10ControlData * xx);
+# define GETHOUSECODE_HEADER(type) \
+    void cmd_GetHouseCode(type * xx)
 
-void cmd_GetTimerEvents(X10ControlData * xx);
+# define GETTIMEREVENTS_HEADER(type) \
+    void cmd_GetTimerEvents(type * xx)
 
-void cmd_Kind(X10ControlData * xx,
-              t_symbol *       kind);
+# define KIND_HEADER(type) \
+    void cmd_Kind(type *     xx,\
+                  t_symbol * kind)
 
-void cmd_Off(X10ControlData * xx,
-             t_symbol *       code,
-             long             map);
+# define OFF_HEADER(type) \
+    void cmd_Off(type *     xx,\
+                 t_symbol * code,\
+                 const long map)
 
-void cmd_On(X10ControlData * xx,
-            t_symbol *       code,
-            long             map);
+# define ON_HEADER(type) \
+    void cmd_On(type *     xx,\
+                t_symbol * code,\
+                const long map)
 
-void cmd_Reset(X10ControlData * xx);
+# define SETCLOCK_HEADER(type) \
+    void cmd_SetClock(type * xx)
 
-void cmd_SetClock(X10ControlData * xx);
+# define SETEVERYDAYEVENT_HEADER(type) \
+    void cmd_SetEveryDayEvent(type *     xx,\
+                              t_symbol * code,\
+                              const long map,\
+                              const long eventNumber,\
+                              const long hourMinute,\
+                              t_symbol * function,\
+                              const long level)
 
-void cmd_SetEveryDayEvent(X10ControlData * xx,
-                          t_symbol *       code,
-                          long             map,
-                          long             eventNumber,
-                          long             hourMinute,
-                          t_symbol *       function,
-                          long             level);
+# define SETGRAPHICSDATA_HEADER(type) \
+    void cmd_SetGraphicsData(type *     xx,\
+                             const long objectNumber,\
+                             const long objectData)
 
-void cmd_SetGraphicsData(X10ControlData * xx,
-                         long             objectNumber,
-                         long             objectData);
+# define SETHOUSECODE_HEADER(type) \
+    void cmd_SetHouseCode(type *     xx,\
+                          t_symbol * code)
 
-void cmd_SetHouseCode(X10ControlData * xx,
-                      t_symbol *       code);
+# define SETNORMALEVENT_HEADER(type) \
+    void cmd_SetNormalEvent(type *     xx,\
+                            t_symbol * code,\
+                            const long map,\
+                            const long eventNumber,\
+                            const long dayMap,\
+                            const long hourMinute,\
+                            t_symbol * function,\
+                            const long level)
 
-void cmd_SetNormalEvent(X10ControlData * xx,
-                        t_symbol *       code,
-                        long             map,
-                        long             eventNumber,
-                        long             dayMap,
-                        long             hourMinute,
-                        t_symbol *       function,
-                        long             level);
+# define SETSECURITYEVENT_HEADER(type) \
+    void cmd_SetSecurityEvent(type *     xx,\
+                              t_symbol * code,\
+                              const long map,\
+                              const long eventNumber,\
+                              const long dayMap,\
+                              const long hourMinute,\
+                              t_symbol * function,\
+                              const long level)
 
-void cmd_SetSecurityEvent(X10ControlData * xx,
-                          t_symbol *       code,
-                          long             map,
-                          long             eventNumber,
-                          long             dayMap,
-                          long             hourMinute,
-                          t_symbol *       function,
-                          long             level);
+# define SETTODAYEVENT_HEADER(type) \
+    void cmd_SetTodayEvent(type *     xx,\
+                           t_symbol * code,\
+                           const long map,\
+                           const long eventNumber,\
+                           const long hourMinute,\
+                           t_symbol * function,\
+                           const long level)
 
-void cmd_SetTodayEvent(X10ControlData * xx,
-                       t_symbol *       code,
-                       long             map,
-                       long             eventNumber,
-                       long             hourMinute,
-                       t_symbol *       function,
-                       long             level);
+# define SETTOMORROWEVENT_HEADER(type) \
+    void cmd_SetTomorrowEvent(type *     xx,\
+                              t_symbol * code,\
+                              const long map,\
+                              const long eventNumber,\
+                              const long hourMinute,\
+                              t_symbol * function,\
+                              const long level)
 
-void cmd_SetTomorrowEvent(X10ControlData * xx,
-                          t_symbol *       code,
-                          long             map,
-                          long             eventNumber,
-                          long             hourMinute,
-                          t_symbol *       function,
-                          long             level);
-
-void cmd_XReset(X10ControlData * xx);
+CLEARTIMEREVENT_HEADER(X10ControlData);
+DIM_HEADER(X10ControlData);
+GETGRAPHICSDATA_HEADER(X10ControlData);
+GETHOUSECODE_HEADER(X10ControlData);
+GETTIMEREVENTS_HEADER(X10ControlData);
+KIND_HEADER(X10ControlData);
+OFF_HEADER(X10ControlData);
+ON_HEADER(X10ControlData);
+RESET_HEADER(X10ControlData);
+SETCLOCK_HEADER(X10ControlData);
+SETEVERYDAYEVENT_HEADER(X10ControlData);
+SETGRAPHICSDATA_HEADER(X10ControlData);
+SETHOUSECODE_HEADER(X10ControlData);
+SETNORMALEVENT_HEADER(X10ControlData);
+SETSECURITYEVENT_HEADER(X10ControlData);
+SETTODAYEVENT_HEADER(X10ControlData);
+SETTOMORROWEVENT_HEADER(X10ControlData);
+XRESET_HEADER(X10ControlData);
 
 void x10CM11DoDirect(X10ControlData *      xx,
                      const X10FunctionCode funcCode,

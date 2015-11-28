@@ -40,8 +40,7 @@
 #include "tcpClient.h"
 
 /*------------------------------------ cmd_Server ---*/
-void cmd_Server(TcpObjectData * xx,
-                t_symbol *      ipAddress)
+SERVER_HEADER(TcpObjectData)
 {
     REPORT_MAX_MESSAGE("server")
     if (xx)

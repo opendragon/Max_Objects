@@ -40,9 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_Off ---*/
-void cmd_Off(X10ControlData * xx,
-             t_symbol *       code,
-             long             map)
+OFF_HEADER(X10ControlData)
 {
     switch (xx->fKind)
     {

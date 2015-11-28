@@ -40,7 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_AllStop ---*/
-void cmd_AllStop(GvpData * xx)
+ALLSTOP_HEADER(GvpData)
 {
     if (xx)
     {

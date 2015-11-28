@@ -40,8 +40,7 @@
 #include "mtc.h"
 
 /*------------------------------------ cmd_Order ---*/
-void cmd_Order(MtcData *  xx,
-               t_symbol * order)
+ORDER_HEADER(MtcData)
 {
     if (xx)
     {

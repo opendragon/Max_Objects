@@ -74,7 +74,7 @@ void pfsmReportHashTable(PfsmData * xx)
         const char * stateDescriptor;
         const char * outputTag;
 
-        for (short ii = 0; ii < HASH_TABLE_SIZE; ++ii)
+        for (long ii = 0; HASH_TABLE_SIZE > ii; ++ii)
         {
             for (SymbolLink * slot = *(xx->fStateSymbols + ii); slot; slot = slot->fNext)
             {
@@ -161,7 +161,7 @@ void pfsmReportHashTable(PfsmData * xx)
                     }
                     if (trans->fOutputCount)
                     {
-                        for (short jj = 0; jj < trans->fOutputCount; ++jj)
+                        for (long jj = 0; jj < trans->fOutputCount; ++jj)
                         {
                             postatom(trans->fOutput + jj);
                         }
@@ -194,7 +194,7 @@ static void pfsmInitializeHashTable(PfsmData * xx)
 static SymbolLink * pfsmAddStateSymbol(PfsmData * xx,
                                        t_symbol * name)
 {
-    short        ii = static_cast<short>(reinterpret_cast<long>(name) % HASH_TABLE_SIZE);
+    long         ii = (reinterpret_cast<long>(name) % HASH_TABLE_SIZE);
     SymbolLink * prev = NULL;
     SymbolLink * slot = *(xx->fStateSymbols + ii);
 
@@ -233,7 +233,7 @@ static SymbolLink * pfsmAddStateSymbol(PfsmData * xx,
 SymbolLink * pfsmLookupStateSymbol(PfsmData * xx,
                                    t_symbol * name)
 {
-    short        ii = static_cast<short>(reinterpret_cast<long>(name) % HASH_TABLE_SIZE);
+    long         ii = (reinterpret_cast<long>(name) % HASH_TABLE_SIZE);
     SymbolLink * slot = *(xx->fStateSymbols + ii);
 
     for ( ; slot; slot = slot->fNext)
@@ -729,7 +729,7 @@ static bool pfsmCollectATransition(PfsmData * xx)
                 if (A_FLOAT == holder.a_type)
                 {
                     probability = holder.a_w.w_float;
-                    if ((probability <= 0) || (probability >= 1))
+                    if ((0 >= probability) || (1 <= probability))
                     {
                         pfsmReportUnexpected(xx, holder);
                         result = false;
@@ -844,7 +844,7 @@ static bool pfsmCollectATransition(PfsmData * xx)
                 t_atom * vector = GET_BYTES(newTrans->fOutputCount, t_atom);
 
                 newTrans->fOutput = vector;
-                for (short ii = 0; ii < newTrans->fOutputCount; ++ii, ++vector)
+                for (long ii = 0; ii < newTrans->fOutputCount; ++ii, ++vector)
                 {
                     if (binbuf_getatom(collector, &tyOffset, &stOffset, vector))
                     {

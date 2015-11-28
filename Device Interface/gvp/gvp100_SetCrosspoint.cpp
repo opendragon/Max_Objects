@@ -40,10 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_SetCrosspoint ---*/
-void cmd_SetCrosspoint(GvpData *  xx,
-                       t_symbol * ss,
-                       short      argc,
-                       t_atom *   argv)
+SETCROSSPOINT_HEADER(GvpData)
 {
 #pragma unused(ss)
     if (xx)
@@ -54,7 +51,7 @@ void cmd_SetCrosspoint(GvpData *  xx,
         t_atom_long    number;
         unsigned char  dummy;
 
-        for (short jj = 0; okSoFar && (jj < argc); ++jj)
+        for (long jj = 0; okSoFar && (jj < argc); ++jj)
         {
             switch (argv[jj].a_type)
             {
@@ -106,7 +103,7 @@ void cmd_SetCrosspoint(GvpData *  xx,
                     else
                     {
                         /* even index - invalid! */
-                        LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid bus name (%ld)", number)
+                        LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid bus name (" LONG_FORMAT ")", number)
                         okSoFar = false;
                     }
                     break;

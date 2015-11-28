@@ -51,7 +51,7 @@ struct StackEntry
 {
     StackEntry * fNext;
     t_atom *     fOutput;
-    short        fOutputCount;
+    long         fOutputCount;
 }; // StackEntry
 
 struct StackDescriptor
@@ -61,7 +61,7 @@ struct StackDescriptor
     StackDescriptor * fNext;
     t_symbol *        fTag;
     long              fDepth;
-    short             fReferenceCount;
+    long              fReferenceCount;
 }; // StackDescriptor
 
 struct StackData
@@ -74,27 +74,39 @@ struct StackData
     bool              fVerbose;
 }; // StackData
 
+# define DEPTH_HEADER(type) \
+    void cmd_Depth(type * xx)
+
+# define DUP_HEADER(type) \
+    void cmd_Dup(type * xx)
+
+# define POP_HEADER(type) \
+    void cmd_Pop(type * xx)
+
+# define PUSH_HEADER(type) \
+    void cmd_Push(type *     xx,\
+                  t_symbol * message,\
+                  const long argc,\
+                  t_atom *   argv)
+
+# define SWAP_HEADER(type) \
+    void cmd_Swap(type * xx)
+
+# define TOP_HEADER(type) \
+    void cmd_Top(type * xx)
+
+# define TOPPOP_HEADER(type) \
+    void cmd_TopPop(type * xx)
+
 CLEAR_HEADER(StackData);
-
-void cmd_Depth(StackData * xx);
-
-void cmd_Dup(StackData * xx);
-
-void cmd_Pop(StackData * xx);
-
-void cmd_Push(StackData * xx,
-              t_symbol *  message,
-              short       argc,
-              t_atom *    argv);
-
-void cmd_Swap(StackData * xx);
-
-void cmd_Top(StackData * xx);
-
-void cmd_TopPop(StackData * xx);
-
-void cmd_Trace(StackData * xx,
-               t_symbol *  onOff);
+DEPTH_HEADER(StackData);
+DUP_HEADER(StackData);
+POP_HEADER(StackData);
+PUSH_HEADER(StackData);
+SWAP_HEADER(StackData);
+TOP_HEADER(StackData);
+TOPPOP_HEADER(StackData);
+TRACE_HEADER(StackData);
 
 void stackClear(StackData * xx);
 

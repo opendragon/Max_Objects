@@ -66,7 +66,7 @@ static void processRebindQueue(TcpMultiServerData * xx)
         if (kTcpStateBound == xx->fState)
         {
             WRAP_OT_CALL(xx, result, "OTUnbind", OTUnbind(xx->fListenEndpoint))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
                 reportEndpointState(xx, xx->fListenEndpoint);
@@ -84,7 +84,7 @@ static void processRebindQueue(TcpMultiServerData * xx)
             bind_request.qlen = 1;
             WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fListenEndpoint, &bind_request,
                                                       NULL))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
                 reportEndpointState(xx, xx->fListenEndpoint);
@@ -107,8 +107,8 @@ static void processReceiveQueue(TcpMultiServerData * xx)
         short           prev_lock = lockout_set(1);
         TcpBufferLink * temp;
         t_atom *        got_stuff;
-        short           numAtoms;
-        short           numMessages;
+        long            numAtoms;
+        long            numMessages;
 
         for ( ; ; )
         {
@@ -134,7 +134,7 @@ static void processReceiveQueue(TcpMultiServerData * xx)
             temp->fNext = NULL;
             walker = reinterpret_cast<char *>(&temp->fData->fNumElements);
             numMessages = validateBuffer(xx, OUR_NAME, temp->fData, temp->fRawMode);
-            for (short ii = 0; ii < numMessages; ++ii)
+            for (long ii = 0; ii < numMessages; ++ii)
             {
                 /* Allow interrupts while we process the buffer */
                 lockout_set(prev_lock);
@@ -142,7 +142,7 @@ static void processReceiveQueue(TcpMultiServerData * xx)
                 got_stuff = convertBufferToAtoms(xx, OUR_NAME, &walker, numAtoms, temp->fIdentifier,
                                                  temp->fData->fNumBytesInUse, temp->fRawMode);
                 prev_lock = lockout_set(1);
-                if (numAtoms > 0)
+                if (0 < numAtoms)
                 {
                     outlet_anything(xx->fResultOut, gReplySymbol, numAtoms, got_stuff);
                     FREE_BYTES(got_stuff);
@@ -265,7 +265,7 @@ bool makeReceiveBufferAvailable(TcpConnectionData * connection)
             /* Get the next available buffer from the buffer pool */
             TcpBufferLink * temp = xx->fPoolHead;
 
-            connection->fReceiveBuffer->fNumBytesInUse = static_cast<short>(err);
+            connection->fReceiveBuffer->fNumBytesInUse = err;
             if (temp)
             {
                 DataBuffer * swapper = temp->fData;
@@ -361,7 +361,7 @@ void releaseObjectMemory(TcpMultiServerData * xx)
             for (unsigned short ii = 0; ii < xx->fMaximumConnections; ++ii, ++conn_walker)
             {
                 // Do any special clean-up here. TBD
-                if (conn_walker->fDataEndpoint != kOTInvalidEndpointRef)
+                if (kOTInvalidEndpointRef != conn_walker->fDataEndpoint)
                 {
                     WRAP_OT_CALL(xx, result, "OTCloseProvider",
                                  OTCloseProvider(conn_walker->fDataEndpoint))
@@ -465,11 +465,11 @@ void transmitBuffer(TcpMultiServerData * xx,
         }
         else
         {
-            short num_bytes = static_cast<short>(aBuffer->fNumBytesInUse + SIZEOF_DATABUFFER_HDR);
+            long numBytes = aBuffer->fNumBytesInUse + SIZEOF_DATABUFFER_HDR;
 
-            aBuffer->fSanityCheck = htons(static_cast<short>(-(num_bytes + aBuffer->fNumElements)));
+            aBuffer->fSanityCheck = htons(static_cast<short>(-(numBytes + aBuffer->fNumElements)));
             aBuffer->fNumElements = htons(aBuffer->fNumElements);
-            WRAP_OT_CALL(xx, result, "OTSnd", OTSnd(out, &aBuffer->fNumElements, num_bytes, 0L))
+            WRAP_OT_CALL(xx, result, "OTSnd", OTSnd(out, &aBuffer->fNumElements, numBytes, 0L))
         }
         if (0 > result)
         {

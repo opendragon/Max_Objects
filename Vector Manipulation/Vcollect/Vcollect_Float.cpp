@@ -51,7 +51,7 @@ FLOAT_HEADER(VcollectData)
             case 0:
             case 1:
                 /* Left or right inlet */
-                A_SETFLOAT(dummy, TO_DBL(msg));
+                atom_setfloat(dummy, TO_DBL(msg));
                 collectAddAtoms(xx, dummy, 1);
                 break;
 

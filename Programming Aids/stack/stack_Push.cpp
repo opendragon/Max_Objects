@@ -40,10 +40,7 @@
 #include "stack.h"
 
 /*------------------------------------ cmd_Push ---*/
-void cmd_Push(StackData * xx,
-              t_symbol *  message,
-              short       argc,
-              t_atom *    argv)
+PUSH_HEADER(StackData)
 {
 #pragma unused(message)
     if (xx)
@@ -70,7 +67,7 @@ void cmd_Push(StackData * xx,
                     if (temp)
                     {
                         newTop->fOutput = temp;
-                        for (short ii = 0; ii < argc; ++ii, ++temp)
+                        for (long ii = 0; ii < argc; ++ii, ++temp)
                         {
                             *temp = argv[ii];
                         }

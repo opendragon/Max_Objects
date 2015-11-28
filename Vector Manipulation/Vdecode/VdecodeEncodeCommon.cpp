@@ -47,10 +47,11 @@ bool checkBases(BaseData * info,
                 const long whichBase4,
                 const long whichBase5)
 {
-    bool  wasNegative = false;
-    short numBases;
-    short index = 0;
-    long  workingBase1 = whichBase1;
+    bool okSoFar = true;
+    bool wasNegative = false;
+    long numBases;
+    long index = 0;
+    long workingBase1 = whichBase1;
 
     if (0 > workingBase1)
     {
@@ -104,31 +105,35 @@ bool checkBases(BaseData * info,
             break;
 
         default:
-            return false;
+            okSoFar = false;
+            break;
             
     }
-    for (index = 0; index < numBases; ++index)
+    for (index = 0; okSoFar && (index < numBases); ++index)
     {
-        if (info->fBases[index] < 2)
+        if (2 > info->fBases[index])
         {
-            return false;
+            okSoFar = false;
         }
         
     }
-    info->fNumBases = numBases;
-    info->fFirstBaseIsNegative = (wasNegative || (1 == numBases));
-    return true;
+    if (okSoFar)
+    {
+        info->fNumBases = numBases;
+        info->fFirstBaseIsNegative = (wasNegative || (1 == numBases));
+    }
+    return okSoFar;
 } // checkBases
 
 /*------------------------------------ checkInput ---*/
 bool checkInput(void *       xx,
                 const char * name,
-                const short  argc,
+                const long   argc,
                 t_atom *     argv)
 {
     bool okSoFar = true;
 
-    for (short ii = 0; okSoFar && (ii < argc); ++ii)
+    for (long ii = 0; okSoFar && (ii < argc); ++ii)
     {
         switch (argv[ii].a_type)
         {

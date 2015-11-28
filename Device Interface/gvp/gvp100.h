@@ -141,68 +141,99 @@ struct GvpData
 # endif /* BE_VERBOSE */
 }; // GvpData
 
-void cmd_AllStop(GvpData * xx);
+# define ALLSTOP_HEADER(type) \
+    void cmd_AllStop(type * xx)
 
-void cmd_BreakDone(GvpData * xx);
+# define BREAKDONE_HEADER(type) \
+    void cmd_BreakDone(type * xx)
 
-void cmd_EndSequence(GvpData * xx);
+# define ENDSEQUENCE_HEADER(type) \
+    void cmd_EndSequence(type * xx)
 
-void cmd_LearnEmem(GvpData * xx,
-                   long      number);
+# define LEARNEMEM_HEADER(type) \
+    void cmd_LearnEmem(type *     xx,\
+                       const long number)
 
-void cmd_RecallEmem(GvpData * xx,
-                    long      number);
+# define RECALLEMEM_HEADER(type) \
+    void cmd_RecallEmem(type *     xx,\
+                        const long number)
 
-void cmd_SetCrosspoint(GvpData *  xx,
-                       t_symbol * ss,
-                       short      argc,
-                       t_atom *   argv);
+# define SETCROSSPOINT_HEADER(type) \
+    void cmd_SetCrosspoint(type *     xx,\
+                           t_symbol * ss,\
+                           const long argc,\
+                           t_atom *   argv)
 
-void cmd_SetDskAnalogControl(GvpData *  xx,
-                             t_symbol * ss,
-                             short      argc,
-                             t_atom *   argv);
+# define SETDSKANALOGCONTROL_HEADER(type) \
+    void cmd_SetDskAnalogControl(type *     xx,\
+                                 t_symbol * ss,\
+                                 const long argc,\
+                                 t_atom *   argv)
 
-void cmd_SetDskClipLevel(GvpData * xx,
-                         double    pos);
+# define SETDSKCLIPLEVEL_HEADER(type) \
+    void cmd_SetDskClipLevel(type *       xx,\
+                             const double pos)
 
-void cmd_SetEffectsAnalogControl(GvpData *  xx,
-                                 t_symbol * ss,
-                                 short      argc,
-                                 t_atom *   argv);
+# define SETEFFECTSANALOGCONTROL_HEADER(type) \
+    void cmd_SetEffectsAnalogControl(type *     xx,\
+                                     t_symbol * ss,\
+                                     const long argc,\
+                                     t_atom *   argv)
 
-void cmd_SetEffectsPosition(GvpData * xx,
-                            double    pos);
+# define SETEFFECTSPOSITION_HEADER(type) \
+    void cmd_SetEffectsPosition(type *       xx,\
+                                const double pos)
 
-void cmd_SetJoystick(GvpData * xx,
-                     double    horiz,
-                     double    vert);
+# define SETJOYSTICK_HEADER(type) \
+    void cmd_SetJoystick(type *       xx,\
+                         const double horiz,\
+                         const double vert)
 
-void cmd_SetPushbutton(GvpData *  xx,
-                       t_symbol * onOffPush,
-                       short      argc,
-                       t_atom *   argv);
+# define SETPUSHBUTTON_HEADER(type) \
+    void cmd_SetPushbutton(type *     xx,\
+                           t_symbol * onOffPush,\
+                           const long argc,\
+                           t_atom *   argv)
 
-void cmd_SetTakePosition(GvpData * xx,
-                         double    pos);
+# define SETTAKEPOSITION_HEADER(type) \
+    void cmd_SetTakePosition(type *       xx,\
+                             const double pos)
 
-void cmd_SetTransitionMode(GvpData *  xx,
-                           t_symbol * keyOrBkgd1,
-                           t_symbol * keyOrBkgd2);
+# define SETTRANSITIONMODE_HEADER(type) \
+    void cmd_SetTransitionMode(type *     xx,\
+                               t_symbol * keyOrBkgd1,\
+                               t_symbol * keyOrBkgd2)
 
-void cmd_SetTransitionRate(GvpData *  xx,
-                           t_symbol * kind,
-                           long       rate,
-                           t_symbol * keyOrBkgd1OrDoIt,
-                           t_symbol * keyOrBkgd2OrDoIt,
-                           t_symbol * keyOrBkgd3OrDoIt);
+# define SETTRANSITIONRATE_HEADER(type) \
+    void cmd_SetTransitionRate(type *     xx,\
+                               t_symbol * kind,\
+                               const long rate,\
+                               t_symbol * keyOrBkgdOrDoIt1,\
+                               t_symbol * keyOrBkgdOrDoIt2,\
+                               t_symbol * keyOrBkgdOrDoIt3)
 
-void cmd_SetWipePattern(GvpData * xx,
-                        long      number);
+# define SETWIPEPATTERN_HEADER(type) \
+    void cmd_SetWipePattern(type *     xx,\
+                            const long number)
 
+ALLSTOP_HEADER(GvpData);
+BREAKDONE_HEADER(GvpData);
+ENDSEQUENCE_HEADER(GvpData);
+LEARNEMEM_HEADER(GvpData);
+RECALLEMEM_HEADER(GvpData);
+SETCROSSPOINT_HEADER(GvpData);
+SETDSKANALOGCONTROL_HEADER(GvpData);
+SETDSKCLIPLEVEL_HEADER(GvpData);
+SETEFFECTSANALOGCONTROL_HEADER(GvpData);
+SETEFFECTSPOSITION_HEADER(GvpData);
+SETJOYSTICK_HEADER(GvpData);
+SETPUSHBUTTON_HEADER(GvpData);
+SETTAKEPOSITION_HEADER(GvpData);
+SETTRANSITIONMODE_HEADER(GvpData);
+SETTRANSITIONRATE_HEADER(GvpData);
+SETWIPEPATTERN_HEADER(GvpData);
 VERBOSE_HEADER(GvpData);
-
-void cmd_XReset(GvpData * xx);
+XRESET_HEADER(GvpData);
 
 bool gvpCheckPoolSpace(GvpData *   xx,
                        const short numCommands);

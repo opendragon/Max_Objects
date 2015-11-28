@@ -40,7 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_SetClock ---*/
-void cmd_SetClock(X10ControlData * xx)
+SETCLOCK_HEADER(X10ControlData)
 {
     bool okSoFar = true;
 

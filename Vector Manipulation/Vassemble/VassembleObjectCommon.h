@@ -50,7 +50,7 @@ struct ChunkData
 {
     ChunkData * fNext;
     long        fData[CHUNK_SIZE];
-    short       fLastEntry;
+    long        fLastEntry;
 }; // ChunkData
 
 struct VObjectData
@@ -58,9 +58,9 @@ struct VObjectData
     t_object    fObject;
     t_outlet *  fResultOut;
     t_outlet *  fBangOut;
-    short       fHowMany;
+    long        fHowMany;
     long        fSeparators[MAX_SEP_CHARS];
-    short       fPreviousLength;
+    long        fPreviousLength;
     t_atom *    fPreviousList;
     ChunkData * fChunkList;
     ChunkData * fLastChunk;
@@ -69,7 +69,7 @@ struct VObjectData
 
 bool checkInput(VObjectData * xx,
                 const char *  name,
-                const short   argc,
+                const long    argc,
                 t_atom *      argv);
 
 void clearPrevious(VObjectData * xx);

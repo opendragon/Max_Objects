@@ -162,7 +162,7 @@ static void x10DoCP290(X10ControlData * xx,
             {
                 ++xx->fAllOnCount;
             }
-            else if (xx->fAllOnCount >= 6)
+            else if (6 <= xx->fAllOnCount)
             {
                 xx->fAllOnCount = 0;
                 outlet_int(xx->fDeviceStatus, rr);
@@ -398,7 +398,7 @@ static void x10DoCP290(X10ControlData * xx,
             switch (xx->fMajorState)
             {
                 case x10CP290MajorAwaitingGraphicsData:
-                    if (xx->fEntryCount >= 256)
+                    if (256 <= xx->fEntryCount)
                     {
                         outlet_bang(xx->fCommandComplete);
                         xx->fEntryCount = 0;
@@ -449,7 +449,7 @@ static void x10DoCP290(X10ControlData * xx,
             switch (xx->fMajorState)
             {
                 case x10CP290MajorAwaitingTimerEvents:
-                    if (xx->fEntryCount >= 128)
+                    if (128 <= xx->fEntryCount)
                     {
                         outlet_bang(xx->fCommandComplete);
                         xx->fEntryCount = 0;

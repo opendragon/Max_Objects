@@ -40,9 +40,7 @@
 #include "tcpMultiServer.h"
 
 /*------------------------------------ cmd_Mode ---*/
-void cmd_Mode(TcpMultiServerData * xx,
-              long                 client,
-              t_symbol *           rawOrCooked)
+MODE_HEADER(TcpMultiServerData)
 {
     if (xx)
     {

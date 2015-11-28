@@ -51,7 +51,7 @@ INT_HEADER(VcollectData)
             case 0:
             case 1:
                 /* Left or right inlet */
-                A_SETLONG(dummy, msg);
+                atom_setlong(dummy, msg);
                 collectAddAtoms(xx, dummy, 1);
                 break;
 

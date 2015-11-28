@@ -116,10 +116,10 @@ typedef void     t_binbuf; // Missing declaration
     static_cast<t_atom_long>(value)
 
 # define ANYTHING_HEADER(type) \
-    void cmd_Anything(type *      xx, \
-                      t_symbol *  message, \
-                      const short argc, \
-                      t_atom *    argv)
+    void cmd_Anything(type *     xx, \
+                      t_symbol * message, \
+                      const long argc, \
+                      t_atom *   argv)
 
 # define ASSIST_HEADER(type) \
     void cmd_Assist(type *     xx, \
@@ -154,18 +154,38 @@ typedef void     t_binbuf; // Missing declaration
                  const long msg)
 
 # define LIST_HEADER(type) \
-    void cmd_List(type *      xx, \
-                  t_symbol *  message, \
-                  const short argc, \
-                  t_atom *    argv)
+    void cmd_List(type *     xx, \
+                  t_symbol * message, \
+                  const long argc, \
+                  t_atom *   argv)
 
 # define LOAD_HEADER(type) \
     void cmd_Load(type *     xx, \
                   t_symbol * fileName)
 
+# define PORT_HEADER(type) \
+    void cmd_Port(type *     xx,\
+                  const long number)
+
+# define RESET_HEADER(type) \
+    void cmd_Reset(type * xx)
+
+# define SELF_HEADER(type) \
+    void cmd_Self(type * xx)
+
+# define STOP_HEADER(type) \
+    void cmd_Stop(type * xx)
+
+# define TRACE_HEADER(type) \
+    void cmd_Trace(type *     xx,\
+                   t_symbol * onOff)
+
 # define VERBOSE_HEADER(type) \
     void cmd_Verbose(type *     xx, \
                      t_symbol * onOff)
+
+# define XRESET_HEADER(type) \
+    void cmd_XReset(type * xx)
 
 # define StandardRoutineDeclarations(type) \
 \

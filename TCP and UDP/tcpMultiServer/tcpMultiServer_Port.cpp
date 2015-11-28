@@ -40,8 +40,7 @@
 #include "tcpMultiServer.h"
 
 /*------------------------------------ cmd_Port ---*/
-void cmd_Port(TcpMultiServerData * xx,
-              long                 number)
+PORT_HEADER(TcpMultiServerData)
 {
     REPORT_MAX_MESSAGE("port")
     if (xx)

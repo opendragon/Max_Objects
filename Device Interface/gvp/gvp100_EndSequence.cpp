@@ -40,7 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_EndSequence ---*/
-void cmd_EndSequence(GvpData * xx)
+ENDSEQUENCE_HEADER(GvpData)
 {
     if (xx)
     {

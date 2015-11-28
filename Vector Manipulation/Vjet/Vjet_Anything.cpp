@@ -44,7 +44,7 @@ ANYTHING_HEADER(VObjectData)
 {
     if (xx)
     {
-        short elementCount = xx->fHowMany;
+        long elementCount = xx->fHowMany;
 
         clearPrevious(xx);
         if (0 < elementCount)
@@ -53,19 +53,17 @@ ANYTHING_HEADER(VObjectData)
 
             if (tempList)
             {
-                A_SETSYM(tempList, message);
+                atom_setsym(tempList, message);
                 if (0 < argc)
                 {
                     memcpy(tempList + 1, argv, argc * sizeof(t_atom));
                 }
                 xx->fPreviousList = tempList;
-                xx->fPreviousLength = static_cast<short>(argc + 1);
-                for (short offset = 0; offset < xx->fPreviousLength; offset += elementCount)
+                xx->fPreviousLength = argc + 1;
+                for (long offset = 0; offset < xx->fPreviousLength; offset += elementCount)
                 {
-                    genericListOutput(xx->fResultOut, static_cast<short>(((offset + elementCount) >
-                                                                          (argc + 1)) ?
-                                                                         (argc + 1 - offset) :
-                                                                         elementCount),
+                    genericListOutput(xx->fResultOut, ((offset + elementCount) > (argc + 1)) ?
+                                      (argc + 1 - offset) : elementCount,
                                       xx->fPreviousList + offset);
                 }
             }

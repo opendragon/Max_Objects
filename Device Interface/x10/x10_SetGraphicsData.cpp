@@ -40,23 +40,21 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_SetGraphicsData ---*/
-void cmd_SetGraphicsData(X10ControlData * xx,
-                         long             objectNumber,
-                         long             objectData)
+SETGRAPHICSDATA_HEADER(X10ControlData)
 {
     bool okSoFar = true;
 
-    if (xx->fMinorState != x10CP290MinorIdle)
+    if (x10CP290MinorIdle != xx->fMinorState)
     {
         LOG_ERROR_1(xx, OUTPUT_PREFIX "attempt to send command while awaiting response.")
         okSoFar = false;
     }
-    if ((objectNumber < 0) || (objectNumber > 255))
+    if ((0 > objectNumber) || (255 < objectNumber))
     {
         LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid object number (%ld)", objectNumber)
         okSoFar = false;
     }
-    if ((objectData < 0) || (objectData > 0x0FFFF))
+    if ((0 > objectData) || (0x0FFFF < objectData))
     {
         LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid object data (%ld)", objectData)
         okSoFar = false;

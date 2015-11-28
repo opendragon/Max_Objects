@@ -42,7 +42,7 @@
 /*------------------------------------ deferred_Store ---*/
 static void deferred_Store(MemoryData * xx,
                            t_symbol *   fileName,
-                           short        argc,
+                           const long   argc,
                            t_atom *     argv)
 {
     bool               okSoFar = false;
@@ -56,19 +56,19 @@ static void deferred_Store(MemoryData * xx,
         LOG_POST_1(xx, OUTPUT_PREFIX "writing out all symbols")
     }
     /* Output the number of symbols: */
-    A_SETLONG(tempAtom, xx->fSymbolCount);
+    atom_setlong(tempAtom, xx->fSymbolCount);
     binbuf_append(outBuffer, NULL, 1, tempAtom);
     /* For each symbol, output it's value: */
     if (descriptor && descriptor->fSymbolTable)
     {
         SymbolLink * slot;
 
-        for (short ii = 0; ii < HASH_TABLE_SIZE; ++ii)
+        for (long ii = 0; HASH_TABLE_SIZE > ii; ++ii)
         {
             for (slot = *(descriptor->fSymbolTable + ii); slot; slot = slot->fNext)
             {
-                A_SETSYM(tempAtom, slot->fSymbol);
-                A_SETLONG(tempAtom + 1, TO_INT(slot->fOutputCount));
+                atom_setsym(tempAtom, slot->fSymbol);
+                atom_setlong(tempAtom + 1, TO_INT(slot->fOutputCount));
                 binbuf_append(outBuffer, NULL, 2, tempAtom);
                 if (slot->fOutput && slot->fOutputCount)
                 {
@@ -112,8 +112,7 @@ static void deferred_Store(MemoryData * xx,
 } // deferred_Store
 
 /*------------------------------------ cmd_Store ---*/
-void cmd_Store(MemoryData * xx,
-               t_symbol *   fileName)
+STORE_HEADER(MemoryData)
 {
     if (xx)
     {

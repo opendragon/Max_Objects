@@ -40,8 +40,7 @@
 #include "spaceball.h"
 
 /*------------------------------------ cmd_Mode ---*/
-void cmd_Mode(SpaceballData * xx,
-              t_symbol *      addOrDelta)
+MODE_HEADER(SpaceballData)
 {
     if (xx)
     {

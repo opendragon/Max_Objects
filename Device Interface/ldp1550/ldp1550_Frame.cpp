@@ -40,7 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_Frame ---*/
-void cmd_Frame(LdpData * xx)
+FRAME_HEADER(LdpData)
 {
     if (xx)
     {

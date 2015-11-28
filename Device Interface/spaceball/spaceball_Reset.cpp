@@ -40,7 +40,7 @@
 #include "spaceball.h"
 
 /*------------------------------------ cmd_Reset ---*/
-void cmd_Reset(SpaceballData * xx)
+RESET_HEADER(SpaceballData)
 {
     xx->fInited = xx->fReset = false;
 } // cmd_Reset

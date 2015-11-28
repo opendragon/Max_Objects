@@ -47,8 +47,8 @@ LIST_HEADER(VObjectData)
     {
         t_atom * leftAtoms = NULL;
         t_atom * rightAtoms = NULL;
-        short    leftCount = 0;
-        short    rightCount = 0;
+        long     leftCount = 0;
+        long     rightCount = 0;
 
         clearPrevious(xx);
         if (0 < xx->fHowMany)
@@ -57,7 +57,7 @@ LIST_HEADER(VObjectData)
             {
                 // We have a split
                 leftCount = xx->fHowMany;
-                rightCount = static_cast<short>(argc - leftCount);
+                rightCount = argc - leftCount;
                 leftAtoms = GET_BYTES(leftCount, t_atom);
                 rightAtoms = GET_BYTES(rightCount, t_atom);
                 memcpy(leftAtoms, argv, leftCount * sizeof(t_atom));
@@ -76,8 +76,8 @@ LIST_HEADER(VObjectData)
             if (argc > (-xx->fHowMany))
             {
                 // We have a split
-                rightCount = static_cast<short>(-xx->fHowMany);
-                leftCount = static_cast<short>(argc - rightCount);
+                rightCount = -xx->fHowMany;
+                leftCount = argc - rightCount;
                 leftAtoms = GET_BYTES(leftCount, t_atom);
                 rightAtoms = GET_BYTES(rightCount, t_atom);
                 memcpy(leftAtoms, argv, leftCount * sizeof(t_atom));
@@ -97,7 +97,8 @@ LIST_HEADER(VObjectData)
         xx->fPreviousRightLength = rightCount;
         if (xx->fPreviousRightList)
         {
-            genericListOutput(xx->fRightResultOut, xx->fPreviousRightLength, xx->fPreviousRightList);
+            genericListOutput(xx->fRightResultOut, xx->fPreviousRightLength,
+                              xx->fPreviousRightList);
         }
         if (xx->fPreviousList)
         {

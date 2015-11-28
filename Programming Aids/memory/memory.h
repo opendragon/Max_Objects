@@ -54,7 +54,7 @@ struct SymbolLink
     SymbolLink * fNext;
     t_symbol *   fSymbol;
     t_atom *     fOutput;
-    short        fOutputCount;
+    long         fOutputCount;
 }; // SymbolLink
 
 struct MemoryDescriptor
@@ -63,7 +63,7 @@ struct MemoryDescriptor
     MemoryDescriptor * fPrevious;
     MemoryDescriptor * fNext;
     t_symbol *         fTag;
-    short              fReferenceCount;
+    long               fReferenceCount;
 }; // MemoryDescriptor
 
 struct MemoryData
@@ -76,26 +76,31 @@ struct MemoryData
     bool               fVerbose;
 }; // MemoryData
 
+# define FORGET_HEADER(type) \
+    void cmd_Forget(type *     xx,\
+                    t_symbol * name)
+
+# define RECALL_HEADER(type) \
+    void cmd_Recall(type *     xx,\
+                    t_symbol * name)
+
+# define REMEMBER_HEADER(type) \
+    void cmd_Remember(type *     xx,\
+                      t_symbol * message,\
+                      const long argc,\
+                      t_atom *   argv)
+
+# define STORE_HEADER(type) \
+    void cmd_Store(type *     xx,\
+                   t_symbol * fileName)
+
 CLEAR_HEADER(MemoryData);
-
-void cmd_Forget(MemoryData * xx,
-                t_symbol *   name);
-
+FORGET_HEADER(MemoryData);
 LOAD_HEADER(MemoryData);
-
-void cmd_Recall(MemoryData * xx,
-                t_symbol *   name);
-
-void cmd_Remember(MemoryData * xx,
-                  t_symbol *   message,
-                  short        argc,
-                  t_atom *     argv);
-
-void cmd_Store(MemoryData * xx,
-               t_symbol *   fileName);
-
-void cmd_Trace(MemoryData * xx,
-               t_symbol *   onOff);
+RECALL_HEADER(MemoryData);
+REMEMBER_HEADER(MemoryData);
+STORE_HEADER(MemoryData);
+TRACE_HEADER(MemoryData);
 
 SymbolLink * memoryAddSymbol(MemoryData * xx,
                              t_symbol *   name);

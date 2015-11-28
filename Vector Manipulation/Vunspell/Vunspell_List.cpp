@@ -45,7 +45,7 @@ LIST_HEADER(VObjectData)
 #pragma unused(message)
     if (xx && checkInput(xx, OUTPUT_PREFIX, argc, argv))
     {
-        for (short index = 0; index < argc; ++index)
+        for (long index = 0; index < argc; ++index)
         {
             processInput(xx, argv[index].a_w.w_long);
         }

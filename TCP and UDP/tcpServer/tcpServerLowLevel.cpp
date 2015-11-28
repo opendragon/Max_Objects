@@ -51,7 +51,7 @@ void processRebindQueue(TcpObjectData * xx)
         if (kTcpStateBound == xx->fState)
         {
             WRAP_OT_CALL(xx, result, "OTUnbind", OTUnbind(xx->fSocket))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
                 reportEndpointState(OUR_NAME, xx);
@@ -68,7 +68,7 @@ void processRebindQueue(TcpObjectData * xx)
             bind_request.addr.buf = reinterpret_cast<unsigned char *>(&in_address);
             bind_request.qlen = 1;
             WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fSocket, &bind_request, NULL))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
                 reportEndpointState(OUR_NAME, xx);
@@ -91,8 +91,8 @@ void processReceiveQueue(TcpObjectData * xx)
         short           prev_lock = lockout_set(1);
         TcpBufferLink * temp;
         t_atom *        gotStuff;
-        short           numAtoms;
-        short           numMessages;
+        long            numAtoms;
+        long            numMessages;
 
         for ( ; ; )
         {
@@ -118,7 +118,7 @@ void processReceiveQueue(TcpObjectData * xx)
             temp->fNext = NULL;
             walker = reinterpret_cast<char *>(&temp->fData->fNumElements);
             numMessages = validateBuffer(xx, OUR_NAME, temp->fData, xx->fRawMode);
-            for (short ii = 0; ii < numMessages; ++ii)
+            for (long ii = 0; ii < numMessages; ++ii)
             {
                 /* Allow interrupts while we process the buffer */
                 lockout_set(prev_lock);
@@ -126,7 +126,7 @@ void processReceiveQueue(TcpObjectData * xx)
                 gotStuff = convertBufferToAtoms(xx, OUR_NAME, &walker, numAtoms, 0,
                                                 temp->fData->fNumBytesInUse, xx->fRawMode);
                 prev_lock = lockout_set(1);
-                if (numAtoms > 0)
+                if (0 < numAtoms)
                 {
                     outlet_anything(xx->fResultOut, gReplySymbol, numAtoms, gotStuff);
                     FREE_BYTES(gotStuff);
@@ -165,7 +165,7 @@ bool makeReceiveBufferAvailable(TcpObjectData * xx)
         WRAP_OT_CALL(xx, err, "OTRcv", OTRcv(xx->fSocket,
                                              &xx->fReceiveBuffer->fNumElements,
                                              MAX_BUFFER_TO_RECEIVE, &flags))
-        if (err < 0)
+        if (0 > err)
         {
             REPORT_ERROR(xx, OUTPUT_PREFIX "OTRcv failed (%ld = %s)", err)
             reportEndpointState(OUR_NAME, xx);
@@ -176,7 +176,7 @@ bool makeReceiveBufferAvailable(TcpObjectData * xx)
             /* Get the next available buffer from the buffer pool */
             TcpBufferLink * temp = xx->fPoolHead;
 
-            xx->fReceiveBuffer->fNumBytesInUse = static_cast<short>(err);
+            xx->fReceiveBuffer->fNumBytesInUse = err;
             if (temp)
             {
                 DataBufferPtr swapper = temp->fData;
@@ -250,14 +250,14 @@ void transmitBuffer(TcpObjectData * xx,
         }
         else
         {
-            short num_bytes = static_cast<short>(aBuffer->fNumBytesInUse + SIZEOF_DATABUFFER_HDR);
+            short numBytes = aBuffer->fNumBytesInUse + SIZEOF_DATABUFFER_HDR;
 
-            aBuffer->fSanityCheck = htons(static_cast<short>(-(num_bytes + aBuffer->fNumElements)));
+            aBuffer->fSanityCheck = htons(static_cast<short>(-(numBytes + aBuffer->fNumElements)));
             aBuffer->fNumElements = htons(aBuffer->fNumElements);
-            WRAP_OT_CALL(xx, result, "OTSnd", OTSnd(xx->fSocket, &aBuffer->fNumElements,
-                                                    num_bytes, 0L))
+            WRAP_OT_CALL(xx, result, "OTSnd", OTSnd(xx->fSocket, &aBuffer->fNumElements, numBytes,
+                                                    0L))
         }
-        if (result < 0)
+        if (0 > result)
         {
             REPORT_ERROR(xx, OUTPUT_PREFIX "OTSnd failed (%ld = %s)", result)
             reportEndpointState(OUR_NAME, xx);

@@ -40,8 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_ClearTimerEvent ---*/
-void cmd_ClearTimerEvent(X10ControlData * xx,
-                         long             eventNumber)
+CLEARTIMEREVENT_HEADER(X10ControlData)
 {
     switch (xx->fKind)
     {

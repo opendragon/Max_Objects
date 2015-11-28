@@ -70,17 +70,17 @@ struct VcollectData
     bool           fCollecting;
 }; // VcollectData
 
+# define START_HEADER(type) \
+    void cmd_Start(type * xx)
+
 CLEAR_HEADER(VcollectData);
-
 COUNT_HEADER(VcollectData);
-
-void cmd_Start(VcollectData * xx);
-
-void cmd_Stop(VcollectData * xx);
+START_HEADER(VcollectData);
+STOP_HEADER(VcollectData);
 
 void collectAddAtoms(VcollectData * xx,
                      t_atom *       atoms,
-                     const short    count);
+                     const long     count);
 
 StandardRoutineDeclarations(VcollectData);
 

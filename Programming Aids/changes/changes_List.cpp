@@ -44,14 +44,14 @@ LIST_HEADER(ChangesData)
 {
     if (xx)
     {
-        bool  passThrough = false;
-        short anIndex;
-        short thisIndex;
+        bool passThrough = false;
+        long anIndex;
+        long thisIndex;
 
-        for (short ii = 0; (! passThrough) && (ii <= xx->fLastIndex); ++ii)
+        for (long ii = 0; (! passThrough) && (ii <= xx->fLastIndex); ++ii)
         {
             anIndex = xx->fWhichIndex[ii];
-            thisIndex = static_cast<short>((anIndex > 0) ? (anIndex - 1) : (argc + anIndex));
+            thisIndex = ((0 < anIndex) ? (anIndex - 1) : (argc + anIndex));
             if (anIndex)
             {
                 /* We are looking at something other than the message selector */
@@ -109,10 +109,10 @@ LIST_HEADER(ChangesData)
         {
             genericListOutput(xx->fResultOut, argc, argv);
             /* Remember the changed value(s) */
-            for (short ii = 0; ii <= xx->fLastIndex; ++ii)
+            for (long ii = 0; ii <= xx->fLastIndex; ++ii)
             {
                 anIndex = xx->fWhichIndex[ii];
-                thisIndex = static_cast<short>((anIndex > 0) ? (anIndex - 1) : (argc + anIndex));
+                thisIndex = ((0 < anIndex) ? (anIndex - 1) : (argc + anIndex));
                 if (anIndex)
                 {
                     /* We are looking at something other than the message selector */
@@ -147,7 +147,7 @@ LIST_HEADER(ChangesData)
                 else
                 {
                     /* We are looking at the message selector */
-                    A_SETSYM(xx->fPreviousValue + ii, message);
+                    atom_setsym(xx->fPreviousValue + ii, message);
                 }
             }
         }

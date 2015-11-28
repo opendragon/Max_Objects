@@ -40,8 +40,7 @@
 #include "tcpServer.h"
 
 /*------------------------------------ cmd_Mode ---*/
-void cmd_Mode(TcpObjectData * xx,
-              t_symbol *      rawOrCooked)
+MODE_HEADER(TcpObjectData)
 {
     REPORT_MAX_MESSAGE("mode")
     if (xx)

@@ -50,9 +50,9 @@ static bool addSymToBuffer(void *       xx,
 
     if (rawMode)
     {
-        short actLength = static_cast<short>(strlen(aValue->s_name));
+        long actLength = strlen(aValue->s_name);
 
-        if ((aBuffer->fNumBytesInUse + actLength) > MAX_BUFFER_TO_SEND)
+        if (MAX_BUFFER_TO_SEND < (aBuffer->fNumBytesInUse + actLength))
         {
             LOG_ERROR_2(xx, "%s: send buffer is full and cannot be added to", name)
             result = false;
@@ -68,8 +68,7 @@ static bool addSymToBuffer(void *       xx,
     else
     {
         unsigned char tag = A_SYM;
-        short         actLength = static_cast<short>(strlen(aValue->s_name) + 1);
-                        /* actual length, with null */
+        long          actLength = strlen(aValue->s_name) + 1; /* actual length, with null */
         short         dummy = htons(actLength);
 
         /* Check if there's room for the string plus the type tag: */
@@ -82,7 +81,7 @@ static bool addSymToBuffer(void *       xx,
         else
         {
             result = true;
-            if (aBuffer->fDataType != A_SYM)
+            if (A_SYM != aBuffer->fDataType)
             {
                 /* A mixed vector, tag needed */
                 *aBuffer->fNextByteToUse = tag;
@@ -92,7 +91,7 @@ static bool addSymToBuffer(void *       xx,
             memcpy(aBuffer->fNextByteToUse, &dummy, sizeof(dummy));
             memcpy(aBuffer->fNextByteToUse + sizeof(dummy), aValue->s_name, actLength);
             aBuffer->fNextByteToUse += sizeof(dummy) + actLength;
-            aBuffer->fNumBytesInUse += static_cast<short>(sizeof(dummy) + actLength);
+            aBuffer->fNumBytesInUse += sizeof(dummy) + actLength;
             ++aBuffer->fNumElements;
         }
     }
@@ -109,7 +108,7 @@ static bool addSpecialToBuffer(void *       xx,
     unsigned char tag = static_cast<unsigned char>(aValue);
 
     /* Check if there's room for the type tag: */
-    if ((aBuffer->fNumBytesInUse + sizeof(tag)) > MAX_BUFFER_TO_SEND)
+    if (MAX_BUFFER_TO_SEND < (aBuffer->fNumBytesInUse + sizeof(tag)))
     {
         LOG_ERROR_2(xx, "%s: send buffer is full and cannot be added to", name)
         result = false;
@@ -196,7 +195,7 @@ bool addFloatToBuffer(void *       xx,
 
     if (rawMode)
     {
-        if ((aBuffer->fNumBytesInUse + 1) > MAX_BUFFER_TO_SEND)
+        if (MAX_BUFFER_TO_SEND < (aBuffer->fNumBytesInUse + 1))
         {
             LOG_ERROR_2(xx, "%s: send buffer is full and cannot be added to", name)
             result = false;
@@ -217,7 +216,7 @@ bool addFloatToBuffer(void *       xx,
         long          dummy;
 
         /* Check if there's room for the float plus the type tag: */
-        if ((aBuffer->fNumBytesInUse + sizeof(tag) + sizeof(dummy)) > MAX_BUFFER_TO_SEND)
+        if (MAX_BUFFER_TO_SEND < (aBuffer->fNumBytesInUse + sizeof(tag) + sizeof(dummy)))
         {
             LOG_ERROR_2(xx, "%s: send buffer is full and cannot be added to", name)
             result = false;
@@ -253,7 +252,7 @@ bool addLongToBuffer(void *       xx,
 
     if (rawMode)
     {
-        if ((aBuffer->fNumBytesInUse + 1) > MAX_BUFFER_TO_SEND)
+        if (MAX_BUFFER_TO_SEND < (aBuffer->fNumBytesInUse + 1))
         {
             LOG_ERROR_2(xx, "%s: send buffer is full and cannot be added to", name)
             result = false;
@@ -272,7 +271,7 @@ bool addLongToBuffer(void *       xx,
         long          dummy = htonl(aValue);
 
         /* Check if there's room for the long plus the type tag: */
-        if ((aBuffer->fNumBytesInUse + sizeof(tag) + sizeof(dummy)) > MAX_BUFFER_TO_SEND)
+        if (MAX_BUFFER_TO_SEND < (aBuffer->fNumBytesInUse + sizeof(tag) + sizeof(dummy)))
         {
             LOG_ERROR_2(xx, "%s: send buffer is full and cannot be added to", name)
             result = false;
@@ -308,18 +307,18 @@ void clearDataBuffer(DataBuffer * aBuffer)
 t_atom * convertBufferToAtoms(void *               xx,
                               const char *         name,
                               t_handle             aBuffer,
-                              short &              numAtoms,
+                              long &               numAtoms,
                               const unsigned short indexToAdd,
-                              const short          numBytes,
+                              const long           numBytes,
                               const bool           rawMode)
 {
-    short           outputSize;
+    long            outputSize;
     t_atom *        result = NULL;
     unsigned char * walker = reinterpret_cast<unsigned char *>(*aBuffer);
 
     if (rawMode)
     {
-        outputSize = static_cast<short>(numBytes + (indexToAdd ? 1 : 0));
+        outputSize = numBytes + (indexToAdd ? 1 : 0);
         if (0 < outputSize)
         {
             result = GET_BYTES(outputSize, t_atom);
@@ -329,12 +328,12 @@ t_atom * convertBufferToAtoms(void *               xx,
 
                 if (indexToAdd)
                 {
-                    A_SETLONG(thisAtom, TO_INT(indexToAdd));
+                    atom_setlong(thisAtom, TO_INT(indexToAdd));
                     ++thisAtom;
                 }
                 for (short ii = 0; ii < numBytes; ++ii, ++thisAtom, ++walker)
                 {
-                    A_SETLONG(thisAtom, TO_INT(*walker));
+                    atom_setlong(thisAtom, TO_INT(*walker));
                 }
             }
         }
@@ -343,17 +342,17 @@ t_atom * convertBufferToAtoms(void *               xx,
     {
         short numElements;
         short sanityCheck;
-        short calcBytes;
+        long  calcBytes;
         bool  okSoFar = true;
 
         memcpy(&numElements, walker, sizeof(numElements));
         numElements = ntohs(numElements);
         memcpy(&sanityCheck, walker + sizeof(numElements), sizeof(sanityCheck));
         sanityCheck = ntohs(sanityCheck);
-        calcBytes = static_cast<short>(-(numElements + sanityCheck));
+        calcBytes = -(numElements + sanityCheck);
         walker += (sizeof(numElements) + sizeof(sanityCheck));
-        outputSize = static_cast<short>(numElements + (indexToAdd ? 1 : 0));
-        if (outputSize > 0)
+        outputSize = numElements + (indexToAdd ? 1 : 0);
+        if (0 < outputSize)
         {
             result = GET_BYTES(outputSize, t_atom);
             if (result)
@@ -367,7 +366,7 @@ t_atom * convertBufferToAtoms(void *               xx,
 
                 if (indexToAdd)
                 {
-                    A_SETLONG(thisAtom, TO_INT(indexToAdd));
+                    atom_setlong(thisAtom, TO_INT(indexToAdd));
                     ++thisAtom;
                 }
                 ++walker;
@@ -397,7 +396,7 @@ t_atom * convertBufferToAtoms(void *               xx,
                             else
                             {
                                 memcpy(&dummy, walker, sizeof(dummy));
-                                A_SETFLOAT(thisAtom, ntohl(*reinterpret_cast<float *>(&dummy)));
+                                atom_setfloat(thisAtom, ntohl(*reinterpret_cast<float *>(&dummy)));
                                 walker += sizeof(float);
                             }
                             break;
@@ -411,7 +410,7 @@ t_atom * convertBufferToAtoms(void *               xx,
                             else
                             {
                                 memcpy(&dummy, walker, sizeof(long));
-                                A_SETLONG(thisAtom, ntohl(dummy));
+                                atom_setlong(thisAtom, ntohl(dummy));
                                 walker += sizeof(long);
                             }
                             break;
@@ -434,7 +433,7 @@ t_atom * convertBufferToAtoms(void *               xx,
                                 }
                                 else
                                 {
-                                    A_SETSYM(thisAtom, gensym(reinterpret_cast<char *>(walker)));
+                                    atom_setsym(thisAtom, gensym(reinterpret_cast<char *>(walker)));
                                     walker += chunkSize;
                                 }
                             }
@@ -492,12 +491,12 @@ void copyDataBuffer(DataBuffer *       outBuffer,
 } // copyDataBuffer
 
 /*------------------------------------ validateBuffer ---*/
-short validateBuffer(void *       xx,
-                     const char * name,
-                     DataBuffer * aBuffer,
-                     const bool   rawMode)
+long validateBuffer(void *       xx,
+                    const char * name,
+                    DataBuffer * aBuffer,
+                    const bool   rawMode)
 {
-    short countMessages;
+    long countMessages;
 
     if (rawMode)
     {
@@ -505,14 +504,14 @@ short validateBuffer(void *       xx,
     }
     else
     {
-        short           totalBytes = aBuffer->fNumBytesInUse;
+        long            totalBytes = aBuffer->fNumBytesInUse;
         unsigned char * walker = reinterpret_cast<unsigned char *>(&aBuffer->fNumElements);
         short           sanityCheck;
         short           numElements;
-        short           calcBytes;
-        short           countBytes = 0;
+        long            calcBytes;
+        long            countBytes = 0;
 
-        if (totalBytes < SIZEOF_DATABUFFER_HDR)
+        if (SIZEOF_DATABUFFER_HDR > totalBytes)
         {
             LOG_ERROR_3(xx, "%s: received message is too short (%d)", name,
                         static_cast<int>(totalBytes))
@@ -527,8 +526,8 @@ short validateBuffer(void *       xx,
                 numElements = ntohs(numElements);
                 memcpy(&sanityCheck, walker + sizeof(numElements), sizeof(sanityCheck));
                 sanityCheck = ntohs(sanityCheck);
-                calcBytes = static_cast<short>(-(numElements + sanityCheck));
-                if ((numElements < 0) || (numElements > MAX_ATOMS_EXPECTED))
+                calcBytes = -(numElements + sanityCheck);
+                if ((0 > numElements) || (MAX_ATOMS_EXPECTED < numElements))
                 {
                     LOG_ERROR_3(xx, "%s: bad number of Atoms received (%d)", name,
                                 static_cast<int>(numElements))

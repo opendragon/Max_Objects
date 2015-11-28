@@ -105,25 +105,30 @@ struct UdpObjectData
     bool               fVerbose;
 }; // UdpObjectData
 
-void cmd_Mode(UdpObjectData * xx,
-              t_symbol *      rawOrCooked);
+# define MODE_HEADER(type) \
+    void cmd_Mode(type *     xx,\
+                  t_symbol * rawOrCooked)
 
-void cmd_Port(UdpObjectData * xx,
-              long            number);
+# define SEND_HEADER(type) \
+    void cmd_Send(type *     xx,\
+                  t_symbol * message,\
+                  const long argc,\
+                  t_atom *   argv)
 
-void cmd_Self(UdpObjectData * xx);
+# define SENDTO_HEADER(type) \
+    void cmd_SendTo(type *     xx,\
+                    t_symbol * ipAddress,\
+                    const long portNumber)
 
-void cmd_Send(UdpObjectData * xx,
-              t_symbol *      message,
-              short           argc,
-              t_atom *        argv);
+# define STATUS_HEADER(type) \
+    void cmd_Status(type * xx)
 
-void cmd_SendTo(UdpObjectData * xx,
-                t_symbol *      ipAddress,
-                long            portNumber);
-
-void cmd_Status(UdpObjectData * xx);
-
+MODE_HEADER(UdpObjectData);
+PORT_HEADER(UdpObjectData);
+SELF_HEADER(UdpObjectData);
+SEND_HEADER(UdpObjectData);
+SENDTO_HEADER(UdpObjectData);
+STATUS_HEADER(UdpObjectData);
 VERBOSE_HEADER(UdpObjectData);
 
 bool initObject(UdpObjectData * xx,

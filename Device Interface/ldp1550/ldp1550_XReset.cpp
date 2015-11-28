@@ -40,7 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_XReset ---*/
-void cmd_XReset(LdpData * xx)
+XRESET_HEADER(LdpData)
 {
     if (xx)
     {

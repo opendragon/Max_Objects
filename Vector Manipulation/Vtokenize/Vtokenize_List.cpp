@@ -54,9 +54,9 @@ LIST_HEADER(VObjectData)
             {
                 xx->fPreviousLength = argc;
                 xx->fPreviousList = temp;
-                for (short index = 0; index < argc; ++index)
+                for (long index = 0; index < argc; ++index)
                 {
-                    A_SETLONG(temp + index, argv[index].a_w.w_long);
+                    atom_setlong(temp + index, argv[index].a_w.w_long);
                 }
                 doTokenize(xx);
             }

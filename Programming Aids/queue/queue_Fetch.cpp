@@ -40,7 +40,7 @@
 #include "queue.h"
 
 /*------------------------------------ cmd_Fetch ---*/
-void cmd_Fetch(QueueData * xx)
+FETCH_HEADER(QueueData)
 {
     if (xx)
     {

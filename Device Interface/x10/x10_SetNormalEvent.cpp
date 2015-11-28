@@ -40,14 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_SetNormalEvent ---*/
-void cmd_SetNormalEvent(X10ControlData * xx,
-                        t_symbol *       code,
-                        long             map,
-                        long             eventNumber,
-                        long             dayMap,
-                        long             hourMinute,
-                        t_symbol *       function,
-                        long             level)
+SETNORMALEVENT_HEADER(X10ControlData)
 {
     switch (xx->fKind)
     {

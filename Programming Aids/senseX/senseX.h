@@ -67,11 +67,16 @@ struct SenseXData
     long       fOnDelay;
 }; // SenseXData
 
-void cmd_Off(SenseXData * xx,
-             long         duration);
+# define OFF_HEADER(type) \
+    void cmd_Off(type *     xx,\
+                 const long duration)
 
-void cmd_On(SenseXData * xx,
-            long         duration);
+# define ON_HEADER(type) \
+    void cmd_On(type *     xx,\
+                const long duration)
+
+OFF_HEADER(SenseXData);
+ON_HEADER(SenseXData);
 
 StandardRoutineDeclarations(SenseXData);
 

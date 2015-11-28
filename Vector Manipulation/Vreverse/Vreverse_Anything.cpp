@@ -49,13 +49,13 @@ ANYTHING_HEADER(VObjectData)
         clearPrevious(xx);
         if (newList)
         {
-            for (short ii = 0; ii < argc; ++ii)
+            for (long ii = 0; ii < argc; ++ii)
             {
                 *(newList + ii) = *(argv + argc - (ii + 1));
             }
-            A_SETSYM(newList + argc, message);
+            atom_setsym(newList + argc, message);
             xx->fPreviousList = newList;
-            xx->fPreviousLength = static_cast<short>(argc + 1);
+            xx->fPreviousLength = argc + 1;
             if (xx->fPreviousList)
             {
                 genericListOutput(xx->fResultOut, xx->fPreviousLength, xx->fPreviousList);

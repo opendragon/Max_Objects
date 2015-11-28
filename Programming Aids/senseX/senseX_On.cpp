@@ -40,8 +40,7 @@
 #include "senseX.h"
 
 /*------------------------------------ cmd_On ---*/
-void cmd_On(SenseXData * xx,
-            long         duration)
+ON_HEADER(SenseXData)
 {
     if (xx)
     {

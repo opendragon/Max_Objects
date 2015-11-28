@@ -57,7 +57,7 @@ LIST_HEADER(MtcData)
 
             case 1:
                 /* Normal command, normal inlet */
-                for (short ii = 0; okSoFar && (ii < argc); ++ii)
+                for (long ii = 0; okSoFar && (ii < argc); ++ii)
                 {
                     switch (argv[ii].a_type)
                     {

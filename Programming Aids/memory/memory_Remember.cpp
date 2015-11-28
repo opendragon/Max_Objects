@@ -40,10 +40,7 @@
 #include "memory.h"
 
 /*------------------------------------ cmd_Remember ---*/
-void cmd_Remember(MemoryData * xx,
-                  t_symbol *   message,
-                  short        argc,
-                  t_atom *     argv)
+REMEMBER_HEADER(MemoryData)
 {
 #pragma unused(message)
     if (xx)
@@ -62,7 +59,7 @@ void cmd_Remember(MemoryData * xx,
                 if (which)
                 {
                     FREE_BYTES(which->fOutput);
-                    which->fOutputCount = static_cast<short>(argc - 1);
+                    which->fOutputCount = argc - 1;
                     if (1 < argc)
                     {
                         t_atom * temp = GET_BYTES(argc - 1, t_atom);
@@ -70,7 +67,7 @@ void cmd_Remember(MemoryData * xx,
                         if (temp)
                         {
                             which->fOutput = temp;
-                            for (short ii = 1; ii < argc; ++ii, ++temp)
+                            for (long ii = 1; ii < argc; ++ii, ++temp)
                             {
                                 *temp = argv[ii];
                             }

@@ -40,8 +40,7 @@
 #include "mtcTrack.h"
 
 /*------------------------------------ cmd_Index ---*/
-void cmd_Index(MtcTrackData * xx,
-               t_symbol *     onOff)
+INDEX_HEADER(MtcTrackData)
 {
     if (xx)
     {

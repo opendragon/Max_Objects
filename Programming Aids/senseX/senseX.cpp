@@ -216,7 +216,7 @@ void senseXDoMessage(SenseXData * xx)
                 prevLock = lockout_set(1);
                 outlet_int(xx->fResultOut, 1);
                 clock_unset(xx->fPollClock);
-                if (xx->fOffDelay > 0)
+                if (0 < xx->fOffDelay)
                 {
                     clock_delay(xx->fPollClock, xx->fOffDelay);
                     xx->fState = kAfterSecondMessage;

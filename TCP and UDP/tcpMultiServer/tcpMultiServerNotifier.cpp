@@ -71,7 +71,7 @@ static void processListenEvent(TcpMultiServerData * xx)
                     for (unsigned short ii = 0; ii < xx->fMaximumConnections; ++ii)
                     {
                         candidate = *(xx->fConnections + ii);
-                        if (candidate && (candidate->fDataEndpoint != kOTInvalidEndpointRef) &&
+                        if (candidate && (kOTInvalidEndpointRef != candidate->fDataEndpoint) &&
                             (! candidate->fActive))
                         {
                             okSoFar = true;
@@ -83,7 +83,7 @@ static void processListenEvent(TcpMultiServerData * xx)
                 {
                     WRAP_OT_CALL(xx, result, "OTAccept",
                                  OTAccept(xx->fListenEndpoint, candidate->fDataEndpoint, &call))
-                    if (result != kOTNoError)
+                    if (kOTNoError != result)
                     {
                         look_result = OTLook(xx->fListenEndpoint);
                         if ((kOTLookErr == result) && (T_DISCONNECT == look_result))
@@ -256,13 +256,14 @@ pascal void tcpMultiServerDataNotifier(void *      context,
                     reportEndpointState(xx, connection->fDataEndpoint);
                     do_error_bang = true;
                 }
-                if (connection->fState != kTcpStateDisconnecting)
+                if (kTcpStateDisconnecting != connection->fState)
                 {
                     WRAP_OT_CALL(xx, err, "OTSndOrderlyDisconnect",
                                  OTSndOrderlyDisconnect(connection->fDataEndpoint))
-                    if (err != kOTNoError)
+                    if (kOTNoError != err)
                     {
-                        REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)", err)
+                        REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)",
+                                     err)
                         reportEndpointState(xx, connection->fDataEndpoint);
                         do_error_bang = true;
                     }
@@ -397,11 +398,11 @@ pascal void tcpMultiServerListenNotifier(void *      context,
                     reportEndpointState(xx, xx->fListenEndpoint);
                     do_error_bang = true;
                 }
-                if (xx->fState != kTcpStateDisconnecting)
+                if (kTcpStateDisconnecting != xx->fState)
                 {
                     WRAP_OT_CALL(xx, err, "OTSndOrderlyDisconnect",
                                  OTSndOrderlyDisconnect(xx->fListenEndpoint))
-                    if (err != kOTNoError)
+                    if (kOTNoError != err)
                     {
                         REPORT_ERROR(xx, OUTPUT_PREFIX "OTSndOrderlyDisconnect failed (%ld = %s)",
                                      err)

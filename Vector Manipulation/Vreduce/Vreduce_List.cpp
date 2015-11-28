@@ -67,7 +67,7 @@ LIST_HEADER(VreduceData)
                 break;
                 
         }
-        for (short ii = 0; ii < argc; ++ii)
+        for (long ii = 0; ii < argc; ++ii)
         {
             switch (argv[ii].a_type)
             {

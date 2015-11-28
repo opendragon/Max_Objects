@@ -40,8 +40,7 @@
 #include "mtc.h"
 
 /*------------------------------------ cmd_Threshold ---*/
-void cmd_Threshold(MtcData * xx,
-                   long      number)
+THRESHOLD_HEADER(MtcData)
 {
     if (xx)
     {
@@ -50,14 +49,14 @@ void cmd_Threshold(MtcData * xx,
             case 0:
                 /* Normal command, normal inlet */
                 REPORT_MAX_MESSAGE("THRESHOLD")
-                if ((number <= 0) || (number > MTC_MAX_THRESHOLD))
+                if ((0 >= number) || (MTC_MAX_THRESHOLD < number))
                 {
                     LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid threshold (%ld)", number)
                     outlet_bang(xx->fErrorBangOut);
                 }
                 else
                 {
-                    xx->fThreshold = static_cast<short>(number);
+                    xx->fThreshold = number;
                     outlet_bang(xx->fCommandComplete);
                 }
                 break;

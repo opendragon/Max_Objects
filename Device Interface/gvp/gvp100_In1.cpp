@@ -143,7 +143,7 @@ IN1_HEADER(GvpData)
                 aPacket = gvpGetFirstPacket(xx);
                 if (aPacket)
                 {
-                    if (aPacket->fSize >= 0)
+                    if (0 <= aPacket->fSize)
                     {
                         unsigned char dataValue;
                         static t_atom dataList[128];
@@ -151,7 +151,7 @@ IN1_HEADER(GvpData)
                         for (short ii = 0; ii < aPacket->fSize; ++ii)
                         {
                             dataValue = aPacket->fBuffer[ii];
-                            A_SETLONG(dataList + ii, dataValue);
+                            atom_setlong(dataList + ii, dataValue);
                         }
                         outlet_list(xx->fDataSendOut, 0L, aPacket->fSize, dataList);
                         xx->fSendCompletion = aPacket->fSendCompletion;

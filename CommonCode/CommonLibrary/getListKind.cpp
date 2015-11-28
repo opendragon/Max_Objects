@@ -51,7 +51,7 @@ GETLISTKIND_HEADER
     {
         lDollarSymbol = gensym("$");
     }
-    for (short ii = 0; ii < argc; ++ii)
+    for (long ii = 0; ii < argc; ++ii)
     {
         short aType = argv[ii].a_type;
 

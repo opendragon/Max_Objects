@@ -50,7 +50,7 @@ COUNT_HEADER(VcollectData)
         {
             case 0:
                 /* Left inlet */
-                A_SETSYM(dummy, gStopSymbol);
+                atom_setsym(dummy, gStopSymbol);
                 collectAddAtoms(xx, dummy, 1);
                 break;
 

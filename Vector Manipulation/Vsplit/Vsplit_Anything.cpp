@@ -44,8 +44,8 @@ ANYTHING_HEADER(VObjectData)
 {
     if (xx)
     {
-        short    leftCount = 0;
-        short    rightCount = 0;
+        long     leftCount = 0;
+        long     rightCount = 0;
         t_atom * leftAtoms = NULL;
         t_atom * rightAtoms = NULL;
 
@@ -56,10 +56,10 @@ ANYTHING_HEADER(VObjectData)
             {
                 // We have a split
                 leftCount = xx->fHowMany;
-                rightCount = static_cast<short>(argc + 1 - leftCount);
+                rightCount = argc + 1 - leftCount;
                 leftAtoms = GET_BYTES(leftCount, t_atom);
                 rightAtoms = GET_BYTES(rightCount, t_atom);
-                A_SETSYM(leftAtoms, message);
+                atom_setsym(leftAtoms, message);
                 if (1 < leftCount)
                 {
                     memcpy(leftAtoms + 1, argv, (leftCount - 1) * sizeof(t_atom));
@@ -69,9 +69,9 @@ ANYTHING_HEADER(VObjectData)
             else
             {
                 // Everything goes to the left
-                leftCount = static_cast<short>(argc + 1);
+                leftCount = argc + 1;
                 leftAtoms = GET_BYTES(leftCount, t_atom);
-                A_SETSYM(leftAtoms, message);
+                atom_setsym(leftAtoms, message);
                 memcpy(leftAtoms + 1, argv, argc * sizeof(t_atom));
             }
         }
@@ -80,11 +80,11 @@ ANYTHING_HEADER(VObjectData)
             if (argc >= (-xx->fHowMany))
             {
                 // We have a split
-                rightCount = static_cast<short>(-xx->fHowMany);
-                leftCount = static_cast<short>(argc + 1 - rightCount);
+                rightCount = -xx->fHowMany;
+                leftCount = argc + 1 - rightCount;
                 leftAtoms = GET_BYTES(leftCount, t_atom);
                 rightAtoms = GET_BYTES(rightCount, t_atom);
-                A_SETSYM(leftAtoms, message);
+                atom_setsym(leftAtoms, message);
                 if (1 < leftCount)
                 {
                     memcpy(leftAtoms + 1, argv, (leftCount - 1) * sizeof(t_atom));
@@ -94,9 +94,9 @@ ANYTHING_HEADER(VObjectData)
             else
             {
                 // Everything goes to the right
-                rightCount = static_cast<short>(argc + 1);
+                rightCount = argc + 1;
                 rightAtoms = GET_BYTES(rightCount, t_atom);
-                A_SETSYM(rightAtoms, message);
+                atom_setsym(rightAtoms, message);
                 memcpy(rightAtoms + 1, argv, argc * sizeof(t_atom));
             }
         }
@@ -106,7 +106,8 @@ ANYTHING_HEADER(VObjectData)
         xx->fPreviousRightLength = rightCount;
         if (xx->fPreviousRightList)
         {
-            genericListOutput(xx->fRightResultOut, xx->fPreviousRightLength, xx->fPreviousRightList);
+            genericListOutput(xx->fRightResultOut, xx->fPreviousRightLength,
+                              xx->fPreviousRightList);
         }
         if (xx->fPreviousList)
         {

@@ -106,14 +106,17 @@ struct SpaceballData
 # endif /* BE_VERBOSE */
 }; // SpaceballData
 
-void cmd_Mode(SpaceballData * xx,
-              t_symbol *      addOrDelta);
+# define MODE_HEADER(type) \
+    void cmd_Mode(type *     xx,\
+                  t_symbol * addOrDelta)
 
-void cmd_Reset(SpaceballData * xx);
+# define ZERO_HEADER(type) \
+    void cmd_Zero(type * xx)
 
+MODE_HEADER(SpaceballData);
+RESET_HEADER(SpaceballData);
 VERBOSE_HEADER(SpaceballData);
-
-void cmd_Zero(SpaceballData * xx);
+ZERO_HEADER(SpaceballData);
 
 void spaceballPerformWriteCommand(SpaceballData * xx,
                                   const short     numBytesToSend,

@@ -45,40 +45,38 @@ ANYTHING_HEADER(MtcData)
     LOG_ERROR_3(xx, OUTPUT_PREFIX "inlet %ld -> Unknown message '%s' seen", xx->fInletNumber,
                 message->s_name)
     outlet_bang(xx->fErrorBangOut);
-    for (short ii = 0; ii < argc; ++ii)
+    for (long ii = 0; ii < argc; ++ii)
     {
         switch (argv[ii].a_type)
         {
             case A_LONG:
-                LOG_POST_3(xx, "  argument %d is a long (" LONG_FORMAT ")", static_cast<int>(ii),
+                LOG_POST_3(xx, "  argument %ld is a long (" LONG_FORMAT ")", ii,
                            argv[ii].a_w.w_long)
                 break;
 
             case A_SYM:
-                LOG_POST_3(xx, "  argument %d is a symbol (%s)", static_cast<int>(ii),
-                           argv[ii].a_w.w_sym->s_name)
+                LOG_POST_3(xx, "  argument %ld is a symbol (%s)", ii, argv[ii].a_w.w_sym->s_name)
                 break;
 
             case A_FLOAT:
-                LOG_POST_3(xx, "  argument %d is a float (%g)", static_cast<int>(ii),
-                           TO_DBL(argv[ii].a_w.w_float))
+                LOG_POST_3(xx, "  argument %ld is a float (%g)", ii, TO_DBL(argv[ii].a_w.w_float))
                 break;
 
             case A_SEMI:
-                LOG_POST_2(xx, "  argument %d is a semicolon", static_cast<int>(ii))
+                LOG_POST_2(xx, "  argument %ld is a semicolon", ii)
                 break;
 
             case A_COMMA:
-                LOG_POST_2(xx, "  argument %d is a comma", static_cast<int>(ii))
+                LOG_POST_2(xx, "  argument %ld is a comma", ii)
                 break;
 
             case A_DOLLAR:
             case A_DOLLSYM:
-                LOG_POST_2(xx, "  argument %d is a dollar sign", static_cast<int>(ii))
+                LOG_POST_2(xx, "  argument %ld is a dollar sign", ii)
                 break;
 
             default:
-                LOG_POST_3(xx, "  argument %d is an unknown type (%d)", static_cast<int>(ii),
+                LOG_POST_3(xx, "  argument %ld is an unknown type (%d)", ii,
                            static_cast<int>(argv[ii].a_type))
                 break;
                 

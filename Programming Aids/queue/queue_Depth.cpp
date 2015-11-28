@@ -40,7 +40,7 @@
 #include "queue.h"
 
 /*------------------------------------ cmd_Depth ---*/
-void cmd_Depth(QueueData * xx)
+DEPTH_HEADER(QueueData)
 {
     if (xx)
     {

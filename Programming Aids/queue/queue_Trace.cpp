@@ -40,8 +40,7 @@
 #include "queue.h"
 
 /*------------------------------------ cmd_Trace ---*/
-void cmd_Trace(QueueData * xx,
-               t_symbol *  onOff)
+TRACE_HEADER(QueueData)
 {
     if (xx)
     {

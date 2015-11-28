@@ -89,23 +89,23 @@ static void * gvpCreate(const long selectAddress,
         {
             xx->fSelectAddress = selectAddress;
         }
-        if ((pollRate < 0) || (pollRate > MAX_POLL_RATE))
+        if ((0 > pollRate) || (MAX_POLL_RATE < pollRate))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid polling rate (%ld) for device", pollRate)
             xx->fPollRate = SER_SAMPLE_RATE;
         }
         else
         {
-            xx->fPollRate = static_cast<short>(pollRate ? pollRate : SER_SAMPLE_RATE);
+            xx->fPollRate = (pollRate ? pollRate : SER_SAMPLE_RATE);
         }
-        if ((poolSize < 0) || (poolSize > MAX_POOL_SIZE))
+        if ((0 > poolSize) || (MAX_POOL_SIZE < poolSize))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pool size (%ld) for device", poolSize)
             xx->fPoolSize = POOL_SIZE;
         }
         else
         {
-            xx->fPoolSize = static_cast<short>(poolSize ? poolSize : POOL_SIZE);
+            xx->fPoolSize = (poolSize ? poolSize : POOL_SIZE);
         }
         /* Set up our connections and private data */
         intin(xx, 1);
@@ -335,16 +335,15 @@ void gvpPerformWriteCommand(GvpData *            xx,
             }
             else
             {
-                A_SETLONG(dataList, numBytesToFollow + 2);
-                A_SETLONG(dataList + 1, TO_INT(effectsAddress & 0x00FF));
-                A_SETLONG(dataList + 2, TO_INT(commandCode));
-                for (short ii = 0; ii < numBytesToFollow; ++ii)
+                atom_setlong(dataList, numBytesToFollow + 2);
+                atom_setlong(dataList + 1, TO_INT(effectsAddress & 0x00FF));
+                atom_setlong(dataList + 2, TO_INT(commandCode));
+                for (long ii = 0; ii < numBytesToFollow; ++ii)
                 {
                     dataValue = *bytesToFollow++;
-                    A_SETLONG(dataList + ii + 3, dataValue);
+                    atom_setlong(dataList + ii + 3, dataValue);
                 }
-                outlet_list(xx->fDataSendOut, 0L, static_cast<short>(numBytesToFollow + 3),
-                            dataList);
+                outlet_list(xx->fDataSendOut, 0L, numBytesToFollow + 3, dataList);
             }
             xx->fSendCompletion = lastCommand;
             xx->fState = newState;
@@ -373,11 +372,11 @@ void gvpPerformWriteCommand(GvpData *            xx,
             else
             {
                 newPacket->fSendCompletion = lastCommand;
-                newPacket->fSize = static_cast<short>(numBytesToFollow + 3);
+                newPacket->fSize = numBytesToFollow + 3;
                 newPacket->fBuffer[0] = static_cast<unsigned char>(numBytesToFollow + 2);
                 newPacket->fBuffer[1] = static_cast<unsigned char>(effectsAddress & 0x00FF);
                 newPacket->fBuffer[2] = static_cast<unsigned char>(commandCode);
-                if (numBytesToFollow > 0)
+                if (0 < numBytesToFollow)
                 {
                     memcpy(newPacket->fBuffer + 3, bytesToFollow, numBytesToFollow);
                 }

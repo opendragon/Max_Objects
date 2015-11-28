@@ -47,7 +47,7 @@ ANYTHING_HEADER(SysLoggerData)
         static char numBuffer[NUM_BUFF_SIZE];
 
         *xx->fBuffer = '\0';
-        for (short ii = 0; ii < argc; ++ii)
+        for (long ii = 0; ii < argc; ++ii)
         {
             const char * toAdd = NULL;
 

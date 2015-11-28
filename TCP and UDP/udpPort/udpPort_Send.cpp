@@ -40,10 +40,7 @@
 #include "udpPort.h"
 
 /*------------------------------------ cmd_Send ---*/
-void cmd_Send(UdpObjectData * xx,
-              t_symbol *      message,
-              short           argc,
-              t_atom *        argv)
+SEND_HEADER(UdpObjectData)
 {
 #pragma unused(message)
     bool okSoFar = true;

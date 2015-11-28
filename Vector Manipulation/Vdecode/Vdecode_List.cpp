@@ -45,8 +45,8 @@ LIST_HEADER(VdecodeData)
 #pragma unused(message)
     if (xx && checkInput(xx, OUTPUT_PREFIX, argc, argv))
     {
-        bool  wasNegative = xx->fInfo.fFirstBaseIsNegative;
-        short numBases = xx->fInfo.fNumBases;
+        bool wasNegative = xx->fInfo.fFirstBaseIsNegative;
+        long numBases = xx->fInfo.fNumBases;
 
         if ((! wasNegative) && (argc > numBases))
         {
@@ -57,7 +57,7 @@ LIST_HEADER(VdecodeData)
             t_atom_long base = 1;
             t_atom_long sum = 0;
 
-            for (int ii = argc - 1, jj = 0; 0 <= ii; --ii)
+            for (long ii = argc - 1, jj = 0; 0 <= ii; --ii)
             {
                 sum += (argv[ii].a_w.w_long * base);
                 base *= xx->fInfo.fBases[jj];

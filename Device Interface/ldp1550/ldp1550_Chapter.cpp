@@ -40,7 +40,7 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_Chapter ---*/
-void cmd_Chapter(LdpData * xx)
+CHAPTER_HEADER(LdpData)
 {
     if (xx)
     {

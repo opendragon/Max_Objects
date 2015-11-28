@@ -41,9 +41,7 @@
 #include <arpa/inet.h>
 
 /*------------------------------------ cmd_SendTo ---*/
-void cmd_SendTo(UdpObjectData * xx,
-                t_symbol *      ipAddress,
-                long            portNumber)
+SENDTO_HEADER(UdpObjectData)
 {
     REPORT_MAX_MESSAGE("server")
     if (xx)

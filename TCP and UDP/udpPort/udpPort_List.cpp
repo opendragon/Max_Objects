@@ -57,7 +57,7 @@ LIST_HEADER(UdpObjectData)
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "unrecognizable data")
             }
-            for (short ii = 0; okSoFar && (ii < argc); ++ii)
+            for (long ii = 0; okSoFar && (ii < argc); ++ii)
             {
                 okSoFar = addAtomToBuffer(xx, xx->fSendBuffer, &argv[ii], xx->fRawMode);
             }

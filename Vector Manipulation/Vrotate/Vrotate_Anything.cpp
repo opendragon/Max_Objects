@@ -44,7 +44,7 @@ ANYTHING_HEADER(VObjectData)
 {
     if (xx)
     {
-        short    effective = static_cast<short>(argc + 1);
+        long     effective = argc + 1;
         t_atom * tempList = GET_BYTES(effective, t_atom);
         long     elementCount = xx->fHowMany;
 
@@ -73,7 +73,7 @@ ANYTHING_HEADER(VObjectData)
                     /* Take last elementCount elements from the input: */
                     memcpy(tempList, argv + argc - elementCount, elementCount * sizeof(t_atom));
                     /* Copy message into output: */
-                    A_SETSYM(tempList + elementCount, message);
+                    atom_setsym(tempList + elementCount, message);
                     /* Take first (argc - elementCount) elements from the input: */
                     if (argc > elementCount)
                     {
@@ -90,7 +90,7 @@ ANYTHING_HEADER(VObjectData)
                                (effective - elementCount) * sizeof(t_atom));
                     }
                     /* Copy message into output: */
-                    A_SETSYM(tempList + effective - elementCount, message);
+                    atom_setsym(tempList + effective - elementCount, message);
                     /* Take first (elementCount - 1) elements from the input: */
                     memcpy(tempList + effective + 1 - elementCount, argv,
                            (elementCount - 1) * sizeof(t_atom));
@@ -98,7 +98,7 @@ ANYTHING_HEADER(VObjectData)
             }
             else
             {
-                A_SETSYM(tempList, message);
+                atom_setsym(tempList, message);
                 memcpy(tempList + 1, argv, argc * sizeof(t_atom));
             }
             xx->fPreviousList = tempList;

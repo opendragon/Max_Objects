@@ -54,8 +54,8 @@ struct ChangesData
     t_object   fObject;
     t_outlet * fResultOut;
     t_atom     fPreviousValue[NUM_INDICES];
-    short      fWhichIndex[NUM_INDICES];
-    short      fLastIndex;
+    long       fWhichIndex[NUM_INDICES];
+    long       fLastIndex;
 }; // ChangesData
 
 StandardRoutineDeclarations(ChangesData);

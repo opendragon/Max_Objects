@@ -40,8 +40,7 @@
 #include "gvp100.h"
 
 /*------------------------------------ cmd_SetWipePattern ---*/
-void cmd_SetWipePattern(GvpData * xx,
-                        long      number)
+SETWIPEPATTERN_HEADER(GvpData)
 {
     if (xx)
     {
@@ -52,7 +51,7 @@ void cmd_SetWipePattern(GvpData * xx,
         };
         static const int kNumValidWipeControls = (sizeof(validControl) / sizeof(*validControl));
 
-        for (short ii = 0; ii < kNumValidWipeControls; ++ii)
+        for (short ii = 0; kNumValidWipeControls > ii; ++ii)
         {
             if (number == validControl[ii])
             {

@@ -115,23 +115,23 @@ void doTokenize(VObjectData * xx)
     if (xx->fPreviousList)
     {
         t_atom * temp = xx->fPreviousList;
-        short    left = 0;
-        short    right = 0;
-        short    last = xx->fPreviousLength;
+        long     left = 0;
+        long     right = 0;
+        long     last = xx->fPreviousLength;
 
         for ( ; left < last; ++left)
         {
             if (! isSeparator(xx, (temp + left)->a_w.w_long))
             {
-                for (right = static_cast<short>(left + 1); right < last; ++right)
+                for (right = left + 1; right < last; ++right)
                 {
                     if (isSeparator(xx, (temp + right)->a_w.w_long))
                     {
-                        genericListOutput(xx->fResultOut, static_cast<short>(right - left),
-                                          temp + left);
+                        genericListOutput(xx->fResultOut, right - left, temp + left);
                         left = right;
                         break;
                     }
+                    
                 }
             }
         }

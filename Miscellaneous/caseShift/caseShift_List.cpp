@@ -53,17 +53,17 @@ LIST_HEADER(CaseShiftData)
 
             if (newArg)
             {
-                short  len;
+                long   len;
                 char * oldWord;
                 char * newWord;
 
                 memcpy(newArg, argv, argc * sizeof(t_atom));
-                for (short ii = 0; ii < argc; ++ii)
+                for (long ii = 0; ii < argc; ++ii)
                 {
                     if (A_SYM == newArg[ii].a_type)
                     {
                         oldWord = newArg[ii].a_w.w_sym->s_name;
-                        len = static_cast<short>(strlen(oldWord));
+                        len = strlen(oldWord);
                         newWord = GET_BYTES(len + 1, char);
                         if (newWord)
                         {

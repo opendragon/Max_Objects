@@ -40,10 +40,7 @@
 #include "queue.h"
 
 /*------------------------------------ cmd_Add ---*/
-void cmd_Add(QueueData * xx,
-             t_symbol *  message,
-             short       argc,
-             t_atom *    argv)
+ADD_HEADER(QueueData)
 {
 #pragma unused(message)
     if (xx)
@@ -98,7 +95,7 @@ void cmd_Add(QueueData * xx,
                 if (temp)
                 {
                     newLast->fOutput = temp;
-                    for (short ii = 0; ii < argc; ++ii, ++temp)
+                    for (long ii = 0; ii < argc; ++ii, ++temp)
                     {
                         *temp = argv[ii];
                     }

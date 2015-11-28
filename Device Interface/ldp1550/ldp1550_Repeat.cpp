@@ -40,15 +40,13 @@
 #include "ldp1550.h"
 
 /*------------------------------------ cmd_Repeat ---*/
-void cmd_Repeat(LdpData *  xx,
-                long       position,
-                t_symbol * mode,
-                long       repeatCount,
-                long       stepFactor)
+REPEAT_HEADER(LdpData)
 {
     if (xx)
     {
         long           maxPosition;
+        long           workCount;
+        long           workFactor;
         LdpCommandCode aCommand = kLdpNoCommand;
         LdpCommandCode speed = kLdpCommandPlayForward;
 
@@ -59,10 +57,10 @@ void cmd_Repeat(LdpData *  xx,
         }
         else
         {
-            maxPosition = ((xx->fMode == kLdpModeChapter) ? MAX_CHAPTER_NUMBER : MAX_FRAME_NUMBER);
-            if ((position <= 0) || (position >= maxPosition) || (repeatCount < 0) ||
-                (repeatCount > MAX_REPETITIONS) || (stepFactor < 0) ||
-                (stepFactor > MAX_STEP_FACTOR))
+            maxPosition = ((kLdpModeChapter == xx->fMode) ? MAX_CHAPTER_NUMBER : MAX_FRAME_NUMBER);
+            if ((0 >= position) || (position >= maxPosition) || (0 > repeatCount) ||
+                (MAX_REPETITIONS < repeatCount) || (0 > stepFactor) ||
+                (MAX_STEP_FACTOR < stepFactor))
             {
                 LOG_ERROR_1(xx, OUTPUT_PREFIX "bad argument to command 'repeat'")
                 outlet_bang(xx->fErrorBangOut);
@@ -76,13 +74,20 @@ void cmd_Repeat(LdpData *  xx,
             else
             {
                 aCommand = kLdpCommandRepeat;
-                if (! repeatCount)
+                if (repeatCount)
                 {
-                    repeatCount = 1;
+                    workCount = repeatCount;
                 }
-                if (! stepFactor)
                 {
-                    stepFactor = 1;
+                    workCount = 1;
+                }
+                if (stepFactor)
+                {
+                    workFactor = stepFactor;
+                }
+                else
+                {
+                    workFactor = 1;
                 }
                 if (mode == gFastSymbol)
                 {
@@ -97,7 +102,7 @@ void cmd_Repeat(LdpData *  xx,
                     speed = kLdpCommandStepForward;
                 }
             }
-            if (aCommand != kLdpNoCommand)
+            if (kLdpNoCommand != aCommand)
             {
                 short prevLock = lockout_set(1);
                 short numCommands = 12;
@@ -115,7 +120,7 @@ void cmd_Repeat(LdpData *  xx,
                     ldpInitCommands(xx);
                     ldpAddCommand(xx, aCommand, kLdpStateAwaitingAck);
                     /* Set the target frame */
-                    if (xx->fMode == kLdpModeFrame)
+                    if (kLdpModeFrame == xx->fMode)
                     {
                         ldpAddCommand(xx,
                                       static_cast<LdpCommandCode>(((position / 10000) % 10) + '0'),
@@ -135,21 +140,21 @@ void cmd_Repeat(LdpData *  xx,
                     ldpAddCommand(xx, speed, kLdpStateAwaitingAck);
                     ldpAddCommand(xx, kLdpCommandEnter, kLdpStateAwaitingAck);
                     /* Set the repeat count */
-                    ldpAddCommand(xx, static_cast<LdpCommandCode>(((repeatCount / 10) % 10) + '0'),
+                    ldpAddCommand(xx, static_cast<LdpCommandCode>(((workCount / 10) % 10) + '0'),
                                   kLdpStateAwaitingAck);
-                    ldpAddCommand(xx, static_cast<LdpCommandCode>((repeatCount % 10) + '0'),
+                    ldpAddCommand(xx, static_cast<LdpCommandCode>((workCount % 10) + '0'),
                                   kLdpStateAwaitingAck);
                     ldpAddCommand(xx, kLdpCommandEnter, kLdpStateAwaitingAck);
                     /* If step mode, send the step factor */
                     if (mode == gStepSymbol)
                     {
                         ldpAddCommand(xx,
-                                      static_cast<LdpCommandCode>(((stepFactor / 100) % 10) + '0'),
+                                      static_cast<LdpCommandCode>(((workFactor / 100) % 10) + '0'),
                                       kLdpStateAwaitingAck);
                         ldpAddCommand(xx,
-                                      static_cast<LdpCommandCode>(((stepFactor / 10) % 10) + '0'),
+                                      static_cast<LdpCommandCode>(((workFactor / 10) % 10) + '0'),
                                       kLdpStateAwaitingAck);
-                        ldpAddCommand(xx, static_cast<LdpCommandCode>((stepFactor % 10) + '0'),
+                        ldpAddCommand(xx, static_cast<LdpCommandCode>((workFactor % 10) + '0'),
                                       kLdpStateAwaitingAck);
                         ldpAddCommand(xx, kLdpCommandEnter, kLdpStateAwaitingAck);
                     }

@@ -49,8 +49,8 @@ static void * VsegmentCreate(const long start,
     
     if (xx)
     {
-        xx->fStart = static_cast<short>(start);
-        xx->fHowMany = static_cast<short>(howMany);
+        xx->fStart = start;
+        xx->fHowMany = howMany;
         xx->fPreviousList = NULL;
         xx->fPreviousLength = 0;
         intin(xx, 2);   /* number of elements */

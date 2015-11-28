@@ -40,8 +40,7 @@
 #include "tcpMultiServer.h"
 
 /*------------------------------------ cmd_Status ---*/
-void cmd_Status(TcpMultiServerData * xx,
-                long                 client)
+STATUS_HEADER(TcpMultiServerData)
 {
     if (xx)
     {
@@ -55,8 +54,8 @@ void cmd_Status(TcpMultiServerData * xx,
             if (connection)
             {
 #if 0
-                A_SETLONG(response, client);
-                A_SETSYM(response + 1, mapStateToSymbol(connection->fState));
+                atom_setlong(response, client);
+                atom_setsym(response + 1, mapStateToSymbol(connection->fState));
                 if (kTcpStateConnected == connection->fState)
                 {
                     if (! connection->fPartnerName)
@@ -94,9 +93,9 @@ void cmd_Status(TcpMultiServerData * xx,
                     }
                     if (connection->fPartnerName)
                     {
-                        A_SETSYM(response + 2, connection->fPartnerName);
-                        A_SETLONG(response + 3, TO_INT(connection->fClientPort));
-                        A_SETSYM(response + 4, connection->fRawMode ? gRawSymbol : gMaxSymbol);
+                        atom_setsym(response + 2, connection->fPartnerName);
+                        atom_setlong(response + 3, TO_INT(connection->fClientPort));
+                        atom_setsym(response + 4, connection->fRawMode ? gRawSymbol : gMaxSymbol);
                         resp_length += 3;
                     }
                 }
@@ -111,10 +110,10 @@ void cmd_Status(TcpMultiServerData * xx,
         }
         else
         {
-            A_SETLONG(response, 0L);
-            A_SETSYM(response + 1, mapStateToSymbol(xx->fState));
-            A_SETLONG(response + 2, xx->fActiveConnections);
-            A_SETLONG(response + 3, xx->fServerPort);
+            atom_setlong(response, 0L);
+            atom_setsym(response + 1, mapStateToSymbol(xx->fState));
+            atom_setlong(response + 2, xx->fActiveConnections);
+            atom_setlong(response + 3, xx->fServerPort);
             outlet_anything(xx->fResultOut, gStatusSymbol, 4, response);
         }
     }

@@ -50,7 +50,7 @@ struct VObjectData
     t_outlet *  fResultOut;
     double      fPreviousFloat;
     t_atom_long fPreviousLong;
-    short       fPreviousLength;
+    long        fPreviousLength;
     t_atom *    fPreviousList;
     short       fPreviousKind;
 }; // VObjectData

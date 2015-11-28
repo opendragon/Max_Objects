@@ -178,64 +178,98 @@ struct LdpData
     short       fPoolSize;
 }; // LdpData
 
-void cmd_AllInfo(LdpData * xx);
+# define ALLINFO_HEADER(type) \
+    void cmd_AllInfo(type * xx)
 
-void cmd_Chapter(LdpData * xx);
+# define CHAPTER_HEADER(type) \
+    void cmd_Chapter(type * xx)
 
-void cmd_Continue(LdpData * xx);
+# define CONTINUE_HEADER(type) \
+    void cmd_Continue(type * xx)
 
-void cmd_Frame(LdpData * xx);
+# define FRAME_HEADER(type) \
+    void cmd_Frame(type * xx)
 
-void cmd_Memory(LdpData * xx);
+# define MEMORY_HEADER(type) \
+    void cmd_Memory(type * xx)
 
-void cmd_Mode(LdpData *  xx,
-              t_symbol * mode);
+# define MODE_HEADER(type) \
+    void cmd_Mode(type *     xx,\
+                  t_symbol * mode)
 
-void cmd_MSearch(LdpData * xx);
+# define MSEARCH_HEADER(type) \
+    void cmd_MSearch(type * xx)
 
-void cmd_Picture(LdpData *  xx,
-                 t_symbol * onOff);
+# define PICTURE_HEADER(type) \
+    void cmd_Picture(type *     xx,\
+                     t_symbol * onOff)
 
-void cmd_Play(LdpData *  xx,
-              t_symbol * mode,
-              long       stepRate);
+# define PLAY_HEADER(type) \
+    void cmd_Play(type *     xx,\
+                  t_symbol * mode,\
+                  const long stepRate)
 
-void cmd_PlayTill(LdpData *  xx,
-                  long       position,
-                  t_symbol * mode,
-                  long       stepFactor);
+# define PLAYTILL_HEADER(type) \
+    void cmd_PlayTill(type *     xx,\
+                      const long position,\
+                      t_symbol * mode,\
+                      const long stepFactor)
 
-void cmd_PSCEnable(LdpData *  xx,
-                   t_symbol * onOff);
+# define PSCENABLE_HEADER(type) \
+    void cmd_PSCEnable(type *     xx,\
+                       t_symbol * onOff)
 
-void cmd_Repeat(LdpData *  xx,
-                long       position,
-                t_symbol * mode,
-                long       repeatCount,
-                long       stepFactor);
+# define REPEAT_HEADER(type) \
+    void cmd_Repeat(type *     xx,\
+                    const long position,\
+                    t_symbol * mode,\
+                    const long repeatCount,\
+                    const long stepFactor)
 
-void cmd_Reset(LdpData * xx);
+# define SEARCH_HEADER(type) \
+    void cmd_Search(type *     xx,\
+                    const long position)
 
-void cmd_Search(LdpData * xx,
-                long      position);
+# define SHOW_HEADER(type) \
+    void cmd_Show(type *     xx,\
+                  t_symbol * onOff)
 
-void cmd_Show(LdpData *  xx,
-              t_symbol * onOff);
+# define SOUND_HEADER(type) \
+    void cmd_Sound(type *     xx,\
+                   const long chan,\
+                   t_symbol * onOff)
 
-void cmd_Sound(LdpData *  xx,
-               long       chan,
-               t_symbol * onOff);
+# define STATUS_HEADER(type) \
+    void cmd_Status(type * xx)
 
-void cmd_Status(LdpData * xx);
+# define STEPSTILL_HEADER(type) \
+    void cmd_StepStill(type *     xx,\
+                       t_symbol * mode)
 
-void cmd_StepStill(LdpData *  xx,
-                   t_symbol * mode);
+# define STILL_HEADER(type) \
+    void cmd_Still(type * xx)
 
-void cmd_Still(LdpData * xx);
-
-void cmd_Stop(LdpData * xx);
-
-void cmd_XReset(LdpData * xx);
+ALLINFO_HEADER(LdpData);
+CHAPTER_HEADER(LdpData);
+CONTINUE_HEADER(LdpData);
+FRAME_HEADER(LdpData);
+MEMORY_HEADER(LdpData);
+MODE_HEADER(LdpData);
+MSEARCH_HEADER(LdpData);
+PICTURE_HEADER(LdpData);
+PLAY_HEADER(LdpData);
+PLAYTILL_HEADER(LdpData);
+PSCENABLE_HEADER(LdpData);
+REPEAT_HEADER(LdpData);
+RESET_HEADER(LdpData);
+SEARCH_HEADER(LdpData);
+SHOW_HEADER(LdpData);
+SOUND_HEADER(LdpData);
+STATUS_HEADER(LdpData);
+STEPSTILL_HEADER(LdpData);
+STILL_HEADER(LdpData);
+STOP_HEADER(LdpData);
+XRESET_HEADER(LdpData);
 
 void ldpAddCommand(LdpData *            xx,
                    const LdpCommandCode cc,

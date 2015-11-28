@@ -112,14 +112,14 @@ static void * spaceballCreate(t_symbol * addOrDelta,
         xx->fButtons = 0;
         xx->fChunkPulseSent = xx->fInited = xx->fNextCharEscaped = xx->fOutputBlocked = false;
         xx->fReset = xx->fSkipping = xx->fModeDelta = xx->fStopping = false;
-        if ((pollRate < 0) || (pollRate > MAX_POLL_RATE))
+        if ((0 > pollRate) || (MAX_POLL_RATE < pollRate))
         {
             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid polling rate (%ld) for device", pollRate)
             xx->fPollRate = SER_SAMPLE_RATE;
         }
         else
         {
-            xx->fPollRate = static_cast<short>(pollRate ? pollRate : SER_SAMPLE_RATE);
+            xx->fPollRate = (pollRate ? pollRate : SER_SAMPLE_RATE);
         }
         /* Set up our connections and private data */
         xx->fProxy = proxy_new(xx, 1L, &xx->fInletNumber);
@@ -139,8 +139,8 @@ static void * spaceballCreate(t_symbol * addOrDelta,
         }
         else
         {
-            xx->fResetDuration = static_cast<short>((2000 + xx->fPollRate - 1) / xx->fPollRate);
-            xx->fInitDuration = static_cast<short>((1000 + xx->fPollRate - 1) / xx->fPollRate);
+            xx->fResetDuration = ((2000 + xx->fPollRate - 1) / xx->fPollRate);
+            xx->fInitDuration = ((1000 + xx->fPollRate - 1) / xx->fPollRate);
             if (addOrDelta != gEmptySymbol)
             {
                 spaceballSetMode(xx, addOrDelta);
@@ -234,7 +234,7 @@ void spaceballPerformWriteCommand(SpaceballData * xx,
         for (short ii = 0; ii < numBytesToSend; ++ii, ++bytesToFollow)
         {
             dataValue = *bytesToFollow;
-            A_SETLONG(dataList + ii, dataValue);
+            atom_setlong(dataList + ii, dataValue);
         }
         outlet_list(xx->fDataSendOut, 0L, numBytesToSend, dataList);
         lockout_set(prevLock);
@@ -254,11 +254,11 @@ void spaceballProcessResponse(SpaceballData * xx,
         if (xx->fNextCharEscaped)
         {
             xx->fNextCharEscaped = false;
-            if (incoming != kSpaceballResponseEscape)
+            if (kSpaceballResponseEscape != incoming)
             {
                 incoming &= 0x001f;
             }
-            if (slot < IN_BUFFER_SIZE)
+            if (IN_BUFFER_SIZE > slot)
             {
                 xx->fBuffer[slot] = incoming;
                 ++xx->fBufferPos;
@@ -275,7 +275,7 @@ void spaceballProcessResponse(SpaceballData * xx,
             {
                 xx->fSkipping = false;
             }
-            else if (xx->fBufferPos > 0)
+            else if (0 < xx->fBufferPos)
             {
                 spaceballProcessPacket(xx);
             }
@@ -287,7 +287,7 @@ void spaceballProcessResponse(SpaceballData * xx,
             {
                 if (slot)
                 {
-                    if (slot < IN_BUFFER_SIZE)
+                    if (IN_BUFFER_SIZE > slot)
                     {
                         xx->fBuffer[slot] = incoming;
                         ++xx->fBufferPos;
@@ -317,7 +317,7 @@ void spaceballProcessResponse(SpaceballData * xx,
         }
         else if (! xx->fSkipping)
         {
-            if (slot < IN_BUFFER_SIZE)
+            if (IN_BUFFER_SIZE > slot)
             {
                 xx->fBuffer[slot] = incoming;
                 ++xx->fBufferPos;

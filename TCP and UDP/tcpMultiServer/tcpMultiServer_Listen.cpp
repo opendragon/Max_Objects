@@ -40,8 +40,7 @@
 #include "tcpMultiServer.h"
 
 /*------------------------------------ cmd_Listen ---*/
-void cmd_Listen(TcpMultiServerData * xx,
-                t_symbol *           onOff)
+LISTEN_HEADER(TcpMultiServerData)
 {
     bool okSoFar = true;
 

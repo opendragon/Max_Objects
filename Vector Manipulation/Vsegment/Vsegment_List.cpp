@@ -45,25 +45,25 @@ LIST_HEADER(VsegmentData)
 #pragma unused(message)
     if (xx)
     {
-        short elementCount = xx->fHowMany;
+        long elementCount = xx->fHowMany;
 
         clearPrevious(xx);
         if (elementCount)
         {
-            short start = xx->fStart;
-            short end;
+            long start = xx->fStart;
+            long end;
 
             if (0 > start)
             {
-                start = static_cast<short>(argc + start);
+                start = argc + start;
             }
             if (0 < elementCount)
             {
-                end = static_cast<short>(start + elementCount - 1);
+                end = start + elementCount - 1;
             }
             else
             {
-                short temp = static_cast<short>(start + elementCount + 1);
+                long temp = start + elementCount + 1;
 
                 end = start;
                 start = temp;
@@ -74,7 +74,7 @@ LIST_HEADER(VsegmentData)
             }
             if (end >= argc)
             {
-                end = static_cast<short>(argc - 1);
+                end = argc - 1;
             }
             if ((0 <= end) && (start < argc))
             {
@@ -84,7 +84,7 @@ LIST_HEADER(VsegmentData)
                 {
                     memcpy(newList, argv + start, (end + 1 - start) * sizeof(t_atom));
                     xx->fPreviousList = newList;
-                    xx->fPreviousLength = static_cast<short>(end + 1 - start);
+                    xx->fPreviousLength = end + 1 - start;
                     genericListOutput(xx->fResultOut, xx->fPreviousLength, xx->fPreviousList);
                 }
             }

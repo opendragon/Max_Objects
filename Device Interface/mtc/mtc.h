@@ -218,27 +218,40 @@ struct MtcData
  #endif /* BE_VERBOSE */
 }; /* MtcData */
 
-void cmd_Describe(MtcData * xx);
+# define DESCRIBE_HEADER(type) \
+    void cmd_Describe(type * xx)
 
-void cmd_Mode(MtcData *  xx,
-              t_symbol * rawOrCooked);
+# define MODE_HEADER(type) \
+    void cmd_Mode(type *     xx,\
+                  t_symbol * rawOrCooked)
 
-void cmd_Order(MtcData *  xx,
-               t_symbol * newOrder);
+# define ORDER_HEADER(type) \
+    void cmd_Order(type *     xx,\
+                   t_symbol * order)
 
-void cmd_Ping(MtcData * xx);
+# define PING_HEADER(type) \
+    void cmd_Ping(type * xx)
 
-void cmd_Start(MtcData *  xx,
-               t_symbol * kind);
+# define START_HEADER(type) \
+    void cmd_Start(type *     xx,\
+                   t_symbol * kind)
 
-void cmd_Stop(MtcData * xx);
+# define THRESHOLD_HEADER(type) \
+    void cmd_Threshold(type *     xx,\
+                       const long number)
 
-void cmd_Threshold(MtcData * xx,
-                   long      number);
+# define TRAIN_HEADER(type) \
+    void cmd_Train(type *     xx,\
+                   t_symbol * startStop)
 
-void cmd_Train(MtcData *  xx,
-               t_symbol * startStop);
-
+DESCRIBE_HEADER(MtcData);
+MODE_HEADER(MtcData);
+ORDER_HEADER(MtcData);
+PING_HEADER(MtcData);
+START_HEADER(MtcData);
+STOP_HEADER(MtcData);
+THRESHOLD_HEADER(MtcData);
+TRAIN_HEADER(MtcData);
 VERBOSE_HEADER(MtcData);
 
 void mtcPerformWriteCommand(MtcData *            xx,

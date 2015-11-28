@@ -40,7 +40,7 @@
 #include "stack.h"
 
 /*------------------------------------ cmd_Pop ---*/
-void cmd_Pop(StackData * xx)
+POP_HEADER(StackData)
 {
     if (xx)
     {

@@ -40,7 +40,7 @@
 #include "x10.h"
 
 /*------------------------------------ cmd_GetHouseCode ---*/
-void cmd_GetHouseCode(X10ControlData * xx)
+GETHOUSECODE_HEADER(X10ControlData)
 {
     switch (xx->fKind)
     {

@@ -40,8 +40,7 @@
 #include "senseX.h"
 
 /*------------------------------------ cmd_Off ---*/
-void cmd_Off(SenseXData * xx,
-             long         duration)
+OFF_HEADER(SenseXData)
 {
     if (xx)
     {
@@ -49,7 +48,7 @@ void cmd_Off(SenseXData * xx,
         {
             case 0:
                 /* Normal command, normal inlet */
-                if (duration >= 0)
+                if (0 <= duration)
                 {
                     xx->fOffDelay = duration;
                 }

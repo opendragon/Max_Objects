@@ -40,8 +40,7 @@
 #include "mtcTrack.h"
 
 /*------------------------------------ cmd_Batch ---*/
-void cmd_Batch(MtcTrackData * xx,
-               t_symbol *     onOff)
+BATCH_HEADER(MtcTrackData)
 {
     if (xx)
     {

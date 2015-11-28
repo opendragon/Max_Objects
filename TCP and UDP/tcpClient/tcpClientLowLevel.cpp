@@ -53,7 +53,7 @@ void processRebindQueue(TcpObjectData * xx)
         {
 #if 0
             WRAP_OT_CALL(xx, result, "OTUnbind", OTUnbind(xx->fSocket))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTUnbind failed (%ld = %s)", result)
                 reportEndpointState(OUR_NAME, xx);
@@ -65,7 +65,7 @@ void processRebindQueue(TcpObjectData * xx)
         {
 #if 0
             WRAP_OT_CALL(xx, result, "OTBind", OTBind(xx->fSocket, NULL, NULL))
-            if (result != kOTNoError)
+            if (kOTNoError != result)
             {
                 REPORT_ERROR(xx, OUTPUT_PREFIX "OTBind failed (%ld = %s)", result)
                 reportEndpointState(OUR_NAME, xx);
@@ -88,8 +88,8 @@ void processReceiveQueue(TcpObjectData * xx)
         short           prev_lock = lockout_set(1);
         TcpBufferLink * temp;
         t_atom *        gotStuff;
-        short           numAtoms;
-        short           numMessages;
+        long            numAtoms;
+        long            numMessages;
 
         for ( ; ; )
         {
@@ -115,7 +115,7 @@ void processReceiveQueue(TcpObjectData * xx)
             temp->fNext = NULL;
             walker = reinterpret_cast<char *>(&temp->fData->fNumElements);
             numMessages = validateBuffer(xx, OUR_NAME, temp->fData, xx->fRawMode);
-            for (short ii = 0; ii < numMessages; ++ii)
+            for (long ii = 0; ii < numMessages; ++ii)
             {
                 /* Allow interrupts while we process the buffer */
                 lockout_set(prev_lock);
@@ -123,7 +123,7 @@ void processReceiveQueue(TcpObjectData * xx)
                 gotStuff = convertBufferToAtoms(xx, OUR_NAME, &walker, numAtoms, 0,
                                                 temp->fData->fNumBytesInUse, xx->fRawMode);
                 prev_lock = lockout_set(1);
-                if (numAtoms > 0)
+                if (0 < numAtoms)
                 {
                     outlet_anything(xx->fResultOut, gReplySymbol, numAtoms, gotStuff);
                     FREE_BYTES(gotStuff);
@@ -177,7 +177,7 @@ bool makeReceiveBufferAvailable(TcpObjectData * xx)
             /* Get the next available buffer from the buffer pool */
             TcpBufferLink * temp = xx->fPoolHead;
             
-            xx->fReceiveBuffer->fNumBytesInUse = static_cast<short>(bytesRead);
+            xx->fReceiveBuffer->fNumBytesInUse = bytesRead;
             if (temp)
             {
                 DataBuffer * swapper = temp->fData;
@@ -254,18 +254,17 @@ void transmitBuffer(TcpObjectData *  xx,
             }
             else
             {
-                short num_bytes = static_cast<short>(aBuffer->fNumBytesInUse +
-                                                     SIZEOF_DATABUFFER_HDR);
+                long numBytes = aBuffer->fNumBytesInUse + SIZEOF_DATABUFFER_HDR;
 
-                aBuffer->fSanityCheck = htons(static_cast<short>(-(num_bytes +
+                aBuffer->fSanityCheck = htons(static_cast<short>(-(numBytes +
                                                                    aBuffer->fNumElements)));
                 aBuffer->fNumElements = htons(aBuffer->fNumElements);
-                outLength = num_bytes;
+                outLength = numBytes;
                 outBuffer = &aBuffer->fNumElements;
             }
             ssize_t bytesWritten = send(sock, outBuffer, outLength, 0);
 
-            if (bytesWritten < 0)
+            if (0 > bytesWritten)
             {
                 LOG_ERROR_2(xx, OUTPUT_PREFIX "send failed (%ld)", static_cast<long>(errno))
                 signalError(xx);

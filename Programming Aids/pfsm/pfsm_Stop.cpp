@@ -40,7 +40,7 @@
 #include "pfsm.h"
 
 /*------------------------------------ cmd_Stop ---*/
-void cmd_Stop(PfsmData * xx)
+STOP_HEADER(PfsmData)
 {
     if (xx)
     {

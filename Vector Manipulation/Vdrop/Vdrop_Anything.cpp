@@ -44,7 +44,7 @@ ANYTHING_HEADER(VObjectData)
 {
     if (xx)
     {
-        short elementCount = 0;
+        long elementCount = 0;
 
         clearPrevious(xx);
         /* Determine the size of the output: */
@@ -54,12 +54,12 @@ ANYTHING_HEADER(VObjectData)
         }
         else if (0 > xx->fHowMany)
         {
-            elementCount = static_cast<short>(-xx->fHowMany);
+            elementCount = -xx->fHowMany;
         }
         if ((argc + 1) > elementCount)
         {
             /* Collect the pieces that we need: */
-            short    newCount = static_cast<short>(argc + 1 - elementCount);
+            long     newCount = argc + 1 - elementCount;
             t_atom * newArg = GET_BYTES(newCount, t_atom);
 
             if (newArg)
@@ -70,7 +70,7 @@ ANYTHING_HEADER(VObjectData)
                 }
                 else
                 {
-                    A_SETSYM(newArg, message);
+                    atom_setsym(newArg, message);
                     if (argc > elementCount)
                     {
                         memcpy(newArg + 1, argv, (newCount - 1) * sizeof(t_atom));

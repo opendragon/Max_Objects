@@ -40,7 +40,7 @@
 #include "mtc.h"
 
 /*------------------------------------ cmd_Stop ---*/
-void cmd_Stop(MtcData * xx)
+STOP_HEADER(MtcData)
 {
     if (xx)
     {
