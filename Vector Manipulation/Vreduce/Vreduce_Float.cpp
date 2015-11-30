@@ -38,6 +38,7 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "Vreduce.h"
+#include "fillBufferWithDouble.h"
 
 /*------------------------------------ cmd_Float ---*/
 FLOAT_HEADER(VreduceData)

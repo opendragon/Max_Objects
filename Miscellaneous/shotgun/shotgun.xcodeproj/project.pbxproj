@@ -201,6 +201,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_VERSION = 1.0.0;
+				PRODUCT_YEAR = 2005;
 			};
 			name = Development;
 		};
@@ -211,6 +212,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				PRODUCT_VERSION = 1.0.0;
+				PRODUCT_YEAR = 2005;
 			};
 			name = Deployment;
 		};

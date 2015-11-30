@@ -38,6 +38,7 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "VdecodeEncodeCommon.h"
+#include "fillBufferWithDouble.h"
 
 /*------------------------------------ checkBases ---*/
 bool checkBases(BaseData * info,

@@ -38,6 +38,7 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "reportAnything.h"
+#include "fillBufferWithDouble.h"
 
 /*------------------------------------ reportAnything ---*/
 REPORTANYTHING_HEADER

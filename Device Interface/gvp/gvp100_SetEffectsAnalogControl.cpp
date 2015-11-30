@@ -38,6 +38,7 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "gvp100.h"
+#include "fillBufferWithDouble.h"
 
 /*------------------------------------ cmd_SetEffectsAnalogControl ---*/
 SETEFFECTSANALOGCONTROL_HEADER(GvpData)

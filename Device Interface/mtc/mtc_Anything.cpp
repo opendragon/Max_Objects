@@ -38,6 +38,7 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "mtc.h"
+#include "fillBufferWithDouble.h"
 
 /*------------------------------------ cmd_Anything ---*/
 ANYTHING_HEADER(MtcData)

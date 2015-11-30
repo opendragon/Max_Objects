@@ -40,7 +40,7 @@
 #if (! defined(FILLBUFFERWITHDOUBLE_H_))
 # define FILLBUFFERWITHDOUBLE_H_ /* */
 
-# include "missingAndExtra.h"
+# define SUGGESTED_BUFFER_SIZE_ 42
 
 # define FILLBUFFERWITHDOUBLE_HEADER \
 int fillBufferWithDouble(char *       outBuffer,\

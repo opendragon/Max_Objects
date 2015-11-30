@@ -218,6 +218,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = dataType;
 				PRODUCT_VERSION = 1.0.3;
+				PRODUCT_YEAR = 1998;
 			};
 			name = Development;
 		};
@@ -229,6 +230,7 @@
 				COPY_PHASE_STRIP = YES;
 				PRODUCT_NAME = dataType;
 				PRODUCT_VERSION = 1.0.3;
+				PRODUCT_YEAR = 1998;
 			};
 			name = Deployment;
 		};

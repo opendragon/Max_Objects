@@ -38,6 +38,7 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "senseX.h"
+#include "fillBufferWithDouble.h"
 
 /*------------------------------------ cmd_Anything ---*/
 ANYTHING_HEADER(SenseXData)

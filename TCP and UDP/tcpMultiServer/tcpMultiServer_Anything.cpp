@@ -38,6 +38,7 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "tcpMultiServer.h"
+#include "fillBufferWithDouble.h"
 
 /*------------------------------------ cmd_Anything ---*/
 ANYTHING_HEADER(TcpMultiServerData)

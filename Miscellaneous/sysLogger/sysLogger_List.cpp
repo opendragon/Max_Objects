@@ -38,6 +38,7 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "sysLogger.h"
+#include "fillBufferWithDouble.h"
 
 /*------------------------------------ cmd_List ---*/
 LIST_HEADER(SysLoggerData)

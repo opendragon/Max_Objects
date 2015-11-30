@@ -38,6 +38,7 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "map2d.h"
+#include "fillBufferWithDouble.h"
 
 /*------------------------------------ cmd_Replace ---*/
 REPLACE_HEADER(Map2dData)
