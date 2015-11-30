@@ -94,12 +94,13 @@ static void VcollectFree(VcollectData * xx)
 } // VcollectFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VcollectCreate),
-                               reinterpret_cast<method>(VcollectFree), sizeof(VcollectData),
-                               reinterpret_cast<method>(0L), 0);
+                               reinterpret_cast<method>(VcollectFree),
+                               static_cast<long>(sizeof(VcollectData)),
+                               reinterpret_cast<method>(NULL), 0);
 
     if (temp)
     {
@@ -109,6 +110,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Clear), "clear", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Count), "count", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Float), MESSAGE_FLOAT, A_FLOAT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Start), "start", 0);

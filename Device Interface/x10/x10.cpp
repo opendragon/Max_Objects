@@ -186,12 +186,13 @@ static void x10Free(X10ControlData * xx)
 } // x10Free
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(x10Create),
-                               reinterpret_cast<method>(x10Free), sizeof(X10ControlData),
-                               reinterpret_cast<method>(0L), A_DEFSYM, A_DEFLONG, 0);
+                               reinterpret_cast<method>(x10Free),
+                               static_cast<long>(sizeof(X10ControlData)),
+                               reinterpret_cast<method>(NULL), A_DEFSYM, A_DEFLONG, 0);
     
     if (temp)
     {
@@ -204,6 +205,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_GetHouseCode), "housecode?", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_GetTimerEvents), "events?", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_In1), MESSAGE_IN1, A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Kind), "kind", A_SYM, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Off), "off", A_SYM, A_LONG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_On), "on", A_SYM, A_LONG, 0);

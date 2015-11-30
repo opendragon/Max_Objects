@@ -104,18 +104,20 @@ static void udpPortFree(UdpObjectData * xx)
 } // udpPortFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(udpPortCreate),
-                               reinterpret_cast<method>(udpPortFree), sizeof(UdpObjectData),
-                               reinterpret_cast<method>(0L), A_DEFLONG, A_DEFLONG, 0);
+                               reinterpret_cast<method>(udpPortFree),
+                               static_cast<long>(sizeof(UdpObjectData)),
+                               reinterpret_cast<method>(NULL), A_DEFLONG, A_DEFLONG, 0);
 
     if (temp)
     {
         class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Float), MESSAGE_FLOAT, A_FLOAT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Mode), "mode", A_SYM, 0);

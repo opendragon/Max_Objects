@@ -92,12 +92,13 @@ static void map3dFree(Map3dData * xx)
 } // map3dFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(map3dCreate),
-                               reinterpret_cast<method>(map3dFree), sizeof(Map3dData),
-                               reinterpret_cast<method>(0L), A_DEFSYM, 0);
+                               reinterpret_cast<method>(map3dFree),
+                               static_cast<long>(sizeof(Map3dData)), reinterpret_cast<method>(NULL),
+                               A_DEFSYM, 0);
 
     if (temp)
     {
@@ -112,6 +113,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Delete), "delete", A_LONG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Dump), "dump", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Get), "get", A_LONG, A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Load), "load", A_SYM, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Replace), "replace", A_GIMME, 0);

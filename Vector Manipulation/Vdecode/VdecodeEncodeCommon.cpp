@@ -152,7 +152,7 @@ bool checkInput(void *       xx,
 
             case A_FLOAT:
                 LOG_ERROR_3(xx, "%sfloating point value (%g) in input list", name,
-                            TO_DBL(argv[ii].a_w.w_float))
+                            static_cast<double>(argv[ii].a_w.w_float))
                 okSoFar = false;
                 break;
 

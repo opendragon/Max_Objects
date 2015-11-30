@@ -83,6 +83,7 @@ typedef void     t_binbuf; // Missing declaration
 # define MESSAGE_FLOAT      "float"
 # define MESSAGE_IN1        "in1"
 # define MESSAGE_IN2        "in2"
+# define MESSAGE_INLETINFO  "inletinfo"
 # define MESSAGE_INT        "int"
 # define MESSAGE_LIST       "list"
 
@@ -148,6 +149,12 @@ typedef void     t_binbuf; // Missing declaration
 # define IN2_HEADER(type) \
     void cmd_In2(type *     xx, \
                  const long msg)
+
+# define INLETINFO_HEADER(type) \
+    void cmd_InletInfo(type *     xx,\
+                       void *     bb,\
+                       const long index,\
+                       char *     tt)
 
 # define INT_HEADER(type) \
     void cmd_Int(type *     xx, \

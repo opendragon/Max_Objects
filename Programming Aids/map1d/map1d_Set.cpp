@@ -63,7 +63,7 @@ SET_HEADER(Map1dData)
 
                 case A_FLOAT:
                     LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected float (%g)",
-                                TO_DBL(next->a_w.w_float))
+                                static_cast<double>(next->a_w.w_float))
                     break;
 
                 case A_SYM:
@@ -89,7 +89,7 @@ SET_HEADER(Map1dData)
 
                     case A_FLOAT:
                         LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected float (%g)",
-                                    TO_DBL(next->a_w.w_float))
+                                    static_cast<double>(next->a_w.w_float))
                         okSoFar = false;
                         break;
 

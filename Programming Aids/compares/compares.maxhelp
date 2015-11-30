@@ -2,268 +2,308 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 5,
-			"minor" : 1,
-			"revision" : 9
+			"major" : 7,
+			"minor" : 0,
+			"revision" : 6,
+			"architecture" : "x64",
+			"modernui" : 1
 		}
 ,
 		"rect" : [ 331.0, 280.0, 371.0, 319.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 331.0, 280.0, 371.0, 319.0 ],
-		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Arial",
-		"gridonopen" : 0,
+		"gridonopen" : 1,
 		"gridsize" : [ 15.0, 15.0 ],
-		"gridsnaponopen" : 0,
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
 		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
 		"boxanimatetime" : 200,
-		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
+		"style" : "",
+		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "blirg",
+					"fontname" : "Geneva",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 159.0, 76.0, 29.0, 17.0 ],
-					"numinlets" : 2,
 					"id" : "obj-1",
-					"fontname" : "Geneva",
+					"maxclass" : "message",
+					"numinlets" : 2,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 159.0, 76.0, 29.0, 20.0 ],
+					"style" : "",
+					"text" : "blirg"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "blorg",
+					"fontname" : "Geneva",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 125.0, 76.0, 31.0, 17.0 ],
-					"numinlets" : 2,
 					"id" : "obj-2",
-					"fontname" : "Geneva",
+					"maxclass" : "message",
+					"numinlets" : 2,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 125.0, 76.0, 31.0, 20.0 ],
+					"style" : "",
+					"text" : "blorg"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "compares",
+					"fontname" : "Geneva",
 					"fontsize" : 14.0,
-					"patching_rect" : [ 7.0, 24.0, 80.0, 25.0 ],
-					"numinlets" : 1,
 					"id" : "obj-3",
-					"fontname" : "Geneva",
-					"numoutlets" : 0
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 7.0, 20.0, 80.0, 24.0 ],
+					"style" : "",
+					"text" : "compares"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Compare two symbols",
+					"fontname" : "Geneva",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 7.0, 44.0, 112.0, 19.0 ],
-					"numinlets" : 1,
 					"id" : "obj-4",
-					"fontname" : "Geneva",
-					"numoutlets" : 0
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 7.0, 44.0, 112.0, 18.0 ],
+					"style" : "",
+					"text" : "Compare two symbols."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Argument: none;\rLeft Inlet: symbol;\rRight Inlet: symbol;\rOutlet: int",
-					"linecount" : 4,
+					"fontname" : "Geneva",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 201.0, 22.0, 102.0, 55.0 ],
-					"numinlets" : 1,
 					"id" : "obj-5",
-					"fontname" : "Geneva",
-					"numoutlets" : 0
+					"linecount" : 4,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 201.0, 20.0, 102.0, 51.0 ],
+					"style" : "",
+					"text" : "Argument: none;\rLeft Inlet: symbol;\rRight Inlet: symbol;\rOutlet: int"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "The inlets take arbitrary symbols and return a result corresponding to the comparison of the symbol strings.",
-					"linecount" : 2,
+					"fontname" : "Geneva",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 6.0, 233.0, 340.0, 31.0 ],
-					"numinlets" : 1,
 					"id" : "obj-6",
-					"fontname" : "Geneva",
-					"numoutlets" : 0
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 6.0, 197.0, 340.0, 29.0 ],
+					"style" : "",
+					"text" : "The inlets take arbitrary symbols and return a result corresponding to the comparison of the symbol strings."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "compares",
-					"fontsize" : 9.0,
-					"patching_rect" : [ 26.0, 136.0, 51.0, 19.0 ],
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ],
-					"numinlets" : 2,
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
 					"id" : "obj-7",
-					"fontname" : "Geneva",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
 					"numoutlets" : 1,
-					"outlettype" : [ "int" ]
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 26.0, 136.0, 51.0, 20.0 ],
+					"style" : "",
+					"text" : "compares"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "number",
-					"fontsize" : 9.0,
-					"cantchange" : 1,
-					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
-					"patching_rect" : [ 26.0, 166.0, 35.0, 19.0 ],
-					"triscale" : 0.9,
-					"numinlets" : 1,
-					"id" : "obj-8",
-					"fontname" : "Geneva",
 					"bgcolor" : [ 0.866667, 0.866667, 0.866667, 1.0 ],
+					"cantchange" : 1,
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
+					"htricolor" : [ 0.87, 0.82, 0.24, 1.0 ],
+					"id" : "obj-8",
+					"maxclass" : "number",
+					"numinlets" : 1,
 					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 26.0, 166.0, 35.0, 20.0 ],
+					"style" : "",
+					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"triangle" : 0,
-					"outlettype" : [ "int", "bang" ]
+					"tricolor" : [ 0.75, 0.75, 0.75, 1.0 ],
+					"triscale" : 0.9
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "blarg",
+					"fontname" : "Geneva",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 59.0, 76.0, 31.0, 17.0 ],
-					"numinlets" : 2,
 					"id" : "obj-9",
-					"fontname" : "Geneva",
+					"maxclass" : "message",
+					"numinlets" : 2,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 59.0, 76.0, 31.0, 20.0 ],
+					"style" : "",
+					"text" : "blarg"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "blorg",
+					"fontname" : "Geneva",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 26.0, 76.0, 31.0, 17.0 ],
-					"numinlets" : 2,
 					"id" : "obj-10",
-					"fontname" : "Geneva",
-					"numoutlets" : 1,
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "message",
-					"text" : "blarg",
-					"fontsize" : 9.0,
-					"patching_rect" : [ 92.0, 76.0, 31.0, 17.0 ],
 					"numinlets" : 2,
-					"id" : "obj-11",
-					"fontname" : "Geneva",
 					"numoutlets" : 1,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 26.0, 76.0, 31.0, 20.0 ],
+					"style" : "",
+					"text" : "blorg"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Output values:",
+					"fontname" : "Geneva",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 83.0, 114.0, 74.0, 19.0 ],
-					"numinlets" : 1,
+					"id" : "obj-11",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 92.0, 76.0, 31.0, 20.0 ],
+					"style" : "",
+					"text" : "blarg"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
 					"id" : "obj-12",
-					"fontname" : "Geneva",
-					"numoutlets" : 0
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 83.0, 114.0, 74.0, 18.0 ],
+					"style" : "",
+					"text" : "Output values:"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "1 -> left symbol greater;\r0 -> symbols identical;\r-1 -> right symbol greater;\r",
-					"linecount" : 3,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 84.0, 127.0, 134.0, 43.0 ],
-					"numinlets" : 1,
-					"id" : "obj-13",
 					"fontname" : "Geneva",
-					"numoutlets" : 0
+					"fontsize" : 9.0,
+					"id" : "obj-13",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 84.0, 132.0, 134.0, 40.0 ],
+					"style" : "",
+					"text" : "1 -> left symbol greater;\r0 -> symbols identical;\r-1 -> right symbol greater"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-2", 0 ],
 					"destination" : [ "obj-7", 1 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 134.5, 104.0, 67.5, 104.0 ]
+					"midpoints" : [ 168.5, 104.0, 67.5, 104.0 ],
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-1", 0 ],
-					"destination" : [ "obj-7", 1 ],
+					"destination" : [ "obj-7", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 168.5, 104.0, 67.5, 104.0 ]
+					"midpoints" : [ 35.5, 103.0, 35.5, 103.0 ],
+					"source" : [ "obj-10", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-11", 0 ],
 					"destination" : [ "obj-7", 1 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 101.5, 104.0, 67.5, 104.0 ]
+					"midpoints" : [ 101.5, 104.0, 67.5, 104.0 ],
+					"source" : [ "obj-11", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-7", 0 ],
+					"destination" : [ "obj-7", 1 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 134.5, 104.0, 67.5, 104.0 ],
+					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 35.5, 159.0, 35.5, 159.0 ]
+					"midpoints" : [ 35.5, 159.0, 35.5, 159.0 ],
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-9", 0 ],
 					"destination" : [ "obj-7", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 68.5, 103.0, 35.5, 103.0 ]
+					"midpoints" : [ 68.5, 103.0, 35.5, 103.0 ],
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-10", 0 ],
-					"destination" : [ "obj-7", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 35.5, 103.0, 35.5, 103.0 ]
-				}
-
+ ],
+		"dependency_cache" : [ 			{
+				"name" : "compares.mxo",
+				"type" : "iLaX"
 			}
- ]
+ ],
+		"embedsnapshot" : 0
 	}
 
 }

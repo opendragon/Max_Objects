@@ -103,18 +103,20 @@ static void ShotgunFree(ShotgunData * xx)
 } // ShotgunFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(ShotgunCreate),
-                               reinterpret_cast<method>(ShotgunFree), sizeof(ShotgunData),
-                               reinterpret_cast<method>(0L), A_DEFLONG, 0);
+                               reinterpret_cast<method>(ShotgunFree),
+                               static_cast<long>(sizeof(ShotgunData)),
+                               reinterpret_cast<method>(NULL), A_DEFLONG, 0);
 
     if (temp)
     {
         class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Bang), MESSAGE_BANG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_register(CLASS_BOX, temp);
     }
     gClass = temp;

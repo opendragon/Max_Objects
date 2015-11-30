@@ -50,7 +50,8 @@ FLOAT_HEADER(VscanData)
         clearPrevious(xx);
         if (IR_INTEGER == (xx->fCheck & IR_INTEGER))
         {
-            LOG_ERROR_2(xx, OUTPUT_PREFIX "floating point value (%g) in input list", TO_DBL(msg))
+            LOG_ERROR_2(xx, OUTPUT_PREFIX "floating point value (%g) in input list",
+                        static_cast<double>(msg))
             okSoFar = false;
         }
         else if (IR_NONZERO == (xx->fCheck & IR_NONZERO))

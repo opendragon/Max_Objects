@@ -177,18 +177,20 @@ static void spaceballFree(SpaceballData * xx)
     }
 } // spaceballFree
 
-/*------------------------------------ main ---*/
-int main(void)
+//*------------------------------------ main ---*/
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(spaceballCreate),
-                               reinterpret_cast<method>(spaceballFree), sizeof(SpaceballData),
-                               reinterpret_cast<method>(0L), A_DEFSYM, A_DEFLONG, 0);
+                               reinterpret_cast<method>(spaceballFree),
+                               static_cast<long>(sizeof(SpaceballData)),
+                               reinterpret_cast<method>(NULL), A_DEFSYM, A_DEFLONG, 0);
 
     if (temp)
     {
         class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Mode), "mode", A_SYM, 0);

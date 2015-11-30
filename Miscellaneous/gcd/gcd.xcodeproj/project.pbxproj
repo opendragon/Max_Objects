@@ -17,6 +17,7 @@
 		F6CE72851800E77900E05120 /* gcd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6CE727F1800E77900E05120 /* gcd.cpp */; };
 		F6CE72861800E77900E05120 /* gcd.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CE72801800E77900E05120 /* gcd.h */; };
 		F6CE72AC1801755E00E05120 /* gcd_In1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6CE72AB1801755E00E05120 /* gcd_In1.cpp */; };
+		F6E6A38E1C0BA6B6009F65A8 /* gcd_InletInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E6A38D1C0BA6B6009F65A8 /* gcd_InletInfo.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		F6CE727F1800E77900E05120 /* gcd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gcd.cpp; sourceTree = SOURCE_ROOT; };
 		F6CE72801800E77900E05120 /* gcd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gcd.h; sourceTree = SOURCE_ROOT; };
 		F6CE72AB1801755E00E05120 /* gcd_In1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gcd_In1.cpp; sourceTree = SOURCE_ROOT; };
+		F6E6A38D1C0BA6B6009F65A8 /* gcd_InletInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gcd_InletInfo.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				F6CE727C1800E77900E05120 /* gcd_Assist.cpp */,
 				F6CE727D1800E77900E05120 /* gcd_Bang.cpp */,
 				F6CE72AB1801755E00E05120 /* gcd_In1.cpp */,
+				F6E6A38D1C0BA6B6009F65A8 /* gcd_InletInfo.cpp */,
 				F6CE727E1800E77900E05120 /* gcd_Int.cpp */,
 				F6CE727F1800E77900E05120 /* gcd.cpp */,
 				F6CE72801800E77900E05120 /* gcd.h */,
@@ -173,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6CE72851800E77900E05120 /* gcd.cpp in Sources */,
+				F6E6A38E1C0BA6B6009F65A8 /* gcd_InletInfo.cpp in Sources */,
 				F6CE72831800E77900E05120 /* gcd_Bang.cpp in Sources */,
 				F6CE72841800E77900E05120 /* gcd_Int.cpp in Sources */,
 				F6CE72821800E77900E05120 /* gcd_Assist.cpp in Sources */,

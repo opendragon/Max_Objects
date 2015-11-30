@@ -19,6 +19,7 @@
 		F6574C0A1808C6C800153C4D /* VdropObjectCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = F6574C091808C6C800153C4D /* VdropObjectCommon.h */; };
 		F6574C1D1809B1D000153C4D /* Vjet_In1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6574C1C1809B1D000153C4D /* Vjet_In1.cpp */; };
 		F6A9D4FC1BFAF79500518D80 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A9D4FB1BFAF79500518D80 /* libCommonLibrary.a */; };
+		F6E6A3961C0BC7DB009F65A8 /* Vjet_InletInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E6A3951C0BC7DB009F65A8 /* Vjet_InletInfo.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		F6574C091808C6C800153C4D /* VdropObjectCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VdropObjectCommon.h; path = ../Vdrop/VdropObjectCommon.h; sourceTree = SOURCE_ROOT; };
 		F6574C1C1809B1D000153C4D /* Vjet_In1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vjet_In1.cpp; sourceTree = SOURCE_ROOT; };
 		F6A9D4FB1BFAF79500518D80 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "/Users/njaffe/Library/Developer/Xcode/DerivedData/NJObjects-cfvosuyivjfhivdvtnowssnhdiht/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<absolute>"; };
+		F6E6A3951C0BC7DB009F65A8 /* Vjet_InletInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vjet_InletInfo.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				F6574BFE1808C52B00153C4D /* Vjet_Assist.cpp */,
 				F6574BFF1808C52B00153C4D /* Vjet_Bang.cpp */,
 				F6574C1C1809B1D000153C4D /* Vjet_In1.cpp */,
+				F6E6A3951C0BC7DB009F65A8 /* Vjet_InletInfo.cpp */,
 				F6574C001808C52B00153C4D /* Vjet_List.cpp */,
 				F6574C011808C52B00153C4D /* Vjet.cpp */,
 				F6574C021808C52B00153C4D /* Vjet.h */,
@@ -184,6 +187,7 @@
 				F6574C061808C52B00153C4D /* Vjet_List.cpp in Sources */,
 				F6574C071808C52B00153C4D /* Vjet.cpp in Sources */,
 				F6574C041808C52B00153C4D /* Vjet_Assist.cpp in Sources */,
+				F6E6A3961C0BC7DB009F65A8 /* Vjet_InletInfo.cpp in Sources */,
 				F6574C1D1809B1D000153C4D /* Vjet_In1.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

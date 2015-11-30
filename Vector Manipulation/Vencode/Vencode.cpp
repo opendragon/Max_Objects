@@ -81,12 +81,13 @@ static void VencodeFree(VencodeData * xx)
 } // VencodeFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VencodeCreate),
-                               reinterpret_cast<method>(VencodeFree), sizeof(VencodeData),
-                               reinterpret_cast<method>(0L), A_LONG, A_DEFLONG, A_DEFLONG,
+                               reinterpret_cast<method>(VencodeFree),
+                               static_cast<long>(sizeof(VencodeData)),
+                               reinterpret_cast<method>(NULL), A_LONG, A_DEFLONG, A_DEFLONG,
                                A_DEFLONG, A_DEFLONG, 0);
 
     if (temp)
@@ -95,6 +96,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Bang), MESSAGE_BANG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Float), MESSAGE_FLOAT, A_FLOAT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
         class_register(CLASS_BOX, temp);

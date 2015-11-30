@@ -66,7 +66,7 @@ ANYTHING_HEADER(SenseXData)
 
                         case A_FLOAT:
                             LOG_POST_3(xx, "  argument %ld is a float (%g)", ii,
-                                       TO_DBL(argv[ii].a_w.w_float))
+                                       static_cast<double>(argv[ii].a_w.w_float))
                             break;
 
                         case A_SEMI:

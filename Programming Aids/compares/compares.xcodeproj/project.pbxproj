@@ -15,6 +15,7 @@
 		F6CE72681800DEE800E05120 /* compares_Assist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6CE72641800DEE800E05120 /* compares_Assist.cpp */; };
 		F6CE72691800DEE800E05120 /* compares.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6CE72651800DEE800E05120 /* compares.cpp */; };
 		F6CE726A1800DEE800E05120 /* compares.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CE72661800DEE800E05120 /* compares.h */; };
+		F6E6A3901C0BA78F009F65A8 /* compares_InletInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E6A38F1C0BA78E009F65A8 /* compares_InletInfo.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		F6CE72641800DEE800E05120 /* compares_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = compares_Assist.cpp; sourceTree = SOURCE_ROOT; };
 		F6CE72651800DEE800E05120 /* compares.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = compares.cpp; sourceTree = SOURCE_ROOT; };
 		F6CE72661800DEE800E05120 /* compares.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compares.h; sourceTree = SOURCE_ROOT; };
+		F6E6A38F1C0BA78E009F65A8 /* compares_InletInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = compares_InletInfo.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 			children = (
 				F6CE72631800DEE800E05120 /* compares_Anything.cpp */,
 				F6CE72641800DEE800E05120 /* compares_Assist.cpp */,
+				F6E6A38F1C0BA78E009F65A8 /* compares_InletInfo.cpp */,
 				F6CE72651800DEE800E05120 /* compares.cpp */,
 				F6CE72661800DEE800E05120 /* compares.h */,
 			);
@@ -166,6 +169,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6E6A3901C0BA78F009F65A8 /* compares_InletInfo.cpp in Sources */,
 				F6CE72681800DEE800E05120 /* compares_Assist.cpp in Sources */,
 				F6CE72671800DEE800E05120 /* compares_Anything.cpp in Sources */,
 				F6CE72691800DEE800E05120 /* compares.cpp in Sources */,

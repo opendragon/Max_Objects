@@ -51,7 +51,7 @@ enum E_State
     kAwaitingFirstMessage,
     kBetweenMessages,
     kAfterSecondMessage
-};
+}; // E_State
 
 struct SenseXData
 {
@@ -75,6 +75,7 @@ struct SenseXData
     void cmd_On(type *     xx,\
                 const long duration)
 
+INLETINFO_HEADER(SenseXData);
 OFF_HEADER(SenseXData);
 ON_HEADER(SenseXData);
 

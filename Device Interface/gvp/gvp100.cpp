@@ -174,12 +174,13 @@ static void gvpFree(GvpData * xx)
 } // gvpFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(gvpCreate),
-                               reinterpret_cast<method>(gvpFree), sizeof(GvpData),
-                               reinterpret_cast<method>(0L), A_LONG, A_DEFLONG, A_DEFLONG, 0);
+                               reinterpret_cast<method>(gvpFree),
+                               static_cast<long>(sizeof(GvpData)), reinterpret_cast<method>(NULL),
+                               A_LONG, A_DEFLONG, A_DEFLONG, 0);
 
     if (temp)
     {
@@ -189,6 +190,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_BreakDone), "breakdone", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_EndSequence), "endsequence", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_In1), MESSAGE_IN1, A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_LearnEmem), "learn-emem", A_DEFLONG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_RecallEmem), "recall-emem", A_DEFLONG,
                         0);

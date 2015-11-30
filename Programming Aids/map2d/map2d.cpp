@@ -91,12 +91,13 @@ static void map2dFree(Map2dData * xx)
 } // map2dFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(map2dCreate),
-                               reinterpret_cast<method>(map2dFree), sizeof(Map2dData),
-                               reinterpret_cast<method>(0L), A_DEFSYM, 0);
+                               reinterpret_cast<method>(map2dFree),
+                               static_cast<long>(sizeof(Map2dData)), reinterpret_cast<method>(NULL),
+                               A_DEFSYM, 0);
 
     if (temp)
     {
@@ -111,6 +112,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Delete), "delete", A_LONG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Dump), "dump", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Get), "get", A_LONG, A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Load), "load", A_SYM, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Replace), "replace", A_GIMME, 0);

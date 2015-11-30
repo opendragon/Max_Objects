@@ -58,7 +58,8 @@ ANYTHING_HEADER(UdpObjectData)
                 break;
 
             case A_FLOAT:
-                LOG_POST_3(xx, "  argument %ld is a float (%g)", ii, TO_DBL(argv[ii].a_w.w_float))
+                LOG_POST_3(xx, "  argument %ld is a float (%g)", ii,
+                           static_cast<double>(argv[ii].a_w.w_float))
                 break;
 
             case A_SEMI:

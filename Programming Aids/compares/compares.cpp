@@ -75,17 +75,20 @@ static void comparesFree(ComparesData * xx)
 } // comparesFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(comparesCreate),
-                               reinterpret_cast<method>(comparesFree), sizeof(ComparesData),
-                               reinterpret_cast<method>(0L), 0);
+                               reinterpret_cast<method>(comparesFree),
+                               static_cast<long>(sizeof(ComparesData)),
+                               reinterpret_cast<method>(NULL), 0);
 
     if (temp)
     {
         class_addmethod(temp, reinterpret_cast<method>(cmd_Anything), MESSAGE_ANYTHING, A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_InletInfo), MESSAGE_INLETINFO, A_CANT,
+                        0);
         class_register(CLASS_BOX, temp);
     }
     gEmptySymbol = gensym("");

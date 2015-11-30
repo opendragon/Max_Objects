@@ -2,295 +2,334 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 5,
-			"minor" : 1,
-			"revision" : 9
+			"major" : 7,
+			"minor" : 0,
+			"revision" : 6,
+			"architecture" : "x64",
+			"modernui" : 1
 		}
 ,
 		"rect" : [ 505.0, 229.0, 389.0, 317.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 505.0, 229.0, 389.0, 317.0 ],
-		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Arial",
-		"gridonopen" : 0,
+		"gridonopen" : 1,
 		"gridsize" : [ 15.0, 15.0 ],
-		"gridsnaponopen" : 0,
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
 		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
 		"boxanimatetime" : 200,
-		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
+		"style" : "",
+		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "button",
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 104.0, 207.0, 15.0, 15.0 ],
 					"id" : "obj-1",
-					"fgcolor" : [ 0.156863, 0.8, 0.54902, 1.0 ],
+					"maxclass" : "button",
 					"numinlets" : 1,
-					"numoutlets" : 1
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 107.0, 210.0, 15.0, 15.0 ],
+					"style" : ""
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "1 2 3 4.5",
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 14.0, 207.0, 88.0, 17.0 ],
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
 					"id" : "obj-2",
-					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"maxclass" : "message",
 					"numinlets" : 2,
-					"numoutlets" : 1
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 14.0, 207.0, 88.0, 20.0 ],
+					"style" : "",
+					"text" : "1 2 3 4.5"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "prepend set",
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 14.0, 174.0, 70.0, 19.0 ],
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
 					"id" : "obj-3",
-					"fontname" : "Geneva",
-					"fontsize" : 9.0,
-					"numinlets" : 1,
-					"numoutlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "changes 0 -1",
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 14.0, 148.0, 77.0, 19.0 ],
-					"id" : "obj-4",
-					"fontname" : "Geneva",
-					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ],
-					"fontsize" : 9.0,
 					"numinlets" : 1,
-					"numoutlets" : 1
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 14.0, 174.0, 70.0, 20.0 ],
+					"style" : "",
+					"text" : "prepend set"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "blah blah blah",
+					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ],
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
+					"id" : "obj-4",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 14.0, 59.0, 68.0, 17.0 ],
+					"patching_rect" : [ 14.0, 148.0, 77.0, 20.0 ],
+					"style" : "",
+					"text" : "changes 0 -1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
 					"id" : "obj-5",
-					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"maxclass" : "message",
 					"numinlets" : 2,
-					"numoutlets" : 1
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 14.0, 59.0, 68.0, 20.0 ],
+					"style" : "",
+					"text" : "blah blah blah"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "bluh blah blah",
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 14.0, 92.0, 68.0, 17.0 ],
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
 					"id" : "obj-6",
-					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"maxclass" : "message",
 					"numinlets" : 2,
-					"numoutlets" : 1
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 14.0, 92.0, 68.0, 20.0 ],
+					"style" : "",
+					"text" : "bluh blah blah"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "1 2 3 4",
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 96.0, 59.0, 41.0, 17.0 ],
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
 					"id" : "obj-7",
-					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"maxclass" : "message",
 					"numinlets" : 2,
-					"numoutlets" : 1
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 96.0, 59.0, 41.0, 20.0 ],
+					"style" : "",
+					"text" : "1 2 3 4"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "1 2 3 blorg",
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 96.0, 92.0, 58.0, 17.0 ],
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
 					"id" : "obj-8",
-					"fontname" : "Geneva",
-					"fontsize" : 9.0,
-					"numinlets" : 2,
-					"numoutlets" : 1
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "message",
-					"text" : "1 2 3 4.5",
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 96.0, 120.0, 50.0, 17.0 ],
-					"id" : "obj-9",
-					"fontname" : "Geneva",
-					"fontsize" : 9.0,
 					"numinlets" : 2,
-					"numoutlets" : 1
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 96.0, 92.0, 58.0, 20.0 ],
+					"style" : "",
+					"text" : "1 2 3 blorg"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "changes",
-					"patching_rect" : [ 11.0, 24.0, 68.0, 25.0 ],
-					"id" : "obj-10",
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
+					"id" : "obj-9",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 96.0, 120.0, 50.0, 20.0 ],
+					"style" : "",
+					"text" : "1 2 3 4.5"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Geneva",
 					"fontsize" : 14.0,
+					"id" : "obj-10",
+					"maxclass" : "comment",
 					"numinlets" : 1,
-					"numoutlets" : 0
+					"numoutlets" : 0,
+					"patching_rect" : [ 11.0, 14.0, 68.0, 24.0 ],
+					"style" : "",
+					"text" : "changes"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Filter out repetitions for specific list elements",
-					"patching_rect" : [ 11.0, 44.0, 218.0, 19.0 ],
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
 					"id" : "obj-11",
-					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"maxclass" : "comment",
 					"numinlets" : 1,
-					"numoutlets" : 0
+					"numoutlets" : 0,
+					"patching_rect" : [ 11.0, 38.0, 218.0, 18.0 ],
+					"style" : "",
+					"text" : "Filter out repetitions for specific list elements."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Argument: int(s);\rInlet: list;\rOutlet: list",
-					"linecount" : 3,
-					"patching_rect" : [ 234.0, 21.0, 91.0, 43.0 ],
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
 					"id" : "obj-12",
-					"fontname" : "Geneva",
-					"fontsize" : 9.0,
-					"numinlets" : 1,
-					"numoutlets" : 0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "The inlet takes an arbitrary list and outputs an arbitrary list while filtering out repetitions. Thus inputting the same list more than once successively results in only one output value.",
 					"linecount" : 3,
-					"patching_rect" : [ 10.0, 233.0, 340.0, 43.0 ],
-					"id" : "obj-13",
-					"fontname" : "Geneva",
-					"fontsize" : 9.0,
+					"maxclass" : "comment",
 					"numinlets" : 1,
-					"numoutlets" : 0
+					"numoutlets" : 0,
+					"patching_rect" : [ 234.0, 14.0, 91.0, 40.0 ],
+					"style" : "",
+					"text" : "Argument: int(s);\rInlet: list;\rOutlet: list"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Arguments specify which list elements are to be monitored for a change. The elements are numbered, starting from zero on the left and -1 on the right. If any of the specified elements change, the input list is sent to the output.",
-					"linecount" : 5,
-					"patching_rect" : [ 117.0, 140.0, 237.0, 67.0 ],
-					"id" : "obj-14",
 					"fontname" : "Geneva",
 					"fontsize" : 9.0,
+					"id" : "obj-13",
+					"linecount" : 3,
+					"maxclass" : "comment",
 					"numinlets" : 1,
-					"numoutlets" : 0
+					"numoutlets" : 0,
+					"patching_rect" : [ 10.0, 233.0, 340.0, 40.0 ],
+					"style" : "",
+					"text" : "The inlet takes an arbitrary list and outputs an arbitrary list while filtering out repetitions. Thus inputting the same list more than once successively results in only one output value."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
+					"id" : "obj-14",
+					"linecount" : 5,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 121.0, 142.0, 237.0, 63.0 ],
+					"style" : "",
+					"text" : "Arguments specify which list elements are to be monitored for a change. The elements are numbered, starting from zero on the left and -1 on the right. If any of the specified elements change, the input list is sent to the output."
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
 					"destination" : [ "obj-1", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 23.5, 197.0, 113.0, 197.0 ]
+					"midpoints" : [ 23.5, 199.0, 116.0, 199.0 ],
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
 					"destination" : [ "obj-2", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 23.5, 199.0, 23.5, 199.0 ]
+					"midpoints" : [ 23.5, 199.0, 23.5, 199.0 ],
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-4", 0 ],
 					"destination" : [ "obj-3", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 23.5, 170.0, 23.5, 170.0 ]
+					"midpoints" : [ 23.5, 170.0, 23.5, 170.0 ],
+					"source" : [ "obj-4", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-9", 0 ],
 					"destination" : [ "obj-4", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 105.5, 143.0, 23.5, 143.0 ]
+					"midpoints" : [ 23.5, 83.0, 6.0, 83.0, 6.0, 143.0, 23.5, 143.0 ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-8", 0 ],
 					"destination" : [ "obj-4", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 105.5, 114.0, 88.0, 114.0, 88.0, 143.0, 23.5, 143.0 ]
+					"midpoints" : [ 23.5, 143.0, 23.5, 143.0 ],
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-7", 0 ],
 					"destination" : [ "obj-4", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 105.5, 83.0, 88.0, 83.0, 88.0, 143.0, 23.5, 143.0 ]
+					"midpoints" : [ 105.5, 83.0, 88.0, 83.0, 88.0, 143.0, 23.5, 143.0 ],
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-6", 0 ],
 					"destination" : [ "obj-4", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 23.5, 143.0, 23.5, 143.0 ]
+					"midpoints" : [ 105.5, 114.0, 88.0, 114.0, 88.0, 143.0, 23.5, 143.0 ],
+					"source" : [ "obj-8", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
 					"destination" : [ "obj-4", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 23.5, 83.0, 6.0, 83.0, 6.0, 143.0, 23.5, 143.0 ]
+					"midpoints" : [ 105.5, 143.0, 23.5, 143.0 ],
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}
- ]
+ ],
+		"dependency_cache" : [ 			{
+				"name" : "changes.mxo",
+				"type" : "iLaX"
+			}
+ ],
+		"embedsnapshot" : 0
 	}
 
 }

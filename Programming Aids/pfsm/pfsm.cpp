@@ -91,12 +91,13 @@ static void pfsmFree(PfsmData * xx)
 } // pfsmFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(pfsmCreate),
-                               reinterpret_cast<method>(pfsmFree), sizeof(PfsmData),
-                               reinterpret_cast<method>(0L), A_DEFSYM, 0);
+                               reinterpret_cast<method>(pfsmFree),
+                               static_cast<long>(sizeof(PfsmData)), reinterpret_cast<method>(NULL),
+                               A_DEFSYM, 0);
 
     if (temp)
     {
@@ -108,6 +109,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Describe), "describe", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Do), "do", A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Goto), "goto", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Int), MESSAGE_INT, A_LONG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Load), "load", A_SYM, 0);

@@ -46,4 +46,6 @@
 // # define OUR_RES_NUMB  17140
 # define OUTPUT_PREFIX "Vdrop: "
 
+INLETINFO_HEADER(VObjectData);
+
 #endif /* not VDROP_H_ */

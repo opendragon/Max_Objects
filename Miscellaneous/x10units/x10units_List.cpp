@@ -73,7 +73,7 @@ LIST_HEADER(X10UnitsData)
 
             case A_FLOAT:
                 LOG_ERROR_3(xx, OUTPUT_PREFIX "argument %ld is a float (%g)", ii,
-                            TO_DBL(argv[ii].a_w.w_float))
+                            static_cast<double>(argv[ii].a_w.w_float))
                 okSoFar = false;
                 break;
 

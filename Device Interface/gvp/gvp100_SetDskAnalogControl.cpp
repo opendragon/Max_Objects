@@ -93,7 +93,7 @@ SETDSKANALOGCONTROL_HEADER(GvpData)
                         if (kNumValidDskControls == ii)
                         {
                             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid analog control (%g)",
-                                        TO_DBL(argv[jj].a_w.w_float))
+                                        static_cast<double>(argv[jj].a_w.w_float))
                             okSoFar = false;
                         }
                     }

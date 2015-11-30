@@ -2,341 +2,385 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 5,
-			"minor" : 1,
-			"revision" : 9
+			"major" : 7,
+			"minor" : 0,
+			"revision" : 6,
+			"architecture" : "x64",
+			"modernui" : 1
 		}
 ,
 		"rect" : [ 123.0, 519.0, 539.0, 262.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 123.0, 519.0, 539.0, 262.0 ],
-		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Arial",
-		"gridonopen" : 0,
+		"gridonopen" : 1,
 		"gridsize" : [ 15.0, 15.0 ],
-		"gridsnaponopen" : 0,
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
 		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
 		"boxanimatetime" : 200,
-		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
+		"style" : "",
+		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "1.5",
-					"patching_rect" : [ 122.0, 80.0, 23.0, 15.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-1",
-					"fontname" : "Arial",
+					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 120.0, 76.0, 23.0, 19.0 ],
+					"style" : "",
+					"text" : "1.5"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "1",
-					"patching_rect" : [ 157.0, 80.0, 16.0, 15.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-2",
-					"fontname" : "Arial",
+					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 155.0, 76.0, 16.0, 19.0 ],
+					"style" : "",
+					"text" : "1"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "1 2 3 4 5 6 7 8 9 10",
-					"patching_rect" : [ 191.0, 80.0, 101.0, 15.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-3",
-					"fontname" : "Arial",
+					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 191.0, 76.0, 101.0, 19.0 ],
+					"style" : "",
+					"text" : "1 2 3 4 5 6 7 8 9 10"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "alas poor yorick",
-					"patching_rect" : [ 376.0, 98.0, 81.0, 15.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-4",
-					"fontname" : "Arial",
+					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 380.0, 98.0, 81.0, 19.0 ],
+					"style" : "",
+					"text" : "alas poor yorick"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "a long message to test pause and stop",
-					"patching_rect" : [ 199.0, 98.0, 175.0, 15.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-5",
-					"fontname" : "Arial",
+					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 203.0, 98.0, 175.0, 19.0 ],
+					"style" : "",
+					"text" : "a long message to test pause and stop"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "sysLogger alert",
-					"patching_rect" : [ 49.0, 185.0, 80.0, 17.0 ],
-					"id" : "obj-6",
-					"fontname" : "Arial",
-					"numinlets" : 1,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"id" : "obj-6",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 9.0
+					"patching_rect" : [ 49.0, 185.0, 80.0, 19.0 ],
+					"style" : "",
+					"text" : "sysLogger alert"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "blirg",
-					"patching_rect" : [ 165.0, 98.0, 29.0, 15.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-7",
-					"fontname" : "Arial",
+					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 167.0, 98.0, 29.0, 19.0 ],
+					"style" : "",
+					"text" : "blirg"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "blorg",
-					"patching_rect" : [ 130.0, 98.0, 30.0, 15.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-8",
-					"fontname" : "Arial",
+					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 132.0, 98.0, 30.0, 19.0 ],
+					"style" : "",
+					"text" : "blorg"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "sysLogger",
-					"patching_rect" : [ 2.0, 24.0, 88.0, 23.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 14.0,
 					"id" : "obj-9",
-					"fontname" : "Arial",
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 14.0
+					"patching_rect" : [ 2.0, 22.0, 88.0, 22.0 ],
+					"style" : "",
+					"text" : "sysLogger"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Write to the syslog facility.",
-					"patching_rect" : [ 2.0, 44.0, 171.0, 17.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-10",
-					"fontname" : "Arial",
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 9.0
+					"patching_rect" : [ 2.0, 44.0, 171.0, 17.0 ],
+					"style" : "",
+					"text" : "Write to the syslog facility."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Arguments: level;\rLeft Inlet: anything;\r",
-					"linecount" : 2,
-					"patching_rect" : [ 287.0, 26.0, 168.0, 27.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-11",
-					"fontname" : "Arial",
+					"linecount" : 2,
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 9.0
+					"patching_rect" : [ 287.0, 22.0, 168.0, 27.0 ],
+					"style" : "",
+					"text" : "Arguments: level;\rLeft Inlet: anything"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "blarg",
-					"patching_rect" : [ 44.0, 98.0, 31.0, 15.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-12",
-					"fontname" : "Arial",
+					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 44.0, 98.0, 31.0, 19.0 ],
+					"style" : "",
+					"text" : "blarg"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "blorg 1",
-					"patching_rect" : [ 2.0, 98.0, 40.0, 15.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-13",
-					"fontname" : "Arial",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"fontsize" : 9.0,
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "message",
-					"text" : "blarg x y",
-					"patching_rect" : [ 76.0, 98.0, 49.0, 15.0 ],
-					"id" : "obj-14",
-					"fontname" : "Arial",
 					"numinlets" : 2,
 					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 2.0, 98.0, 40.0, 19.0 ],
+					"style" : "",
+					"text" : "blorg 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"outlettype" : [ "" ]
+					"id" : "obj-14",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 77.0, 98.0, 49.0, 19.0 ],
+					"style" : "",
+					"text" : "blarg x y"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "input data",
-					"patching_rect" : [ 2.0, 79.0, 50.0, 17.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-15",
-					"fontname" : "Arial",
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 9.0
+					"patching_rect" : [ 2.0, 79.0, 50.0, 17.0 ],
+					"style" : "",
+					"text" : "input data"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "The level can be one of 'alert', 'critical', 'debug', 'emergency', 'error', 'info', 'notice' or 'warning'. Note that 'info' and 'debug' are ignored by default by the 'syslog' facility in OS X.",
-					"linecount" : 3,
-					"patching_rect" : [ 143.0, 160.0, 323.0, 38.0 ],
-					"id" : "obj-17",
 					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"id" : "obj-17",
+					"linecount" : 3,
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 9.0
+					"patching_rect" : [ 143.0, 160.0, 323.0, 37.0 ],
+					"style" : "",
+					"text" : "The level can be one of 'alert', 'critical', 'debug', 'emergency', 'error', 'info', 'notice' or 'warning'. Note that 'info' and 'debug' are ignored by default by the 'syslog' facility in OS X."
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-4", 0 ],
 					"destination" : [ "obj-6", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 385.5, 148.0, 58.5, 148.0 ]
+					"midpoints" : [ 129.5, 148.0, 58.5, 148.0 ],
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
 					"destination" : [ "obj-6", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 208.5, 148.0, 58.5, 148.0 ]
+					"midpoints" : [ 53.5, 148.0, 58.5, 148.0 ],
+					"source" : [ "obj-12", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
 					"destination" : [ "obj-6", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 200.5, 148.0, 58.5, 148.0 ]
+					"midpoints" : [ 11.5, 148.0, 58.5, 148.0 ],
+					"source" : [ "obj-13", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-13", 0 ],
 					"destination" : [ "obj-6", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 11.5, 148.0, 58.5, 148.0 ]
+					"midpoints" : [ 86.5, 148.0, 58.5, 148.0 ],
+					"source" : [ "obj-14", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-12", 0 ],
 					"destination" : [ "obj-6", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 53.5, 148.0, 58.5, 148.0 ]
+					"midpoints" : [ 164.5, 148.0, 58.5, 148.0 ],
+					"source" : [ "obj-2", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-14", 0 ],
 					"destination" : [ "obj-6", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 85.5, 148.0, 58.5, 148.0 ]
+					"midpoints" : [ 200.5, 148.0, 58.5, 148.0 ],
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-8", 0 ],
 					"destination" : [ "obj-6", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 139.5, 148.0, 58.5, 148.0 ]
+					"midpoints" : [ 389.5, 148.0, 58.5, 148.0 ],
+					"source" : [ "obj-4", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-7", 0 ],
 					"destination" : [ "obj-6", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 174.5, 148.0, 58.5, 148.0 ]
+					"midpoints" : [ 212.5, 148.0, 58.5, 148.0 ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-2", 0 ],
 					"destination" : [ "obj-6", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 166.5, 148.0, 58.5, 148.0 ]
+					"midpoints" : [ 176.5, 148.0, 58.5, 148.0 ],
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-1", 0 ],
 					"destination" : [ "obj-6", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 131.5, 148.0, 58.5, 148.0 ]
+					"midpoints" : [ 141.5, 148.0, 58.5, 148.0 ],
+					"source" : [ "obj-8", 0 ]
 				}
 
 			}
- ]
+ ],
+		"dependency_cache" : [ 			{
+				"name" : "sysLogger.mxo",
+				"type" : "iLaX"
+			}
+ ],
+		"embedsnapshot" : 0
 	}
 
 }

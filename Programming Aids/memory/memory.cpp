@@ -148,12 +148,13 @@ static void memoryFree(MemoryData * xx)
 } // memoryFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(memoryCreate),
-                               reinterpret_cast<method>(memoryFree), sizeof(MemoryData),
-                               reinterpret_cast<method>(0L), A_DEFSYM, 0);
+                               reinterpret_cast<method>(memoryFree),
+                               static_cast<long>(sizeof(MemoryData)),
+                               reinterpret_cast<method>(NULL), A_DEFSYM, 0);
 
     if (temp)
     {
@@ -161,6 +162,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Clear), "clear", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Forget), "forget", A_SYM, 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Load), "load", A_SYM, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Recall), "recall", A_SYM, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Remember), "remember", A_GIMME, 0);

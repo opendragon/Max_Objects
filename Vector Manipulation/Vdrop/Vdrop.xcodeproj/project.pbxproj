@@ -19,6 +19,7 @@
 		F6CE73CA18021F9D00E05120 /* Vdrop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6CE73C318021F9D00E05120 /* Vdrop.cpp */; };
 		F6CE73CB18021F9D00E05120 /* Vdrop.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CE73C418021F9D00E05120 /* Vdrop.h */; };
 		F6CE73CC18021F9D00E05120 /* VdropObjectCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CE73C518021F9D00E05120 /* VdropObjectCommon.h */; };
+		F6E6A3941C0BC063009F65A8 /* Vdrop_InletInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E6A3931C0BC063009F65A8 /* Vdrop_InletInfo.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		F6CE73C318021F9D00E05120 /* Vdrop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vdrop.cpp; sourceTree = SOURCE_ROOT; };
 		F6CE73C418021F9D00E05120 /* Vdrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vdrop.h; sourceTree = SOURCE_ROOT; };
 		F6CE73C518021F9D00E05120 /* VdropObjectCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VdropObjectCommon.h; sourceTree = SOURCE_ROOT; };
+		F6E6A3931C0BC063009F65A8 /* Vdrop_InletInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vdrop_InletInfo.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				F6CE73C018021F9D00E05120 /* Vdrop_Assist.cpp */,
 				F6CE73C118021F9D00E05120 /* Vdrop_Bang.cpp */,
 				F6574C1A1809B11C00153C4D /* Vdrop_In1.cpp */,
+				F6E6A3931C0BC063009F65A8 /* Vdrop_InletInfo.cpp */,
 				F6CE73C218021F9D00E05120 /* Vdrop_List.cpp */,
 				F6CE73C318021F9D00E05120 /* Vdrop.cpp */,
 				F6CE73C418021F9D00E05120 /* Vdrop.h */,
@@ -182,6 +185,7 @@
 				F6CE73C818021F9D00E05120 /* Vdrop_Bang.cpp in Sources */,
 				F6CE73CA18021F9D00E05120 /* Vdrop.cpp in Sources */,
 				F6574C1B1809B11C00153C4D /* Vdrop_In1.cpp in Sources */,
+				F6E6A3941C0BC063009F65A8 /* Vdrop_InletInfo.cpp in Sources */,
 				F6CE73C918021F9D00E05120 /* Vdrop_List.cpp in Sources */,
 				F6CE73C618021F9D00E05120 /* Vdrop_Anything.cpp in Sources */,
 				F6CE73C718021F9D00E05120 /* Vdrop_Assist.cpp in Sources */,

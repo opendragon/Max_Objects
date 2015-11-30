@@ -183,12 +183,13 @@ static void MtcTrackFree(MtcTrackData * xx)
 } // MtcTrackFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(MtcTrackCreate),
-                               reinterpret_cast<method>(MtcTrackFree), sizeof(MtcTrackData),
-                               reinterpret_cast<method>(0L), A_LONG, A_DEFSYM, A_DEFSYM, 0);
+                               reinterpret_cast<method>(MtcTrackFree),
+                               static_cast<long>(sizeof(MtcTrackData)),
+                               reinterpret_cast<method>(NULL), A_LONG, A_DEFSYM, A_DEFSYM, 0);
 
     if (temp)
     {
@@ -197,6 +198,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Batch), "batch", A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Clear), "clear", A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Index), "index", A_CANT, 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Threshold), "threshold", A_FLOAT, 0);
         class_register(CLASS_BOX, temp);

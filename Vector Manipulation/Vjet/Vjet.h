@@ -46,4 +46,6 @@
 // # define OUR_RES_NUMB  17143
 # define OUTPUT_PREFIX "Vjet: "
 
+INLETINFO_HEADER(VObjectData);
+
 #endif /* not VJET_H_ */

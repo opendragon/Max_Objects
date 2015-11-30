@@ -265,13 +265,13 @@ static void tcpMultiServerFree(TcpMultiServerData * xx)
 } // tcpMultiServerFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(tcpMultiServerCreate),
                                reinterpret_cast<method>(tcpMultiServerFree),
-                               sizeof(TcpMultiServerData), reinterpret_cast<method>(0L), A_DEFLONG,
-                               A_DEFLONG, A_DEFLONG, 0);
+                               static_cast<long>(sizeof(TcpMultiServerData)),
+                               reinterpret_cast<method>(NULL), A_DEFLONG, A_DEFLONG, A_DEFLONG, 0);
 
     if (temp)
     {
@@ -279,6 +279,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Bang), MESSAGE_BANG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Disconnect), "disconnect", A_DEFLONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Listen), "listen", A_SYM, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Mode), "mode", A_LONG, A_SYM, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Port), "port", A_LONG, 0);

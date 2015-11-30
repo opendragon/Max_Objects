@@ -63,7 +63,7 @@ SETCROSSPOINT_HEADER(GvpData)
                         if ((0 > number) || (9 < number))
                         {
                             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid crosspoint number (%g)",
-                                        TO_DBL(argv[jj].a_w.w_float))
+                                        static_cast<double>(argv[jj].a_w.w_float))
                             okSoFar = false;
                         }
                         else
@@ -77,7 +77,7 @@ SETCROSSPOINT_HEADER(GvpData)
                     {
                         /* even index - invalid! */
                         LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid bus name (%g)",
-                                    TO_DBL(argv[jj].a_w.w_float))
+                                    static_cast<double>(argv[jj].a_w.w_float))
                         okSoFar = false;
                     }
                     break;

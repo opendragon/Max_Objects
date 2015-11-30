@@ -54,6 +54,8 @@ struct GcdData
     t_atom_long fPreviousResult;
 }; // GcdData
 
+INLETINFO_HEADER(GcdData);
+
 StandardRoutineDeclarations(GcdData);
 
 #endif /* not GCD_H_ */

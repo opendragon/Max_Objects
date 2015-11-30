@@ -49,7 +49,7 @@ FLOAT_HEADER(UdpObjectData)
         {
             clearDataBuffer(xx->fSendBuffer);
             xx->fSendBuffer->fDataType = A_FLOAT;
-            addFloatToBuffer(xx, xx->fSendBuffer, TO_DBL(msg), xx->fRawMode);
+            addFloatToBuffer(xx, xx->fSendBuffer, msg, xx->fRawMode);
             transmitBuffer(xx, xx->fSendBuffer);
         }
         else

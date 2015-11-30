@@ -66,7 +66,7 @@ LIST_HEADER(VObjectData)
                             if (0 >= oldWalk->a_w.w_float)
                             {
                                 LOG_ERROR_2(xx, OUTPUT_PREFIX "Negative or zero value (%g) in list",
-                                            TO_DBL(oldWalk->a_w.w_float))
+                                            static_cast<double>(oldWalk->a_w.w_float))
                                 okSoFar = false;
                             }
                             else

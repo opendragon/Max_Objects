@@ -68,13 +68,13 @@ LIST_HEADER(VObjectData)
                             if (oldWalk->a_w.w_float < gMinInput)
                             {
                                 LOG_ERROR_2(xx, OUTPUT_PREFIX "Underflow due to small value (%g) "
-                                            "in input", TO_DBL(oldWalk->a_w.w_float))
+                                            "in input", static_cast<double>(oldWalk->a_w.w_float))
                                 newValue = 0;
                             }
                             else if (oldWalk->a_w.w_float > gMaxInput)
                             {
                                 LOG_ERROR_2(xx, OUTPUT_PREFIX "Overflow due to large value (%g) in "
-                                            "input", TO_DBL(oldWalk->a_w.w_float))
+                                            "input", static_cast<double>(oldWalk->a_w.w_float))
                                 newValue = INFINITY;
                             }
                             else

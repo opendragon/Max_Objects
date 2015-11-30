@@ -73,12 +73,13 @@ static void VrotateFree(VObjectData * xx)
 } // VrotateFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(VrotateCreate),
-                               reinterpret_cast<method>(VrotateFree), sizeof(VObjectData),
-                               reinterpret_cast<method>(0L), A_LONG, 0);
+                               reinterpret_cast<method>(VrotateFree),
+                               static_cast<long>(sizeof(VObjectData)),
+                               reinterpret_cast<method>(NULL), A_LONG, 0);
 
     if (temp)
     {
@@ -86,6 +87,8 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Assist), MESSAGE_ASSIST, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Bang), MESSAGE_BANG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_In1), MESSAGE_IN1, A_LONG, 0);
+        class_addmethod(temp, reinterpret_cast<method>(cmd_InletInfo), MESSAGE_INLETINFO, A_CANT,
+                        0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_List), MESSAGE_LIST, A_GIMME, 0);
         class_register(CLASS_BOX, temp);
     }

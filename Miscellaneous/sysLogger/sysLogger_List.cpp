@@ -68,7 +68,8 @@ LIST_HEADER(SysLoggerData)
                     break;
 
                 case A_FLOAT:
-                    snprintf(numBuffer, sizeof(numBuffer), "%g", TO_DBL(argv[ii].a_w.w_float));
+                    snprintf(numBuffer, sizeof(numBuffer), "%g",
+                             static_cast<double>(argv[ii].a_w.w_float));
                     toAdd = numBuffer;
                     break;
 

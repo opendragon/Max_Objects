@@ -49,7 +49,7 @@ static void * queueCreate(const long depth)
     
     if (xx)
     {
-        if (0 >= depth)
+        if (0 <= depth)
         {
             xx->fVerbose = false;
             xx->fMaxDepth = depth;
@@ -85,12 +85,13 @@ static void queueFree(QueueData * xx)
 } // queueFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(queueCreate),
-                               reinterpret_cast<method>(queueFree), sizeof(QueueData),
-                               reinterpret_cast<method>(0L), A_LONG, 0);
+                               reinterpret_cast<method>(queueFree),
+                               static_cast<long>(sizeof(QueueData)), reinterpret_cast<method>(NULL),
+                               A_LONG, 0);
 
     if (temp)
     {
@@ -101,6 +102,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Clear), "clear", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Depth), "depth", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Fetch), "fetch", 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Pull), "pull", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_SetDepth), "setdepth", A_LONG, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Trace), "trace", A_DEFSYM, 0);

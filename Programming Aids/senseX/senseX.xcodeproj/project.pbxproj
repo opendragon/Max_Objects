@@ -20,6 +20,7 @@
 		F6972901180C70FD0082C8CD /* senseX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F69728F8180C70FD0082C8CD /* senseX.cpp */; };
 		F6972902180C70FD0082C8CD /* senseX.h in Headers */ = {isa = PBXBuildFile; fileRef = F69728F9180C70FD0082C8CD /* senseX.h */; };
 		F6A9D4D61BFAF66900518D80 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A9D4D51BFAF66900518D80 /* libCommonLibrary.a */; };
+		F6E6A3921C0BB170009F65A8 /* senseX_InletInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6E6A3911C0BB170009F65A8 /* senseX_InletInfo.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		F69728F8180C70FD0082C8CD /* senseX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = senseX.cpp; sourceTree = SOURCE_ROOT; };
 		F69728F9180C70FD0082C8CD /* senseX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = senseX.h; sourceTree = SOURCE_ROOT; };
 		F6A9D4D51BFAF66900518D80 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "/Users/njaffe/Library/Developer/Xcode/DerivedData/NJObjects-cfvosuyivjfhivdvtnowssnhdiht/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<absolute>"; };
+		F6E6A3911C0BB170009F65A8 /* senseX_InletInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = senseX_InletInfo.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				F69728F2180C70FD0082C8CD /* senseX_Assist.cpp */,
 				F69728F3180C70FD0082C8CD /* senseX_Bang.cpp */,
 				F69728F4180C70FD0082C8CD /* senseX_Float.cpp */,
+				F6E6A3911C0BB170009F65A8 /* senseX_InletInfo.cpp */,
 				F69728F5180C70FD0082C8CD /* senseX_Int.cpp */,
 				F69728F6180C70FD0082C8CD /* senseX_Off.cpp */,
 				F69728F7180C70FD0082C8CD /* senseX_On.cpp */,
@@ -188,6 +191,7 @@
 				F69728FF180C70FD0082C8CD /* senseX_Off.cpp in Sources */,
 				F69728FC180C70FD0082C8CD /* senseX_Bang.cpp in Sources */,
 				F69728FD180C70FD0082C8CD /* senseX_Float.cpp in Sources */,
+				F6E6A3921C0BB170009F65A8 /* senseX_InletInfo.cpp in Sources */,
 				F69728FE180C70FD0082C8CD /* senseX_Int.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -176,7 +176,7 @@ void pfsmProcessData(PfsmData *  xx,
             {
                 case A_FLOAT:
                     LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid data of type 'float' seen (%g)",
-                                TO_DBL(input->a_w.w_float))
+                                static_cast<double>(input->a_w.w_float))
                     break;
 
                 case A_LONG:

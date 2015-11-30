@@ -300,7 +300,7 @@ static void pfsmReportUnexpected(PfsmData * xx,
     {
         case A_FLOAT:
             LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected floating point (%g)",
-                        TO_DBL(what.a_w.w_float))
+                        static_cast<double>(what.a_w.w_float))
             break;
 
         case A_LONG:

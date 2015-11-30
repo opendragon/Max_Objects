@@ -2,31 +2,40 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 6,
-			"minor" : 1,
-			"revision" : 3,
-			"architecture" : "x86"
+			"major" : 7,
+			"minor" : 0,
+			"revision" : 6,
+			"architecture" : "x64",
+			"modernui" : 1
 		}
 ,
-		"rect" : [ 110.0, 297.0, 446.0, 337.0 ],
+		"rect" : [ 110.0, 297.0, 637.0, 450.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Arial",
-		"gridonopen" : 0,
+		"gridonopen" : 1,
 		"gridsize" : [ 15.0, 15.0 ],
-		"gridsnaponopen" : 0,
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
 		"statusbarvisible" : 2,
 		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
 		"boxanimatetime" : 200,
-		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
 		"description" : "",
 		"digest" : "",
 		"tags" : "",
+		"style" : "",
+		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Arial",
@@ -36,7 +45,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 247.0, 157.0, 25.0, 15.0 ],
+					"patching_rect" : [ 247.0, 157.0, 25.0, 19.0 ],
+					"style" : "",
 					"text" : "self"
 				}
 
@@ -51,7 +61,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 373.0, 120.0, 22.0, 15.0 ],
+					"patching_rect" : [ 373.0, 120.0, 22.0, 19.0 ],
+					"style" : "",
 					"text" : "set"
 				}
 
@@ -67,7 +78,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 373.0, 89.0, 57.0, 17.0 ],
+					"patching_rect" : [ 373.0, 89.0, 57.0, 19.0 ],
+					"style" : "",
 					"text" : "loadbang"
 				}
 
@@ -81,7 +93,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 31.0, 157.0, 35.0, 15.0 ],
+					"patching_rect" : [ 31.0, 157.0, 35.0, 19.0 ],
+					"style" : "",
 					"text" : "status"
 				}
 
@@ -95,7 +108,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 268.0, 50.0, 15.0 ]
+					"patching_rect" : [ 18.0, 268.0, 50.0, 19.0 ],
+					"style" : ""
 				}
 
 			}
@@ -108,7 +122,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 240.0, 60.0, 17.0 ],
+					"patching_rect" : [ 18.0, 240.0, 60.0, 19.0 ],
+					"style" : "",
 					"text" : "prepend set"
 				}
 
@@ -117,12 +132,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 14.0,
-					"frgb" : 0.0,
 					"id" : "obj-7",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 22.0, 75.0, 22.0 ],
+					"patching_rect" : [ 10.0, 21.0, 75.0, 22.0 ],
+					"style" : "",
 					"text" : "udpPort"
 				}
 
@@ -131,13 +146,13 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"frgb" : 0.0,
 					"id" : "obj-8",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 9.0, 43.0, 221.0, 17.0 ],
-					"text" : "Get and send messages via a UDP/IP connection"
+					"style" : "",
+					"text" : "Get and send messages via a UDP/IP connection."
 				}
 
 			}
@@ -145,26 +160,26 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"frgb" : 0.0,
 					"id" : "obj-9",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 215.0, 193.0, 135.0, 37.0 ],
+					"patching_rect" : [ 215.0, 193.0, 136.0, 37.0 ],
+					"style" : "",
 					"text" : "Arguments are: 1. port number;\r2. number of receive buffers to use (default = 25)"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fgcolor" : [ 0.156863, 0.8, 0.54902, 1.0 ],
 					"id" : "obj-10",
 					"maxclass" : "button",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 71.0, 157.0, 15.0, 15.0 ]
+					"patching_rect" : [ 71.0, 157.0, 15.0, 15.0 ],
+					"style" : ""
 				}
 
 			}
@@ -177,20 +192,21 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 215.0, 64.0, 29.0, 15.0 ],
+					"patching_rect" : [ 215.0, 64.0, 29.0, 19.0 ],
+					"style" : "",
 					"text" : "95.5"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"fgcolor" : [ 0.156863, 0.8, 0.54902, 1.0 ],
 					"id" : "obj-12",
 					"maxclass" : "button",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 123.0, 250.0, 27.0, 27.0 ]
+					"patching_rect" : [ 118.199997, 275.0, 27.0, 27.0 ],
+					"style" : ""
 				}
 
 			}
@@ -203,7 +219,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 107.0, 64.0, 104.0, 15.0 ],
+					"patching_rect" : [ 107.0, 64.0, 104.0, 19.0 ],
+					"style" : "",
 					"text" : "send alas poor yorick"
 				}
 
@@ -217,7 +234,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 84.0, 64.0, 20.0, 15.0 ],
+					"patching_rect" : [ 84.0, 64.0, 20.0, 19.0 ],
+					"style" : "",
 					"text" : "55"
 				}
 
@@ -231,7 +249,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 31.0, 95.0, 109.0, 15.0 ],
+					"patching_rect" : [ 31.0, 95.0, 109.0, 19.0 ],
+					"style" : "",
 					"text" : "sendTo 1.2.3.4 10000"
 				}
 
@@ -245,8 +264,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "bang" ],
-					"patching_rect" : [ 18.0, 201.0, 71.0, 17.0 ],
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 18.0, 201.0, 71.0, 19.0 ],
+					"style" : "",
 					"text" : "udpPort 8192"
 				}
 
@@ -260,7 +280,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 31.0, 124.0, 60.0, 15.0 ],
+					"patching_rect" : [ 31.0, 124.0, 60.0, 19.0 ],
+					"style" : "",
 					"text" : "port 40000"
 				}
 
@@ -274,7 +295,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 31.0, 64.0, 50.0, 15.0 ],
+					"patching_rect" : [ 31.0, 64.0, 50.0, 19.0 ],
+					"style" : "",
 					"text" : "57 12 13"
 				}
 
@@ -283,12 +305,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"frgb" : 0.0,
 					"id" : "obj-19",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 133.0, 223.0, 75.0, 17.0 ],
+					"patching_rect" : [ 136.0, 240.0, 75.0, 17.0 ],
+					"style" : "",
 					"text" : "error detected"
 				}
 
@@ -297,12 +319,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"frgb" : 0.0,
 					"id" : "obj-20",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 29.0, 223.0, 85.0, 17.0 ],
+					"style" : "",
 					"text" : "received message"
 				}
 
@@ -311,14 +333,14 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"frgb" : 0.0,
 					"id" : "obj-21",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 180.0, 270.0, 191.0, 37.0 ],
-					"text" : "udpPort returns either a status message (a list beginning with 'status') or a data message (a list beginning with 'from')"
+					"patching_rect" : [ 180.0, 270.0, 192.0, 37.0 ],
+					"style" : "",
+					"text" : "udpPort returns either a status message (a list beginning with 'status') or a data message (a list beginning with 'from')."
 				}
 
 			}
@@ -326,13 +348,13 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"frgb" : 0.0,
 					"id" : "obj-22",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 94.0, 157.0, 151.0, 27.0 ],
+					"style" : "",
 					"text" : "bang and 'status' send a 'status' message out the outlet."
 				}
 
@@ -341,14 +363,14 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"frgb" : 0.0,
 					"id" : "obj-23",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 145.0, 123.0, 99.0, 27.0 ],
-					"text" : "'port' changes the server port number"
+					"style" : "",
+					"text" : "'port' changes the server port number."
 				}
 
 			}
@@ -356,14 +378,14 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"frgb" : 0.0,
 					"id" : "obj-24",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 143.0, 93.0, 100.0, 27.0 ],
-					"text" : "'sendTo' changes the partner IP address"
+					"style" : "",
+					"text" : "'sendTo' changes the partner IP address."
 				}
 
 			}
@@ -371,14 +393,14 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"frgb" : 0.0,
 					"id" : "obj-25",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 247.0, 63.0, 119.0, 27.0 ],
-					"text" : "numbers, lists, and text messages can be sent"
+					"style" : "",
+					"text" : "Numbers, lists, and text messages can be sent."
 				}
 
 			}
@@ -386,14 +408,14 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
-					"frgb" : 0.0,
 					"id" : "obj-27",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 275.0, 157.0, 100.0, 27.0 ],
-					"text" : "'self' returns the IP address of the object"
+					"style" : "",
+					"text" : "'self' returns the IP address of the object."
 				}
 
 			}
@@ -463,7 +485,7 @@
 					"destination" : [ "obj-12", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 79.5, 222.0, 132.5, 222.0 ],
+					"midpoints" : [ 79.5, 222.0, 127.699997, 222.0 ],
 					"source" : [ "obj-16", 1 ]
 				}
 
@@ -513,7 +535,7 @@
 					"destination" : [ "obj-2", 0 ],
 					"disabled" : 0,
 					"hidden" : 1,
-					"midpoints" : [ 382.5, 115.0, 382.0, 115.0 ],
+					"midpoints" : [ 382.5, 115.0, 382.5, 115.0 ],
 					"source" : [ "obj-3", 0 ]
 				}
 
@@ -539,11 +561,8 @@
 
 			}
  ],
-		"dependency_cache" : [ 			{
-				"name" : "udpPort.mxo",
-				"type" : "iLaX"
-			}
- ]
+		"dependency_cache" : [  ],
+		"embedsnapshot" : 0
 	}
 
 }

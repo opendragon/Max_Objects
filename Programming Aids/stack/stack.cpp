@@ -147,12 +147,13 @@ static void stackFree(StackData * xx)
 } // stackFree
 
 /*------------------------------------ main ---*/
-int main(void)
+int C74_EXPORT main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(stackCreate),
-                               reinterpret_cast<method>(stackFree), sizeof(StackData),
-                               reinterpret_cast<method>(0L), A_DEFSYM, 0);
+                               reinterpret_cast<method>(stackFree),
+                               static_cast<long>(sizeof(StackData)), reinterpret_cast<method>(NULL),
+                               A_DEFSYM, 0);
 
     if (temp)
     {
@@ -161,6 +162,7 @@ int main(void)
         class_addmethod(temp, reinterpret_cast<method>(cmd_Clear), "clear", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Depth), "depth", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Dup), "dup", 0);
+        class_addmethod(temp, reinterpret_cast<method>(stdinletinfo), MESSAGE_INLETINFO, A_CANT, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Pop), "pop", 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Push), "push", A_GIMME, 0);
         class_addmethod(temp, reinterpret_cast<method>(cmd_Swap), "swap", 0);

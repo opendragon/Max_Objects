@@ -2,194 +2,228 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 5,
-			"minor" : 1,
-			"revision" : 9
+			"major" : 7,
+			"minor" : 0,
+			"revision" : 6,
+			"architecture" : "x64",
+			"modernui" : 1
 		}
 ,
 		"rect" : [ 331.0, 503.0, 344.0, 261.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 331.0, 503.0, 344.0, 261.0 ],
-		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Arial",
-		"gridonopen" : 0,
+		"gridonopen" : 1,
 		"gridsize" : [ 15.0, 15.0 ],
-		"gridsnaponopen" : 0,
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
 		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
 		"boxanimatetime" : 200,
-		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
+		"style" : "",
+		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "0 0 10",
+					"fontname" : "Geneva",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 29.0, 103.0, 38.0, 17.0 ],
-					"numinlets" : 2,
 					"id" : "obj-1",
-					"fontname" : "Geneva",
+					"maxclass" : "message",
+					"numinlets" : 2,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 32.0, 103.0, 38.0, 20.0 ],
+					"style" : "",
+					"text" : "0 0 10"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "number",
 					"bgcolor" : [ 0.866667, 0.866667, 0.866667, 1.0 ],
-					"triscale" : 0.9,
+					"fontname" : "Geneva",
 					"fontsize" : 9.0,
-					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
-					"patching_rect" : [ 7.0, 169.0, 35.0, 19.0 ],
-					"numinlets" : 1,
+					"htricolor" : [ 0.87, 0.82, 0.24, 1.0 ],
 					"id" : "obj-2",
-					"fontname" : "Geneva",
+					"maxclass" : "number",
+					"numinlets" : 1,
 					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 7.0, 169.0, 35.0, 20.0 ],
+					"style" : "",
+					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"triangle" : 0,
-					"outlettype" : [ "int", "bang" ]
+					"tricolor" : [ 0.75, 0.75, 0.75, 1.0 ],
+					"triscale" : 0.9
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "Vdistance",
-					"fontsize" : 9.0,
 					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ],
-					"patching_rect" : [ 7.0, 142.0, 51.0, 19.0 ],
-					"numinlets" : 1,
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
 					"id" : "obj-3",
-					"fontname" : "Geneva",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
 					"numoutlets" : 1,
-					"outlettype" : [ "float" ]
+					"outlettype" : [ "float" ],
+					"patching_rect" : [ 7.0, 142.0, 51.0, 20.0 ],
+					"style" : "",
+					"text" : "Vdistance"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "blah blah blah bluh",
+					"fontname" : "Geneva",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 7.0, 67.0, 89.0, 17.0 ],
-					"numinlets" : 2,
 					"id" : "obj-4",
-					"fontname" : "Geneva",
-					"numoutlets" : 1,
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "message",
-					"text" : "1 2 3 4 5",
-					"fontsize" : 9.0,
-					"patching_rect" : [ 16.0, 86.0, 50.0, 17.0 ],
 					"numinlets" : 2,
-					"id" : "obj-5",
-					"fontname" : "Geneva",
 					"numoutlets" : 1,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 7.0, 60.0, 89.0, 20.0 ],
+					"style" : "",
+					"text" : "blah blah blah bluh"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Vdistance",
+					"fontname" : "Geneva",
+					"fontsize" : 9.0,
+					"id" : "obj-5",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 19.0, 82.0, 50.0, 20.0 ],
+					"style" : "",
+					"text" : "1 2 3 4 5"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Geneva",
 					"fontsize" : 14.0,
-					"patching_rect" : [ 4.0, 25.0, 87.0, 25.0 ],
-					"numinlets" : 1,
 					"id" : "obj-6",
-					"fontname" : "Geneva",
-					"numoutlets" : 0
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 4.0, 12.0, 87.0, 24.0 ],
+					"style" : "",
+					"text" : "Vdistance"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Return the length of a vector",
+					"fontname" : "Geneva",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 4.0, 45.0, 183.0, 19.0 ],
-					"numinlets" : 1,
 					"id" : "obj-7",
-					"fontname" : "Geneva",
-					"numoutlets" : 0
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 4.0, 36.0, 183.0, 18.0 ],
+					"style" : "",
+					"text" : "Return the length of a vector."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Argument: none;\rInlet: list;\rOutlet: number",
-					"linecount" : 3,
+					"fontname" : "Geneva",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 192.0, 22.0, 82.0, 43.0 ],
-					"numinlets" : 1,
 					"id" : "obj-8",
-					"fontname" : "Geneva",
-					"numoutlets" : 0
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 192.0, 12.0, 84.0, 40.0 ],
+					"style" : "",
+					"text" : "Argument: none;\rInlet: list;\rOutlet: number"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "The inlet takes a numeric list and outputs the length of the list, considered as an n-dimensional vector.",
-					"linecount" : 2,
-					"fontsize" : 9.0,
-					"patching_rect" : [ 2.0, 189.0, 272.0, 31.0 ],
-					"numinlets" : 1,
-					"id" : "obj-9",
 					"fontname" : "Geneva",
-					"numoutlets" : 0
+					"fontsize" : 9.0,
+					"id" : "obj-9",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 2.0, 191.0, 272.0, 29.0 ],
+					"style" : "",
+					"text" : "The inlet takes a numeric list and outputs the length of the list, considered as an n-dimensional vector."
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
+					"destination" : [ "obj-3", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 41.5, 132.0, 16.5, 132.0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 16.5, 165.0, 16.5, 165.0 ]
+					"midpoints" : [ 16.5, 165.0, 16.5, 165.0 ],
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-4", 0 ],
 					"destination" : [ "obj-3", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 16.5, 132.0, 16.5, 132.0 ]
+					"midpoints" : [ 16.5, 132.0, 16.5, 132.0 ],
+					"source" : [ "obj-4", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
 					"destination" : [ "obj-3", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 25.5, 132.0, 16.5, 132.0 ]
+					"midpoints" : [ 28.5, 132.0, 16.5, 132.0 ],
+					"source" : [ "obj-5", 0 ]
 				}
 
 			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-1", 0 ],
-					"destination" : [ "obj-3", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 38.5, 132.0, 16.5, 132.0 ]
-				}
-
+ ],
+		"dependency_cache" : [ 			{
+				"name" : "Vdistance.mxo",
+				"type" : "iLaX"
 			}
- ]
+ ],
+		"embedsnapshot" : 0
 	}
 
 }

@@ -88,7 +88,8 @@ REPLACE_HEADER(Map1dData)
                 break;
 
             case A_FLOAT:
-                LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected float (%g)", TO_DBL(argv->a_w.w_float))
+                LOG_ERROR_2(xx, OUTPUT_PREFIX "unexpected float (%g)",
+                            static_cast<double>(argv->a_w.w_float))
                 break;
 
             case A_SYM:

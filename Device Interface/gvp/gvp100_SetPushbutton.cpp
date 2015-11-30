@@ -121,7 +121,7 @@ SETPUSHBUTTON_HEADER(GvpData)
                         if (kNumValidPushControls == ii)
                         {
                             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pushbutton or lamp (%g)",
-                                        TO_DBL(argv[jj].a_w.w_float))
+                                        static_cast<double>(argv[jj].a_w.w_float))
                             okSoFar = false;
                         }
                     }
@@ -140,7 +140,7 @@ SETPUSHBUTTON_HEADER(GvpData)
                         if (kNumValidOnOffControls == ii)
                         {
                             LOG_ERROR_2(xx, OUTPUT_PREFIX "invalid pushbutton or lamp (%g)",
-                                        TO_DBL(argv[jj].a_w.w_float))
+                                        static_cast<double>(argv[jj].a_w.w_float))
                             okSoFar = false;
                         }
                     }

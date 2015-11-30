@@ -50,7 +50,7 @@ static void deferred_Float(FileLoggerData * xx,
 
     if (okSoFar)
     {
-        snprintf(numBuffer, sizeof(numBuffer), "%g\n", TO_DBL(argv->a_w.w_float));
+        snprintf(numBuffer, sizeof(numBuffer), "%g\n", static_cast<double>(argv->a_w.w_float));
         fileLoggerWriteStringToTheFile(xx, numBuffer);
         fileLoggerReleaseTheFile(xx);
     }

@@ -46,4 +46,6 @@
 // # define OUR_RES_NUMB  17158
 # define OUTPUT_PREFIX "Vrotate: "
 
+INLETINFO_HEADER(VObjectData);
+
 #endif /* not VROTATE_H_ */
