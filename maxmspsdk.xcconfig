@@ -12,7 +12,6 @@
 // Name & Version
 PRODUCT_NAME = $(PROJECT_NAME)
 PRODUCT_VERSION = 7.0.1
-ARCHS = i386 x86_64
 
 
 // Paths
