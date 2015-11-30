@@ -43,8 +43,10 @@
 /*------------------------------------ reportAnything ---*/
 REPORTANYTHING_HEADER
 {
+    char floatBuffer[SUGGESTED_BUFFER_SIZE_];
+
     object_error(xx, "%s unknown message '%s' seen", routineName, message->s_name);
-    for (short ii = 0; ii < argc; ++ii)
+    for (long ii = 0; ii < argc; ++ii)
     {
         switch (argv[ii].a_type)
         {
@@ -59,8 +61,9 @@ REPORTANYTHING_HEADER
                 break;
 
             case A_FLOAT:
-                object_post(xx, "  argument %d is a float (%g)", static_cast<int>(ii),
-                            TO_DBL(argv[ii].a_w.w_float));
+                fillBufferWithDouble(floatBuffer, sizeof(floatBuffer),
+                                     TO_DBL(argv[ii].a_w.w_float));
+                object_post(xx, "  argument %d is a float (%s)", static_cast<int>(ii), floatBuffer);
                 break;
 
             case A_SEMI:
