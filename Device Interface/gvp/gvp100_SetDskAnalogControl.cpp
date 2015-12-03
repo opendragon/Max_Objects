@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "gvp100.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ cmd_SetDskAnalogControl ---*/
 SETDSKANALOGCONTROL_HEADER(GvpData)

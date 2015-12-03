@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "udpPort.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ cmd_Anything ---*/
 ANYTHING_HEADER(UdpObjectData)

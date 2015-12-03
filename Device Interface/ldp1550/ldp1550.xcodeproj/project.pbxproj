@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F62622B11BF9484800D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62622B01BF9484800D27BE9 /* CoreFoundation.framework */; };
-		F62622B51BF9493000D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62622B41BF9493000D27BE9 /* MaxAPI.framework */; };
 		F6972964180CA87A0082C8CD /* ldp1550_AllInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F697294B180CA87A0082C8CD /* ldp1550_AllInfo.cpp */; };
 		F6972965180CA87A0082C8CD /* ldp1550_Assist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F697294C180CA87A0082C8CD /* ldp1550_Assist.cpp */; };
 		F6972966180CA87A0082C8CD /* ldp1550_Chapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F697294D180CA87A0082C8CD /* ldp1550_Chapter.cpp */; };
@@ -41,7 +40,6 @@
 /* Begin PBXFileReference section */
 		2FBBEAE508F335360078DB84 /* ldp1550.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ldp1550.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62622B01BF9484800D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		F62622B41BF9493000D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F6546BD41BFC26F6005BBE4B /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
 		F697294B180CA87A0082C8CD /* ldp1550_AllInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ldp1550_AllInfo.cpp; sourceTree = SOURCE_ROOT; };
 		F697294C180CA87A0082C8CD /* ldp1550_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ldp1550_Assist.cpp; sourceTree = SOURCE_ROOT; };
@@ -78,7 +76,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6A9D4A91BFAF4BE00518D80 /* libCommonLibrary.a in Frameworks */,
-				F62622B51BF9493000D27BE9 /* MaxAPI.framework in Frameworks */,
 				F62622B11BF9484800D27BE9 /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				F6A9D4A81BFAF4BE00518D80 /* libCommonLibrary.a */,
-				F62622B41BF9493000D27BE9 /* MaxAPI.framework */,
 				F62622B01BF9484800D27BE9 /* CoreFoundation.framework */,
 			);
 			name = "External Frameworks and Libraries";

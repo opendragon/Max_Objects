@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F62622E91BF94C6400D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62622E81BF94C6400D27BE9 /* CoreFoundation.framework */; };
-		F62622EB1BF94C7300D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62622EA1BF94C7300D27BE9 /* MaxAPI.framework */; };
 		F6546BEB1BFC2792005BBE4B /* maxmspsdk.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F6546BEA1BFC2792005BBE4B /* maxmspsdk.xcconfig */; };
 		F6A9D4C01BFAF5B300518D80 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A9D4BF1BFAF5B300518D80 /* libCommonLibrary.a */; };
 		F6CE73031801CB7300E05120 /* shotgun_Assist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6CE72FF1801CB7300E05120 /* shotgun_Assist.cpp */; };
@@ -20,7 +19,6 @@
 /* Begin PBXFileReference section */
 		2FBBEAE508F335360078DB84 /* shotgun.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shotgun.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62622E81BF94C6400D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		F62622EA1BF94C7300D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F6546BEA1BFC2792005BBE4B /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
 		F6A9D4BF1BFAF5B300518D80 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "/Users/njaffe/Library/Developer/Xcode/DerivedData/NJObjects-cfvosuyivjfhivdvtnowssnhdiht/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<absolute>"; };
 		F6CE72FF1801CB7300E05120 /* shotgun_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shotgun_Assist.cpp; sourceTree = SOURCE_ROOT; };
@@ -35,7 +33,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6A9D4C01BFAF5B300518D80 /* libCommonLibrary.a in Frameworks */,
-				F62622EB1BF94C7300D27BE9 /* MaxAPI.framework in Frameworks */,
 				F62622E91BF94C6400D27BE9 /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,7 +56,6 @@
 			children = (
 				F6A9D4BF1BFAF5B300518D80 /* libCommonLibrary.a */,
 				F62622E81BF94C6400D27BE9 /* CoreFoundation.framework */,
-				F62622EA1BF94C7300D27BE9 /* MaxAPI.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";

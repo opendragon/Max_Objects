@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F62623BD1BF952AC00D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623BC1BF952AC00D27BE9 /* CoreFoundation.framework */; };
-		F62623BF1BF952B600D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623BE1BF952B600D27BE9 /* MaxAPI.framework */; };
 		F6546C3D1BFC2991005BBE4B /* maxmspsdk.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F6546C3C1BFC2991005BBE4B /* maxmspsdk.xcconfig */; };
 		F6574CB61809D66000153C4D /* Vscan_Assist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6574CAF1809D66000153C4D /* Vscan_Assist.cpp */; };
 		F6574CB71809D66000153C4D /* Vscan_Bang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6574CB01809D66000153C4D /* Vscan_Bang.cpp */; };
@@ -25,7 +24,6 @@
 /* Begin PBXFileReference section */
 		2FBBEAE508F335360078DB84 /* Vscan.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Vscan.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62623BC1BF952AC00D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		F62623BE1BF952B600D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F6546C3C1BFC2991005BBE4B /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
 		F6574CAF1809D66000153C4D /* Vscan_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vscan_Assist.cpp; sourceTree = SOURCE_ROOT; };
 		F6574CB01809D66000153C4D /* Vscan_Bang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vscan_Bang.cpp; sourceTree = SOURCE_ROOT; };
@@ -45,7 +43,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6A9D5121BFAF84900518D80 /* libCommonLibrary.a in Frameworks */,
-				F62623BF1BF952B600D27BE9 /* MaxAPI.framework in Frameworks */,
 				F62623BD1BF952AC00D27BE9 /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,7 +65,6 @@
 			isa = PBXGroup;
 			children = (
 				F6A9D5111BFAF84900518D80 /* libCommonLibrary.a */,
-				F62623BE1BF952B600D27BE9 /* MaxAPI.framework */,
 				F62623BC1BF952AC00D27BE9 /* CoreFoundation.framework */,
 			);
 			name = "External Frameworks and Libraries";

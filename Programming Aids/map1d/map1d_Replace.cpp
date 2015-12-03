@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "map1d.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ cmd_Replace ---*/
 REPLACE_HEADER(Map1dData)

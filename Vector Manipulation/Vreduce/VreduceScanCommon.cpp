@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "VreduceScanCommon.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ CheckInput ---*/
 bool checkInput(void *                 xx,

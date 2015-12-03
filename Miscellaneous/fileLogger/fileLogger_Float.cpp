@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "fileLogger.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ deferred_Float ---*/
 static void deferred_Float(FileLoggerData * xx,

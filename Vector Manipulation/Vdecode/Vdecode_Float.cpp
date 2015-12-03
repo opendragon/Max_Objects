@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "Vdecode.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ cmd_Float ---*/
 FLOAT_HEADER(VdecodeData)

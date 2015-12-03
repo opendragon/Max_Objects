@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "VassembleObjectCommon.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ checkInput ---*/
 bool checkInput(VObjectData * xx,

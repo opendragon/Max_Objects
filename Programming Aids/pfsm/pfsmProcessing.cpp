@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "pfsm.h"
-#include "fillBufferWithDouble.h"
 #include <math.h>
 
 /*------------------------------------ pfsmPerformTransition ---*/

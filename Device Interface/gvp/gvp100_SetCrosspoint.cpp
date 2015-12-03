@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "gvp100.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ cmd_SetCrosspoint ---*/
 SETCROSSPOINT_HEADER(GvpData)

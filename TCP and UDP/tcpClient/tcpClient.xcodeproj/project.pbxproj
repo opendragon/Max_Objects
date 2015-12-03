@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F626232C1BF94EA200D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F626232B1BF94EA200D27BE9 /* CoreFoundation.framework */; };
-		F626232E1BF94EB000D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F626232D1BF94EB000D27BE9 /* MaxAPI.framework */; };
 		F6489E52181329F4000D0F4E /* tcpBuffers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6489E50181329F4000D0F4E /* tcpBuffers.cpp */; };
 		F6489E53181329F4000D0F4E /* tcpMapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6489E51181329F4000D0F4E /* tcpMapping.cpp */; };
 		F6489E59181332BC000D0F4E /* tcpObject_Verbose.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6489E58181332BC000D0F4E /* tcpObject_Verbose.cpp */; };
@@ -41,7 +40,6 @@
 /* Begin PBXFileReference section */
 		2FBBEAE508F335360078DB84 /* tcpClient.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tcpClient.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F626232B1BF94EA200D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		F626232D1BF94EB000D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F6489E50181329F4000D0F4E /* tcpBuffers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpBuffers.cpp; sourceTree = SOURCE_ROOT; };
 		F6489E51181329F4000D0F4E /* tcpMapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpMapping.cpp; sourceTree = SOURCE_ROOT; };
 		F6489E58181332BC000D0F4E /* tcpObject_Verbose.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcpObject_Verbose.cpp; sourceTree = SOURCE_ROOT; };
@@ -77,7 +75,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6A9D4DA1BFAF68B00518D80 /* libCommonLibrary.a in Frameworks */,
-				F626232E1BF94EB000D27BE9 /* MaxAPI.framework in Frameworks */,
 				F626232C1BF94EA200D27BE9 /* CoreFoundation.framework in Frameworks */,
 				F69F2B5918144A9E002CE3E8 /* CoreServices.framework in Frameworks */,
 			);
@@ -101,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				F6A9D4D91BFAF68B00518D80 /* libCommonLibrary.a */,
-				F626232D1BF94EB000D27BE9 /* MaxAPI.framework */,
 				F626232B1BF94EA200D27BE9 /* CoreFoundation.framework */,
 				F69F2B5818144A9E002CE3E8 /* CoreServices.framework */,
 			);

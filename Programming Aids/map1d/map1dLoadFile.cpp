@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "map1d.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ map1dClearRangeList ---*/
 void map1dClearRangeList(Map1dData * xx)

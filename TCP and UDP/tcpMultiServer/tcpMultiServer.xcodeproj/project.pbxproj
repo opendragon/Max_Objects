@@ -11,7 +11,6 @@
 		F6227CF71811D7E700F3939C /* tcpMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = F6227CF51811D7E700F3939C /* tcpMapping.h */; };
 		F6227CFF1811D85E00F3939C /* tcpBuffers.h in Headers */ = {isa = PBXBuildFile; fileRef = F6227CFD1811D85E00F3939C /* tcpBuffers.h */; };
 		F62623341BF94EEA00D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623331BF94EEA00D27BE9 /* CoreFoundation.framework */; };
-		F62623361BF94EF600D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623351BF94EF600D27BE9 /* MaxAPI.framework */; };
 		F6489E4E181329DB000D0F4E /* tcpBuffers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6489E4C181329DB000D0F4E /* tcpBuffers.cpp */; };
 		F6489E4F181329DB000D0F4E /* tcpMapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6489E4D181329DB000D0F4E /* tcpMapping.cpp */; };
 		F6546C091BFC2848005BBE4B /* maxmspsdk.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F6546C081BFC2848005BBE4B /* maxmspsdk.xcconfig */; };
@@ -39,7 +38,6 @@
 		F6227CF51811D7E700F3939C /* tcpMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tcpMapping.h; path = ../tcpClient/tcpMapping.h; sourceTree = SOURCE_ROOT; };
 		F6227CFD1811D85E00F3939C /* tcpBuffers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tcpBuffers.h; path = ../tcpClient/tcpBuffers.h; sourceTree = SOURCE_ROOT; };
 		F62623331BF94EEA00D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		F62623351BF94EF600D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F6489E4C181329DB000D0F4E /* tcpBuffers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tcpBuffers.cpp; path = ../tcpClient/tcpBuffers.cpp; sourceTree = SOURCE_ROOT; };
 		F6489E4D181329DB000D0F4E /* tcpMapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tcpMapping.cpp; path = ../tcpClient/tcpMapping.cpp; sourceTree = SOURCE_ROOT; };
 		F6546C081BFC2848005BBE4B /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -67,7 +65,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6A9D4DE1BFAF6A900518D80 /* libCommonLibrary.a in Frameworks */,
-				F62623361BF94EF600D27BE9 /* MaxAPI.framework in Frameworks */,
 				F62623341BF94EEA00D27BE9 /* CoreFoundation.framework in Frameworks */,
 				F60FA48F18144AF600290F0C /* CoreServices.framework in Frameworks */,
 			);
@@ -91,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				F6A9D4DD1BFAF6A900518D80 /* libCommonLibrary.a */,
-				F62623351BF94EF600D27BE9 /* MaxAPI.framework */,
 				F62623331BF94EEA00D27BE9 /* CoreFoundation.framework */,
 				F60FA48E18144AF600290F0C /* CoreServices.framework */,
 			);

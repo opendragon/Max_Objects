@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F62623911BF9514000D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623901BF9514000D27BE9 /* CoreFoundation.framework */; };
-		F62623931BF9514B00D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623921BF9514B00D27BE9 /* MaxAPI.framework */; };
 		F6546C271BFC291E005BBE4B /* maxmspsdk.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F6546C261BFC291E005BBE4B /* maxmspsdk.xcconfig */; };
 		F6574C031808C52B00153C4D /* Vjet_Anything.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6574BFD1808C52B00153C4D /* Vjet_Anything.cpp */; };
 		F6574C041808C52B00153C4D /* Vjet_Assist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6574BFE1808C52B00153C4D /* Vjet_Assist.cpp */; };
@@ -25,7 +24,6 @@
 /* Begin PBXFileReference section */
 		2FBBEAE508F335360078DB84 /* Vjet.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Vjet.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62623901BF9514000D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		F62623921BF9514B00D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F6546C261BFC291E005BBE4B /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
 		F6574BFD1808C52B00153C4D /* Vjet_Anything.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vjet_Anything.cpp; sourceTree = SOURCE_ROOT; };
 		F6574BFE1808C52B00153C4D /* Vjet_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vjet_Assist.cpp; sourceTree = SOURCE_ROOT; };
@@ -45,7 +43,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6A9D4FC1BFAF79500518D80 /* libCommonLibrary.a in Frameworks */,
-				F62623931BF9514B00D27BE9 /* MaxAPI.framework in Frameworks */,
 				F62623911BF9514000D27BE9 /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,7 +65,6 @@
 			isa = PBXGroup;
 			children = (
 				F6A9D4FB1BFAF79500518D80 /* libCommonLibrary.a */,
-				F62623921BF9514B00D27BE9 /* MaxAPI.framework */,
 				F62623901BF9514000D27BE9 /* CoreFoundation.framework */,
 			);
 			name = "External Frameworks and Libraries";

@@ -38,13 +38,10 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "reportAnything.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ reportAnything ---*/
 REPORTANYTHING_HEADER
 {
-    char floatBuffer[SUGGESTED_BUFFER_SIZE_];
-
     object_error(xx, "%s unknown message '%s' seen", routineName, message->s_name);
     for (long ii = 0; ii < argc; ++ii)
     {
@@ -61,9 +58,8 @@ REPORTANYTHING_HEADER
                 break;
 
             case A_FLOAT:
-                fillBufferWithDouble(floatBuffer, sizeof(floatBuffer),
-                                     TO_DBL(argv[ii].a_w.w_float));
-                object_post(xx, "  argument %d is a float (%s)", static_cast<int>(ii), floatBuffer);
+                object_post(xx, "  argument %d is a float (%g)", static_cast<int>(ii),
+                            TO_DBL(argv[ii].a_w.w_float));
                 break;
 
             case A_SEMI:

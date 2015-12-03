@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F62622ED1BF94C8A00D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62622EC1BF94C8A00D27BE9 /* CoreFoundation.framework */; };
-		F62622EF1BF94C9C00D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62622EE1BF94C9C00D27BE9 /* MaxAPI.framework */; };
 		F6546BED1BFC2797005BBE4B /* maxmspsdk.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F6546BEC1BFC2797005BBE4B /* maxmspsdk.xcconfig */; };
 		F6A9D4C21BFAF5C500518D80 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A9D4C11BFAF5C500518D80 /* libCommonLibrary.a */; };
 		F6CE730E1801CF9400E05120 /* sysLogger_Anything.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6CE73071801CF9300E05120 /* sysLogger_Anything.cpp */; };
@@ -23,7 +22,6 @@
 /* Begin PBXFileReference section */
 		2FBBEAE508F335360078DB84 /* sysLogger.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sysLogger.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62622EC1BF94C8A00D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		F62622EE1BF94C9C00D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F6546BEC1BFC2797005BBE4B /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
 		F6A9D4C11BFAF5C500518D80 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "/Users/njaffe/Library/Developer/Xcode/DerivedData/NJObjects-cfvosuyivjfhivdvtnowssnhdiht/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<absolute>"; };
 		F6CE73071801CF9300E05120 /* sysLogger_Anything.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = sysLogger_Anything.cpp; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
@@ -41,7 +39,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6A9D4C21BFAF5C500518D80 /* libCommonLibrary.a in Frameworks */,
-				F62622EF1BF94C9C00D27BE9 /* MaxAPI.framework in Frameworks */,
 				F62622ED1BF94C8A00D27BE9 /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,7 +62,6 @@
 			children = (
 				F6A9D4C11BFAF5C500518D80 /* libCommonLibrary.a */,
 				F62622EC1BF94C8A00D27BE9 /* CoreFoundation.framework */,
-				F62622EE1BF94C9C00D27BE9 /* MaxAPI.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";

@@ -13,8 +13,6 @@
 		F6253AA61BFA1D27005FB7EF /* getListKind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6253A911BFA1791005FB7EF /* getListKind.cpp */; };
 		F6253AA71BFA1D32005FB7EF /* reportAnything.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6253A941BFA1791005FB7EF /* reportAnything.cpp */; };
 		F6253AA81BFA1D35005FB7EF /* reportVersion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6253A961BFA1791005FB7EF /* reportVersion.cpp */; };
-		F6F9B6131C0C17F300F81ADE /* fillBufferWithDouble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F9B6111C0C17F300F81ADE /* fillBufferWithDouble.cpp */; };
-		F6F9B6141C0C17F300F81ADE /* fillBufferWithDouble.h in Headers */ = {isa = PBXBuildFile; fileRef = F6F9B6121C0C17F300F81ADE /* fillBufferWithDouble.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +29,6 @@
 		F6253A971BFA1791005FB7EF /* reportVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reportVersion.h; sourceTree = SOURCE_ROOT; };
 		F6253AA11BFA17A6005FB7EF /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F6253AA31BFA17AF005FB7EF /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		F6F9B6111C0C17F300F81ADE /* fillBufferWithDouble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillBufferWithDouble.cpp; sourceTree = SOURCE_ROOT; };
-		F6F9B6121C0C17F300F81ADE /* fillBufferWithDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fillBufferWithDouble.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +47,6 @@
 		089C166AFE841209C02AAC07 /* iterator */ = {
 			isa = PBXGroup;
 			children = (
-				F6F9B6111C0C17F300F81ADE /* fillBufferWithDouble.cpp */,
-				F6F9B6121C0C17F300F81ADE /* fillBufferWithDouble.h */,
 				F6253A8F1BFA1791005FB7EF /* genericListOutput.cpp */,
 				F6253A901BFA1791005FB7EF /* genericListOutput.h */,
 				F6253A911BFA1791005FB7EF /* getListKind.cpp */,
@@ -93,7 +87,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6F9B6141C0C17F300F81ADE /* fillBufferWithDouble.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,7 +148,6 @@
 				F6253AA71BFA1D32005FB7EF /* reportAnything.cpp in Sources */,
 				F6253AA61BFA1D27005FB7EF /* getListKind.cpp in Sources */,
 				F6253A981BFA1791005FB7EF /* genericListOutput.cpp in Sources */,
-				F6F9B6131C0C17F300F81ADE /* fillBufferWithDouble.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

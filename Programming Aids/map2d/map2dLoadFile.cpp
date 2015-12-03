@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "map2d.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ map2dClearRangeList ---*/
 void map2dClearRangeList(Map2dData * xx)

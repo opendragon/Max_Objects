@@ -47,7 +47,7 @@ static void * caseShiftCreate(t_symbol * direction)
     CaseShiftData * xx = static_cast<CaseShiftData *>(object_alloc(gClass));
     
     if (xx)
-    {        
+    {
         xx->fResultOut = static_cast<t_outlet *>(outlet_new(xx, NULL));
         xx->fDown = false;
         xx->fPreviousKind = A_NOTHING;

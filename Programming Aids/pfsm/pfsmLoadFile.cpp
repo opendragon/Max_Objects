@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "pfsm.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ pfsmClearHashTable ---*/
 void pfsmClearHashTable(PfsmData * xx)

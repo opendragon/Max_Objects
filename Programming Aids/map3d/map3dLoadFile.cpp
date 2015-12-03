@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "map3d.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ map3dClearRangeList ---*/
 void map3dClearRangeList(Map3dData * xx)

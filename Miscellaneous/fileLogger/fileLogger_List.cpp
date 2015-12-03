@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "fileLogger.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ deferred_List ---*/
 static void deferred_List(FileLoggerData * xx,

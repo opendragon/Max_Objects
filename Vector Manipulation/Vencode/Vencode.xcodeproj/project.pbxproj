@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F62623811BF950AF00D27BE9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623801BF950AF00D27BE9 /* CoreFoundation.framework */; };
-		F62623831BF950BB00D27BE9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62623821BF950BB00D27BE9 /* MaxAPI.framework */; };
 		F6546C1F1BFC28E9005BBE4B /* maxmspsdk.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F6546C1E1BFC28E9005BBE4B /* maxmspsdk.xcconfig */; };
 		F6A9D4F41BFAF76300518D80 /* libCommonLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A9D4F31BFAF76300518D80 /* libCommonLibrary.a */; };
 		F6CE73D41802249700E05120 /* Vencode_Assist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6CE73CD1802249700E05120 /* Vencode_Assist.cpp */; };
@@ -25,7 +24,6 @@
 /* Begin PBXFileReference section */
 		2FBBEAE508F335360078DB84 /* Vencode.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Vencode.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62623801BF950AF00D27BE9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		F62623821BF950BB00D27BE9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "/Users/njaffe/Documents/Max 7/Packages/max-sdk/source/c74support/max-includes/MaxAPI.framework"; sourceTree = "<absolute>"; };
 		F6546C1E1BFC28E9005BBE4B /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
 		F6A9D4F31BFAF76300518D80 /* libCommonLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommonLibrary.a; path = "/Users/njaffe/Library/Developer/Xcode/DerivedData/NJObjects-cfvosuyivjfhivdvtnowssnhdiht/Build/Products/Development/libCommonLibrary.a"; sourceTree = "<absolute>"; };
 		F6CE73CD1802249700E05120 /* Vencode_Assist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vencode_Assist.cpp; sourceTree = SOURCE_ROOT; };
@@ -45,7 +43,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6A9D4F41BFAF76300518D80 /* libCommonLibrary.a in Frameworks */,
-				F62623831BF950BB00D27BE9 /* MaxAPI.framework in Frameworks */,
 				F62623811BF950AF00D27BE9 /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,7 +65,6 @@
 			isa = PBXGroup;
 			children = (
 				F6A9D4F31BFAF76300518D80 /* libCommonLibrary.a */,
-				F62623821BF950BB00D27BE9 /* MaxAPI.framework */,
 				F62623801BF950AF00D27BE9 /* CoreFoundation.framework */,
 			);
 			name = "External Frameworks and Libraries";

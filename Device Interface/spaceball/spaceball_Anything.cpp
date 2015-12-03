@@ -38,7 +38,6 @@
 /*--------------------------------------------------------------------------------------*/
 
 #include "spaceball.h"
-#include "fillBufferWithDouble.h"
 
 /*------------------------------------ cmd_Anything ---*/
 ANYTHING_HEADER(SpaceballData)
