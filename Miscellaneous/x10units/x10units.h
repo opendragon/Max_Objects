@@ -42,9 +42,10 @@
 
 # include "x10Base.h"
 
-# define OUR_NAME      "x10units"
-// # define OUR_RES_NUMB  17122
-# define OUTPUT_PREFIX "x10units: "
+# define OUR_DESC    "X10 Home Control units"
+# define OUR_NAME    "x10units"
+# define OUR_VERSION "1.0.6"
+# define OUR_YEAR    "1996"
 
 struct X10UnitsData
 {

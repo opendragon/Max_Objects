@@ -42,10 +42,12 @@
 
 # include "mapCommon.h"
 
-# define BE_VERBOSE    /* */
-# define OUR_NAME      "map1d"
-// # define OUR_RES_NUMB  17153
-# define OUTPUT_PREFIX "map1d: "
+# define OUR_DESC    "Map coordinate to value"
+# define OUR_NAME    "map1d"
+# define OUR_VERSION "1.0.6"
+# define OUR_YEAR    "2000"
+
+# define BE_VERBOSE /* */
 
 struct RangeData
 {

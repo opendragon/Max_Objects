@@ -238,7 +238,7 @@ int C74_EXPORT main(void)
     {
         gHouseCodes[ii] = gensym(kHouseCodeNames[ii]);
     }
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main
 

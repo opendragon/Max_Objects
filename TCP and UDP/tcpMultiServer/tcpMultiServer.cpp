@@ -302,7 +302,7 @@ int C74_EXPORT main(void)
     gSelfSymbol = gensym("self");
     gStatusSymbol = gensym("status");
     setUpStateSymbols();
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main
 

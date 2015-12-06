@@ -42,8 +42,9 @@
 
 # include "VassembleObjectCommon.h"
 
-# define OUR_NAME      "Vltrim"
-// # define OUR_RES_NUMB  17194
-# define OUTPUT_PREFIX "Vltrim: "
+# define OUR_DESC    "Remove leading separators from a list"
+# define OUR_NAME    "Vltrim"
+# define OUR_VERSION "1.0.0"
+# define OUR_YEAR    "2003"
 
 #endif /* not VLTRIM_H_ */

@@ -42,9 +42,10 @@
 
 # include "VabsObjectCommon.h"
 
-# define OUR_NAME      "Vexp"
-// # define OUR_RES_NUMB  17172
-# define OUTPUT_PREFIX "Vexp: "
+# define OUR_DESC    "The natural exponential of the input"
+# define OUR_NAME    "Vexp"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2001"
 
 mextern(double) gMaxInput;
 mextern(double) gMinInput;

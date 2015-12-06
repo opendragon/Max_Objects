@@ -260,7 +260,7 @@ int C74_EXPORT main(void)
     gScanSymbol = gensym("scan");
     gSlowSymbol = gensym("slow");
     gStepSymbol = gensym("step");
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main
 

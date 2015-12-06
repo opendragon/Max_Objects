@@ -42,9 +42,10 @@
 
 # include "missingAndExtra.h"
 
-# define OUR_NAME      "dataType"
-// # define OUR_RES_NUMB  17129
-# define OUTPUT_PREFIX "dataType: "
+# define OUR_DESC    "Report data type"
+# define OUR_NAME    "dataType"
+# define OUR_VERSION "1.0.3"
+# define OUR_YEAR    "1998"
 
 enum TypeCode
 {

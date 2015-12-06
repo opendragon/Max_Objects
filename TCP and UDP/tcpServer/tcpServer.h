@@ -42,9 +42,10 @@
 
 # include "tcpCommon.h"
 
-# define OUR_NAME      "tcpServer"
-// # define OUR_RES_NUMB  17128
-# define OUTPUT_PREFIX "tcpServer: "
+# define OUR_DESC    "TCP/IP server"
+# define OUR_NAME    "tcpServer"
+# define OUR_VERSION "1.1.7"
+# define OUR_YEAR    "1998"
 
 # define LISTEN_HEADER(type) \
     void cmd_Listen(type *     xx,\

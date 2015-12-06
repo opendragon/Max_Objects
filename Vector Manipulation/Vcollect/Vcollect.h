@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include "genericListOutput.h"
 
-# define OUR_NAME      "Vcollect"
-// # define OUR_RES_NUMB  17192
-# define OUTPUT_PREFIX "Vcollect: "
+# define OUR_DESC    "Collect atoms into a list"
+# define OUR_NAME    "Vcollect"
+# define OUR_VERSION "1.0.1"
+# define OUR_YEAR    "2002"
 
 # define CHUNK_SIZE 30
 

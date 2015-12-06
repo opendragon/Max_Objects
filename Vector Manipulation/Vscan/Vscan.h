@@ -42,9 +42,10 @@
 
 # include "VreduceScanCommon.h"
 
-# define OUR_NAME      "Vscan"
-// # define OUR_RES_NUMB  17156
-# define OUTPUT_PREFIX "Vscan: "
+# define OUR_DESC    "Apply a function to successive sublists of a list"
+# define OUR_NAME    "Vscan"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2000"
 
 struct VscanData
 {

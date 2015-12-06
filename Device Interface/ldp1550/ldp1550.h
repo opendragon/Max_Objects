@@ -42,6 +42,11 @@
 
 # include "missingAndExtra.h"
 
+# define OUR_DESC    "Laser Disk Player interface"
+# define OUR_NAME    "ldp1550"
+# define OUR_VERSION "1.0.6"
+# define OUR_YEAR    "1996"
+
 # define INFO_SAMPLE_RATE   10      /* default poll rate multiplier */
 # define MAX_CHAPTER_NUMBER 79
 # define MAX_COMMAND_LENGTH 30
@@ -50,9 +55,6 @@
 # define MAX_POOL_SIZE      200
 # define MAX_REPETITIONS    15
 # define MAX_STEP_FACTOR    255
-# define OUR_NAME           "ldp1550"
-// # define OUR_RES_NUMB       17120
-# define OUTPUT_PREFIX      "ldp1550: "
 # define POOL_SIZE          30  /* default message pool size */
 # define SER_SAMPLE_RATE    100 /* default sampling rate for the serial port */
 

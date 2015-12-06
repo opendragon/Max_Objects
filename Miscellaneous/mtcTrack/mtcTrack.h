@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include "genericListOutput.h"
 
-# define OUR_NAME      "mtcTrack"
-// # define OUR_RES_NUMB  17167
-# define OUTPUT_PREFIX "mtcTrack: "
+# define OUR_DESC    "Generates point tracks from mtc data"
+# define OUR_NAME    "mtcTrack"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2001"
 
 # define MAX_POINTS 10
 

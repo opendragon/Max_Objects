@@ -42,11 +42,13 @@
 
 # include "x10Base.h"
 
+# define OUR_DESC    "X10 Home Control interface"
+# define OUR_NAME    "x10"
+# define OUR_VERSION "1.0.8"
+# define OUR_YEAR    "1996"
+
 # define OUTBUFF_SIZE        50
 # define MAX_POLL_RATE       1000
-# define OUR_NAME            "x10"
-// # define OUR_RES_NUMB        17121
-# define OUTPUT_PREFIX       "x10: "
 # define SER_SAMPLE_RATE     100 /* default sampling rate for the serial port */
 # define COMMAND_PREFIX_SIZE 16
 # define ALL_ON              0x0FF

@@ -210,7 +210,7 @@ int C74_EXPORT main(void)
     gOnSymbol = gensym("on");
     gRotateSymbol = gensym("rotate");
     gTranslateSymbol = gensym("translate");
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main
 

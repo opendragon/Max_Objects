@@ -42,9 +42,10 @@
 
 # include "VdropObjectCommon.h"
 
-# define OUR_NAME      "Vdrop"
-// # define OUR_RES_NUMB  17140
-# define OUTPUT_PREFIX "Vdrop: "
+# define OUR_DESC    "Remove leading or trailing elements of a list"
+# define OUR_NAME    "Vdrop"
+# define OUR_VERSION "1.0.4"
+# define OUR_YEAR    "2000"
 
 INLETINFO_HEADER(VObjectData);
 

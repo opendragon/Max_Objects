@@ -42,9 +42,10 @@
 
 # include "VassembleObjectCommon.h"
 
-# define OUR_NAME      "Vunspell"
-// # define OUR_RES_NUMB  17198
-# define OUTPUT_PREFIX "Vunspell: "
+# define OUR_DESC    "Convert an ASCII list back into atoms"
+# define OUR_NAME    "Vunspell"
+# define OUR_VERSION "1.0.0"
+# define OUR_YEAR    "2003"
 
 void processInput(VObjectData * xx,
                   const long    value);

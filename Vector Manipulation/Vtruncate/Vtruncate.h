@@ -42,8 +42,9 @@
 
 # include "VceilingObjectCommon.h"
 
-# define OUR_NAME      "Vtruncate"
-// # define OUR_RES_NUMB  17152
-# define OUTPUT_PREFIX "Vtruncate: "
+# define OUR_DESC    "Remove the fractional part of the input"
+# define OUR_NAME    "Vtruncate"
+# define OUR_VERSION "1.0.5"
+# define OUR_YEAR    "2000"
 
 #endif /* not VTRUNCATE_H_ */

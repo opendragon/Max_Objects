@@ -96,7 +96,7 @@ int C74_EXPORT main(void)
     gClass = temp;
     gMaxInput = log(DBL_MAX);
     gMinInput = log(DBL_MIN);
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main
 

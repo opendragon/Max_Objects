@@ -136,7 +136,7 @@ int C74_EXPORT main(void)
     gRandomMoveSymbol = gensym("-?");
     gRangeSymbol = gensym("@r");
     gTransitionSymbol = gensym("->");
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main
 

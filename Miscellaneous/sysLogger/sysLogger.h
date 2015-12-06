@@ -48,11 +48,12 @@
 #  include <syslog.h>
 # endif // not USE_ASL_INSTEAD_OF_SYSLOG
 
-# define OUR_NAME      "sysLogger"
-// # define OUR_RES_NUMB  17187
-# define OUTPUT_PREFIX "sysLogger: "
+# define OUR_DESC    "Writes all input to the syslog facility"
+# define OUR_NAME    "sysLogger"
+# define OUR_VERSION "1.0.3"
+# define OUR_YEAR    "2002"
 
-# define MAX_BUFFER_SIZE            1024
+# define MAX_BUFFER_SIZE 1024
 
 struct SysLoggerData
 {

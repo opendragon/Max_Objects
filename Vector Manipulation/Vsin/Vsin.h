@@ -42,8 +42,9 @@
 
 # include "VabsObjectCommon.h"
 
-# define OUR_NAME      "Vsin"
-// # define OUR_RES_NUMB  17177
-# define OUTPUT_PREFIX "Vsin: "
+# define OUR_DESC    "The sine of the input"
+# define OUR_NAME    "Vsin"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2001"
 
 #endif /* not VSIN_H_ */

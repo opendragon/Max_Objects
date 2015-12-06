@@ -42,8 +42,9 @@
 
 # include "VdropObjectCommon.h"
 
-# define OUR_NAME      "Vsplit"
-// # define OUR_RES_NUMB  17205
-# define OUTPUT_PREFIX "Vsplit: "
+# define OUR_DESC    "Split a list into two pieces"
+# define OUR_NAME    "Vsplit"
+# define OUR_VERSION "1.0.0"
+# define OUR_YEAR    "2005"
 
 #endif /* not VSPLIT_H_ */

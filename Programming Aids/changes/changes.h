@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include "genericListOutput.h"
 
-# define OUR_NAME      "changes"
-// #define OUR_RES_NUMB  17123
-# define OUTPUT_PREFIX "changes: "
+# define OUR_DESC    "Watch for list element change"
+# define OUR_NAME    "changes"
+# define OUR_VERSION "1.0.4"
+# define OUR_YEAR    "1998"
 
 # define NUM_INDICES 5   /* Note that we can't pass more than 7 arguments */
 

@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include "genericListOutput.h"
 
-# define OUR_NAME      "caseShift"
-// # define OUR_RES_NUMB  17146
-# define OUTPUT_PREFIX "caseShift: "
+# define OUR_DESC    "Shift the case of a symbol"
+# define OUR_NAME    "caseShift"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2000"
 
 struct CaseShiftData
 {

@@ -42,9 +42,10 @@
 
 # include "missingAndExtra.h"
 
-# define OUR_NAME      "spaceball"
-// # define OUR_RES_NUMB  17161
-# define OUTPUT_PREFIX "spaceball: "
+# define OUR_DESC    "Labtec Spaceball interface"
+# define OUR_NAME    "spaceball"
+# define OUR_VERSION "1.0.3"
+# define OUR_YEAR    "2001"
 
 # define BE_VERBOSE           /* */
 # define REPORT_STATE_CHANGES /*!!*/

@@ -42,8 +42,9 @@
 
 # include "VdropObjectCommon.h"
 
-# define OUR_NAME      "Vtake"
-// # define OUR_RES_NUMB  17139
-# define OUTPUT_PREFIX "Vtake: "
+# define OUR_DESC    "Extract leading or trailing elements from a list"
+# define OUR_NAME    "Vtake"
+# define OUR_VERSION "1.0.4"
+# define OUR_YEAR    "2000"
 
 #endif /* not VTAKE_H_ */

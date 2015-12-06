@@ -42,9 +42,10 @@
 
 # include "VdropObjectCommon.h"
 
-# define OUR_NAME      "Vjet"
-// # define OUR_RES_NUMB  17143
-# define OUTPUT_PREFIX "Vjet: "
+# define OUR_DESC    "Break up a long list into a sequence of shorter lists"
+# define OUR_NAME    "Vjet"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2000"
 
 INLETINFO_HEADER(VObjectData);
 

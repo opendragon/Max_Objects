@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include <Math.h>
 
-# define OUR_NAME      "Vmean"
-// # define OUR_RES_NUMB  17162
-# define OUTPUT_PREFIX "Vmean: "
+# define OUR_DESC    "Compute the mean of a list of values"
+# define OUR_NAME    "Vmean"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2001"
 
 enum OpCode
 {

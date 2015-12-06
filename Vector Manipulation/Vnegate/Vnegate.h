@@ -42,8 +42,9 @@
 
 # include "VabsObjectCommon.h"
 
-# define OUR_NAME      "Vnegate"
-// # define OUR_RES_NUMB  17168
-# define OUTPUT_PREFIX "Vnegate: "
+# define OUR_DESC    "The negative of the input"
+# define OUR_NAME    "Vnegate"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2001"
 
 #endif /* not VNEGATE_H_ */

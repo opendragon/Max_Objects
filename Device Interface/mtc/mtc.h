@@ -42,20 +42,19 @@
 
 # include "missingAndExtra.h"
 
-# define OUR_NAME      "mtc"
-// # define OUR_RES_NUMB  17135
-# define OUTPUT_PREFIX "mtc: "
+# define OUR_DESC    "Multi-Touch Controller interface"
+# define OUR_NAME    "mtc"
+# define OUR_VERSION "1.0.7"
+# define OUR_YEAR    "1999"
 
-# define BE_VERBOSE           /* */
-# define REPORT_STATE_CHANGES /*!!*/
-# define MAX_MESSAGE_BYTES    260
-
+# define BE_VERBOSE            /* */
+# define REPORT_STATE_CHANGES  /*!!*/
+# define MAX_MESSAGE_BYTES     260
 # define MAX_DESCRIPTOR_LENGTH 80
-
-# define MAX_SPOTS       10
-# define MAX_POLL_RATE   1000
-# define SER_SAMPLE_RATE 100 /* default sampling rate for the serial port */
-# define DEFAULT_SPOTS   1
+# define MAX_SPOTS             10
+# define MAX_POLL_RATE         1000
+# define SER_SAMPLE_RATE       100 /* default sampling rate for the serial port */
+# define DEFAULT_SPOTS         1
 
 # if (! defined(BE_VERBOSE))
 #  undef REPORT_STATE_CHANGES

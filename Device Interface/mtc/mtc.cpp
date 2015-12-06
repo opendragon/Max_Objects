@@ -493,7 +493,7 @@ int C74_EXPORT main(void)
     gStopSymbol = gensym("stop");
     gXSymbol = gensym("x");
     gYSymbol = gensym("y");
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main
 

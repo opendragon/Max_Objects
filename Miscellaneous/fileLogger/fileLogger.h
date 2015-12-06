@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include "stdio.h"
 
-# define OUR_NAME      "fileLogger"
-// # define OUR_RES_NUMB  17186
-# define OUTPUT_PREFIX "fileLogger: "
+# define OUR_DESC    "Writes all messages to a file"
+# define OUR_NAME    "fileLogger"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2002"
 
 struct FileLoggerData
 {

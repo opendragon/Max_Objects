@@ -42,11 +42,12 @@
 
 # include "VdecodeEncodeCommon.h"
 
-# define OUR_NAME      "Vencode"
-// # define OUR_RES_NUMB  17165
-# define OUTPUT_PREFIX "Vencode: "
+# define OUR_DESC    "Convert a number to a mixed-base vector"
+# define OUR_NAME    "Vencode"
+# define OUR_VERSION "1.0.0"
+# define OUR_YEAR    "2003"
 
-# define NUM_ATOMS  32 /* biggest output possible for a long */
+# define NUM_ATOMS 64 /* biggest output possible for a long */
 
 struct VencodeData
 {

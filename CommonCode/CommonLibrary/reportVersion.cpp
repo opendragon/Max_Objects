@@ -40,89 +40,9 @@
 #include "reportVersion.h"
 #include <CoreFoundation/CoreFoundation.h>
 
-// char gCopyrightString[256];
-
 /*------------------------------------ reportVersion ---*/
 REPORTVERSION_HEADER
 {
-    char maxExternalIdentifier[256];
-
-    strcpy(maxExternalIdentifier, "com.opendragon.");
-    strcat(maxExternalIdentifier, name);
-    CFStringRef nameAsString = CFStringCreateWithCString(kCFAllocatorDefault, maxExternalIdentifier,
-                                                         kCFStringEncodingASCII);
-    CFBundleRef ourBundle = CFBundleGetBundleWithIdentifier(nameAsString);
-
-    if (ourBundle)
-    {
-        CFTypeRef versionValue = CFBundleGetValueForInfoDictionaryKey(ourBundle,
-                                                              CFSTR("CFBundleLongVersionString"));
-
-        if (versionValue && (CFGetTypeID(versionValue) == CFStringGetTypeID()))
-        {
-            CFStringRef asString = (CFStringRef) versionValue;
-            CFIndex     numChars = CFStringGetLength(asString);
-            CFIndex     maxLen = CFStringGetMaximumSizeForEncoding(numChars,
-                                                                   kCFStringEncodingASCII);
-            char *      buffer = sysmem_newptr(maxLen + 10);
-
-            if (CFStringGetCString(asString, buffer, maxLen + 8, kCFStringEncodingASCII))
-            {
-                post(buffer);
-            }
-            sysmem_freeptr(buffer);
-        }
-    }
-    CFRelease(nameAsString);
-} // reportVersion
-
-#if 0
-Info.plist contents -
-
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-    <dict>
-        <key>BuildMachineOSBuild</key>
-        <string>15B42</string>
-        <key>CFBundleDevelopmentRegion</key>
-        <string>English</string>
-        <key>CFBundleExecutable</key>
-        <string>caseShift</string>
-        <key>CFBundleInfoDictionaryVersion</key>
-        <string>1.0.2</string>
-        <key>CFBundleLongVersionString</key>
-        <string>caseShift 1.0.2, Copyright 2014 Cycling '74</string>
-        <key>CFBundlePackageType</key>
-        <string>iLaX</string>
-        <key>CFBundleShortVersionString</key>
-        <string>1.0.2</string>
-        <key>CFBundleSignature</key>
-        <string>max2</string>
-        <key>CFBundleSupportedPlatforms</key>
-        <array>
-            <string>MacOSX</string>
-        </array>
-        <key>CFBundleVersion</key>
-        <string>1.0.2</string>
-        <key>CSResourcesFileMapped</key>
-        <true/>
-        <key>DTCompiler</key>
-        <string>com.apple.compilers.llvm.clang.1_0</string>
-        <key>DTPlatformBuild</key>
-        <string>7B1005</string>
-        <key>DTPlatformVersion</key>
-        <string>GM</string>
-        <key>DTSDKBuild</key>
-        <string>15A278</string>
-        <key>DTSDKName</key>
-        <string>macosx10.11</string>
-        <key>DTXcode</key>
-        <string>0711</string>
-        <key>DTXcodeBuild</key>
-        <string>7B1005</string>
-    </dict>
-</plist>
-
-#endif//0
-
+    post("%s %s %s", name, version, description);
+    post("Copyright @%s OpenDragon", year);
+} // reportVersion_

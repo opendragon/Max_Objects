@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include "tcpMapping.h"
 
-# define OUR_NAME      "tcpMultiServer"
-// # define OUR_RES_NUMB  17144
-# define OUTPUT_PREFIX "tcpMultiServer: "
+# define OUR_DESC    "TCP/IP multiple-client server"
+# define OUR_NAME    "tcpMultiServer"
+# define OUR_VERSION "1.1.0"
+# define OUR_YEAR    "2000"
 
 # define MAX_CLIENTS 100
 

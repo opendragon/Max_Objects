@@ -190,6 +190,6 @@ int C74_EXPORT main(void)
     gInfoSymbol = gensym("info");
     gNoticeSymbol = gensym("notice");
     gWarningSymbol = gensym("warning");
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main

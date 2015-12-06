@@ -42,8 +42,9 @@
 
 # include "VabsObjectCommon.h"
 
-# define OUR_NAME      "Vcos"
-// # define OUR_RES_NUMB  17176
-# define OUTPUT_PREFIX "Vcos: "
+# define OUR_DESC    "The cosine of the input"
+# define OUR_NAME    "Vcos"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2001"
 
 #endif /* not VCOS_H_ */

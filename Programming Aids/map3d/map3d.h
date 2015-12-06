@@ -42,10 +42,12 @@
 
 # include "mapCommon.h"
 
-# define BE_VERBOSE    /* */
-# define OUR_NAME      "map3d"
-// # define OUR_RES_NUMB  17164
-# define OUTPUT_PREFIX "map3d: "
+# define OUR_DESC    "Map coordinate triple to value"
+# define OUR_NAME    "map3d"
+# define OUR_VERSION "1.0.6"
+# define OUR_YEAR    "2001"
+
+# define BE_VERBOSE /* */
 
 struct RangeData
 {

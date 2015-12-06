@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include "tcpMapping.h"
 
-# define OUR_NAME      "tcpLocate"
-// # define OUR_RES_NUMB  17147
-# define OUTPUT_PREFIX "tcpLocate: "
+# define OUR_DESC    "TCP/IP locator"
+# define OUR_NAME    "tcpLocate"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2000"
 
 struct TcpLocateData
 {

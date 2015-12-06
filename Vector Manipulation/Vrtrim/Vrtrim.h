@@ -42,8 +42,9 @@
 
 # include "VassembleObjectCommon.h"
 
-# define OUR_NAME      "Vrtrim"
-// # define OUR_RES_NUMB  17195
-# define OUTPUT_PREFIX "Vrtrim: "
+# define OUR_DESC    "Remove trailing separators from a list"
+# define OUR_NAME    "Vrtrim"
+# define OUR_VERSION "1.0.0"
+# define OUR_YEAR    "2003"
 
 #endif /* not VRTRIM_H_ */

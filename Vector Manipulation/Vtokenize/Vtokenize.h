@@ -42,9 +42,10 @@
 
 # include "VassembleObjectCommon.h"
 
-# define OUR_NAME      "Vtokenize"
-// # define OUR_RES_NUMB  17197
-# define OUTPUT_PREFIX "Vtokenize: "
+# define OUR_DESC    "Extract delimited sublists from a list"
+# define OUR_NAME    "Vtokenize"
+# define OUR_VERSION "1.0.0"
+# define OUR_YEAR    "2003"
 
 void doTokenize(VObjectData * xx);
 

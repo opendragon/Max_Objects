@@ -261,7 +261,7 @@ int C74_EXPORT main(void)
     gPreviewSymbol = gensym("preview");
     gProgramSymbol = gensym("program");
     gPushSymbol = gensym("push");
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main
 

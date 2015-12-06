@@ -42,8 +42,9 @@
 
 # include "VceilingObjectCommon.h"
 
-# define OUR_NAME      "Vround"
-// # define OUR_RES_NUMB  17151
-# define OUTPUT_PREFIX "Vround: "
+# define OUR_DESC    "Round the input to the nearest integer"
+# define OUR_NAME    "Vround"
+# define OUR_VERSION "1.0.5"
+# define OUR_YEAR    "2000"
 
 #endif /* not VROUND_H_ */

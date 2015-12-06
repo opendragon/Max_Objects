@@ -179,7 +179,7 @@ int C74_EXPORT main(void)
     }
     gClass = temp;
     gEmptySymbol = gensym("");
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main
 

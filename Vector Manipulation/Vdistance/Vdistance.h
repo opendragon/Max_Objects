@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include <math.h>
 
-# define OUR_NAME      "Vdistance"
-// # define OUR_RES_NUMB  17163
-# define OUTPUT_PREFIX "Vdistance: "
+# define OUR_DESC    "The length of the list, considered as an n-dimensional vector"
+# define OUR_NAME    "Vdistance"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2001"
 
 struct VdistanceData
 {

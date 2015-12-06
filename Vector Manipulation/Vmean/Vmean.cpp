@@ -122,7 +122,7 @@ int C74_EXPORT main(void)
     gGeomSymbol = gensym("geom");
     gHSymbol = gensym("h");
     gHarmSymbol = gensym("harm");
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } /* main */
 

@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include "genericListOutput.h"
 
-# define OUR_NAME      "queue"
-// # define OUR_RES_NUMB  17178
-# define OUTPUT_PREFIX "queue: "
+# define OUR_DESC    "First-in-first-out queue for arbitrary data"
+# define OUR_NAME    "queue"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2001"
 
 struct QueueEntry
 {

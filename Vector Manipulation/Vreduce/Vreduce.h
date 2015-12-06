@@ -42,9 +42,10 @@
 
 # include "VreduceScanCommon.h"
 
-# define OUR_NAME      "Vreduce"
-// # define OUR_RES_NUMB  17155
-# define OUTPUT_PREFIX "Vreduce: "
+# define OUR_DESC    "Apply a function between all the elements of a list"
+# define OUR_NAME    "Vreduce"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2000"
 
 struct VreduceData
 {

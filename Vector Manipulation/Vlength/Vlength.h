@@ -42,9 +42,10 @@
 
 # include "missingAndExtra.h"
 
-# define OUR_NAME      "Vlength"
-// # define OUR_RES_NUMB  17142
-# define OUTPUT_PREFIX "Vlength: "
+# define OUR_DESC    "The number of elements in a list"
+# define OUR_NAME    "Vlength"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2000"
 
 struct VlengthData
 {

@@ -42,8 +42,9 @@
 
 # include "VceilingObjectCommon.h"
 
-# define OUR_NAME      "Vceiling"
-// # define OUR_RES_NUMB  17149
-# define OUTPUT_PREFIX "Vceiling: "
+# define OUR_DESC    "The smallest integer greater than the input"
+# define OUR_NAME    "Vceiling"
+# define OUR_VERSION "1.0.5"
+# define OUR_YEAR    "2000"
 
 #endif /* not VCEILING_H_ */

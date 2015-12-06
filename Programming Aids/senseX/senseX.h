@@ -42,9 +42,10 @@
 
 # include "missingAndExtra.h"
 
-# define OUR_NAME      "senseX"
-// # define OUR_RES_NUMB  17207
-# define OUTPUT_PREFIX "senseX: "
+# define OUR_DESC    "Watch for messages"
+# define OUR_NAME    "senseX"
+# define OUR_VERSION "1.0.0"
+# define OUR_YEAR    "2006"
 
 enum E_State
 {

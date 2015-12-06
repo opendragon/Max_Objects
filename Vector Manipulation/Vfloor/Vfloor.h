@@ -42,8 +42,9 @@
 
 # include "VceilingObjectCommon.h"
 
-# define OUR_NAME      "Vfloor"
-// # define OUR_RES_NUMB  17150
-# define OUTPUT_PREFIX "Vfloor: "
+# define OUR_DESC    "The largest integer less than the input"
+# define OUR_NAME    "Vfloor"
+# define OUR_VERSION "1.0.5"
+# define OUR_YEAR    "2000"
 
 #endif /* not VFLOOR_H_ */

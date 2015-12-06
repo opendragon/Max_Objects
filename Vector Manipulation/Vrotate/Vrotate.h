@@ -42,9 +42,10 @@
 
 # include "VdropObjectCommon.h"
 
-# define OUR_NAME      "Vrotate"
-// # define OUR_RES_NUMB  17158
-# define OUTPUT_PREFIX "Vrotate: "
+# define OUR_DESC    "Rotate the elements in a list"
+# define OUR_NAME    "Vrotate"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2001"
 
 INLETINFO_HEADER(VObjectData);
 

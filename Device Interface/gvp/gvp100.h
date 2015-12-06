@@ -42,20 +42,20 @@
 
 # include "missingAndExtra.h"
 
+# define OUR_DESC    "Grass Valley Protocol interface"
+# define OUR_NAME    "gvp100"
+# define OUR_VERSION "1.0.5"
+# define OUR_YEAR    "1998"
+
 # define BE_VERBOSE           /* */
 # define REPORT_STATE_CHANGES /*!!*/
 # define DONT_RANGE_CHECK     /*!!*/
 
 # define MAX_MESSAGE_BYTES 13 /* 125 is the true limit: we are only sending very short sequences */
-
-# define MAX_POOL_SIZE   200
-# define POOL_SIZE       50  /* default message pool size */
-# define MAX_POLL_RATE   1000
-# define SER_SAMPLE_RATE 100 /* default sampling rate for the serial port */
-
-# define OUR_NAME      "gvp100"
-// # define OUR_RES_NUMB  17124
-# define OUTPUT_PREFIX "gvp100: "
+# define MAX_POOL_SIZE     200
+# define POOL_SIZE         50  /* default message pool size */
+# define MAX_POLL_RATE     1000
+# define SER_SAMPLE_RATE   100 /* default sampling rate for the serial port */
 
 # define GVP_ACK_CHAR  0x84
 # define GVP_NACK_CHAR 0x85

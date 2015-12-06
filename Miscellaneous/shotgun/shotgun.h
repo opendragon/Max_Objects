@@ -42,9 +42,10 @@
 
 # include "missingAndExtra.h"
 
-# define OUR_NAME      "shotgun"
-// # define OUR_RES_NUMB  17204
-# define OUTPUT_PREFIX "shotgun: "
+# define OUR_DESC    "Redirects a bang"
+# define OUR_NAME    "shotgun"
+# define OUR_VERSION "1.0.0"
+# define OUR_YEAR    "2005"
 
 struct ShotgunData
 {

@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include "genericListOutput.h"
 
-# define OUR_NAME      "memory"
-// # define OUR_RES_NUMB  17137
-# define OUTPUT_PREFIX "memory: "
+# define OUR_DESC    "Remember arbitrary data"
+# define OUR_NAME    "memory"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2000"
 
 # define HASH_TABLE_SIZE 53 /* a small prime that's not too small */
 

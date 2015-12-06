@@ -209,7 +209,7 @@ int C74_EXPORT main(void)
     gIndexSymbol = gensym("index");
     gOffSymbol = gensym("off");
     gOnSymbol = gensym("on");
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main
 

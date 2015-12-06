@@ -42,8 +42,9 @@
 
 # include "VabsObjectCommon.h"
 
-# define OUR_NAME      "Vinvert"
-// # define OUR_RES_NUMB  17169
-# define OUTPUT_PREFIX "Vinvert: "
+# define OUR_DESC    "The multiplicative inverse of the input"
+# define OUR_NAME    "Vinvert"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2001"
 
 #endif /* not VINVERT_H_ */

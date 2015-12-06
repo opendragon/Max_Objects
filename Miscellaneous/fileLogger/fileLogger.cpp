@@ -79,7 +79,7 @@ int C74_EXPORT main(void)
         class_register(CLASS_BOX, temp);
     }
     gClass = temp;
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main
 

@@ -42,8 +42,9 @@
 
 # include "VabsObjectCommon.h"
 
-# define OUR_NAME      "Vabs"
-// # define OUR_RES_NUMB  17160
-# define OUTPUT_PREFIX "Vabs: "
+# define OUR_DESC    "The absolute value of the input"
+# define OUR_NAME    "Vabs"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2001"
 
 #endif /* not VABS_H_ */

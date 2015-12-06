@@ -42,9 +42,10 @@
 
 # include "VdecodeEncodeCommon.h"
 
-# define OUR_NAME      "Vdecode"
-// # define OUR_RES_NUMB  17166
-# define OUTPUT_PREFIX "Vdecode: "
+# define OUR_DESC    "Convert a mixed-base vector to a number"
+# define OUR_NAME    "Vdecode"
+# define OUR_VERSION "1.0.0"
+# define OUR_YEAR    "2003"
 
 struct VdecodeData
 {

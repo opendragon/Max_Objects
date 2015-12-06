@@ -43,10 +43,14 @@
 # include "missingAndExtra.h"
 # include "udpBuffers.h"
 
-# define NUM_RX_BUFFERS 25
+# define OUR_DESC    "UDP port"
+# define OUR_NAME    "udpPort"
+# define OUR_VERSION "1.0.0"
+# define OUR_YEAR    "2005"
 
-# define DEFAULT_PORT 0x00FFFFL
-# define MAX_PORT     0x00FFFFL
+# define NUM_RX_BUFFERS 25
+# define DEFAULT_PORT   0x00FFFFL
+# define MAX_PORT       0x00FFFFL
 
 # define BE_VERBOSE /* */
 
@@ -57,10 +61,6 @@
 
 # define signalError(xx)   qelem_set(xx->fErrorQueue)
 # define signalReceive(xx) qelem_set(xx->fReceiveQueue)
-
-# define OUR_NAME      "udpPort"
-// # define OUR_RES_NUMB  17181
-# define OUTPUT_PREFIX "udpPort: "
 
 enum UdpState
 {

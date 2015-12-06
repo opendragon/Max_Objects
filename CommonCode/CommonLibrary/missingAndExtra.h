@@ -205,7 +205,9 @@ typedef void     t_binbuf; // Missing declaration
     INT_HEADER(type); \
     LIST_HEADER(type)
 
-#define StandardAnythingRoutine(type) \
+# define OUTPUT_PREFIX OUR_NAME ": "
+
+# define StandardAnythingRoutine(type) \
     ANYTHING_HEADER(type) \
     { \
         reportAnything(reinterpret_cast<t_object *>(xx), OUTPUT_PREFIX, message, argc, argv); \

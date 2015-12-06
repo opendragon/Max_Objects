@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include "genericListOutput.h"
 
-# define OUR_NAME      "stack"
-// # define OUR_RES_NUMB  17138
-# define OUTPUT_PREFIX "stack: "
+# define OUR_DESC    "Push-down stack for arbitrary data"
+# define OUR_NAME    "stack"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2000"
 
 struct StackEntry
 {

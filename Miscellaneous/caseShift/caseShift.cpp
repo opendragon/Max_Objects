@@ -106,7 +106,7 @@ int C74_EXPORT main(void)
         gUPSymbol = gensym("up");
     }
     gClass = temp;
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main
 

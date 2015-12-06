@@ -42,8 +42,9 @@
 
 # include "VdropObjectCommon.h"
 
-# define OUR_NAME      "Vreverse"
-// # define OUR_RES_NUMB  17159
-# define OUTPUT_PREFIX "Vreverse: "
+# define OUR_DESC    "Reverse the order of the elements in a list"
+# define OUR_NAME    "Vreverse"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2001"
 
 #endif /* not VREVERSE_H_ */

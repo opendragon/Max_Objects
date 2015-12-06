@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include "genericListOutput.h"
 
-# define OUR_NAME      "notX"
-// # define OUR_RES_NUMB  17126
-# define OUTPUT_PREFIX "notX: "
+# define OUR_DESC    "Logical complement"
+# define OUR_NAME    "notX"
+# define OUR_VERSION "1.0.4"
+# define OUR_YEAR    "1998"
 
 struct NotXData
 {

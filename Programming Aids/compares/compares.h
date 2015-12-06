@@ -42,9 +42,10 @@
 
 # include "missingAndExtra.h"
 
-# define OUR_NAME      "compares"
-// # define OUR_RES_NUMB  17134
-# define OUTPUT_PREFIX "compares: "
+# define OUR_DESC    "Compare two symbols"
+# define OUR_NAME    "compares"
+# define OUR_VERSION "1.0.3"
+# define OUR_YEAR    "1999"
 
 struct ComparesData
 {

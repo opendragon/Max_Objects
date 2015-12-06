@@ -42,9 +42,10 @@
 
 # include "VassembleObjectCommon.h"
 
-# define OUR_NAME      "Vassemble"
-// # define OUR_RES_NUMB  17193
-# define OUTPUT_PREFIX "Vassemble: "
+# define OUR_DESC    "Collect numbers into a list"
+# define OUR_NAME    "Vassemble"
+# define OUR_VERSION "1.0.0"
+# define OUR_YEAR    "2003"
 
 void processInput(VObjectData * xx,
                   const long    value);

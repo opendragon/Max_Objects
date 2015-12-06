@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include "genericListOutput.h"
 
-# define OUR_NAME      "pfsm"
-// # define OUR_RES_NUMB  17136
-# define OUTPUT_PREFIX "pfsm: "
+# define OUR_DESC    "Probabilisitic Finite State Machine"
+# define OUR_NAME    "pfsm"
+# define OUR_VERSION "1.0.4"
+# define OUR_YEAR    "2000"
 
 # define kCommentCharacter '#'
 # define kSugarCharacter   '\''

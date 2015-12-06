@@ -43,9 +43,10 @@
 # include "missingAndExtra.h"
 # include "genericListOutput.h"
 
-# define OUR_NAME      "Vsegment"
-// # define OUR_RES_NUMB  17141
-# define OUTPUT_PREFIX "Vsegment: "
+# define OUR_DESC    "Extract elements from within a list"
+# define OUR_NAME    "Vsegment"
+# define OUR_VERSION "1.0.4"
+# define OUR_YEAR    "2000"
 
 struct VsegmentData
 {

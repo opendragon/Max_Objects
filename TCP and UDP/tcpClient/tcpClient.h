@@ -42,9 +42,10 @@
 
 # include "tcpCommon.h"
 
-# define OUR_NAME      "tcpClient"
-// # define OUR_RES_NUMB  17127
-# define OUTPUT_PREFIX "tcpClient: "
+# define OUR_DESC    "TCP/IP client"
+# define OUR_NAME    "tcpClient"
+# define OUR_VERSION "1.1.7"
+# define OUR_YEAR    "1998"
 
 # define DEFAULT_IP_ADDR_0 10
 # define DEFAULT_IP_ADDR_1 11

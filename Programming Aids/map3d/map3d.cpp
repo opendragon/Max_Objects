@@ -157,7 +157,7 @@ int C74_EXPORT main(void)
     gRightSymbol = gensym("right");
     gTopSymbol = gensym("top");
     gValueSymbol = gensym("value");
-    reportVersion(OUR_NAME);
+    reportVersion();
     return 0;
 } // main
 

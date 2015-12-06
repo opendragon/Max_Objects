@@ -42,9 +42,10 @@
 
 # include "missingAndExtra.h"
 
-# define OUR_NAME      "gcd"
-// # define OUR_RES_NUMB  17130
-# define OUTPUT_PREFIX "gcd: "
+# define OUR_DESC    "Greatest common divisor"
+# define OUR_NAME    "gcd"
+# define OUR_VERSION "1.0.3"
+# define OUR_YEAR    "1998"
 
 struct GcdData
 {

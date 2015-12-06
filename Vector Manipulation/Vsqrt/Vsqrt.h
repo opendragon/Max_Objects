@@ -42,8 +42,9 @@
 
 # include "VabsObjectCommon.h"
 
-# define OUR_NAME      "Vsqrt"
-// # define OUR_RES_NUMB  17170
-# define OUTPUT_PREFIX "Vsqrt: "
+# define OUR_DESC    "The square root of the input"
+# define OUR_NAME    "Vsqrt"
+# define OUR_VERSION "1.0.2"
+# define OUR_YEAR    "2001"
 
 #endif /* not VSQRT_H_ */
