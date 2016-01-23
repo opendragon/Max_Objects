@@ -17,40 +17,40 @@
    </Group>
    <Group
       location = "container:"
-      name = "Device Interface">
+      name = "DeviceInterface">
       <Group
          location = "container:"
          name = "gvp">
          <FileRef
-            location = "container:Device Interface/gvp/gvp.xcodeproj">
+            location = "container:DeviceInterface/gvp/gvp.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "ldp1550">
          <FileRef
-            location = "container:Device Interface/ldp1550/ldp1550.xcodeproj">
+            location = "container:DeviceInterface/ldp1550/ldp1550.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "mtc">
          <FileRef
-            location = "container:Device Interface/mtc/mtc.xcodeproj">
+            location = "container:DeviceInterface/mtc/mtc.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "spaceball">
          <FileRef
-            location = "container:Device Interface/spaceball/spaceball.xcodeproj">
+            location = "container:DeviceInterface/spaceball/spaceball.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "x10">
          <FileRef
-            location = "container:Device Interface/x10/x10.xcodeproj">
+            location = "container:DeviceInterface/x10/x10.xcodeproj">
          </FileRef>
       </Group>
    </Group>
@@ -130,349 +130,349 @@
    </Group>
    <Group
       location = "container:"
-      name = "Programming Aids">
+      name = "ProgrammingAids">
       <Group
          location = "container:"
          name = "changes">
          <FileRef
-            location = "container:Programming Aids/changes/changes.xcodeproj">
+            location = "container:ProgrammingAids/changes/changes.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "compares">
          <FileRef
-            location = "container:Programming Aids/compares/compares.xcodeproj">
+            location = "container:ProgrammingAids/compares/compares.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "map1d">
          <FileRef
-            location = "container:Programming Aids/map1d/map1d.xcodeproj">
+            location = "container:ProgrammingAids/map1d/map1d.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "map2d">
          <FileRef
-            location = "container:Programming Aids/map2d/map2d.xcodeproj">
+            location = "container:ProgrammingAids/map2d/map2d.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "map3d">
          <FileRef
-            location = "container:Programming Aids/map3d/map3d.xcodeproj">
+            location = "container:ProgrammingAids/map3d/map3d.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "memory">
          <FileRef
-            location = "container:Programming Aids/memory/memory.xcodeproj">
+            location = "container:ProgrammingAids/memory/memory.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "pfsm">
          <FileRef
-            location = "container:Programming Aids/pfsm/pfsm.xcodeproj">
+            location = "container:ProgrammingAids/pfsm/pfsm.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "queue">
          <FileRef
-            location = "container:Programming Aids/queue/queue.xcodeproj">
+            location = "container:ProgrammingAids/queue/queue.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "senseX">
          <FileRef
-            location = "container:Programming Aids/senseX/senseX.xcodeproj">
+            location = "container:ProgrammingAids/senseX/senseX.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "stack">
          <FileRef
-            location = "container:Programming Aids/stack/stack.xcodeproj">
+            location = "container:ProgrammingAids/stack/stack.xcodeproj">
          </FileRef>
       </Group>
    </Group>
    <Group
       location = "container:"
-      name = "TCP/IP">
+      name = "TCPandUDP">
       <Group
          location = "container:"
          name = "tcpClient">
          <FileRef
-            location = "container:TCP and UDP/tcpClient/tcpClient.xcodeproj">
+            location = "container:TCPandUDP/tcpClient/tcpClient.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "tcpLocate">
          <FileRef
-            location = "container:TCP and UDP/tcpLocate/tcpLocate.xcodeproj">
+            location = "container:TCPandUDP/tcpLocate/tcpLocate.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "tcpMultiServer">
          <FileRef
-            location = "container:TCP and UDP/tcpMultiServer/tcpMultiServer.xcodeproj">
+            location = "container:TCPandUDP/tcpMultiServer/tcpMultiServer.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "tcpServer">
          <FileRef
-            location = "container:TCP and UDP/tcpServer/tcpServer.xcodeproj">
+            location = "container:TCPandUDP/tcpServer/tcpServer.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "udpPort">
          <FileRef
-            location = "container:TCP and UDP/udpPort/udpPort.xcodeproj">
+            location = "container:TCPandUDP/udpPort/udpPort.xcodeproj">
          </FileRef>
       </Group>
    </Group>
    <Group
       location = "container:"
-      name = "Vector Manipulation">
+      name = "VectorManipulation">
       <Group
          location = "container:"
          name = "Vabs">
          <FileRef
-            location = "container:Vector Manipulation/Vabs/Vabs.xcodeproj">
+            location = "container:VectorManipulation/Vabs/Vabs.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vassemble">
          <FileRef
-            location = "container:Vector Manipulation/Vassemble/Vassemble.xcodeproj">
+            location = "container:VectorManipulation/Vassemble/Vassemble.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vceiling">
          <FileRef
-            location = "container:Vector Manipulation/Vceiling/Vceiling.xcodeproj">
+            location = "container:VectorManipulation/Vceiling/Vceiling.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vcollect">
          <FileRef
-            location = "container:Vector Manipulation/Vcollect/Vcollect.xcodeproj">
+            location = "container:VectorManipulation/Vcollect/Vcollect.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vcos">
          <FileRef
-            location = "container:Vector Manipulation/Vcos/Vcos.xcodeproj">
+            location = "container:VectorManipulation/Vcos/Vcos.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vdecode">
          <FileRef
-            location = "container:Vector Manipulation/Vdecode/Vdecode.xcodeproj">
+            location = "container:VectorManipulation/Vdecode/Vdecode.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vdistance">
          <FileRef
-            location = "container:Vector Manipulation/Vdistance/Vdistance.xcodeproj">
+            location = "container:VectorManipulation/Vdistance/Vdistance.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vdrop">
          <FileRef
-            location = "container:Vector Manipulation/Vdrop/Vdrop.xcodeproj">
+            location = "container:VectorManipulation/Vdrop/Vdrop.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vencode">
          <FileRef
-            location = "container:Vector Manipulation/Vencode/Vencode.xcodeproj">
+            location = "container:VectorManipulation/Vencode/Vencode.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vexp">
          <FileRef
-            location = "container:Vector Manipulation/Vexp/Vexp.xcodeproj">
+            location = "container:VectorManipulation/Vexp/Vexp.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vfloor">
          <FileRef
-            location = "container:Vector Manipulation/Vfloor/Vfloor.xcodeproj">
+            location = "container:VectorManipulation/Vfloor/Vfloor.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vinvert">
          <FileRef
-            location = "container:Vector Manipulation/Vinvert/Vinvert.xcodeproj">
+            location = "container:VectorManipulation/Vinvert/Vinvert.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vjet">
          <FileRef
-            location = "container:Vector Manipulation/Vjet/Vjet.xcodeproj">
+            location = "container:VectorManipulation/Vjet/Vjet.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vlength">
          <FileRef
-            location = "container:Vector Manipulation/Vlength/Vlength.xcodeproj">
+            location = "container:VectorManipulation/Vlength/Vlength.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vlog">
          <FileRef
-            location = "container:Vector Manipulation/Vlog/Vlog.xcodeproj">
+            location = "container:VectorManipulation/Vlog/Vlog.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vltrim">
          <FileRef
-            location = "container:Vector Manipulation/Vltrim/Vltrim.xcodeproj">
+            location = "container:VectorManipulation/Vltrim/Vltrim.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vmean">
          <FileRef
-            location = "container:Vector Manipulation/Vmean/Vmean.xcodeproj">
+            location = "container:VectorManipulation/Vmean/Vmean.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vnegate">
          <FileRef
-            location = "container:Vector Manipulation/Vnegate/Vnegate.xcodeproj">
+            location = "container:VectorManipulation/Vnegate/Vnegate.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vreduce">
          <FileRef
-            location = "container:Vector Manipulation/Vreduce/Vreduce.xcodeproj">
+            location = "container:VectorManipulation/Vreduce/Vreduce.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vreverse">
          <FileRef
-            location = "container:Vector Manipulation/Vreverse/Vreverse.xcodeproj">
+            location = "container:VectorManipulation/Vreverse/Vreverse.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vrotate">
          <FileRef
-            location = "container:Vector Manipulation/Vrotate/Vrotate.xcodeproj">
+            location = "container:VectorManipulation/Vrotate/Vrotate.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vround">
          <FileRef
-            location = "container:Vector Manipulation/Vround/Vround.xcodeproj">
+            location = "container:VectorManipulation/Vround/Vround.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vrtrim">
          <FileRef
-            location = "container:Vector Manipulation/Vrtrim/Vrtrim.xcodeproj">
+            location = "container:VectorManipulation/Vrtrim/Vrtrim.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vscan">
          <FileRef
-            location = "container:Vector Manipulation/Vscan/Vscan.xcodeproj">
+            location = "container:VectorManipulation/Vscan/Vscan.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vsegment">
          <FileRef
-            location = "container:Vector Manipulation/Vsegment/Vsegment.xcodeproj">
+            location = "container:VectorManipulation/Vsegment/Vsegment.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vsin">
          <FileRef
-            location = "container:Vector Manipulation/Vsin/Vsin.xcodeproj">
+            location = "container:VectorManipulation/Vsin/Vsin.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vsplit">
          <FileRef
-            location = "container:Vector Manipulation/Vsplit/Vsplit.xcodeproj">
+            location = "container:VectorManipulation/Vsplit/Vsplit.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vsqrt">
          <FileRef
-            location = "container:Vector Manipulation/Vsqrt/Vsqrt.xcodeproj">
+            location = "container:VectorManipulation/Vsqrt/Vsqrt.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vtake">
          <FileRef
-            location = "container:Vector Manipulation/Vtake/Vtake.xcodeproj">
+            location = "container:VectorManipulation/Vtake/Vtake.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vtokenize">
          <FileRef
-            location = "container:Vector Manipulation/Vtokenize/Vtokenize.xcodeproj">
+            location = "container:VectorManipulation/Vtokenize/Vtokenize.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vtrim">
          <FileRef
-            location = "container:Vector Manipulation/Vtrim/Vtrim.xcodeproj">
+            location = "container:VectorManipulation/Vtrim/Vtrim.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vtruncate">
          <FileRef
-            location = "container:Vector Manipulation/Vtruncate/Vtruncate.xcodeproj">
+            location = "container:VectorManipulation/Vtruncate/Vtruncate.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "Vunspell">
          <FileRef
-            location = "container:Vector Manipulation/Vunspell/Vunspell.xcodeproj">
+            location = "container:VectorManipulation/Vunspell/Vunspell.xcodeproj">
          </FileRef>
       </Group>
    </Group>
