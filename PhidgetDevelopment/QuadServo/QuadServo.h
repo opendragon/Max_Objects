@@ -46,16 +46,16 @@ static const int NUM_SERVOS = 4;
  
 struct PrivateData
 {
-	float	fServo[NUM_SERVOS];
+    float    fServo[NUM_SERVOS];
 }; /* PrivateData */
  
 struct SharedData
 {
-	IOHIDElementCookie	fOutputCookie;
-	bool								fCookiesValid;	
+    IOHIDElementCookie    fOutputCookie;
+    bool                  fCookiesValid;    
 }; /* SharedData */
 
-typedef PrivateData *	PrivatePtr;
-typedef SharedData *	SharedPtr;
+typedef PrivateData *    PrivatePtr;
+typedef SharedData *    SharedPtr;
 
 #endif /* not QUADSERVO_H_ */

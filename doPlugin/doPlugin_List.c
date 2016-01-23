@@ -40,11 +40,11 @@
 #include "doPlugin.h"
 
 /*------------------------------------ cmd_List ---*/
-Pvoid cmd_List
-  (DoPluginPtr xx,
-   PSymbol     message,
-   short       argc,
-   PAtom       argv)
+Pvoid
+cmd_List(DoPluginPtr xx,
+         PSymbol     message,
+         short       argc,
+         PAtom       argv)
 {
 #if FOR_MAC_PPC
  #pragma unused(message)

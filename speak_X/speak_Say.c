@@ -40,11 +40,11 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_Say ---*/
-Pvoid cmd_Say
-  (SpeakPtr xx,
-   PSymbol  message,
-   short    argc,
-   PAtom    argv)
+Pvoid
+cmd_Say(SpeakPtr xx,
+        PSymbol  message,
+        short    argc,
+        PAtom    argv)
 {
 #pragma unused(message)
   bool  okSoFar = true;

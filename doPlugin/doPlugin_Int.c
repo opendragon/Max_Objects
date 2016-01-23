@@ -40,9 +40,9 @@
 #include "doPlugin.h"
 
 /*------------------------------------ cmd_Int ---*/
-Pvoid cmd_Int
-  (DoPluginPtr xx,
-   long        message)
+Pvoid
+cmd_Int(DoPluginPtr xx,
+        long        message)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(message)

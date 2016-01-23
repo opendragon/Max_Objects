@@ -116,38 +116,38 @@ struct DoPluginData
   short               fNumOutlets;
   long                fInletNumber;
   Ptr                 fPrivate;
-  HOutlet 			  		fOutlets;
+  HOutlet             fOutlets;
   Hvoid               fProxies;
   OwnerData           fOwnerInfo;   
 }; /* DoPluginData */
 
 typedef DoPluginData * DoPluginPtr;
 
-Pvoid cmd_Plugin
-  (DoPluginPtr xx,
-   PSymbol     message,
-   short       argc,
-   PAtom       argv);
+Pvoid
+cmd_Plugin(DoPluginPtr xx,
+           PSymbol     message,
+           short       argc,
+           PAtom       argv);
 
-void refreshDescriptors
-  (DoPluginPtr xx);
+void
+refreshDescriptors(DoPluginPtr xx);
 
-void rescanPlugins
-  (void);
+void
+rescanPlugins(void);
 
  #define PLUGIN_FIXED_ARGUMENTS \
-	&xx->fOwnerInfo, xx->fOutlets, descriptor->fShared, xx->fPrivate, xx->fInletNumber
+    &xx->fOwnerInfo, xx->fOutlets, descriptor->fShared, xx->fPrivate, xx->fInletNumber
 
 StandardRoutineDeclarations(DoPluginPtr)
 
 mextern(long)                 gAppDir;
 mextern(FSSpec)               gAppFile;
 mextern(short)                gAppVRef;
-mextern(PSymbol)			  			gBangSymbol;
+mextern(PSymbol)              gBangSymbol;
 mextern(PSymbol)              gEmptySymbol;
 mextern(PSymbol)              gFloatSymbol;
 mextern(PSymbol)              gIntSymbol;
-mextern(PSymbol)			  			gListSymbol;
+mextern(PSymbol)              gListSymbol;
 mextern(long)                 gObjectCount;
 mextern(PluginDescriptorPtr)  gPluginAnchor;
 mextern(long)                 gPluginDir;
@@ -155,8 +155,8 @@ mextern(Str255)               gPluginFolderAlias;
 mextern(bool)                 gPluginFolderFound;
 mextern(Str255)               gPluginFolderName;
 mextern(short)                gPluginVol;
-mextern(PSymbol)			  			gReloadSymbol;
-mextern(PSymbol)  			  		gRescanSymbol;
+mextern(PSymbol)              gReloadSymbol;
+mextern(PSymbol)              gRescanSymbol;
 mextern(long)                 gSysParID;
 mextern(short)                gSysVRef;
 

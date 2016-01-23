@@ -40,9 +40,9 @@
 #include "bqt.h"
 
 /*------------------------------------ cmd_Psave ---*/
-Pvoid cmd_Psave
-  (QtPtr xx,
-   Pvoid ww)
+Pvoid
+cmd_Psave(QtPtr xx,
+          Pvoid ww)
 {
   long flags, left, top, width, height;
 

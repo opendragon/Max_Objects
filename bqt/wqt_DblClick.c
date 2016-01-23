@@ -40,8 +40,8 @@
 #include "wqt.h"
 
 /*------------------------------------ cmd_DblClick ---*/
-Pvoid cmd_DblClick
-  (QtPtr xx)
+Pvoid
+cmd_DblClick(QtPtr xx)
 {
   EnterCallback();
   if (xx && xx->fCurrentMovie && xx->fWindow)

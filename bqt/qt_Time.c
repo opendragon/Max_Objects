@@ -40,8 +40,8 @@
 #include "qtCommon.h"
 
 /*------------------------------------ cmd_Time ---*/
-Pvoid cmd_Time
-  (QtPtr xx)
+Pvoid
+cmd_Time(QtPtr xx)
 {
   EnterCallback();
 #if defined(TRACE_MESSAGES)

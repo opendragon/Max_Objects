@@ -40,9 +40,9 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_StartOutput ---*/
-Pvoid cmd_StartOutput
-  (RcxControlPtr xx,
-   long          slots)
+Pvoid
+cmd_StartOutput(RcxControlPtr xx,
+                long          slots)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(slots)

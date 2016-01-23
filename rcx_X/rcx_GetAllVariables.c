@@ -40,8 +40,8 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_GetAllVariables ---*/
-Pvoid cmd_GetAllVariables
-  (RcxControlPtr xx)
+Pvoid
+cmd_GetAllVariables(RcxControlPtr xx)
 {
   EnterCallback();
   if (xx)

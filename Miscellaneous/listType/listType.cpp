@@ -42,7 +42,8 @@
 #include "reportVersion.h"
 
 /*------------------------------------ listTypeCreate ---*/
-static void * listTypeCreate(void)
+static void *
+listTypeCreate(void)
 {
     ListTypeData * xx = static_cast<ListTypeData *>(object_alloc(gClass));
     
@@ -60,13 +61,15 @@ static void * listTypeCreate(void)
 } // listTypeCreate
 
 /*------------------------------------ listTypeFree ---*/
-static void listTypeFree(ListTypeData * xx)
+static void
+listTypeFree(ListTypeData * xx)
 {
 #pragma unused(xx)
 } // listTypeFree
 
 /*------------------------------------ main ---*/
-int C74_EXPORT main(void)
+int C74_EXPORT
+main(void)
 {
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(listTypeCreate),
                                reinterpret_cast<method>(listTypeFree),

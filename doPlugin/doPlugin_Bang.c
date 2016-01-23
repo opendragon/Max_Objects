@@ -40,8 +40,8 @@
 #include "doPlugin.h"
 
 /*------------------------------------ cmd_Bang ---*/
-Pvoid cmd_Bang
-  (DoPluginPtr xx)
+Pvoid
+cmd_Bang(DoPluginPtr xx)
 {
   EnterCallback();
   if (xx)

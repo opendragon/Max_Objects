@@ -40,10 +40,10 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_SetSensorMode ---*/
-Pvoid cmd_SetSensorMode
-  (RcxControlPtr xx,
-   long          slot,
-   PSymbol       newMode)
+Pvoid
+cmd_SetSensorMode(RcxControlPtr xx,
+                  long          slot,
+                  PSymbol       newMode)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(slot, newMode)

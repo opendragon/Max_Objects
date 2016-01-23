@@ -46,33 +46,33 @@
 #include "reportVersion.h"
 
 /* Forward references: */
-bool isSpeechRecognitionAvailable
-  (void);
+bool
+isSpeechRecognitionAvailable(void);
 
-pascal void listenCallBack
-  (SRCallBackStruct * param);
+pascal void
+listenCallBack(SRCallBackStruct * param);
 
-Pvoid listenCreate
-  (PSymbol doFeedback,
-   PSymbol initialFile);
+Pvoid
+listenCreate(PSymbol doFeedback,
+             PSymbol initialFile);
 
-Pvoid listenFree
-  (ListenPtr xx);
+Pvoid
+listenFree(ListenPtr xx);
 
-Pvoid listenProcessQueue
-  (ListenPtr xx);
+Pvoid
+listenProcessQueue(ListenPtr xx);
 
 #if SPEECH_RECOGNITION_SUPPORTED
-bool traverseResponse
-  (ListenPtr        xx,
-   PBinbuf          accumulator,
-   Pshort           count,
-   SRLanguageObject model);
+bool
+traverseResponse(ListenPtr        xx,
+                 PBinbuf          accumulator,
+                 Pshort           count,
+                 SRLanguageObject model);
 #endif /* SPEECH_RECOGNITION_SUPPORTED */
 
 /*------------------------------------ main ---*/
-void main
-  (Pfptr ff)
+void
+main(Pfptr ff)
 {
   EnterCodeResource();
   PrepareCallback();
@@ -127,9 +127,9 @@ void main
 } /* main */
 
 /*------------------------------------ listenCreate ---*/
-Pvoid listenCreate
-  (PSymbol doFeedback,
-   PSymbol initialFile)
+Pvoid
+listenCreate(PSymbol doFeedback,
+             PSymbol initialFile)
 {
 #if (! SPEECH_RECOGNITION_SUPPORTED)
  #pragma unused(doFeedback, initialFile)
@@ -302,8 +302,8 @@ Pvoid listenCreate
 } /* listenCreate */
 
 /*------------------------------------ listenFree ---*/
-Pvoid listenFree
-  (ListenPtr xx)
+Pvoid
+listenFree(ListenPtr xx)
 {
   EnterCallback();
   if (xx)
@@ -359,8 +359,8 @@ Pvoid listenFree
 } /* listenFree */
 
 /*------------------------------------ isSpeechRecognitionAvailable ---*/
-bool isSpeechRecognitionAvailable
-  (void)
+bool
+isSpeechRecognitionAvailable(void)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   UInt32   gSRVersion;
@@ -381,8 +381,8 @@ bool isSpeechRecognitionAvailable
 } /* isSpeechRecognitionAvailable */
 
 /*------------------------------------ listenCallBack ---*/
-pascal void listenCallBack
-  (SRCallBackStruct * param)
+pascal void
+listenCallBack(SRCallBackStruct * param)
 {
   EnterCallback();
   if (param)
@@ -426,8 +426,8 @@ pascal void listenCallBack
 } /* listenCallBack */
 
 /*------------------------------------ listenProcessQueue ---*/
-Pvoid listenProcessQueue
-  (ListenPtr xx)
+Pvoid
+listenProcessQueue(ListenPtr xx)
 {
   EnterCallback();
   if (xx)
@@ -520,11 +520,11 @@ Pvoid listenProcessQueue
 
 #if SPEECH_RECOGNITION_SUPPORTED
 /*------------------------------------ traverseResponse ---*/
-bool traverseResponse
-  (ListenPtr        xx,
-   PBinbuf          accumulator,
-   Pshort           count,
-   SRLanguageObject model)
+bool
+traverseResponse(ListenPtr        xx,
+                 PBinbuf          accumulator,
+                 Pshort           count,
+                 SRLanguageObject model)
 {
   OSErr result;
   long  objType, refCon;

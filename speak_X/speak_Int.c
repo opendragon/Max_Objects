@@ -40,9 +40,9 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_Int ---*/
-Pvoid cmd_Int
-  (SpeakPtr xx,
-   long     msg)
+Pvoid
+cmd_Int(SpeakPtr xx,
+        long     msg)
 {
   EnterCallback();
   if (xx)

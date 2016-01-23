@@ -45,63 +45,63 @@
 
 #if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ defineCallback ---*/
-E_PhidgResult defineCallback
-	(STANDARD_PHID_ARGS_DEFINECALLBACK)
+E_PhidgResult
+defineCallback(STANDARD_PHID_ARGS_DEFINECALLBACK)
 {
  #pragma unused(name,sharedStorage,privateStorage,thisDevice,aFun,cookies,numCookies)
-	*result = noErr;
-	return kPhidgSuccess;
+    *result = noErr;
+    return kPhidgSuccess;
 } /* defineCallback */
 #endif /* COMPILE_FOR_OSX_4 */
-	
+    
 /*------------------------------------ doCustom ---*/
-E_PhidgResult doCustom
-  (STANDARD_PHID_ARGS_DO)
+E_PhidgResult
+doCustom(STANDARD_PHID_ARGS_DO)
 {
 #if defined(USE_DEFAULT)
  #pragma unused(name,deviceType,outlet,sharedStorage,privateStorage,thisDevice,argc,argv)
-	*result = noErr;
-	return kPhidgDoDefault;
+    *result = noErr;
+    return kPhidgDoDefault;
 #else /* not USE_DEFAULT */
  #pragma unused(name,deviceType,outlet,sharedStorage,privateStorage,thisDevice,argc,argv)
-	*result = noErr;
-	return kPhidgSuccess;
+    *result = noErr;
+    return kPhidgSuccess;
 #endif /* not USE_DEFAULT */
 } /* doCustom */
 
 /*------------------------------------ doGet ---*/
-E_PhidgResult doGet
-  (STANDARD_PHID_ARGS_DO)
+E_PhidgResult
+doGet(STANDARD_PHID_ARGS_DO)
 {
 #if defined(USE_DEFAULT)
  #pragma unused(name,deviceType,outlet,sharedStorage,privateStorage,thisDevice,argc,argv)
-	*result = noErr;
-	return kPhidgDoDefault;
+    *result = noErr;
+    return kPhidgDoDefault;
 #else /* not USE_DEFAULT */
  #pragma unused(name,deviceType,outlet,sharedStorage,privateStorage,thisDevice,argc,argv)
-	*result = noErr;
-	return kPhidgSuccess;
+    *result = noErr;
+    return kPhidgSuccess;
 #endif /* not USE_DEFAULT */
 } /* doGet */
 
 /*------------------------------------ doPut ---*/
-E_PhidgResult doPut
-  (STANDARD_PHID_ARGS_DO)
+E_PhidgResult
+doPut(STANDARD_PHID_ARGS_DO)
 {
 #if defined(USE_DEFAULT)
  #pragma unused(name,deviceType,outlet,sharedStorage,privateStorage,thisDevice,argc,argv)
-	*result = noErr;
-	return kPhidgDoDefault;
+    *result = noErr;
+    return kPhidgDoDefault;
 #else /* not USE_DEFAULT */
  #pragma unused(name,deviceType,outlet,sharedStorage,privateStorage,thisDevice,argc,argv)
-	*result = noErr;
-	return kPhidgSuccess;
+    *result = noErr;
+    return kPhidgSuccess;
 #endif /* not USE_DEFAULT */
 } /* doPut */
 
 /*------------------------------------ identify ---*/
-OSErr identify
-  (STANDARD_PHID_ARGS_IDENTIFY)
+OSErr
+identify(STANDARD_PHID_ARGS_IDENTIFY)
 {
 #if defined(COMPILE_FOR_OSX_4)
  #pragma unused(name,privateSize,sharedSize,isAsynchronous)
@@ -109,13 +109,13 @@ OSErr identify
 #if defined(COMPILE_FOR_OS9_4)
  #pragma unused(name,privateSize,sharedSize)
 #endif /* COMPILE_FOR_OS9_4 */
-	*productID = 0x03B;
+    *productID = 0x03B;
   return noErr;
 } /* identify */
 
 /*------------------------------------ main ---*/
-OSErr main
-  (STANDARD_PHID_ARGS_MAIN)
+OSErr
+main(STANDARD_PHID_ARGS_MAIN)
 {
 #if defined(COMPILE_FOR_OSX_4)
  #pragma unused(name,sharedStorage)
@@ -123,52 +123,52 @@ OSErr main
 #if defined(COMPILE_FOR_OS9_4)
  #pragma unused(name,sharedStorage,environment)
 #endif /* COMPILE_FOR_OS9_4 */
-	STANDARD_MAIN_CODE;
+    STANDARD_MAIN_CODE;
   return noErr;
 } /* main */
 
 /*------------------------------------ niam ---*/
-OSErr niam
-  (STANDARD_PHID_ARGS_NIAM)
+OSErr
+niam(STANDARD_PHID_ARGS_NIAM)
 {
 #pragma unused(name,sharedStorage)
   return noErr;
 } /* niam */
 
 /*------------------------------------ onAttach ---*/
-E_PhidgResult onAttach
-  (STANDARD_PHID_ARGS_ATTACH)
+E_PhidgResult
+onAttach(STANDARD_PHID_ARGS_ATTACH)
 {
 #if defined(USE_DEFAULT)
  #pragma unused(name,deviceType,sharedStorage,privateStorage,thisDevice)
-	*result = noErr;
-	return kPhidgDoDefault;
+    *result = noErr;
+    return kPhidgDoDefault;
 #else /* not USE_DEFAULT */
  #pragma unused(name,deviceType,sharedStorage,privateStorage,thisDevice)
-	*result = noErr;
-	return kPhidgSuccess;
+    *result = noErr;
+    return kPhidgSuccess;
 #endif /* not USE_DEFAULT */
 } /* onAttach */
 
 /*------------------------------------ onDetach ---*/
-E_PhidgResult onDetach
-  (STANDARD_PHID_ARGS_ATTACH)
+E_PhidgResult
+onDetach(STANDARD_PHID_ARGS_ATTACH)
 {
 #if defined(USE_DEFAULT)
  #pragma unused(name,deviceType,sharedStorage,privateStorage,thisDevice)
-	*result = noErr;
-	return kPhidgDoDefault;
+    *result = noErr;
+    return kPhidgDoDefault;
 #else /* not USE_DEFAULT */
  #pragma unused(name,deviceType,sharedStorage,privateStorage,thisDevice)
-	*result = noErr;
-	return kPhidgSuccess;
+    *result = noErr;
+    return kPhidgSuccess;
 #endif /* not USE_DEFAULT */
 } /* onDetach */
 
 #if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ reportHandler ---*/
-void reportHandler
-	(STANDARD_PHID_ARGS_REPORTHANDLER)
+void
+reportHandler(STANDARD_PHID_ARGS_REPORTHANDLER)
 {
  #pragma unused(name,deviceType,sharedStorage,privateStorage,thisDevice,outlet,inHIDReport,inHIDReportLength)
 } /* reportHandler */

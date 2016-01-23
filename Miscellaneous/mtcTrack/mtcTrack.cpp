@@ -43,7 +43,8 @@
 #include "reportVersion.h"
 
 /*------------------------------------ setUpMemory ---*/
-static bool setUpMemory(MtcTrackData * xx)
+static bool
+setUpMemory(MtcTrackData * xx)
 {
     long howMany2 = (xx->fHowMany * xx->fMaxSamples);
     bool okSoFar = false;
@@ -79,9 +80,10 @@ static bool setUpMemory(MtcTrackData * xx)
 } // setUpMemory
 
 /*------------------------------------ MtcTrackCreate ---*/
-static void * MtcTrackCreate(const long howMany,
-                             t_symbol * optionOne,
-                             t_symbol * optionTwo)
+static void *
+MtcTrackCreate(const long howMany,
+               t_symbol * optionOne,
+               t_symbol * optionTwo)
 {
     MtcTrackData * xx = static_cast<MtcTrackData *>(object_alloc(gClass));
     
@@ -172,7 +174,8 @@ static void * MtcTrackCreate(const long howMany,
 } // MtcTrackCreate
 
 /*------------------------------------ MtcTrackFree ---*/
-static void MtcTrackFree(MtcTrackData * xx)
+static void
+MtcTrackFree(MtcTrackData * xx)
 {
     if (xx)
     {
@@ -183,7 +186,8 @@ static void MtcTrackFree(MtcTrackData * xx)
 } // MtcTrackFree
 
 /*------------------------------------ main ---*/
-int C74_EXPORT main(void)
+int C74_EXPORT
+main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(MtcTrackCreate),

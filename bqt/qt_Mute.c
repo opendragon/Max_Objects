@@ -40,9 +40,9 @@
 #include "qtCommon.h"
 
 /*------------------------------------ deferred_Mute ---*/
-static Pvoid deferred_Mute
-  (QtPtr xx,
-   long  muting)
+static Pvoid
+deferred_Mute(QtPtr xx,
+              long  muting)
 {
   EnterCallback();
   if (xx->fCurrentMovie)
@@ -66,9 +66,9 @@ static Pvoid deferred_Mute
 } /* deferred_Mute */
 
 /*------------------------------------ cmd_Mute ---*/
-Pvoid cmd_Mute
-  (QtPtr xx,
-   long  muting)
+Pvoid
+cmd_Mute(QtPtr xx,
+         long  muting)
 {
   EnterCallback();
 #if defined(TRACE_MESSAGES)

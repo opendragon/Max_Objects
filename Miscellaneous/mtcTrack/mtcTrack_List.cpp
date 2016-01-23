@@ -42,9 +42,10 @@
 #include <float.h>
 
 /*------------------------------------ collectSamples ---*/
-static bool collectSamples(MtcTrackData * xx,
-                           const short    argc,
-                           t_atom *       argv)
+static bool
+collectSamples(MtcTrackData * xx,
+               const short    argc,
+               t_atom *       argv)
 {
     bool okSoFar = true;
 
@@ -163,7 +164,8 @@ static bool collectSamples(MtcTrackData * xx,
 } // collectSamples
 
 /*------------------------------------ calculateDistances ---*/
-static void calculateDistances(MtcTrackData * xx)
+static void
+calculateDistances(MtcTrackData * xx)
 {
     MtcSampleData * sWalk = xx->fSamples;
 
@@ -190,7 +192,8 @@ static void calculateDistances(MtcTrackData * xx)
 } // calculateDistances
 
 /*------------------------------------ assignSamples ---*/
-static void assignSamples(MtcTrackData * xx)
+static void
+assignSamples(MtcTrackData * xx)
 {
     MtcRetainedData * rWalk = xx->fRetainedData;
     MtcSampleData *   sWalk;
@@ -294,7 +297,8 @@ static void assignSamples(MtcTrackData * xx)
 } // assignSamples
 
 /*------------------------------------ generateOutput ---*/
-static void generateOutput(MtcTrackData * xx)
+static void
+generateOutput(MtcTrackData * xx)
 {
     t_atom            resultVector[8];
     long              outCount = xx->fRetainedCount;

@@ -46,16 +46,16 @@ static const int DATA_PACKET_SIZE = 4;
 
 struct PrivateData
 {
-	long	fDigitalOutputs;
+    long    fDigitalOutputs;
 }; /* PrivateData */
  
 struct SharedData
 {
-	IOHIDElementCookie	fOutputCookie;
-	bool								fCookiesValid;	
+    IOHIDElementCookie    fOutputCookie;
+    bool                  fCookiesValid;    
 }; /* SharedData */
 
-typedef PrivateData *	PrivatePtr;
-typedef SharedData *	SharedPtr;
+typedef PrivateData *    PrivatePtr;
+typedef SharedData *    SharedPtr;
  
 #endif /* not INTERFACEKIT004_H_ */

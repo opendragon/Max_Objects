@@ -46,75 +46,75 @@
 #include "PluginAuxCallbacks.h"
 
 /* Forward references: */
-Pvoid doPluginCreate
-  (PSymbol ss,
-   short   argc,
-   PAtom   argv);
+Pvoid
+doPluginCreate(PSymbol ss,
+               short   argc,
+               PAtom   argv);
 
-Pvoid doPluginFree
-   (DoPluginPtr xx);
+Pvoid
+doPluginFree(DoPluginPtr xx);
 
-#define PLUGIN_KIND 		'Plüg'
+#define PLUGIN_KIND         'Plüg'
 #define PLUGIN_FOLDER_NAME  1
 #define PLUGIN_FOLDER_ALIAS 2
 
 #define OPTIONAL_FUNCTIONS /* */
 
-bool checkForPluginsFolder
-  (const short	volumeID,
-   const long		dirID);
+bool
+checkForPluginsFolder(const short volumeID,
+                      const long  dirID);
 
-bool compareStrings
-  (Puchar str1,
-   Puchar str2);
+bool
+compareStrings(Puchar str1,
+               Puchar str2);
 
-void freeRoutineDescriptors
-  (PluginDescriptorPtr descriptor);
+void
+freeRoutineDescriptors(PluginDescriptorPtr descriptor);
 
-OSErr getAppDir
-  (FSSpec * pAppFile);
+OSErr
+getAppDir(FSSpec * pAppFile);
 
 #if defined(COMPILE_FOR_OSX_4)
-OSErr getEntryPoint
-  (CFragConnectionID  connID,
-   Str255             name,
-   ProcPtr *          newUpp);
+OSErr
+getEntryPoint(CFragConnectionID connID,
+              Str255            name,
+              ProcPtr *         newUpp);
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if defined(COMPILE_FOR_OS9_4)
-OSErr getEntryPoint
-  (CFragConnectionID  connID,
-   Str255             name,
-   ProcInfoType       procInfo,
-   UniversalProcPtr * newUpp);
+OSErr
+getEntryPoint(CFragConnectionID  connID,
+              Str255             name,
+              ProcInfoType       procInfo,
+              UniversalProcPtr * newUpp);
 #endif /* COMPILE_FOR_OS9_4 */
 
 #if defined(OPTIONAL_FUNCTIONS)
-OSErr getFullPath
-  (const FSSpec * spec,
-   long &         fullPathLength,
-   Handle &				fullPath);
+OSErr
+getFullPath(const FSSpec * spec,
+            long &         fullPathLength,
+            Handle &       fullPath);
 #endif // OPTIONAL_FUNCTIONS
 
-bool initPluginList
-  (void);
+bool
+initPluginList(void);
 
 #if defined(OPTIONAL_FUNCTIONS)
-OSErr makeFSSpecCompat
-  (const short			vRefNum,
-   const long				dirID,
-   ConstStr255Param fileName,
-   FSSpec *         spec);
+OSErr
+makeFSSpecCompat(const short      vRefNum,
+                 const long       dirID,
+                 ConstStr255Param fileName,
+                 FSSpec *         spec);
 #endif // OPTIONAL_FUNCTIONS
 
-bool validateEntryPoints
-  (PluginDescriptorPtr descriptor,
-   FSSpec *            anFSS,
-   Puchar              name);
+bool
+validateEntryPoints(PluginDescriptorPtr descriptor,
+                    FSSpec *            anFSS,
+                    Puchar              name);
 
 /*------------------------------------ main ---*/
-void main
-  (Pfptr ff)
+void
+main(Pfptr ff)
 {
   OSErr myErr = noErr;
 
@@ -176,10 +176,10 @@ void main
 } /* main */
 
 /*------------------------------------ doPluginCreate ---*/
-Pvoid doPluginCreate
-  (PSymbol ss,
-   short   argc,
-   PAtom   argv)
+Pvoid
+doPluginCreate(PSymbol ss,
+               short   argc,
+               PAtom   argv)
 {
 #if FOR_MAC_PPC
  #pragma unused(ss)
@@ -239,7 +239,7 @@ Pvoid doPluginCreate
               ++descriptor->fRefCount;
               break;
 
-            }            			
+            }                        
           }
           if (xx->fActivePlugin)
           {
@@ -254,9 +254,9 @@ Pvoid doPluginCreate
 #endif /* COMPILE_FOR_OSX_4 */
 #if defined(COMPILE_FOR_OS9_4)
             myErr = static_cast<OSErr>(CallUniversalProc(descriptor->fOnCreateUpp, uppOnCreateProcInfo,
-            																&xx->fOwnerInfo, descriptor->fName->s_name, descriptor->fShared,
-            																&xx->fPrivate, short(argc - 1), argv + 1, &xx->fNumInlets,
-            																&xx->fNumOutlets));
+                                                                            &xx->fOwnerInfo, descriptor->fName->s_name, descriptor->fShared,
+                                                                            &xx->fPrivate, short(argc - 1), argv + 1, &xx->fNumInlets,
+                                                                            &xx->fNumOutlets));
 #endif /* COMPILE_FOR_OS9_4 */
             if (myErr == noErr)
             {
@@ -347,8 +347,8 @@ Pvoid doPluginCreate
 } /* doPluginCreate */
 
 /*------------------------------------ doPluginFree ---*/
-Pvoid doPluginFree
-  (DoPluginPtr xx)
+Pvoid
+doPluginFree(DoPluginPtr xx)
 {
   EnterCallback();
   if (xx)
@@ -365,7 +365,7 @@ Pvoid doPluginFree
 #endif /* COMPILE_FOR_OSX_4 */
 #if defined(COMPILE_FOR_OS9_4)
       OSErr myErr = static_cast<OSErr>(CallUniversalProc(descriptor->fOnDestroyUpp, uppOnDestroyProcInfo,
-      																			&xx->fOwnerInfo, descriptor->fShared, xx->fPrivate));
+                                                                                  &xx->fOwnerInfo, descriptor->fShared, xx->fPrivate));
 #endif /* COMPILE_FOR_OS9_4 */
 
       if (myErr != noErr)
@@ -383,12 +383,12 @@ Pvoid doPluginFree
       for (PluginDescriptorPtr walker = gPluginAnchor, next; walker; walker = next)
       {
 #if defined(COMPILE_FOR_OSX_4)
-        OSErr	myErr = reinterpret_cast<FpNiam>(walker->fNiamFun)
+        OSErr    myErr = reinterpret_cast<FpNiam>(walker->fNiamFun)
                                           (&xx->fOwnerInfo, walker->fShared);
 #endif /* COMPILE_FOR_OSX_4 */
 #if defined(COMPILE_FOR_OS9_4)
-        OSErr	myErr = static_cast<OSErr>(CallUniversalProc(walker->fNiamUpp,
-        																										uppNiamProcInfo, &xx->fOwnerInfo,
+        OSErr    myErr = static_cast<OSErr>(CallUniversalProc(walker->fNiamUpp,
+                                                                                                                uppNiamProcInfo, &xx->fOwnerInfo,
                                                             walker->fShared));
 #endif /* COMPILE_FOR_OS9_4 */
 
@@ -409,9 +409,9 @@ Pvoid doPluginFree
 } /* doPluginFree */
 
 /*------------------------------------ checkForPluginsFolder ---*/
-bool checkForPluginsFolder
-  (const short	volumeID,
-   const long		dirID)
+bool
+checkForPluginsFolder(const short volumeID,
+                      const long  dirID)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(volumeID, dirID)
@@ -420,14 +420,14 @@ bool checkForPluginsFolder
   Boolean   targetIsFolder, wasAliased;
   bool      foundFolder = false;
   HFileInfo myCPB;
-  OSErr	    myErr = noErr, aliasErr = noErr;
-  FSSpec		newFSS;
-  short	    index;
-  long			workingDir = dirID;
+  OSErr        myErr = noErr, aliasErr = noErr;
+  FSSpec        newFSS;
+  short        index;
+  long            workingDir = dirID;
 
   myCPB.ioNamePtr = reinterpret_cast<StringPtr>(NewPtrClear(40L));
   index = 1;
-  myCPB.ioVRefNum = volumeID;	// other volume support
+  myCPB.ioVRefNum = volumeID;    // other volume support
   while (myErr == noErr) 
   {
     myCPB.ioFDirIndex = index;
@@ -453,11 +453,11 @@ bool checkForPluginsFolder
       else if (wasAliased && (compareStrings(myCPB.ioNamePtr, gPluginFolderName) ||
                   compareStrings(myCPB.ioNamePtr, gPluginFolderAlias)))
       {
-        workingDir = newFSS.parID;	// reset dir to aliases parent directory
-        index = 0;	// reset index to search aliases parent directory
+        workingDir = newFSS.parID;    // reset dir to aliases parent directory
+        index = 0;    // reset index to search aliases parent directory
         // Note: index will get incremented below
-        myCPB.ioVRefNum = newFSS.vRefNum;	// set volume (might not be
-                                          //	default vol)
+        myCPB.ioVRefNum = newFSS.vRefNum;    // set volume (might not be
+                                          //    default vol)
       }
       else
       {
@@ -468,9 +468,9 @@ bool checkForPluginsFolder
             foundFolder = true;
             gPluginDir = myCPB.ioDirID;
             gPluginVol = myCPB.ioVRefNum;
-            break;		// Found the folder, so get out of this...
+            break;        // Found the folder, so get out of this...
 
-          }					
+          }                    
         }
       }
     }
@@ -485,9 +485,9 @@ bool checkForPluginsFolder
 } /* checkForPluginsFolder */
 
 /*------------------------------------ compareStrings ---*/
-bool compareStrings
-  (Puchar str1,
-   Puchar str2)
+bool
+compareStrings(Puchar str1,
+               Puchar str2)
 {
   if (! (str1 && str2))
     return false;
@@ -497,8 +497,8 @@ bool compareStrings
 } /* compareStrings */
 
 /*------------------------------------ freeRoutineDescriptors ---*/
-void freeRoutineDescriptors
-  (PluginDescriptorPtr descriptor)
+void
+freeRoutineDescriptors(PluginDescriptorPtr descriptor)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(descriptor)
@@ -564,8 +564,8 @@ void freeRoutineDescriptors
 } /* freeRoutineDescriptors */
 
 /*------------------------------------ getAppDir ---*/
-OSErr getAppDir
-  (FSSpec * pAppFile)
+OSErr
+getAppDir(FSSpec * pAppFile)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(pAppFile)
@@ -592,10 +592,10 @@ OSErr getAppDir
 
 #if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ getEntryPoint ---*/
-OSErr getEntryPoint
-  (CFragConnectionID  connID,
-   Str255             name,
-   ProcPtr *          newFun)
+OSErr
+getEntryPoint(CFragConnectionID connID,
+              Str255            name,
+              ProcPtr *         newFun)
 {
  #if (! FOR_MAC_PPC)
   #pragma unused(connID, name, procInfo, newUpp)
@@ -624,11 +624,11 @@ OSErr getEntryPoint
 
 #if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ getEntryPoint ---*/
-OSErr getEntryPoint
-  (CFragConnectionID  connID,
-   Str255             name,
-   ProcInfoType       procInfo,
-   UniversalProcPtr * newUpp)
+OSErr
+getEntryPoint(CFragConnectionID  connID,
+              Str255             name,
+              ProcInfoType       procInfo,
+              UniversalProcPtr * newUpp)
 {
  #if (! FOR_MAC_PPC)
   #pragma unused(connID, name, procInfo, newUpp)
@@ -661,10 +661,10 @@ OSErr getEntryPoint
 
 #if defined(OPTIONAL_FUNCTIONS)
 /*------------------------------------ getFullPath ---*/
-OSErr getFullPath
-  (const FSSpec * spec,
-   long &         fullPathLength,
-   Handle &       fullPath)
+OSErr
+getFullPath(const FSSpec * spec,
+            long &         fullPathLength,
+            Handle &       fullPath)
 {
  #if (! FOR_MAC_PPC)
   #pragma unused(spec, fullPathLength, fullPath)
@@ -725,7 +725,7 @@ OSErr getFullPath
           pb.dirInfo.ioNamePtr = tempSpec.name;
           pb.dirInfo.ioVRefNum = tempSpec.vRefNum;
           pb.dirInfo.ioDrParID = tempSpec.parID;
-          do	/* loop until we have an error or find the root directory */
+          do    /* loop until we have an error or find the root directory */
           {
             pb.dirInfo.ioFDirIndex = -1;
             pb.dirInfo.ioDrDirID = pb.dirInfo.ioDrParID;
@@ -750,7 +750,7 @@ OSErr getFullPath
   {
     /* Return the length */
     fullPathLength = GetHandleSize(fullPath);
-    result = realResult;	// return realResult in case it was fnfErr
+    result = realResult;    // return realResult in case it was fnfErr
   }
   else
   {
@@ -768,10 +768,10 @@ OSErr getFullPath
 #endif // OPTIONAL_FUNCTIONS
 
 /*------------------------------------ initPluginList ---*/
-bool initPluginList
-  (void)
+bool
+initPluginList(void)
 {
-#if FOR_MAC_PPC	
+#if FOR_MAC_PPC    
   OSErr             myErr = noErr;
   bool              result = true;
   Str255            errName;
@@ -817,11 +817,11 @@ bool initPluginList
 
 #if defined(OPTIONAL_FUNCTIONS)
 /*------------------------------------ makeFSSpecCompat ---*/
-OSErr makeFSSpecCompat
-  (const short			vRefNum,
-   const long       dirID,
-   ConstStr255Param fileName,
-   FSSpec *         spec)
+OSErr
+makeFSSpecCompat(const short      vRefNum,
+                 const long       dirID,
+                 ConstStr255Param fileName,
+                 FSSpec *         spec)
 {
  #if (! FOR_MAC_PPC)
   #pragma unused(vRefNum, dirID, fileName, spec)
@@ -845,8 +845,8 @@ OSErr makeFSSpecCompat
 #endif // OPTIONAL_FUNCTIONS
 
 /*------------------------------------ refreshDescriptors ---*/
-void refreshDescriptors
-  (DoPluginPtr xx)
+void
+refreshDescriptors(DoPluginPtr xx)
 {
   if (xx)
   {
@@ -889,8 +889,8 @@ void refreshDescriptors
 } /* refreshDescriptors */
 
 /*------------------------------------ rescanPlugins ---*/
-void rescanPlugins
-  (void)
+void
+rescanPlugins(void)
 {
 #if FOR_MAC_PPC
   Boolean   targetIsFolder, wasAliased;
@@ -942,16 +942,16 @@ void rescanPlugins
           LOG_ERROR_2(OUTPUT_PREFIX "bad plügin file spec: %d", myErr)
           break;
 
-        }				
+        }                
         myErr = ResolveAliasFile(&newFSS, true, &targetIsFolder, &wasAliased);
         if (myErr != noErr)
         {
           LOG_ERROR_2(OUTPUT_PREFIX "bad plügin file alias: %d", myErr)
           break;
 
-        }				
+        }                
         if (! (myCPB.ioFlAttrib & ioDirMask))
-        {	    
+        {        
           if (found)
           {
             freeRoutineDescriptors(walker);
@@ -992,9 +992,9 @@ void rescanPlugins
                 LOG_ERROR_2(OUTPUT_PREFIX "problem running main() for plügin: %d", myErr)
                 break;
 
-              }    	
+              }        
             }
-          }						
+          }                        
         }
       }
     }
@@ -1004,10 +1004,10 @@ void rescanPlugins
 } /* rescanPlugins */
 
 /*------------------------------------ validateEntryPoints ---*/
-bool validateEntryPoints
-  (PluginDescriptorPtr descriptor,
-   FSSpec *            anFSS,
-   Puchar              name)
+bool
+validateEntryPoints(PluginDescriptorPtr descriptor,
+                    FSSpec *            anFSS,
+                    Puchar              name)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(descriptor, anFSS, name)
@@ -1147,6 +1147,6 @@ bool validateEntryPoints
 #else /* not FOR_MAC_PPC */
   return false;
 #endif /* not FOR_MAC_PPC */
-} /* validateEntryPoints */	              		                        
+} /* validateEntryPoints */                                                  
 
 StandardInfoRoutine(DoPluginPtr)

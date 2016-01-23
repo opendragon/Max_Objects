@@ -40,9 +40,9 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_PlaySound ---*/
-Pvoid cmd_PlaySound
-  (RcxControlPtr xx,
-   PSymbol       newSound)
+Pvoid
+cmd_PlaySound(RcxControlPtr xx,
+              PSymbol       newSound)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(newSound)

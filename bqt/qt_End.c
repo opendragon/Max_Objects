@@ -40,8 +40,8 @@
 #include "qtCommon.h"
 
 /*------------------------------------ deferred_End ---*/
-static Pvoid deferred_End
-  (QtPtr xx)
+static Pvoid
+deferred_End(QtPtr xx)
 {
   EnterCallback();
   if (xx->fCurrentMovie)
@@ -60,8 +60,8 @@ static Pvoid deferred_End
 } /* deferred_End */
 
 /*------------------------------------ cmd_End ---*/
-Pvoid cmd_End
-  (QtPtr xx)
+Pvoid
+cmd_End(QtPtr xx)
 {
   EnterCallback();
 #if defined(TRACE_MESSAGES)

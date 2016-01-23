@@ -50,37 +50,37 @@ extern "C"
  #endif /* __cplusplus */
 
  #if COMPILE_FOR_OSX_4
-E_PhidgResult defineCallback
-    (STANDARD_PHID_ARGS_DEFINECALLBACK);
+E_PhidgResult
+defineCallback(STANDARD_PHID_ARGS_DEFINECALLBACK);
  #endif /* COMPILE_FOR_OSX_4 */
 
-E_PhidgResult doCustom
-    (STANDARD_PHID_ARGS_DO);
+E_PhidgResult
+doCustom(STANDARD_PHID_ARGS_DO);
 
-E_PhidgResult doGet
-    (STANDARD_PHID_ARGS_DO);
+E_PhidgResult
+doGet(STANDARD_PHID_ARGS_DO);
 
-E_PhidgResult doPut
-    (STANDARD_PHID_ARGS_DO);
+E_PhidgResult
+doPut(STANDARD_PHID_ARGS_DO);
 
-OSErr identify
-    (STANDARD_PHID_ARGS_IDENTIFY);
+OSErr
+identify(STANDARD_PHID_ARGS_IDENTIFY);
 
-OSErr main
-    (STANDARD_PHID_ARGS_MAIN);
+OSErr
+main(STANDARD_PHID_ARGS_MAIN);
 
-OSErr niam
-    (STANDARD_PHID_ARGS_NIAM);
+OSErr
+niam(STANDARD_PHID_ARGS_NIAM);
 
-E_PhidgResult onAttach
-    (STANDARD_PHID_ARGS_ATTACH);
+E_PhidgResult
+onAttach(STANDARD_PHID_ARGS_ATTACH);
 
-E_PhidgResult onDetach
-    (STANDARD_PHID_ARGS_ATTACH);
+E_PhidgResult
+onDetach(STANDARD_PHID_ARGS_ATTACH);
 
  #if COMPILE_FOR_OS9_4
-void reportHandler
-    (STANDARD_PHID_ARGS_REPORTHANDLER);
+void
+reportHandler(STANDARD_PHID_ARGS_REPORTHANDLER);
  #endif /* COMPILE_FOR_OS9_4 */
 
  #if COMPILE_FOR_OSX_4

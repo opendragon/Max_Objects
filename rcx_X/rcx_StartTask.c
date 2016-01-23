@@ -40,9 +40,9 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_StartTask ---*/
-Pvoid cmd_StartTask
-  (RcxControlPtr xx,
-   long          slot)
+Pvoid
+cmd_StartTask(RcxControlPtr xx,
+              long          slot)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(slot)

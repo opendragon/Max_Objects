@@ -40,11 +40,11 @@
 #include "qtCommon.h"
 
 /*------------------------------------ cmd_Controller ---*/
-Pvoid cmd_Controller
-  (QtPtr   xx,
-   PSymbol in,
-   PSymbol out1,
-   PSymbol out2)
+Pvoid
+cmd_Controller(QtPtr   xx,
+               PSymbol in,
+               PSymbol out1,
+               PSymbol out2)
 {
   bool assign;
 

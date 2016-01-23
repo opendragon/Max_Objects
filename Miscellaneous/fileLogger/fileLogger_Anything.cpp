@@ -40,10 +40,11 @@
 #include "fileLogger.h"
 
 /*------------------------------------ deferred_Anything ---*/
-static void deferred_Anything(FileLoggerData * xx,
-                              t_symbol *       message,
-                              const long       argc,
-                              t_atom *         argv)
+static void
+deferred_Anything(FileLoggerData * xx,
+                  t_symbol *       message,
+                  const long       argc,
+                  t_atom *         argv)
 {
     bool        okSoFar = fileLoggerGetTheFile(xx);
     static char numBuffer[NUM_BUFF_SIZE];

@@ -44,9 +44,9 @@
 #pragma export on
 
 /*------------------------------------ isMessageRegistered ---*/
-bool isMessageRegistered
-  (OwnerPtr owner,
-   PSymbol  name)
+bool
+isMessageRegistered(OwnerPtr owner,
+                    PSymbol  name)
 {
 #if defined(CADS_FOR_REAL)
   if (owner)
@@ -59,10 +59,10 @@ bool isMessageRegistered
 } /* isMessageRegistered */
 
 /*------------------------------------ registerMessage ---*/
-bool registerMessage
-  (OwnerPtr   owner,
-   PSymbol    name,
-   PluginFunk aHandler)
+bool
+registerMessage(OwnerPtr   owner,
+                PSymbol    name,
+                PluginFunk aHandler)
 {
 #if defined(CADS_FOR_REAL)
   if (owner)
@@ -75,9 +75,9 @@ bool registerMessage
 } /* registerMessage */
 
 /*------------------------------------ unregisterMessage ---*/
-bool unregisterMessage
-  (OwnerPtr owner,
-   PSymbol  name)
+bool
+unregisterMessage(OwnerPtr owner,
+                  PSymbol  name)
 {
 #if defined(CADS_FOR_REAL)
   if (owner)

@@ -87,7 +87,7 @@ typedef void     t_binbuf; // Missing declaration
 # define MESSAGE_INT        "int"
 # define MESSAGE_LIST       "list"
 
-# define FILETYPE_TEXT	static_cast<t_fourcc>('TEXT')
+# define FILETYPE_TEXT    static_cast<t_fourcc>('TEXT')
 
 # define FREE_BYTES(ptr) \
     { \
@@ -117,82 +117,101 @@ typedef void     t_binbuf; // Missing declaration
     static_cast<t_atom_long>(value)
 
 # define ANYTHING_HEADER(type) \
-    void cmd_Anything(type *     xx, \
-                      t_symbol * message, \
-                      const long argc, \
-                      t_atom *   argv)
+    void\
+    cmd_Anything(type *     xx, \
+                 t_symbol * message, \
+                 const long argc, \
+                 t_atom *   argv)
 
 # define ASSIST_HEADER(type) \
-    void cmd_Assist(type *     xx, \
-                    void *     bb, \
-                    const long msg, \
-                    const long arg, \
-                    char *     dstString)
+    void\
+    cmd_Assist(type *     xx, \
+               void *     bb, \
+               const long msg, \
+               const long arg, \
+               char *     dstString)
 
 # define BANG_HEADER(type) \
-    void cmd_Bang(type * xx)
+    void\
+    cmd_Bang(type * xx)
 
 # define CLEAR_HEADER(type) \
-    void cmd_Clear(type * xx)
+    void\
+    cmd_Clear(type * xx)
 
 # define COUNT_HEADER(type) \
-    void cmd_Count(type * xx)
+    void\
+    cmd_Count(type * xx)
 
 # define FLOAT_HEADER(type) \
-    void cmd_Float(type *       xx, \
-                   const double msg)
+    void\
+    cmd_Float(type *       xx, \
+              const double msg)
 
 # define IN1_HEADER(type) \
-    void cmd_In1(type *     xx, \
-                 const long msg)
+    void\
+    cmd_In1(type *     xx, \
+            const long msg)
 
 # define IN2_HEADER(type) \
-    void cmd_In2(type *     xx, \
-                 const long msg)
+    void\
+    cmd_In2(type *     xx, \
+            const long msg)
 
 # define INLETINFO_HEADER(type) \
-    void cmd_InletInfo(type *     xx,\
-                       void *     bb,\
-                       const long index,\
-                       char *     tt)
+    void\
+    cmd_InletInfo(type *     xx,\
+                  void *     bb,\
+                  const long index,\
+                  char *     tt)
 
 # define INT_HEADER(type) \
-    void cmd_Int(type *     xx, \
-                 const long msg)
+    void\
+    cmd_Int(type *     xx, \
+            const long msg)
 
 # define LIST_HEADER(type) \
-    void cmd_List(type *     xx, \
-                  t_symbol * message, \
-                  const long argc, \
-                  t_atom *   argv)
+    void\
+    cmd_List(type *     xx, \
+             t_symbol * message, \
+             const long argc, \
+             t_atom *   argv)
 
 # define LOAD_HEADER(type) \
-    void cmd_Load(type *     xx, \
-                  t_symbol * fileName)
+    void\
+    cmd_Load(type *     xx, \
+             t_symbol * fileName)
 
 # define PORT_HEADER(type) \
-    void cmd_Port(type *     xx,\
-                  const long number)
+    void\
+    cmd_Port(type *     xx,\
+             const long number)
 
 # define RESET_HEADER(type) \
-    void cmd_Reset(type * xx)
+    void\
+    cmd_Reset(type * xx)
 
 # define SELF_HEADER(type) \
-    void cmd_Self(type * xx)
+    void\
+    cmd_Self(type * xx)
 
 # define STOP_HEADER(type) \
-    void cmd_Stop(type * xx)
+    void\
+    cmd_Stop(type * xx)
 
 # define TRACE_HEADER(type) \
-    void cmd_Trace(type *     xx,\
-                   t_symbol * onOff)
+    void\
+    cmd_Trace(type *     xx,\
+              t_symbol * onOff)
 
 # define VERBOSE_HEADER(type) \
-    void cmd_Verbose(type *     xx, \
-                     t_symbol * onOff)
+    void\
+    cmd_Verbose(type *     xx, \
+                t_symbol * onOff)
 
 # define XRESET_HEADER(type) \
-    void cmd_XReset(type * xx)
+    void\
+    cmd_XReset(type * xx)
 
 # define StandardRoutineDeclarations(type) \
 \

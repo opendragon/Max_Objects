@@ -40,8 +40,8 @@
 #include "wqt.h"
 
 /*------------------------------------ cmd_Idle ---*/
-Pvoid cmd_Idle
-  (QtPtr xx)
+Pvoid
+cmd_Idle(QtPtr xx)
 {
   EnterCallback();
   if (xx && xx->fCurrentMovie && xx->fWindow)

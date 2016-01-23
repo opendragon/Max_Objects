@@ -40,8 +40,8 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_Pitchq ---*/
-Pvoid cmd_Pitchq
-  (SpeakPtr xx)
+Pvoid
+cmd_Pitchq(SpeakPtr xx)
 {
   Fixed old;
 

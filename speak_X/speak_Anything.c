@@ -40,11 +40,11 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_Anything ---*/
-Pvoid cmd_Anything
-  (SpeakPtr xx,
-   PSymbol  message,
-   short    argc,
-   PAtom    argv)
+Pvoid
+cmd_Anything(SpeakPtr xx,
+             PSymbol  message,
+             short    argc,
+             PAtom    argv)
 {
   bool  okSoFar = true;
 

@@ -40,10 +40,10 @@
 #include "bqt.h"
 
 /*------------------------------------ cmd_Info ---*/
-Pvoid cmd_Info
-  (QtPtr    xx,
-   PPatcher parent,
-   PBox     container)
+Pvoid
+cmd_Info(QtPtr    xx,
+         PPatcher parent,
+         PBox     container)
 {
 #pragma unused(parent, container)
   EnterCallback();

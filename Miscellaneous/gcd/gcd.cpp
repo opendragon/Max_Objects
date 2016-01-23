@@ -43,7 +43,8 @@
 #include "reportVersion.h"
 
 /*------------------------------------ gcdCreate ---*/
-static void * gcdCreate(void)
+static void *
+gcdCreate(void)
 {
     GcdData * xx = static_cast<GcdData *>(object_alloc(gClass));
     
@@ -64,13 +65,15 @@ static void * gcdCreate(void)
 } // gcdCreate
 
 /*------------------------------------ gcdFree ---*/
-static void gcdFree(GcdData * xx)
+static void
+gcdFree(GcdData * xx)
 {
 #pragma unused(xx)
 } // gcdFree
 
 /*------------------------------------ main ---*/
-int C74_EXPORT main(void)
+int C74_EXPORT
+main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(gcdCreate),

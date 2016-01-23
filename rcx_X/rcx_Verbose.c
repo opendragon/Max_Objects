@@ -40,9 +40,9 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_Verbose ---*/
-Pvoid cmd_Verbose
-  (RcxControlPtr xx,
-   PSymbol       onOff)
+Pvoid
+cmd_Verbose(RcxControlPtr xx,
+            PSymbol       onOff)
 {
   EnterCallback();
   if (xx)

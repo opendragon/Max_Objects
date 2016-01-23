@@ -40,8 +40,8 @@
 #include "listen.h"
 
 /*------------------------------------ cmd_Stop ---*/
-Pvoid cmd_Stop
-  (ListenPtr xx)
+Pvoid
+cmd_Stop(ListenPtr xx)
 {
   EnterCallback();
   if (xx)

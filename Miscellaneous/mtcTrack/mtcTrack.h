@@ -96,16 +96,19 @@ struct MtcTrackData
 }; // MtcTrackData
 
 # define BATCH_HEADER(type) \
-    void cmd_Batch(type *     xx,\
-                   t_symbol * onOff)
+    void\
+    cmd_Batch(type *     xx,\
+              t_symbol * onOff)
 
 # define INDEX_HEADER(type) \
-    void cmd_Index(type *     xx,\
-                   t_symbol * onOff)
+    void\
+    cmd_Index(type *     xx,\
+              t_symbol * onOff)
 
 # define THRESHOLD_HEADER(type) \
-    void cmd_Threshold(type *       xx,\
-                       const double num)
+    void\
+    cmd_Threshold(type *       xx,\
+                  const double num)
 
 BATCH_HEADER(MtcTrackData);
 CLEAR_HEADER(MtcTrackData);

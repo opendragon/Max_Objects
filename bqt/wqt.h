@@ -52,20 +52,20 @@
  #define WIND_INITIAL_RIGHT  200
  #define WIND_INITIAL_BOTTOM 200
  
-Pvoid cmd_Close
-  (QtPtr xx);
+Pvoid
+cmd_Close(QtPtr xx);
 
-Pvoid cmd_DblClick
-  (QtPtr xx);
+Pvoid
+cmd_DblClick(QtPtr xx);
 
-Pvoid cmd_Idle
-  (QtPtr xx);
+Pvoid
+cmd_Idle(QtPtr xx);
 
-Pvoid cmd_Open
-  (QtPtr xx);
+Pvoid
+cmd_Open(QtPtr xx);
 
-Pvoid cmd_Save
-  (QtPtr xx,
-   Pvoid ww);
+Pvoid
+cmd_Save(QtPtr xx,
+         Pvoid ww);
 
 #endif /* not WQT_H_ */

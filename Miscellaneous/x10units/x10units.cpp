@@ -43,7 +43,8 @@
 #include "reportVersion.h"
 
 /*------------------------------------ x10unitsCreate ---*/
-static void * x10unitsCreate(void)
+static void *
+x10unitsCreate(void)
 {
     X10UnitsData * xx = static_cast<X10UnitsData *>(object_alloc(gClass));
     
@@ -62,13 +63,15 @@ static void * x10unitsCreate(void)
 } // x10unitsCreate
 
 /*------------------------------------ x10unitsFree ---*/
-static void x10unitsFree(X10UnitsData * xx)
+static void
+x10unitsFree(X10UnitsData * xx)
 {
 #pragma unused(xx)
 } // x10unitsFree
 
 /*------------------------------------ main ---*/
-int C74_EXPORT main(void)
+int C74_EXPORT
+main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(x10unitsCreate),

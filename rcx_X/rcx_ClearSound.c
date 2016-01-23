@@ -40,8 +40,8 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_ClearSound ---*/
-Pvoid cmd_ClearSound
-  (RcxControlPtr xx)
+Pvoid
+cmd_ClearSound(RcxControlPtr xx)
 {
   EnterCallback();
   if (xx)

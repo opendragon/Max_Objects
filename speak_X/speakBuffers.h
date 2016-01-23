@@ -58,28 +58,28 @@ typedef DataBufferPtr * DataBufferHdl;
  #define SIZEOF_OVERHEAD       (sizeof(Ptr) + sizeof(short))
  #define BUFF_MEMORY_TO_ALLOC  (MAX_BUFFER_TO_SEND + SIZEOF_OVERHEAD)
 
-bool addAtomToBuffer
-  (Qchar					name,
-   DataBufferPtr	aBuffer,
-   PAtom					aValue);
+bool
+addAtomToBuffer(Qchar         name,
+                DataBufferPtr aBuffer,
+                PAtom         aValue);
 
-bool addFloatToBuffer
-  (Qchar					name,
-   DataBufferPtr	aBuffer,
-   const float		aValue);
+bool
+addFloatToBuffer(Qchar         name,
+                 DataBufferPtr aBuffer,
+                 const float   aValue);
 
-bool addLongToBuffer
-  (Qchar					name,
-   DataBufferPtr	aBuffer,
-   const long			aValue);
+bool
+addLongToBuffer(Qchar         name,
+                DataBufferPtr aBuffer,
+                const long    aValue);
 
-bool addSymToBuffer
-  (Qchar					name,
-   DataBufferPtr	aBuffer,
-   PSymbol				aValue);
+bool
+addSymToBuffer(Qchar         name,
+               DataBufferPtr aBuffer,
+               PSymbol       aValue);
 
-void clearDataBuffer
-  (DataBufferPtr aBuffer);
+void
+clearDataBuffer(DataBufferPtr aBuffer);
 
 mextern(PSymbol) gCommaNameSymbol;     /* Pointer to unique Symbol for 'comma' */
 mextern(PSymbol) gDollarNameSymbol;    /* Pointer to unique Symbol for 'dollar' */

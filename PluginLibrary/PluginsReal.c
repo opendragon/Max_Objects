@@ -59,16 +59,16 @@ typedef MessageDescriptorPtr * MessageDescriptorHdl;
 #define MESSAGE_DESCRIPTOR_TABLE_SIZE 23
 
 /*------------------------------------ doRealRegistryCreate ---*/
-static MessageDescriptorHdl doRealRegistryCreate
-  (void)
+static MessageDescriptorHdl
+doRealRegistryCreate(void)
 {
   return reinterpret_cast<MessageDescriptorHdl>(NewPtrClear(MESSAGE_DESCRIPTOR_TABLE_SIZE *
                                                             sizeof(MessageDescriptorPtr)));
 } /* doRealRegistryCreate */
 
 /*------------------------------------ doRealRegistryFlush ---*/
-static void doRealRegistryFlush
-  (MessageDescriptorHdl registry)
+static void
+doRealRegistryFlush(MessageDescriptorHdl registry)
 {
   if (registry)
   {
@@ -87,8 +87,8 @@ static void doRealRegistryFlush
 } /* doRealRegistryFlush */
 
 /*------------------------------------ doRealRegistryFree ---*/
-static void doRealRegistryFree
-  (MessageDescriptorHdl registry)
+static void
+doRealRegistryFree(MessageDescriptorHdl registry)
 {
   if (registry)
   {
@@ -98,23 +98,23 @@ static void doRealRegistryFree
 } /* doRealRegistryFree */
 
 /*------------------------------------ doMessageHash ---*/
-static long doMessageHash
-  (PSymbol name)
+static long
+doMessageHash(PSymbol name)
 {
   return (long(name) % MESSAGE_DESCRIPTOR_TABLE_SIZE);
 } /* doMessageHash */
 
 /*------------------------------------ doRealIdentifyMessage ---*/
-static PluginFunk doRealIdentifyMessage
-  (MessageDescriptorHdl registry,
-   PSymbol              name)
+static PluginFunk
+doRealIdentifyMessage(MessageDescriptorHdl registry,
+                      PSymbol              name)
 {
   if (registry && name)
   {
-    long	slot = doMessageHash(name);
+    long    slot = doMessageHash(name);
     
     for (MessageDescriptorPtr walker = *(registry + slot); walker;
-    			walker = walker->fNext)
+                walker = walker->fNext)
     {
       if (walker->fName == name)
         return walker->fHandler;
@@ -125,10 +125,10 @@ static PluginFunk doRealIdentifyMessage
 } /* doRealIdentifyMessage */
 
 /*------------------------------------ doRealAddMessageToRegistry ---*/
-static bool doRealAddMessageToRegistry
-  (MessageDescriptorHdl registry,
-   PSymbol              name,
-   PluginFunk           aHandle)
+static bool
+doRealAddMessageToRegistry(MessageDescriptorHdl registry,
+                           PSymbol              name,
+                           PluginFunk           aHandle)
 {
   if (registry && name && aHandle)
   {
@@ -157,16 +157,16 @@ static bool doRealAddMessageToRegistry
 } /* doRealAddMessageToRegistry */
 
 /*------------------------------------ doRealRemoveMessageFromRegistry ---*/
-static bool doRealRemoveMessageFromRegistry
-  (MessageDescriptorHdl registry,
-   PSymbol              name)
+static bool
+doRealRemoveMessageFromRegistry(MessageDescriptorHdl registry,
+                                PSymbol              name)
 {
   if (registry && name)
   {
-    long	slot = doMessageHash(name);
+    long    slot = doMessageHash(name);
 
     for (MessageDescriptorPtr walker = *(registry + slot), previous = NULL_PTR; walker;
-    			walker = walker->fNext)
+                walker = walker->fNext)
     {
       if (walker->fName == name)
       {

@@ -40,9 +40,9 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_Spell ---*/
-Pvoid cmd_Spell
-  (SpeakPtr xx,
-   PSymbol  onOff)
+Pvoid
+cmd_Spell(SpeakPtr xx,
+          PSymbol  onOff)
 {
   EnterCallback();
   if (xx && xx->fSpeaker)

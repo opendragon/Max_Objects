@@ -40,8 +40,8 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_Mute ---*/
-Pvoid cmd_Mute
-  (RcxControlPtr xx)
+Pvoid
+cmd_Mute(RcxControlPtr xx)
 {
   EnterCallback();
   if (xx)

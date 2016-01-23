@@ -75,62 +75,62 @@ struct SpeakData
 
 typedef SpeakData * SpeakPtr;
 
-Pvoid cmd_Continue
-  (SpeakPtr xx);
+Pvoid
+cmd_Continue(SpeakPtr xx);
 
-Pvoid cmd_Pause
-  (SpeakPtr xx);
+Pvoid
+cmd_Pause(SpeakPtr xx);
 
-Pvoid cmd_Pitch
-  (SpeakPtr xx,
-   double   newPitch);
+Pvoid
+cmd_Pitch(SpeakPtr xx,
+          double   newPitch);
 
-Pvoid cmd_Pitchq
-  (SpeakPtr xx);
+Pvoid
+cmd_Pitchq(SpeakPtr xx);
 
-Pvoid cmd_Rate
-  (SpeakPtr xx,
-   double   newRate);
+Pvoid
+cmd_Rate(SpeakPtr xx,
+         double   newRate);
 
-Pvoid cmd_Rateq
-  (SpeakPtr xx);
+Pvoid
+cmd_Rateq(SpeakPtr xx);
 
-Pvoid cmd_Say
-  (SpeakPtr xx,
-   PSymbol  message,
-   short    argc,
-   PAtom    argv);
+Pvoid
+cmd_Say(SpeakPtr xx,
+        PSymbol  message,
+        short    argc,
+        PAtom    argv);
 
-Pvoid cmd_Spell
-  (SpeakPtr xx,
-   PSymbol  onOff);
+Pvoid
+cmd_Spell(SpeakPtr xx,
+          PSymbol  onOff);
 
-Pvoid cmd_Stop
-  (SpeakPtr xx);
+Pvoid
+cmd_Stop(SpeakPtr xx);
 
-Pvoid cmd_Voice
-  (SpeakPtr xx,
-   long     newVoice);
+Pvoid
+cmd_Voice(SpeakPtr xx,
+          long     newVoice);
 
-Pvoid cmd_VoiceMax
-  (SpeakPtr xx);
+Pvoid
+cmd_VoiceMax(SpeakPtr xx);
 
-Pvoid cmd_Voiceq
-  (SpeakPtr xx);
+Pvoid
+cmd_Voiceq(SpeakPtr xx);
 
-Pvoid cmd_Volume
-  (SpeakPtr xx,
-   double   newVolume);
+Pvoid
+cmd_Volume(SpeakPtr xx,
+           double   newVolume);
 
-Pvoid cmd_Volumeq
-  (SpeakPtr xx);
+Pvoid
+cmd_Volumeq(SpeakPtr xx);
 
-pascal void speechComplete
-  (SpeechChannel	chan,
-   long						refCon);
+pascal void
+speechComplete(SpeechChannel chan,
+               long          refCon);
 
-void transmitBuffer
-  (SpeakPtr xx);
+void
+transmitBuffer(SpeakPtr xx);
 
 StandardRoutineDeclarations(SpeakPtr)
 

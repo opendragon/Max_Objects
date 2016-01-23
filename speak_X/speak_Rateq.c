@@ -40,8 +40,8 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_Rateq ---*/
-Pvoid cmd_Rateq
-  (SpeakPtr xx)
+Pvoid
+cmd_Rateq(SpeakPtr xx)
 {
   Fixed old;
 

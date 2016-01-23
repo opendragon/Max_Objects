@@ -42,7 +42,8 @@
 #include "reportVersion.h"
 
 /*------------------------------------ caseShiftCreate ---*/
-static void * caseShiftCreate(t_symbol * direction)
+static void *
+caseShiftCreate(t_symbol * direction)
 {
     CaseShiftData * xx = static_cast<CaseShiftData *>(object_alloc(gClass));
     
@@ -74,7 +75,8 @@ static void * caseShiftCreate(t_symbol * direction)
 } // caseShiftCreate
 
 /*------------------------------------ caseShiftFree ---*/
-static void caseShiftFree(CaseShiftData * xx)
+static void
+caseShiftFree(CaseShiftData * xx)
 {
     if (xx)
     {
@@ -83,7 +85,8 @@ static void caseShiftFree(CaseShiftData * xx)
 } // caseShiftFree
 
 /*------------------------------------ main ---*/
-int C74_EXPORT main(void)
+int C74_EXPORT
+main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(caseShiftCreate),
@@ -111,15 +114,17 @@ int C74_EXPORT main(void)
 } // main
 
 /*------------------------------------ clearPrevious ---*/
-void clearPrevious(CaseShiftData * xx)
+void
+clearPrevious(CaseShiftData * xx)
 {
     FREE_BYTES(xx->fPreviousList);
 } // clearPrevious
 
 /*------------------------------------ shiftAString ---*/
-void shiftAString(CaseShiftData * xx,
-                  char *          newWord,
-                  const char *    oldWord)
+void
+shiftAString(CaseShiftData * xx,
+             char *          newWord,
+             const char *    oldWord)
 {
     char *       outWalker = newWord;
     const char * inWalker = oldWord;

@@ -40,9 +40,9 @@
 #include "fidget.h"
 
 /*------------------------------------ cmd_Listen ---*/
-Pvoid cmd_Listen
-  (FidgetPtr	xx,
-   PSymbol		onOff)
+Pvoid
+cmd_Listen(FidgetPtr xx,
+           PSymbol   onOff)
 {
   EnterCallback();
   if (xx)

@@ -41,200 +41,200 @@
 #include "genericListOutput.h"
 
 /*------------------------------------ performPut ---*/
-static bool performPut
-	(FidgetPtr				xx,
-   HIDDeviceDataPtr	walkerHID,
-   PSymbol					deviceType,
-   const short			argc,
-   PAtom						argv)
+static bool
+performPut(FidgetPtr        xx,
+           HIDDeviceDataPtr walkerHID,
+           PSymbol          deviceType,
+           const short      argc,
+           PAtom            argv)
 {
-	bool					okSoFar = true;
- 	OSErr					result;
-	E_PhidgResult	action = kPhidgDoDefault;
+    bool                    okSoFar = true;
+     OSErr                    result;
+    E_PhidgResult    action = kPhidgDoDefault;
 
-	if (walkerHID->fClass)
-	{
-		PhidgetDescriptorPtr	kind = reinterpret_cast<PhidgetDescriptorPtr>(walkerHID->fClass);
+    if (walkerHID->fClass)
+    {
+        PhidgetDescriptorPtr    kind = reinterpret_cast<PhidgetDescriptorPtr>(walkerHID->fClass);
 
 #if defined(COMPILE_FOR_OSX_4)
-		action = reinterpret_cast<FpDoPut>(kind->fDoPutFun)(OUR_NAME, deviceType, xx->fDataOut,
-																												kind->fShared, walkerHID->fPrivate,
-																												walkerHID, short(argc - 2),
-																												argv + 2, &result);
+        action = reinterpret_cast<FpDoPut>(kind->fDoPutFun)(OUR_NAME, deviceType, xx->fDataOut,
+                                                                                                                kind->fShared, walkerHID->fPrivate,
+                                                                                                                walkerHID, short(argc - 2),
+                                                                                                                argv + 2, &result);
 #endif /* COMPILE_FOR_OSX_4 */
 #if defined(COMPILE_FOR_OS9_4)
-		action = static_cast<E_PhidgResult>(CallUniversalProc(kind->fDoPutUpp, uppDoPutProcInfo,
-																OUR_NAME, deviceType, xx->fDataOut, kind->fShared,
-																walkerHID->fPrivate, walkerHID, short(argc - 2), argv + 2,
-																&result));
+        action = static_cast<E_PhidgResult>(CallUniversalProc(kind->fDoPutUpp, uppDoPutProcInfo,
+                                                                OUR_NAME, deviceType, xx->fDataOut, kind->fShared,
+                                                                walkerHID->fPrivate, walkerHID, short(argc - 2), argv + 2,
+                                                                &result));
 #endif /* COMPILE_FOR_OS9_4 */
-	}
-	if (action == kPhidgDoDefault)
-	{
-		if (argc >= 4)
-		{
-		  long		element = 0, singleValue = 0;
-			UInt32	extendedLength = 0;
-			PAtom		extendedValue = NULL_PTR;
+    }
+    if (action == kPhidgDoDefault)
+    {
+        if (argc >= 4)
+        {
+          long        element = 0, singleValue = 0;
+            UInt32    extendedLength = 0;
+            PAtom        extendedValue = NULL_PTR;
 
-			if (argv[2].a_type == A_LONG)
-				element = argv[2].a_w.w_long;
-			else
-			{
-				okSoFar = false;
-				LOG_ERROR_2(OUTPUT_PREFIX "element is not an integer for '%s:put'", deviceType->s_name)
-			}
-  		// Gather the data
-  		if (okSoFar)
-  		{
-  			int	ii;
-  			
-  			for (ii = 3; ii < argc; ++ii)
-  			{
-  				if (argv[ii].a_type != A_LONG)
-  				{
-  					okSoFar = false;
-  					LOG_ERROR_2(OUTPUT_PREFIX "non-integer value for '%s:put'", deviceType->s_name)
-  					break;
-  					
-  				}
-  			}
-  			if (okSoFar)
-  			{
-	  			if (argc == 4)
-	  				singleValue = argv[3].a_w.w_long;
-	  			else
-	  			{
-	  				extendedLength = static_cast<UInt32>(argc - 3);
-	  				extendedValue = argv + 3;
-	  			}
-  			}
-  		}
-  		if (okSoFar)
-  		{
-		  	HIDElementDataPtr	anElement = NULL_PTR;
-		  	
-			  if (element)
-			  {
-			  	// Find the matching element:
-			 		for (anElement = walkerHID->fFirstElement; anElement; anElement = anElement->fNext)
-			 		{
-			 			if (anElement->fCookie == reinterpret_cast<IOHIDElementCookie>(element))
-			 				break;
-			 				
-			 		}
-			  }
-			  if (anElement)
-			  {
+            if (argv[2].a_type == A_LONG)
+                element = argv[2].a_w.w_long;
+            else
+            {
+                okSoFar = false;
+                LOG_ERROR_2(OUTPUT_PREFIX "element is not an integer for '%s:put'", deviceType->s_name)
+            }
+          // Gather the data
+          if (okSoFar)
+          {
+              int    ii;
+              
+              for (ii = 3; ii < argc; ++ii)
+              {
+                  if (argv[ii].a_type != A_LONG)
+                  {
+                      okSoFar = false;
+                      LOG_ERROR_2(OUTPUT_PREFIX "non-integer value for '%s:put'", deviceType->s_name)
+                      break;
+                      
+                  }
+              }
+              if (okSoFar)
+              {
+                  if (argc == 4)
+                      singleValue = argv[3].a_w.w_long;
+                  else
+                  {
+                      extendedLength = static_cast<UInt32>(argc - 3);
+                      extendedValue = argv + 3;
+                  }
+              }
+          }
+          if (okSoFar)
+          {
+              HIDElementDataPtr    anElement = NULL_PTR;
+              
+              if (element)
+              {
+                  // Find the matching element:
+                     for (anElement = walkerHID->fFirstElement; anElement; anElement = anElement->fNext)
+                     {
+                         if (anElement->fCookie == reinterpret_cast<IOHIDElementCookie>(element))
+                             break;
+                             
+                     }
+              }
+              if (anElement)
+              {
  #if defined(COMPILE_FOR_OSX_4)
-	 				IOReturn	result;
+                     IOReturn    result;
  #endif /* COMPILE_FOR_OSX_4 */
  #if defined(COMPILE_FOR_OS9_4)
-	 				OSStatus	result;
+                     OSStatus    result;
  #endif /* COMPILE_FOR_OS9_4 */
-	 				
-	 				setHIDElementValue(OUR_NAME, *walkerHID, *anElement, extendedLength,
-	 														extendedValue, singleValue, result);
-  				if (result)
-  					outlet_int(xx->fResultOut, result);
-			  }
-			  else
-			  {
-			  	okSoFar = false;
-			  	LOG_ERROR_2(OUTPUT_PREFIX "element not found for '%s:put'", deviceType->s_name)
-			  }
-  		}
-		}
-		else if (argc == 2)
-		{
-			okSoFar = false;
-			LOG_ERROR_2(OUTPUT_PREFIX "missing element for '%s:put'", deviceType->s_name)
-		}
-		else
-		{
-  		okSoFar = false;
-  		LOG_ERROR_2(OUTPUT_PREFIX "missing value(s) for '%s:put'", deviceType->s_name)
-  	}
-	}
-	else if (result)
-		outlet_int(xx->fResultOut, result);
-	return okSoFar;
+                     
+                     setHIDElementValue(OUR_NAME, *walkerHID, *anElement, extendedLength,
+                                                             extendedValue, singleValue, result);
+                  if (result)
+                      outlet_int(xx->fResultOut, result);
+              }
+              else
+              {
+                  okSoFar = false;
+                  LOG_ERROR_2(OUTPUT_PREFIX "element not found for '%s:put'", deviceType->s_name)
+              }
+          }
+        }
+        else if (argc == 2)
+        {
+            okSoFar = false;
+            LOG_ERROR_2(OUTPUT_PREFIX "missing element for '%s:put'", deviceType->s_name)
+        }
+        else
+        {
+          okSoFar = false;
+          LOG_ERROR_2(OUTPUT_PREFIX "missing value(s) for '%s:put'", deviceType->s_name)
+      }
+    }
+    else if (result)
+        outlet_int(xx->fResultOut, result);
+    return okSoFar;
 } /* performPut */
 
 /*------------------------------------ cmd_Put ---*/
-Pvoid cmd_Put
-  (FidgetPtr	xx,
-   PSymbol		message,
-   short			argc,
-   PAtom			argv)  
+Pvoid
+cmd_Put(FidgetPtr xx,
+        PSymbol   message,
+        short     argc,
+        PAtom     argv)  
 {
 #pragma unused(message)
-	PSymbol	deviceType = NULL_PTR, serialNumber = NULL_PTR;
+    PSymbol    deviceType = NULL_PTR, serialNumber = NULL_PTR;
 
   EnterCallback();
   if (xx)
   {
-  	bool	okSoFar = true;
-  	
-  	if (argc >= 2)
-  	{
-  		// Check the device type
-  		if (argv[0].a_type == A_SYM)
-  			deviceType = argv[0].a_w.w_sym;
-  		else
-  		{
-  			okSoFar = false;
-  			LOG_ERROR_1(OUTPUT_PREFIX "device type is not a symbol for 'put'")
-  		}
-  		// Check the serial number
-  		if (okSoFar)
-  		{
-  			if (argv[1].a_type == A_SYM)
-  				serialNumber = argv[1].a_w.w_sym;
-  			else
-  			{
-  				okSoFar = false;
-  				LOG_ERROR_2(OUTPUT_PREFIX "serial number is not a symbol for '%s:put'",
-  										deviceType->s_name)
-  			}
-  		}
-		}
-		else if (argc == 1)
-		{
-			okSoFar = false;
-  		LOG_ERROR_1(OUTPUT_PREFIX "missing serial number for 'put'")
-		}
-		else
-		{
-			okSoFar = false;
-  		LOG_ERROR_1(OUTPUT_PREFIX "missing device type for 'put'")
-		}
-		if (okSoFar)
-		{
-			if (serialNumber == gAsteriskSymbol)
-			{
-				HIDDeviceDataPtr	walkerHID = fidgetGetFirstHIDData(xx, deviceType);
-				
-				for ( ; walkerHID; )
-				{
-					if (! performPut(xx, walkerHID, deviceType, argc, argv))
-						break;
-						
-					walkerHID = fidgetGetNextHIDData(deviceType, walkerHID);
-				}
-			}
-			else
-			{
-				// Identify the object
-				HIDDeviceDataPtr	walkerHID = fidgetLocateHIDData(xx, deviceType, serialNumber);
-				
-				if (walkerHID)
-					performPut(xx, walkerHID, deviceType, argc, argv);
-				else
-					LOG_ERROR_3(OUTPUT_PREFIX "no such device (%s:%s) is currently attached",
-											deviceType->s_name, serialNumber->s_name)
-			}
-		}  		
+      bool    okSoFar = true;
+      
+      if (argc >= 2)
+      {
+          // Check the device type
+          if (argv[0].a_type == A_SYM)
+              deviceType = argv[0].a_w.w_sym;
+          else
+          {
+              okSoFar = false;
+              LOG_ERROR_1(OUTPUT_PREFIX "device type is not a symbol for 'put'")
+          }
+          // Check the serial number
+          if (okSoFar)
+          {
+              if (argv[1].a_type == A_SYM)
+                  serialNumber = argv[1].a_w.w_sym;
+              else
+              {
+                  okSoFar = false;
+                  LOG_ERROR_2(OUTPUT_PREFIX "serial number is not a symbol for '%s:put'",
+                                          deviceType->s_name)
+              }
+          }
+        }
+        else if (argc == 1)
+        {
+            okSoFar = false;
+          LOG_ERROR_1(OUTPUT_PREFIX "missing serial number for 'put'")
+        }
+        else
+        {
+            okSoFar = false;
+          LOG_ERROR_1(OUTPUT_PREFIX "missing device type for 'put'")
+        }
+        if (okSoFar)
+        {
+            if (serialNumber == gAsteriskSymbol)
+            {
+                HIDDeviceDataPtr    walkerHID = fidgetGetFirstHIDData(xx, deviceType);
+                
+                for ( ; walkerHID; )
+                {
+                    if (! performPut(xx, walkerHID, deviceType, argc, argv))
+                        break;
+                        
+                    walkerHID = fidgetGetNextHIDData(deviceType, walkerHID);
+                }
+            }
+            else
+            {
+                // Identify the object
+                HIDDeviceDataPtr    walkerHID = fidgetLocateHIDData(xx, deviceType, serialNumber);
+                
+                if (walkerHID)
+                    performPut(xx, walkerHID, deviceType, argc, argv);
+                else
+                    LOG_ERROR_3(OUTPUT_PREFIX "no such device (%s:%s) is currently attached",
+                                            deviceType->s_name, serialNumber->s_name)
+            }
+        }          
   }
   ExitMaxMessageHandler()
 } /* cmd_Put */

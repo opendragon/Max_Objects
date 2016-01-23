@@ -44,21 +44,21 @@
  
 struct PrivateData
 {
-	bool	fDigitalInputTriggerEnabled;
-	long	fDigitalOutputs;
+    bool    fDigitalInputTriggerEnabled;
+    long    fDigitalOutputs;
  #if (! defined(COMPILE_FOR_CARBON))
-	long	fDigitalInput;
+    long    fDigitalInput;
  #endif /* not COMPILE_FOR_CARBON */
 }; /* PrivateData */
  
 struct SharedData
 {
-	IOHIDElementCookie	fInputCookie;
-	IOHIDElementCookie	fOutputCookie;
-	bool								fCookiesValid;	
+    IOHIDElementCookie    fInputCookie;
+    IOHIDElementCookie    fOutputCookie;
+    bool                  fCookiesValid;    
 }; /* SharedData */
 
-typedef PrivateData *	PrivatePtr;
-typedef SharedData *	SharedPtr;
+typedef PrivateData *    PrivatePtr;
+typedef SharedData *    SharedPtr;
 
 #endif /* not TEXTLCD088_H_ */

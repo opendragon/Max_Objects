@@ -44,57 +44,57 @@
 using namespace std;  //introduces namespace std
 
 /*------------------------------------ do_Anything ---*/
-OSErr do_Anything
-  (PLUGIN_HEADER_PREFIX,
-   PSymbol			message,
-   const short	argc,
-   PAtom				argv)
+OSErr
+do_Anything(PLUGIN_HEADER_PREFIX,
+            PSymbol            message,
+            const short    argc,
+            PAtom                argv)
 {
 #pragma unused(owner, outlets, sharedStorage, privateStorage, inletNumber, message, argc, argv)
   return noErr;
 } /* do_Anything */
 
 /*------------------------------------ do_Bang ---*/
-OSErr do_Bang
-  (PLUGIN_HEADER_PREFIX)
+OSErr
+do_Bang(PLUGIN_HEADER_PREFIX)
 {
 #pragma unused(owner, outlets, sharedStorage, privateStorage, inletNumber)
   return noErr;
 } /* do_Bang */
 
 /*------------------------------------ do_Double ---*/
-OSErr do_Double
-  (PLUGIN_HEADER_PREFIX,
-   const double	value)
+OSErr
+do_Double(PLUGIN_HEADER_PREFIX,
+          const double    value)
 {
 #pragma unused(owner, outlets, sharedStorage, privateStorage, inletNumber, value)
   return noErr;
 } /* do_Double */
 
 /*------------------------------------ do_List ---*/
-OSErr do_List
-  (PLUGIN_HEADER_PREFIX,
-   const short	argc,
-   PAtom				argv)
+OSErr
+do_List(PLUGIN_HEADER_PREFIX,
+        const short    argc,
+        PAtom                argv)
 {
 #pragma unused(owner, outlets, sharedStorage, privateStorage, inletNumber, argc, argv)
   return noErr;
 } /* do_List */
 
 /*------------------------------------ do_Long ---*/
-OSErr do_Long
-  (PLUGIN_HEADER_PREFIX,
-   const long	value)
+OSErr
+do_Long(PLUGIN_HEADER_PREFIX,
+        const long    value)
 {
 #pragma unused(owner, outlets, sharedStorage, privateStorage, inletNumber, value)
   return noErr;
 } /* do_Long */
 
 /*------------------------------------ main ---*/
-OSErr main
-  (CFragConnectionID connID,
-   OwnerPtr          owner,
-   Handle            sharedStorage)
+OSErr
+main(CFragConnectionID connID,
+     OwnerPtr          owner,
+     Handle            sharedStorage)
 {
 #pragma unused(owner)
   *sharedStorage = NULL_HDL;
@@ -103,9 +103,9 @@ OSErr main
 } /* main */
 
 /*------------------------------------ niam ---*/
-OSErr niam
-  (OwnerPtr owner,
-   Ptr      sharedStorage)
+OSErr
+niam(OwnerPtr owner,
+     Ptr      sharedStorage)
 {
 #pragma unused(owner)
   LOG_POST_2("in niam(0x%lx)", long(sharedStorage))
@@ -113,15 +113,15 @@ OSErr niam
 } /* niam */
 
 /*------------------------------------ onCreate ---*/
-OSErr onCreate
-  (OwnerPtr 		owner,
-   Pchar    		theName,
-   Ptr      		sharedStorage,
-   Handle   		privateStorage,
-   const short	argc,
-   PAtom    		argv,
-   Pshort   		numInlets,
-   Pshort   		numOutlets)
+OSErr
+onCreate(OwnerPtr         owner,
+         Pchar            theName,
+         Ptr              sharedStorage,
+         Handle           privateStorage,
+         const short    argc,
+         PAtom            argv,
+         Pshort           numInlets,
+         Pshort           numOutlets)
 {
 #pragma unused(owner, theName, argv)
   *privateStorage = NULL_HDL;
@@ -133,10 +133,10 @@ OSErr onCreate
 } /* onCreate */
 
 /*------------------------------------ onDestroy ---*/
-OSErr onDestroy
-  (OwnerPtr owner,
-   Ptr      sharedStorage,
-   Ptr      privateStorage)
+OSErr
+onDestroy(OwnerPtr owner,
+          Ptr      sharedStorage,
+          Ptr      privateStorage)
 {
 #pragma unused(owner)
   LOG_POST_3("in onDestroy(0x%lx,0x%lx)", long(sharedStorage), long(privateStorage))
@@ -144,10 +144,10 @@ OSErr onDestroy
 } /* onDestroy */
 
 /*------------------------------------ onReload ---*/
-OSErr onReload
-  (CFragConnectionID connID,
-   OwnerPtr          owner,
-   Ptr               sharedStorage)
+OSErr
+onReload(CFragConnectionID connID,
+         OwnerPtr          owner,
+         Ptr               sharedStorage)
 {
 #pragma unused(owner)
   LOG_POST_3("in onReload(0x%lx,0x%lx)", long(connID), long(sharedStorage))

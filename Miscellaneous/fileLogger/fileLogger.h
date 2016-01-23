@@ -57,12 +57,15 @@ struct FileLoggerData
 
 /* file access routines: */
 
-bool fileLoggerGetTheFile(FileLoggerData * xx);
+bool
+fileLoggerGetTheFile(FileLoggerData * xx);
 
-bool fileLoggerReleaseTheFile(FileLoggerData * xx);
+bool
+fileLoggerReleaseTheFile(FileLoggerData * xx);
 
-bool fileLoggerWriteStringToTheFile(FileLoggerData * xx,
-                                    const char *     value);
+bool
+fileLoggerWriteStringToTheFile(FileLoggerData * xx,
+                               const char *     value);
 
 StandardRoutineDeclarations(FileLoggerData);
 

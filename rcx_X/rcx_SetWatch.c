@@ -40,10 +40,10 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_SetWatch ---*/
-Pvoid cmd_SetWatch
-  (RcxControlPtr xx,
-   long          hour,
-   long          minute)
+Pvoid
+cmd_SetWatch(RcxControlPtr xx,
+             long          hour,
+             long          minute)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(hour, minute)

@@ -42,9 +42,9 @@
 #define TRACE_ATOMS_SIMPLE 0
 
 /*------------------------------------ traceAtomSimple ---*/
-static void traceAtomSimple
-  (Qchar	tag,
-   PAtom	value)
+static void
+traceAtomSimple(Qchar tag,
+                PAtom value)
 {
   switch (value->a_type)
   {
@@ -68,11 +68,11 @@ static void traceAtomSimple
 } /* traceAtomSimple */
 
 /*------------------------------------ getNextAtomSimple ---*/
-static bool getNextAtomSimple
-  (const short  argc,
-   PAtom  			argv,
-   short & 			nextArg,
-   PAtom  			value)
+static bool
+getNextAtomSimple(const short argc,
+                  PAtom       argv,
+                  short &     nextArg,
+                  PAtom       value)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   short ii = nextArg++;
@@ -91,8 +91,8 @@ static bool getNextAtomSimple
 } /* getNextAtomSimple */
 
 /*------------------------------------ pushBackAtomSimple ---*/
-static bool pushBackAtomSimple
-  (short &	nextArg)
+static bool
+pushBackAtomSimple(short & nextArg)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   short ii = nextArg--;
@@ -111,10 +111,10 @@ static bool pushBackAtomSimple
 } /* pushBackAtomSimple */
 
 /*------------------------------------ getMatchDataSimple ---*/
-static MatchDataPtr getMatchDataSimple
-  (const short  argc,
-   PAtom  			argv,
-   short &			nextArg)
+static MatchDataPtr
+getMatchDataSimple(const short argc,
+                   PAtom       argv,
+                   short &     nextArg)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   PBinbuf      tempBuffer = static_cast<PBinbuf>(binbuf_new());
@@ -201,12 +201,12 @@ static MatchDataPtr getMatchDataSimple
 } /* getMatchDataSimple */
 
 /*------------------------------------ getModifierListSimple ---*/
-static bool getModifierListSimple
-  (const short  argc,
-   PAtom  			argv,
-   short & 			nextArg,
-   bool &				optional,
-   bool &				repeatable)
+static bool
+getModifierListSimple(const short argc,
+                      PAtom       argv,
+                      short &     nextArg,
+                      bool &      optional,
+                      bool &      repeatable)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   bool okSoFar = true, sawClose = false;
@@ -261,12 +261,12 @@ static bool getModifierListSimple
 } /* getModifierListSimple */
 
 /*------------------------------------ getASimplePath ---*/
-static PathListPtr getASimplePath
-  (ListenPtr 		xx,
-   bool &    		lastPath,
-   const short	argc,
-   PAtom     		argv,
-   short &			nextArg)
+static PathListPtr
+getASimplePath(ListenPtr   xx,
+               bool &      lastPath,
+               const short argc,
+               PAtom       argv,
+               short &     nextArg)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   bool moreStuff = true, okSoFar = true;
@@ -447,11 +447,11 @@ static PathListPtr getASimplePath
 } /* getASimplePath */
 
 /*------------------------------------ getASimpleModel ---*/
-static ModelDataPtr getASimpleModel
-  (ListenPtr 		xx,
-   const short	argc,
-   PAtom     		argv,
-   short &			nextArg)
+static ModelDataPtr
+getASimpleModel(ListenPtr   xx,
+                const short argc,
+                PAtom       argv,
+                short &     nextArg)
 {
 #if SPEECH_RECOGNITION_SUPPORTED    
   if (xx)
@@ -466,8 +466,8 @@ static ModelDataPtr getASimpleModel
         PathListPtr aPath = getASimplePath(xx, lastPath, argc, argv, nextArg);
 
         if (! aPath)
-        	break;
-        	
+            break;
+            
         aPath->fNext = aModel->fPaths;
         aModel->fPaths = aPath;
       }
@@ -484,11 +484,11 @@ static ModelDataPtr getASimpleModel
 } /* getASimpleModel */
 
 /*------------------------------------ cmd_Recognize ---*/
-Pvoid cmd_Recognize
-  (ListenPtr xx,
-   PSymbol   message,
-   short     argc,
-   PAtom     argv)
+Pvoid
+cmd_Recognize(ListenPtr xx,
+              PSymbol   message,
+              short     argc,
+              PAtom     argv)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
  #pragma unused(message)

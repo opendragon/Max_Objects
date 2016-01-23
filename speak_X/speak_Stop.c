@@ -40,8 +40,8 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_Stop ---*/
-Pvoid cmd_Stop
-  (SpeakPtr xx)
+Pvoid
+cmd_Stop(SpeakPtr xx)
 {
   EnterCallback();
   if (xx && xx->fSpeaker)

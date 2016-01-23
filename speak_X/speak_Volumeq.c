@@ -40,8 +40,8 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_Volumeq ---*/
-Pvoid cmd_Volumeq
-  (SpeakPtr xx)
+Pvoid
+cmd_Volumeq(SpeakPtr xx)
 {
   EnterCallback();
   if (xx && xx->fSpeaker)

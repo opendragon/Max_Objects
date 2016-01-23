@@ -42,7 +42,8 @@
 #include "reportVersion.h"
 
 /*------------------------------------ notXCreate ---*/
-static void * notXCreate(void)
+static void *
+notXCreate(void)
 {
     NotXData * xx = static_cast<NotXData *>(object_alloc(gClass));
     
@@ -63,7 +64,8 @@ static void * notXCreate(void)
 } // notXCreate
 
 /*------------------------------------ notXFree ---*/
-static void notXFree(NotXData * xx)
+static void
+notXFree(NotXData * xx)
 {
     if (xx)
     {
@@ -72,7 +74,8 @@ static void notXFree(NotXData * xx)
 } // notXFree
 
 /*------------------------------------ main ---*/
-int C74_EXPORT main(void)
+int C74_EXPORT
+main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(notXCreate),
@@ -97,7 +100,8 @@ int C74_EXPORT main(void)
 } // main
 
 /*------------------------------------ clearPrevious ---*/
-void clearPrevious(NotXData * xx)
+void
+clearPrevious(NotXData * xx)
 {
     FREE_BYTES(xx->fPreviousList);
 } // clearPrevious

@@ -51,25 +51,25 @@
  #define DEFAULT_BOX_HEIGHT 122
  #define DEFAULT_BOX_WIDTH  162
 
-static void bqtCheckForMove
-  (QtPtr xx);
+static void
+bqtCheckForMove(QtPtr xx);
 
-static void bqtClipToBox
-  (QtPtr xx,
-   Movie aMovie);
+static void
+bqtClipToBox(QtPtr xx,
+             Movie aMovie);
 
-Pvoid cmd_Border
-  (QtPtr xx,
-   long  num);
+Pvoid
+cmd_Border(QtPtr xx,
+           long  num);
 
-Pvoid cmd_Info
-  (QtPtr    xx,
-   PPatcher parent,
-   PBox     container);
+Pvoid
+cmd_Info(QtPtr    xx,
+         PPatcher parent,
+         PBox     container);
 
-Pvoid cmd_Psave
-  (QtPtr xx,
-   Pvoid ww);
+Pvoid
+cmd_Psave(QtPtr xx,
+          Pvoid ww);
 
 mextern(Pattern) gRectPat;
 

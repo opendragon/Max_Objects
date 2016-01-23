@@ -40,8 +40,8 @@
 #include "wqt.h"
 
 /*------------------------------------ cmd_Close ---*/
-Pvoid cmd_Close
-  (QtPtr xx)
+Pvoid
+cmd_Close(QtPtr xx)
 {
   EnterCallback();
   if (xx && xx->fCurrentMovie && xx->fWindow)

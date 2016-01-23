@@ -44,15 +44,15 @@
 #include "reportVersion.h"
 
 /* Forward references: */
-Pvoid wqtCreate
-  (PSymbol initial);
+Pvoid
+wqtCreate(PSymbol initial);
 
-Pvoid wqtFree
-  (QtPtr xx);
+Pvoid
+wqtFree(QtPtr xx);
 
 /*------------------------------------ main ---*/
-void main
-  (Pfptr ff)
+void
+main(Pfptr ff)
 {
   OSStatus err;
   long     result;
@@ -111,8 +111,8 @@ void main
 } /* main */
 
 /*------------------------------------ wqtCreate ---*/
-Pvoid wqtCreate
-  (PSymbol initial)
+Pvoid
+wqtCreate(PSymbol initial)
 {
   QtPtr xx = NULL_PTR;
   bool  okSoFar = true;
@@ -185,8 +185,8 @@ Pvoid wqtCreate
 } /* wqtCreate */
 
 /*------------------------------------ wqtFree ---*/
-Pvoid wqtFree
-  (QtPtr xx)
+Pvoid
+wqtFree(QtPtr xx)
 {
   EnterCallback();
   if (xx)

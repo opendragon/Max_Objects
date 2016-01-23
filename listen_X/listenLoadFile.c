@@ -44,9 +44,9 @@
 /*============================ Local routines ==================*/
 
 /*------------------------------------ traceAtom ---*/
-static void traceAtom
-  (Qchar	tag,
-   PAtom	value)
+static void
+traceAtom(Qchar tag,
+          PAtom value)
 {
   switch (value->a_type)
   {
@@ -82,9 +82,9 @@ static void traceAtom
 } /* traceAtom */
 
 /*------------------------------------ pushBackAtom ---*/
-static bool pushBackAtom
-  (ListenPtr xx,
-   PAtom     anAtom)
+static bool
+pushBackAtom(ListenPtr xx,
+             PAtom     anAtom)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   if (xx->fBufferPreviousDefined)
@@ -106,9 +106,9 @@ static bool pushBackAtom
 } /* pushBackPAtom/
 
 /*------------------------------------ getNextAtom ---*/
-static bool getNextAtom
-  (ListenPtr xx,
-   PAtom     value)
+static bool
+getNextAtom(ListenPtr xx,
+            PAtom     value)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   Atom skipper;
@@ -132,7 +132,7 @@ static bool getNextAtom
         for ( ; result; )
         {
           result = (! binbuf_getatom(xx->fBuffer, &xx->fBufferTypeOffset,
-          														&xx->fBufferStuffOffset, &skipper));
+                                                                  &xx->fBufferStuffOffset, &skipper));
           if (skipper.a_type == A_SEMI)
             break;
 
@@ -158,8 +158,8 @@ static bool getNextAtom
 } /* getNextPAtom/
 
 /*------------------------------------ skipToEol ---*/
-static void skipToEol
-  (ListenPtr xx)
+static void
+skipToEol(ListenPtr xx)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   for ( ; ; )
@@ -183,8 +183,8 @@ static void skipToEol
 } /* skipToEol */
 
 /*------------------------------------ getASymbol ---*/
-static ModelDataPtr getASymbol
-  (ListenPtr xx)
+static ModelDataPtr
+getASymbol(ListenPtr xx)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   Atom         holder;
@@ -226,8 +226,8 @@ static ModelDataPtr getASymbol
 } /* getASymbol */
 
 /*------------------------------------ getMatchData ---*/
-static MatchDataPtr getMatchData
-  (ListenPtr xx)
+static MatchDataPtr
+getMatchData(ListenPtr xx)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   PBinbuf      tempBuffer = static_cast<PBinbuf>(binbuf_new());
@@ -314,10 +314,10 @@ static MatchDataPtr getMatchData
 } /* getMatchData */
 
 /*------------------------------------ getModifierList ---*/
-static bool getModifierList
-  (ListenPtr xx,
-   bool &    optional,
-   bool &    repeatable)
+static bool
+getModifierList(ListenPtr xx,
+                bool &    optional,
+                bool &    repeatable)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   bool okSoFar = true, sawClose = false;
@@ -376,9 +376,9 @@ static bool getModifierList
 } /* getModifierList */
 
 /*------------------------------------ getAPath ---*/
-static PathListPtr getAPath
-  (ListenPtr xx,
-   bool &    lastPath)
+static PathListPtr
+getAPath(ListenPtr xx,
+         bool &    lastPath)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   bool moreStuff = true, okSoFar = true, pushBack = false;
@@ -551,8 +551,8 @@ static PathListPtr getAPath
 } /* getAPath */
 
 /*------------------------------------ getAModel ---*/
-static ModelDataPtr getAModel
-  (ListenPtr xx)
+static ModelDataPtr
+getAModel(ListenPtr xx)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
 
@@ -682,8 +682,8 @@ static ModelDataPtr getAModel
 } /* getAModel */
 
 /*------------------------------------ reachModel ---*/
-static void reachModel
-  (ModelDataPtr aModel)
+static void
+reachModel(ModelDataPtr aModel)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   if (aModel && (! aModel->fReached))
@@ -704,9 +704,9 @@ static void reachModel
 } /* reachModel */
 
 /*------------------------------------ circularModel ---*/
-static bool circularModel
-  (ModelDataPtr aModel,
-   ModelDataPtr testModel)
+static bool
+circularModel(ModelDataPtr aModel,
+              ModelDataPtr testModel)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   bool failed = false;
@@ -741,8 +741,8 @@ static bool circularModel
 } /* circularModel */
 
 /*------------------------------------ clearReachedFlag ---*/
-static void clearReachedFlag
-  (ListenPtr xx)
+static void
+clearReachedFlag(ListenPtr xx)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   if (xx && xx->fModels)
@@ -759,8 +759,8 @@ static void clearReachedFlag
 } /* clearReachedFlag */
 
 /*------------------------------------ checkDefined ---*/
-static bool checkDefined
-  (ListenPtr xx)
+static bool
+checkDefined(ListenPtr xx)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   bool okSoFar = true;
@@ -788,8 +788,8 @@ static bool checkDefined
 } /* checkDefined */
 
 /*------------------------------------ checkReached ---*/
-static bool checkReached
-  (ListenPtr xx)
+static bool
+checkReached(ListenPtr xx)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   bool okSoFar = true;
@@ -817,8 +817,8 @@ static bool checkReached
 } /* checkReached */
 
 /*------------------------------------ checkForCircularity ---*/
-static bool checkForCircularity
-  (ListenPtr xx)
+static bool
+checkForCircularity(ListenPtr xx)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   bool okSoFar = true;
@@ -844,8 +844,8 @@ static bool checkForCircularity
 /*============================ Global routines =================*/
 
 /*------------------------------------ clearHashTable ---*/
-void clearHashTable
-  (ListenPtr xx)
+void
+clearHashTable(ListenPtr xx)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   if (xx && xx->fModels)
@@ -897,8 +897,8 @@ void clearHashTable
 } /* clearHashTable */
 
 /*------------------------------------ clearModelData ---*/
-void clearModelData
-  (ListenPtr xx)
+void
+clearModelData(ListenPtr xx)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   if (xx)
@@ -922,9 +922,9 @@ void clearModelData
 
 #if SPEECH_RECOGNITION_SUPPORTED
 /*------------------------------------ createLanguageModel ---*/
-void createLanguageModel
-  (ListenPtr    xx,
-   ModelDataPtr aModel)
+void
+createLanguageModel(ListenPtr    xx,
+                    ModelDataPtr aModel)
 {
   if (xx && aModel)
   {
@@ -952,7 +952,7 @@ void createLanguageModel
     if (result == noErr)
     {
       for (PathListPtr path = aModel->fPaths; path && okSoFar && (result == noErr);
-      			path = path->fNext)
+                  path = path->fNext)
       {
         SRPath anSRPath = createPath(xx, path);
 
@@ -977,9 +977,9 @@ void createLanguageModel
 
 #if SPEECH_RECOGNITION_SUPPORTED
 /*------------------------------------ createPath ---*/
-SRPath createPath
-  (ListenPtr   xx,
-   PathListPtr aPath)
+SRPath
+createPath(ListenPtr   xx,
+           PathListPtr aPath)
 {
   SRPath anSRPath = NULL_PTR;
   OSErr  result = noErr;
@@ -990,7 +990,7 @@ SRPath createPath
     if (result == noErr)
     {
       for (ElementPtr element = aPath->fFirst; element && (result == noErr);
-      			element = element->fNext)
+                  element = element->fNext)
       {
         SRSpeechObject thisElement = NULL_PTR;
 
@@ -1095,9 +1095,9 @@ SRPath createPath
 #endif /* SPEECH_RECOGNITION_SUPPORTED */
 
 /*------------------------------------ doLoadLanguageFile ---*/
-void doLoadLanguageFile
-  (ListenPtr xx,
-   Pchar     fileName)
+void
+doLoadLanguageFile(ListenPtr xx,
+                   Pchar     fileName)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   bool         okSoFar = true;
@@ -1160,8 +1160,8 @@ void doLoadLanguageFile
 } /* doLoadLanguageFile */
 
 /*------------------------------------ initializeHashTable ---*/
-void initializeHashTable
-  (ListenPtr xx)
+void
+initializeHashTable(ListenPtr xx)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   clearHashTable(xx);
@@ -1177,9 +1177,9 @@ void initializeHashTable
 } /* initializeHashTable */
 
 /*------------------------------------ lookupModel ---*/
-ModelDataPtr lookupModel
-  (ListenPtr xx,
-   PSymbol   name)
+ModelDataPtr
+lookupModel(ListenPtr xx,
+            PSymbol   name)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   ModelDataPtr slot = NULL_PTR;
@@ -1222,8 +1222,8 @@ ModelDataPtr lookupModel
 } /* lookupModel */
 
 /*------------------------------------ reportUnexpected ---*/
-void reportUnexpected
-  (PAtom what)
+void
+reportUnexpected(PAtom what)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
   switch (what->a_type)
@@ -1264,12 +1264,12 @@ void reportUnexpected
 } /* reportUnexpected */
 
 /*------------------------------------ symbolIsAModel ---*/
-bool symbolIsAModel
-  (PSymbol aSymbol)
+bool
+symbolIsAModel(PSymbol aSymbol)
 {
 #if SPEECH_RECOGNITION_SUPPORTED
-  Qchar		walker = aSymbol->s_name;
-  size_t	len = strlen(walker);
+  Qchar        walker = aSymbol->s_name;
+  size_t    len = strlen(walker);
 
   if ((*walker == kOpenModelChar) && (len > 2) &&
       (*(walker + len - 1) == kCloseModelChar))

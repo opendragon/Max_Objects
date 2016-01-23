@@ -60,11 +60,13 @@ struct CaseShiftData
     short       fPreviousKind;
 }; // CaseShiftData
 
-void clearPrevious(CaseShiftData * xx);
+void
+clearPrevious(CaseShiftData * xx);
 
-void shiftAString(CaseShiftData * xx,
-                  char *          newWord,
-                  const char *    oldWord);
+void
+shiftAString(CaseShiftData * xx,
+             char *          newWord,
+             const char *    oldWord);
 
 StandardRoutineDeclarations(CaseShiftData);
 

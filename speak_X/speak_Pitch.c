@@ -40,9 +40,9 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_Pitch ---*/
-Pvoid cmd_Pitch
-  (SpeakPtr xx,
-   double   newPitch)
+Pvoid
+cmd_Pitch(SpeakPtr xx,
+          double   newPitch)
 {
   EnterCallback();
   if (xx && xx->fSpeaker)

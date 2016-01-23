@@ -44,10 +44,10 @@
  
 struct SharedData
 {
-	IOHIDElementCookie	fOutputCookie;
-	bool								fCookiesValid;	
+    IOHIDElementCookie    fOutputCookie;
+    bool                  fCookiesValid;    
 }; /* SharedData */
 
-typedef SharedData *	SharedPtr;
+typedef SharedData *    SharedPtr;
 
 #endif /* not TEXTLCD_H_ */

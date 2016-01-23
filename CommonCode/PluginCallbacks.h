@@ -42,14 +42,17 @@
 
  #include "StandardPluginTypes.h"
 
-bool isMessageRegistered(OwnerPtr owner,
-                         PSymbol  name);
+bool
+isMessageRegistered(OwnerPtr owner,
+                    PSymbol  name);
 
-bool registerMessage(OwnerPtr   owner,
-                     PSymbol    name,
-                     PluginFunk aHandler);
+bool
+registerMessage(OwnerPtr   owner,
+                PSymbol    name,
+                PluginFunk aHandler);
 
-bool unregisterMessage(OwnerPtr owner,
-                       PSymbol  name);
+bool
+unregisterMessage(OwnerPtr owner,
+                  PSymbol  name);
 
 #endif /* not PLUGINCALLBACKS_H_ */

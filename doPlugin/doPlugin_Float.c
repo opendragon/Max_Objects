@@ -40,9 +40,9 @@
 #include "doPlugin.h"
 
 /*------------------------------------ cmd_Float ---*/
-Pvoid cmd_Float
-  (DoPluginPtr xx,
-   double      message)
+Pvoid
+cmd_Float(DoPluginPtr xx,
+          double      message)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(message)

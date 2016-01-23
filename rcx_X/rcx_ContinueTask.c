@@ -40,9 +40,9 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_ContinueTask ---*/
-Pvoid cmd_ContinueTask
-  (RcxControlPtr xx,
-   long          slot)
+Pvoid
+cmd_ContinueTask(RcxControlPtr xx,
+                 long          slot)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(slot)
@@ -58,7 +58,7 @@ Pvoid cmd_ContinueTask
         static uchar continueCommand[] = { RCX_CONTINUE_TASK_CMD, 0 };
 
         if (rcxSendCommand(xx, continueCommand, sizeof(continueCommand),
-        										RCX_CONTINUE_TASK_REPLY, true))
+                                                RCX_CONTINUE_TASK_REPLY, true))
           outlet_bang(xx->fCommandComplete);
         else
           outlet_bang(xx->fErrorBangOut);

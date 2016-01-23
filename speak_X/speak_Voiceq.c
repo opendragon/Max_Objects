@@ -40,8 +40,8 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_Voiceq ---*/
-Pvoid cmd_Voiceq
-  (SpeakPtr xx)
+Pvoid
+cmd_Voiceq(SpeakPtr xx)
 {
   EnterCallback();
   if (xx)

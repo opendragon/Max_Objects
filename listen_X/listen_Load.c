@@ -40,9 +40,9 @@
 #include "listen.h"
 
 /*------------------------------------ cmd_Load ---*/
-Pvoid cmd_Load
-  (ListenPtr xx,
-   PSymbol   fileName)
+Pvoid
+cmd_Load(ListenPtr xx,
+         PSymbol   fileName)
 {
 #if (! SPEECH_RECOGNITION_SUPPORTED)
  #pragma unused(fileName)

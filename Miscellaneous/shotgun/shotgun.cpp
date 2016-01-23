@@ -42,8 +42,9 @@
 #include "reportAnything.h"
 #include "reportVersion.h"
 
-/*------------------------------------ ShotgunCreate ---*/
-static void * ShotgunCreate(const long numOutlets)
+/*------------------------------------ shotgunCreate ---*/
+static void *
+shotgunCreate(const long numOutlets)
 {
     ShotgunData * xx = static_cast<ShotgunData *>(object_alloc(gClass));
     
@@ -87,10 +88,11 @@ static void * ShotgunCreate(const long numOutlets)
         }
     }
     return xx;
-} // ShotgunCreate
+} // shotgunCreate
 
-/*------------------------------------ ShotgunFree ---*/
-static void ShotgunFree(ShotgunData * xx)
+/*------------------------------------ shotgunFree ---*/
+static void
+shotgunFree(ShotgunData * xx)
 {
     if (xx)
     {
@@ -100,14 +102,15 @@ static void ShotgunFree(ShotgunData * xx)
             xx->fResultsOut = NULL;
         }
     }
-} // ShotgunFree
+} // shotgunFree
 
 /*------------------------------------ main ---*/
-int C74_EXPORT main(void)
+int C74_EXPORT
+main(void)
 {
     /* Allocate class memory and set up class. */
-    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(ShotgunCreate),
-                               reinterpret_cast<method>(ShotgunFree),
+    t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(shotgunCreate),
+                               reinterpret_cast<method>(shotgunFree),
                                static_cast<long>(sizeof(ShotgunData)),
                                reinterpret_cast<method>(NULL), A_DEFLONG, 0);
 

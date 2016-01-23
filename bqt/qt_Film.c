@@ -40,9 +40,9 @@
 #include "qtCommon.h"
 
 /*------------------------------------ cmd_Film ---*/
-Pvoid cmd_Film
-  (QtPtr   xx,
-   PSymbol which)
+Pvoid
+cmd_Film(QtPtr   xx,
+         PSymbol which)
 {
   QtMovieHdl temp;
   Movie      result = NULL_PTR;

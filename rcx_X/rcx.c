@@ -44,43 +44,43 @@
 #include "loadOtherSegments.h"
 #include "reportVersion.h"
 
-#define RCX2_VENDOR		0x0694 
-#define RCX2_PRODUCT	0x0001
+#define RCX2_VENDOR        0x0694 
+#define RCX2_PRODUCT    0x0001
 
 enum
 {
-	kReadPipe = 1,
-	kWritePipe = 2,
-	kReadPacketSize = 8,
-	kMaxWritePacket = 200
+    kReadPipe = 1,
+    kWritePipe = 2,
+    kReadPacketSize = 8,
+    kMaxWritePacket = 200
 };
 
 /* Forward references: */
-Pvoid rcxCreate
-  (PSymbol portClass,
-   PSymbol whichPortOrPower);
+Pvoid
+rcxCreate(PSymbol portClass,
+          PSymbol whichPortOrPower);
 
-Pvoid rcxFree
-  (RcxControlPtr xx);
+Pvoid
+rcxFree(RcxControlPtr xx);
 
 #if COMPILE_FOR_OS9_4
-UInt32 rcxNotify
-  (GHNOTIFYCODE notifyCode,
-   PBKRESULT    resultCode,
-   GHSTACK      ghostStack,
-   GHQUEUE      queue,
-   GHCOMMAND    command,
-   Pvoid        context);
+UInt32
+rcxNotify(GHNOTIFYCODE notifyCode,
+          PBKRESULT    resultCode,
+          GHSTACK      ghostStack,
+          GHQUEUE      queue,
+          GHCOMMAND    command,
+          Pvoid        context);
 #endif /* COMPILE_FOR_OS9_4 */
 
 #if COMPILE_FOR_OSX_4
-static uchar	gRcxSync[] = { 0x55, 0xFF, 0x00 };
-static uchar	gRcxNo55Sync[] = { 0xFF, 0x00 };
+static uchar    gRcxSync[] = { 0x55, 0xFF, 0x00 };
+static uchar    gRcxNo55Sync[] = { 0xFF, 0x00 };
 #endif /* COMPILE_FOR_OSX_4 */
-	
+    
 /*------------------------------------ main ---*/
-void main
-  (Pfptr ff)
+void
+main(Pfptr ff)
 {
   EnterCodeResource();
   PrepareCallback();
@@ -190,15 +190,15 @@ void main
 } /* main */
 
 /*------------------------------------ rcxCopyFromReply ---*/
-UInt32 rcxCopyFromReply
-  (RcxControlPtr	xx,
-   Puchar       	replyBuffer,
-   const UInt32		replySize)
+UInt32
+rcxCopyFromReply(RcxControlPtr    xx,
+                 Puchar           replyBuffer,
+                 const UInt32        replySize)
 {
   if (xx)
   {
-    UInt32	length = xx->fReplyLength;
-    Quchar	source = xx->fReplyBuffer + 1;
+    UInt32    length = xx->fReplyLength;
+    Quchar    source = xx->fReplyBuffer + 1;
 
     if (length > replySize)
       length = replySize;
@@ -212,274 +212,274 @@ UInt32 rcxCopyFromReply
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ addUSBDevice ---*/
-static void addUSBDevice
-	(RcxControlPtr	xx,
-	 io_service_t		obj)
+static void
+addUSBDevice(RcxControlPtr    xx,
+             io_service_t        obj)
 {
-	CFTypeRef								idVendorRef = NULL_PTR;
-	bool										okSoFar = true;
-	kern_return_t						kernResult;
-	IOCFPlugInInterface * *	cfPlugInInterface = NULL_PTR; 
-	SInt32 									theScore; 
-	ULONG										relResult;
-	IOReturn								operResult;
+    CFTypeRef                                idVendorRef = NULL_PTR;
+    bool                                        okSoFar = true;
+    kern_return_t                        kernResult;
+    IOCFPlugInInterface * *    cfPlugInInterface = NULL_PTR; 
+    SInt32                                     theScore; 
+    ULONG                                        relResult;
+    IOReturn                                operResult;
 
-	if (createPlugInInterface(xx->fUSBControl, obj,
-														kIOUSBDeviceUserClientTypeID, 
-														kIOCFPlugInInterfaceID, cfPlugInInterface,
-														theScore, kernResult))
-	{
-		if ((kernResult == KERN_SUCCESS) && cfPlugInInterface)
-		{
-			// get the device-specific interface...
-			okSoFar = (queryPlugInInterface(cfPlugInInterface,
-																CFUUIDGetUUIDBytes(kIOUSBDeviceInterfaceID), 
-															reinterpret_cast<LPVOID*>(&xx->fDevice)) == KERN_SUCCESS);
-			releasePlugInInterface(cfPlugInInterface, relResult);
-			//LOG_POST_3("release1 returns: %ld (0x%lx)", relResult, relResult);
-			if (okSoFar && xx->fDevice)
-			{	 
-				// Some of the documentation states that we need to do a IODestroyPlugInInterface of
-				// cfPlugInInterface when we're done with the device-specific interface...
-				operResult = openUSBDevice(xx->fDevice);
-				if (operResult != KERN_SUCCESS)
-				{
-					okSoFar = false;
-					LOG_POST_3("open returns: %d (0x%x)", operResult, operResult);
-				}
-				if (okSoFar)
-				{
-					operResult = configureUSBDevice(xx->fDevice, uchar(xx->fHighPower ? 1 : 0));
-					if (operResult != KERN_SUCCESS)
-					{
-						okSoFar = false;
-						LOG_POST_3("configure returns: %d (0x%x)", operResult, operResult);
-					}
-				}
-				// get first interface for the current configuration...
-				IOUSBFindInterfaceRequest	request;
-				io_iterator_t							iter;
-				io_service_t							usbInterface;
-				
-				request.bInterfaceClass = kIOUSBFindInterfaceDontCare;
-				request.bInterfaceSubClass = kIOUSBFindInterfaceDontCare;
-				request.bInterfaceProtocol = kIOUSBFindInterfaceDontCare;
-				request.bAlternateSetting = kIOUSBFindInterfaceDontCare;
-				if (okSoFar)
-				{
-					operResult = createUSBInterfaceIterator(xx->fDevice, request, iter);
-					if (operResult != KERN_SUCCESS)
-					{
-						okSoFar = false;
-						LOG_POST_3("create interface iterator returns: %d (0x%x)", operResult,
-												operResult);
-					}
-				}
-				if (okSoFar)
-				{
-					getNextServiceObject(xx->fUSBControl, iter, usbInterface);
-					
-					if (! releaseServiceObject(OUR_NAME, xx->fUSBControl, iter))
-					{
-						okSoFar = false;
-						LOG_POST_1("problem releasing iterator");
-					}
-					if (createPlugInInterface(xx->fUSBControl, usbInterface,
-																		kIOUSBInterfaceUserClientTypeID, 
-																		kIOCFPlugInInterfaceID, cfPlugInInterface,
-																		theScore, kernResult))
-					{
-						if ((kernResult == KERN_SUCCESS) && cfPlugInInterface)
-						{
-							// get the interface that we want...
-							okSoFar = (queryPlugInInterface(cfPlugInInterface,
-																				CFUUIDGetUUIDBytes(kIOUSBInterfaceInterfaceID), 
-																			reinterpret_cast<LPVOID*>(&xx->fInterface)) ==
-																			KERN_SUCCESS);
-							releasePlugInInterface(cfPlugInInterface, relResult);
-							//LOG_POST_3("release2 returns: %ld (0x%lx)", relResult, relResult);
-							if (okSoFar && xx->fInterface)
-							{
-								operResult = openUSBInterface(xx->fInterface);
-								if (operResult == KERN_SUCCESS)
-								{
-									xx->fDeviceOpen = true;
-									CFRunLoopSourceRef	source;
-									CFStringRef					defaultRunLoopMode;
-									CFRunLoopRef				runLoop;
-									
-									if (getRunLoopDefaultMode(xx->fUSBControl, defaultRunLoopMode) &&
-											getRunLoopCurrent(xx->fUSBControl, runLoop) &&
-											(createUSBInterfaceAsyncEventSource(xx->fInterface, source) == KERN_SUCCESS))
-										runLoopAddSource(xx->fUSBControl, runLoop, source, defaultRunLoopMode);
-									rcxSetRange(xx, LTW_RANGE_MEDIUM);
-									rcxSetSpeed(xx, true);
-								}
-								else
-								{
-									okSoFar = false;
-									LOG_POST_3("open interface returns: %d (0x%x)", operResult,
-															operResult);
-								}
-							}
-						}
-					else
-						LOG_POST_3("create plugin interface interface returns: %d (0x%x)",
-												kernResult, kernResult);
-					}
-					else
-						LOG_POST_1("problem creating plugin interface interface");
-					if (! releaseServiceObject(OUR_NAME, xx->fUSBControl, usbInterface))
-					{
-						okSoFar = false;
-						LOG_POST_1("problem releasing usbInterface object");
-					}
-				}
-			}
-		}
-		else
-			LOG_POST_3("create plugin device interface returns: %d (0x%x)",
-									kernResult, kernResult);
-	}
-	else
-		LOG_POST_1("problem creating plugin device interface");
+    if (createPlugInInterface(xx->fUSBControl, obj,
+                                                        kIOUSBDeviceUserClientTypeID, 
+                                                        kIOCFPlugInInterfaceID, cfPlugInInterface,
+                                                        theScore, kernResult))
+    {
+        if ((kernResult == KERN_SUCCESS) && cfPlugInInterface)
+        {
+            // get the device-specific interface...
+            okSoFar = (queryPlugInInterface(cfPlugInInterface,
+                                                                CFUUIDGetUUIDBytes(kIOUSBDeviceInterfaceID), 
+                                                            reinterpret_cast<LPVOID*>(&xx->fDevice)) == KERN_SUCCESS);
+            releasePlugInInterface(cfPlugInInterface, relResult);
+            //LOG_POST_3("release1 returns: %ld (0x%lx)", relResult, relResult);
+            if (okSoFar && xx->fDevice)
+            {     
+                // Some of the documentation states that we need to do a IODestroyPlugInInterface of
+                // cfPlugInInterface when we're done with the device-specific interface...
+                operResult = openUSBDevice(xx->fDevice);
+                if (operResult != KERN_SUCCESS)
+                {
+                    okSoFar = false;
+                    LOG_POST_3("open returns: %d (0x%x)", operResult, operResult);
+                }
+                if (okSoFar)
+                {
+                    operResult = configureUSBDevice(xx->fDevice, uchar(xx->fHighPower ? 1 : 0));
+                    if (operResult != KERN_SUCCESS)
+                    {
+                        okSoFar = false;
+                        LOG_POST_3("configure returns: %d (0x%x)", operResult, operResult);
+                    }
+                }
+                // get first interface for the current configuration...
+                IOUSBFindInterfaceRequest    request;
+                io_iterator_t                            iter;
+                io_service_t                            usbInterface;
+                
+                request.bInterfaceClass = kIOUSBFindInterfaceDontCare;
+                request.bInterfaceSubClass = kIOUSBFindInterfaceDontCare;
+                request.bInterfaceProtocol = kIOUSBFindInterfaceDontCare;
+                request.bAlternateSetting = kIOUSBFindInterfaceDontCare;
+                if (okSoFar)
+                {
+                    operResult = createUSBInterfaceIterator(xx->fDevice, request, iter);
+                    if (operResult != KERN_SUCCESS)
+                    {
+                        okSoFar = false;
+                        LOG_POST_3("create interface iterator returns: %d (0x%x)", operResult,
+                                                operResult);
+                    }
+                }
+                if (okSoFar)
+                {
+                    getNextServiceObject(xx->fUSBControl, iter, usbInterface);
+                    
+                    if (! releaseServiceObject(OUR_NAME, xx->fUSBControl, iter))
+                    {
+                        okSoFar = false;
+                        LOG_POST_1("problem releasing iterator");
+                    }
+                    if (createPlugInInterface(xx->fUSBControl, usbInterface,
+                                                                        kIOUSBInterfaceUserClientTypeID, 
+                                                                        kIOCFPlugInInterfaceID, cfPlugInInterface,
+                                                                        theScore, kernResult))
+                    {
+                        if ((kernResult == KERN_SUCCESS) && cfPlugInInterface)
+                        {
+                            // get the interface that we want...
+                            okSoFar = (queryPlugInInterface(cfPlugInInterface,
+                                                                                CFUUIDGetUUIDBytes(kIOUSBInterfaceInterfaceID), 
+                                                                            reinterpret_cast<LPVOID*>(&xx->fInterface)) ==
+                                                                            KERN_SUCCESS);
+                            releasePlugInInterface(cfPlugInInterface, relResult);
+                            //LOG_POST_3("release2 returns: %ld (0x%lx)", relResult, relResult);
+                            if (okSoFar && xx->fInterface)
+                            {
+                                operResult = openUSBInterface(xx->fInterface);
+                                if (operResult == KERN_SUCCESS)
+                                {
+                                    xx->fDeviceOpen = true;
+                                    CFRunLoopSourceRef    source;
+                                    CFStringRef                    defaultRunLoopMode;
+                                    CFRunLoopRef                runLoop;
+                                    
+                                    if (getRunLoopDefaultMode(xx->fUSBControl, defaultRunLoopMode) &&
+                                            getRunLoopCurrent(xx->fUSBControl, runLoop) &&
+                                            (createUSBInterfaceAsyncEventSource(xx->fInterface, source) == KERN_SUCCESS))
+                                        runLoopAddSource(xx->fUSBControl, runLoop, source, defaultRunLoopMode);
+                                    rcxSetRange(xx, LTW_RANGE_MEDIUM);
+                                    rcxSetSpeed(xx, true);
+                                }
+                                else
+                                {
+                                    okSoFar = false;
+                                    LOG_POST_3("open interface returns: %d (0x%x)", operResult,
+                                                            operResult);
+                                }
+                            }
+                        }
+                    else
+                        LOG_POST_3("create plugin interface interface returns: %d (0x%x)",
+                                                kernResult, kernResult);
+                    }
+                    else
+                        LOG_POST_1("problem creating plugin interface interface");
+                    if (! releaseServiceObject(OUR_NAME, xx->fUSBControl, usbInterface))
+                    {
+                        okSoFar = false;
+                        LOG_POST_1("problem releasing usbInterface object");
+                    }
+                }
+            }
+        }
+        else
+            LOG_POST_3("create plugin device interface returns: %d (0x%x)",
+                                    kernResult, kernResult);
+    }
+    else
+        LOG_POST_1("problem creating plugin device interface");
 } /* addUSBDevice */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ USBDeviceAdded ---*/
-static void USBDeviceAdded
-	(Pvoid					refCon,
-	 io_iterator_t	iterator)
+static void
+USBDeviceAdded(Pvoid                    refCon,
+               io_iterator_t    iterator)
 {
-	RcxControlPtr	xx = reinterpret_cast<RcxControlPtr>(refCon);
+    RcxControlPtr    xx = reinterpret_cast<RcxControlPtr>(refCon);
 
-	if (xx && xx->fUSBControl.fActive && (! xx->fStopping))
-	{
-		for ( ; ; )
-		{
-		 	io_service_t	obj;
-		 	
-			if (! getNextServiceObject(xx->fUSBControl, iterator, obj))
-				break;
+    if (xx && xx->fUSBControl.fActive && (! xx->fStopping))
+    {
+        for ( ; ; )
+        {
+             io_service_t    obj;
+             
+            if (! getNextServiceObject(xx->fUSBControl, iterator, obj))
+                break;
 
-			if (! obj)
-				break;
+            if (! obj)
+                break;
 
-			CFTypeRef	idVendorRef = NULL_PTR, serialNumberRef = NULL_PTR;
-			CFTypeRef	productIDRef = NULL_PTR;
-			bool			added = false;
+            CFTypeRef    idVendorRef = NULL_PTR, serialNumberRef = NULL_PTR;
+            CFTypeRef    productIDRef = NULL_PTR;
+            bool            added = false;
 
-			if (getObjectProperty(xx->fUSBControl, obj, CFSTR(kUSBVendorID),
-														idVendorRef))
-			{
-				if (idVendorRef)
-				{
-					long	number;
-					
-					if (CFNumberGetValue(static_cast<CFNumberRef>(idVendorRef),
-																kCFNumberLongType, &number))
-					{
-						if (number == RCX2_VENDOR)
-						{
-							if (getObjectProperty(xx->fUSBControl, obj, CFSTR(kUSBProductID),
-																		productIDRef))
-							{
-								if (CFNumberGetValue(reinterpret_cast<CFNumberRef>(productIDRef),
-																			kCFNumberLongType, &number))
-								{
-									if (number == RCX2_PRODUCT)
-									{
-										addUSBDevice(xx, obj);
-										added = true;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			if (! added)
-				releaseServiceObject(OUR_NAME, xx->fUSBControl, obj);
-		}
-  }	
+            if (getObjectProperty(xx->fUSBControl, obj, CFSTR(kUSBVendorID),
+                                                        idVendorRef))
+            {
+                if (idVendorRef)
+                {
+                    long    number;
+                    
+                    if (CFNumberGetValue(static_cast<CFNumberRef>(idVendorRef),
+                                                                kCFNumberLongType, &number))
+                    {
+                        if (number == RCX2_VENDOR)
+                        {
+                            if (getObjectProperty(xx->fUSBControl, obj, CFSTR(kUSBProductID),
+                                                                        productIDRef))
+                            {
+                                if (CFNumberGetValue(reinterpret_cast<CFNumberRef>(productIDRef),
+                                                                            kCFNumberLongType, &number))
+                                {
+                                    if (number == RCX2_PRODUCT)
+                                    {
+                                        addUSBDevice(xx, obj);
+                                        added = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (! added)
+                releaseServiceObject(OUR_NAME, xx->fUSBControl, obj);
+        }
+  }    
 } /* USBDeviceAdded */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxCopyFromRawBuffer ---*/
-static void rcxCopyFromRawBuffer
-	(RcxControlPtr	xx)
+static void
+rcxCopyFromRawBuffer(RcxControlPtr    xx)
 {
-	for ( ; xx->fReadRemaining && (xx->fRawReceiveStart < xx->fRawReceiveEnd);
-				--xx->fReadRemaining)
-		*(xx->fReadWalker)++ = *(xx->fRawReceiveStart)++;
-	if (! xx->fReadRemaining)
-		xx->fReadComplete = true;
+    for ( ; xx->fReadRemaining && (xx->fRawReceiveStart < xx->fRawReceiveEnd);
+                --xx->fReadRemaining)
+        *(xx->fReadWalker)++ = *(xx->fRawReceiveStart)++;
+    if (! xx->fReadRemaining)
+        xx->fReadComplete = true;
 } /* rcxCopyFromRawBuffer */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxTriggerRead ---*/
-static void rcxTriggerRead
-	(RcxControlPtr	xx)
+static void
+rcxTriggerRead(RcxControlPtr    xx)
 {
-	xx->fRawReceiveStart = xx->fRawReceiveEnd = xx->fRawReceiveBuffer;
-	IOReturn	result = readUSBPipeAsync(xx->fInterface, kReadPipe, xx->fRawReceiveBuffer,
-																			kReadPacketSize, xx->fReadCompletion, xx);
+    xx->fRawReceiveStart = xx->fRawReceiveEnd = xx->fRawReceiveBuffer;
+    IOReturn    result = readUSBPipeAsync(xx->fInterface, kReadPipe, xx->fRawReceiveBuffer,
+                                                                            kReadPacketSize, xx->fReadCompletion, xx);
 
-	if (result != KERN_SUCCESS)
-		LOG_POST_3("readUSBPipeAsync returns: %d (0x%x)", result, result);
+    if (result != KERN_SUCCESS)
+        LOG_POST_3("readUSBPipeAsync returns: %d (0x%x)", result, result);
 } /* rcxTriggerRead */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxReadCompletion ---*/
-static void rcxReadCompletion
-	(RcxControlPtr	xx,
-	 IOReturn				result,
-	 Pvoid					arg0)
+static void
+rcxReadCompletion(RcxControlPtr    xx,
+                  IOReturn                result,
+                  Pvoid                    arg0)
 {
-	if (result == kIOReturnAborted)
-		return;
+    if (result == kIOReturnAborted)
+        return;
 
-	xx->fRawReceiveEnd = xx->fRawReceiveBuffer + reinterpret_cast<UInt32>(arg0);
-	rcxCopyFromRawBuffer(xx);
-	if (! xx->fReadComplete)
-		rcxTriggerRead(xx);
+    xx->fRawReceiveEnd = xx->fRawReceiveBuffer + reinterpret_cast<UInt32>(arg0);
+    rcxCopyFromRawBuffer(xx);
+    if (! xx->fReadComplete)
+        rcxTriggerRead(xx);
 } /* rcxReadCompletion */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ USBDeviceRemoved ---*/
-static void USBDeviceRemoved
-	(Pvoid					refCon,
-	 io_iterator_t	iterator)
+static void
+USBDeviceRemoved(Pvoid                    refCon,
+                 io_iterator_t    iterator)
 {
-	RcxControlPtr	xx = reinterpret_cast<RcxControlPtr>(refCon);
+    RcxControlPtr    xx = reinterpret_cast<RcxControlPtr>(refCon);
 
-	if (xx && xx->fUSBControl.fActive && (! xx->fStopping))
-	{
-		for ( ; ; )
-		{
-		 	io_service_t	obj;
-		 	
-			if (! getNextServiceObject(xx->fUSBControl, iterator, obj))
-				break;
-			
-			if (! obj)
-				break;
-				
-			releaseServiceObject(OUR_NAME, xx->fUSBControl, obj);		
-		}
-  }	
+    if (xx && xx->fUSBControl.fActive && (! xx->fStopping))
+    {
+        for ( ; ; )
+        {
+             io_service_t    obj;
+             
+            if (! getNextServiceObject(xx->fUSBControl, iterator, obj))
+                break;
+            
+            if (! obj)
+                break;
+                
+            releaseServiceObject(OUR_NAME, xx->fUSBControl, obj);        
+        }
+  }    
 } /* USBDeviceRemoved */
 #endif /* COMPILE_FOR_OSX_4 */
 
 /*------------------------------------ rcxCreate ---*/
-Pvoid rcxCreate
-  (PSymbol portClass,
-   PSymbol whichPortOrPower)
+Pvoid
+rcxCreate(PSymbol portClass,
+          PSymbol whichPortOrPower)
 {
   RcxControlPtr xx = NULL_PTR;
 
@@ -487,16 +487,16 @@ Pvoid rcxCreate
   LOG_ENTER()
 #if FOR_MAC_PPC
  #if COMPILE_FOR_OSX_4
-  PSymbol	checkGlobal = gensym(RCX_CONTROL_SYMBOL);
+  PSymbol    checkGlobal = gensym(RCX_CONTROL_SYMBOL);
 
   if (checkGlobal->s_thing)
   {
-  	LOG_ERROR_1(OUTPUT_PREFIX "rcx object already present");
-  	xx = NULL_PTR; 	
+      LOG_ERROR_1(OUTPUT_PREFIX "rcx object already present");
+      xx = NULL_PTR;     
   }
   else
  #endif /* COMPILE_FOR_OSX_4 */
-	  xx = static_cast<RcxControlPtr>(newobject(gClass));
+      xx = static_cast<RcxControlPtr>(newobject(gClass));
   if (xx)
   {
  #if COMPILE_FOR_OS9_4
@@ -532,8 +532,8 @@ Pvoid rcxCreate
     {
       xx->fUseUSB = false;
  #if COMPILE_FOR_OSX_4
-			LOG_ERROR_1(OUTPUT_PREFIX "serial port is not currently supported")
-			okSoFar = false;
+            LOG_ERROR_1(OUTPUT_PREFIX "serial port is not currently supported")
+            okSoFar = false;
  #endif /* COMPILE_FOR_OSX_4 */
     }
     else if ((portClass == gEmptySymbol) || (portClass == gUsbSymbol))
@@ -547,27 +547,27 @@ Pvoid rcxCreate
     {
       xx->fReplyBuffer = GETBYTES(MAX_REPLY_BUFFER, uchar);
  #if COMPILE_FOR_OSX_4
-	    xx->fReceiveBuffer = GETBYTES(MAX_RECEIVE_BUFFER, uchar);
-	    xx->fRawReceiveBuffer = GETBYTES(kReadPacketSize, uchar);
+        xx->fReceiveBuffer = GETBYTES(MAX_RECEIVE_BUFFER, uchar);
+        xx->fRawReceiveBuffer = GETBYTES(kReadPacketSize, uchar);
  #endif /* COMPILE_FOR_OSX_4 */
       xx->fErrorBangOut = static_cast<POutlet>(bangout(xx));
       xx->fCommandComplete = static_cast<POutlet>(bangout(xx));
       xx->fDataOut = static_cast<POutlet>(outlet_new(xx, 0L));   /* normally just a list */
  #if COMPILE_FOR_OSX_4
-	    if (xx->fReplyBuffer && xx->fReceiveBuffer && xx->fRawReceiveBuffer &&
-	    			xx->fErrorBangOut && xx->fCommandComplete && xx->fDataOut)
+        if (xx->fReplyBuffer && xx->fReceiveBuffer && xx->fRawReceiveBuffer &&
+                    xx->fErrorBangOut && xx->fCommandComplete && xx->fDataOut)
  #endif /* COMPILE_FOR_OSX_4 */
  #if COMPILE_FOR_OS9_4
       if (xx->fReplyBuffer && xx->fErrorBangOut && xx->fCommandComplete && xx->fDataOut)
  #endif /* COMPILE_FOR_OS9_4 */
       {
  #if COMPILE_FOR_OSX_4
-				if (setUpIOKit(xx, OUR_NAME, xx->fUSBControl, kIOUSBDeviceClassName,
-												USBDeviceAdded, USBDeviceRemoved))
-				{
-					// other initialization...
-					triggerIterators(xx, xx->fUSBControl, USBDeviceAdded, USBDeviceRemoved);
-		    }
+                if (setUpIOKit(xx, OUR_NAME, xx->fUSBControl, kIOUSBDeviceClassName,
+                                                USBDeviceAdded, USBDeviceRemoved))
+                {
+                    // other initialization...
+                    triggerIterators(xx, xx->fUSBControl, USBDeviceAdded, USBDeviceRemoved);
+            }
  #endif /* COMPILE_FOR_OSX_4 */
  #if COMPILE_FOR_OS9_4
         // Create a Ghost stack for communication...
@@ -693,45 +693,45 @@ Pvoid rcxCreate
 } /* rcxCreate */
 
 /*------------------------------------ rcxFree ---*/
-Pvoid rcxFree
-  (RcxControlPtr xx)
+Pvoid
+rcxFree(RcxControlPtr xx)
 {
   EnterCallback();
   if (xx)
   {
 #if FOR_MAC_PPC
  #if COMPILE_FOR_OSX_4
-  	IOReturn	operResult;
-  	ULONG			relResult;
-  	
-	  xx->fReportEvents = false;
-	  xx->fStopping = true;
-	  if (xx->fDeviceOpen)
-	  {
-	  	operResult = closeUSBInterface(xx->fInterface);
-	  	if (operResult != KERN_SUCCESS)
-	  		LOG_POST_3("close interface returns: %d (0x%x)", operResult, operResult);
-	  	relResult = releaseUSBInterface(xx->fInterface);
-  		//LOG_POST_3("release interface returns: %ld (0x%lx)", relResult, relResult);//!!
-  		xx->fInterface = NULL_PTR;
-	  }
-	  if (xx->fDevice)
-	  {
-	  	operResult = closeUSBDevice(xx->fDevice);
-	  	if (operResult != KERN_SUCCESS)
-	  		LOG_POST_3("close device returns: %d (0x%x)", operResult, operResult);
-	  	relResult = releaseUSBDevice(xx->fDevice);
-	  	//LOG_POST_3("release device returns: %ld (0x%lx)", relResult, relResult);//!!
-	  	xx->fDevice = NULL_PTR;
-	  }
-	  xx->fDeviceOpen = false;
-	  shutDownIOKit(xx->fUSBControl);
+      IOReturn    operResult;
+      ULONG            relResult;
+      
+      xx->fReportEvents = false;
+      xx->fStopping = true;
+      if (xx->fDeviceOpen)
+      {
+          operResult = closeUSBInterface(xx->fInterface);
+          if (operResult != KERN_SUCCESS)
+              LOG_POST_3("close interface returns: %d (0x%x)", operResult, operResult);
+          relResult = releaseUSBInterface(xx->fInterface);
+          //LOG_POST_3("release interface returns: %ld (0x%lx)", relResult, relResult);//!!
+          xx->fInterface = NULL_PTR;
+      }
+      if (xx->fDevice)
+      {
+          operResult = closeUSBDevice(xx->fDevice);
+          if (operResult != KERN_SUCCESS)
+              LOG_POST_3("close device returns: %d (0x%x)", operResult, operResult);
+          relResult = releaseUSBDevice(xx->fDevice);
+          //LOG_POST_3("release device returns: %ld (0x%lx)", relResult, relResult);//!!
+          xx->fDevice = NULL_PTR;
+      }
+      xx->fDeviceOpen = false;
+      shutDownIOKit(xx->fUSBControl);
     FREEBYTES(xx->fReceiveBuffer, MAX_RECEIVE_BUFFER)
     FREEBYTES(xx->fRawReceiveBuffer, kReadPacketSize)
-	  gensym(RCX_CONTROL_SYMBOL)->s_thing = NULL_PTR;
-	  if (xx->fReadCompletion)
-	  	releaseCallback(xx->fReadCompletion);
-	  xx->fReadCompletion = NULL_PTR;
+      gensym(RCX_CONTROL_SYMBOL)->s_thing = NULL_PTR;
+      if (xx->fReadCompletion)
+          releaseCallback(xx->fReadCompletion);
+      xx->fReadCompletion = NULL_PTR;
  #endif /* COMPILE_FOR_OSX_4 */
  #if COMPILE_FOR_OS9_4
     if (xx->fGhostStack)
@@ -759,9 +759,9 @@ Pvoid rcxFree
 } /* rcxFree */
 
 /*------------------------------------ rcxGetReplyByte ---*/
-uchar rcxGetReplyByte
-  (RcxControlPtr	xx,
-   const ushort		index)
+uchar
+rcxGetReplyByte(RcxControlPtr    xx,
+                const ushort        index)
 {
   if (xx)
     return *(xx->fReplyBuffer + index + 1);
@@ -770,10 +770,10 @@ uchar rcxGetReplyByte
 } /* rcxGetReplyByte */
 
 /*------------------------------------ rcxGetValue ---*/
-bool rcxGetValue
-  (RcxControlPtr	xx,
-   const ulong		descriptor,
-   long &					result)
+bool
+rcxGetValue(RcxControlPtr    xx,
+            const ulong        descriptor,
+            long &                    result)
 {
   uchar valueCommand[] = { RCX_POLL_CMD, 0, 0 };
 
@@ -787,367 +787,367 @@ bool rcxGetValue
     result = ((val2 << 8) + val1);
     return true;
 
-  }	
+  }    
   return false;
 } /* rcxGetValue */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxFrameData ---*/
-static Puchar rcxFrameData
-	(RcxControlPtr	xx,
-	 Quchar					sendData,
-	 const UInt32		sendLength,
-	 UInt32 &				framedSize,
-	 const bool			reduceDuplicates)
+static Puchar
+rcxFrameData(RcxControlPtr    xx,
+             Quchar                    sendData,
+             const UInt32        sendLength,
+             UInt32 &                framedSize,
+             const bool            reduceDuplicates)
 {
-	// Determine the size of the 'framed' data:
-	framedSize = sendLength	+ (xx->fComplementData ? (sendLength + 2) : 1) +
-									(xx->fFastMode ? 1 : 3);
-	Puchar	framedData = GETBYTES(framedSize, uchar);
-	Puchar	outWalker = framedData;
-	
-	// Set the header:
-	if (xx->fFastMode)
-		*outWalker++ = 0xFF;
-	else
-	{
-		*outWalker++ = 0x55;
-		*outWalker++ = 0xFF;
-		*outWalker++ = 0x00;
-	}
-	Quchar	inWalker = sendData;
-	uchar		aByte;
-	UInt32	ii, dataSum = 0;
-	
-	if (xx->fComplementData)
-	{
-		// Interleaved data and complemented data...
-		if (sendLength > 0)
-		{
-			aByte = *inWalker++;
-			if (reduceDuplicates && (aByte == xx->fLastCommand))
-				aByte ^= 8; // duplicate reduction...
-			xx->fLastCommand = aByte;
-			*outWalker++ = aByte;
-			*outWalker++ = static_cast<uchar>(~aByte);
-			dataSum += aByte;
-		}
-		for (ii = 1; ii < sendLength; ++ii, ++inWalker)
-		{
-			aByte = *inWalker;
-			*outWalker++ = aByte;
-			*outWalker++ = static_cast<uchar>(~aByte);
-			dataSum += aByte;
-		}
-	}
-	else
-	{
-		// Just the data...
-		if (sendLength > 0)
-		{
-			aByte = *inWalker++;
-			if (reduceDuplicates && (aByte == xx->fLastCommand))
-				aByte ^= 8; // duplicate reduction...
-			xx->fLastCommand = aByte;
-			*outWalker++ = aByte;
-			dataSum += aByte;
-		}
-		for (ii = 1; ii < sendLength; ++ii, ++inWalker, ++outWalker)
-		{
-			*outWalker = aByte = *inWalker;
-			dataSum += aByte;
-		}
-	}
-	// Write the checksum:
-	*outWalker++ = static_cast<uchar>(dataSum);
-	if (xx->fComplementData)
-		*outWalker = static_cast<uchar>(~dataSum);
-	return framedData;
+    // Determine the size of the 'framed' data:
+    framedSize = sendLength    + (xx->fComplementData ? (sendLength + 2) : 1) +
+                                    (xx->fFastMode ? 1 : 3);
+    Puchar    framedData = GETBYTES(framedSize, uchar);
+    Puchar    outWalker = framedData;
+    
+    // Set the header:
+    if (xx->fFastMode)
+        *outWalker++ = 0xFF;
+    else
+    {
+        *outWalker++ = 0x55;
+        *outWalker++ = 0xFF;
+        *outWalker++ = 0x00;
+    }
+    Quchar    inWalker = sendData;
+    uchar        aByte;
+    UInt32    ii, dataSum = 0;
+    
+    if (xx->fComplementData)
+    {
+        // Interleaved data and complemented data...
+        if (sendLength > 0)
+        {
+            aByte = *inWalker++;
+            if (reduceDuplicates && (aByte == xx->fLastCommand))
+                aByte ^= 8; // duplicate reduction...
+            xx->fLastCommand = aByte;
+            *outWalker++ = aByte;
+            *outWalker++ = static_cast<uchar>(~aByte);
+            dataSum += aByte;
+        }
+        for (ii = 1; ii < sendLength; ++ii, ++inWalker)
+        {
+            aByte = *inWalker;
+            *outWalker++ = aByte;
+            *outWalker++ = static_cast<uchar>(~aByte);
+            dataSum += aByte;
+        }
+    }
+    else
+    {
+        // Just the data...
+        if (sendLength > 0)
+        {
+            aByte = *inWalker++;
+            if (reduceDuplicates && (aByte == xx->fLastCommand))
+                aByte ^= 8; // duplicate reduction...
+            xx->fLastCommand = aByte;
+            *outWalker++ = aByte;
+            dataSum += aByte;
+        }
+        for (ii = 1; ii < sendLength; ++ii, ++inWalker, ++outWalker)
+        {
+            *outWalker = aByte = *inWalker;
+            dataSum += aByte;
+        }
+    }
+    // Write the checksum:
+    *outWalker++ = static_cast<uchar>(dataSum);
+    if (xx->fComplementData)
+        *outWalker = static_cast<uchar>(~dataSum);
+    return framedData;
 } /* rcxFrameData */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxReadData ---*/
-static UInt32 rcxReadData
-	(RcxControlPtr	xx,
-	 Puchar					buffer,
-	 const UInt32		bufferSize,
-	 const UInt32		timeout)
+static UInt32
+rcxReadData(RcxControlPtr    xx,
+            Puchar                    buffer,
+            const UInt32        bufferSize,
+            const UInt32        timeout)
 {
-	xx->fReadWalker = buffer;
-	xx->fReadRemaining = bufferSize;
-	xx->fReadComplete = false;
-	rcxCopyFromRawBuffer(xx);
-	if (! xx->fReadComplete)
-	{
-		CFStringRef		defaultRunLoopMode;
-		
-		if (getRunLoopDefaultMode(xx->fUSBControl, defaultRunLoopMode))
-		{
-			rcxTriggerRead(xx);
-			do
-			{
-				SInt32	reason = runLoopRunInMode(xx->fUSBControl, defaultRunLoopMode,
-																					timeout / 1000.0, true);
-				
-				if (reason == kCFRunLoopRunTimedOut)
-				{
-					abortUSBPipe(xx->fInterface, kReadPipe);
-					xx->fReadComplete = true;
-				}
-			}
-			while (! xx->fReadComplete);
-		}
-	}
-	return static_cast<UInt32>(xx->fReadWalker - buffer);			
+    xx->fReadWalker = buffer;
+    xx->fReadRemaining = bufferSize;
+    xx->fReadComplete = false;
+    rcxCopyFromRawBuffer(xx);
+    if (! xx->fReadComplete)
+    {
+        CFStringRef        defaultRunLoopMode;
+        
+        if (getRunLoopDefaultMode(xx->fUSBControl, defaultRunLoopMode))
+        {
+            rcxTriggerRead(xx);
+            do
+            {
+                SInt32    reason = runLoopRunInMode(xx->fUSBControl, defaultRunLoopMode,
+                                                                                    timeout / 1000.0, true);
+                
+                if (reason == kCFRunLoopRunTimedOut)
+                {
+                    abortUSBPipe(xx->fInterface, kReadPipe);
+                    xx->fReadComplete = true;
+                }
+            }
+            while (! xx->fReadComplete);
+        }
+    }
+    return static_cast<UInt32>(xx->fReadWalker - buffer);            
 } /* rcxReadData */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxDrainReadBuffer ---*/
-static void rcxDrainReadBuffer
-	(RcxControlPtr	xx)
+static void
+rcxDrainReadBuffer(RcxControlPtr    xx)
 {
-	Puchar	buff = GETBYTES(MAX_REPLY_BUFFER, uchar);
-	
-	for ( ; rcxReadData(xx, buff, MAX_REPLY_BUFFER, 10) > 0; )
-	{
-	}
-	FREEBYTES(buff, MAX_REPLY_BUFFER)
+    Puchar    buff = GETBYTES(MAX_REPLY_BUFFER, uchar);
+    
+    for ( ; rcxReadData(xx, buff, MAX_REPLY_BUFFER, 10) > 0; )
+    {
+    }
+    FREEBYTES(buff, MAX_REPLY_BUFFER)
 } /* rcxDrainReadBuffer */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxFindSync ---*/
-static UInt32 rcxFindSync
-	(RcxControlPtr	xx,
-	 const UInt32		offset)
+static UInt32
+rcxFindSync(RcxControlPtr    xx,
+            const UInt32        offset)
 {
-	Quchar	data = xx->fReceiveBuffer + offset;
-	Quchar	sync = xx->fSync;
-	UInt32	length = xx->fReceiveLength - offset;
-	uchar		checkCmd = static_cast<uchar>((~xx->fLastCommand) & 0x00F7);
-	
-	for (UInt32 syncLen = xx->fSyncLen; syncLen > 0; ++sync, --syncLen)
-	{
-		Quchar	end = data + length - syncLen + 1;
-		
-		for (Quchar ptr = data; ptr < end; ++ptr)
-		{
-			UInt32	ii;
-			
-			for (ii = 0; ii < syncLen; ++ii)
-			{
-				if (*(ptr + ii) != *(sync + ii))
-					break;
-			
-			}
-			if ((ii == syncLen) && ((*(ptr + syncLen) & 0x00F7) == checkCmd))
-				return (ptr - data + syncLen);
+    Quchar    data = xx->fReceiveBuffer + offset;
+    Quchar    sync = xx->fSync;
+    UInt32    length = xx->fReceiveLength - offset;
+    uchar        checkCmd = static_cast<uchar>((~xx->fLastCommand) & 0x00F7);
+    
+    for (UInt32 syncLen = xx->fSyncLen; syncLen > 0; ++sync, --syncLen)
+    {
+        Quchar    end = data + length - syncLen + 1;
+        
+        for (Quchar ptr = data; ptr < end; ++ptr)
+        {
+            UInt32    ii;
+            
+            for (ii = 0; ii < syncLen; ++ii)
+            {
+                if (*(ptr + ii) != *(sync + ii))
+                    break;
+            
+            }
+            if ((ii == syncLen) && ((*(ptr + syncLen) & 0x00F7) == checkCmd))
+                return (ptr - data + syncLen);
 
-		} 
-	}
-	return 0;
+        } 
+    }
+    return 0;
 } /* rcxFindSync */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxVerifyReply ---*/
-static UInt32 rcxVerifyReply
-	(RcxControlPtr	xx,
-	 const UInt32		offset)
+static UInt32
+rcxVerifyReply(RcxControlPtr    xx,
+               const UInt32        offset)
 {
-	Quchar	data = xx->fReceiveBuffer + offset;
-	UInt32	length = xx->fReceiveLength - offset, width = static_cast<UInt32>(xx->fComplementData ? 2 : 1);
-	Quchar	ptr = data, match = NULL_PTR, end = data + length + 1 - width;
-	uchar		dataSum = *data;
-	bool		complementCmd;
+    Quchar    data = xx->fReceiveBuffer + offset;
+    UInt32    length = xx->fReceiveLength - offset, width = static_cast<UInt32>(xx->fComplementData ? 2 : 1);
+    Quchar    ptr = data, match = NULL_PTR, end = data + length + 1 - width;
+    uchar        dataSum = *data;
+    bool        complementCmd;
 
-	if (xx->fFastMode && ((xx->fLastCommand & 0x00F7) == 0x00A5))
-		complementCmd = true;
-	else
-		complementCmd = xx->fComplementData;
-	if (length < ((complementCmd ? 2 : 1) + width))
-		return 0;
+    if (xx->fFastMode && ((xx->fLastCommand & 0x00F7) == 0x00A5))
+        complementCmd = true;
+    else
+        complementCmd = xx->fComplementData;
+    if (length < ((complementCmd ? 2 : 1) + width))
+        return 0;
 
-	if ((*ptr++ & 0x00F7) != (~xx->fLastCommand & 0x00F7))
-		return 0;
+    if ((*ptr++ & 0x00F7) != (~xx->fLastCommand & 0x00F7))
+        return 0;
 
-	if (complementCmd)
-	{
-		if ((*ptr++ & 0x00F7) != (xx->fLastCommand & 0x00F7))
-			return 0;
+    if (complementCmd)
+    {
+        if ((*ptr++ & 0x00F7) != (xx->fLastCommand & 0x00F7))
+            return 0;
 
-	}
-	if (xx->fComplementData)
-	{
-		for ( ; ptr < end; ptr += 2)
-		{
-			if ((*ptr & 0x00F7) != (~*(ptr + 1) & 0x00F7))
-				break;
-			
-			if (*ptr == dataSum)
-				match = ptr;
-			dataSum += *ptr;
-		}
-	}
-	else
-	{
-		for ( ; ptr < end; ++ptr)
-		{
-			if (*ptr == dataSum)
-				match = ptr;
-			dataSum += *ptr;
-		}
-	}
-	if (! match)
-		return 0;
+    }
+    if (xx->fComplementData)
+    {
+        for ( ; ptr < end; ptr += 2)
+        {
+            if ((*ptr & 0x00F7) != (~*(ptr + 1) & 0x00F7))
+                break;
+            
+            if (*ptr == dataSum)
+                match = ptr;
+            dataSum += *ptr;
+        }
+    }
+    else
+    {
+        for ( ; ptr < end; ++ptr)
+        {
+            if (*ptr == dataSum)
+                match = ptr;
+            dataSum += *ptr;
+        }
+    }
+    if (! match)
+        return 0;
 
-	return ((match - data) / width);
+    return ((match - data) / width);
 } /* rcxVerifyReply */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxFindReply ---*/
-static UInt32 rcxFindReply
-	(RcxControlPtr	xx,
-	 UInt32 &				offset)
+static UInt32
+rcxFindReply(RcxControlPtr    xx,
+             UInt32 &                offset)
 {
-	offset = 0;
-	for ( ; ; )
-	{
-		UInt32	start = rcxFindSync(xx, offset);
-		
-		if (! start)
-			break;
-			
-		offset += start;
-		UInt32	length = rcxVerifyReply(xx, offset);
-		
-		if (length > 0)
-			return length;
-	
-	}
-	return 0;
+    offset = 0;
+    for ( ; ; )
+    {
+        UInt32    start = rcxFindSync(xx, offset);
+        
+        if (! start)
+            break;
+            
+        offset += start;
+        UInt32    length = rcxVerifyReply(xx, offset);
+        
+        if (length > 0)
+            return length;
+    
+    }
+    return 0;
 } /* rcxFindReply */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxReceiveReply ---*/
-static UInt32 rcxReceiveReply
-	(RcxControlPtr	xx,
-	 const UInt32		expected,
-	 const UInt32		timeout,
-	 UInt32 &				replyOffset)
+static UInt32
+rcxReceiveReply(RcxControlPtr    xx,
+                const UInt32        expected,
+                const UInt32        timeout,
+                UInt32 &                replyOffset)
 {
-	// Determine the number of bytes to watch for:
-	UInt32	framedSize = expected	+ (xx->fComplementData ? (expected + 2) : 1) +
-													(xx->fFastMode ? 1 : 3);
+    // Determine the number of bytes to watch for:
+    UInt32    framedSize = expected    + (xx->fComplementData ? (expected + 2) : 1) +
+                                                    (xx->fFastMode ? 1 : 3);
 
-	xx->fReceiveLength = 0;
-	UInt32	length = 0;
-	UInt32	firstChunk = rcxReadData(xx, xx->fReceiveBuffer, framedSize, timeout);
-	
-	if (firstChunk)
-	{
-		xx->fReceiveLength = firstChunk;
-		// check for replies
-		length = rcxFindReply(xx, replyOffset);
-		if (length != expected)
-		{
-			for ( ; xx->fReceiveLength < MAX_RECEIVE_BUFFER; )
-			{
-				if (rcxReadData(xx, xx->fReceiveBuffer + xx->fReceiveLength, 1, timeout) != 1)
-					break;
-					
-				++xx->fReceiveLength;
-				// check for replies
-				length = rcxFindReply(xx, replyOffset);
-				if (length == expected)
-					break;
+    xx->fReceiveLength = 0;
+    UInt32    length = 0;
+    UInt32    firstChunk = rcxReadData(xx, xx->fReceiveBuffer, framedSize, timeout);
+    
+    if (firstChunk)
+    {
+        xx->fReceiveLength = firstChunk;
+        // check for replies
+        length = rcxFindReply(xx, replyOffset);
+        if (length != expected)
+        {
+            for ( ; xx->fReceiveLength < MAX_RECEIVE_BUFFER; )
+            {
+                if (rcxReadData(xx, xx->fReceiveBuffer + xx->fReceiveLength, 1, timeout) != 1)
+                    break;
+                    
+                ++xx->fReceiveLength;
+                // check for replies
+                length = rcxFindReply(xx, replyOffset);
+                if (length == expected)
+                    break;
 
-			}
-		}
-	}
-	return length;	
+            }
+        }
+    }
+    return length;    
 } /* rcxReceiveReply */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxCopyToReply ---*/
-static void rcxCopyToReply
-  (RcxControlPtr	xx,
-   const UInt32		offset,
-   const UInt32		count)
+static void
+rcxCopyToReply(RcxControlPtr    xx,
+               const UInt32        offset,
+               const UInt32        count)
 {
-	UInt32	width = static_cast<UInt32>(xx->fComplementData ? 2 : 1);
-	Quchar	data = xx->fReceiveBuffer + offset;
-	Puchar	ptr = xx->fReplyBuffer;
-	bool		complementCmd;
-	
-	if (xx->fFastMode && ((xx->fLastCommand & 0x00F7) == 0x00A5))
-		complementCmd = true;
-	else
-		complementCmd = xx->fComplementData;
-	*ptr++ = *data++; // copy the command
-	if (complementCmd)
-		++data;
-	for (UInt32 ii = 1; ii < count; ++ii, ++ptr, data += width)
-		*ptr = *data;
-	xx->fReplyLength = count;
-	if (xx->fVerbose)
-	{
-		LOG_POST_2("reply len:%ld", xx->fReplyLength)
-		data = xx->fReplyBuffer;
+    UInt32    width = static_cast<UInt32>(xx->fComplementData ? 2 : 1);
+    Quchar    data = xx->fReceiveBuffer + offset;
+    Puchar    ptr = xx->fReplyBuffer;
+    bool        complementCmd;
+    
+    if (xx->fFastMode && ((xx->fLastCommand & 0x00F7) == 0x00A5))
+        complementCmd = true;
+    else
+        complementCmd = xx->fComplementData;
+    *ptr++ = *data++; // copy the command
+    if (complementCmd)
+        ++data;
+    for (UInt32 ii = 1; ii < count; ++ii, ++ptr, data += width)
+        *ptr = *data;
+    xx->fReplyLength = count;
+    if (xx->fVerbose)
+    {
+        LOG_POST_2("reply len:%ld", xx->fReplyLength)
+        data = xx->fReplyBuffer;
     switch (xx->fReplyLength)
     {
-    	case 0:
-    		break;
-    		
-    	case 1:
-    		LOG_POST_2("  0x%lx", long(*data))
-    		break;
-    		
-    	case 2:
-    		LOG_POST_3("  0x%lx 0x%lx", long(*data), long(*(data + 1)))
-    		break;
-    		
-    	case 3:
-    		LOG_POST_4("  0x%lx 0x%lx 0x%lx", long(*data), long(*(data + 1)),
-    								long(*(data + 2)))
-    		break;
-    		
-    	case 4:
-    		LOG_POST_5("  0x%lx 0x%lx 0x%lx 0x%lx", long(*data), long(*(data + 1)),
-    								long(*(data + 2)), long(*(data + 3)))
-    		break;
-    		
-    	case 5:
-    		LOG_POST_6("  0x%lx 0x%lx 0x%lx 0x%lx 0x%lx", long(*data),
-    								long(*(data + 1)), long(*(data + 2)),
-    								long(*(data + 3)), long(*(data + 4)))
-    		break;
+        case 0:
+            break;
+            
+        case 1:
+            LOG_POST_2("  0x%lx", long(*data))
+            break;
+            
+        case 2:
+            LOG_POST_3("  0x%lx 0x%lx", long(*data), long(*(data + 1)))
+            break;
+            
+        case 3:
+            LOG_POST_4("  0x%lx 0x%lx 0x%lx", long(*data), long(*(data + 1)),
+                                    long(*(data + 2)))
+            break;
+            
+        case 4:
+            LOG_POST_5("  0x%lx 0x%lx 0x%lx 0x%lx", long(*data), long(*(data + 1)),
+                                    long(*(data + 2)), long(*(data + 3)))
+            break;
+            
+        case 5:
+            LOG_POST_6("  0x%lx 0x%lx 0x%lx 0x%lx 0x%lx", long(*data),
+                                    long(*(data + 1)), long(*(data + 2)),
+                                    long(*(data + 3)), long(*(data + 4)))
+            break;
 
-			default:
-    		LOG_POST_6("  0x%lx 0x%lx 0x%lx 0x%lx 0x%lx ...", long(*data),
-    								long(*(data + 1)), long(*(data + 2)),
-    								long(*(data + 3)), long(*(data + 4)))
-    		break;
-			      		
+            default:
+            LOG_POST_6("  0x%lx 0x%lx 0x%lx 0x%lx 0x%lx ...", long(*data),
+                                    long(*(data + 1)), long(*(data + 2)),
+                                    long(*(data + 3)), long(*(data + 4)))
+            break;
+                          
     }
-	}
+    }
 } /* rcxCopyToReply */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OS9_4
 /*------------------------------------ rcxNotify ---*/
-UInt32 rcxNotify
-  (GHNOTIFYCODE notifyCode,
-   PBKRESULT    resultCode,
-   GHSTACK      ghostStack,
-   GHQUEUE      queue,
-   GHCOMMAND    command,
-   Pvoid        context)
+UInt32
+rcxNotify(GHNOTIFYCODE notifyCode,
+          PBKRESULT    resultCode,
+          GHSTACK      ghostStack,
+          GHQUEUE      queue,
+          GHCOMMAND    command,
+          Pvoid        context)
 {
  #if FOR_MAC_PPC
   #pragma unused(ghostStack,queue)
@@ -1234,12 +1234,12 @@ UInt32 rcxNotify
 #endif /* COMPILE_FOR_OS9_4 */
 
 /*------------------------------------ rcxSendCommand ---*/
-bool rcxSendCommand
-  (RcxControlPtr	xx,
-   const uchar *	sendData,
-   const UInt32   sendLength,
-   const UInt32   expected,
-   const bool     doRetry)
+bool
+rcxSendCommand(RcxControlPtr    xx,
+               const uchar *    sendData,
+               const UInt32   sendLength,
+               const UInt32   expected,
+               const bool     doRetry)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(sendData, sendLength, expected, doRetry)
@@ -1257,80 +1257,80 @@ bool rcxSendCommand
                   expected, long(actualRetry))
       switch (sendLength)
       {
-      	case 0:
-      		break;
-      		
-      	case 1:
-      		LOG_POST_2("  0x%lx", long(*sendData))
-      		break;
-      		
-      	case 2:
-      		LOG_POST_3("  0x%lx 0x%lx", long(*sendData), long(*(sendData + 1)))
-      		break;
-      		
-      	case 3:
-      		LOG_POST_4("  0x%lx 0x%lx 0x%lx", long(*sendData), long(*(sendData + 1)),
-      								long(*(sendData + 2)))
-      		break;
-      		
-      	case 4:
-      		LOG_POST_5("  0x%lx 0x%lx 0x%lx 0x%lx", long(*sendData), long(*(sendData + 1)),
-      								long(*(sendData + 2)), long(*(sendData + 3)))
-      		break;
-      		
-      	case 5:
-      		LOG_POST_6("  0x%lx 0x%lx 0x%lx 0x%lx 0x%lx", long(*sendData),
-      								long(*(sendData + 1)), long(*(sendData + 2)),
-      								long(*(sendData + 3)), long(*(sendData + 4)))
-      		break;
+          case 0:
+              break;
+              
+          case 1:
+              LOG_POST_2("  0x%lx", long(*sendData))
+              break;
+              
+          case 2:
+              LOG_POST_3("  0x%lx 0x%lx", long(*sendData), long(*(sendData + 1)))
+              break;
+              
+          case 3:
+              LOG_POST_4("  0x%lx 0x%lx 0x%lx", long(*sendData), long(*(sendData + 1)),
+                                      long(*(sendData + 2)))
+              break;
+              
+          case 4:
+              LOG_POST_5("  0x%lx 0x%lx 0x%lx 0x%lx", long(*sendData), long(*(sendData + 1)),
+                                      long(*(sendData + 2)), long(*(sendData + 3)))
+              break;
+              
+          case 5:
+              LOG_POST_6("  0x%lx 0x%lx 0x%lx 0x%lx 0x%lx", long(*sendData),
+                                      long(*(sendData + 1)), long(*(sendData + 2)),
+                                      long(*(sendData + 3)), long(*(sendData + 4)))
+              break;
 
-				default:
-      		LOG_POST_6("  0x%lx 0x%lx 0x%lx 0x%lx 0x%lx ...", long(*sendData),
-      								long(*(sendData + 1)), long(*(sendData + 2)),
-      								long(*(sendData + 3)), long(*(sendData + 4)))
-      		break;
-				      		
+                default:
+              LOG_POST_6("  0x%lx 0x%lx 0x%lx 0x%lx 0x%lx ...", long(*sendData),
+                                      long(*(sendData + 1)), long(*(sendData + 2)),
+                                      long(*(sendData + 3)), long(*(sendData + 4)))
+              break;
+                              
       }
     }
  #if COMPILE_FOR_OSX_4
-		UInt32	framedSize = 0;
-		Puchar	framedData = rcxFrameData(xx, sendData, sendLength, framedSize, actualRetry);
-		int			numTries = (doRetry ? 4 : 1);
+        UInt32    framedSize = 0;
+        Puchar    framedData = rcxFrameData(xx, sendData, sendLength, framedSize, actualRetry);
+        int            numTries = (doRetry ? 4 : 1);
 
-		for (int ii = 0; ii < numTries; ++ii)
-		{		
-			Puchar	walker = framedData;
-			UInt32	actualSize = framedSize;
-			
-			for ( ; actualSize > 0; )
-			{
-				rcxDrainReadBuffer(xx);			
-				UInt32		transfer = ((actualSize > kMaxWritePacket) ? kMaxWritePacket : actualSize);
-				IOReturn	err = writeUSBPipe(xx->fInterface, kWritePipe, walker, transfer);
-				
-				if (err != KERN_SUCCESS)
-				{
-					LOG_POST_3("writeUSBPipe returns: %d (0x%x)", err, err);
-					okSoFar = false;
-					break;
-					
-				}
-				actualSize -= transfer;
-				walker += transfer;
-			}
-			if (! expected)
-				break;
+        for (int ii = 0; ii < numTries; ++ii)
+        {        
+            Puchar    walker = framedData;
+            UInt32    actualSize = framedSize;
+            
+            for ( ; actualSize > 0; )
+            {
+                rcxDrainReadBuffer(xx);            
+                UInt32        transfer = ((actualSize > kMaxWritePacket) ? kMaxWritePacket : actualSize);
+                IOReturn    err = writeUSBPipe(xx->fInterface, kWritePipe, walker, transfer);
+                
+                if (err != KERN_SUCCESS)
+                {
+                    LOG_POST_3("writeUSBPipe returns: %d (0x%x)", err, err);
+                    okSoFar = false;
+                    break;
+                    
+                }
+                actualSize -= transfer;
+                walker += transfer;
+            }
+            if (! expected)
+                break;
 
-			UInt32	replyOffset, result = rcxReceiveReply(xx, expected, 500, replyOffset);
-			
-			if (result > 0)
-			{
-				rcxCopyToReply(xx, replyOffset, result);
-				break;
-				
-			}
-		}
-    FREEBYTES(framedData, framedSize)		
+            UInt32    replyOffset, result = rcxReceiveReply(xx, expected, 500, replyOffset);
+            
+            if (result > 0)
+            {
+                rcxCopyToReply(xx, replyOffset, result);
+                break;
+                
+            }
+        }
+    FREEBYTES(framedData, framedSize)        
  #endif /* COMPILE_FOR_OSX_4 */
  #if COMPILE_FOR_OS9_4
     PBKRESULT ghostResult = PBKOK;
@@ -1361,7 +1361,7 @@ bool rcxSendCommand
         LOG_ERROR_2(OUTPUT_PREFIX "unable to add to command queue --> 0x%lX",
                     long(ghostResult))
         okSoFar = false;
-      }			
+      }            
     }
     if (okSoFar)
     {
@@ -1408,7 +1408,7 @@ bool rcxSendCommand
                           long(ghostResult))
               okSoFar = false;
             }
-          }	
+          }    
         }
   #endif /* not USE_NOWAIT */
       }
@@ -1431,92 +1431,92 @@ bool rcxSendCommand
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxSendControlRequest ---*/
-bool rcxSendControlRequest
-	(RcxControlPtr	xx,
-	 const uchar		controlOperation,
-	 const ushort		controlData,
-	 Pvoid					reply,
-	 const UInt16		replySize)
+bool
+rcxSendControlRequest(RcxControlPtr    xx,
+                      const uchar        controlOperation,
+                      const ushort        controlData,
+                      Pvoid                    reply,
+                      const UInt16        replySize)
 {
-	IOReturn					result;
-	IOUSBDevRequestTO	request;
+    IOReturn                    result;
+    IOUSBDevRequestTO    request;
 
-	request.bmRequestType = (kUSBVendor << kUSBRqTypeShift) + (kUSBIn << kUSBRqDirnShift) + kUSBDevice;
-	request.bRequest = controlOperation;
-	request.wValue = controlData;
-	request.wIndex = 0;
-	request.wLength = replySize;
-	request.pData = reply;
-	request.noDataTimeout = kUSBDefaultControlNoDataTimeoutMS;
-	request.completionTimeout = 0;
-	result = sendUSBControlRequestTO(xx->fInterface, 0, request);
-	return (result == KERN_SUCCESS);
+    request.bmRequestType = (kUSBVendor << kUSBRqTypeShift) + (kUSBIn << kUSBRqDirnShift) + kUSBDevice;
+    request.bRequest = controlOperation;
+    request.wValue = controlData;
+    request.wIndex = 0;
+    request.wLength = replySize;
+    request.pData = reply;
+    request.noDataTimeout = kUSBDefaultControlNoDataTimeoutMS;
+    request.completionTimeout = 0;
+    result = sendUSBControlRequestTO(xx->fInterface, 0, request);
+    return (result == KERN_SUCCESS);
 } /* rcxSendControlRequest */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxSendControlRequest ---*/
-bool rcxSendControlRequest
-	(RcxControlPtr	xx,
-	 const uchar		controlOperation,
-	 const uchar		controlDataLow,
-	 const uchar		controlDataHigh,
-	 Pvoid					reply,
-	 const UInt16		replySize)
+bool
+rcxSendControlRequest(RcxControlPtr    xx,
+                      const uchar        controlOperation,
+                      const uchar        controlDataLow,
+                      const uchar        controlDataHigh,
+                      Pvoid                    reply,
+                      const UInt16        replySize)
 {
-	IOReturn					result;
-	IOUSBDevRequestTO	request;
+    IOReturn                    result;
+    IOUSBDevRequestTO    request;
 
-	request.bmRequestType = (kUSBVendor << kUSBRqTypeShift) + (kUSBIn << kUSBRqDirnShift) + kUSBDevice;
-	request.bRequest = controlOperation;
-	request.wValue = static_cast<UInt16>((controlDataHigh << 8) + controlDataLow);
-	request.wIndex = 0;
-	request.wLength = replySize;
-	request.pData = reply;
-	request.noDataTimeout = kUSBDefaultControlNoDataTimeoutMS;
-	request.completionTimeout = 0;
-	result = sendUSBControlRequestTO(xx->fInterface, 0, request);
-	return (result == KERN_SUCCESS);
+    request.bmRequestType = (kUSBVendor << kUSBRqTypeShift) + (kUSBIn << kUSBRqDirnShift) + kUSBDevice;
+    request.bRequest = controlOperation;
+    request.wValue = static_cast<UInt16>((controlDataHigh << 8) + controlDataLow);
+    request.wIndex = 0;
+    request.wLength = replySize;
+    request.pData = reply;
+    request.noDataTimeout = kUSBDefaultControlNoDataTimeoutMS;
+    request.completionTimeout = 0;
+    result = sendUSBControlRequestTO(xx->fInterface, 0, request);
+    return (result == KERN_SUCCESS);
 } /* rcxSendControlRequest */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxSetRange ---*/
-bool rcxSetRange
-	(RcxControlPtr	xx,
-	 const LTWRange	range)
+bool
+rcxSetRange(RcxControlPtr    xx,
+            const LTWRange    range)
 {
-	LTWRequestReply	reply;
-	
-	return rcxSendControlRequest(xx, LTW_REQ_SET_PARM, LTW_PARM_RANGE, range, &reply, sizeof(reply));
+    LTWRequestReply    reply;
+    
+    return rcxSendControlRequest(xx, LTW_REQ_SET_PARM, LTW_PARM_RANGE, range, &reply, sizeof(reply));
 } /* rcxSetRange */
 #endif /* COMPILE_FOR_OSX_4 */
-	 
+     
 #if COMPILE_FOR_OSX_4
 /*------------------------------------ rcxSetSpeed ---*/
-bool rcxSetSpeed
-	(RcxControlPtr	xx,
-	 const bool			normalSpeed)
+bool
+rcxSetSpeed(RcxControlPtr    xx,
+            const bool            normalSpeed)
 {
-	LTWRequestSpeedReply	reply;
-	LTWRequestTxFreqReply	reply2;
-	bool									didIt = false;
+    LTWRequestSpeedReply    reply;
+    LTWRequestTxFreqReply    reply2;
+    bool                                    didIt = false;
 
-	if (normalSpeed)
-		didIt = rcxSendControlRequest(xx, LTW_REQ_SET_RX_SPEED, SPEED_COMM_BAUD_2400, &reply, sizeof(reply)) &&
-							rcxSendControlRequest(xx, LTW_REQ_SET_TX_SPEED, SPEED_COMM_BAUD_2400, &reply, sizeof(reply));
-	else
-		didIt = rcxSetRange(xx, LTW_RANGE_SHORT) &&
-						rcxSendControlRequest(xx, LTW_REQ_SET_RX_SPEED, SPEED_COMM_BAUD_4800, &reply, sizeof(reply)) &&
-						rcxSendControlRequest(xx, LTW_REQ_SET_TX_SPEED, SPEED_COMM_BAUD_4800, &reply, sizeof(reply)) &&
-						rcxSendControlRequest(xx, LTW_REQ_SET_TX_CARRIER_FREQUENCY, 38, &reply2, sizeof(reply2)); /* 38 kHz */
-	return didIt;
+    if (normalSpeed)
+        didIt = rcxSendControlRequest(xx, LTW_REQ_SET_RX_SPEED, SPEED_COMM_BAUD_2400, &reply, sizeof(reply)) &&
+                            rcxSendControlRequest(xx, LTW_REQ_SET_TX_SPEED, SPEED_COMM_BAUD_2400, &reply, sizeof(reply));
+    else
+        didIt = rcxSetRange(xx, LTW_RANGE_SHORT) &&
+                        rcxSendControlRequest(xx, LTW_REQ_SET_RX_SPEED, SPEED_COMM_BAUD_4800, &reply, sizeof(reply)) &&
+                        rcxSendControlRequest(xx, LTW_REQ_SET_TX_SPEED, SPEED_COMM_BAUD_4800, &reply, sizeof(reply)) &&
+                        rcxSendControlRequest(xx, LTW_REQ_SET_TX_CARRIER_FREQUENCY, 38, &reply2, sizeof(reply2)); /* 38 kHz */
+    return didIt;
 } /* rcxSetSpeed */
 #endif /* COMPILE_FOR_OSX_4 */
 
 /*------------------------------------ rcxSynchronize ---*/
-bool rcxSynchronize
-  (RcxControlPtr xx)
+bool
+rcxSynchronize(RcxControlPtr xx)
 {
   bool didIt = false;
 

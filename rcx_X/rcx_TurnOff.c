@@ -40,8 +40,8 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_TurnOff ---*/
-Pvoid cmd_TurnOff
-  (RcxControlPtr xx)
+Pvoid
+cmd_TurnOff(RcxControlPtr xx)
 {
   EnterCallback();
   if (xx)

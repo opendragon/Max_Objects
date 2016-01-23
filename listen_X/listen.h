@@ -154,59 +154,59 @@ struct ListenData
 
 typedef ListenData * ListenPtr;
 
-void clearHashTable
-  (ListenPtr xx);
+void
+clearHashTable(ListenPtr xx);
 
-void clearModelData
-  (ListenPtr xx);
+void
+clearModelData(ListenPtr xx);
 
-Pvoid cmd_Load
-  (ListenPtr xx,
-   PSymbol   fileName);
+Pvoid
+cmd_Load(ListenPtr xx,
+         PSymbol   fileName);
 
-Pvoid cmd_Recognize
-  (ListenPtr xx,
-   PSymbol   message,
-   short     argc,
-   PAtom     argv);
+Pvoid
+cmd_Recognize(ListenPtr xx,
+              PSymbol   message,
+              short     argc,
+              PAtom     argv);
 
-Pvoid cmd_Start
-  (ListenPtr xx);
+Pvoid
+cmd_Start(ListenPtr xx);
 
-Pvoid cmd_Status
-  (ListenPtr xx);
+Pvoid
+cmd_Status(ListenPtr xx);
 
-Pvoid cmd_Stop
-  (ListenPtr xx);
+Pvoid
+cmd_Stop(ListenPtr xx);
 
  #if SPEECH_RECOGNITION_SUPPORTED
-void createLanguageModel
-  (ListenPtr    xx,
-   ModelDataPtr aModel);
+void
+createLanguageModel(ListenPtr    xx,
+                    ModelDataPtr aModel);
  #endif /* SPEECH_RECOGNITION_SUPPORTED */
 
  #if SPEECH_RECOGNITION_SUPPORTED
-SRPath createPath
-  (ListenPtr   xx,
-   PathListPtr aPath);
+SRPath
+createPath(ListenPtr   xx,
+           PathListPtr aPath);
  #endif /* SPEECH_RECOGNITION_SUPPORTED */
 
-void doLoadLanguageFile
-  (ListenPtr xx,
-   Pchar     fileName);
+void
+doLoadLanguageFile(ListenPtr xx,
+                   Pchar     fileName);
 
-void initializeHashTable
-  (ListenPtr xx);
+void
+initializeHashTable(ListenPtr xx);
 
-ModelDataPtr lookupModel
-  (ListenPtr xx,
-   PSymbol   name);
+ModelDataPtr
+lookupModel(ListenPtr xx,
+            PSymbol   name);
 
-void reportUnexpected
-  (PAtom what);
+void
+reportUnexpected(PAtom what);
 
-bool symbolIsAModel
-  (PSymbol aSymbol);
+bool
+symbolIsAModel(PSymbol aSymbol);
 
 StandardRoutineDeclarations(ListenPtr)
 

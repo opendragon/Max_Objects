@@ -43,10 +43,11 @@
 # include "missingAndExtra.h"
 
 # define REPORTVERSION_HEADER \
-void reportVersion_(const char * description,\
-                    const char * name,\
-                    const char * version,\
-                    const char * year)
+    void\
+    reportVersion_(const char * description,\
+                   const char * name,\
+                   const char * version,\
+                   const char * year)
 
 REPORTVERSION_HEADER;
 

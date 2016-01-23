@@ -44,18 +44,18 @@
  
 struct PrivateData
 {
-	bool		fActive;
-	PSymbol	fTagSeen;
+    bool       fActive;
+    PSymbol    fTagSeen;
 }; /* PrivateData */
  
 struct SharedData
 {
-	IOHIDElementCookie	fInputCookie;
-	IOHIDElementCookie	fOutputCookie;
-	bool								fCookiesValid;	
+    IOHIDElementCookie    fInputCookie;
+    IOHIDElementCookie    fOutputCookie;
+    bool                  fCookiesValid;    
 }; /* SharedData */
 
-typedef PrivateData *	PrivatePtr;
-typedef SharedData *	SharedPtr;
+typedef PrivateData *    PrivatePtr;
+typedef SharedData *    SharedPtr;
 
 #endif /* not RFID2_H_ */

@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------------------------*/
 /*                                                                                      */
-/*  File:       SimplePlugin.h                                                     */
+/*  File:       SimplePlugin.h                                                          */
 /*                                                                                      */
 /*  Contains:   The data type declarations that are needed for this plugin.             */
 /*                                                                                      */

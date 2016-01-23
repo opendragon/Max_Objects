@@ -40,10 +40,10 @@
 #include "speakBuffers.h"
 
 /*------------------------------------ addAtomToBuffer ---*/
-bool addAtomToBuffer
-  (Qchar					name,
-   DataBufferPtr	aBuffer,
-   PAtom					aValue)
+bool
+addAtomToBuffer(Qchar                    name,
+                DataBufferPtr    aBuffer,
+                PAtom                    aValue)
 {
   switch (aValue->a_type)
   {
@@ -74,10 +74,10 @@ bool addAtomToBuffer
 } /* addAtomToBuffer */
 
 /*------------------------------------ addFloatToBuffer ---*/
-bool addFloatToBuffer
-  (Qchar					name,
-   DataBufferPtr	aBuffer,
-   const float		aValue)
+bool
+addFloatToBuffer(Qchar                    name,
+                 DataBufferPtr    aBuffer,
+                 const float        aValue)
 {
   static char numBuff[30]; /* should be big enough! */
   short       actLength;
@@ -98,10 +98,10 @@ bool addFloatToBuffer
 } /* addFloatToBuffer */
 
 /*------------------------------------ addLongToBuffer ---*/
-bool addLongToBuffer
-  (Qchar					name,
-   DataBufferPtr	aBuffer,
-   const long			aValue)
+bool
+addLongToBuffer(Qchar                    name,
+                DataBufferPtr    aBuffer,
+                const long            aValue)
 {
   static char numBuff[30]; /* should be big enough! */
   short       actLength;
@@ -122,10 +122,10 @@ bool addLongToBuffer
 } /* addLongToBuffer */
 
 /*------------------------------------ addSymToBuffer ---*/
-bool addSymToBuffer
-  (Qchar					name,
-   DataBufferPtr	aBuffer,
-   PSymbol				aValue)
+bool
+addSymToBuffer(Qchar                    name,
+               DataBufferPtr    aBuffer,
+               PSymbol                aValue)
 {
   short actLength = short(strlen(aValue->s_name));
 
@@ -144,8 +144,8 @@ bool addSymToBuffer
 } /* addSymToBuffer */
 
 /*------------------------------------ clearDataBuffer ---*/
-void clearDataBuffer
-  (DataBufferPtr aBuffer)
+void
+clearDataBuffer(DataBufferPtr aBuffer)
 {
   aBuffer->fNumBytesInUse = 0;
   aBuffer->fNextByteToUse = aBuffer->fElements;

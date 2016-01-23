@@ -41,119 +41,119 @@
 #include "genericListOutput.h"
 
 /*------------------------------------ performDo ---*/
-static bool performDo
-	(FidgetPtr				xx,
-	 HIDDeviceDataPtr	walkerHID,
-	 PSymbol					deviceType,
-   const short			argc,
-   PAtom						argv)
+static bool
+performDo(FidgetPtr        xx,
+          HIDDeviceDataPtr walkerHID,
+          PSymbol          deviceType,
+          const short      argc,
+          PAtom            argv)
 {
-	bool					okSoFar = true;
-	OSErr					result;
-	E_PhidgResult	action = kPhidgDoDefault;
-	
-	if (walkerHID->fClass)
-	{
-		PhidgetDescriptorPtr	kind = reinterpret_cast<PhidgetDescriptorPtr>(walkerHID->fClass);
+    bool                    okSoFar = true;
+    OSErr                    result;
+    E_PhidgResult    action = kPhidgDoDefault;
+    
+    if (walkerHID->fClass)
+    {
+        PhidgetDescriptorPtr    kind = reinterpret_cast<PhidgetDescriptorPtr>(walkerHID->fClass);
 
 #if defined(COMPILE_FOR_OSX_4)
-		action = reinterpret_cast<FpDoCustom>(kind->fDoCustomFun)(OUR_NAME, deviceType,
-																															xx->fResultOut,
-																															kind->fShared, walkerHID->fPrivate,
-																															walkerHID, short(argc - 2),
-																															argv + 2, &result);
+        action = reinterpret_cast<FpDoCustom>(kind->fDoCustomFun)(OUR_NAME, deviceType,
+                                                                                                                            xx->fResultOut,
+                                                                                                                            kind->fShared, walkerHID->fPrivate,
+                                                                                                                            walkerHID, short(argc - 2),
+                                                                                                                            argv + 2, &result);
 #endif /* COMPILE_FOR_OSX_4 */
 #if defined(COMPILE_FOR_OS9_4)
-		action = static_cast<E_PhidgResult>(CallUniversalProc(kind->fDoCustomUpp, uppDoCustomProcInfo,
-																OUR_NAME, deviceType, xx->fResultOut, kind->fShared,
-																walkerHID->fPrivate, walkerHID, short(argc - 2),
-																argv + 2, &result));
+        action = static_cast<E_PhidgResult>(CallUniversalProc(kind->fDoCustomUpp, uppDoCustomProcInfo,
+                                                                OUR_NAME, deviceType, xx->fResultOut, kind->fShared,
+                                                                walkerHID->fPrivate, walkerHID, short(argc - 2),
+                                                                argv + 2, &result));
 #endif /* COMPILE_FOR_OS9_4 */
-	}
-	if (action == kPhidgDoDefault)
-	{
-		okSoFar = false;
-		LOG_POST_2(OUTPUT_PREFIX "do %s", deviceType->s_name)
-	}
-	else if (result)
-		outlet_int(xx->fResultOut, result);
-	return okSoFar;
+    }
+    if (action == kPhidgDoDefault)
+    {
+        okSoFar = false;
+        LOG_POST_2(OUTPUT_PREFIX "do %s", deviceType->s_name)
+    }
+    else if (result)
+        outlet_int(xx->fResultOut, result);
+    return okSoFar;
 } /* performDo */
 
 /*------------------------------------ cmd_Do ---*/
-Pvoid cmd_Do
-  (FidgetPtr	xx,
-   PSymbol		message,
-   short			argc,
-   PAtom			argv)  
+Pvoid
+cmd_Do(FidgetPtr xx,
+       PSymbol   message,
+       short     argc,
+       PAtom     argv)  
 {
 #pragma unused(message)
-	PSymbol	deviceType = NULL_PTR, serialNumber = NULL_PTR;
+    PSymbol    deviceType = NULL_PTR, serialNumber = NULL_PTR;
 
   EnterCallback();
   if (xx)
   {
-  	bool	okSoFar = true;
-  	
-  	if (argc >= 2)
-  	{
-  		// Check the device type
-  		if (argv[0].a_type == A_SYM)
-  			deviceType = argv[0].a_w.w_sym;
-  		else
-  		{
-  			okSoFar = false;
-  			LOG_ERROR_1(OUTPUT_PREFIX "device type is not a symbol for 'do'")
-  		}
-  		// Check the serial number
-  		if (okSoFar)
-  		{
-  			if (argv[1].a_type == A_SYM)
-  				serialNumber = argv[1].a_w.w_sym;
-  			else
-  			{
-  				okSoFar = false;
-  				LOG_ERROR_2(OUTPUT_PREFIX "serial number is not a symbol for '%s:do'",
-  										deviceType->s_name)
-  			}
-  		}
-		}
-		else if (argc == 1)
-		{
-			okSoFar = false;
-  		LOG_ERROR_1(OUTPUT_PREFIX "missing serial number for 'do'")
-		}
-		else
-		{
-			okSoFar = false;
-  		LOG_ERROR_1(OUTPUT_PREFIX "missing device type for 'do'")
-		}
-		if (okSoFar)
-		{
-			if (serialNumber == gAsteriskSymbol)
-			{
-				HIDDeviceDataPtr	walkerHID = fidgetGetFirstHIDData(xx, deviceType);
-				
-				for ( ; walkerHID; )
-				{
-					if (! performDo(xx, walkerHID, deviceType, argc, argv))
-						break;
-						
-					walkerHID = fidgetGetNextHIDData(deviceType, walkerHID);
-				}
-			}
-			else
-			{
-				// Identify the object
-	  		HIDDeviceDataPtr	walkerHID = fidgetLocateHIDData(xx, deviceType, serialNumber);
-	  		
-				if (walkerHID)
-					performDo(xx, walkerHID, deviceType, argc, argv);
-				else
-					LOG_ERROR_3(OUTPUT_PREFIX "no such device (%s:%s) is currently attached",
-											deviceType->s_name, serialNumber->s_name)
-			}
-		}  		
+      bool    okSoFar = true;
+      
+      if (argc >= 2)
+      {
+          // Check the device type
+          if (argv[0].a_type == A_SYM)
+              deviceType = argv[0].a_w.w_sym;
+          else
+          {
+              okSoFar = false;
+              LOG_ERROR_1(OUTPUT_PREFIX "device type is not a symbol for 'do'")
+          }
+          // Check the serial number
+          if (okSoFar)
+          {
+              if (argv[1].a_type == A_SYM)
+                  serialNumber = argv[1].a_w.w_sym;
+              else
+              {
+                  okSoFar = false;
+                  LOG_ERROR_2(OUTPUT_PREFIX "serial number is not a symbol for '%s:do'",
+                                          deviceType->s_name)
+              }
+          }
+        }
+        else if (argc == 1)
+        {
+            okSoFar = false;
+          LOG_ERROR_1(OUTPUT_PREFIX "missing serial number for 'do'")
+        }
+        else
+        {
+            okSoFar = false;
+          LOG_ERROR_1(OUTPUT_PREFIX "missing device type for 'do'")
+        }
+        if (okSoFar)
+        {
+            if (serialNumber == gAsteriskSymbol)
+            {
+                HIDDeviceDataPtr    walkerHID = fidgetGetFirstHIDData(xx, deviceType);
+                
+                for ( ; walkerHID; )
+                {
+                    if (! performDo(xx, walkerHID, deviceType, argc, argv))
+                        break;
+                        
+                    walkerHID = fidgetGetNextHIDData(deviceType, walkerHID);
+                }
+            }
+            else
+            {
+                // Identify the object
+              HIDDeviceDataPtr    walkerHID = fidgetLocateHIDData(xx, deviceType, serialNumber);
+              
+                if (walkerHID)
+                    performDo(xx, walkerHID, deviceType, argc, argv);
+                else
+                    LOG_ERROR_3(OUTPUT_PREFIX "no such device (%s:%s) is currently attached",
+                                            deviceType->s_name, serialNumber->s_name)
+            }
+        }          
   }
   ExitMaxMessageHandler()
 } /* cmd_Do */

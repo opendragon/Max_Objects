@@ -40,9 +40,9 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_ClearSensor ---*/
-Pvoid cmd_ClearSensor
-  (RcxControlPtr xx,
-   long          slot)
+Pvoid
+cmd_ClearSensor(RcxControlPtr xx,
+                long          slot)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(slot)

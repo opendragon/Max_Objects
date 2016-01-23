@@ -44,23 +44,23 @@
 #include "reportVersion.h"
 
 /* Forward references: */
-Pvoid bqtCreate
-  (PSymbol ss,
-   short   argc,
-   PAtom   argv);
+Pvoid
+bqtCreate(PSymbol ss,
+          short   argc,
+          PAtom   argv);
 
-Pvoid bqtFree
-  (QtPtr xx);
+Pvoid
+bqtFree(QtPtr xx);
 
-Pvoid bqtMenu
-  (PPatcher pp,
-   long     left,
-   long     top,
-   long     font);
+Pvoid
+bqtMenu(PPatcher pp,
+        long     left,
+        long     top,
+        long     font);
 
 /*------------------------------------ main ---*/
-void main
-  (Pfptr ff)
+void
+main(Pfptr ff)
 {
   OSStatus err;
   long     result;
@@ -115,8 +115,8 @@ void main
 } /* main */
 
 /*------------------------------------ bqtCheckForMove ---*/
-static void bqtCheckForMove
-  (QtPtr xx)
+static void
+bqtCheckForMove(QtPtr xx)
 {
   short deltaX, deltaY;
   Rect  currentBox;
@@ -141,9 +141,9 @@ static void bqtCheckForMove
 } /* bqtCheckForMove */
 
 /*------------------------------------ bqtClipToBox ---*/
-static void bqtClipToBox
-  (QtPtr xx,
-   Movie aMovie)
+static void
+bqtClipToBox(QtPtr xx,
+             Movie aMovie)
 {
   RgnHandle currentRegion, oldRegion;
   Rect      aRect;
@@ -161,10 +161,10 @@ static void bqtClipToBox
 } /*  bqtClipToBox */
 
 /*------------------------------------ bqtCreate ---*/
-Pvoid bqtCreate
-  (PSymbol ss,
-   short   argc,
-   PAtom   argv)
+Pvoid
+bqtCreate(PSymbol ss,
+          short   argc,
+          PAtom   argv)
 {
 #pragma unused(ss)
   QtPtr xx = NULL_PTR;
@@ -254,8 +254,8 @@ Pvoid bqtCreate
 } /* bqtCreate */
 
 /*------------------------------------ bqtFree ---*/
-Pvoid bqtFree
-  (QtPtr xx)
+Pvoid
+bqtFree(QtPtr xx)
 {
   EnterCallback();
   if (xx)
@@ -285,11 +285,11 @@ Pvoid bqtFree
 } /* bqtFree */
 
 /*------------------------------------ bqtMenu ---*/
-Pvoid bqtMenu
-  (PPatcher pp,
-   long     left,
-   long     top,
-   long     font)
+Pvoid
+bqtMenu(PPatcher pp,
+        long     left,
+        long     top,
+        long     font)
 {
 #pragma unused(font)
   Atom  args[8];

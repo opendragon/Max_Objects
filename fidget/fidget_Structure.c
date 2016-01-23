@@ -40,49 +40,49 @@
 #include "fidget.h"
 
 /*------------------------------------ printStructure ---*/
-static void printStructure
-	(HIDElementDataPtr	thisElement)
+static void
+printStructure(HIDElementDataPtr thisElement)
 {
-	for ( ; thisElement; thisElement = thisElement->fNextSibling)
-	{
-		post("%*c %d %s %d", (thisElement->fDepth * 2) + 1, ' ',
-					thisElement->fCookie, fidgetMapElementType(thisElement->fType)->s_name,
-					thisElement->fSize);
-		printStructure(thisElement->fChild);
-	}
+    for ( ; thisElement; thisElement = thisElement->fNextSibling)
+    {
+        post("%*c %d %s %d", (thisElement->fDepth * 2) + 1, ' ',
+                    thisElement->fCookie, fidgetMapElementType(thisElement->fType)->s_name,
+                    thisElement->fSize);
+        printStructure(thisElement->fChild);
+    }
 } /* printStructure */
 
 /*------------------------------------ cmd_Structure ---*/
-Pvoid cmd_Structure
-  (FidgetPtr	xx,
-   PSymbol		deviceType,
-   PSymbol		serialNumber)
+Pvoid
+cmd_Structure(FidgetPtr xx,
+              PSymbol   deviceType,
+              PSymbol   serialNumber)
 {
   EnterCallback();
   if (xx)
   {
-  	if (serialNumber == gAsteriskSymbol)
-  	{
-  		HIDDeviceDataPtr	walker = fidgetGetFirstHIDData(xx, deviceType);
-  		
-  		for ( ; walker; )
-  		{
-				post("%s %s:", deviceType->s_name, walker->fSerialNumber->s_name);
-				printStructure(walker->fTopElement);
-  			walker = fidgetGetNextHIDData(deviceType, walker);
-  		}
-  	}
-  	else
-  	{
-	  	// Find the matching device:
-	  	HIDDeviceDataPtr	walker = fidgetLocateHIDData(xx, deviceType, serialNumber);
-	  	
-			if (walker)
-			{
-				post("%s %s:", deviceType->s_name, serialNumber->s_name);
-				printStructure(walker->fTopElement);
-			}
-		}
+      if (serialNumber == gAsteriskSymbol)
+      {
+          HIDDeviceDataPtr    walker = fidgetGetFirstHIDData(xx, deviceType);
+          
+          for ( ; walker; )
+          {
+                post("%s %s:", deviceType->s_name, walker->fSerialNumber->s_name);
+                printStructure(walker->fTopElement);
+              walker = fidgetGetNextHIDData(deviceType, walker);
+          }
+      }
+      else
+      {
+          // Find the matching device:
+          HIDDeviceDataPtr    walker = fidgetLocateHIDData(xx, deviceType, serialNumber);
+          
+            if (walker)
+            {
+                post("%s %s:", deviceType->s_name, serialNumber->s_name);
+                printStructure(walker->fTopElement);
+            }
+        }
   }
   ExitMaxMessageHandler()
 } /* cmd_Structure */

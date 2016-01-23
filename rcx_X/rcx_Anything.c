@@ -40,11 +40,11 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_Anything ---*/
-Pvoid cmd_Anything
-  (RcxControlPtr xx,
-   PSymbol       message,
-   short         argc,
-   PAtom         argv)
+Pvoid
+cmd_Anything(RcxControlPtr xx,
+             PSymbol       message,
+             short         argc,
+             PAtom         argv)
 {
   EnterCallback();
   LOG_ERROR_2(OUTPUT_PREFIX "Unknown message '%s' seen", message->s_name)

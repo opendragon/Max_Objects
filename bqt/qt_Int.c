@@ -40,9 +40,9 @@
 #include "qtCommon.h"
 
 /*------------------------------------ deferred_Int ---*/
-static Pvoid deferred_Int
-  (QtPtr xx,
-   long  num)
+static Pvoid
+deferred_Int(QtPtr xx,
+             long  num)
 {
   EnterCallback();
   if (xx->fCurrentMovie)
@@ -59,9 +59,9 @@ static Pvoid deferred_Int
 } /* deferred_Int */
 
 /*------------------------------------ cmd_Int ---*/
-Pvoid cmd_Int
-  (QtPtr xx,
-   long  num)
+Pvoid
+cmd_Int(QtPtr xx,
+        long  num)
 {
   EnterCallback();
 #if defined(TRACE_MESSAGES)

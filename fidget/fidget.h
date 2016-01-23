@@ -46,15 +46,15 @@
  #include "Common_HIDX.h"
  #include "PhidgetEntryPoints.h"
 
- #define OUR_NAME				"fidget"
- #define OUR_RES_NUMB		17199
- #define OUTPUT_PREFIX	"fidget: "
+ #define OUR_NAME         "fidget"
+ #define OUR_RES_NUMB     17199
+ #define OUTPUT_PREFIX    "fidget: "
 
  #define FIDGET_CONTROL_SYMBOL "##fidget##"
 
 enum 
 {
-	kDefineCallbackValid = (1 << 0),
+  kDefineCallbackValid = (1 << 0),
   kDoCustomValid = (1 << 1),
   kDoGetValid = (1 << 2),
   kDoPutValid = (1 << 3),
@@ -68,144 +68,144 @@ enum
 
 struct PhidgetDescriptor;
 
-typedef PhidgetDescriptor *	PhidgetDescriptorPtr;
+typedef PhidgetDescriptor *    PhidgetDescriptorPtr;
 
 struct PhidgetDescriptor
 {
-  CFragConnectionID			fConnID;
-  Ptr										fMainAddress;
-  PSymbol								fName;
-  PhidgetDescriptorPtr	fNext;
-  PhidgetDescriptorPtr	fPrevious;
-  long									fPrivateSize;
-	long									fProductID;  
-  Ptr										fShared;
-  long									fSharedSize;
-  FSSpec								fSpec;
-  bool									fIsAsynchronous;
-  long									fValidMask;
+  CFragConnectionID       fConnID;
+  Ptr                     fMainAddress;
+  PSymbol                 fName;
+  PhidgetDescriptorPtr    fNext;
+  PhidgetDescriptorPtr    fPrevious;
+  long                    fPrivateSize;
+  long                    fProductID;  
+  Ptr                     fShared;
+  long                    fSharedSize;
+  FSSpec                  fSpec;
+  bool                    fIsAsynchronous;
+  long                    fValidMask;
  #if defined(COMPILE_FOR_OSX_4)
-  ProcPtr								fDefineCallbackFun;
-  ProcPtr								fDoCustomFun;
-  ProcPtr								fDoGetFun;
-  ProcPtr								fDoPutFun;
-  ProcPtr								fIdentifyFun;
-  ProcPtr								fMainFun;
-  ProcPtr								fNiamFun;
-  ProcPtr								fOnAttachFun;
-  ProcPtr								fOnDetachFun;
+  ProcPtr                 fDefineCallbackFun;
+  ProcPtr                 fDoCustomFun;
+  ProcPtr                 fDoGetFun;
+  ProcPtr                 fDoPutFun;
+  ProcPtr                 fIdentifyFun;
+  ProcPtr                 fMainFun;
+  ProcPtr                 fNiamFun;
+  ProcPtr                 fOnAttachFun;
+  ProcPtr                 fOnDetachFun;
  #endif /* COMPILE_FOR_OSX_4 */
  #if defined(COMPILE_FOR_OS9_4)
-  UniversalProcPtr			fDoCustomUpp;
-  UniversalProcPtr			fDoGetUpp;
-  UniversalProcPtr			fDoPutUpp;
-  UniversalProcPtr			fIdentifyUpp;
-  UniversalProcPtr			fMainUpp;
-  UniversalProcPtr			fNiamUpp;
-  UniversalProcPtr			fOnAttachUpp;
-  UniversalProcPtr			fOnDetachUpp;
-  UniversalProcPtr			fReportHandlerUpp;
+  UniversalProcPtr        fDoCustomUpp;
+  UniversalProcPtr        fDoGetUpp;
+  UniversalProcPtr        fDoPutUpp;
+  UniversalProcPtr        fIdentifyUpp;
+  UniversalProcPtr        fMainUpp;
+  UniversalProcPtr        fNiamUpp;
+  UniversalProcPtr        fOnAttachUpp;
+  UniversalProcPtr        fOnDetachUpp;
+  UniversalProcPtr        fReportHandlerUpp;
  #endif /* COMPILE_FOR_OS9_4 */
 }; /* PhidgetDescriptor */
 
 struct FidgetData
 {
-  Object  							fObject;
-  POutlet 							fDataOut;
-  long									fHIDDeviceCount;
-	HIDDeviceDataPtr			fHIDDevices;
-  PhidgetDescriptorPtr	fPhidgets;
-  bool									fReportEvents;
-  POutlet								fResultOut;
-  bool									fStopping;
+  Object                  fObject;
+  POutlet                 fDataOut;
+  long                    fHIDDeviceCount;
+  HIDDeviceDataPtr        fHIDDevices;
+  PhidgetDescriptorPtr    fPhidgets;
+  bool                    fReportEvents;
+  POutlet                 fResultOut;
+  bool                    fStopping;
  #if defined(COMPILE_FOR_OSX_4)
-  IOKitContext					fHIDControl;
-	IOKitContext					fUSBControl;
+  IOKitContext            fHIDControl;
+  IOKitContext            fUSBControl;
  #endif /* COMPILE_FOR_OSX_4 */
  #if defined(COMPILE_FOR_OS9_4)
- 	USBContext						fUSBControl;
+  USBContext              fUSBControl;
  #endif /* COMPILE_FOR_OS9_4 */
 }; /* FidgetData */
 
 typedef FidgetData * FidgetPtr;
 
-HIDDeviceDataPtr fidgetGetFirstHIDData
-	(FidgetPtr	xx,
-	 PSymbol		deviceType);
-	 
-HIDDeviceDataPtr fidgetGetNextHIDData
-	(PSymbol					deviceType,
-	 HIDDeviceDataPtr	currentDevice);
-	 
-HIDDeviceDataPtr fidgetLocateHIDData
-	(FidgetPtr	xx,
-	 PSymbol		deviceType,
-	 PSymbol		serialNumber);
+HIDDeviceDataPtr
+fidgetGetFirstHIDData(FidgetPtr xx,
+                      PSymbol   deviceType);
+     
+HIDDeviceDataPtr
+fidgetGetNextHIDData(PSymbol          deviceType,
+                     HIDDeviceDataPtr currentDevice);
+     
+HIDDeviceDataPtr
+fidgetLocateHIDData(FidgetPtr xx,
+                    PSymbol   deviceType,
+                    PSymbol   serialNumber);
 
-PSymbol fidgetMapElementType
-	(IOHIDElementType elementType);
+PSymbol
+fidgetMapElementType(IOHIDElementType elementType);
 
-Pvoid cmd_Do
-  (FidgetPtr	xx,
-   PSymbol		message,
-   short			argc,
-   PAtom			argv);  
+Pvoid
+cmd_Do(FidgetPtr xx,
+       PSymbol   message,
+       short     argc,
+       PAtom     argv);  
 
-Pvoid cmd_Get
-  (FidgetPtr	xx,
-   PSymbol		message,
-   short			argc,
-   PAtom			argv);
+Pvoid
+cmd_Get(FidgetPtr xx,
+        PSymbol   message,
+        short     argc,
+        PAtom     argv);
    
-Pvoid cmd_Listen
-  (FidgetPtr	xx,
-   PSymbol		onOff);
+Pvoid
+cmd_Listen(FidgetPtr xx,
+           PSymbol   onOff);
 
-Pvoid cmd_Put
-  (FidgetPtr	xx,
-   PSymbol		message,
-   short			argc,
-   PAtom			argv);
+Pvoid
+cmd_Put(FidgetPtr xx,
+        PSymbol   message,
+        short     argc,
+        PAtom     argv);
 
-Pvoid cmd_Report
-  (FidgetPtr	xx,
-   PSymbol		deviceType,
-   PSymbol		serialNumber,
-   long				element);
+Pvoid
+cmd_Report(FidgetPtr xx,
+           PSymbol   deviceType,
+           PSymbol   serialNumber,
+           long      element);
 
-Pvoid cmd_Structure
-  (FidgetPtr	xx,
-   PSymbol		deviceType,
-   PSymbol		serialNumber);
+Pvoid
+cmd_Structure(FidgetPtr xx,
+              PSymbol   deviceType,
+              PSymbol   serialNumber);
 
 StandardRoutineDeclarations(FidgetPtr)
 
-mextern(long)			gAppDir;
-mextern(FSSpec)		gAppFile;
-mextern(short)		gAppVRef;
-mextern(PSymbol)	gAddedSymbol;						/* Pointer to unique symbol for 'added' */
-mextern(PSymbol)	gAsteriskSymbol;				/* Pointer to unique symbol for '*' */
-mextern(PSymbol)	gCollectionSymbol;			/* Pointer to unique symbol for 'collection' */
-mextern(PSymbol)	gDeviceSymbol;					/* Pointer to unique symbol for 'device' */
-mextern(PSymbol)	gDevicesSymbol;					/* Pointer to unique symbol for 'devices' */
-mextern(PSymbol)	gElementSymbol;					/* Pointer to unique symbol for 'element' */
-mextern(PSymbol)	gElementsSymbol;				/* Pointer to unique symbol for 'elements' */
-mextern(PSymbol)	gEmptySymbol;						/* Pointer to unique symbol for '' */
-mextern(PSymbol)	gFeatureSymbol;					/* Pointer to unique symbol for 'feature' */
-mextern(PSymbol)	gInputAxisSymbol;				/* Pointer to unique symbol for 'input-axis' */
-mextern(PSymbol)	gInputButtonSymbol;			/* Pointer to unique symbol for 'input-button' */
-mextern(PSymbol)	gInputMiscSymbol;				/* Pointer to unique symbol for 'input-misc' */
-mextern(PSymbol)	gInputScanCodesSymbol;	/* Pointer to unique symbol for 'input-scancodes' */
-mextern(PSymbol)	gOffSymbol;							/* Pointer to unique symbol for 'off' */
-mextern(PSymbol)	gOnSymbol;							/* Pointer to unique symbol for 'on' */
-mextern(PSymbol)	gOutputSymbol;					/* Pointer to unique symbol for 'output' */
-mextern(PSymbol)	gRemovedSymbol;					/* Pointer to unique symbol for 'removed' */
-mextern(long)			gPhidgetDir;
-mextern(Str255)		gPhidgetFolderAlias;
-mextern(Str255)		gPhidgetFolderName;
-mextern(short)		gPhidgetVol;
-mextern(long)			gSysParID;
-mextern(short)		gSysVRef;
-mextern(PSymbol)	gUnknownSymbol;					/* Pointer to unique symbol for 'unknown' */
+mextern(long)       gAppDir;
+mextern(FSSpec)     gAppFile;
+mextern(short)      gAppVRef;
+mextern(PSymbol)    gAddedSymbol;                        /* Pointer to unique symbol for 'added' */
+mextern(PSymbol)    gAsteriskSymbol;                /* Pointer to unique symbol for '*' */
+mextern(PSymbol)    gCollectionSymbol;            /* Pointer to unique symbol for 'collection' */
+mextern(PSymbol)    gDeviceSymbol;                    /* Pointer to unique symbol for 'device' */
+mextern(PSymbol)    gDevicesSymbol;                    /* Pointer to unique symbol for 'devices' */
+mextern(PSymbol)    gElementSymbol;                    /* Pointer to unique symbol for 'element' */
+mextern(PSymbol)    gElementsSymbol;                /* Pointer to unique symbol for 'elements' */
+mextern(PSymbol)    gEmptySymbol;                        /* Pointer to unique symbol for '' */
+mextern(PSymbol)    gFeatureSymbol;                    /* Pointer to unique symbol for 'feature' */
+mextern(PSymbol)    gInputAxisSymbol;                /* Pointer to unique symbol for 'input-axis' */
+mextern(PSymbol)    gInputButtonSymbol;            /* Pointer to unique symbol for 'input-button' */
+mextern(PSymbol)    gInputMiscSymbol;                /* Pointer to unique symbol for 'input-misc' */
+mextern(PSymbol)    gInputScanCodesSymbol;    /* Pointer to unique symbol for 'input-scancodes' */
+mextern(PSymbol)    gOffSymbol;                            /* Pointer to unique symbol for 'off' */
+mextern(PSymbol)    gOnSymbol;                            /* Pointer to unique symbol for 'on' */
+mextern(PSymbol)    gOutputSymbol;                    /* Pointer to unique symbol for 'output' */
+mextern(PSymbol)    gRemovedSymbol;                    /* Pointer to unique symbol for 'removed' */
+mextern(long)       gPhidgetDir;
+mextern(Str255)     gPhidgetFolderAlias;
+mextern(Str255)     gPhidgetFolderName;
+mextern(short)      gPhidgetVol;
+mextern(long)       gSysParID;
+mextern(short)      gSysVRef;
+mextern(PSymbol)    gUnknownSymbol;                    /* Pointer to unique symbol for 'unknown' */
 
 #endif /* not FIDGET_H_ */

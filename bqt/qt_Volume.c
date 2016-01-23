@@ -40,9 +40,9 @@
 #include "qtCommon.h"
 
 /*------------------------------------ deferred_Volume ---*/
-static Pvoid deferred_Volume
-  (QtPtr xx,
-   long  num)
+static Pvoid
+deferred_Volume(QtPtr xx,
+                long  num)
 {
   EnterCallback();
   if (xx->fCurrentMovie)
@@ -63,9 +63,9 @@ static Pvoid deferred_Volume
 } /* deferred_Volume */
 
 /*------------------------------------ cmd_Volume ---*/
-Pvoid cmd_Volume
-  (QtPtr xx,
-   long  num)
+Pvoid
+cmd_Volume(QtPtr xx,
+           long  num)
 {
   EnterCallback();
 #if defined(TRACE_MESSAGES)

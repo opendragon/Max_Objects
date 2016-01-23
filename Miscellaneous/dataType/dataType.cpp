@@ -42,7 +42,8 @@
 #include "reportVersion.h"
 
 /*------------------------------------ dataTypeCreate ---*/
-static void * dataTypeCreate(void)
+static void *
+dataTypeCreate(void)
 {
     DataTypeData * xx = static_cast<DataTypeData *>(object_alloc(gClass));
     
@@ -60,13 +61,15 @@ static void * dataTypeCreate(void)
 } // dataTypeCreate
 
 /*------------------------------------ dataTypeFree ---*/
-static void dataTypeFree(DataTypeData * xx)
+static void
+dataTypeFree(DataTypeData * xx)
 {
 #pragma unused(xx)
 } // dataTypeFree
 
 /*------------------------------------ main ---*/
-int C74_EXPORT main(void)
+int C74_EXPORT
+main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(dataTypeCreate),

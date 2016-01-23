@@ -40,10 +40,10 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_PlayTone ---*/
-Pvoid cmd_PlayTone
-  (RcxControlPtr xx,
-   long          frequency,
-   long          duration)
+Pvoid
+cmd_PlayTone(RcxControlPtr xx,
+             long          frequency,
+             long          duration)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(frequency, duration)

@@ -40,10 +40,10 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_SetOutputPower ---*/
-Pvoid cmd_SetOutputPower
-  (RcxControlPtr xx,
-   long          slots,
-   long          newPower)
+Pvoid
+cmd_SetOutputPower(RcxControlPtr xx,
+                   long          slots,
+                   long          newPower)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(slots, newPower)

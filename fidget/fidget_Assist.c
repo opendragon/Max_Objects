@@ -40,12 +40,12 @@
 #include "fidget.h"
 
 /*------------------------------------ cmd_Assist ---*/
-Pvoid cmd_Assist
-  (FidgetPtr	xx,
-   Pvoid			bb,
-   long				msg,
-   long				arg,
-   Ptr				dstString)
+Pvoid
+cmd_Assist(FidgetPtr xx,
+           Pvoid     bb,
+           long      msg,
+           long      arg,
+           Ptr       dstString)
 {
 #pragma unused(xx, bb, arg)
   EnterCallback();
@@ -56,7 +56,7 @@ Pvoid cmd_Assist
                 dstString);
 #else /* not USE_ASSIST_STRING */
   if (msg == ASSIST_INLET)
-  	strcpy(dstString, "Request input");
+      strcpy(dstString, "Request input");
   else if (msg == ASSIST_OUTLET)
   {
     switch (arg)

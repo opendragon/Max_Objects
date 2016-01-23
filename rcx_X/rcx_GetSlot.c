@@ -40,8 +40,8 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_GetSlot ---*/
-Pvoid cmd_GetSlot
-  (RcxControlPtr xx)
+Pvoid
+cmd_GetSlot(RcxControlPtr xx)
 {
   EnterCallback();
   if (xx)

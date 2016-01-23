@@ -40,11 +40,11 @@
 #include "qtCommon.h"
 
 /*------------------------------------ deferred_Segment ---*/
-static Pvoid deferred_Segment
-  (QtPtr   xx,
-   PSymbol ss,
-   short   argc,
-   PAtom   argv)
+static Pvoid
+deferred_Segment(QtPtr   xx,
+                 PSymbol ss,
+                 short   argc,
+                 PAtom   argv)
 {
 #pragma unused(argc, ss)
   EnterCallback();
@@ -79,10 +79,10 @@ static Pvoid deferred_Segment
 } /* deferred_Segment */
 
 /*------------------------------------ cmd_Segment ---*/
-Pvoid cmd_Segment
-  (QtPtr xx,
-   long  begin,
-   long  end)
+Pvoid
+cmd_Segment(QtPtr xx,
+            long  begin,
+            long  end)
 {
   Atom avSegment[2];
 

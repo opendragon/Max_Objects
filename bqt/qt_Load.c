@@ -40,9 +40,9 @@
 #include "qtCommon.h"
 
 /*------------------------------------ deferred_Load ---*/
-Pvoid deferred_Load
-  (QtPtr   xx,
-   PSymbol name)
+Pvoid
+deferred_Load(QtPtr   xx,
+              PSymbol name)
 {
   bool       found = false;
   QtMovieHdl temp;
@@ -63,9 +63,9 @@ Pvoid deferred_Load
 } /* deferred_Load */
 
 /*------------------------------------ cmd_Load ---*/
-Pvoid cmd_Load
-  (QtPtr   xx,
-   PSymbol name)
+Pvoid
+cmd_Load(QtPtr   xx,
+         PSymbol name)
 {
   EnterCallback();
 #if defined(TRACE_MESSAGES)

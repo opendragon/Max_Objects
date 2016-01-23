@@ -40,9 +40,9 @@
 #include "bqt.h"
 
 /*------------------------------------ deferred_Border ---*/
-static Pvoid deferred_Border
-  (QtPtr xx,
-   long  num)
+static Pvoid
+deferred_Border(QtPtr xx,
+                long  num)
 {
   EnterCallback();
   if (xx->fCurrentMovie)
@@ -73,9 +73,9 @@ static Pvoid deferred_Border
 } /* deferred_Border */
 
 /*------------------------------------ cmd_Border ---*/
-Pvoid cmd_Border
-  (QtPtr xx,
-   long  num)
+Pvoid
+cmd_Border(QtPtr xx,
+           long  num)
 {
   EnterCallback();
 #if defined(TRACE_MESSAGES)

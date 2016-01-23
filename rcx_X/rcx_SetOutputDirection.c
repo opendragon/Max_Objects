@@ -40,10 +40,10 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_SetOutputDirection ---*/
-Pvoid cmd_SetOutputDirection
-  (RcxControlPtr xx,
-   long          slots,
-   PSymbol       newDirection)
+Pvoid
+cmd_SetOutputDirection(RcxControlPtr xx,
+                       long          slots,
+                       PSymbol       newDirection)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(slots, newDirection)

@@ -40,8 +40,8 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_GetBattery ---*/
-Pvoid cmd_GetBattery
-  (RcxControlPtr xx)
+Pvoid
+cmd_GetBattery(RcxControlPtr xx)
 {
   EnterCallback();
   if (xx)

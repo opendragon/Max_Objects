@@ -46,26 +46,26 @@ static const int DATA_PACKET_SIZE = 8;
 
 struct PrivateData
 {
-	bool	fDigitalInputTriggerEnabled;
-	long	fDigitalOutputs;
-	char	fEvenData[DATA_PACKET_SIZE];
-	bool	fHaveEvenData;
-	bool	fHaveOddData;
-	char	fOddData[DATA_PACKET_SIZE];
+    bool    fDigitalInputTriggerEnabled;
+    long    fDigitalOutputs;
+    char    fEvenData[DATA_PACKET_SIZE];
+    bool    fHaveEvenData;
+    bool    fHaveOddData;
+    char    fOddData[DATA_PACKET_SIZE];
  #if defined(COMPILE_FOR_OS9_4)
- 	float	fAnalogInput[DATA_PACKET_SIZE];
-	long	fDigitalInput;
+    float   fAnalogInput[DATA_PACKET_SIZE];
+    long    fDigitalInput;
  #endif /* COMPILE_FOR_OS9_4 */
 }; /* PrivateData */
  
 struct SharedData
 {
-	IOHIDElementCookie	fInputCookie;
-	IOHIDElementCookie	fOutputCookie;
-	bool								fCookiesValid;	
+    IOHIDElementCookie    fInputCookie;
+    IOHIDElementCookie    fOutputCookie;
+    bool                  fCookiesValid;    
 }; /* SharedData */
 
-typedef PrivateData *	PrivatePtr;
-typedef SharedData *	SharedPtr;
+typedef PrivateData *    PrivatePtr;
+typedef SharedData *    SharedPtr;
  
 #endif /* not INTERFACEKIT888_H_ */

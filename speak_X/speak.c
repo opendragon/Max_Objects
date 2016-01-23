@@ -46,24 +46,24 @@
 #include "reportVersion.h"
 
 /* Forward references: */
-bool isSpeechManagerAvailable
-  (void);
+bool
+isSpeechManagerAvailable(void);
 
-Pvoid speakCreate
-  (void);
+Pvoid
+speakCreate(void);
 
-Pvoid speakFree
-  (SpeakPtr xx);
+Pvoid
+speakFree(SpeakPtr xx);
 
-Pvoid speakProcessClock
-  (SpeakPtr xx);
+Pvoid
+speakProcessClock(SpeakPtr xx);
 
-Pvoid speakProcessQueue
-  (SpeakPtr xx);
+Pvoid
+speakProcessQueue(SpeakPtr xx);
 
 /*------------------------------------ main ---*/
-void main
-  (Pfptr ff)
+void
+main(Pfptr ff)
 {
   EnterCodeResource();
   PrepareCallback();
@@ -119,8 +119,8 @@ void main
 } /* main */
 
 /*------------------------------------ speakCreate ---*/
-Pvoid speakCreate
-  (void)
+Pvoid
+speakCreate(void)
 {
   SpeakPtr xx;
 
@@ -182,8 +182,8 @@ Pvoid speakCreate
 } /* speakCreate */
 
 /*------------------------------------ speakFree ---*/
-Pvoid speakFree
-  (SpeakPtr xx)
+Pvoid
+speakFree(SpeakPtr xx)
 {
   EnterCallback();
   if (xx)
@@ -219,8 +219,8 @@ Pvoid speakFree
 } /* speakFree */
 
 /*------------------------------------ isSpeechManagerAvailable ---*/
-bool isSpeechManagerAvailable
-  (void)
+bool
+isSpeechManagerAvailable(void)
 {
   UInt32   speechAttributes;
   OSStatus err = Gestalt(gestaltSpeechAttr, reinterpret_cast<Plong>(&speechAttributes));
@@ -235,8 +235,8 @@ bool isSpeechManagerAvailable
 } /* isSpeechManagerAvailable */
 
 /*------------------------------------ speakProcessQueue ---*/
-Pvoid speakProcessQueue
-  (SpeakPtr xx)
+Pvoid
+speakProcessQueue(SpeakPtr xx)
 {
   EnterCallback();
   if (xx)
@@ -252,9 +252,9 @@ Pvoid speakProcessQueue
 } /* speakProcessQueue */
 
 /*------------------------------------ speechComplete ---*/
-pascal void speechComplete
-  (SpeechChannel	chan,
-   long						refCon)
+pascal void
+speechComplete(SpeechChannel    chan,
+               long                        refCon)
 {
 #pragma unused(chan)
   SpeakPtr xx = reinterpret_cast<SpeakPtr>(refCon);
@@ -266,8 +266,8 @@ pascal void speechComplete
 } /* speechComplete */
 
 /*------------------------------------ transmitBuffer ---*/
-void transmitBuffer
-  (SpeakPtr xx)
+void
+transmitBuffer(SpeakPtr xx)
 {
   if (xx && xx->fSpeaker)
   {
@@ -275,8 +275,8 @@ void transmitBuffer
 
     if (aBuffer && aBuffer->fNumBytesInUse)
     {
-			xx->fActive = true;
-			SpeakText(xx->fSpeaker, &aBuffer->fElements, aBuffer->fNumBytesInUse);
+            xx->fActive = true;
+            SpeakText(xx->fSpeaker, &aBuffer->fElements, aBuffer->fNumBytesInUse);
     }
   }
 } /* transmitBuffer */

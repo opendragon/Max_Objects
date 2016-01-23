@@ -40,8 +40,8 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_Unmute ---*/
-Pvoid cmd_Unmute
-  (RcxControlPtr xx)
+Pvoid
+cmd_Unmute(RcxControlPtr xx)
 {
   EnterCallback();
   if (xx)

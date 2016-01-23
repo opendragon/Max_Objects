@@ -40,9 +40,9 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_Volume ---*/
-Pvoid cmd_Volume
-  (SpeakPtr xx,
-   double   newVolume)
+Pvoid
+cmd_Volume(SpeakPtr xx,
+           double   newVolume)
 {
   EnterCallback();
   if (xx && xx->fSpeaker)

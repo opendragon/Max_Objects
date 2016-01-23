@@ -40,8 +40,8 @@
 #include "qtCommon.h"
 
 /*------------------------------------ cmd_GetVolume ---*/
-Pvoid cmd_GetVolume
-  (QtPtr xx)
+Pvoid
+cmd_GetVolume(QtPtr xx)
 {
   EnterCallback();
 #if defined(TRACE_MESSAGES)

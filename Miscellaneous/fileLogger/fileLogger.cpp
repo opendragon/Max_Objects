@@ -42,7 +42,8 @@
 #include "reportVersion.h"
 
 /*------------------------------------ fileLoggerCreate ---*/
-static void * fileLoggerCreate(t_symbol * fileName)
+static void *
+fileLoggerCreate(t_symbol * fileName)
 {
     FileLoggerData * xx = static_cast<FileLoggerData *>(object_alloc(gClass));
     
@@ -54,13 +55,15 @@ static void * fileLoggerCreate(t_symbol * fileName)
 } // fileLoggerCreate
 
 /*------------------------------------ fileLoggerFree ---*/
-static void fileLoggerFree(FileLoggerData * xx)
+static void
+fileLoggerFree(FileLoggerData * xx)
 {
     fileLoggerReleaseTheFile(xx);
 } // fileLoggerFree
 
 /*------------------------------------ main ---*/
-int C74_EXPORT main(void)
+int C74_EXPORT
+main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(fileLoggerCreate),
@@ -84,7 +87,8 @@ int C74_EXPORT main(void)
 } // main
 
 /*------------------------------------ fileLoggerGetTheFile ---*/
-bool fileLoggerGetTheFile(FileLoggerData * xx)
+bool
+fileLoggerGetTheFile(FileLoggerData * xx)
 {
     bool result = false;
 
@@ -104,7 +108,8 @@ bool fileLoggerGetTheFile(FileLoggerData * xx)
 } // fileLoggerGetTheFile
 
 /*------------------------------------ fileLoggerReleaseTheFile ---*/
-bool fileLoggerReleaseTheFile(FileLoggerData * xx)
+bool
+fileLoggerReleaseTheFile(FileLoggerData * xx)
 {
     bool result;
     
@@ -121,8 +126,9 @@ bool fileLoggerReleaseTheFile(FileLoggerData * xx)
 } // fileLoggerReleaseTheFile
 
 /*------------------------------------ fileLoggerWriteStringToTheFile ---*/
-bool fileLoggerWriteStringToTheFile(FileLoggerData * xx,
-                                    const char *     value)
+bool
+fileLoggerWriteStringToTheFile(FileLoggerData * xx,
+                               const char *     value)
 {
     bool result;
 

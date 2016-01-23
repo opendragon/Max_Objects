@@ -63,11 +63,11 @@ class SomethingPrivate
 typedef SomethingPrivate * PSomethingPrivate;
 
 /*------------------------------------ do_Anything ---*/
-OSErr do_Anything
-  (PLUGIN_HEADER_PREFIX,
-   PSymbol			message,
-   const short	argc,
-   PAtom				argv)
+OSErr
+do_Anything(PLUGIN_HEADER_PREFIX,
+            PSymbol            message,
+            const short    argc,
+            PAtom                argv)
 {
 #pragma unused(owner, outlets)
   PSomethingPrivate privateStuff = reinterpret_cast<PSomethingPrivate>(privateStorage);
@@ -100,8 +100,8 @@ OSErr do_Anything
 } /* do_Anything */
 
 /*------------------------------------ do_Bang ---*/
-OSErr do_Bang
-  (PLUGIN_HEADER_PREFIX)
+OSErr
+do_Bang(PLUGIN_HEADER_PREFIX)
 {
 #pragma unused(owner, outlets)
   PSomethingPrivate privateStuff = reinterpret_cast<PSomethingPrivate>(privateStorage);
@@ -112,9 +112,9 @@ OSErr do_Bang
 } /* do_Bang */
 
 /*------------------------------------ do_Double ---*/
-OSErr do_Double
-  (PLUGIN_HEADER_PREFIX,
-   const double	value)
+OSErr
+do_Double(PLUGIN_HEADER_PREFIX,
+          const double    value)
 {
 #pragma unused(owner, outlets)
   PSomethingPrivate privateStuff = reinterpret_cast<PSomethingPrivate>(privateStorage);
@@ -125,10 +125,10 @@ OSErr do_Double
 } /* do_Double */
 
 /*------------------------------------ do_List ---*/
-OSErr do_List
-  (PLUGIN_HEADER_PREFIX,
-   const short	argc,
-   PAtom				argv)
+OSErr
+do_List(PLUGIN_HEADER_PREFIX,
+        const short    argc,
+        PAtom                argv)
 {
 #pragma unused(owner, outlets)
   PSomethingPrivate privateStuff = reinterpret_cast<PSomethingPrivate>(privateStorage);
@@ -158,9 +158,9 @@ OSErr do_List
 } /* do_List */
 
 /*------------------------------------ do_Long ---*/
-OSErr do_Long
-  (PLUGIN_HEADER_PREFIX,
-   const long	value)
+OSErr
+do_Long(PLUGIN_HEADER_PREFIX,
+        const long    value)
 {
 #pragma unused(owner, outlets)
   PSomethingPrivate privateStuff = reinterpret_cast<PSomethingPrivate>(privateStorage);
@@ -171,10 +171,10 @@ OSErr do_Long
 } /* do_Long */
 
 /*------------------------------------ initialTwas ---*/
-static OSErr initialTwas
-  (PLUGIN_HEADER_PREFIX,
-   const short	argc,
-   PAtom				argv)
+static OSErr
+initialTwas(PLUGIN_HEADER_PREFIX,
+            const short    argc,
+            PAtom                argv)
 {
 #pragma unused(owner, outlets, privateStorage, sharedStorage, argv)
   LOG_POST_3("initialTwas, argc: %hd, inlet: %ld", argc, inletNumber)
@@ -182,10 +182,10 @@ static OSErr initialTwas
 } /* initialTwas */
 
 /*------------------------------------ main ---*/
-OSErr main
-  (CFragConnectionID connID,
-   OwnerPtr          owner,
-   Handle            sharedStorage)
+OSErr
+main(CFragConnectionID connID,
+     OwnerPtr          owner,
+     Handle            sharedStorage)
 {
   PSomethingShared forUs = new SomethingShared;
 
@@ -196,9 +196,9 @@ OSErr main
 } /* main */
 
 /*------------------------------------ niam ---*/
-OSErr niam
-  (OwnerPtr owner,
-   Ptr      sharedStorage)
+OSErr
+niam(OwnerPtr owner,
+     Ptr      sharedStorage)
 {
 #pragma unused(owner)
   PSomethingShared  sharedStuff = reinterpret_cast<PSomethingShared>(sharedStorage);
@@ -210,15 +210,15 @@ OSErr niam
 } /* niam */
 
 /*------------------------------------ onCreate ---*/
-OSErr onCreate
-  (OwnerPtr 		owner,
-   Pchar    		theName,
-   Ptr      		sharedStorage,
-   Handle   		privateStorage,
-   const short	argc,
-   PAtom    		argv,
-   Pshort   		numInlets,
-   Pshort   		numOutlets)
+OSErr
+onCreate(OwnerPtr         owner,
+         Pchar            theName,
+         Ptr              sharedStorage,
+         Handle           privateStorage,
+         const short    argc,
+         PAtom            argv,
+         Pshort           numInlets,
+         Pshort           numOutlets)
 {
 #pragma unused(owner, theName, argv)
   PSomethingShared  sharedStuff = reinterpret_cast<PSomethingShared>(sharedStorage);
@@ -233,10 +233,10 @@ OSErr onCreate
 } /* onCreate */
 
 /*------------------------------------ onDestroy ---*/
-OSErr onDestroy
-  (OwnerPtr owner,
-   Ptr      sharedStorage,
-   Ptr      privateStorage)
+OSErr
+onDestroy(OwnerPtr owner,
+          Ptr      sharedStorage,
+          Ptr      privateStorage)
 {
 #pragma unused(owner)
   PSomethingPrivate privateStuff = reinterpret_cast<PSomethingPrivate>(privateStorage);
@@ -249,10 +249,10 @@ OSErr onDestroy
 } /* onDestroy */
 
 /*------------------------------------ twasAfterReload ---*/
-static OSErr twasAfterReload
-  (PLUGIN_HEADER_PREFIX,
-   const short	argc,
-   PAtom				argv)
+static OSErr
+twasAfterReload(PLUGIN_HEADER_PREFIX,
+                const short    argc,
+                PAtom                argv)
 {
 #pragma unused(owner, outlets, privateStorage, sharedStorage, argv)
   LOG_POST_3("twasAfterReload, argc: %hd, inlet: %ld", argc, inletNumber)
@@ -260,10 +260,10 @@ static OSErr twasAfterReload
 } /* twasAfterReload */
 
 /*------------------------------------ onReload ---*/
-OSErr onReload
-  (CFragConnectionID connID,
-   OwnerPtr          owner,
-   Ptr               sharedStorage)
+OSErr
+onReload(CFragConnectionID connID,
+         OwnerPtr          owner,
+         Ptr               sharedStorage)
 {
   LOG_POST_3("in onReload(0x%lx,0x%lx)", long(connID), long(sharedStorage))
   registerMessage(owner, gensym("twas"), twasAfterReload);

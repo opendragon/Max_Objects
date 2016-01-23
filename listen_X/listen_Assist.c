@@ -40,12 +40,12 @@
 #include "listen.h"
 
 /*------------------------------------ cmd_Assist ---*/
-Pvoid cmd_Assist
-  (ListenPtr xx,
-   Pvoid     bb,
-   long      msg,
-   long      arg,
-   Ptr       dstString)
+Pvoid
+cmd_Assist(ListenPtr xx,
+           Pvoid     bb,
+           long      msg,
+           long      arg,
+           Ptr       dstString)
 {
 #pragma unused(xx, bb, arg)
   EnterCallback();

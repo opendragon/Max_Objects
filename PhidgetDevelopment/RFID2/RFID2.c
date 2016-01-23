@@ -43,265 +43,265 @@
 #include "RFID2.h"
 #include "genericListOutput.h"
 
-static const int	RFID2_TAG_SIZE = 7;
-static const int	EXPECTED_INPUT_SIZE = 56;
-static const int	EXPECTED_OUTPUT_SIZE = 32;
+static const int    RFID2_TAG_SIZE = 7;
+static const int    EXPECTED_INPUT_SIZE = 56;
+static const int    EXPECTED_OUTPUT_SIZE = 32;
 
-static PSymbol	lOffSymbol = NULL_PTR;
-static PSymbol	lOnSymbol = NULL_PTR;
+static PSymbol    lOffSymbol = NULL_PTR;
+static PSymbol    lOnSymbol = NULL_PTR;
 
 static char lHexDigits[] =
-	{ '0', '1', '2', '3', '4', '5', '6', '7',
-		'8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    { '0', '1', '2', '3', '4', '5', '6', '7',
+        '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
 /*------------------------------------ makeSymbolFromValues ---*/
-static PSymbol makeSymbolFromValues
-	(Ptr	values)
+static PSymbol
+makeSymbolFromValues(Ptr values)
 {
-	char	buffer[12];
+    char    buffer[12];
 
-	buffer[0] = '_';
-	for (int ii = 1, jj = 1; ii <= 5; ++ii, jj += 2)
-	{
-		int	nextByte = *(values + ii) & 0x00FF;
+    buffer[0] = '_';
+    for (int ii = 1, jj = 1; ii <= 5; ++ii, jj += 2)
+    {
+        int    nextByte = *(values + ii) & 0x00FF;
 
-		buffer[jj] = lHexDigits[nextByte / 16];
-		buffer[jj + 1] = lHexDigits[nextByte % 16];
-	}
-	buffer[11] = 0;
-	return gensym(buffer);
+        buffer[jj] = lHexDigits[nextByte / 16];
+        buffer[jj + 1] = lHexDigits[nextByte % 16];
+    }
+    buffer[11] = 0;
+    return gensym(buffer);
 } /* makeSymbolFromValues */
 
 #if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ inputCallback ---*/
-static void inputCallback
-	(STANDARD_HID_ARGS_INPUTEVENTHANDLER)
+static void
+inputCallback(STANDARD_HID_ARGS_INPUTEVENTHANDLER)
 {
  #pragma unused(elementCookie,value)
-	PhidgRefConPtr	data = reinterpret_cast<PhidgRefConPtr>(refCon);
-	PrivatePtr			privateData = reinterpret_cast<PrivatePtr>(data->fPrivateStorage);
-	
-	if (privateData->fActive)
-	{
-		// Construct the symbol from the seven bytes:
-		if (longValueSize == RFID2_TAG_SIZE)
-		{
-			Atom	reportList[3];
-			
-			privateData->fTagSeen = makeSymbolFromValues(reinterpret_cast<Ptr>(longValue));
-			SETSYM(reportList, data->fDeviceType);
-			SETSYM(reportList + 1, data->fThisDevice->fSerialNumber);
-			SETSYM(reportList + 2, privateData->fTagSeen);
-			genericListOutput(data->fOutlet, 3, reportList);
-		}
-	}		
+    PhidgRefConPtr    data = reinterpret_cast<PhidgRefConPtr>(refCon);
+    PrivatePtr            privateData = reinterpret_cast<PrivatePtr>(data->fPrivateStorage);
+    
+    if (privateData->fActive)
+    {
+        // Construct the symbol from the seven bytes:
+        if (longValueSize == RFID2_TAG_SIZE)
+        {
+            Atom    reportList[3];
+            
+            privateData->fTagSeen = makeSymbolFromValues(reinterpret_cast<Ptr>(longValue));
+            SETSYM(reportList, data->fDeviceType);
+            SETSYM(reportList + 1, data->fThisDevice->fSerialNumber);
+            SETSYM(reportList + 2, privateData->fTagSeen);
+            genericListOutput(data->fOutlet, 3, reportList);
+        }
+    }        
 } /* inputCallback */
 #endif /* COMPILE_FOR_OSX_4 */
 
 #if defined(COMPILE_FOR_OSX_4)
 /*------------------------------------ defineCallback ---*/
-E_PhidgResult defineCallback
-	(STANDARD_PHID_ARGS_DEFINECALLBACK)
+E_PhidgResult
+defineCallback(STANDARD_PHID_ARGS_DEFINECALLBACK)
 {
  #pragma unused(name,privateStorage,thisDevice)
-	SharedPtr	sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
+    SharedPtr    sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
 
-	*aFun = inputCallback;
-	*cookies = &sharedData->fInputCookie;
-	*numCookies = 1;
-	*result = noErr;
-	return kPhidgSuccess;
+    *aFun = inputCallback;
+    *cookies = &sharedData->fInputCookie;
+    *numCookies = 1;
+    *result = noErr;
+    return kPhidgSuccess;
 } /* defineCallback */
 #endif /* COMPILE_FOR_OSX_4 */
 
 /*------------------------------------ doCustom ---*/
-E_PhidgResult doCustom
-  (STANDARD_PHID_ARGS_DO)
+E_PhidgResult
+doCustom(STANDARD_PHID_ARGS_DO)
 {
 #if defined(USE_DEFAULT)
  #pragma unused(name,deviceType,sharedStorage,outlet,privateStorage,thisDevice,argc,argv)
-	*result = noErr;
-	return kPhidgDoDefault;
+    *result = noErr;
+    return kPhidgDoDefault;
 #else /* not USE_DEFAULT */
  #pragma unused(outlet)
-	PrivatePtr	privateData = reinterpret_cast<PrivatePtr>(privateStorage);
-	SharedPtr		sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
-	
-	*result = noErr;
-	if (argc == 1)
-	{
-		bool	okSoFar = true, doOff = false;
-		
-		if (argv[0].a_type == A_SYM)
-		{
-			if (argv[0].a_w.w_sym == lOffSymbol)
-				doOff = true;	
-			else if (argv[0].a_w.w_sym != lOnSymbol)
-			{
-				okSoFar = false;
-				LOG_ERROR_4("%s: unknown operation ('%s') for '%s:do'", name, argv[0].a_w.w_sym->s_name,
-										deviceType->s_name)
-			}
-		}
-		else
-		{
-			okSoFar = false;
-			LOG_ERROR_3("%s: operation is not a symbol for '%s:do'", name, deviceType->s_name)
-		}
-		if (okSoFar)
-		{
-			if (doOff == privateData->fActive)
-			{
-				if (doOff)
-					// Deactivate
-					privateData->fActive = false;
-				else
-				{
-					// Activate
-			  	HIDElementDataPtr	anElement = NULL_PTR;
-			  	
-			  	// Find the matching element:
-			 		for (anElement = thisDevice->fFirstElement; anElement; anElement = anElement->fNext)
-			 		{
-			 			if (anElement->fCookie == sharedData->fOutputCookie)
-			 				break;
-			 				
-			 		}
-				  if (anElement)
-				  {
-				  	long			singleValue = -1; // this value seems to work...
+    PrivatePtr    privateData = reinterpret_cast<PrivatePtr>(privateStorage);
+    SharedPtr        sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
+    
+    *result = noErr;
+    if (argc == 1)
+    {
+        bool    okSoFar = true, doOff = false;
+        
+        if (argv[0].a_type == A_SYM)
+        {
+            if (argv[0].a_w.w_sym == lOffSymbol)
+                doOff = true;    
+            else if (argv[0].a_w.w_sym != lOnSymbol)
+            {
+                okSoFar = false;
+                LOG_ERROR_4("%s: unknown operation ('%s') for '%s:do'", name, argv[0].a_w.w_sym->s_name,
+                                        deviceType->s_name)
+            }
+        }
+        else
+        {
+            okSoFar = false;
+            LOG_ERROR_3("%s: operation is not a symbol for '%s:do'", name, deviceType->s_name)
+        }
+        if (okSoFar)
+        {
+            if (doOff == privateData->fActive)
+            {
+                if (doOff)
+                    // Deactivate
+                    privateData->fActive = false;
+                else
+                {
+                    // Activate
+                  HIDElementDataPtr    anElement = NULL_PTR;
+                  
+                  // Find the matching element:
+                     for (anElement = thisDevice->fFirstElement; anElement; anElement = anElement->fNext)
+                     {
+                         if (anElement->fCookie == sharedData->fOutputCookie)
+                             break;
+                             
+                     }
+                  if (anElement)
+                  {
+                      long            singleValue = -1; // this value seems to work...
  #if defined(COMPILE_FOR_OSX_4)
-						IOReturn	result2;
+                        IOReturn    result2;
  #endif /* COMPILE_FOR_OSX_4 */
  #if defined(COMPILE_FOR_OS9_4)
-						OSStatus	result2;
+                        OSStatus    result2;
  #endif /* COMPILE_FOR_OS9_4 */
-						
-						setHIDElementValue(name, *thisDevice, *anElement, 0, NULL_PTR, singleValue, result2);
-						privateData->fActive = true;
-						*result = static_cast<OSErr>(result2);
-				  }
-				  else
-				  	LOG_ERROR_3("%s: element not found for '%s:do'", name, deviceType->s_name)					
-				}
-			}
-		}
-	}
-	else if (argc)
-		LOG_ERROR_3("%s: extra values for '%s:do'", name, deviceType->s_name)
-	else
-		LOG_ERROR_3("%s: missing operation for '%s:do'", name, deviceType->s_name)
-	return kPhidgSuccess;
+                        
+                        setHIDElementValue(name, *thisDevice, *anElement, 0, NULL_PTR, singleValue, result2);
+                        privateData->fActive = true;
+                        *result = static_cast<OSErr>(result2);
+                  }
+                  else
+                      LOG_ERROR_3("%s: element not found for '%s:do'", name, deviceType->s_name)                    
+                }
+            }
+        }
+    }
+    else if (argc)
+        LOG_ERROR_3("%s: extra values for '%s:do'", name, deviceType->s_name)
+    else
+        LOG_ERROR_3("%s: missing operation for '%s:do'", name, deviceType->s_name)
+    return kPhidgSuccess;
 #endif /* not USE_DEFAULT */
 } /* doCustom */
 
 /*------------------------------------ doGet ---*/
-E_PhidgResult doGet
-  (STANDARD_PHID_ARGS_DO)
+E_PhidgResult
+doGet(STANDARD_PHID_ARGS_DO)
 {
 #if defined(USE_DEFAULT)
  #pragma unused(name,deviceType,outlet,sharedStorage,privateStorage,thisDevice,argc,argv)
-	*result = noErr;
-	return kPhidgDoDefault;
+    *result = noErr;
+    return kPhidgDoDefault;
 #else /* not USE_DEFAULT */
  #pragma unused(argv)
-	PrivatePtr	privateData = reinterpret_cast<PrivatePtr>(privateStorage);
-	SharedPtr		sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
+    PrivatePtr    privateData = reinterpret_cast<PrivatePtr>(privateStorage);
+    SharedPtr        sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
  
-	*result = noErr;
-	if (argc)
-		LOG_ERROR_3("%s: extra arguments for '%s:get'", name, deviceType->s_name)
-	else
-	{
+    *result = noErr;
+    if (argc)
+        LOG_ERROR_3("%s: extra arguments for '%s:get'", name, deviceType->s_name)
+    else
+    {
  #if defined(COMPILE_FOR_OSX_4)
-		// Get the raw data
-  	HIDElementDataPtr	anElement = NULL_PTR;
-  	
-  	// Find the matching element:
- 		for (anElement = thisDevice->fFirstElement; anElement; anElement = anElement->fNext)
- 		{
- 			if (anElement->fCookie == sharedData->fInputCookie)
- 				break;
- 				
- 		}
-	  if (anElement)
-	  {
-			UInt32		extendedLength;
-			Pvoid			extendedValue;
-			IOReturn	result2;
-			long			value = getHIDElementValue(name, *thisDevice, *anElement, extendedLength,
- 																					extendedValue, result2);
-			
-			if (result2 == KERN_SUCCESS)
-			{
-				if (extendedLength == RFID2_TAG_SIZE)
-				{
-					Atom	reportList[3];
-					
-					privateData->fTagSeen = makeSymbolFromValues(reinterpret_cast<Ptr>(extendedValue));
-					SETSYM(reportList, deviceType);
-					SETSYM(reportList + 1, thisDevice->fSerialNumber);
-					SETSYM(reportList + 2, privateData->fTagSeen);
-					genericListOutput(outlet, 3, reportList);
-				}
-				else
-					LOG_ERROR_4("%s: bad value length (%d) for '%s:get'", name, extendedLength,
-											deviceType->s_name)
-			}
-			else
-				*result = static_cast<OSErr>(result2);
-	  }
-	  else
-	  	LOG_ERROR_3("%s: element not found for '%s:get'", name, deviceType->s_name)
+        // Get the raw data
+      HIDElementDataPtr    anElement = NULL_PTR;
+      
+      // Find the matching element:
+         for (anElement = thisDevice->fFirstElement; anElement; anElement = anElement->fNext)
+         {
+             if (anElement->fCookie == sharedData->fInputCookie)
+                 break;
+                 
+         }
+      if (anElement)
+      {
+            UInt32        extendedLength;
+            Pvoid            extendedValue;
+            IOReturn    result2;
+            long            value = getHIDElementValue(name, *thisDevice, *anElement, extendedLength,
+                                                                                     extendedValue, result2);
+            
+            if (result2 == KERN_SUCCESS)
+            {
+                if (extendedLength == RFID2_TAG_SIZE)
+                {
+                    Atom    reportList[3];
+                    
+                    privateData->fTagSeen = makeSymbolFromValues(reinterpret_cast<Ptr>(extendedValue));
+                    SETSYM(reportList, deviceType);
+                    SETSYM(reportList + 1, thisDevice->fSerialNumber);
+                    SETSYM(reportList + 2, privateData->fTagSeen);
+                    genericListOutput(outlet, 3, reportList);
+                }
+                else
+                    LOG_ERROR_4("%s: bad value length (%d) for '%s:get'", name, extendedLength,
+                                            deviceType->s_name)
+            }
+            else
+                *result = static_cast<OSErr>(result2);
+      }
+      else
+          LOG_ERROR_3("%s: element not found for '%s:get'", name, deviceType->s_name)
  #endif /* COMPILE_FOR_OSX_4 */
  #if defined(COMPILE_FOR_OS9_4)
-		if (privateData->fTagSeen)
-		{
-			Atom	reportList[3];
+        if (privateData->fTagSeen)
+        {
+            Atom    reportList[3];
 
-			SETSYM(reportList, deviceType);
-			SETSYM(reportList + 1, thisDevice->fSerialNumber);
-			SETSYM(reportList + 2, privateData->fTagSeen);
-			genericListOutput(outlet, 3, reportList);
-		}
-		*result = noErr;
+            SETSYM(reportList, deviceType);
+            SETSYM(reportList + 1, thisDevice->fSerialNumber);
+            SETSYM(reportList + 2, privateData->fTagSeen);
+            genericListOutput(outlet, 3, reportList);
+        }
+        *result = noErr;
  #endif /* COMPILE_FOR_OS9_4 */
-	}
-	return kPhidgSuccess;
+    }
+    return kPhidgSuccess;
 #endif /* not USE_DEFAULT */
 } /* doGet */
 
 /*------------------------------------ doPut ---*/
-E_PhidgResult doPut
-  (STANDARD_PHID_ARGS_DO)
+E_PhidgResult
+doPut(STANDARD_PHID_ARGS_DO)
 {
 #pragma unused(name,deviceType,outlet,sharedStorage,privateStorage,thisDevice,argc,argv)
 #if defined(USE_DEFAULT)
-	*result = noErr;
-	return kPhidgDoDefault;
+    *result = noErr;
+    return kPhidgDoDefault;
 #else /* not USE_DEFAULT */
-	*result = noErr;
-	return kPhidgSuccess;
+    *result = noErr;
+    return kPhidgSuccess;
 #endif /* not USE_DEFAULT */
 } /* doPut */
 
 /*------------------------------------ identify ---*/
-OSErr identify
-  (STANDARD_PHID_ARGS_IDENTIFY)
+OSErr
+identify(STANDARD_PHID_ARGS_IDENTIFY)
 {
 #pragma unused(name)
-	*productID = 0x031;
-	*privateSize = sizeof(PrivateData);
-	*sharedSize = sizeof(SharedData);
+    *productID = 0x031;
+    *privateSize = sizeof(PrivateData);
+    *sharedSize = sizeof(SharedData);
 #if defined(COMPILE_FOR_OSX_4)
-	*isAsynchronous = true;
+    *isAsynchronous = true;
 #endif /* COMPILE_FOR_OSX_4 */
   return noErr;
 } /* identify */
 
 /*------------------------------------ main ---*/
-OSErr main
-  (STANDARD_PHID_ARGS_MAIN)
+OSErr
+main(STANDARD_PHID_ARGS_MAIN)
 {
 #if defined(COMPILE_FOR_OSX_4)
  #pragma unused(name)
@@ -309,158 +309,158 @@ OSErr main
 #if defined(COMPILE_FOR_OS9_4)
  #pragma unused(name,environment)
 #endif /* COMPILE_FOR_OS9_4 */
-	STANDARD_MAIN_CODE;
-	SharedPtr	sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
-	
-	if (sharedData)
-		sharedData->fCookiesValid = false;
-	lOffSymbol = gensym("off");
-	lOnSymbol = gensym("on");
+    STANDARD_MAIN_CODE;
+    SharedPtr    sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
+    
+    if (sharedData)
+        sharedData->fCookiesValid = false;
+    lOffSymbol = gensym("off");
+    lOnSymbol = gensym("on");
   return noErr;
 } /* main */
 
 /*------------------------------------ niam ---*/
-OSErr niam
-  (STANDARD_PHID_ARGS_NIAM)
+OSErr
+niam(STANDARD_PHID_ARGS_NIAM)
 {
 #pragma unused(name,sharedStorage)
   return noErr;
 } /* niam */
 
 /*------------------------------------ onAttach ---*/
-E_PhidgResult onAttach
-  (STANDARD_PHID_ARGS_ATTACH)
+E_PhidgResult
+onAttach(STANDARD_PHID_ARGS_ATTACH)
 {
 #if defined(USE_DEFAULT)
  #pragma unused(name,deviceType,sharedStorage,privateStorage,thisDevice)
-	*result = noErr;
-	return kPhidgDoDefault;
+    *result = noErr;
+    return kPhidgDoDefault;
 #else /* not USE_DEFAULT */
  #pragma unused(name,deviceType)
-	PrivatePtr	privateData = reinterpret_cast<PrivatePtr>(privateStorage);
-	SharedPtr		sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
+    PrivatePtr    privateData = reinterpret_cast<PrivatePtr>(privateStorage);
+    SharedPtr        sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
 
-	if (privateData)
-	{
-		privateData->fTagSeen = NULL_PTR;
-		privateData->fActive = false;
-	}
-	if (sharedData)
-	{
-		if (! sharedData->fCookiesValid)
-		{
-			bool	foundIn = false, foundOut = false;
-			
-			// Locate the input and output elements
-			for (HIDElementDataPtr walker = thisDevice->fFirstElement; walker;
-						walker = walker->fNext)
-			{
-				switch (walker->fType)
-				{
-					case kIOHIDElementTypeInput_Misc:
-					case kIOHIDElementTypeInput_Button:
-					case kIOHIDElementTypeInput_Axis:
-					case kIOHIDElementTypeInput_ScanCodes:
-						if (walker->fSize == EXPECTED_INPUT_SIZE)
-						{
-							foundIn = true;
-							sharedData->fInputCookie = walker->fCookie;
-						}
-						break;
+    if (privateData)
+    {
+        privateData->fTagSeen = NULL_PTR;
+        privateData->fActive = false;
+    }
+    if (sharedData)
+    {
+        if (! sharedData->fCookiesValid)
+        {
+            bool    foundIn = false, foundOut = false;
+            
+            // Locate the input and output elements
+            for (HIDElementDataPtr walker = thisDevice->fFirstElement; walker;
+                        walker = walker->fNext)
+            {
+                switch (walker->fType)
+                {
+                    case kIOHIDElementTypeInput_Misc:
+                    case kIOHIDElementTypeInput_Button:
+                    case kIOHIDElementTypeInput_Axis:
+                    case kIOHIDElementTypeInput_ScanCodes:
+                        if (walker->fSize == EXPECTED_INPUT_SIZE)
+                        {
+                            foundIn = true;
+                            sharedData->fInputCookie = walker->fCookie;
+                        }
+                        break;
 
-					case kIOHIDElementTypeOutput:
-						if (walker->fSize == EXPECTED_OUTPUT_SIZE)
-						{
-							foundOut = true;
-							sharedData->fOutputCookie = walker->fCookie;
-						}
-						break;
+                    case kIOHIDElementTypeOutput:
+                        if (walker->fSize == EXPECTED_OUTPUT_SIZE)
+                        {
+                            foundOut = true;
+                            sharedData->fOutputCookie = walker->fCookie;
+                        }
+                        break;
 
-				}		
-			}
-			sharedData->fCookiesValid = (foundIn && foundOut);
-		}
-	}
-	*result = noErr;
-	return kPhidgSuccess;
+                }        
+            }
+            sharedData->fCookiesValid = (foundIn && foundOut);
+        }
+    }
+    *result = noErr;
+    return kPhidgSuccess;
 #endif /* not USE_DEFAULT */
 } /* onAttach */
 
 /*------------------------------------ onDetach ---*/
-E_PhidgResult onDetach
-  (STANDARD_PHID_ARGS_ATTACH)
+E_PhidgResult
+onDetach(STANDARD_PHID_ARGS_ATTACH)
 {
 #pragma unused(name,deviceType,sharedStorage,privateStorage,thisDevice)
 #if defined(USE_DEFAULT)
-	*result = noErr;
-	return kPhidgDoDefault;
+    *result = noErr;
+    return kPhidgDoDefault;
 #else /* not USE_DEFAULT */
-	*result = noErr;
-	return kPhidgSuccess;
+    *result = noErr;
+    return kPhidgSuccess;
 #endif /* not USE_DEFAULT */
 } /* onDetach */
 
 #if defined(COMPILE_FOR_OS9_4)
 /*------------------------------------ reportHandler ---*/
-void reportHandler
-	(STANDARD_PHID_ARGS_REPORTHANDLER)
+void
+reportHandler(STANDARD_PHID_ARGS_REPORTHANDLER)
 {
  #if defined(USE_DEFAULT)
   #pragma unused(name,deviceType,sharedStorage,privateStorage,outlet,thisDevice,outlet,inHIDReport,inHIDReportLength)
  #else /* not USE_DEFAULT */
-	// Find the element descriptor that we want:
-	PrivatePtr				privateData = reinterpret_cast<PrivatePtr>(privateStorage);
-	SharedPtr					sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
-	HIDElementDataPtr	anElement = NULL_PTR;
-	
-	// Find the matching element:
-	for (anElement = thisDevice->fFirstElement; anElement; anElement = anElement->fNext)
-	{
-		if (anElement->fCookie == sharedData->fInputCookie)
-			break;
-			
-	}
+    // Find the element descriptor that we want:
+    PrivatePtr                privateData = reinterpret_cast<PrivatePtr>(privateStorage);
+    SharedPtr                    sharedData = reinterpret_cast<SharedPtr>(sharedStorage);
+    HIDElementDataPtr    anElement = NULL_PTR;
+    
+    // Find the matching element:
+    for (anElement = thisDevice->fFirstElement; anElement; anElement = anElement->fNext)
+    {
+        if (anElement->fCookie == sharedData->fInputCookie)
+            break;
+            
+    }
   if (anElement)
   {
-		HIDReportType	kind;
+        HIDReportType    kind;
 
-		switch (anElement->fType)
-		{
-			case kIOHIDElementTypeOutput:
-				kind = kHIDOutputReport;
-				break;
-				
-			case kIOHIDElementTypeFeature:
-				kind = kHIDFeatureReport;
-				break;
-				
-			default:
-				kind = kHIDInputReport;
-				break;
-				
-		}
-		Byte			valueBuffer[RFID2_TAG_SIZE];
-		OSStatus	result = HIDGetUsageValueArray(kind, static_cast<UInt32>(anElement->fUsagePage),
-																							0, static_cast<UInt32>(anElement->fUsage),
-																							valueBuffer, sizeof(valueBuffer),
-																							thisDevice->fPrepReport, inHIDReport, inHIDReportLength);  
-  	
-  	if (result == noErr)
-  	{
-			if (privateData->fActive && privateData->fTagSeen)
-			{
-				Atom	reportList[3];
+        switch (anElement->fType)
+        {
+            case kIOHIDElementTypeOutput:
+                kind = kHIDOutputReport;
+                break;
+                
+            case kIOHIDElementTypeFeature:
+                kind = kHIDFeatureReport;
+                break;
+                
+            default:
+                kind = kHIDInputReport;
+                break;
+                
+        }
+        Byte            valueBuffer[RFID2_TAG_SIZE];
+        OSStatus    result = HIDGetUsageValueArray(kind, static_cast<UInt32>(anElement->fUsagePage),
+                                                                                            0, static_cast<UInt32>(anElement->fUsage),
+                                                                                            valueBuffer, sizeof(valueBuffer),
+                                                                                            thisDevice->fPrepReport, inHIDReport, inHIDReportLength);  
+      
+      if (result == noErr)
+      {
+            if (privateData->fActive && privateData->fTagSeen)
+            {
+                Atom    reportList[3];
 
-				privateData->fTagSeen = makeSymbolFromValues(reinterpret_cast<Ptr>(valueBuffer));
-				SETSYM(reportList, deviceType);
-				SETSYM(reportList + 1, thisDevice->fSerialNumber);
-				SETSYM(reportList + 2, privateData->fTagSeen);
-				genericListOutput(outlet, 3, reportList);
-			}
-  	}
-  	else
-  		LOG_ERROR_4("%s: error getting usage value (%d/0x%x)", name, result, result) 
-	}
+                privateData->fTagSeen = makeSymbolFromValues(reinterpret_cast<Ptr>(valueBuffer));
+                SETSYM(reportList, deviceType);
+                SETSYM(reportList + 1, thisDevice->fSerialNumber);
+                SETSYM(reportList + 2, privateData->fTagSeen);
+                genericListOutput(outlet, 3, reportList);
+            }
+      }
+      else
+          LOG_ERROR_4("%s: error getting usage value (%d/0x%x)", name, result, result) 
+    }
  #endif /* not USE_DEFAULT */
 } /* reportHandler */
 #endif /* COMPILE_FOR_OS9_4 */

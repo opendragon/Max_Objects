@@ -40,8 +40,8 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_GetAllSensors ---*/
-Pvoid cmd_GetAllSensors
-  (RcxControlPtr xx)
+Pvoid
+cmd_GetAllSensors(RcxControlPtr xx)
 {
   EnterCallback();
   if (xx)

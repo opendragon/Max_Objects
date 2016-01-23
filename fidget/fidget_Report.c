@@ -40,173 +40,173 @@
 #include "fidget.h"
 
 /*------------------------------------ cmd_Report ---*/
-Pvoid cmd_Report
-  (FidgetPtr	xx,
-   PSymbol		deviceType,
-   PSymbol		serialNumber,
-   long				element)
+Pvoid
+cmd_Report(FidgetPtr xx,
+           PSymbol   deviceType,
+           PSymbol   serialNumber,
+           long      element)
 {
-  long							allocCount = 0, outputCount = 0, ii;
-  PAtom							tempList = NULL_PTR;
-  PSymbol						outType = NULL_PTR;
-  HIDDeviceDataPtr	walker;
+  long                            allocCount = 0, outputCount = 0, ii;
+  PAtom                            tempList = NULL_PTR;
+  PSymbol                        outType = NULL_PTR;
+  HIDDeviceDataPtr    walker;
 
   EnterCallback();
   if (xx)
   { 
-	  if (deviceType == gEmptySymbol)
-	  {
-	  	// List all devices
-	  	outType = gDevicesSymbol;
-	  	walker = xx->fHIDDevices;
-	  	allocCount = (xx->fHIDDeviceCount * 2);
-	  	tempList = GETBYTES(allocCount, Atom);
-	  	for (ii = 0; ii < xx->fHIDDeviceCount; ++ii)
-	  	{
-				PSymbol	name = gUnknownSymbol;
+      if (deviceType == gEmptySymbol)
+      {
+          // List all devices
+          outType = gDevicesSymbol;
+          walker = xx->fHIDDevices;
+          allocCount = (xx->fHIDDeviceCount * 2);
+          tempList = GETBYTES(allocCount, Atom);
+          for (ii = 0; ii < xx->fHIDDeviceCount; ++ii)
+          {
+                PSymbol    name = gUnknownSymbol;
 
-				if (walker->fClass)
-					name = reinterpret_cast<PhidgetDescriptorPtr>(walker->fClass)->fName;
-	   		SETSYM(tempList + outputCount, name);
-	   		SETSYM(tempList + outputCount + 1, walker->fSerialNumber);
-	   		outputCount += 2;
-	  		walker = walker->fNext;
-	  		if (! walker)
-	  			break;
-	  				
-	  	}
-	  }
-	  else if (serialNumber == gEmptySymbol)
-	  {
-	  	// List all devices for a given device type
-	  	outType = gDeviceSymbol;
-	  	walker = xx->fHIDDevices;
-	  	allocCount = xx->fHIDDeviceCount + 1;
-	  	tempList = GETBYTES(allocCount, Atom);
-	  	for (ii = 0; ii < xx->fHIDDeviceCount; ++ii)
-	  	{
-				PSymbol	name = gUnknownSymbol;
+                if (walker->fClass)
+                    name = reinterpret_cast<PhidgetDescriptorPtr>(walker->fClass)->fName;
+               SETSYM(tempList + outputCount, name);
+               SETSYM(tempList + outputCount + 1, walker->fSerialNumber);
+               outputCount += 2;
+              walker = walker->fNext;
+              if (! walker)
+                  break;
+                      
+          }
+      }
+      else if (serialNumber == gEmptySymbol)
+      {
+          // List all devices for a given device type
+          outType = gDeviceSymbol;
+          walker = xx->fHIDDevices;
+          allocCount = xx->fHIDDeviceCount + 1;
+          tempList = GETBYTES(allocCount, Atom);
+          for (ii = 0; ii < xx->fHIDDeviceCount; ++ii)
+          {
+                PSymbol    name = gUnknownSymbol;
 
-				if (walker->fClass)
-					name = reinterpret_cast<PhidgetDescriptorPtr>(walker->fClass)->fName;
-	  		if (name == deviceType)
-	  		{
-	  			if (! outputCount)
-	  			{
-	  				SETSYM(tempList, deviceType);
-	  				++outputCount;
-	  			}
-		   		SETSYM(tempList + outputCount, walker->fSerialNumber);
-		   		++outputCount;
-	   		}
-	  		walker = walker->fNext;
-	  		if (! walker)
-	  			break;
-	  				
-	  	}
-	  }
-	  else if (serialNumber == gAsteriskSymbol)
-	  {
-	  	walker = fidgetGetFirstHIDData(xx, deviceType);
-	  	
-	  	for ( ; walker; )
-	  	{
-		  	HIDElementDataPtr	anElement = walker->fFirstElement;
-		  	
-			  if (element)
-			  {
-			 		// List the specific element
-			 		outType = gElementSymbol;
-			 		allocCount = 2;
-			 		tempList = GETBYTES(allocCount, Atom);
-			 		for ( ; anElement; anElement = anElement->fNext)
-			 		{
-			 			if (anElement->fCookie == reinterpret_cast<IOHIDElementCookie>(element))
-			 			{
-			 				SETSYM(tempList, fidgetMapElementType(anElement->fType));
-			 				SETLONG(tempList + 1, anElement->fSize);
-			 				outputCount = 2;
-			 				break;
-			 				
-			 			}
-			 		}
-			  }
-			  else
-			  {
-			  	// List all elements of the given device
-			  	outType = gElementsSymbol;
-			  	allocCount = (walker->fElementCount * 3);
-			  	tempList = GETBYTES(allocCount, Atom);
-			  	for (ii = 0; ii < walker->fElementCount; ++ii)
-			  	{
-			   		SETLONG(tempList + outputCount, reinterpret_cast<long>(anElement->fCookie));
-			   		SETSYM(tempList + outputCount + 1, fidgetMapElementType(anElement->fType));
-			   		SETLONG(tempList + outputCount + 2, anElement->fSize);
-			   		outputCount += 3;
-			  		anElement = anElement->fNext;
-			  		if (! anElement)
-			  			break;
-		  				
-			  	}
-			  }
-			  if (outputCount)
-			    outlet_anything(xx->fDataOut, outType, short(outputCount), tempList);
-			  if (allocCount)
-			    FREEBYTES(tempList, allocCount)
-		  	allocCount = outputCount = 0;
-	  		walker = fidgetGetNextHIDData(deviceType, walker);
-	  	}
-	  }
-	  else
-	  {
-	  	// Find the matching device:
-	  	walker = fidgetLocateHIDData(xx, deviceType, serialNumber);
-			if (walker)
-			{
-		  	HIDElementDataPtr	anElement = walker->fFirstElement;
-		  	
-			  if (element)
-			  {
-			 		// List the specific element
-			 		outType = gElementSymbol;
-			 		allocCount = 2;
-			 		tempList = GETBYTES(allocCount, Atom);
-			 		for ( ; anElement; anElement = anElement->fNext)
-			 		{
-			 			if (anElement->fCookie == reinterpret_cast<IOHIDElementCookie>(element))
-			 			{
-			 				SETSYM(tempList, fidgetMapElementType(anElement->fType));
-			 				SETLONG(tempList + 1, anElement->fSize);
-			 				outputCount = 2;
-			 				break;
-			 				
-			 			}
-			 		}
-			  }
-			  else
-			  {
-			  	// List all elements of the given device
-			  	outType = gElementsSymbol;
-			  	allocCount = (walker->fElementCount * 3);
-			  	tempList = GETBYTES(allocCount, Atom);
-			  	for (ii = 0; ii < walker->fElementCount; ++ii)
-			  	{
-			   		SETLONG(tempList + outputCount, reinterpret_cast<long>(anElement->fCookie));
-			   		SETSYM(tempList + outputCount + 1, fidgetMapElementType(anElement->fType));
-			   		SETLONG(tempList + outputCount + 2, anElement->fSize);
-			   		outputCount += 3;
-			  		anElement = anElement->fNext;
-			  		if (! anElement)
-			  			break;
-		  				
-			  	}
-			  }
-			}  	
-	  }
-	  if (outputCount)
-	    outlet_anything(xx->fDataOut, outType, short(outputCount), tempList);
-	  if (allocCount)
-	    FREEBYTES(tempList, allocCount)
+                if (walker->fClass)
+                    name = reinterpret_cast<PhidgetDescriptorPtr>(walker->fClass)->fName;
+              if (name == deviceType)
+              {
+                  if (! outputCount)
+                  {
+                      SETSYM(tempList, deviceType);
+                      ++outputCount;
+                  }
+                   SETSYM(tempList + outputCount, walker->fSerialNumber);
+                   ++outputCount;
+               }
+              walker = walker->fNext;
+              if (! walker)
+                  break;
+                      
+          }
+      }
+      else if (serialNumber == gAsteriskSymbol)
+      {
+          walker = fidgetGetFirstHIDData(xx, deviceType);
+          
+          for ( ; walker; )
+          {
+              HIDElementDataPtr    anElement = walker->fFirstElement;
+              
+              if (element)
+              {
+                     // List the specific element
+                     outType = gElementSymbol;
+                     allocCount = 2;
+                     tempList = GETBYTES(allocCount, Atom);
+                     for ( ; anElement; anElement = anElement->fNext)
+                     {
+                         if (anElement->fCookie == reinterpret_cast<IOHIDElementCookie>(element))
+                         {
+                             SETSYM(tempList, fidgetMapElementType(anElement->fType));
+                             SETLONG(tempList + 1, anElement->fSize);
+                             outputCount = 2;
+                             break;
+                             
+                         }
+                     }
+              }
+              else
+              {
+                  // List all elements of the given device
+                  outType = gElementsSymbol;
+                  allocCount = (walker->fElementCount * 3);
+                  tempList = GETBYTES(allocCount, Atom);
+                  for (ii = 0; ii < walker->fElementCount; ++ii)
+                  {
+                       SETLONG(tempList + outputCount, reinterpret_cast<long>(anElement->fCookie));
+                       SETSYM(tempList + outputCount + 1, fidgetMapElementType(anElement->fType));
+                       SETLONG(tempList + outputCount + 2, anElement->fSize);
+                       outputCount += 3;
+                      anElement = anElement->fNext;
+                      if (! anElement)
+                          break;
+                          
+                  }
+              }
+              if (outputCount)
+                outlet_anything(xx->fDataOut, outType, short(outputCount), tempList);
+              if (allocCount)
+                FREEBYTES(tempList, allocCount)
+              allocCount = outputCount = 0;
+              walker = fidgetGetNextHIDData(deviceType, walker);
+          }
+      }
+      else
+      {
+          // Find the matching device:
+          walker = fidgetLocateHIDData(xx, deviceType, serialNumber);
+            if (walker)
+            {
+              HIDElementDataPtr    anElement = walker->fFirstElement;
+              
+              if (element)
+              {
+                     // List the specific element
+                     outType = gElementSymbol;
+                     allocCount = 2;
+                     tempList = GETBYTES(allocCount, Atom);
+                     for ( ; anElement; anElement = anElement->fNext)
+                     {
+                         if (anElement->fCookie == reinterpret_cast<IOHIDElementCookie>(element))
+                         {
+                             SETSYM(tempList, fidgetMapElementType(anElement->fType));
+                             SETLONG(tempList + 1, anElement->fSize);
+                             outputCount = 2;
+                             break;
+                             
+                         }
+                     }
+              }
+              else
+              {
+                  // List all elements of the given device
+                  outType = gElementsSymbol;
+                  allocCount = (walker->fElementCount * 3);
+                  tempList = GETBYTES(allocCount, Atom);
+                  for (ii = 0; ii < walker->fElementCount; ++ii)
+                  {
+                       SETLONG(tempList + outputCount, reinterpret_cast<long>(anElement->fCookie));
+                       SETSYM(tempList + outputCount + 1, fidgetMapElementType(anElement->fType));
+                       SETLONG(tempList + outputCount + 2, anElement->fSize);
+                       outputCount += 3;
+                      anElement = anElement->fNext;
+                      if (! anElement)
+                          break;
+                          
+                  }
+              }
+            }      
+      }
+      if (outputCount)
+        outlet_anything(xx->fDataOut, outType, short(outputCount), tempList);
+      if (allocCount)
+        FREEBYTES(tempList, allocCount)
   }
   ExitMaxMessageHandler()
 } /* cmd_Report */

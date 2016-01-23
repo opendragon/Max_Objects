@@ -40,8 +40,8 @@
 #include "qtCommon.h"
 
 /*------------------------------------ cmd_Update ---*/
-Pvoid cmd_Update
-  (QtPtr xx)
+Pvoid
+cmd_Update(QtPtr xx)
 {
   EnterCallback();
 #if defined(TRACE_MESSAGES)

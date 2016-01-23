@@ -40,10 +40,10 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_SetVariable ---*/
-Pvoid cmd_SetVariable
-  (RcxControlPtr xx,
-   long          slot,
-   long          newValue)
+Pvoid
+cmd_SetVariable(RcxControlPtr xx,
+                long          slot,
+                long          newValue)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(slot, newValue)

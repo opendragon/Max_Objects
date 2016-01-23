@@ -117,149 +117,148 @@ struct QtData
 
 typedef QtData * QtPtr;
 
-static Pvoid ProcessErrorQueue
-  (QtPtr xx);
+static Pvoid
+ProcessErrorQueue(QtPtr xx);
 
-static Pvoid ProcessMovieQueue
-  (QtPtr xx);
+static Pvoid
+ProcessMovieQueue(QtPtr xx);
 
-static Pvoid ProcessStoppedQueue
-  (QtPtr xx);
+static Pvoid
+ProcessStoppedQueue(QtPtr xx);
 
-QtMovieHdl qtAddMovie
-  (QtPtr      xx,
-   QtMovieHdl aMovie);
+QtMovieHdl
+qtAddMovie(QtPtr      xx,
+           QtMovieHdl aMovie);
 
-bool qtAdjustController
-  (QtPtr xx);
+bool
+qtAdjustController(QtPtr xx);
 
-OSErr qtDisposeOfMovie
-  (QtMoviePtr thisMovie);
+OSErr
+qtDisposeOfMovie(QtMoviePtr thisMovie);
 
-static bool qtFreeController
-  (QtPtr xx);
+static bool
+qtFreeController(QtPtr xx);
 
-bool qtInit
-  (void);
+bool
+qtInit(void);
 
-QtMovieHdl qtLocateMovie
-  (QtPtr   xx,
-   PSymbol aName);
+QtMovieHdl
+qtLocateMovie(QtPtr   xx,
+              PSymbol aName);
 
-static void qtMapSymbolToLowerCase
-  (Ptr outName,
-   Ptr inName);
+static void
+qtMapSymbolToLowerCase(Ptr outName,
+                       Ptr inName);
 
-static bool qtMoveController
-  (QtPtr xx);
+static bool
+qtMoveController(QtPtr xx);
 
-void qtRemoveMovie
-  (QtPtr      xx,
-   QtMovieHdl aMovie);
+void
+qtRemoveMovie(QtPtr      xx,
+              QtMovieHdl aMovie);
 
-void qtSaveMovies
-  (QtPtr xx,
-   Pvoid ww);
+void
+qtSaveMovies(QtPtr xx,
+             Pvoid ww);
 
-QtMovieHdl qtSearchKnownMovies
-  (QtPtr   xx,
-   PSymbol aName);
+QtMovieHdl
+qtSearchKnownMovies(QtPtr   xx,
+                    PSymbol aName);
 
-static bool qtSetController
-  (QtPtr xx);
+static bool
+qtSetController(QtPtr xx);
 
 void qtSetCurrentMovie
   (QtPtr      xx,
    QtMovieHdl aMovie);
 
-void qtSetUpGlobals
-  (Pchar				ourName,
-   const short	resourceBase);
+void qtSetUpGlobals(Pchar       ourName,
+                    const short resourceBase);
 
-void qtSetUpObject
-  (QtPtr    xx,
-   PPatcher pp);
+void
+qtSetUpObject(QtPtr    xx,
+              PPatcher pp);
 
-Pvoid deferred_Load
-  (QtPtr   xx,
-   PSymbol name);
+Pvoid
+deferred_Load(QtPtr   xx,
+              PSymbol name);
 
-Pvoid deferred_Unload
-  (QtPtr   xx,
-   PSymbol name);
+Pvoid
+deferred_Unload(QtPtr   xx,
+                PSymbol name);
 
-Pvoid cmd_Active
-  (QtPtr xx,
-   long  num);
+Pvoid
+cmd_Active(QtPtr xx,
+           long  num);
 
-Pvoid cmd_Begin
-  (QtPtr xx);
+Pvoid
+cmd_Begin(QtPtr xx);
 
-Pvoid cmd_Controller
-  (QtPtr   xx,
-   PSymbol in,
-   PSymbol out1,
-   PSymbol out2);
+Pvoid
+cmd_Controller(QtPtr   xx,
+               PSymbol in,
+               PSymbol out1,
+               PSymbol out2);
 
-Pvoid cmd_Count
-  (QtPtr xx);
+Pvoid
+cmd_Count(QtPtr xx);
 
-Pvoid cmd_Duration
-  (QtPtr xx);
+Pvoid
+cmd_Duration(QtPtr xx);
 
-Pvoid cmd_End
-  (QtPtr xx);
+Pvoid
+cmd_End(QtPtr xx);
 
-Pvoid cmd_Film
-  (QtPtr   xx,
-   PSymbol which);
+Pvoid
+cmd_Film(QtPtr   xx,
+         PSymbol which);
 
-Pvoid cmd_GetRate
-  (QtPtr xx);
+Pvoid
+cmd_GetRate(QtPtr xx);
 
-Pvoid cmd_GetVolume
-  (QtPtr xx);
+Pvoid
+cmd_GetVolume(QtPtr xx);
 
-Pvoid cmd_Load
-  (QtPtr   xx,
-   PSymbol name);
+Pvoid
+cmd_Load(QtPtr   xx,
+         PSymbol name);
 
-Pvoid cmd_Mute
-  (QtPtr xx,
-   long  muting);
+Pvoid
+cmd_Mute(QtPtr xx,
+         long  muting);
 
-Pvoid cmd_Pause
-  (QtPtr xx);
+Pvoid
+cmd_Pause(QtPtr xx);
 
-Pvoid cmd_Rate
-  (QtPtr xx,
-   long  numerator,
-   long  denominator);
+Pvoid
+cmd_Rate(QtPtr xx,
+         long  numerator,
+         long  denominator);
 
-Pvoid cmd_Resume
-  (QtPtr xx);
+Pvoid
+cmd_Resume(QtPtr xx);
 
-Pvoid cmd_Segment
-  (QtPtr xx,
-   long  begin,
-   long  end);
+Pvoid
+cmd_Segment(QtPtr xx,
+            long  begin,
+            long  end);
 
-Pvoid cmd_Start
-  (QtPtr xx);
+Pvoid
+cmd_Start(QtPtr xx);
 
-Pvoid cmd_Time
-  (QtPtr xx);
+Pvoid
+cmd_Time(QtPtr xx);
 
-Pvoid cmd_Unload
-  (QtPtr   xx,
-   PSymbol name);
+Pvoid
+cmd_Unload(QtPtr   xx,
+           PSymbol name);
 
-Pvoid cmd_Update
-  (QtPtr xx);
+Pvoid
+cmd_Update(QtPtr xx);
 
-Pvoid cmd_Volume
-  (QtPtr xx,
-   long  num);
+Pvoid
+cmd_Volume(QtPtr xx,
+           long  num);
 
 StandardRoutineDeclarations(QtPtr)
 

@@ -40,9 +40,9 @@
 #include "wqt.h"
 
 /*------------------------------------ cmd_Save ---*/
-Pvoid cmd_Save
-  (QtPtr xx,
-   Pvoid ww)
+Pvoid
+cmd_Save(QtPtr xx,
+         Pvoid ww)
 {
   EnterCallback();
   if (xx && ww)

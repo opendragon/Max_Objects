@@ -40,11 +40,11 @@
 #include "qtCommon.h"
 
 /*------------------------------------ deferred_Rate ---*/
-static Pvoid deferred_Rate
-  (QtPtr   xx,
-   PSymbol ss,
-   short   argc,
-   PAtom   argv)
+static Pvoid
+deferred_Rate(QtPtr   xx,
+              PSymbol ss,
+              short   argc,
+              PAtom   argv)
 {
 #pragma unused(argc, ss)
   EnterCallback();
@@ -69,10 +69,10 @@ static Pvoid deferred_Rate
 } /* deferred_Rate */
 
 /*------------------------------------ cmd_Rate ---*/
-Pvoid cmd_Rate
-  (QtPtr xx,
-   long  numerator,
-   long  denominator)
+Pvoid
+cmd_Rate(QtPtr xx,
+         long  numerator,
+         long  denominator)
 {
   Atom avRate[2];
 

@@ -40,8 +40,8 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_VoiceMax ---*/
-Pvoid cmd_VoiceMax
-  (SpeakPtr xx)
+Pvoid
+cmd_VoiceMax(SpeakPtr xx)
 {
   EnterCallback();
   if (xx)

@@ -40,9 +40,9 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_SetMessage ---*/
-Pvoid cmd_SetMessage
-  (RcxControlPtr xx,
-   long          aByte)
+Pvoid
+cmd_SetMessage(RcxControlPtr xx,
+               long          aByte)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(aByte)

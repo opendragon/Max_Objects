@@ -40,12 +40,12 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_Assist ---*/
-Pvoid cmd_Assist
-  (RcxControlPtr xx,
-   Pvoid         bb,
-   long          msg,
-   long          arg,
-   Ptr           dstString)
+Pvoid
+cmd_Assist(RcxControlPtr xx,
+           Pvoid         bb,
+           long          msg,
+           long          arg,
+           Ptr           dstString)
 {
 #pragma unused(xx, bb)
   EnterCallback();

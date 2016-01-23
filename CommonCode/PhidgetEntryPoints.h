@@ -87,7 +87,7 @@ typedef PhidgRefConStruct * PhidgRefConPtr;
     Ptr sharedStorage, \
     Ptr privateStorage, \
     HIDDeviceDataPtr thisDevice, \
-    OSErr *                     result
+    OSErr * result
 
  #if COMPILE_FOR_OSX_4
   #define STANDARD_PHID_ARGS_DEFINECALLBACK \
@@ -95,10 +95,10 @@ typedef PhidgRefConStruct * PhidgRefConPtr;
     Ptr sharedStorage, \
     Ptr privateStorage, \
     HIDDeviceDataPtr thisDevice, \
-    InputEventHandler *         aFun, \
-    IOHIDElementCookie * *cookies, \
+    InputEventHandler * aFun, \
+    IOHIDElementCookie * * cookies, \
     Pint numCookies, \
-    OSErr *                                 result
+    OSErr * result
  #endif /* COMPILE_FOR_OSX_4 */
 
  #define STANDARD_PHID_ARGS_DO  \
@@ -110,7 +110,7 @@ typedef PhidgRefConStruct * PhidgRefConPtr;
     HIDDeviceDataPtr thisDevice, \
     const short argc, \
     PAtom argv, \
-    OSErr *                     result
+    OSErr * result
 
  #if COMPILE_FOR_OSX_4
   #define STANDARD_PHID_ARGS_IDENTIFY   \

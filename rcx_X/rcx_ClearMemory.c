@@ -40,8 +40,8 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_ClearMemory ---*/
-Pvoid cmd_ClearMemory
-  (RcxControlPtr xx)
+Pvoid
+cmd_ClearMemory(RcxControlPtr xx)
 {
   EnterCallback();
   if (xx)

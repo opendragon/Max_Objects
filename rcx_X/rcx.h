@@ -55,7 +55,7 @@
   #include "LTW_Data.h"
  #endif /* COMPILE_FOR_OSX_4 */
  #if COMPILE_FOR_OS9_4
-typedef int32	Int32;
+typedef int32    Int32;
  #endif /* COMPILE_FOR_OS9_4 */
 
  #define OUR_NAME      "rcx"
@@ -65,8 +65,8 @@ typedef int32	Int32;
  #define RCX_CONTROL_SYMBOL "##rcx##"
 
  #define BE_VERBOSE       /* */
- #define MAX_REPLY_BUFFER		100
- #define MAX_RECEIVE_BUFFER	((MAX_REPLY_BUFFER * 2) + 17) /* 17 is for luck... */
+ #define MAX_REPLY_BUFFER        100
+ #define MAX_RECEIVE_BUFFER    ((MAX_REPLY_BUFFER * 2) + 17) /* 17 is for luck... */
 // #define USE_NOWAIT       /* */
 
  #define RCX_NUM_SENSORS   3
@@ -85,7 +85,7 @@ enum RcxCommandCode
   RCX_SET_SOURCE_VALUE_CMD   = 0x0005,
   RCX_CLEAR_ALL_EVENTS_CMD   = 0x0006,
   RCX_PING_CMD               = 0x0010,
-  	RCX_CLEAR_TACHO_CMD        = 0x0011, //??
+  RCX_CLEAR_TACHO_CMD        = 0x0011, //??
   RCX_POLL_CMD               = 0x0012,
   RCX_SET_POWER_CMD          = 0x0013,
   RCX_SET_VARIABLE_CMD       = 0x0014,
@@ -103,7 +103,7 @@ enum RcxCommandCode
   RCX_SUBTRACT_VARIABLE_CMD  = 0x0034,
   RCX_BEGIN_SUB_CMD          = 0x0035,
   RCX_DELETE_ALL_TASKS_CMD   = 0x0040,
-    RCX_DRIVE_CMD              = 0x0041, //??
+  RCX_DRIVE_CMD              = 0x0041, //??
   RCX_SET_SENSOR_MODE_CMD    = 0x0042,
   RCX_DIVIDE_VARIABLE_CMD    = 0x0044,
   RCX_CONTINUE_DOWNLOAD_CMD  = 0x0045,
@@ -146,7 +146,7 @@ enum RcxCommandCode
   RCX_UNMUTE_SOUND_CMD       = 0x00E0,
   RCX_FWD_REV_BACK_CMD       = 0x00E1,
   RCX_VIEW_SOURCE_VALUE_CMD  = 0x00E5,
-    RCX_CONTINUE_TASK_CMD      = 0x00F1, //??
+  RCX_CONTINUE_TASK_CMD      = 0x00F1, //??
   RCX_INTERN_MESSAGE_CMD     = 0x00F7
 }; /* RcxCommandCode */
 
@@ -158,7 +158,7 @@ enum RcxExpectedReplyLength
   RCX_SET_SOURCE_VALUE_REPLY   = 1,
   RCX_CLEAR_ALL_EVENTS_REPLY   = 1,
   RCX_PING_REPLY               = 1,
-  	RCX_CLEAR_TACHO_REPLY        = -1, //??
+  RCX_CLEAR_TACHO_REPLY        = -1, //??
   RCX_POLL_REPLY               = 3,
   RCX_SET_POWER_REPLY          = 1,
   RCX_SET_VARIABLE_REPLY       = 1,
@@ -176,7 +176,7 @@ enum RcxExpectedReplyLength
   RCX_SUBTRACT_VARIABLE_REPLY  = 1,
   RCX_BEGIN_SUB_REPLY          = 2,
   RCX_DELETE_ALL_TASKS_REPLY   = 1,
-  	RCX_DRIVE_REPLY              = -1, //??
+  RCX_DRIVE_REPLY              = -1, //??
   RCX_SET_SENSOR_MODE_REPLY    = 1,
   RCX_DIVIDE_VARIABLE_REPLY    = 1,
   RCX_CONTINUE_DOWNLOAD_REPLY  = 2,
@@ -219,7 +219,7 @@ enum RcxExpectedReplyLength
   RCX_UNMUTE_SOUND_REPLY       = 1,
   RCX_FWD_REV_BACK_REPLY       = 1,
   RCX_VIEW_SOURCE_VALUE_REPLY  = 1,
-  	RCX_CONTINUE_TASK_REPLY      = 1, //??
+  RCX_CONTINUE_TASK_REPLY      = 1, //??
   RCX_INTERN_MESSAGE_REPLY     = 0
 }; /* RcxExpectedReplyLength */
 
@@ -306,229 +306,229 @@ enum RcxValueType
 
 struct RcxControl
 {
-  Object  										fObject;
-  POutlet 										fCommandComplete;
-  POutlet 										fDataOut;
-  POutlet 										fErrorBangOut;
-  Puchar  										fReplyBuffer;
-  UInt32  										fReplyLength;
-  bool    										fDeviceOpen;
-  bool    										fSynchronized;
-  bool    										fUseUSB;
+  Object                      fObject;
+  POutlet                     fCommandComplete;
+  POutlet                     fDataOut;
+  POutlet                     fErrorBangOut;
+  Puchar                      fReplyBuffer;
+  UInt32                      fReplyLength;
+  bool                        fDeviceOpen;
+  bool                        fSynchronized;
+  bool                        fUseUSB;
  #if COMPILE_FOR_OSX_4
-	IOKitContext								fUSBControl;
-	IOUSBDeviceInterface * *		fDevice;	
-	IOUSBInterfaceInterface * *	fInterface;
-	IOAsyncCallback1						fReadCompletion;
-	uchar												fLastCommand;
-	Puchar											fRawReceiveBuffer;
-	Puchar											fRawReceiveEnd;
-	Puchar											fRawReceiveStart;
-	Puchar											fReadWalker;
-	Puchar											fReceiveBuffer;
-  Quchar											fSync;
-  UInt32											fReadPacketSize;
-  UInt32											fReadRemaining;
-  UInt32											fReceiveLength;
-  UInt32											fSyncLen;
-  bool												fComplementData;
-  bool												fFastMode;
-  bool												fHighPower;
-  bool												fReadComplete;
-  bool												fReportEvents;
-  bool												fStopping;
+  IOKitContext                fUSBControl;
+  IOUSBDeviceInterface * *    fDevice;    
+  IOUSBInterfaceInterface * * fInterface;
+  IOAsyncCallback1            fReadCompletion;
+  uchar                       fLastCommand;
+  Puchar                      fRawReceiveBuffer;
+  Puchar                      fRawReceiveEnd;
+  Puchar                      fRawReceiveStart;
+  Puchar                      fReadWalker;
+  Puchar                      fReceiveBuffer;
+  Quchar                      fSync;
+  UInt32                      fReadPacketSize;
+  UInt32                      fReadRemaining;
+  UInt32                      fReceiveLength;
+  UInt32                      fSyncLen;
+  bool                        fComplementData;
+  bool                        fFastMode;
+  bool                        fHighPower;
+  bool                        fReadComplete;
+  bool                        fReportEvents;
+  bool                        fStopping;
  #endif /* COMPILE_FOR_OSX_4 */
  #if COMPILE_FOR_OS9_4
-  GHSTACK 										fGhostStack;
-  Int32   										fDownloadRetries;
-  Int32   										fExecuteRetries;
+  GHSTACK                     fGhostStack;
+  Int32                       fDownloadRetries;
+  Int32                       fExecuteRetries;
  #endif /* COMPILE_FOR_OS9_4 */
  #if defined(BE_VERBOSE)
-  bool    										fVerbose;
+  bool                        fVerbose;
  #endif /* BE_VERBOSE */
 }; /* RcxControl */
 
 typedef RcxControl * RcxControlPtr;
 
-Pvoid cmd_ClearMemory
-  (RcxControlPtr xx);
+Pvoid
+cmd_ClearMemory(RcxControlPtr xx);
 
-Pvoid cmd_ClearSensor
-  (RcxControlPtr xx,
-   long          slot);
+Pvoid
+cmd_ClearSensor(RcxControlPtr xx,
+                long          slot);
 
-Pvoid cmd_ClearSound
-  (RcxControlPtr xx);
+Pvoid
+cmd_ClearSound(RcxControlPtr xx);
 
-Pvoid cmd_ContinueTask
-  (RcxControlPtr xx,
-   long          slot);
+Pvoid
+cmd_ContinueTask(RcxControlPtr xx,
+                 long          slot);
 
-Pvoid cmd_FloatOutput
-  (RcxControlPtr xx,
-   long          slots);
+Pvoid
+cmd_FloatOutput(RcxControlPtr xx,
+                long          slots);
 
-Pvoid cmd_GetAllSensors
-  (RcxControlPtr xx);
+Pvoid
+cmd_GetAllSensors(RcxControlPtr xx);
 
-Pvoid cmd_GetAllVariables
-  (RcxControlPtr xx);
+Pvoid
+cmd_GetAllVariables(RcxControlPtr xx);
 
-Pvoid cmd_GetBattery
-  (RcxControlPtr xx);
+Pvoid
+cmd_GetBattery(RcxControlPtr xx);
 
-Pvoid cmd_GetSensorMode
-  (RcxControlPtr xx,
-   long          slot);
+Pvoid
+cmd_GetSensorMode(RcxControlPtr xx,
+                  long          slot);
 
-Pvoid cmd_GetSensorType
-  (RcxControlPtr xx,
-   long          slot);
+Pvoid
+cmd_GetSensorType(RcxControlPtr xx,
+                  long          slot);
 
-Pvoid cmd_GetSensorValue
-  (RcxControlPtr xx,
-   long          slot);
+Pvoid
+cmd_GetSensorValue(RcxControlPtr xx,
+                   long          slot);
 
-Pvoid cmd_GetSlot
-  (RcxControlPtr xx);
+Pvoid
+cmd_GetSlot(RcxControlPtr xx);
 
-Pvoid cmd_GetVariable
-  (RcxControlPtr xx,
-   long          slot);
+Pvoid
+cmd_GetVariable(RcxControlPtr xx,
+                long          slot);
 
-Pvoid cmd_GetVersion
-  (RcxControlPtr xx);
+Pvoid
+cmd_GetVersion(RcxControlPtr xx);
 
-Pvoid cmd_Mute
-  (RcxControlPtr xx);
+Pvoid
+cmd_Mute(RcxControlPtr xx);
 
-Pvoid cmd_PlaySound
-  (RcxControlPtr xx,
-   PSymbol       newSound);
+Pvoid
+cmd_PlaySound(RcxControlPtr xx,
+              PSymbol       newSound);
 
-Pvoid cmd_PlayTone
-  (RcxControlPtr xx,
-   long          frequency,
-   long          duration);
+Pvoid
+cmd_PlayTone(RcxControlPtr xx,
+             long          frequency,
+             long          duration);
 
-Pvoid cmd_Run
-  (RcxControlPtr xx);
+Pvoid
+cmd_Run(RcxControlPtr xx);
 
-Pvoid cmd_SetMessage
-  (RcxControlPtr xx,
-   long          aByte);
+Pvoid
+cmd_SetMessage(RcxControlPtr xx,
+               long          aByte);
 
-Pvoid cmd_SetOutputDirection
-  (RcxControlPtr xx,
-   long          slots,
-   PSymbol       newDirection);
+Pvoid
+cmd_SetOutputDirection(RcxControlPtr xx,
+                       long          slots,
+                       PSymbol       newDirection);
 
-Pvoid cmd_SetOutputPower
-  (RcxControlPtr xx,
-   long          slots,
-   long          newPower);
+Pvoid
+cmd_SetOutputPower(RcxControlPtr xx,
+                   long          slots,
+                   long          newPower);
 
-Pvoid cmd_SetSensorMode
-  (RcxControlPtr xx,
-   long          slot,
-   PSymbol       newMode);
+Pvoid
+cmd_SetSensorMode(RcxControlPtr xx,
+                  long          slot,
+                  PSymbol       newMode);
 
-Pvoid cmd_SetSensorType
-  (RcxControlPtr xx,
-   long          slot,
-   PSymbol       newType);
+Pvoid
+cmd_SetSensorType(RcxControlPtr xx,
+                  long          slot,
+                  PSymbol       newType);
 
-Pvoid cmd_SetSlot
-  (RcxControlPtr xx,
-   long          slot);
+Pvoid
+cmd_SetSlot(RcxControlPtr xx,
+            long          slot);
 
-Pvoid cmd_SetVariable
-  (RcxControlPtr xx,
-   long          slot,
-   long          newValue);
+Pvoid
+cmd_SetVariable(RcxControlPtr xx,
+                long          slot,
+                long          newValue);
 
-Pvoid cmd_SetWatch
-  (RcxControlPtr xx,
-   long          hour,
-   long          minute);
+Pvoid
+cmd_SetWatch(RcxControlPtr xx,
+             long          hour,
+             long          minute);
 
-Pvoid cmd_StartOutput
-  (RcxControlPtr xx,
-   long          slots);
+Pvoid
+cmd_StartOutput(RcxControlPtr xx,
+                long          slots);
 
-Pvoid cmd_StartTask
-  (RcxControlPtr xx,
-   long          slot);
+Pvoid
+cmd_StartTask(RcxControlPtr xx,
+              long          slot);
 
-Pvoid cmd_StopOutput
-  (RcxControlPtr xx,
-   long          slots);
+Pvoid
+cmd_StopOutput(RcxControlPtr xx,
+               long          slots);
 
-Pvoid cmd_StopTask
-  (RcxControlPtr xx,
-   long          slot);
+Pvoid
+cmd_StopTask(RcxControlPtr xx,
+             long          slot);
 
-Pvoid cmd_StopAllTasks
-  (RcxControlPtr xx);
+Pvoid
+cmd_StopAllTasks(RcxControlPtr xx);
 
-Pvoid cmd_TurnOff
-  (RcxControlPtr xx);
+Pvoid
+cmd_TurnOff(RcxControlPtr xx);
 
-Pvoid cmd_Unmute
-  (RcxControlPtr xx);
+Pvoid
+cmd_Unmute(RcxControlPtr xx);
 
-Pvoid cmd_Verbose
-  (RcxControlPtr xx,
-   PSymbol       onOff);
+Pvoid
+cmd_Verbose(RcxControlPtr xx,
+            PSymbol       onOff);
 
-UInt32 rcxCopyFromReply
-  (RcxControlPtr	xx,
-   Puchar       	replyBuffer,
-   const UInt32		replySize);
+UInt32
+rcxCopyFromReply(RcxControlPtr    xx,
+                 Puchar           replyBuffer,
+                 const UInt32        replySize);
 
-uchar rcxGetReplyByte
-  (RcxControlPtr	xx,
-   const ushort		index);
+uchar
+rcxGetReplyByte(RcxControlPtr    xx,
+                const ushort        index);
 
-bool rcxGetValue
-  (RcxControlPtr	xx,
-   const ulong		descriptor,
-   long &         result);
+bool
+rcxGetValue(RcxControlPtr    xx,
+            const ulong        descriptor,
+            long &         result);
 
-bool rcxSendCommand
-  (RcxControlPtr	xx,
-   Quchar					sendData,
-   const UInt32		sendLength,
-   const UInt32		expected,
-   const bool			doRetry);
+bool
+rcxSendCommand(RcxControlPtr    xx,
+               Quchar                    sendData,
+               const UInt32        sendLength,
+               const UInt32        expected,
+               const bool            doRetry);
 
  #if COMPILE_FOR_OSX_4
-bool rcxSendControlRequest
-	(RcxControlPtr	xx,
-	 const uchar		controlOperation,
-	 const ushort		controlData,
-	 Pvoid					reply,
-	 const UInt16		replySize);
+bool
+rcxSendControlRequest(RcxControlPtr    xx,
+                      const uchar        controlOperation,
+                      const ushort        controlData,
+                      Pvoid                    reply,
+                      const UInt16        replySize);
 
-bool rcxSendControlRequest
-	(RcxControlPtr	xx,
-	 const uchar		controlOperation,
-	 const uchar		controlDataLow,
-	 const uchar		controlDataHigh,
-	 Pvoid					reply,
-	 const UInt16		replySize);
+bool
+rcxSendControlRequest(RcxControlPtr    xx,
+                      const uchar        controlOperation,
+                      const uchar        controlDataLow,
+                      const uchar        controlDataHigh,
+                      Pvoid                    reply,
+                      const UInt16        replySize);
 
-bool rcxSetRange
-	(RcxControlPtr	xx,
-	 const LTWRange	range);
-	 
-bool rcxSetSpeed
-	(RcxControlPtr	xx,
-	 const bool			normalSpeed);
+bool
+rcxSetRange(RcxControlPtr    xx,
+            const LTWRange    range);
+     
+bool
+rcxSetSpeed(RcxControlPtr    xx,
+            const bool            normalSpeed);
  #endif /* COMPILE_FOR_OSX_4 */
 
-bool rcxSynchronize
-  (RcxControlPtr xx);
+bool
+rcxSynchronize(RcxControlPtr xx);
 
 StandardRoutineDeclarations(RcxControlPtr)
 
@@ -550,9 +550,9 @@ mextern(PSymbol) gErrorSymbol;        /* Pointer to unique symbol for 'error' */
 mextern(PSymbol) gFahrenheitSymbol;   /* Pointer to unique symbol for 'fahrenheit' */
 mextern(PSymbol) gFastSweepSymbol;    /* Pointer to unique symbol for 'fastsweep' */
 mextern(PSymbol) gForwardSymbol;      /* Pointer to unique symbol for 'forward' */
-mextern(PSymbol) gHighSymbol;					/* Pointer to unique symbol for 'high' */
+mextern(PSymbol) gHighSymbol;         /* Pointer to unique symbol for 'high' */
 mextern(PSymbol) gKeyClickSymbol;     /* Pointer to unique symbol for 'keyclick' */
-mextern(PSymbol) gLowSymbol;					/* Pointer to unique symbol for 'low' */
+mextern(PSymbol) gLowSymbol;          /* Pointer to unique symbol for 'low' */
 mextern(PSymbol) gNoSensorSymbol;     /* Pointer to unique symbol for 'nosensor' */
 mextern(PSymbol) gOffSymbol;          /* Pointer to unique symbol for 'off' */
 mextern(PSymbol) gOnSymbol;           /* Pointer to unique symbol for 'on' */

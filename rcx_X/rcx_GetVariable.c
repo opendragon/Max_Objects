@@ -40,9 +40,9 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_GetVariable ---*/
-Pvoid cmd_GetVariable
-  (RcxControlPtr xx,
-   long          slot)
+Pvoid
+cmd_GetVariable(RcxControlPtr xx,
+                long          slot)
 {
 #if (! FOR_MAC_PPC)
  #pragma unused(slot)

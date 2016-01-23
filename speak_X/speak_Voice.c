@@ -40,9 +40,9 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_Voice ---*/
-Pvoid cmd_Voice
-  (SpeakPtr xx,
-   long     newVoice)
+Pvoid
+cmd_Voice(SpeakPtr xx,
+          long     newVoice)
 {
   EnterCallback();
   if (xx && xx->fSpeaker)
@@ -69,7 +69,7 @@ Pvoid cmd_Voice
             StopSpeechAt(xx->fSpeaker, kImmediate);
             outlet_bang(xx->fDoneOut);
           }
-		      SetSpeechInfo(xx->fSpeaker, soSpeechDoneCallBack, NULL_PTR);
+              SetSpeechInfo(xx->fSpeaker, soSpeechDoneCallBack, NULL_PTR);
           DisposeSpeechChannel(xx->fSpeaker);
           xx->fSpeaker = NULL_PTR;
         }

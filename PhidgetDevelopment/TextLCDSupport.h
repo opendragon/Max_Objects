@@ -38,99 +38,99 @@
 /*--------------------------------------------------------------------------------------*/
 
 #if (! defined(TEXTLCDSUPPORT_H))
- #define TEXTLCDSUPPORT_H	/* */
+ #define TEXTLCDSUPPORT_H    /* */
 
  #include "Common_HIDX.h" 
 
-static const int	CHARS_PER_LINE = 20;
-static const int	DATA_BUFFER_SIZE = 8;
+static const int    CHARS_PER_LINE = 20;
+static const int    DATA_BUFFER_SIZE = 8;
 
  #if defined(COMPILE_FOR_OSX_4)
-typedef IOReturn	ReturnType;
+typedef IOReturn    ReturnType;
  #endif /* COMPILE_FOR_OSX_4 */
  #if defined(COMPILE_FOR_OS9_4)
-typedef OSStatus	ReturnType;
+typedef OSStatus    ReturnType;
  #endif /* COMPILE_FOR_OS9_4 */
  
-ReturnType doTextLCDBacklightOff
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement);
-	 
-ReturnType doTextLCDBacklightOn
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement);
-	 
-ReturnType doTextLCDClear
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement);
+ReturnType
+doTextLCDBacklightOff(Pchar                  name,
+                      HIDDeviceDataStruct &  thisDevice,    
+                      HIDElementDataStruct & outputElement);
+     
+ReturnType
+doTextLCDBacklightOn(Pchar                  name,
+                     HIDDeviceDataStruct &  thisDevice,    
+                     HIDElementDataStruct & outputElement);
+     
+ReturnType
+doTextLCDClear(Pchar                  name,
+               HIDDeviceDataStruct &  thisDevice,    
+               HIDElementDataStruct & outputElement);
 
-ReturnType doTextLCDClearLine1
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement);
+ReturnType
+doTextLCDClearLine1(Pchar                  name,
+                    HIDDeviceDataStruct &  thisDevice,    
+                    HIDElementDataStruct & outputElement);
 
-ReturnType doTextLCDClearLine2
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement);
+ReturnType
+doTextLCDClearLine2(Pchar                  name,
+                    HIDDeviceDataStruct &  thisDevice,    
+                    HIDElementDataStruct & outputElement);
 
-ReturnType doTextLCDEntryMode
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement,
-	 const bool							reversed,
-	 const bool							shifted);
+ReturnType
+doTextLCDEntryMode(Pchar                  name,
+                   HIDDeviceDataStruct &  thisDevice,    
+                   HIDElementDataStruct & outputElement,
+                   const bool             reversed,
+                   const bool             shifted);
 
-ReturnType doTextLCDGo
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement,
-	 const int							row,
-	 const int							column);
+ReturnType
+doTextLCDGo(Pchar                  name,
+            HIDDeviceDataStruct &  thisDevice,    
+            HIDElementDataStruct & outputElement,
+            const int              row,
+            const int              column);
 
-ReturnType doTextLCDOff
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement);
-	 
-ReturnType doTextLCDOn
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement,
-	 const bool							cursorState,
-	 const bool							blinkState);
-	 
-ReturnType doTextLCDShiftCursor
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement,
-	 const bool							toRight);
+ReturnType
+doTextLCDOff(Pchar                  name,
+             HIDDeviceDataStruct &  thisDevice,    
+             HIDElementDataStruct & outputElement);
+     
+ReturnType
+doTextLCDOn(Pchar                  name,
+            HIDDeviceDataStruct &  thisDevice,    
+            HIDElementDataStruct & outputElement,
+            const bool             cursorState,
+            const bool             blinkState);
+     
+ReturnType
+doTextLCDShiftCursor(Pchar                  name,
+                     HIDDeviceDataStruct &  thisDevice,    
+                     HIDElementDataStruct & outputElement,
+                     const bool             toRight);
 
-ReturnType doTextLCDShiftDisplay
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement,
-	 const bool							toRight);
+ReturnType
+doTextLCDShiftDisplay(Pchar                  name,
+                      HIDDeviceDataStruct &  thisDevice,    
+                      HIDElementDataStruct & outputElement,
+                      const bool             toRight);
 
-ReturnType doTextLCDWrite
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement,
-	 Qchar									input);
-	 
-ReturnType doTextLCDWriteLine1
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement,
-	 Qchar									input);
-	 
-ReturnType doTextLCDWriteLine2
-	(Pchar									name,
-	 HIDDeviceDataStruct &	thisDevice,	
-	 HIDElementDataStruct &	outputElement,
-	 Qchar									input);
-	 	 
+ReturnType
+doTextLCDWrite(Pchar                  name,
+               HIDDeviceDataStruct &  thisDevice,    
+               HIDElementDataStruct & outputElement,
+               Qchar                  input);
+     
+ReturnType
+doTextLCDWriteLine1(Pchar                  name,
+                    HIDDeviceDataStruct &  thisDevice,    
+                    HIDElementDataStruct & outputElement,
+                    Qchar                  input);
+     
+ReturnType
+doTextLCDWriteLine2(Pchar                  name,
+                    HIDDeviceDataStruct &  thisDevice,    
+                    HIDElementDataStruct & outputElement,
+                    Qchar                  input);
+          
 #endif /* not TEXTLCDSUPPORT_H */

@@ -40,8 +40,8 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_StopAllTasks ---*/
-Pvoid cmd_StopAllTasks
-  (RcxControlPtr xx)
+Pvoid
+cmd_StopAllTasks(RcxControlPtr xx)
 {
   EnterCallback();
   if (xx)

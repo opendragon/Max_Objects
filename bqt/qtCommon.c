@@ -40,8 +40,8 @@
 #include "qtCommon.h"
 
 /*------------------------------------ ProcessErrorQueue ---*/
-static Pvoid ProcessErrorQueue
-  (QtPtr xx)
+static Pvoid
+ProcessErrorQueue(QtPtr xx)
 {
   EnterCallback();
   if (xx)
@@ -56,8 +56,8 @@ static Pvoid ProcessErrorQueue
 } /* ProcessErrorQueue */
 
 /*------------------------------------ ProcessMovieQueue ---*/
-static Pvoid ProcessMovieQueue
-  (QtPtr xx)
+static Pvoid
+ProcessMovieQueue(QtPtr xx)
 {
 #if defined(BQT_H_)
   GrafPtr oldPort;
@@ -119,8 +119,8 @@ static Pvoid ProcessMovieQueue
 } /* ProcessMovieQueue */
 
 /*------------------------------------ ProcessStoppedQueue ---*/
-static Pvoid ProcessStoppedQueue
-  (QtPtr xx)
+static Pvoid
+ProcessStoppedQueue(QtPtr xx)
 {
   EnterCallback();
   if (xx)
@@ -135,9 +135,9 @@ static Pvoid ProcessStoppedQueue
 } /* ProcessStoppedQueue */
 
 /*------------------------------------ qtAddMovie ---*/
-QtMovieHdl qtAddMovie
-  (QtPtr      xx,
-   QtMovieHdl aMovie)
+QtMovieHdl
+qtAddMovie(QtPtr      xx,
+           QtMovieHdl aMovie)
 {
 #pragma unused(xx)
   bool       okSoFar = true;
@@ -212,8 +212,8 @@ QtMovieHdl qtAddMovie
 } /* qtAddMovie */
 
 /*------------------------------------ qtAdjustController ---*/
-bool qtAdjustController
-  (QtPtr xx)
+bool
+qtAdjustController(QtPtr xx)
 {
   if (! xx->fController)
     return false;
@@ -234,8 +234,8 @@ bool qtAdjustController
 } /* qtAdjustController */
 
 /*------------------------------------ qtDisposeOfMovie ---*/
-OSErr qtDisposeOfMovie
-  (QtMoviePtr thisMovie)
+OSErr
+qtDisposeOfMovie(QtMoviePtr thisMovie)
 {
   OSErr err = noErr;
 
@@ -256,8 +256,8 @@ OSErr qtDisposeOfMovie
 } /* qtDisposeOfMovie */
 
 /*------------------------------------ qtFreeController ---*/
-static bool qtFreeController
-  (QtPtr xx)
+static bool
+qtFreeController(QtPtr xx)
 {
 #if defined(TRACE_CONTROLLER)
   LOG_POST_1("free controller")
@@ -281,8 +281,8 @@ static bool qtFreeController
 } /* qtFreeController */
 
 /*------------------------------------ qtInit ---*/
-bool qtInit
-  (void)
+bool
+qtInit(void)
 {
   bool    okSoFar = true;
   PSymbol checkGlobal = gensym(QT_CONTROL_SYMBOL);
@@ -314,9 +314,9 @@ bool qtInit
 } /* qtInit */
 
 /*------------------------------------ qtLocateMovie ---*/
-QtMovieHdl qtLocateMovie
-  (QtPtr   xx,
-   PSymbol aName)
+QtMovieHdl
+qtLocateMovie(QtPtr   xx,
+              PSymbol aName)
 {
   QtMovieHdl aMovie = reinterpret_cast<QtMovieHdl>(newhandle(sizeof(QtMovie)));
   QtMoviePtr thisMovie;
@@ -415,9 +415,9 @@ QtMovieHdl qtLocateMovie
 } /* qtLocateMovie */
 
 /*------------------------------------ qtMapSymbolToLowerCase ---*/
-static void qtMapSymbolToLowerCase
-  (Ptr outName,
-   Ptr inName)
+static void
+qtMapSymbolToLowerCase(Ptr outName,
+                       Ptr inName)
 {
   Ptr nextChar = inName;
 
@@ -435,8 +435,8 @@ static void qtMapSymbolToLowerCase
 
 #if defined(BQT_H_)
 /*------------------------------------ qtMoveController ---*/
-static bool qtMoveController
-  (QtPtr xx)
+static bool
+qtMoveController(QtPtr xx)
 {
  #if defined(TRACE_CONTROLLER)
   LOG_POST_1("move controller")
@@ -460,9 +460,9 @@ static bool qtMoveController
 #endif /* BQT_H_ */
 
 /*------------------------------------ qtRemoveMovie ---*/
-void qtRemoveMovie
-  (QtPtr      xx,
-   QtMovieHdl aMovie)
+void
+qtRemoveMovie(QtPtr      xx,
+              QtMovieHdl aMovie)
 {
   QtMoviePtr thisMovie;
 
@@ -498,9 +498,9 @@ void qtRemoveMovie
 } /* qtRemoveMovie */
 
 /*------------------------------------ qtSaveMovies ---*/
-void qtSaveMovies
-  (QtPtr xx,
-   Pvoid ww)
+void
+qtSaveMovies(QtPtr xx,
+             Pvoid ww)
 {
   for (QtMovieHdl aMovie = xx->fFirstMovie, aNext; aMovie; aMovie = aNext)
   {
@@ -511,9 +511,9 @@ void qtSaveMovies
 } /* qtSaveMovies */
 
 /*------------------------------------ qtSearchKnownMovies ---*/
-QtMovieHdl qtSearchKnownMovies
-  (QtPtr   xx,
-   PSymbol aName)
+QtMovieHdl
+qtSearchKnownMovies(QtPtr   xx,
+                    PSymbol aName)
 {
   char       tempName[MAX_FILE_NAME + 2];
   PSymbol    aSymbol;
@@ -535,8 +535,8 @@ QtMovieHdl qtSearchKnownMovies
 } /* qtSearchKnownMovies */
 
 /*------------------------------------ qtSetController ---*/
-static bool qtSetController
-  (QtPtr xx)
+static bool
+qtSetController(QtPtr xx)
 {
 #if defined(TRACE_CONTROLLER)
   LOG_POST_1("set controller")
@@ -560,9 +560,9 @@ static bool qtSetController
 } /* qtSetController */
 
 /*------------------------------------ qtSetCurrentMovie ---*/
-void qtSetCurrentMovie
-  (QtPtr      xx,
-   QtMovieHdl aMovie)
+void
+qtSetCurrentMovie(QtPtr      xx,
+                  QtMovieHdl aMovie)
 {
   if (aMovie)
   {
@@ -637,9 +637,9 @@ void qtSetCurrentMovie
 } /* qtSetCurrentMovie */
 
 /*------------------------------------ qtSetUpGlobals ---*/
-void qtSetUpGlobals
-  (Pchar				ourName,
-   const short	resourceBase)
+void
+qtSetUpGlobals(Pchar       ourName,
+               const short resourceBase)
 {
   gEmptySymbol = gensym("");
   gCtrlSymbol = gensym("ctrl");
@@ -652,9 +652,9 @@ void qtSetUpGlobals
 } /* qtSetUpGlobals */
 
 /*------------------------------------ qtSetUpObject ---*/
-void qtSetUpObject
-  (QtPtr    xx,
-   PPatcher pp)
+void
+qtSetUpObject(QtPtr    xx,
+              PPatcher pp)
 {
   xx->fControllerMethods = NULL_PTR;
   xx->fController = NULL_PTR;

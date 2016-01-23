@@ -44,16 +44,16 @@
  
 struct PrivateData
 {
-	float	fServo;
+    float    fServo;
 }; /* PrivateData */
  
 struct SharedData
 {
-	IOHIDElementCookie	fOutputCookie;
-	bool								fCookiesValid;	
+    IOHIDElementCookie    fOutputCookie;
+    bool                  fCookiesValid;    
 }; /* SharedData */
 
-typedef PrivateData *	PrivatePtr;
-typedef SharedData *	SharedPtr;
+typedef PrivateData *    PrivatePtr;
+typedef SharedData *    SharedPtr;
 
 #endif /* not UNITSERVO_H_ */

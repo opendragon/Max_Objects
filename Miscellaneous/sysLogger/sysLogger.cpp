@@ -42,7 +42,8 @@
 #include "reportVersion.h"
 
 /*------------------------------------ sysLoggerCreate ---*/
-static void * sysLoggerCreate(t_symbol * level)
+static void *
+sysLoggerCreate(t_symbol * level)
 {
     SysLoggerData * xx = static_cast<SysLoggerData *>(object_alloc(gClass));
     
@@ -147,7 +148,8 @@ static void * sysLoggerCreate(t_symbol * level)
 } // sysLoggerCreate
 
 /*------------------------------------ sysLoggerFree ---*/
-static void sysLoggerFree(SysLoggerData * xx)
+static void
+sysLoggerFree(SysLoggerData * xx)
 {
     if (xx)
     {
@@ -162,7 +164,8 @@ static void sysLoggerFree(SysLoggerData * xx)
 } // sysLoggerFree
 
 /*------------------------------------ main ---*/
-int C74_EXPORT main(void)
+int C74_EXPORT
+main(void)
 {
     /* Allocate class memory and set up class. */
     t_class * temp = class_new(OUR_NAME, reinterpret_cast<method>(sysLoggerCreate),

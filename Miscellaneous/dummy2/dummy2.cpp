@@ -1,21 +1,21 @@
 /**
-	@file
-	dummy - a dummy object
-	jeremy bernstein - jeremy@bootsquad.com
+    @file
+    dummy - a dummy object
+    jeremy bernstein - jeremy@bootsquad.com
  
-	@ingroup	examples
+    @ingroup    examples
  */
 
-#include "ext.h"							// standard Max include, always required
-#include "ext_obex.h"						// required for new style Max object
+#include "ext.h"                            // standard Max include, always required
+#include "ext_obex.h"                        // required for new style Max object
 
 ////////////////////////// object struct
 typedef struct _dummy
 {
-    t_object	ob;
-    t_atom		val;
-    t_symbol	*name;
-    void		*out;
+    t_object    ob;
+    t_atom        val;
+    t_symbol    *name;
+    void        *out;
 } t_dummy;
 
 ///////////////////////// function prototypes
@@ -45,24 +45,24 @@ int C74_EXPORT main(void)
     c = class_new("dummy3", (method)dummy_new, (method)dummy_free, (long)sizeof(t_dummy),
                   0L /* leave NULL!! */, A_GIMME, 0);
     
-    class_addmethod(c, (method)dummy_bang,			"bang", 0);
-    class_addmethod(c, (method)dummy_int,			"int",		A_LONG, 0);
-    class_addmethod(c, (method)dummy_float,			"float",	A_FLOAT, 0);
-    class_addmethod(c, (method)dummy_anything,		"anything",	A_GIMME, 0);
-    class_addmethod(c, (method)dummy_identify,		"identify", 0);
+    class_addmethod(c, (method)dummy_bang,            "bang", 0);
+    class_addmethod(c, (method)dummy_int,            "int",        A_LONG, 0);
+    class_addmethod(c, (method)dummy_float,            "float",    A_FLOAT, 0);
+    class_addmethod(c, (method)dummy_anything,        "anything",    A_GIMME, 0);
+    class_addmethod(c, (method)dummy_identify,        "identify", 0);
     CLASS_METHOD_ATTR_PARSE(c, "identify", "undocumented", gensym("long"), 0, "1");
     
     // we want to 'reveal' the otherwise hidden 'xyzzy' method
-    class_addmethod(c, (method)dummy_anything,		"xyzzy", A_GIMME, 0);
+    class_addmethod(c, (method)dummy_anything,        "xyzzy", A_GIMME, 0);
     // here's an otherwise undocumented method, which does something that the user can't actually
     // do from the patcher however, we want them to know about it for some weird documentation reason.
     // so let's make it documentable. it won't appear in the quickref, because we can't send it from a message.
-    class_addmethod(c, (method)dummy_acant,			"blooop", A_CANT, 0);
+    class_addmethod(c, (method)dummy_acant,            "blooop", A_CANT, 0);
     CLASS_METHOD_ATTR_PARSE(c, "blooop", "documentable", gensym("long"), 0, "1");
     
     /* you CAN'T call this from the patcher */
-    class_addmethod(c, (method)dummy_assist,			"assist",		A_CANT, 0);
-    class_addmethod(c, (method)dummy_dblclick,			"dblclick",		A_CANT, 0);
+    class_addmethod(c, (method)dummy_assist,            "assist",        A_CANT, 0);
+    class_addmethod(c, (method)dummy_dblclick,            "dblclick",        A_CANT, 0);
     
     CLASS_ATTR_SYM(c, "name", 0, t_dummy, name);
     
@@ -83,7 +83,7 @@ void dummy_assist(t_dummy *x, void *b, long m, long a, char *s)
     if (m == ASSIST_INLET) { //inlet
         sprintf(s, "I am inlet %ld", a);
     }
-    else {	// outlet
+    else {    // outlet
         sprintf(s, "I am outlet %ld", a);
     }
 }

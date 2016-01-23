@@ -40,8 +40,8 @@
 #include "qtCommon.h"
 
 /*------------------------------------ cmd_GetRate ---*/
-Pvoid cmd_GetRate
-  (QtPtr xx)
+Pvoid
+cmd_GetRate(QtPtr xx)
 {
   EnterCallback();
 #if defined(TRACE_MESSAGES)

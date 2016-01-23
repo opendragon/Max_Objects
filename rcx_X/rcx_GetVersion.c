@@ -40,8 +40,8 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_GetVersion ---*/
-Pvoid cmd_GetVersion
-  (RcxControlPtr xx)
+Pvoid
+cmd_GetVersion(RcxControlPtr xx)
 {
   EnterCallback();
   if (xx)

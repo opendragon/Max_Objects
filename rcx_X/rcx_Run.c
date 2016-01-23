@@ -40,8 +40,8 @@
 #include "rcx.h"
 
 /*------------------------------------ cmd_Run ---*/
-Pvoid cmd_Run
-  (RcxControlPtr xx)
+Pvoid
+cmd_Run(RcxControlPtr xx)
 {
   EnterCallback();
   if (xx)

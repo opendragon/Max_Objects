@@ -41,200 +41,200 @@
 #include "genericListOutput.h"
 
 /*------------------------------------ performGet ---*/
-static bool performGet
-	(FidgetPtr				xx,
-	 HIDDeviceDataPtr	walkerHID,
-	 PSymbol					deviceType,
-   const short			argc,
-   PAtom						argv)
+static bool
+performGet(FidgetPtr        xx,
+           HIDDeviceDataPtr walkerHID,
+           PSymbol          deviceType,
+           const short      argc,
+           PAtom            argv)
 {
-	bool					okSoFar = true;
-	OSErr					result;
-	E_PhidgResult	action = kPhidgDoDefault;
+    bool                    okSoFar = true;
+    OSErr                    result;
+    E_PhidgResult    action = kPhidgDoDefault;
 
-	if (walkerHID->fClass)
-	{
-		PhidgetDescriptorPtr	kind = reinterpret_cast<PhidgetDescriptorPtr>(walkerHID->fClass);
+    if (walkerHID->fClass)
+    {
+        PhidgetDescriptorPtr    kind = reinterpret_cast<PhidgetDescriptorPtr>(walkerHID->fClass);
 
 #if defined(COMPILE_FOR_OSX_4)
-		action = reinterpret_cast<FpDoGet>(kind->fDoGetFun)(OUR_NAME, deviceType,
-																												xx->fDataOut, kind->fShared,
-																												walkerHID->fPrivate, walkerHID,
-																												short(argc - 2), argv + 2,
-																												&result);
+        action = reinterpret_cast<FpDoGet>(kind->fDoGetFun)(OUR_NAME, deviceType,
+                                                                                                                xx->fDataOut, kind->fShared,
+                                                                                                                walkerHID->fPrivate, walkerHID,
+                                                                                                                short(argc - 2), argv + 2,
+                                                                                                                &result);
 #endif /* COMPILE_FOR_OSX_4 */
 #if defined(COMPILE_FOR_OS9_4)
-		action = static_cast<E_PhidgResult>(CallUniversalProc(kind->fDoGetUpp, uppDoGetProcInfo,
-																OUR_NAME, deviceType, xx->fDataOut, kind->fShared,
-																walkerHID->fPrivate, walkerHID, short(argc - 2), argv + 2,
-																&result));
+        action = static_cast<E_PhidgResult>(CallUniversalProc(kind->fDoGetUpp, uppDoGetProcInfo,
+                                                                OUR_NAME, deviceType, xx->fDataOut, kind->fShared,
+                                                                walkerHID->fPrivate, walkerHID, short(argc - 2), argv + 2,
+                                                                &result));
 #endif /* COMPILE_FOR_OS9_4 */
-	}
-	if (action == kPhidgDoDefault)
-	{
+    }
+    if (action == kPhidgDoDefault)
+    {
 #if defined(COMPILE_FOR_OSX_4)
-		// Note that 'default' is only supported with 'CATS' - there is no reasonable behaviour
-		// if we are using a report handler... as we do for non-'CATS'!
-		if (argc >= 3)
-		{
-		  long	element = 0;
+        // Note that 'default' is only supported with 'CATS' - there is no reasonable behaviour
+        // if we are using a report handler... as we do for non-'CATS'!
+        if (argc >= 3)
+        {
+          long    element = 0;
 
-			if (argv[2].a_type == A_LONG)
-				element = argv[2].a_w.w_long;
-			else
-			{
-				okSoFar = false;
-				LOG_ERROR_2(OUTPUT_PREFIX "element is not an integer for '%s:get'",
-										deviceType->s_name);
-			}
-  		if (okSoFar)
-  		{
-		  	HIDElementDataPtr	anElement = NULL_PTR;
-		  	
-			  if (element)
-			  {
-			  	// Find the matching element:
-			 		for (anElement = walkerHID->fFirstElement; anElement; anElement = anElement->fNext)
-			 		{
-			 			if (anElement->fCookie == reinterpret_cast<IOHIDElementCookie>(element))
-			 				break;
-			 				
-			 		}
-			  }
-			  if (anElement)
-			  {
-	 				UInt32		extendedLength;
-	 				Pvoid			extendedValue;
-	 				IOReturn	result;
-	 				long			value = getHIDElementValue(OUR_NAME, *walkerHID, *anElement,
-																		 					extendedLength, extendedValue, result);
-					
-					if (result == KERN_SUCCESS)
-					{
-						if (extendedLength)
-						{
-							PAtom	newList = GETBYTES(extendedLength + 2, Atom);
-							Pchar	longValue = reinterpret_cast<Pchar>(extendedValue);
-							
-							SETSYM(newList, deviceType);
-							SETSYM(newList + 1, walkerHID->fSerialNumber);
-							for (UInt32 ii = 0; ii < extendedLength; ++ii, ++longValue)
-								SETLONG(newList + ii + 2, long(*longValue & 0x00FF));
-	      			genericListOutput(xx->fDataOut, short(extendedLength + 2), newList);
-	      			FREEBYTES(newList, extendedLength + 2)
-						}
-						else
-						{
-							Atom	newList[3];
-							
-							SETSYM(newList, deviceType);
-							SETSYM(newList + 1, walkerHID->fSerialNumber);
-							SETLONG(newList + 2, value);
-							genericListOutput(xx->fDataOut, sizeof(newList) / sizeof(*newList),
-																newList);		
-		  			}
-					}
-					if (result)
-						outlet_int(xx->fResultOut, result);							
-			  }
-			  else
-			  {
-			  	okSoFar = false;
-			  	LOG_ERROR_2(OUTPUT_PREFIX "element not found for '%sget'", deviceType->s_name)
-			  }
-  		}
-		}
-		else if (argc == 2)
-		{
-			okSoFar = false;
-			LOG_ERROR_2(OUTPUT_PREFIX "missing element for '%s:get'", deviceType->s_name)
-		}
-		else
-		{
-			okSoFar = false;
-  		LOG_ERROR_2(OUTPUT_PREFIX "missing value(s) for '%s:get'", deviceType->s_name)
-  	}
+            if (argv[2].a_type == A_LONG)
+                element = argv[2].a_w.w_long;
+            else
+            {
+                okSoFar = false;
+                LOG_ERROR_2(OUTPUT_PREFIX "element is not an integer for '%s:get'",
+                                        deviceType->s_name);
+            }
+          if (okSoFar)
+          {
+              HIDElementDataPtr    anElement = NULL_PTR;
+              
+              if (element)
+              {
+                  // Find the matching element:
+                     for (anElement = walkerHID->fFirstElement; anElement; anElement = anElement->fNext)
+                     {
+                         if (anElement->fCookie == reinterpret_cast<IOHIDElementCookie>(element))
+                             break;
+                             
+                     }
+              }
+              if (anElement)
+              {
+                     UInt32        extendedLength;
+                     Pvoid            extendedValue;
+                     IOReturn    result;
+                     long            value = getHIDElementValue(OUR_NAME, *walkerHID, *anElement,
+                                                                                             extendedLength, extendedValue, result);
+                    
+                    if (result == KERN_SUCCESS)
+                    {
+                        if (extendedLength)
+                        {
+                            PAtom    newList = GETBYTES(extendedLength + 2, Atom);
+                            Pchar    longValue = reinterpret_cast<Pchar>(extendedValue);
+                            
+                            SETSYM(newList, deviceType);
+                            SETSYM(newList + 1, walkerHID->fSerialNumber);
+                            for (UInt32 ii = 0; ii < extendedLength; ++ii, ++longValue)
+                                SETLONG(newList + ii + 2, long(*longValue & 0x00FF));
+                      genericListOutput(xx->fDataOut, short(extendedLength + 2), newList);
+                      FREEBYTES(newList, extendedLength + 2)
+                        }
+                        else
+                        {
+                            Atom    newList[3];
+                            
+                            SETSYM(newList, deviceType);
+                            SETSYM(newList + 1, walkerHID->fSerialNumber);
+                            SETLONG(newList + 2, value);
+                            genericListOutput(xx->fDataOut, sizeof(newList) / sizeof(*newList),
+                                                                newList);        
+                      }
+                    }
+                    if (result)
+                        outlet_int(xx->fResultOut, result);                            
+              }
+              else
+              {
+                  okSoFar = false;
+                  LOG_ERROR_2(OUTPUT_PREFIX "element not found for '%sget'", deviceType->s_name)
+              }
+          }
+        }
+        else if (argc == 2)
+        {
+            okSoFar = false;
+            LOG_ERROR_2(OUTPUT_PREFIX "missing element for '%s:get'", deviceType->s_name)
+        }
+        else
+        {
+            okSoFar = false;
+          LOG_ERROR_2(OUTPUT_PREFIX "missing value(s) for '%s:get'", deviceType->s_name)
+      }
 #endif /* COMPILE_FOR_OSX_4 */
-	}
-	else if (result)
-		outlet_int(xx->fResultOut, result);
-	return okSoFar;
+    }
+    else if (result)
+        outlet_int(xx->fResultOut, result);
+    return okSoFar;
 } /* performGet */
 
 /*------------------------------------ cmd_Get ---*/
-Pvoid cmd_Get
-  (FidgetPtr	xx,
-   PSymbol		message,
-   short			argc,
-   PAtom			argv)
+Pvoid
+cmd_Get(FidgetPtr xx,
+        PSymbol   message,
+        short     argc,
+        PAtom     argv)
 {
 #pragma unused(message)
-	PSymbol	deviceType = NULL_PTR, serialNumber = NULL_PTR;
+    PSymbol    deviceType = NULL_PTR, serialNumber = NULL_PTR;
 
   EnterCallback();
   if (xx)
   {
-  	bool	okSoFar = true;
-  	
-  	if (argc >= 2)
-  	{
-  		// Check the device type
-  		if (argv[0].a_type == A_SYM)
-  			deviceType = argv[0].a_w.w_sym;
-  		else
-  		{
-  			okSoFar = false;
-  			LOG_ERROR_1(OUTPUT_PREFIX "device type is not a symbol for 'get'")
-  		}
-  		// Check the serial number
-  		if (okSoFar)
-  		{
-  			if (argv[1].a_type == A_SYM)
-  				serialNumber = argv[1].a_w.w_sym;
-  			else
-  			{
-  				okSoFar = false;
-  				LOG_ERROR_2(OUTPUT_PREFIX "serial number is not a symbol for '%s:get'",
-  										deviceType->s_name)
-  			}
-  		}
-		}
-		else if (argc == 1)
-		{
-			okSoFar = false;
-  		LOG_ERROR_1(OUTPUT_PREFIX "missing serial number for 'get'")
-		}
-		else
-		{
-			okSoFar = false;
-  		LOG_ERROR_1(OUTPUT_PREFIX "missing device type for 'get'")
-		}
-		if (okSoFar)
-		{
-			if (serialNumber == gAsteriskSymbol)
-			{
-		  	HIDDeviceDataPtr	walkerHID = fidgetGetFirstHIDData(xx, deviceType);
-		  	
-		  	for ( ; walkerHID; )
-		  	{
-		  		if (! performGet(xx, walkerHID, deviceType, argc, argv))
-		  			break;
-		  			
-		  		walkerHID = fidgetGetNextHIDData(deviceType, walkerHID);
-		  	}				
-			}
-			else
-			{
-				// Identify the object
-		  	HIDDeviceDataPtr	walkerHID = fidgetLocateHIDData(xx, deviceType, serialNumber);
-		  	
-				if (walkerHID)
-					performGet(xx, walkerHID, deviceType, argc, argv);
-				else
-					LOG_ERROR_3(OUTPUT_PREFIX "no such device (%s:%s) is currently attached",
-												deviceType->s_name, serialNumber->s_name)
-			}
-		}  		
+      bool    okSoFar = true;
+      
+      if (argc >= 2)
+      {
+          // Check the device type
+          if (argv[0].a_type == A_SYM)
+              deviceType = argv[0].a_w.w_sym;
+          else
+          {
+              okSoFar = false;
+              LOG_ERROR_1(OUTPUT_PREFIX "device type is not a symbol for 'get'")
+          }
+          // Check the serial number
+          if (okSoFar)
+          {
+              if (argv[1].a_type == A_SYM)
+                  serialNumber = argv[1].a_w.w_sym;
+              else
+              {
+                  okSoFar = false;
+                  LOG_ERROR_2(OUTPUT_PREFIX "serial number is not a symbol for '%s:get'",
+                                          deviceType->s_name)
+              }
+          }
+        }
+        else if (argc == 1)
+        {
+            okSoFar = false;
+          LOG_ERROR_1(OUTPUT_PREFIX "missing serial number for 'get'")
+        }
+        else
+        {
+            okSoFar = false;
+          LOG_ERROR_1(OUTPUT_PREFIX "missing device type for 'get'")
+        }
+        if (okSoFar)
+        {
+            if (serialNumber == gAsteriskSymbol)
+            {
+              HIDDeviceDataPtr    walkerHID = fidgetGetFirstHIDData(xx, deviceType);
+              
+              for ( ; walkerHID; )
+              {
+                  if (! performGet(xx, walkerHID, deviceType, argc, argv))
+                      break;
+                      
+                  walkerHID = fidgetGetNextHIDData(deviceType, walkerHID);
+              }                
+            }
+            else
+            {
+                // Identify the object
+              HIDDeviceDataPtr    walkerHID = fidgetLocateHIDData(xx, deviceType, serialNumber);
+              
+                if (walkerHID)
+                    performGet(xx, walkerHID, deviceType, argc, argv);
+                else
+                    LOG_ERROR_3(OUTPUT_PREFIX "no such device (%s:%s) is currently attached",
+                                                deviceType->s_name, serialNumber->s_name)
+            }
+        }          
   } 
   ExitMaxMessageHandler()
 } /* cmd_Get */

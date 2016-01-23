@@ -40,9 +40,9 @@
 #include "qtCommon.h"
 
 /*------------------------------------ deferred_Unload ---*/
-Pvoid deferred_Unload
-  (QtPtr   xx,
-   PSymbol name)
+static Pvoid
+deferred_Unload(QtPtr   xx,
+                PSymbol name)
 {
   EnterCallback();
   if (name == gEmptySymbol)
@@ -83,9 +83,9 @@ Pvoid deferred_Unload
 } /* deferred_Unload */
 
 /*------------------------------------ cmd_Unload ---*/
-Pvoid cmd_Unload
-  (QtPtr   xx,
-   PSymbol name)
+Pvoid
+cmd_Unload(QtPtr   xx,
+           PSymbol name)
 {
   EnterCallback();
 #if defined(TRACE_MESSAGES)

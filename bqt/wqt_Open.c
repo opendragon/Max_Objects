@@ -40,8 +40,8 @@
 #include "wqt.h"
 
 /*------------------------------------ cmd_Open ---*/
-Pvoid cmd_Open
-  (QtPtr xx)
+Pvoid
+cmd_Open(QtPtr xx)
 {
   EnterCallback();
   if (xx)

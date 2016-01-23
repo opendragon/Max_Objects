@@ -45,8 +45,9 @@
 # define A_ERROR 123 /* This should not be a legal t_atom type */
 
 # define GETLISTKIND_HEADER \
-unsigned char getListKind(const long argc,\
-                          t_atom *   argv)
+    unsigned char\
+    getListKind(const long argc,\
+                t_atom *   argv)
 
 GETLISTKIND_HEADER;
 

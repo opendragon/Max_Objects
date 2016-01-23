@@ -48,51 +48,56 @@ extern "C"
 {
  #endif /* __cplusplus */
 
-OSErr do_Anything
-    (PLUGIN_HEADER_PREFIX,
-    PSymbol message,
-    const short argc,
-    PAtom argv);
+OSErr
+do_Anything(PLUGIN_HEADER_PREFIX,
+            PSymbol message,
+            const short argc,
+            PAtom argv);
 
-OSErr do_Bang
-    (PLUGIN_HEADER_PREFIX);
+OSErr
+do_Bang(PLUGIN_HEADER_PREFIX);
 
-OSErr do_Double
-    (PLUGIN_HEADER_PREFIX,
-    const double value);
+OSErr
+do_Double(PLUGIN_HEADER_PREFIX,
+          const double value);
 
-OSErr do_List
-    (PLUGIN_HEADER_PREFIX,
-    const short argc,
-    PAtom argv);
+OSErr
+do_List(PLUGIN_HEADER_PREFIX,
+        const short argc,
+        PAtom argv);
 
-OSErr do_Long
-    (PLUGIN_HEADER_PREFIX,
-    const long value);
+OSErr
+do_Long(PLUGIN_HEADER_PREFIX,
+        const long value);
 
-OSErr main(CFragConnectionID connID,
-           OwnerPtr          owner,
-           Handle            sharedStorage);
+OSErr
+main(CFragConnectionID connID,
+     OwnerPtr          owner,
+     Handle            sharedStorage);
 
-OSErr niam(OwnerPtr owner,
-           Ptr      sharedStorage);
+OSErr
+niam(OwnerPtr owner,
+     Ptr      sharedStorage);
 
-OSErr onCreate(OwnerPtr    owner,
-               Pchar       theName,
-               Ptr         sharedStorage,
-               Handle      privateStorage,
-               const short argc,
-               PAtom       argv,
-               Pshort      numInlets,
-               Pshort      numOutlets);
+OSErr
+onCreate(OwnerPtr    owner,
+         Pchar       theName,
+         Ptr         sharedStorage,
+         Handle      privateStorage,
+         const short argc,
+         PAtom       argv,
+         Pshort      numInlets,
+         Pshort      numOutlets);
 
-OSErr onDestroy(OwnerPtr owner,
-                Ptr      sharedStorage,
-                Ptr      privateStorage);
+OSErr
+onDestroy(OwnerPtr owner,
+          Ptr      sharedStorage,
+          Ptr      privateStorage);
 
-OSErr onReload(CFragConnectionID connID,
-               OwnerPtr          owner,
-               Ptr               sharedStorage);
+OSErr
+onReload(CFragConnectionID connID,
+         OwnerPtr          owner,
+         Ptr               sharedStorage);
 
  #if defined(__cplusplus)
 }

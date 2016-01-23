@@ -44,8 +44,8 @@
 #pragma export on
 
 /*------------------------------------ createRegistry ---*/
-Pvoid createRegistry
-  (void)
+Pvoid
+createRegistry(void)
 {
 #if defined(CADS_FOR_REAL)
   return doRealRegistryCreate();
@@ -55,8 +55,8 @@ Pvoid createRegistry
 } /* createRegistry */
 
 /*------------------------------------ flushRegistry ---*/
-void flushRegistry
-  (Pvoid registry)
+void
+flushRegistry(Pvoid registry)
 {
 #if defined(CADS_FOR_REAL)
   doRealRegistryFlush(static_cast<MessageDescriptorHdl>(registry));
@@ -66,8 +66,8 @@ void flushRegistry
 } /* flushRegistry */
 
 /*------------------------------------ freeRegistry ---*/
-void freeRegistry
-  (Pvoid registry)
+void
+freeRegistry(Pvoid registry)
 {
 #if defined(CADS_FOR_REAL)
   doRealRegistryFree(static_cast<MessageDescriptorHdl>(registry));
@@ -77,9 +77,9 @@ void freeRegistry
 } /* freeRegistry */
 
 /*------------------------------------ identifyMessage ---*/
-PluginFunk identifyMessage
-  (Pvoid   registry,
-   PSymbol name)
+PluginFunk
+identifyMessage(Pvoid   registry,
+                PSymbol name)
 {
 #if defined(CADS_FOR_REAL)
   return doRealIdentifyMessage(static_cast<MessageDescriptorHdl>(registry), name);

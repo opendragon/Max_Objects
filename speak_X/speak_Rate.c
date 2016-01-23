@@ -40,9 +40,9 @@
 #include "speak.h"
 
 /*------------------------------------ cmd_Rate ---*/
-Pvoid cmd_Rate
-  (SpeakPtr xx,
-   double   newRate)
+Pvoid
+cmd_Rate(SpeakPtr xx,
+         double   newRate)
 {
   EnterCallback();
   if (xx && xx->fSpeaker)
