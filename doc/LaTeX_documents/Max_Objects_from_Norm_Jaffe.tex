@@ -1,6 +1,6 @@
 \ProvidesFile{Max_Objects_from_Norm_Jaffe.tex}
 
-\documentclass[letterpaper,titlepage,twoside]{report}
+\documentclass[letterpaper,titlepage,twoside,canadian]{report}
 
 % Begin Preamble:
 
@@ -11,43 +11,53 @@
 %\usepackage{newcent}
 
 \usepackage{amsmath}
+\usepackage[useregional=text]{datetime2}
 \usepackage{enumerate}
 \usepackage{ifthen}
 \usepackage{alltt}
 \usepackage{calc}
 \usepackage{shortvrb}
 \usepackage{varioref}
-\usepackage[dvips]{graphicx}
-\usepackage[dvips,usenames]{color}
+\usepackage{graphicx}
+\usepackage{color}
 \usepackage{makeidx}
 \usepackage{xspace}
 \usepackage{fancyhdr}
 \usepackage[section]{tocbibind}
+\usepackage{epstopdf}
+\usepackage{moreverb}
 
 % Control the code, depending on whether a hyper-linked PDF is being generated:
 \newboolean{generatingHyperPDF}
 \setboolean{generatingHyperPDF}{true}
 
+\newboolean{heveaActive}
+%HEVEA\setboolean{heveaActive}{true}
+%BEGIN LATEX
+\setboolean{heveaActive}{false}
+%END LATEX
+
 % If the package 'hyperref' is disabled by commenting out the following lines,
 % be sure to set the boolean 'generatingHyperPDF' to false.
 \ifthenelse{\boolean{generatingHyperPDF}}%
- {\usepackage[dvips,
-    colorlinks=true,
-    linkcolor=webgreen,
-    filecolor=webbrown,
-    citecolor=webgreen,
-    urlcolor=webblue,
-    pdftitle={Max Objects from Norman Jaffe},
-    pdfauthor={Norman Jaffe},
-    pdfkeywords={Max,objects,interface,APL},
-    pdfsubject={Max Objects},
-    bookmarks,
-    raiselinks=true,
-    plainpages=false,
-    bookmarksopen=true,
-    pdfstartview=Fit,
-    pdfpagemode=UseOutlines]{hyperref}}
- {\newcommand{\hyperpage}[1]{#1}}
+	{\ifthenelse{\boolean{heveaActive}}%
+		{\usepackage{hyperref}}
+		{\usepackage[colorlinks=true,
+			linkcolor=webgreen,
+			filecolor=webbrown,
+			citecolor=webgreen,
+			urlcolor=webblue,
+    		pdftitle={Max Objects from Norman Jaffe},
+    		pdfauthor={Norman Jaffe},
+    		pdfkeywords={Max,objects,interface,APL},
+    		pdfsubject={Max Objects},
+    		bookmarks,
+			raiselinks=true,
+			plainpages=false,
+			bookmarksopen=true,
+			pdfstartview=Fit,
+			pdfpagemode=UseOutlines]{hyperref}}}
+	{\newcommand{\hyperpage}[1]{#1}}
 
 \usepackage{mysects}
 
@@ -79,6 +89,7 @@
 % Set the float behaviour:
 \setcounter{bottomnumber}{2}
 \setcounter{totalnumber}{4}
+\renewcommand{\thefigure}{\arabic{figure}} % This fixes a 'glitch' with Hevea!
 
 % Suppress the normal numbering of sections, et cetera:
 \setcounter{secnumdepth}{-2}
@@ -415,7 +426,7 @@ Canada}
 
 \input{documentationHistory.tex}
 
-\input{frontispiece.tex}
+										\input{frontispiece.tex}
 \clearpage\pagenumbering{arabic}
 
 % End of front matter
@@ -433,7 +444,7 @@ Canada}
 \input{fileLogger.tex}
 
 \input{gcd.tex}
-\input{gvp100.tex}
+\input{gvp.tex}
 
 \input{ldp1550.tex}
 \input{listen.tex}

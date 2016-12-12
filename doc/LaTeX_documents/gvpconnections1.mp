@@ -1,4 +1,4 @@
-% File: gvp100connections.mp
+% File: gvpconnections1.mp
 
 input boxes;
 beginfig(-1);
@@ -15,10 +15,10 @@ etex;
 input maxboxmacros;
 
 picture p;
-p := thelabel.rt(btex \objectText{gvp100} etex, (0,0));
+p := thelabel.rt(btex \objectText{gvp} etex, (0,0));
 create_inside_box_no_pins((0, 0), p, 2, 6, 1);
 
-p := thelabel.rt(btex \objectText{serialX} etex, (0,0));
+p := thelabel.rt(btex \objectText{serial} etex, (0,0));
 create_inside_box_no_pins((180, 0), p, 1, 3, 2);
 
 p := thelabel.rt(btex \objectText{breakdone} etex, (0,0));
@@ -69,9 +69,12 @@ verbatimtex
 etex
 end
 
-% $Log: gvp100connections.mp,v $
-% Revision 1.4  2006/07/20 04:47:52  churchoflambda
+% $Log: gvpconnections1.mp,v $
+% Revision 1.3  2006/07/20 04:47:52  churchoflambda
 % Re-added the files to record their changes.
+%
+% Revision 1.1  2006/03/25 21:51:18  churchoflambda
+% Added the 'senseX' object and modified the connection diagrams to show 'serial' as well as 'serialX'.
 %
 % Revision 1.2  2005/08/02 15:07:09  churchoflambda
 % Added CVS tags; add rail diagrams for pfsm, map1d, map2d, map3d and listen.

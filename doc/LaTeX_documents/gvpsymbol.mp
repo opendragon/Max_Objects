@@ -1,4 +1,4 @@
-% File: gvp100symbol.mp
+% File: gvpsymbol.mp
 
 input boxes;
 beginfig(-1);
@@ -33,7 +33,7 @@ input maxboxmacros;
 % Create the text box:
 
 picture p;
-p := thelabel.rt(btex \objectText{gvp100}{address [\,poll-rate size\,]} etex, (0,0));
+p := thelabel.rt(btex \objectText{gvp}{address [\,poll-rate size\,]} etex, (0,0));
 create_inside_box(p, 2, 6);
 
 endfig;
@@ -42,7 +42,7 @@ verbatimtex
 etex
 end
 
-% $Log: gvp100symbol.mp,v $
+% $Log: gvpsymbol.mp,v $
 % Revision 1.4  2006/07/20 04:47:52  churchoflambda
 % Re-added the files to record their changes.
 %

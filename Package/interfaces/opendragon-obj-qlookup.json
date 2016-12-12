@@ -1,0 +1,506 @@
+{
+  "caseShift": {
+    "digest": "Changes the case of each symbol in a list to either lower case or upper case.",
+    "module": "OpenDragon",
+    "category": [
+      "Miscellaneous"
+    ]
+  },
+
+  "changes": {
+    "digest": "Monitors an arbitrary list, watching for a change in specified elements.",
+    "module": "OpenDragon",
+    "category": [
+      "Programming"
+    ]
+  },
+
+"compares": {
+    "digest": "Does a case-sensitive string comparison of two symbols.",
+    "module": "OpenDragon",
+    "category": [
+      "Programming"
+    ]
+  },
+
+"dataType": {
+    "digest": "Returns a numeric code corresponding to the value it receives.",
+    "module": "OpenDragon",
+    "category": [
+      "Miscellaneous"
+    ]
+  },
+
+"fileLogger": {
+    "digest": "Writes its input to a standard file.",
+    "module": "OpenDragon",
+    "category": [
+      "Miscellaneous"
+    ]
+  },
+  
+"gcd": {
+    "digest": "Calculate the greatest common divisor of two numbers.",
+    "module": "OpenDragon",
+    "category": [
+      "Miscellanous",
+      "Math"
+    ]
+  },
+  
+"gvp": {
+    "digest": "Provides an interface to an ECHOlab DV7 video switcher, which utilizes the Grass Valley Protocol.",
+    "module": "OpenDragon",
+    "category": [
+      "Devices"
+    ]
+  },
+
+"ldp1550": {
+    "digest": "Provides an interface to the Sony Corporation LDP-1550 Laser Disk Player.",
+    "module": "OpenDragon",
+    "category": [
+      "Devices"
+    ]
+  },
+  
+"listType": {
+    "digest": "Returns a numeric code corresponding to the value it receives.",
+    "module": "OpenDragon",
+    "category": [
+      "Miscellaneous"
+    ]
+  },
+  
+"map1d": {
+    "digest": "Maps its input to one of a sequence of ranges and returns the set of values associated with the range.",
+    "module": "OpenDragon",
+    "category": [
+      "Programming"
+    ]
+  },
+  
+"map2d": {
+    "digest": "Maps its input to one of a sequence of ranges and returns the set of values associated with the range.",
+    "module": "OpenDragon",
+    "category": [
+      "Programming"
+    ]
+  },
+  
+"map3d": {
+    "digest": "Maps its input to one of a sequence of ranges and returns the set of values associated with the range.",
+    "module": "OpenDragon",
+    "category": [
+      "Programming"
+    ]
+  },
+  
+"memory": {
+    "digest": "Provides a repository for values, using an associative table to give fast access to the retained data.",
+    "module": "OpenDragon",
+    "category": [
+      "Programming"
+    ]
+  },
+  
+"mtc": {
+    "digest": "Provides an interface to the Tactex Controls multi-touch controller.",
+    "module": "OpenDragon",
+    "category": [
+      "Devices"
+    ]
+  },
+  
+"mtcTrack": {
+    "digest": "An auxiliary object to be used with 'mtc' objects.",
+    "module": "OpenDragon",
+    "category": [
+      "Miscellaneous"
+    ]
+  },
+  
+"notX": {
+    "digest": "Returns the logical complement of a number or a list of numbers.",
+    "module": "OpenDragon",
+    "category": [
+      "Miscellaneous"
+    ]
+  },
+  
+"pfsm": {
+    "digest": "Provides an implementation of a finite state machine with probabilistic transitions.",
+    "module": "OpenDragon",
+    "category": [
+      "Programming"
+    ]
+  },
+  
+"queue": {
+    "digest": "Provides an implementation of a first-in-first-out queue.",
+    "module": "OpenDragon",
+    "category": [
+      "Programming"
+    ]
+  },
+  
+"senseX": {
+    "digest": "Outputs a pulse when two messages appear within a specified interval.",
+    "module": "OpenDragon",
+    "category": [
+      "Programming"
+    ]
+  },
+  
+"shotgun": {
+    "digest": "Redirects a bang to a randomly selected outlet.",
+    "module": "OpenDragon",
+    "category": [
+      "Programming"
+    ]
+  },
+  
+"spaceball": {
+    "digest": "Provides an interface to the Labtec six-degrees-of-freedom trackball, the Spaceball.",
+    "module": "OpenDragon",
+    "category": [
+      "Devices"
+    ]
+  },
+  
+"stack": {
+    "digest": "Provides an implementation of a push-down stack.",
+    "module": "OpenDragon",
+    "category": [
+      "Programming"
+    ]
+  },
+  
+"sysLogger": {
+    "digest": "Writes its input to the 'syslogd' facility.",
+    "module": "OpenDragon",
+    "category": [
+      "Miscellaneous"
+    ]
+  },
+  
+"tcpClient": {
+    "digest": "Provides an endpoint client to communicate with a 'tcpServer' or 'tcpMultiServer' object.",
+    "module": "OpenDragon",
+    "category": [
+      "TCP/UDP"
+    ]
+  },
+  
+"tcpLocate": {
+    "digest": "Returns the IP address corresponding to a network address.",
+    "module": "OpenDragon",
+    "category": [
+      "TCP/UDP"
+    ]
+  },
+  
+"tcpMultiServer": {
+    "digest": "Provides an endpoint server to communicate with one or more 'tcpClient' objects.",
+    "module": "OpenDragon",
+    "category": [
+      "TCP/UDP"
+    ]
+  },
+  
+"tcpServer": {
+    "digest": "Provide an endpoint server to communicate with a single 'tcpClient' object.",
+    "module": "OpenDragon",
+    "category": [
+      "TCP/UDP"
+    ]
+  },
+  
+"udpPort": {
+    "digest": "Provides an endpoint to communicate with another 'udpPort' object.",
+    "module": "OpenDragon",
+    "category": [
+      "TCP/UDP"
+    ]
+  },
+  
+"Vabs": {
+    "digest": "Returns the absolute value of its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+
+"Vassemble": {
+    "digest": "Collect a sequence of numbers that are terminated by one of a set of numbers.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vceiling": {
+    "digest": "Returns the smallest integer greater than the value given.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vcollect": {
+    "digest": "Collects all the the data arriving at its left inlet into a list.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vcos": {
+    "digest": "Returns the cosine of its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vdecode": {
+    "digest": "Converts a coded representation of a number into the number itself.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vdistance": {
+    "digest": "Returns the length of its input, considered as an n-dimensional vector.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vdrop": {
+    "digest": "Returns the remainder of a list, with leading or trailing elements removed.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vencode": {
+    "digest": "Convert a number into an encoded representation of its value.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vexp": {
+    "digest": "Returns the natural exponential of its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vfloor": {
+    "digest": "Returns the largest integer less than its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vinvert": {
+    "digest": "Returns the multiplicative inverse of its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vjet": {
+    "digest": "Returns its input as a series of fixed-size lists.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vlength": {
+    "digest": "Returns the number of elements in its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vlog": {
+    "digest": "Returns the natural logarithm of its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vltrim": {
+    "digest": "Returns its input with leading 'noise' values removed.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vmean": {
+    "digest": "Returns the arithmetic, geometric or harmonic mean of its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vnegate": {
+    "digest": "Returns the negation of its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vreduce": {
+    "digest": "Returns the value resulting from the application of an operator over the elements of its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vreverse": {
+    "digest": "Returns its input with the elements in reverse order.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vrotate": {
+    "digest": "Returns its input with the elements rotated.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vround": {
+    "digest": "Returns the integer nearest to its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vrtrim": {
+    "digest": "Returns its input with trailing 'noise' values removed.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vscan": {
+    "digest": "Returns the result of applying an operator over its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vsegment": {
+    "digest": "Returns a portion of its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vsin": {
+    "digest": "Returns the sine of its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vsplit": {
+    "digest": "Partitions its input into two segments.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vsqrt": {
+    "digest": "Returns the square root of its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vtake": {
+    "digest": "Returns leading or trailing elements of its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vtokenize": {
+    "digest": "Returns a partition of its input into a sequence of sublists.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+
+"Vtrim": {
+    "digest": "Returns its input with leading and trailing 'noise' values removed.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vtruncate": {
+    "digest": "Returns the integer part of its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"Vunspell": {
+    "digest": "Returns the string represented by the ASCII values in its input.",
+    "module": "OpenDragon",
+    "category": [
+      "Vectors"
+    ]
+  },
+  
+"x10": {
+    "digest": "Provides an interface to an X-10 controller.",
+    "module": "OpenDragon",
+    "category": [
+      "Devices"
+    ]
+  },
+  
+"x10units": {
+    "digest": "An auxiliary object to be used with 'x10' objects.",
+    "module": "OpenDragon",
+    "category": [
+      "Miscellaneous"
+    ]
+  }
+}

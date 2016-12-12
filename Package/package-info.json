@@ -1,0 +1,23 @@
+{
+	"name" : "OpenDragon",
+	"author" : "Norman Jaffe",
+	"description" : "OpenDragon: a collection of custom Max objects.",
+	"max_version_max" : "none",
+	"max_version_min" : "6.1.7",
+	"os" : 	{
+		"macintosh" : 		{
+			"platform" : [ "ia32", "x64" ],
+			"min_version" : "10.7.x"
+		}
+,
+		"windows" : 		{
+			"platform" : [ "ia32", "x64" ],
+			"min_version" : "7"
+		}
+
+	}
+,
+	"tags" : [ "Devices", "Miscellaneous", "Programming", "TCP/UDP", "Vectors" ],
+	"version" : "1.0.0",
+	"website" : "http://www.opendragon.com/Pages/MaxObjects.shtml"
+}

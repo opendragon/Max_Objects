@@ -13,8 +13,8 @@ psfiles = Vabssymbol.ps Vassemblesymbol.ps Vceilingsymbol.ps \
 	caseShiftsymbol.ps changessymbol.ps comparessymbol.ps \
 	dataTypesymbol.ps \
 	fidgetsymbol.ps fileLoggersymbol.ps \
-	gcdsymbol.ps gvp100connections1.ps gvp100connections2.ps \
-	gvp100symbol.ps \
+	gcdsymbol.ps gvpconnections1.ps gvpconnections2.ps \
+	gvpsymbol.ps \
 	ldp1550connections1.ps ldp1550connections2.ps ldp1550symbol.ps \
 	listTypesymbol.ps listenrails.ps listensymbol.ps \
 	map1drails.ps map1dsymbol.ps map2drails.ps \
@@ -50,7 +50,7 @@ mainps = $(mainsource:.tex=.ps)
 
 mainpdf = $(mainsource:.tex=.pdf)
 
-target = /Volumes/Merovingen/OpenDragon\ Sites/Com_domain\ ƒ/Com_domain/Objects/$(mainpdf)
+target = /Volumes/Brigadoon/OpenDragon_Sites/OpenDragonCom/Objects/$(mainpdf)
 
 texfiles = Vabs.tex Vassemble.tex Vceiling.tex \
 	Vcollect.tex Vcos.tex Vdecode.tex \
@@ -67,7 +67,7 @@ texfiles = Vabs.tex Vassemble.tex Vceiling.tex \
 	caseShift.tex changes.tex compares.tex \
 	dataType.tex \
 	fidget.tex fileLogger.tex \
-	gcd.tex gvp100.tex \
+	gcd.tex gvp.tex \
 	ldp1550.tex listType.tex listen.tex \
 	map1d.tex map2d.tex map3d.tex \
 	memory.tex mtc.tex mtcTrack.tex \

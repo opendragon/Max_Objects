@@ -37,8 +37,8 @@ comparessymbol.ps
 dataTypesymbol.ps
 fileLoggersymbol.ps
 gcdsymbol.ps
-gvp100connections.ps
-gvp100symbol.ps
+gvpconnections.ps
+gvpsymbol.ps
 ldp1550connections.ps
 ldp1550symbol.ps
 listTypesymbol.ps

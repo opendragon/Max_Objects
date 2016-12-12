@@ -1,2 +1,13 @@
 build/
 Doxygen_output
+*.log
+*.mpx
+*.ps
+Max_Objects_from_Norm_Jaffe.aux
+Max_Objects_from_Norm_Jaffe.dvi
+Max_Objects_from_Norm_Jaffe.idx
+Max_Objects_from_Norm_Jaffe.ilg
+Max_Objects_from_Norm_Jaffe.ind
+Max_Objects_from_Norm_Jaffe.lof
+Max_Objects_from_Norm_Jaffe.out
+Max_Objects_from_Norm_Jaffe.toc

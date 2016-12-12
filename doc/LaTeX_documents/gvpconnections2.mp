@@ -1,4 +1,4 @@
-% File: gvp100connections2.mp
+% File: gvpconnections2.mp
 
 input boxes;
 beginfig(-1);
@@ -15,7 +15,7 @@ etex;
 input maxboxmacros;
 
 picture p;
-p := thelabel.rt(btex \objectText{gvp100} etex, (0,0));
+p := thelabel.rt(btex \objectText{gvp} etex, (0,0));
 create_inside_box_no_pins((0, 0), p, 2, 6, 1);
 
 p := thelabel.rt(btex \objectText{serialX} etex, (0,0));
@@ -69,7 +69,7 @@ verbatimtex
 etex
 end
 
-% $Log: gvp100connections2.mp,v $
+% $Log: gvpconnections2.mp,v $
 % Revision 1.3  2006/07/20 04:47:52  churchoflambda
 % Re-added the files to record their changes.
 %
